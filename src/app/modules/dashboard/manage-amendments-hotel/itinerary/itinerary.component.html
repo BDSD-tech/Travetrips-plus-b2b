@@ -1,0 +1,207 @@
+<div class="dashboard-wrapper-container">
+    <ol class="breadcrumb-arrow">
+        <li>
+            <a href="/dashboard/manage-carts"><i class="fa fa-home"></i></a>
+        </li>
+        <li><span>Amendment</span></li>
+        <li><span>itinerary</span></li>
+    </ol>
+    <section class="amendment_container">
+        <div class="amendment_col-2">
+            <div class="amend_details">
+                <div class="amend_details-content">
+                    <p class="amend_details-p"><span class="title_color">Type : </span> <span> {{params['amendment-type']|uppercase}}</span></p>
+                    <p class="amend_details-p"><span class="title_color">Booking ID : </span> <a class="tts-atag" routerLink="/dashboard/manage-cart-hotel/cart-detail/{{params['bookingid']}}"> {{params['bookingid']}}</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center" *ngIf="loading">
+            <div class="spinner-border tts-admin-loader" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        
+        <div *ngIf="loading==false">
+
+
+                <div class="amend_details" *ngFor="let amdlist of AmendmentList; let key=index;">
+                    <div class="col-md-12">
+                        <div class="row cart_amend-details" [ngClass]="{'amend-highlight':amdlist['amendment_status']!='requested'}">
+                            <div class="col-md-3 col-sm-3 amend_list">
+                                <div class="cart_info-field">
+                                    <p class="cart_info-field--title">Generation Time : <span class="cart_info-field--detail">{{amdlist['created']}}</span></p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 amend_list">
+                                <div class="cart_info-field">
+                                    <p class="cart_info-field--title">Amendment Id : <span class="cart_info-field--detail">{{amdlist['amendment_ref_number']}}</span></p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 amend_list" *ngIf="amdlist['assign_user']">
+                                <p class="cart_info-field--title">Assigned User : <span class="cart_info-field--detail">{{amdlist['assign_user']}}</span></p>
+                            </div>
+                            <div class="col-md-3 col-sm-3 amend_list" *ngIf="amdlist['staff_name']">
+                                <p class="cart_info-field--title">Raised By : <span class="cart_info-field--detail">{{amdlist['staff_name']}}</span></p>
+                            </div>
+                            <div class="col-md-3 col-sm-3 amend_list">
+                                <div class="cart_info-field">
+                                    <p class="cart_info-field--title">Status : <span class="cart_info-field--detail">{{amdlist['amendment_status']|titlecase}}</span></p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 amend_list">
+                                <div class="cart_info-field">
+                                    <p class="cart_info-field--title">Remarks : <span class="cart_info-field--detail">{{amdlist['remark_from_web_partner']}}</span></p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 amend_list">
+                                <div class="cart_info-field">
+                                    <p class="cart_info-field--title">Type : <span class="cart_info-field--detail">{{amdlist['amendment_type']|titlecase}}</span></p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 amend_list" *ngIf="amdlist['remark_abort_from_web_partner']">
+                                <div class="cart_info-field">
+                                    <p class="cart_info-field--title">Abort Reason : <span class="cart_info-field--detail">{{amdlist['remark_abort_from_web_partner']}}</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+      
+
+            <div class="main-j">
+                <div class="segment_details">
+                    <div class="segment_details-content mb-3">
+                        <div class="segment_body">
+                            <div class="segment_body-airlogo">
+                                <p class="margin-zero mob_elipsis">City
+                                <span class="airline-code">{{BookingDetail['city']}}</span></p>
+                            </div>
+                            <div class="segment_body-flight-info">
+                                <p class="margin-zero mob_elipsis">Check In</p>
+                                <p class="margin-zero mob_elipsis">{{BookingDetail['check_in_date'] | date:'EEE d MMM'}}</p>
+                            </div>
+                            <div class="segment_body-flight-stop">
+                                    <span class="via-city-codes">{{BookingDetail['no_of_nights']}} Nights </span>                                        
+                            </div>
+                            <div class="segment_body-flight-info">
+                                <p class="margin-zero mob_elipsis">Check Out</p>
+                                <p class="margin-zero mob_elipsis">{{BookingDetail['check_out_date'] | date:'EEE d MMM'}}</p>
+                            </div>
+                        </div>
+                        <p class="mb-0 mt-3"><strong>Hotel Name : </strong> {{BookingDetail['hotel_name']}}</p>
+                        <p class="mb-0"><i class="fa fa-map-marker"></i> {{BookingDetail['address1']}} <span *ngIf="BookingDetail['address2']">{{BookingDetail['address2']}}</span></p>
+                        <div class="mb-2">
+                            <span class="float-start"><strong> Last Cancellation Date :</strong> {{BookingDetail['last_cancellation_date']}}  </span>
+                            <span class="float-end"><strong> Last Voucher Date : </strong> {{BookingDetail['last_voucher_date']}} </span>
+                        </div>
+
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th>Rooms</th>
+                                    <th>Room Type</th>
+                                    <th>Guests</th>
+                                </tr>
+                                <tr *ngFor="let item of Jsonparse(BookingDetail['hotel_rooms_details']); let r=index">
+                                    <td valign="top">Room {{r+1}}</td>
+                                    <td>
+                                        <b>{{item['RoomTypeName']}}</b><br />
+                                        <span>
+                                            <b>Incl:</b> <span *ngFor="let inc of item['Inclusion']">{{inc}} ,</span>
+                                            <br />
+                                        </span>
+                                        <a href="javascript:void(0);" class="fs-12 text-danger" (click)="CancellationPolicy(item)">
+                                            Cancellation Policy
+                                         </a>
+                                         <br />
+                                        <a class="link" href="javascript:void(0);" (click)="showroomdetail(r)">
+                                            {{atagtext}}
+                                        </a>
+                                        <div *ngIf="activeroomkey==r" [innerHTML]="item['RoomDescription']|safeHtml">
+                                          
+                                        </div>
+                                    </td>
+                                    <td valign="top">
+                                        <div [innerHTML]="roompaxInfo(item)"></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="accordion" id="accordionExample">
+                            
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed fs-14 p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Hotel Norms
+                                </button>
+                              </h2>
+                              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p [innerHTML]="BookingDetail['hotel_norms'] | safeHtml" class="fs-13"></p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ammendment_submit">
+                <div class="remark_content"><textarea type="text" placeholder="Remarks" [(ngModel)]="Remark" #ctrl="ngModel" class="remarks_text" rows="5"></textarea></div>
+                <button class="btn ammend_submit_btn" (click)="SubmitRequest()"  [disabled]="submitloading"> <span *ngIf="submitloading" class="spinner-border spinner-border-sm mr-1"></span>  Submit</button>
+
+                <p class="text-danger" *ngIf="BookingDetail['booking_status']=='Cancelled'">Note: Booking already Cancelled</p>
+            
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+  <!-- CancellationPolicy Modal -->
+  <div class="modal fade" id="CancellationPolicyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title m0">Cancellation Policy</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Cancelled on or After</th>
+                            <th scope="col">Cancelled on or Before</th>
+                            <th scope="col">Cancelled on or Charges</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of CancellationPolicyData['CancellationPolicies']">
+                            <td>{{item['FromDate'] | date:'dd-MMM-y'}}</td>
+                            <td>{{item['ToDate'] | date:'dd-MMM-y'}}</td>
+                            <td>
+                                <span *ngIf="item['ChargeType']=='1'">Rs. {{item['Charge']}}</span>
+                                <span *ngIf="item['ChargeType']=='2'">{{item['Charge']}}%</span>
+                                <span *ngIf="item['ChargeType']=='3'">{{item['Charge']}} Night(s) charge</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                No Show will attract full cancellation charge unless otherwise specified.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Early check out will attract full cancellation charge unless otherwise specified.Show Room Description
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- CancellationPolicy Modal -->

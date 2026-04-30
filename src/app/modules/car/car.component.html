@@ -1,0 +1,176 @@
+<!----------search--form---width----banner------------>
+<section class="flight_section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="flight_box">
+          <h1 class="flight_box_title"><span>Book car and explore the world with us.</span></h1>
+          <div class="form-blur-wrapper">
+            <form [formGroup]="CarQueryForm" (ngSubmit)="CarQuery()">
+              <div class="container py-4">
+                <div class="row g-3">
+                  <!-- Name -->
+                  <div class="col-md-3">
+                    <label class="form-label">Name <span class="text-danger">*</span></label>
+                    <input type="text" formControlName="Name" class="form-control" placeholder="Enter your Name" />
+                    <div *ngIf="carsubmitted && fh['Name'].errors" class="text-danger mt-1">
+                      <small *ngIf="fh['Name'].errors['required']">Please enter a valid Name</small>
+                    </div>
+                  </div>
+
+                  <!-- Email -->
+                  <div class="col-md-3">
+                    <label class="form-label">Email <span class="text-danger">*</span></label>
+                    <input type="email" formControlName="Email" class="form-control" placeholder="Enter your Email" />
+                    <div *ngIf="carsubmitted && fh['Email'].errors" class="text-danger mt-1">
+                      <small *ngIf="fh['Email'].errors['required'] || fh['Email'].errors['email']">Please enter a valid
+                        Email</small>
+                    </div>
+                  </div>
+
+                  <!-- Mobile -->
+                  <div class="col-md-3">
+                    <label class="form-label">Mobile <span class="text-danger">*</span></label>
+                    <input type="text" formControlName="Mobile" inputmode="numeric" class="form-control"
+                      placeholder="Enter your Mobile.no" />
+                    <div *ngIf="carsubmitted && fh['Mobile'].errors" class="text-danger mt-1">
+                      <small *ngIf="fh['Mobile'].errors['required']">Please enter a valid Mobile</small>
+                    </div>
+                  </div>
+
+                  <!-- Depart Date -->
+                  <div class="col-md-3 position-relative">
+                    <label class="form-label">Departure Date </label>
+                    <input type="text" formControlName="DepartDate" class="form-control" placeholder="Select date"
+                      data-depart-date />
+                    <div *ngIf="carsubmitted && fh['DepartDate'].errors" class="text-danger mt-1">
+                      <small *ngIf="fh['DepartDate'].errors['required']">Please select a departure date</small>
+                    </div>
+                  </div>
+
+                  <!-- Origin -->
+                  <div class="col-md-3 position-relative">
+                    <label class="form-label">Origin </label>
+                    <input type="text" formControlName="Origin" class="form-control" placeholder="Where From?"
+                      (click)="openautocomplete($event,'input')" />
+                    <div *ngIf="carsubmitted && fh['Origin'].errors" class="text-danger mt-1">
+                      <small *ngIf="fh['Origin'].errors['required']">Please enter a valid Source</small>
+                    </div>
+                  </div>
+
+                  <!-- Destination -->
+                  <div class="col-md-3 position-relative">
+                    <label class="form-label">Destination </label>
+                    <input type="text" formControlName="Destination" class="form-control" placeholder="Where To?"
+                      (click)="openautocomplete($event,'input')" />
+                    <div *ngIf="carsubmitted && fh['Destination'].errors" class="text-danger mt-1">
+                      <small *ngIf="fh['Destination'].errors['required']">Please enter a valid Destination</small>
+                      <small *ngIf="fh['Destination'].errors['notmatching']">Source and Destination cannot be
+                        same</small>
+                    </div>
+                  </div>
+
+
+
+                  <!-- Pickup Time -->
+                  <div class="col-md-3">
+                    <label class="form-label">Pick-up Time </label>
+                    <select formControlName="Pickup" class="form-select">
+                      <option value="">Select Pick-up Time</option>
+                      <option *ngFor="let time of timeSlots" [value]="time">{{ time }}</option>
+                    </select>
+                    <div *ngIf="carsubmitted && fh['Pickup'].errors" class="text-danger mt-1">
+                      <small *ngIf="fh['Pickup'].errors['required']">Please select a Pick-up time</small>
+                    </div>
+                  </div>
+
+                  <!-- Trip -->
+                  <div class="col-md-3">
+                    <label class="form-label">Trip Type </label>
+                    <select formControlName="Trip" class="form-select">
+                      <option value="">Select Trip</option>
+                      <option *ngFor="let trip of tripTypes" [value]="trip">{{ trip }}</option>
+                    </select>
+                    <div *ngIf="carsubmitted && fh['Trip'].errors" class="text-danger mt-1">
+                      <small *ngIf="fh['Trip'].errors['required']">Please select a Trip type</small>
+                    </div>
+                  </div>
+
+                  <!-- Message -->
+                  <div class="col-md-12">
+                    <label class="form-label">Message </label>
+                    <textarea formControlName="SendMessage" class="form-control" rows="3"
+                      placeholder="Enter your message"></textarea>
+                    <div *ngIf="carsubmitted && fh['SendMessage'].errors" class="text-danger mt-1">
+                      <small *ngIf="fh['SendMessage'].errors['required']">Please enter a message</small>
+                    </div>
+                  </div>
+
+                  <div class="col-12 text-center">
+                    <button type="submit" class="btn cst-btn w-100" [disabled]="Carloading">
+                      <span *ngIf="Carloading" class="spinner-border spinner-border-sm mr-1"></span> Send Query
+                    </button>
+                  </div>
+                </div>
+
+
+              </div>
+            </form>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!----------End search--form---width----banner------------>
+
+
+<!----------Deal---and---offer---start------->
+<section class="deal-offer-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Deals and Offers
+          <img src="assets/img/down.svg" alt="down.svg" class="img-fluid">
+        </h3>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="text-center" *ngIf="offerloading===true">
+          <div class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+        <div class="row" *ngIf="offerloading===false">
+          <div class="col-md-3" *ngFor="let item of Offer">
+
+            <div class="card bg-dark text-white card-hover-overlay">
+              <div class="photo">
+                <img [src]="item['Image']" class="card-img-top" alt="{{item['Title']}}">
+              </div>
+              <div class="card-img-overlay d-flex flex-column justify-content-end">
+                <h5 class="card-title">
+                  {{item['Title']}}
+                </h5>
+                <p class="card-text">
+                  {{item['Description']}}
+                </p>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!----------Deal---and---offer----end-------->

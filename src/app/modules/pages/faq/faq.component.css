@@ -1,0 +1,11 @@
+.terms-content h6{
+    font-size: 17px;
+}
+.terms-content ul li{
+  list-style-type: disc;
+}
+.submode-heading{
+    font-size: 16px;
+    color: #000;
+    font-weight: 600;
+}

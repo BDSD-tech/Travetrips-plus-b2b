@@ -1,0 +1,49 @@
+.tts_deposit {
+    display: flex;
+}
+.tts_deposit.bankDetailBanner {
+    margin-bottom: 15px;
+}
+.tts_deposit.bankDetailBanner .tts_deposit--banner {
+    border: 0;
+}
+.tts_deposit--banner {
+    width: 70%;
+    border: 1px solid #e5e5e5;
+}
+.tts_deposit--banner img{
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+.tts_deposit.bankDetailBanner .tts_deposit--accountno {
+    border: 2px solid #004684;
+    border-left: 0;
+}
+.tts_deposit.bankDetailBanner .tts_deposit--instantheading {
+    border: 0;
+    color: #004684;
+}
+.tts_deposit.bankDetailBanner .tts_deposit--accountno {
+    border: 2px solid #004684;
+    border-left: 0;
+}
+.tts_deposit--accountno {
+    width: 30%;
+    text-align: left;
+    background: #fff;
+    border: 1px dotted #555555;
+    padding: 10px;
+}
+.tts_deposit--accountdata {
+    font-size: 14px;
+    color: #333;
+    font-weight: normal;
+}
+.tts_deposit--accountno h5{
+    color: #333;
+    font-size: 18px;
+}
+.image-upload-label{
+    margin-top: -7px;
+}

@@ -1,0 +1,978 @@
+<section class="flight-details">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3 col-6 booking-top-btn">
+                <div class="apt-common apt-firstep apt-active">
+                    <span class="graycolor"><span>FIRST STEP</span></span>
+                    <h4 class="apt-flightiti tts-cursor-pointer" (click)="goBack()"><span>Hotel Itinerary</span></h4>
+                </div>
+            </div>
+            <div class="col-sm-3 col-6 booking-top-btn">
+                <div class="apt-common apt-second apt-black">
+                    <span class="graycolor"><span>SECOND STEP</span></span>
+                    <h4 class="apt-flightiti"><span>Passenger Details</span></h4>
+                </div>
+            </div>
+            <div class="col-sm-3 col-6 booking-top-btn">
+                <div class="apt-common apt-third">
+                    <span class="graycolor"><span>THIRD STEP</span></span>
+                    <h4 class="apt-flightiti"><span>Review</span></h4>
+                </div>
+            </div>
+            <div class="col-sm-3 col-6 booking-top-btn">
+                <div class="apt-common apt-forth">
+                    <span class="graycolor"><span>FINISH STEP</span></span>
+                    <h4 class="apt-flightiti"><span>Payments</span></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="flight-booking">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="booking-main">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h3 class="apt-heading">
+                            <span>Hotel Details</span>
+                        </h3>
+                        <div class="d-flex align-items-center">
+                            <div class="iterinery-pageback" (click)="goBack()"><i class="fa fa-angle-double-left"></i>
+                                Back to Search</div>
+                        </div>
+                    </div>
+                    <div class="scrollable wrapper-mainclass mb-3">
+
+                        <div class="tts-trip">
+                            <div class="mb-3">
+                                <h5>{{BlockRoomResult['HotelName']}}</h5>
+                                <p class="apt-firstpr">
+                                    <span class=""> <i class="fa fa-map-marker"></i>
+                                        {{BlockRoomResult['AddressLine1']}}</span>
+                                    <span class="float-end d-flex" [innerHTML]="star_rating(BlockRoomResult['StarRating'])">
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="row gy-3 align-items-center">
+                                <div class="col-sm-3 col-xs-12">
+                                    <ul class="apt-ullist">
+                                        <li>
+                                            <img src="{{BlockRoomResult['HotelPicture']}}"
+                                                onError="this.src='assets/img/no-photo.png';"
+                                                alt="{{BlockRoomResult['HotelPicture']}}"
+                                                class="img-fluid rounded img-hotel" />
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-7 col-xs-12">
+                                    <ul class="apt-namelist">
+                                        <li>
+                                            <div>
+                                                <h6>Check In</h6>
+                                                <p>{{GetSearchData['CheckIn'] | date:'d MMM , yyyy'}} <span
+                                                        class="apt-airportname at-fontweight graycolor">{{GetSearchData['CheckIn']
+                                                        | date:'EEEE'}}</span></p>
+                                            </div>
+
+                                            <!-- @if(BlockRoomResult['HotelRoomsDetails'][0]['HotelNorms']){
+                                                        <div class="mb-2">
+                                                            <span class="apt-lasthour">Hotel Norms</span>
+                                                        
+                                                                <p class="m-0 fs-12 line-height-14"><span>{{BlockRoomResult['HotelRoomsDetails'][0]['HotelNorms']}}</span></p>
+                                                        
+                                                        </div> 
+                                                    }-->
+                                        </li>
+                                        <li>
+                                            <div class="text-center">
+                                                <h6 class="fs-14">{{GetSearchData['Nights']}} Nights</h6>
+                                            </div>
+
+                                        </li>
+                                        <li>
+                                            <div>
+                                                <h6>Check Out</h6>
+                                                <p>{{GetSearchData['CheckOut'] | date:'d MMM , yyyy'}} <span
+                                                        class="apt-airportname at-fontweight graycolor">{{GetSearchData['CheckOut']
+                                                        | date:'EEEE'}}</span></p>
+                                            </div>
+
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-2 text-end">
+                                    <div class="mb-2">
+                                        <h6>ROOMS & GUESTS</h6>
+                                        <p><span> {{GetSearchData['Occupancy']}}</span></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="scrollable wrapper-mainclass mb-3">
+
+                        <table class="table table-bordered mb-0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20%;">ROOM TYPE</th>
+                                    <th style="width: 20%;">NO.OF GUESTS</th>
+                                    <th style="width: 20%;">Rate Plan Name</th>
+                                    <th style="width: 20%;">Inclucion</th>
+                                    <th style="width: 20%;">Cencellation Policy</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let RoomData  of BlockRoomResult['HotelRoomsDetails'];let roomkey=index;">
+                                    <td>{{RoomData['RoomTypeName']}}</td>
+                                    <td>
+                                        <span>{{GetSearchData['RoomGuests'][roomkey]['Adult']}} Adults </span>
+                                        <span *ngIf="GetSearchData['RoomGuests'][roomkey]['Child']>0">,
+                                            {{GetSearchData['RoomGuests'][roomkey]['Child']}} Childs </span>
+                                    </td>
+                                    <td>
+                                        {{RoomData['RatePlanName'].replace('_',' ')}}
+                                    </td>
+                                    <td>
+                                        @for(list of RoomData['Inclusion']; track $index){
+                                        <p class="m-0 line-height-14">{{list}},</p>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a href="javascript:void(0)"
+                                            (click)="roomCancellationPolicy(RoomData)">CANCELLATION POLICY</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div class="scrollable wrapper-mainclass mb-3">
+                        <div class="row gy-3">
+                            @if(BlockRoomResult['HotelRoomsDetails'][0]['Amenities']){
+                            <h5 class="mb-3">Room Amenities</h5>
+                            @for(list of BlockRoomResult['Amenities']; track $index){
+                            <div class="col-lg-4">
+                                <p><span> {{list}},</span></p>
+                            </div>
+                            }
+
+                            }
+                            <div class="col-lg-12">
+                                @if(BlockRoomResult['RoomPromotion']){
+                                <div>
+                                    <h5 class="mb-3">Room Promotion</h5>
+                                    <p>{{BlockRoomResult['RoomPromotion']}}</p>
+                                </div>
+                                }
+                            </div>
+                            <!-- <div class="col-lg-12">
+                                <h5 class="mb-3">Hotel Supplements</h5>
+                                <p class="m-0"><span class="fw-semibold">Discription:</span> <span>
+                                        {{BlockRoomResult['HotelSupplements'][0]['Description']}}</span>
+                                </p>
+                                <p><span class="fw-semibold">Price:</span> <span>
+                                        {{BlockRoomResult['HotelSupplements'][0][0]['Price']}}
+                                        {{BlockRoomResult['HotelSupplements'][0][0]['Currency']}}</span></p>
+                            </div> -->
+                        </div>
+                    </div>
+
+                    <div class="scrollable wrapper-mainclass mb-3">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h5 class="mb-3">Hotel Norms</h5>
+                                <!-- <p>{{BlockRoomResult['HotelNorms']}}</p> -->
+                                <p class="m-0">
+                                    {{ showFullText ? BlockRoomResult['HotelNorms'] : (BlockRoomResult['HotelNorms']
+                                    | slice:0:300) + (BlockRoomResult['HotelNorms'].length > 300 ? '...' : '') }}
+                                </p>
+
+                                <a *ngIf="BlockRoomResult['HotelNorms'].length > 300" href="#"
+                                    (click)="showFullText = !showFullText; $event.preventDefault()">
+                                    {{ BlockRoomResult['HotelNorms'] ? 'Show Less' : 'Show More' }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="d-flex align-items-center justify-content-between mt-3">
+                        <h3 class="apt-heading mb-3">
+                            <span>Passenger Details</span>
+                        </h3>
+                    </div>
+
+                    <form [formGroup]="HotelPaxForm" (ngSubmit)="SubmitPax()">
+                        <div class="scrollable wrapper-mainclass mb-3">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="text-warning py-2">Note : Enter your name as it is mentioned on your PAN
+                                        government approved ID.</div>
+                                    <!------Start Room  ------>
+                                    <div class="pax-detail mb-4" formArrayName="RoomDetails"
+                                        *ngFor="let room of fpax?.['controls']; let r=index;">
+                                        <div formGroupName={{r}}>
+                                            <div class="panel-item border p-3">
+                                                <button class="accordion-button collapsed fw-bold" type="button">
+                                                    Room {{r+1}}
+                                                </button>
+
+                                                <div id="collapseFour" class="accordion-collapse collapse show">
+
+
+                                                    <!-----Start For Adult---->
+                                                    <div class="paxlist-box px-0 " formArrayName="Adult"
+                                                        *ngFor="let adt of getpaxadt(r).controls; let a=index;">
+                                                        <div formGroupName="{{a}}">
+                                                            <div>
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <p class="text-info mb-0">Adult {{a+1}}
+                                                                            <span class="float-end"
+                                                                                *ngIf="r==0 && a==0 && IsPANMandatory && nopaxcount!=1">
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input"
+                                                                                        type="checkbox" value=""
+                                                                                        id="panforallpax"
+                                                                                        (click)="SelectAllPaxPan($event)">
+                                                                                    <label
+                                                                                        class="form-check-label text-danger"
+                                                                                        for="panforallpax">
+                                                                                        Same for all pax
+                                                                                    </label>
+                                                                                </div>
+                                                                            </span>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-floating">
+                                                                            <select class="form-select main-select"
+                                                                                formControlName="Title"
+                                                                                id="Room-{{r}}-Adult-{{a}}-title">
+                                                                                <option value="" selected>Title
+                                                                                </option>
+                                                                                <option value="Mr">Mr</option>
+                                                                                <option value="Mrs">Mrs</option>
+                                                                                <option value="Ms">Ms</option>
+                                                                            </select>
+                                                                            <label
+                                                                                for="Room-{{r}}-Adult-{{a}}-title">Title</label>
+                                                                        </div>
+                                                                        <div *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.Title')?.errors"
+                                                                            class="error-msg">
+                                                                            <div
+                                                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.Title')?.errors?.['required']">
+                                                                                Title is required.</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-floating">
+                                                                            <input type="text"
+                                                                                class="form-control main-select"
+                                                                                formControlName="FirstName"
+                                                                                placeholder="First Name*"
+                                                                                oninput="this.value = this.value.toUpperCase()"
+                                                                                id="Room-{{r}}-Adult-{{a}}-FirstName" />
+                                                                            <label
+                                                                                for="Room-{{r}}-Adult-{{a}}-FirstName">First
+                                                                                Name*</label>
+                                                                        </div>
+
+                                                                        <div *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.FirstName')?.errors"
+                                                                            class="error-msg">
+                                                                            <div
+                                                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.FirstName')?.errors?.['required']">
+                                                                                First name is required.</div>
+                                                                            <div
+                                                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.FirstName')?.errors?.['minlength'] || HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.FirstName')?.errors?.['pattern']">
+                                                                                Please enter a valid first name.
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-floating">
+                                                                            <input type="text"
+                                                                                class="form-control main-select"
+                                                                                formControlName="LastName"
+                                                                                placeholder="Last Name*"
+                                                                                oninput="this.value = this.value.toUpperCase()"
+                                                                                id="Room-{{r}}-Adult-{{a}}-LastName" />
+                                                                            <label
+                                                                                for="Room-{{r}}-Adult-{{a}}-LastName">Last
+                                                                                Name*</label>
+                                                                        </div>
+                                                                        <div *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.LastName')?.errors"
+                                                                            class="error-msg">
+                                                                            <div
+                                                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.LastName')?.errors?.['required']">
+                                                                                First name is required.</div>
+                                                                            <div
+                                                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.LastName')?.errors?.['minlength'] || HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.LastName')?.errors?.['pattern']">
+                                                                                Please enter a valid last name.
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3" *ngIf="IsPANMandatory">
+                                                                        <div class="form-floating">
+                                                                            <input type="text"
+                                                                                class="form-control main-select"
+                                                                                formControlName="PAN" placeholder="PAN*"
+                                                                                oninput="this.value = this.value.toUpperCase()"
+                                                                                id="Room-{{r}}-Adult-{{a}}-PAN" />
+                                                                            <label
+                                                                                for="Room-{{r}}-Adult-{{a}}-PAN">PAN*</label>
+                                                                        </div>
+                                                                        <div *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PAN')?.errors"
+                                                                            class="error-msg">
+                                                                            <div
+                                                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PAN')?.errors?.['required']">
+                                                                                PAN name is required.</div>
+                                                                            <div
+                                                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PAN')?.errors?.['pattern']">
+                                                                                Please enter a valid PAN.</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="saveDetails_wrapper labelDetails"
+                                                                *ngIf="IsPassportMandatory">
+                                                                <div class="row">
+                                                                    <p class="apt-addpassport"><span>ADD PASSPORT
+                                                                            INFORMATION</span></p>
+
+
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-floating">
+                                                                            <select class="form-select main-select"
+                                                                                id="Room-{{r}}-Adult-{{a}}-Nationality"
+                                                                                formControlName="Nationality">
+                                                                                <option value="">Select</option>
+                                                                                <option value="IN">India</option>
+                                                                                <option
+                                                                                    value="{{mcode['country_code']}}"
+                                                                                    *ngFor="let mcode of Dialcode;">
+                                                                                    {{mcode['name']}}</option>
+                                                                            </select>
+                                                                            <label
+                                                                                for="Room-{{r}}-Adult-{{a}}-Nationality">Nationality</label>
+
+                                                                            <div *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.Nationality')?.errors"
+                                                                                class="error-msg">
+                                                                                <div
+                                                                                    *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.Nationality')?.errors?.['required']">
+                                                                                    Please select nationality.</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-floating">
+                                                                            <input type="text"
+                                                                                class="form-control main-select"
+                                                                                formControlName="PassportNo"
+                                                                                placeholder="Passport Number"
+                                                                                id="Room-{{r}}-Adult-{{a}}-PassportNo" />
+                                                                            <label
+                                                                                for="Room-{{r}}-Adult-{{a}}-PassportNo">Passport
+                                                                                Number</label>
+                                                                        </div>
+                                                                        <div *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PassportNo')?.errors"
+                                                                            class="error-msg">
+                                                                            <div
+                                                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PassportNo')?.errors?.['required']">
+                                                                                Passport number is required.</div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-floating">
+                                                                            <input type="text"
+                                                                                class="form-control main-select"
+                                                                                formControlName="PassportIssue"
+                                                                                passport-issue-date
+                                                                                placeholder="Issue Date"
+                                                                                attr.roomkey="{{r}}" attr.key="{{a}}"
+                                                                                paxtype="Adult"
+                                                                                id="Room-{{r}}-Adult-{{a}}-PassportIssue" />
+                                                                            <label
+                                                                                for="Room-{{r}}-Adult-{{a}}-PassportIssue">Issue
+                                                                                Date</label>
+                                                                        </div>
+                                                                        <div *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PassportIssue')?.errors"
+                                                                            class="error-msg">
+                                                                            <div
+                                                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PassportIssue')?.errors?.['required']">
+                                                                                Issue date is required.</div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-floating">
+                                                                            <input type="text"
+                                                                                class="form-control main-select"
+                                                                                formControlName="PassportExpiry"
+                                                                                passport-expiry-date
+                                                                                placeholder="Expiry Date"
+                                                                                attr.roomkey="{{r}}" attr.key="{{a}}"
+                                                                                paxtype="Adult"
+                                                                                id="Room-{{r}}-Adult-{{a}}-PassportExpiry" />
+                                                                            <label
+                                                                                for="Room-{{r}}-Adult-{{a}}-PassportExpiry">Expiry
+                                                                                Date</label>
+                                                                        </div>
+
+                                                                        <div *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PassportExpiry')?.errors"
+                                                                            class="error-msg">
+                                                                            <div
+                                                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PassportExpiry')?.errors?.['required']">
+                                                                                Expiry date is required.</div>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <!-----End For Adult---->
+
+                                                    <!-----Start For Child---->
+                                                    <div class="paxlist-box" formArrayName="Child"
+                                                        *ngFor="let chd of getpaxchd(r).controls; let c=index;">
+                                                        <div formGroupName="{{c}}">
+                                                            <div class="paxlist-box py-0">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <p class="text-info mb-0">Child {{c+1}} (
+                                                                            {{HotelPaxForm.get('RoomDetails.'+r+'.ChildAge.'+c+'')?.value}}
+                                                                            Years )
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-floating">
+                                                                            <select class="form-select main-select"
+                                                                                formControlName="Title"
+                                                                                id="Room-{{r}}-Child-{{c}}-title">
+                                                                                <option value="" selected>Title
+                                                                                </option>
+                                                                                <option value="Ms">Ms</option>
+                                                                                <option value="Mstr">Master</option>
+                                                                            </select>
+                                                                            <label
+                                                                                for="Room-{{r}}-Child-{{c}}-title">Title</label>
+                                                                        </div>
+                                                                        <div *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.Title')?.errors"
+                                                                            class="error-msg">
+                                                                            <div
+                                                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+c+'.Title')?.errors?.['required']">
+                                                                                Title is required.</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-floating">
+                                                                            <input type="text"
+                                                                                class="form-control main-select"
+                                                                                formControlName="FirstName"
+                                                                                placeholder="First Name*"
+                                                                                oninput="this.value = this.value.toUpperCase()"
+                                                                                id="Room-{{r}}-Child-{{c}}-FirstName" />
+                                                                            <label
+                                                                                for="Room-{{r}}-Child-{{c}}-FirstName">First
+                                                                                Name*</label>
+                                                                        </div>
+
+                                                                        <div *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.FirstName')?.errors"
+                                                                            class="error-msg">
+                                                                            <div
+                                                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.FirstName')?.errors?.['required']">
+                                                                                First name is required.</div>
+                                                                            <div
+                                                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.FirstName')?.errors?.['minlength'] || HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.FirstName')?.errors?.['pattern']">
+                                                                                Please enter a valid first name.
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-floating">
+                                                                            <input type="text"
+                                                                                class="form-control main-select"
+                                                                                formControlName="LastName"
+                                                                                placeholder="Last Name*"
+                                                                                oninput="this.value = this.value.toUpperCase()"
+                                                                                id="Room-{{r}}-Child-{{c}}-LastName" />
+                                                                            <label
+                                                                                for="Room-{{r}}-Child-{{c}}-LastName">Last
+                                                                                Name*</label>
+                                                                        </div>
+                                                                        <div *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.LastName')?.errors"
+                                                                            class="error-msg">
+                                                                            <div
+                                                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.LastName')?.errors?.['required']">
+                                                                                First name is required.</div>
+                                                                            <div
+                                                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.LastName')?.errors?.['minlength'] || HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.LastName')?.errors?.['pattern']">
+                                                                                Please enter a valid last name.
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3" *ngIf="IsPANMandatory">
+                                                                        <div class="form-floating">
+                                                                            <input type="text"
+                                                                                class="form-control main-select"
+                                                                                formControlName="PAN" placeholder="PAN*"
+                                                                                oninput="this.value = this.value.toUpperCase()"
+                                                                                id="Room-{{r}}-Child-{{c}}-PAN" />
+                                                                            <label
+                                                                                for="Room-{{r}}-Child-{{c}}-PAN">PAN*</label>
+                                                                        </div>
+                                                                        <div *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PAN')?.errors"
+                                                                            class="error-msg">
+                                                                            <div
+                                                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PAN')?.errors?.['required']">
+                                                                                PAN name is required.</div>
+                                                                            <div
+                                                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PAN')?.errors?.['pattern']">
+                                                                                Please enter a valid PAN.</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="saveDetails_wrapper labelDetails"
+                                                                *ngIf="IsPassportMandatory">
+                                                                <div class="row">
+                                                                    <p class="apt-addpassport"><span>ADD PASSPORT
+                                                                            INFORMATION</span></p>
+
+
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-floating">
+                                                                            <select class="form-select main-select"
+                                                                                id="Room-{{r}}-Child-{{c}}-Nationality"
+                                                                                formControlName="Nationality">
+                                                                                <option value="">Select</option>
+                                                                                <option value="IN">India</option>
+                                                                                <option
+                                                                                    value="{{mcode['country_code']}}"
+                                                                                    *ngFor="let mcode of Dialcode;">
+                                                                                    {{mcode['name']}}</option>
+                                                                            </select>
+                                                                            <label
+                                                                                for="Room-{{r}}-Child-{{c}}-Nationality">Nationality</label>
+
+                                                                            <div *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.Nationality')?.errors"
+                                                                                class="error-msg">
+                                                                                <div
+                                                                                    *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.Nationality')?.errors?.['required']">
+                                                                                    Please select nationality.</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-floating">
+                                                                            <input type="text"
+                                                                                class="form-control main-select"
+                                                                                formControlName="PassportNo"
+                                                                                placeholder="Passport Number"
+                                                                                id="Room-{{r}}-Child-{{c}}-PassportNo" />
+                                                                            <label
+                                                                                for="Room-{{r}}-Child-{{c}}-PassportNo">Passport
+                                                                                Number</label>
+                                                                        </div>
+                                                                        <div *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PassportNo')?.errors"
+                                                                            class="error-msg">
+                                                                            <div
+                                                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PassportNo')?.errors?.['required']">
+                                                                                Passport number is required.</div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-floating">
+                                                                            <input type="text"
+                                                                                class="form-control main-select"
+                                                                                formControlName="PassportIssue"
+                                                                                passport-issue-date
+                                                                                placeholder="Issue Date"
+                                                                                attr.roomkey="{{r}}" attr.key="{{c}}"
+                                                                                paxtype="Child"
+                                                                                id="Room-{{r}}-Child-{{c}}-PassportIssue" />
+                                                                            <label
+                                                                                for="Room-{{r}}-Child-{{c}}-PassportIssue">Issue
+                                                                                Date</label>
+                                                                        </div>
+                                                                        <div *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PassportIssue')?.errors"
+                                                                            class="error-msg">
+                                                                            <div
+                                                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PassportIssue')?.errors?.['required']">
+                                                                                Issue date is required.</div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-3">
+                                                                        <div class="form-floating">
+                                                                            <input type="text"
+                                                                                class="form-control main-select"
+                                                                                formControlName="PassportExpiry"
+                                                                                passport-expiry-date
+                                                                                placeholder="Expiry Date"
+                                                                                attr.roomkey="{{r}}" attr.key="{{c}}"
+                                                                                paxtype="Child"
+                                                                                id="Room-{{r}}-Child-{{c}}-PassportExpiry" />
+                                                                            <label
+                                                                                for="Room-{{r}}-Child-{{c}}-PassportExpiry">Expiry
+                                                                                Date</label>
+                                                                        </div>
+
+                                                                        <div *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PassportExpiry')?.errors"
+                                                                            class="error-msg">
+                                                                            <div
+                                                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PassportExpiry')?.errors?.['required']">
+                                                                                Expiry date is required.</div>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+
+                                                    <!-----End For Child---->
+
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!------End Room  ------>
+                                </div>
+                            </div>
+
+                            <div class="panel-item border p-3">
+                                <button class="accordion-button collapsed fw-bold" type="button">
+                                    Contact Details
+                                </button>
+                                <div id="collapseFour" class="accordion-collapse collapse show"
+                                    aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+
+                                    <div class="paxlist-box px-0">
+                                        <div class="row g-3 needs-validation">
+                                            <div class="col-md-3">
+                                                <div class="form-floating">
+                                                    <select class="form-select main-select" (change)="GetPhonecodeVal($event)" id="floating-countrycode"
+                                                        formControlName="ISDCode">
+                                                        <option value="{{mcode['phonecode']}}"
+                                                            *ngFor="let mcode of Dialcode;">{{mcode['name']}}
+                                                            (+{{mcode['phonecode']}})</option>
+
+                                                    </select>
+                                                    <label for="floating-countrycode">Country Code</label>
+
+                                                    <div *ngIf="submitted && HotelPaxForm.get('ISDCode')?.errors"
+                                                        class="error-msg">
+                                                        <div *ngIf="HotelPaxForm.get('ISDCode')?.errors?.['required']">
+                                                            Country code is required.</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-floating">
+                                                    <input type="phone" class="form-control main-select"
+                                                        id="floating-mobile" placeholder="Mobile Number *"
+                                                        formControlName="MobileNumber" />
+                                                    <label for="floating-mobile">Moblie Number *</label>
+
+                                                    <div *ngIf="submitted && HotelPaxForm.get('MobileNumber')?.errors"
+                                                        class="error-msg">
+                                                        <div
+                                                            *ngIf="HotelPaxForm.get('MobileNumber')?.errors?.['required']">
+                                                            Mobile number is required.</div>
+
+                                                        <div
+                                                            *ngIf="HotelPaxForm.get('MobileNumber')?.errors?.['pattern'] || HotelPaxForm.get('MobileNumber')?.errors?.['minlength'] || HotelPaxForm.get('MobileNumber')?.errors?.['maxlength']">
+                                                            Please enter a valid mobile number.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-floating">
+                                                    <input type="email" class="form-control main-select"
+                                                        id="floating-email" placeholder="Email ID *"
+                                                        formControlName="EmailId" />
+                                                    <label for="floating-email">Email ID *</label>
+
+                                                    <div *ngIf="submitted && HotelPaxForm.get('EmailId')?.errors"
+                                                        class="error-msg">
+                                                        <div *ngIf="HotelPaxForm.get('EmailId')?.errors?.['required']">
+                                                            Email address is required.</div>
+                                                        <div *ngIf="HotelPaxForm.get('EmailId')?.errors?.['email']">
+                                                            Please enter a valid email.</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="accordion panel-item mt-3 border">
+                                <button class="accordion-button " type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#gst-detail">
+                                    GST Number for Business Travel ({{GSTTxt}})
+                                </button>
+                                <div id="gst-detail" class="accordion-collapse collapse">
+                                    <div class="accordion-body p-0">
+                                        <!--<div class="historybox__wrapper">
+                                    <div class="row">
+                                         <div class="col-md-3">
+                                           <div class="historybox">
+                                            <label class="historybox__label"></label>
+                                            <div role="combobox" class="react-autosuggest__container">
+                                                <input type="text" class="react-autosuggest__input" placeholder="Select from History" (keyup)="GSTAutocomplete($event)"  [matAutocomplete]="auto"  #gsteInput/>
+                                            </div>
+
+                                            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedgst($event)">
+                                                <mat-option *ngFor="let list of gstlist" [value]="list['company_name']"> {{list['company_name']}}</mat-option>
+                                            </mat-autocomplete>
+
+                                             </div>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <span class="gst-clear" (click)="cleargst()">Clear</span>
+                                        </div>
+                                    </div>
+
+                                    </div>-->
+                                        <form [formGroup]="GSTForm">
+                                            <div class="paxlist-box">
+                                                <p class="mb-0">To claim credit of GST charged by airlines, Please enter
+                                                    your company's GST number</p>
+
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" class="form-control main-select"
+                                                                id="floatingInput" placeholder="Registration Number"
+                                                                formControlName="GSTNumber" />
+                                                            <label for="floatingInput">Registration Number</label>
+
+                                                            <div *ngIf="Gstsubmitted && f['GSTNumber'].errors"
+                                                                class="error-msg">
+                                                                <div *ngIf="f['GSTNumber'].errors['required']">
+                                                                    Registration number is required.</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" class="form-control main-select"
+                                                                id="floatingInput" placeholder="Registered Company Name"
+                                                                formControlName="CompanyName" />
+                                                            <label for="floatingInput">Registered Company Name</label>
+
+                                                            <div *ngIf="Gstsubmitted && f['CompanyName'].errors"
+                                                                class="error-msg">
+                                                                <div *ngIf="f['CompanyName'].errors['required']">Company
+                                                                    name is required.</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-floating mb-3">
+                                                            <input type="email" class="form-control main-select"
+                                                                id="floatingInput" placeholder="Registered Email"
+                                                                formControlName="Email" />
+                                                            <label for="floatingInput">Registered Email</label>
+                                                            <div *ngIf="Gstsubmitted && f['Email'].errors"
+                                                                class="error-msg">
+                                                                <div *ngIf="f['Email'].errors['required']">Email is
+                                                                    required.</div>
+                                                                <div *ngIf="f['Email'].errors['email']">Please enter a
+                                                                    valid email</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-floating mb-3">
+                                                            <input type="phone" class="form-control main-select"
+                                                                id="floatingInput" placeholder="Registered Phone"
+                                                                formControlName="PhoneNumber" />
+                                                            <label for="floatingInput">Registered Phone</label>
+
+                                                            <div *ngIf="Gstsubmitted && f['PhoneNumber'].errors"
+                                                                class="error-msg">
+                                                                <div *ngIf="f['PhoneNumber'].errors['required']">Phone
+                                                                    number is required.</div>
+                                                                <div
+                                                                    *ngIf="f['PhoneNumber'].errors['pattern'] || f['PhoneNumber'].errors['minlength'] ||  f['PhoneNumber'].errors['maxlength']">
+                                                                    Please enter a valid mobile number</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-floating mb-3">
+                                                            <input type="address" class="form-control main-select"
+                                                                id="floatingInput" placeholder="Registered Address"
+                                                                formControlName="Address" />
+                                                            <label for="floatingInput">Registered Address</label>
+                                                            <div *ngIf="Gstsubmitted && f['Address'].errors"
+                                                                class="error-msg">
+                                                                <div *ngIf="f['Address'].errors['required']">Address is
+                                                                    required.</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <!--<div class="saveDetails_wrapper labelDetails">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="save-gst-detail" formControlName="SaveGST" />
+                                            <label class="form-check-label" for="save-gst-detail">
+                                                Save GST Details
+                                            </label>
+                                        </div>
+                                    </div>-->
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row pt-20 desktop-bookback">
+                                <div class="col-sm-6 col-4">
+                                    <button type="button" id="flightdetails" class="btn asr-book" (click)="goBack()"><i
+                                            class="fa fa-angle-double-left me-1"></i> <span>Back</span></button>
+                                </div>
+                                <div class="col-md-6 col-sm-8 col-xs-9 col-8 text-end confirming--button-price">
+                                    <button type="submit" id="review" class="btn asr-book"><span>Proceed To
+                                            Review</span> &nbsp; <i class="fa fa-angle-double-right"></i></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+
+
+
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="booking-rightside">
+                    <h5 class="graycolor mb-3">Fare Summary</h5>
+                    <div>
+                        <div class="btm-border bold-font-bf"><span>Room Price</span> <span
+                                class="float-end">₹{{CurrentFare['RoomPrice'] | number:'1.0-2'}}</span></div>
+                        <div class="btm-border bold-font">
+                            <span data-bs-toggle="collapse" href="#tax-fare" aria-expanded="false"> Taxes and fees <i
+                                    class="fa fa-angle-down mrg-left"></i></span>
+                            <span class="float-end">₹{{CurrentFare['Tax']
+                                +CurrentFare['OtherCharges']+CurrentFare['ServiceCharges']+CurrentFare['AgentMarkup'] |
+                                number:'1.0-2'}}<i title="Change markup" class="fa fa-edit"
+                                    (click)="showmarkup()"></i></span>
+                            <div class="tax-dropdown airline-gst-print collapse" id="tax-fare">
+                                <div *ngIf="CurrentFare['AgentMarkup']!=0"><span>Markup</span><span
+                                        class="float-end">₹{{CurrentFare['AgentMarkup'] | number:'1.0-2'}}</span></div>
+
+                                <div *ngIf="CurrentFare['OtherCharges']!=0"><span>Other Charges</span><span
+                                        class="float-end">₹{{CurrentFare['OtherCharges'] | number:'1.0-2'}}</span></div>
+
+                                <div *ngIf="CurrentFare['ServiceCharges']!=0"><span>Service Charges</span><span
+                                        class="float-end">₹{{CurrentFare['OtherCharges'] | number:'1.0-2'}}</span></div>
+
+                            </div>
+                            <div class="pos-rel" *ngIf="isshowmarkup">
+                                <div class="markup__box-mainconatiner">
+                                    <div class="col me-3">
+                                        <div class="form-floating mb-2">
+                                            <input type="number" min="0" value="0" class="form-control" id="InputMarkup"
+                                                placeholder="Markup Price" [(ngModel)]="markupvalue" />
+                                            <label for="InputMarkup">Markup Price</label>
+                                        </div>
+                                    </div>
+                                    <span class="markup__update-closebtn" (click)="showmarkup()">×</span><button
+                                        class="markup__update-btn" (click)="updatemarkup()">Update</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bold-font btm-border">
+                            <span data-bs-toggle="collapse" href="#net-fare" aria-expanded="false">Gross Fare</span>
+                            <span class="float-end">₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup'] |
+                                number:'1.0-2'}}</span>
+
+                        </div>
+                        <div class="bold-font btm-border">
+                            <span >Net Fare</span>
+                            <span class="float-end">₹{{CurrentFare['OfferedPrice']+CurrentFare['TDS'] |
+                                number:'1.0-2'}}</span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="CancellationPolicyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="d-flex align-items-center justify-content-between mb-3 float-end">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Cancelled on or After</th>
+                            <th scope="col">Cancelled on or Before</th>
+                            <th scope="col">Cancelled on or Charges</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of RoomCancellationPolicyData['CancellationPolicies']">
+                           <td>{{formatCustomDate(item['FromDate'])| date:'dd MMM yyyy'  }}</td>
+                            <td>{{formatCustomDate(item['ToDate'])| date:'dd MMM yyyy' }}</td>
+                            <td>
+                                <span *ngIf="item['ChargeType']=='1'">Rs. {{item['Charge']}}</span>
+                                <span *ngIf="item['ChargeType']=='2'">{{item['Charge']}}%</span>
+                                <span *ngIf="item['ChargeType']=='3'">{{item['Charge']}} Night(s) charge</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                No Show will attract full cancellation charge unless otherwise specified.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Early check out will attract full cancellation charge unless otherwise specified.Show
+                                Room Description
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<app-count-down display="on" redirecturl="/hotel"></app-count-down>

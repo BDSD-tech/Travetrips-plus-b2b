@@ -1,0 +1,291 @@
+<section class="login-form">
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-12 m-auto">
+              <div class="card login_box">
+                  <div class="card-body" *ngIf="Sinupdone==false">
+                      <a routerLink="/" class="btn btn-outline-secondary">Back</a>
+                      <h5 class="card-title">Get started-register as an agent</h5>
+                      <form [formGroup]="SinupForm" (ngSubmit)="SignupSubmit()">
+                          <div class="row g-3">
+                              <h6>Account Information</h6>
+                              <div class="col-md-3 mb-3">
+                                  <input type="text" class="form-control form__field--input" placeholder="Agency Name" formControlName="AgencyName"/>
+                                  <img src="assets/img/Form_fullname.svg" alt="Form_fullname.svg" class="img-fluid form__field--icon" />
+                                  <div *ngIf="Sinupsubmitted && f['AgencyName'].errors" class="error-msg">
+                                    <div *ngIf="f['AgencyName'].errors['required']">Please enter Agency Name.
+                                    </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-3 mb-3">
+                                  <input type="tel" class="form-control form__field--input" placeholder="Phone Number (Optional)" formControlName="PhoneNumber" (keypress)="numberOnly($event)" maxlength="15"/>
+                                  <img src="assets/img/Form_phone.svg" alt="Form_fullname.svg" class="img-fluid form__field--icon" />
+
+                                  <div *ngIf="Sinupsubmitted && f['PhoneNumber'].errors" class="error-msg">
+                                    <div *ngIf="f['PhoneNumber'].errors['pattern'] || f['PhoneNumber'].errors['minlength'] || f['PhoneNumber'].errors['maxlength']">Please enter a valid Phone Number.</div>
+                                  </div>
+
+                              </div>
+                              <div class="col-md-2 mb-3">
+                                <select class="form-control form__field--input" formControlName="DialCode" (change)="DialChange($event)">
+                                  <option value="91">India</option>
+                                  @for (count of DialCode; track $index) {
+                                    <option [value]="count['phonecode']">{{count['name']}} ({{count['phonecode']}})</option>
+                                  }
+                                </select>
+                                <img src="assets/img/map.svg" alt="Form_fullname.svg" class="img-fluid form__field--icon" />
+                                <div *ngIf="Sinupsubmitted && f['DialCode'].errors" class="error-msg">
+                                    <div *ngIf="f['DialCode'].errors['required']">Please select dial code.</div>
+                                  </div>
+                              </div>
+                              <div class="col-md-3 mb-3">
+                                  <input type="tel" class="form-control form__field--input" placeholder="Mobile Number" formControlName="MobileNumber" (keypress)="numberOnly($event)" (input)="checkvalue($event,'mobile')" maxlength="15" autocomplete="off" />
+                                  <img src="assets/img/Form_phone.svg" alt="Form_fullname.svg" class="img-fluid form__field--icon" />
+                                  <div *ngIf="Sinupsubmitted && f['MobileNumber'].errors" class="error-msg">
+                                    <div *ngIf="f['MobileNumber'].errors['required']">Please enter Mobile Number.</div>
+                                    <div *ngIf="f['MobileNumber'].errors['pattern'] || f['MobileNumber'].errors['minlength'] || f['MobileNumber'].errors['maxlength']">Please enter a valid Mobile Number.</div>
+                                  </div>
+                                  <div *ngIf="Sinupsubmitted==false && submitmobile && f['MobileNumber'].errors" class="error-msg">
+                                    <div *ngIf="f['MobileNumber'].errors['required']">Please enter Mobile Number.</div>
+                                    <div *ngIf="f['MobileNumber'].errors['pattern'] || f['MobileNumber'].errors['minlength'] || f['MobileNumber'].errors['maxlength']">Please enter a valid Mobile Number.</div>
+                                  </div>
+                                 
+                                  <div *ngIf="Sinupsubmitted && submitmobile==false && f['MobileNumber'].errors==null && f['MobileNumberVerify']?.value=='false'" class="error-msg">
+                                    Please Verify Mobile Number.
+                                  </div>
+
+                                  <div *ngIf="mobileOTPEnable==true" class="form-text" id="phone_successMsg">An OTP will be sent on your above entered number for verification</div>
+                              </div>
+                              <div class="col-md-2 mb-3" *ngIf="isshowmobileotp">
+                                <input type="password" class="form-control form__field--input" placeholder="OTP" autocomplete="off" formControlName="MobileOTP" (keypress)="numberOnly($event)"/>
+                                <img src="assets/img/Form_phone.svg" alt="Form_fullname.svg" class="img-fluid form__field--icon" />
+                                <div class="counter clearfix">
+                                     <span class="float-start">{{mobiletimer}}</span> <a href="javascript:void(0);" class="float-end" *ngIf="activeResend===true" (click)="ResendOTP('mobile')">Resend OTP</a>
+                                </div>
+                                <div *ngIf="verifysubmitmobile && f['MobileOTP'].errors" class="error-msg">
+                                  <div *ngIf="f['MobileOTP'].errors['required']">Please enter OTP.</div>
+                                  <div *ngIf="f['MobileOTP'].errors['pattern'] || f['MobileOTP'].errors['minlength'] || f['MobileOTP'].errors['maxlength']">Please enter a valid OTP.</div>
+                                </div>
+                                <div id="mobile-otp-error"></div>
+                              </div>
+                              <div class="col-md-1 mb-3" *ngIf="mobileOTPEnable==true &&mobileverifydone==false">
+                                  <button *ngIf="isshowmobileotp===false" class="btn btn_otp" type="button" (click)="sendotp('mobile','phone_successMsg')">Send OTP</button>
+                                  <button *ngIf="isshowmobileotp" class="btn btn_otp" type="button" (click)="VerifyOTP('mobile','phone_successMsg')">Verify OTP</button>
+                              </div>
+
+                              <div class="col-md-1 mb-3" *ngIf="mobileverifydone">
+                                <a href="javascript:void(0);" (click)="edit('mobile','phone_successMsg')" class="text-dark"><i class="fa fa-edit"></i> Edit </a>
+                              </div>
+                          </div>
+                          <div class="row g-3">
+                              <div class="col-md-3 mb-3">
+                                  <input [type]="isPassVisible ==true  ? 'text' : 'password'"  class="form-control form__field--input" placeholder="Password" formControlName="Password" autocomplete="off" />
+                                  <img src="assets/img/Form_password.svg" alt="Form_fullname.svg" class="img-fluid form__field--icon" />
+                                 
+                                  <i class="far form__field--icon" [ngClass]="isPassVisible ==true  ? 'fa-eye' : 'fa-eye-slash'" id="eyeIcon" (click)="showPassword('pwa')"></i>
+                                  <div *ngIf="Sinupsubmitted && f['Password'].errors" class="error-msg">
+                                    <div *ngIf="f['Password'].errors['required']">Please enter Password.</div>
+                                    <div *ngIf="f['Password'].errors['minlength']">Password must be at least 8 characters.</div>
+                                    <div *ngIf="f['Password'].errors['maxlength']">Password can't be more than 16 characters.</div>
+                                    <div *ngIf="f['Password'].errors['pattern']">Please enter a valid Password.</div>
+                                  </div>
+                                  <div class="form-text">Password must have at least 8 charactors, 1 upper case, 1 lower case, 1 special charactors, 1 numbar</div>
+                              </div>
+                              <div class="col-md-3 mb-3">
+                                  <input [type]="isConPassVisible ==true  ? 'text' : 'password'" class="form-control form__field--input" placeholder="Confirm password" formControlName="ConfirmPassword"  autocomplete="off"/>
+                                  <img src="assets/img/Form_password.svg" alt="Form_fullname.svg" class="img-fluid form__field--icon" />
+                                  <i class="far form__field--icon" [ngClass]="isConPassVisible ==true  ? 'fa-eye' : 'fa-eye-slash'" id="eyeIcon" (click)="showPassword('cpwa')"></i>
+                                  <div *ngIf="Sinupsubmitted && f['ConfirmPassword'].errors" class="error-msg">
+                                    <div *ngIf="f['ConfirmPassword'].errors['required']">Please enter Confirm Password.</div>
+                                    <div *ngIf="f['ConfirmPassword'].errors['matching']">Passwords must match</div>
+                                  </div>
+                              </div>
+                              <div class="col-md-3 mb-3">
+                                  <input type="email" class="form-control form__field--input" placeholder="Email Address" formControlName="EmailID" (input)="checkvalue($event,'email')" />
+                                  <img src="assets/img/Form_email.svg" alt="Form_fullname.svg" class="img-fluid form__field--icon" />
+
+                                  <div *ngIf="Sinupsubmitted && f['EmailID'].errors" class="error-msg">
+                                    <div *ngIf="f['EmailID'].errors['required']">Please enter Email ID.</div>
+                                    <div *ngIf="f['EmailID'].errors['email']">Please enter valid Email ID.</div>
+                                  </div>
+
+                                  <div *ngIf="Sinupsubmitted==false && submitemail && f['EmailID'].errors" class="error-msg">
+                                    <div *ngIf="f['EmailID'].errors['required']">Please enter Email ID.</div>
+                                    <div *ngIf="f['EmailID'].errors['email']">Please enter valid Email ID.</div>
+                                  </div>
+
+                                  <div *ngIf="Sinupsubmitted && submitemail==false && f['EmailID'].errors==null && f['EmailVerify']?.value=='false'" class="error-msg">
+                                    Please Verify Email ID.
+                                  </div>
+
+                                  <div class="form-text" id="email_successMsg">An OTP will be sent on your above entered email for verification</div>
+                              </div>
+
+                              <div class="col-md-2 mb-3" *ngIf="isshowemailotp">
+                                <input type="password" class="form-control form__field--input" placeholder="OTP" autocomplete="off" formControlName="EmailOTP" (keypress)="numberOnly($event)"/>
+                                <img src="assets/img/Form_email.svg" alt="Form_fullname.svg" class="img-fluid form__field--icon" />
+                                <div class="counter clearfix">
+                                  <span class="float-start">{{emailtimertxt}}</span> <a href="javascript:void(0);" class="float-end" *ngIf="activeEmailResend===true" (click)="ResendOTP('email')">Resend OTP</a>
+                               </div>
+
+                                <div *ngIf="verifysubmitemail && f['EmailOTP'].errors" class="error-msg">
+                                  <div *ngIf="f['EmailOTP'].errors['required']">Please enter OTP.</div>
+                                  <div *ngIf="f['EmailOTP'].errors['pattern'] || f['EmailOTP'].errors['minlength'] || f['EmailOTP'].errors['maxlength']">Please enter a valid OTP.</div>
+                                </div>
+                                <div id="email-otp-error"></div>
+                              </div>
+
+                              <div class="col-md-1 mb-3" *ngIf=" emailverifydone==false">
+                                  <button *ngIf="isshowemailotp===false" class="btn btn_otp" type="button" (click)="sendotp('email','email_successMsg')">Send OTP</button>
+                                  <button *ngIf="isshowemailotp" class="btn btn_otp" type="button" (click)="VerifyOTP('email','email_successMsg')">Verify OTP</button>
+                              </div>
+
+                              <div class="col-md-1 mb-3" *ngIf="emailverifydone">
+                                <a href="javascript:void(0);" (click)="edit('email','email_successMsg')" class="text-dark"><i class="fa fa-edit"></i> Edit </a>
+                              </div>
+                          </div>
+                          <div class="row g-3">
+                              <h6>Company Information</h6>
+                              <div class="col-md-3 mb-3">
+                                  <input type="text" class="form-control form__field--input" placeholder="Name On PAN card" formControlName="PANName"/>
+                                  <img src="assets/img/Form_fullname.svg" alt="Form_fullname.svg" class="img-fluid form__field--icon" />
+                                  <div *ngIf="Sinupsubmitted && f['PANName'].errors" class="error-msg">
+                                    <div *ngIf="f['PANName'].errors['required']">Please enter PAN Name.</div>
+                                  </div>
+                              </div>
+                              <div class="col-md-3 mb-3">
+                                  <input type="text" class="form-control form__field--input"  oninput="this.value = this.value.toUpperCase()" placeholder="PAN NUMBER" formControlName="PANNumber" maxlength="10"/>
+                                  <img src="assets/img/id-card.svg" alt="Form_fullname.svg" class="img-fluid form__field--icon" />
+                                  <div *ngIf="Sinupsubmitted && f['PANNumber'].errors" class="error-msg">
+                                    <div *ngIf="f['PANNumber'].errors['required']">Please enter PAN Number.</div>
+                                    <div *ngIf="f['PANNumber'].errors['pattern']">Please enter a valid PAN Number.</div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row g-3">
+                              <h6>Personal In charge(optional)</h6>
+                              <div class="col-md-4 mb-3">
+                                  <input type="text" class="form-control form__field--input" placeholder="Full Name" formControlName="PersonName"/>
+                                  <img src="assets/img/Form_fullname.svg" alt="Form_fullname.svg" class="img-fluid form__field--icon" />
+                              </div>
+                              <div class="col-md-4 mb-3">
+                                  <input type="email" class="form-control form__field--input" placeholder="Email Address" formControlName="PersonEmail"/>
+                                  <img src="assets/img/Form_email.svg" alt="Form_fullname.svg" class="img-fluid form__field--icon" />
+                                  <div *ngIf="Sinupsubmitted && f['PersonEmail'].errors" class="error-msg">
+                                    <div *ngIf="f['PersonEmail'].errors['email']">Please enter a valid Email ID.</div>
+                                  </div>
+                              </div>
+                              <div class="col-md-4 mb-3">
+                                  <input type="tel" class="form-control form__field--input" placeholder="Mobile Number" formControlName="PersonMobileNumber" (keypress)="numberOnly($event)" maxlength="15"/>
+                                  <img src="assets/img/Form_phone.svg" alt="Form_fullname.svg" class="img-fluid form__field--icon" />
+                                  <div *ngIf="Sinupsubmitted && f['PersonMobileNumber'].errors" class="error-msg">
+                                    <div *ngIf="f['PersonMobileNumber'].errors['pattern'] || f['PersonMobileNumber'].errors['maxlength']">Please enter a valid Mobile Number.</div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row g-3">
+                              <h6>GST Information(optional)</h6>
+                              <div class="col-md-3 mb-3">
+                                  <input type="text" class="form-control form__field--input" placeholder="GST Name" formControlName="GSTName"/>
+                                  <img src="assets/img/Form_fullname.svg" alt="Form_fullname.svg" class="img-fluid form__field--icon" />
+                              </div>
+                              <div class="col-md-3 mb-3">
+                                  <input type="email" class="form-control form__field--input" placeholder="GST Email" formControlName="GSTEmail"/>
+                                  <img src="assets/img/Form_email.svg" alt="Form_fullname.svg" class="img-fluid form__field--icon" />
+                                  <div *ngIf="Sinupsubmitted && f['GSTEmail'].errors" class="error-msg">
+                                    <div *ngIf="f['GSTEmail'].errors['email']">Please enter a valid Email ID.</div>
+                                  </div>
+                              </div>
+                              <div class="col-md-3 mb-3">
+                                  <input type="text" class="form-control form__field--input" placeholder="GST Number" formControlName="GSTNumber" maxlength="15"> 
+                                  <img src="assets/img/id-card.svg" alt="Form_fullname.svg" class="img-fluid form__field--icon" />
+                              </div>
+                              <div class="col-md-3 mb-3">
+                                  <input type="tel" class="form-control form__field--input" placeholder="GST Mobile Number" formControlName="GSTMobileNumber" (keypress)="numberOnly($event)" maxlength="15"/>
+                                  <img src="assets/img/Form_phone.svg" alt="Form_fullname.svg" class="img-fluid form__field--icon" />
+                                  <div *ngIf="Sinupsubmitted && f['GSTMobileNumber'].errors" class="error-msg">
+                                    <div *ngIf="f['GSTMobileNumber'].errors['pattern'] || f['GSTMobileNumber'].errors['maxlength']">Please enter a valid Mobile Number.</div>
+                                  </div>
+                              </div>
+                              <div class="col-md-12 mb-3">
+                                  <input type="text" class="form-control form__field--input" placeholder="GST Address" formControlName="GSTAddress"/>
+                                  <img src="assets/img/map.svg" alt="Form_fullname.svg" class="img-fluid form__field--icon" />
+                              </div>
+                          </div>
+                          <div class="row g-3">
+                              <h6>Address Information</h6>
+                              <div class="col-md-8 mb-3">
+                                  <input type="street" class="form-control form__field--input" placeholder="Complete Street Address" formControlName="Street"/>
+                                  <img src="assets/img/map.svg" alt="Form_fullname.svg" class="img-fluid form__field--icon" />
+                                  <div *ngIf="Sinupsubmitted && f['Street'].errors" class="error-msg">
+                                    <div *ngIf="f['Street'].errors['required']">Please enter Street.</div>
+                                  </div>
+                              </div>
+                              <div class="col-md-4 mb-3">
+                                  <input type="zip" class="form-control form__field--input" placeholder="Pin Code" formControlName="Pincode" maxlength="6" (keypress)="numberOnly($event)"/>
+                                  <img src="assets/img/map.svg" alt="Form_fullname.svg" class="img-fluid form__field--icon" />
+                                  <div *ngIf="Sinupsubmitted && f['Pincode'].errors" class="error-msg">
+                                    <div *ngIf="f['Pincode'].errors['required']">Please enter Pincode.</div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row g-3">
+                              <div class="col-md-4 mb-3">
+                                <select class="form-control form__field--input" country (change)="getstate($event)" formControlName="Country">
+                                  <option value="India">India</option>
+                                  @for (count of countrylist; track $index) {
+                                    <option [value]="count['name']">{{count['name']}}</option>
+                                  }
+                                </select>
+                                <img src="assets/img/map.svg" alt="Form_fullname.svg" class="img-fluid form__field--icon" />
+                                <div *ngIf="Sinupsubmitted && f['Country'].errors" class="error-msg">
+                                    <div *ngIf="f['Country'].errors['required']">Please select Country.</div>
+                                  </div>
+                              </div>
+                              <div class="col-md-4 mb-3">
+                                  <select class="form-control form__field--input" formControlName="State" (change)="getcity($event)">
+                                    <option value="">_ _Select State_ _</option>
+                                    <option  *ngFor="let item of statelist" value="{{item['name']}}">{{item['name']}}</option>
+                                  </select>
+                                  <img src="assets/img/map.svg" alt="Form_fullname.svg" class="img-fluid form__field--icon" />
+                                  <div *ngIf="Sinupsubmitted && f['State'].errors" class="error-msg">
+                                    <div *ngIf="f['State'].errors['required']">Please select State.</div>
+                                  </div>
+                              </div>
+
+                              <div class="col-md-4 mb-3">
+                                  <select class="form-control form__field--input" formControlName="City">
+                                    <option value="">_ _Select City _ _</option>
+                                    <option  *ngFor="let item of citylist" value="{{item['name']}}">{{item['name']}}</option>
+                                  </select>
+                                  <img src="assets/img/map.svg" alt="Form_fullname.svg" class="img-fluid form__field--icon" />
+                                  <div *ngIf="Sinupsubmitted && f['City'].errors" class="error-msg">
+                                    <div *ngIf="f['City'].errors['required']">Please select City.</div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row g-3">
+                              <div class="col-md-4 mb-3">
+                                  <input type="checkbox" class="form-check-input me-2" id="tems"  formControlName="Agree"/>
+                                  <label class="form-check-label" for="tems"> I accept the <a target="_blank" routerLink="/pages/terms-and-conditions"> terms & conditions </a></label>
+                                  <div *ngIf="Sinupsubmitted && f['Agree'].errors" class="error-msg">
+                                    <div *ngIf="f['Agree'].errors['required']">Please accept terms & conditions.</div>
+                                  </div>
+                              </div>
+                              <div class="col-md-2 mb-3 offset-md-6">
+                                  <button type="submit" class="btn btn-submit w-100" [disabled]="Sinuploading"> <span *ngIf="Sinuploading" class="spinner-border spinner-border-sm mr-1"></span> Submit</button>
+                              </div>
+                              <div *ngIf="ErrorSinupMessage" [innerHtml]="ErrorSinupMessage"></div>
+                          </div>
+                      </form>
+                  </div>
+
+                  <div class="alert alert-success mb-0" role="alert" *ngIf="Sinupdone">
+                    {{SinupMessage}}  <a routerLink="/" class="text-dark"> Click here </a> to login 
+                  </div>
+
+              </div>
+          </div>
+      </div>
+  </div>
+</section>

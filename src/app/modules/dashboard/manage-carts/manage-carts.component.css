@@ -1,0 +1,24 @@
+.sign_btn{
+    background: #004684;
+    font-weight: bold;
+    border-radius: 30px;
+    font-size: 12px;
+    padding: 8px 15px 8px;
+    color: white;
+    position: relative;
+    outline: none;
+    margin-top: 10px;
+    text-transform: uppercase;
+    transition: all 0.3s ease-out;
+}
+
+.sign_btn:hover {
+    color: white;
+    transform: scale(1.05);
+    background: #555;
+    border-color: #555;
+    box-shadow: 0 3px 3px 0 rgb(0 0 0 / 14%), 0 1px 7px 0 rgb(0 0 0 / 12%), 0 3px 1px -1px rgb(0 0 0 / 20%);
+}
+.Text-inline{
+    text-wrap: nowrap;
+}

@@ -1,0 +1,199 @@
+<div class="dashboard-wrapper-container">
+    <ol class="breadcrumb-arrow">
+        <li>
+            <a routerLink="/dashboard/manage-user"><i class="fa fa-home"></i></a>
+        </li>
+        <li><span>user-detail</span></li>
+    </ol>
+    <form [formGroup]="AgentForm" (ngSubmit)="SubmitData()">
+    <div *ngIf="ActiveStep=='/dashboard/user-detail/UserDetail' || ActiveStep==companyId">
+        <div class="body_manage dash-padding dashboard__main__content">
+            <div class="row">
+                <div class="col-sm-12"><h3 class="dash-borderRadius main-heading-content">USER DETAILS</h3></div>
+                <div class="row">
+                    <div class="col-md-6 mb-1">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="floating-userid" placeholder="User ID" formControlName="CompanyId" />
+                            <label for="floating-userid">User ID</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-1">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="floating-name" placeholder="Name" formControlName="AgencyName" />
+                            <label for="floating-name">Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-1">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="floating-email" placeholder="Email ID" formControlName="EmailID"/>
+                            <label for="floating-email">Email ID</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-1">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="floating-mobile" placeholder="Mobile Phone" formControlName="MobileNumber"/>
+                            <label for="floating-mobile">Mobile Phone</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="body_manage dash-padding dashboard__main__content">
+            <div class="row">
+                <div class="col-sm-12"><h3 class="dash-borderRadius main-heading-content">LOGO UPLOAD</h3></div>
+                <div class="row">
+                    <div class="col-md-6 mb-1">
+                        <div class="form-floating">
+                            <input type="file" formControlName="AgencyLogo" class="form-control" id="floating-logo" (change)="selectFile($event)"/>
+                        </div>
+                        <img [src]="preview" class="preview clearfix" />
+                        <br/>
+                        <br/>
+                        <button type="button" *ngIf="isupload" class="btn sign_btn cancel-btn-generic" [disabled]="loading" (click)="uploadlogo()"> <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> Upload</button>
+                    </div>
+                    <div class="col-md-6 mb-1">
+                        <a href="{{AgentDetail['AgencyLogo']}}" target="_blank" class="btn sign_btn" *ngIf="AgentDetail['AgencyLogo']">View</a>
+                        <button type="button" class="btn sign_btn cancel-btn-generic" (click)="Removelogo()">Remove</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="body_manage dash-padding dashboard__main__content" *ngIf="ActiveStep=='/dashboard/user-detail/PanDetails'">
+        <div class="row">
+            <div class="col-sm-12"><h3 class="dash-borderRadius main-heading-content">PAN DETAILS</h3></div>
+            <div class="row">
+                <div class="col-md-6 mb-1">
+                    <div class="form-floating">
+                        <input type="text" class="form-control form__field--input"  oninput="this.value = this.value.toUpperCase()" placeholder="PAN Number" formControlName="PANNumber" maxlength="10" id="floating-pan-no"/>
+                        <label for="floating-pan-no">PAN Number</label>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-1">
+                    <div class="form-floating">
+                        <input type="text" class="form-control form__field--input" placeholder="Name On PAN card" formControlName="PANName" id="floating-pan-name"/>
+                        <label for="floating-pan-name">PAN Name</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="body_manage dash-padding dashboard__main__content" *ngIf="ActiveStep=='/dashboard/user-detail/GstDetail'">
+        <div class="row">
+            <div class="col-sm-12"><h3 class="dash-borderRadius main-heading-content">GST DETAILS</h3></div>
+            <div class="row">
+                <div class="col-md-6 mb-1">
+                    <div class="form-floating">
+                        <input type="text" class="form-control form__field--input" placeholder="GST Number" formControlName="GSTNumber" maxlength="15" id="floating-gst-no" />
+                        <label for="floating-gst-no">GST Number</label>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-1">
+                    <div class="form-floating">
+                        <input type="email" class="form-control form__field--input" placeholder="GST Email" formControlName="GSTEmail" id="floating-gst-email" />
+                        <label for="floating-gst-email">GST Email ID</label>
+                        <div *ngIf="Usersubmitted && f['GSTEmail'].errors" class="error-msg">
+                            <div *ngIf="f['GSTEmail'].errors['email']">Please enter a valid Email ID.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-1">
+                    <div class="form-floating">
+                        <input type="text" class="form-control form__field--input" placeholder="GST Name" formControlName="GSTName" id="floating-gst-name" />
+                        <label for="floating-gst-name">GST Name</label>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-1">
+                    <div class="form-floating">
+                        <input type="tel" class="form-control form__field--input" placeholder="GST Mobile Number" formControlName="GSTMobileNumber" (keypress)="numberOnly($event)" maxlength="15" id="floating-gst-mob" />
+                        <label for="floating-gst-mob">Mobile Phone</label>
+
+                        <div *ngIf="Usersubmitted && f['GSTMobileNumber'].errors" class="error-msg">
+                            <div *ngIf="f['GSTMobileNumber'].errors['pattern'] || f['GSTMobileNumber'].errors['maxlength']">Please enter a valid Mobile Number.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-1">
+                    <div class="form-floating">
+                        <input type="text" class="form-control form__field--input" placeholder="GST Address" formControlName="GSTAddress" id="floating-gst-address" />
+                        <label for="floating-gst-address">GST Address</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form__buttons">
+                <button type="submit" class="btn btn-outline-dark">Update</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="body_manage dash-padding dashboard__main__content" *ngIf="ActiveStep=='/dashboard/user-detail/Address'">
+        <div class="row">
+            <div class="col-sm-12"><h3 class="dash-borderRadius main-heading-content">ADDRESS DETAILS</h3></div>
+            <div class="row">
+                <div class="col-md-12 mb-1">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="floating-address" placeholder="Address Line" formControlName="Street"/>
+                        <label for="floating-address">Address Line</label>
+                        <div *ngIf="Usersubmitted && f['Street'].errors" class="error-msg">
+                            <div *ngIf="f['Street'].errors['required']">Please enter Address.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-1">
+                    <div class="form-floating">
+                        <select class="form-control form__field--input" formControlName="Country" id="floating-country">
+                            <option value="India">India</option>
+                        </select>
+                        <label for="floating-country">Country</label>
+
+                        <div *ngIf="Usersubmitted && f['Country'].errors" class="error-msg">
+                            <div *ngIf="f['Country'].errors['required']">Please select Country.</div>
+                          </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-1">
+                    <div class="form-floating">
+                        <select class="form-control form__field--input" formControlName="State" (change)="getcity($event)" id="floating-state">
+                            <option *ngFor="let item of statelist" value="{{item['name']}}">{{item['name']}}</option>
+                        </select>
+                        <label for="floating-state">State</label>
+
+                        <div *ngIf="Usersubmitted && f['State'].errors" class="error-msg">
+                            <div *ngIf="f['State'].errors['required']">Please select State.</div>
+                          </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-1">
+                    <div class="form-floating">
+                        <select class="form-control form__field--input" formControlName="City" id="floating-city">
+                            <option *ngFor="let item of citylist" value="{{item['name']}}">{{item['name']}}</option>
+                        </select>
+                        <label for="floating-city">City</label>
+                        <div *ngIf="Usersubmitted && f['City'].errors" class="error-msg">
+                        <div *ngIf="f['City'].errors['required']">Please select City.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-1">
+                    <div class="form-floating">
+                        <input type="zip" class="form-control form__field--input" placeholder="Pin Code" formControlName="Pincode" maxlength="6" (keypress)="numberOnly($event)" />
+                        <label for="floating-city">Pin Code</label>
+
+                        <div *ngIf="Usersubmitted && f['Pincode'].errors" class="error-msg">
+                            <div *ngIf="f['Pincode'].errors['required']">Please enter Pincode.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form__buttons">
+            <button type="submit" class="btn btn-outline-dark">Update</button>
+        </div>
+
+    </div>
+    </form>
+</div>
+

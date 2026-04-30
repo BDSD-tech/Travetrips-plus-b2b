@@ -1,0 +1,598 @@
+<div class="header">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-md-4">
+                <a class="navbar-brand" (click)="OpenHome()"><img [src]="LogoURL" class="img-fluid logo__img" /></a>
+            </div>
+            <div class="col-md-8">
+                <ul class="topbar d-lg-flex d-none d-flex align-items-center justify-content-md-end">
+                    <div class="border-bottom">
+                        <li class="topbar__list"><a class="tts-head-a"
+                                routerLink="/dashboard/user-detail/{{LoginAgentinfo['CompanyId']}}"
+                                target="_blank">Welcome {{LoginAgentinfo['CompanyName']}}
+                                ({{LoginAgentinfo['CompanyId']}}) </a></li>
+                        <li class="topbar__list">
+                            <div class="dropdown">
+                                <span class="d-flex gap-2 align-items-center" data-bs-toggle="dropdown"
+                                    aria-expanded="false">My Balance: ₹{{this.WalletBalance | number:'1.2-2'}}
+                                    <span (click)="RefreshBalance()">
+                                        <img class="topbar__list--refresh-icon img-fluid" src="assets/img/refresh.png"
+                                            alt="Refresh" />
+                                    </span>
+                                </span>
+                                <ul class="dropdown-menu mega-menu  show-{{dyclass}}">
+                                    <li class="tableDropdown__wrap--list list-{{dyclass}}">
+                                        <p>Deposit Balance</p>
+                                        <p *ngIf="WalletCreditLimit!==0">Credit Balance</p>
+                                        <p *ngIf="WalletCreditLimit!==0">Dues</p>
+                                        <p>Wallet Status</p>
+                                        <p *ngIf="WalletCreditLimit!==0">Credit Status</p>
+                                    </li>
+                                    <li class="tableDropdown__wrap--list__content  list-{{dyclass}}">
+                                        <p class="my-bal-dropdown">₹{{WalletDepositBalance | number:'1.2-2'}}</p>
+                                        <p *ngIf="WalletCreditLimit!==0">
+                                            <span class="d-block">₹{{WalletCreditLimit | number:'1.2-2'}}</span>
+                                            <!--<span class="d-block" *ngIf="WalletCreditLimit!=0"><b>ED:</b> {{WalletCreditExpireDate}}</span>-->
+                                        </p>
+                                        <p *ngIf="WalletCreditLimit!==0">₹{{WalletDueAmount | number:'1.2-2'}}</p>
+                                        <p
+                                            [ngClass]="{'text-success':WalletStatus=='Active','text-danger':WalletStatus!='Active'}">
+                                            {{WalletStatus}}</p>
+                                        <p *ngIf="WalletCreditLimit!==0"
+                                            [ngClass]="{'text-success':WalletCreditStatus=='Active','text-danger':WalletCreditStatus!='Active'}">
+                                            {{WalletCreditStatus}}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="topbar__list" *ngIf="WalletDueAmount!=0"><span
+                                class="topbar__list--dues">Dues</span>: ₹{{this.WalletDueAmount | number:'1.2-2'}}
+                            <!--<span class="tts-due-expirydate" *ngIf="WalletCreditLimit!=0"><b>ED:</b> {{WalletCreditExpireDate}}</span>-->
+                        </li>
+
+                        <li class="topbar__list" routerLink="/dashboard/online-recharge">Recharge</li>
+
+                        <li class="topbar__list" (click)="logout()">Logout</li>
+                    </div>
+                </ul>
+                <nav class="navbar navbar-expand-lg p-0 justify-content-md-end">
+                    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button> -->
+
+                    <button class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#mobileOffcanvas">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <div class="topbar mobile-topbar d-none d-flex align-items-center justify-content-md-end">
+                            <li class="topbar__list"><a class="tts-head-a"
+                                    routerLink="/dashboard/user-detail/{{LoginAgentinfo['CompanyId']}}"
+                                    target="_blank">Welcome {{LoginAgentinfo['CompanyName']}}
+                                    ({{LoginAgentinfo['CompanyId']}}) </a></li>
+                            <!-- <li class="topbar__list">
+                                <div class="dropdown">
+                                    <span data-bs-toggle="dropdown" aria-expanded="false">My Balance: ₹{{this.WalletBalance | number:'1.2-2'}}</span>
+                                    <span class="ms-1" (click)="RefreshBalance()"> <img class="topbar__list--refresh-icon img-fluid" src="assets/img/refresh.png" alt="Refresh" /></span>
+                                    <ul class="dropdown-menu mega-menu">
+                                        <li class="tableDropdown__wrap--list">
+                                            <p>Deposit Balance</p>
+                                            <p>Credit Balance</p>
+                                            <p>Dues</p>
+                                            <p>Wallet Status</p>
+                                            <p>Credit Status</p>
+                                        </li>
+                                        <li class="tableDropdown__wrap--list__content">
+                                            <p class="my-bal-dropdown">₹{{WalletDepositBalance | number:'1.2-2'}}</p>
+                                            <p>
+                                                <span class="d-block">₹{{WalletCreditLimit | number:'1.2-2'}}</span>
+                                                <span class="d-block" *ngIf="WalletCreditLimit!=0"><b>ED:</b> {{WalletCreditExpireDate}}</span>
+                                            </p>
+                                            <p>₹{{WalletDueAmount | number:'1.2-2'}}</p>
+                                            <p [ngClass]="{'text-success':WalletStatus=='Active','text-danger':WalletStatus!='Active'}">{{WalletStatus}}</p>
+                                            <p [ngClass]="{'text-success':WalletCreditStatus=='Active','text-danger':WalletCreditStatus!='Active'}">{{WalletCreditStatus}}</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li> -->
+                            <li class="topbar__list">
+                                <div class="dropdown">
+                                    <span data-bs-toggle="dropdown" aria-expanded="false">My Balance:
+                                        ₹{{this.WalletBalance | number:'1.2-2'}}</span>
+                                    <span class="ms-1" (click)="RefreshBalance()"> <img
+                                            class="topbar__list--refresh-icon img-fluid" src="assets/img/refresh.png"
+                                            alt="Refresh" /></span>
+                                    <ul class="dropdown-menu mega-menu  show-{{dyclass}}">
+                                        <li class="tableDropdown__wrap--list list-{{dyclass}}">
+                                            <p>Deposit Balance</p>
+                                            <p *ngIf="WalletCreditLimit!==0">Credit Balance</p>
+                                            <p *ngIf="WalletCreditLimit!==0">Dues</p>
+                                            <p>Wallet Status</p>
+                                            <p *ngIf="WalletCreditLimit!==0">Credit Status</p>
+                                        </li>
+                                        <li class="tableDropdown__wrap--list__content  list-{{dyclass}}">
+                                            <p class="my-bal-dropdown">₹{{WalletDepositBalance | number:'1.2-2'}}</p>
+                                            <p *ngIf="WalletCreditLimit!==0">
+                                                <span class="d-block">₹{{WalletCreditLimit | number:'1.2-2'}}</span>
+                                                <!--<span class="d-block" *ngIf="WalletCreditLimit!=0"><b>ED:</b> {{WalletCreditExpireDate}}</span>-->
+                                            </p>
+                                            <p *ngIf="WalletCreditLimit!==0">₹{{WalletDueAmount | number:'1.2-2'}}</p>
+                                            <p
+                                                [ngClass]="{'text-success':WalletStatus=='Active','text-danger':WalletStatus!='Active'}">
+                                                {{WalletStatus}}</p>
+                                            <p *ngIf="WalletCreditLimit!==0"
+                                                [ngClass]="{'text-success':WalletCreditStatus=='Active','text-danger':WalletCreditStatus!='Active'}">
+                                                {{WalletCreditStatus}}</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="topbar__list" *ngIf="WalletDueAmount!=0"><span>Dues</span>:
+                                ₹{{this.WalletDueAmount | number:'1.2-2'}}</li>
+
+                            <li class="topbar__list" (click)="logout()">Logout</li>
+                        </div>
+                        <ul class="navbar-nav ms-auto navbar-list">
+                            <li class="nav-item">
+                                <a class="nav-link" routerLinkActive="active" aria-current="page"
+                                    routerLink="/flight">Flight</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" routerLinkActive="active" aria-current="page"
+                                    routerLink="/hotel">Hotel</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" routerLinkActive="active" aria-current="page"
+                                    routerLink="/bus">Bus</a>
+                            </li>
+                            <!-- <li class="nav-item">
+                                <a class="nav-link" routerLinkActive="active" aria-current="page"
+                                    routerLink="/visa">Visa</a>
+                            </li> -->
+                            <li class="nav-item">
+                                <a class="nav-link" routerLinkActive="active"
+                                    routerLink="dashboard/manage-carts">Dashboard</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Bootstrap Offcanvas Sidebar -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="mobileOffcanvas" aria-labelledby="offcanvasLabel">
+
+    <!-- Header -->
+    <div class="offcanvas-header bg-primary text-white">
+        <h6 class="offcanvas-title" id="offcanvasLabel">
+            <i class="fas fa-building me-2"></i>{{ LoginAgentinfo.CompanyName }}
+        </h6>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close">
+            <i class="fa-solid fa-x"></i>
+        </button>
+    </div>
+
+    <!-- Body -->
+    <div class="offcanvas-body p-0">
+        <!-- Profile Section -->
+        <div class="d-flex align-items-center p-3 border-bottom">
+            <div>
+                <div class="fw-bold">
+                    <i class="fas fa-user-circle me-1"></i> Welcome, {{ LoginAgentinfo.CompanyName }}
+                </div>
+                <small class="text-muted">ID: {{ LoginAgentinfo.CompanyId }}</small>
+            </div>
+        </div>
+
+        <!-- Wallet Section -->
+        <div class="p-3 border-bottom bg-light">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="fw-semibold"><i class="fas fa-wallet me-1"></i> My Balance</span>
+                <button class="btn btn-sm btn-outline-secondary" (click)="RefreshBalance()">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
+            <h5 class="text-success mb-2">₹{{ WalletBalance | number:'1.2-2' }}</h5>
+            <div class="small text-muted mb-2">
+                <div><i class="fas fa-coins me-1"></i> Deposit: ₹{{ WalletDepositBalance | number:'1.2-2' }}</div>
+                <div *ngIf="WalletCreditLimit !== 0"><i class="fas fa-credit-card me-1"></i> Credit: ₹{{
+                    WalletCreditLimit | number:'1.2-2' }}</div>
+                <div *ngIf="WalletDueAmount !== 0" class="text-danger"><i class="fas fa-exclamation-triangle me-1"></i>
+                    Dues: ₹{{ WalletDueAmount | number:'1.2-2' }}</div>
+            </div>
+            <div class="d-flex gap-2">
+                <span class="badge"
+                    [ngClass]="{'bg-success': WalletStatus=='Active','bg-secondary': WalletStatus!='Active'}">{{
+                    WalletStatus }}
+                </span>
+                <span *ngIf="WalletCreditLimit !== 0" class="badge"
+                    [ngClass]="{'bg-success': WalletCreditStatus=='Active','bg-secondary': WalletCreditStatus!='Active'}">Credit
+                    {{ WalletCreditStatus }}
+                </span>
+            </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <ul class="mobile-nav">
+            <li>
+                <a [routerLink]="['/flight']">
+                    <i class="fas fa-plane "></i> Flights
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['/hotel']">
+                    <i class="fas fa-hotel "></i> Hotels
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['/car']">
+                    <i class="fas fa-car-side "></i> Cars
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['/visa']">
+                    <i class="fas fa-passport "></i> Visa
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['/dashboard/manage-carts']">
+                    <i class="fas fa-tachometer-alt "></i> Dashboard
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['/dashboard/online-recharge']">
+                    <i class="fas fa-wallet "></i> Recharge
+                </a>
+            </li>
+            <li class="logout-btn">
+                <a href="javascript:void(0);" (click)="logout()">
+                    <i class="fas fa-sign-out-alt "></i> Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+</div>
+
+
+
+<div class="sidebar">
+    <!-- Sidebar Toggle Button -->
+    <button class="sidebar-toggle-btn" (click)="toggleSidebar()">
+        Sidebar
+    </button>
+
+    <div class="sidebar__container" [class.open]="isSidebarOpen">
+        <!-- Mobile Close Button -->
+        <button class="sidebar-close-btn" (click)="closeSidebar()">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <!-- Main Navigation -->
+        <ul class="sidebar-nav"
+            *ngIf="PageUrl!==URLSTATIC && PageUrl!=='/dashboard/user-detail/UserDetail'
+                        &&PageUrl!=='/dashboard/user-detail/PanDetails'&&PageUrl!=='/dashboard/user-detail/GstDetail'&&PageUrl!=='/dashboard/user-detail/Address'">
+
+            @if(LoginAgentinfo['PrimaryUser']=='1'){
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="/dashboard/users">
+                    <i class="fas fa-users-cog"></i> Manage Users
+                </a>
+            </li>
+            }
+
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="/dashboard/booking-calendar">
+                    <i class="fas fa-calendar-check"></i> Booking Calendar
+                </a>
+            </li>
+
+            <li class="nav-item" (click)="Activetab('Flight')" routerLinkActive="active">
+                <a class="nav-link">
+                    <i class="fas fa-plane-departure"></i> Flight Management
+                    @if(Activeab=='Flight'){
+                    <i class="ms-auto fas fa-chevron-up"></i>
+                    }@else{
+                    <i class="ms-auto fas fa-chevron-down"></i>
+                    }
+                </a>
+
+                @if(Activeab=='Flight'){
+                <ul class="nav-content">
+                    <li routerLinkActive="active">
+                        <a routerLink="/dashboard/manage-carts">
+                            <i class="fa fa-circle"></i> Flight Booking List
+                        </a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a routerLink="/dashboard/manage-amendments">
+                            <i class="fa fa-circle"></i> Manage Amendments
+                        </a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a routerLink="/dashboard/manage-markup">
+                            <i class="fa fa-circle"></i> Manage Markup
+                        </a>
+                    </li>
+                     <li  routerLinkActive="active">
+                        <a routerLink="/dashboard/flight-credit-notes">
+                           <i class="fa fa-circle"></i> Credit Notes
+                        </a>
+                    </li>
+                </ul>
+                }
+            </li>
+
+            <li class="nav-item" (click)="Activetab('Hotel')" routerLinkActive="active">
+                <a class="nav-link">
+                    <i class="fas fa-hotel"></i> Hotel Management
+                    @if(Activeab=='Hotel'){
+                    <i class="ms-auto fas fa-chevron-up"></i>
+                    }@else{
+                    <i class="ms-auto fas fa-chevron-down"></i>
+                    }
+                </a>
+
+                @if(Activeab=='Hotel'){
+                <ul class="nav-content">
+                    <li routerLinkActive="active">
+                        <a routerLink="/dashboard/manage-cart-hotel">
+                            <i class="fa fa-circle"></i> Hotel Booking List
+                        </a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a routerLink="/dashboard/manage-amendments-hotel">
+                            <i class="fa fa-circle"></i> Manage Amendments
+                        </a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a routerLink="/dashboard/manage-markup-hotel">
+                            <i class="fa fa-circle"></i> Manage Markup
+                        </a>
+                    </li>
+                     <li  routerLinkActive="active">
+                        <a routerLink="/dashboard/hotel-credit-notes">
+                            <i class="fa fa-circle"></i> Credit Notes
+                        </a>
+                    </li>
+                </ul>
+                }
+            </li>
+
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="/dashboard/payment-passbook">
+                    <i class="fas fa-book-open"></i> Ledger
+                </a>
+            </li>
+
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="/dashboard/manage-deposit-request">
+                    <i class="fas fa-hand-holding-usd"></i> Manage Deposit Requests
+                </a>
+            </li>
+
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="/dashboard/deposit-request">
+                    <i class="fas fa-money-bill-wave"></i> Deposit Requests
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="/dashboard/credit-request">
+                    <i class="fa-solid fa-code-pull-request"></i> Credit Requests
+                </a>
+            </li>
+           
+
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="/dashboard/online-recharge">
+                    <i class="fas fa-credit-card"></i> Online Recharge
+                </a>
+            </li>
+
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="/dashboard/download-report">
+                    <i class="fas fa-file-download"></i> Download Report
+                </a>
+            </li>
+        </ul>
+
+        <!-- User Detail Sidebar -->
+        <ul class="sidebar-nav"
+            *ngIf="PageUrl==URLSTATIC || PageUrl=='/dashboard/user-detail/UserDetail'
+                        || PageUrl=='/dashboard/user-detail/PanDetails' || PageUrl=='/dashboard/user-detail/GstDetail' || PageUrl=='/dashboard/user-detail/Address'">
+
+            <li class="nav-item">
+                <div class="p-3 bg-light text-center user-detail-sidebar">
+                    <h6>{{LoginAgentinfo['CompanyName']}}
+                        <span class="fs-12 fw-bold">({{LoginAgentinfo['CompanyId']}})</span>
+                    </h6>
+                    <p class="m-0 fs-10">{{LoginAgentinfo['EmailId']}}</p>
+                    <p class="m-0 fs-10">{{LoginAgentinfo['MobileNo']}}</p>
+                    <p *ngIf="LoginAgentinfo['Balance']" class="m-0 fs-10">Balance: {{LoginAgentinfo['Balance']}}</p>
+                    <p *ngIf="!LoginAgentinfo['Balance']" class="m-0 fs-10">Balance: 0</p>
+                </div>
+            </li>
+
+            <li class="nav-item" routerLinkActive="active" [ngClass]="{'active':PageUrl==URLSTATIC}">
+                <a class="nav-link" routerLink="/dashboard/user-detail/UserDetail">
+                    <i class="fas fa-user"></i> User Details
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="/dashboard/user-detail/PanDetails">
+                    <i class="fas fa-id-card"></i> Pan Details
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="/dashboard/user-detail/GstDetail">
+                    <i class="fas fa-file-invoice-dollar"></i> GST Details
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="/dashboard/user-detail/Address">
+                    <i class="fas fa-map-marker-alt"></i> Address Details
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<router-outlet></router-outlet>
+
+
+
+<!---old code-->
+<div class="admin-section d-none">
+    <div class="container-fluid">
+        <div class="sidebar__container">
+            <div class="admin-bg">
+                <ul class="nav navbar-nav sidebar__mainlist"
+                    *ngIf="PageUrl!==URLSTATIC && PageUrl!=='/dashboard/user-detail/UserDetail'
+                        &&PageUrl!=='/dashboard/user-detail/PanDetails'&&PageUrl!=='/dashboard/user-detail/GstDetail'&&PageUrl!=='/dashboard/user-detail/Address'">
+                    @if(LoginAgentinfo['PrimaryUser']=='1'){
+                    <li class="aside-menubar-listAll" routerLinkActive="active">
+                        <a routerLink="/dashboard/users"><i class="fa-solid fa-users"></i>Manage Users</a>
+                    </li>
+                    }
+
+                    <li class="aside-menubar-listAll" routerLinkActive="active">
+                        <a routerLink="/dashboard/booking-calendar"><i class="fa fa-calendar"></i>Booking Calendar</a>
+                    </li>
+
+                    <li class="aside-menubar-listAll curser-pointer " (click)="Activetab('Flight')">
+                        <a class="d-flex justify-content-between align-items-center"><span><i
+                                    class="fa-solid fa-plane-departure"></i>Flight Management</span>
+                            @if(Activeab=='Flight'){
+                            <i class="ms-auto fas fa-chevron-up"></i>
+                            }@else{
+                            <i class="ms-auto fas fa-chevron-down"></i>
+                            }
+                        </a>
+
+                        @if(Activeab=='Flight'){
+                        <ul class="nav navbar-nav sidebar__mainlist bg-light">
+                            <li class="aside-menubar-listAll" routerLinkActive="active">
+                                <a routerLink="/dashboard/manage-carts"><i class="fa fa-calendar"></i>Flight Booking
+                                    List</a>
+                            </li>
+                            <li class="aside-menubar-listAll" routerLinkActive="active">
+                                <a routerLink="/dashboard/manage-amendments"><i class="fa fa-users"></i>Manage
+                                    Amendments</a>
+                            </li>
+                            <li class="aside-menubar-listAll" routerLinkActive="active">
+                                <a routerLink="/dashboard/manage-markup"><i class="fa fa-book"></i>Manage Markup</a>
+                            </li>
+                        </ul>
+                        }
+                    </li>
+                    <!-- <li class="aside-menubar-listAll" routerLinkActive="active">
+                                <a routerLink="/dashboard/manage-carts"><i class="fa fa-shopping-cart"></i>My Bookings</a>
+                            </li> -->
+                    <li class="aside-menubar-listAll curser-pointer" (click)="Activetab('Hotel')">
+                        <a class="d-flex justify-content-between align-items-center"><span><i
+                                    class="fa-solid fa-hotel"></i>Hotel Management</span>
+                            @if(Activeab=='Hotel'){
+                            <i class="ms-auto fas fa-chevron-up"></i>
+                            }@else{
+                            <i class="ms-auto fas fa-chevron-down"></i>
+                            }
+                        </a>
+                    </li>
+                    @if(Activeab=='Hotel'){
+                    <ul class="nav navbar-nav sidebar__mainlist bg-light">
+                        <li class="aside-menubar-listAll" routerLinkActive="active">
+                            <a routerLink="/dashboard/manage-cart-hotel"><i class="fa fa-calendar"></i>Hotel
+                                Booking List</a>
+                        </li>
+                        <li class="aside-menubar-listAll" routerLinkActive="active">
+                            <a routerLink="/dashboard/manage-amendments-hotel"><i class="fa fa-users"></i>Manage
+                                Amendments</a>
+                        </li>
+                        <li class="aside-menubar-listAll" routerLinkActive="active">
+                            <a routerLink="/dashboard/manage-markup-hotel"><i class="fa fa-book"></i>Manage
+                                Markup</a>
+                        </li>
+                    </ul>
+                    }
+                    <li class="aside-menubar-listAll" routerLinkActive="active">
+                        <a routerLink="/dashboard/payment-passbook"><i class="fa fa-money-bill-alt"></i>Ledger</a>
+                    </li>
+                    <li class="aside-menubar-listAll" routerLinkActive="active">
+                        <a routerLink="/dashboard/manage-deposit-request"><i class="fa fa-money-bill-alt"></i>Manage
+                            Deposit Requests</a>
+                    </li>
+                    <li class="aside-menubar-listAll" routerLinkActive="active">
+                        <a routerLink="/dashboard/deposit-request"><i class="fa fa-money-bill-alt"></i>Deposit
+                            Requests</a>
+                    </li>
+                    <li class="aside-menubar-listAll" routerLinkActive="active">
+                        <a routerLink="/dashboard/online-recharge"><i class="fa fa-money-bill-alt"></i>Online
+                            Recharge</a>
+                    </li>
+                    <li class="aside-menubar-listAll" routerLinkActive="active">
+                        <a routerLink="/dashboard/download-report"><i class="fa-regular fa-file-lines"></i>Download
+                            Report</a>
+                    </li>
+
+                    <!--<div class="custom_btn-sideBar">
+                                <a title="Customize" class="btn_custom">
+                                    <span><i class="fa fa-edit"></i></span>
+                                </a>
+                                <a title="Reset" class="btn_reset">
+                                    <span> <i class="fa fa-refresh"></i></span>
+                                </a>
+                            </div>-->
+                </ul>
+                <ul class="nav navbar-nav sidebar__mainlist mt-1"
+                    *ngIf="PageUrl==URLSTATIC || PageUrl=='/dashboard/user-detail/UserDetail'
+                        || PageUrl=='/dashboard/user-detail/PanDetails' || PageUrl=='/dashboard/user-detail/GstDetail' || PageUrl=='/dashboard/user-detail/Address'">
+                    <li class="aside-menubar-listAll">
+                        <div class="p-3 bg-light text-center user-detail-sidebar">
+                            <h6>{{LoginAgentinfo['CompanyName']}} <span
+                                    class="fs-12 fw-bold">({{LoginAgentinfo['CompanyId']}})</span></h6>
+                            <p class="m-0 fs-10">{{LoginAgentinfo['EmailId']}}</p>
+                            <p class="m-0 fs-10">{{LoginAgentinfo['MobileNo']}}</p>
+                            <p *ngIf="LoginAgentinfo['Balance']" class="m-0 fs-10">Balance:
+                                {{LoginAgentinfo['Balance']}}</p>
+                            <p *ngIf="!LoginAgentinfo['Balance']" class="m-0 fs-10">Balance: 0</p>
+                        </div>
+                    </li>
+                    <li class="aside-menubar-listAll" routerLinkActive="active"
+                        [ngClass]="{'active':PageUrl==URLSTATIC}">
+                        <a routerLink="/dashboard/user-detail/UserDetail"><i class="fa fa-calendar"></i>User
+                            Details</a>
+                    </li>
+                    <li class="aside-menubar-listAll" routerLinkActive="active">
+                        <a routerLink="/dashboard/user-detail/PanDetails"><i class="fa fa-users"></i>Pan Details
+                        </a>
+                    </li>
+                    <li class="aside-menubar-listAll" routerLinkActive="active">
+                        <a routerLink="/dashboard/user-detail/GstDetail"><i class="fa fa-money-bill-alt"></i>GST
+                            Details</a>
+                    </li>
+                    <li class="aside-menubar-listAll" routerLinkActive="active">
+                        <a routerLink="/dashboard/user-detail/Address"><i class="fa fa-money-bill-alt"></i>Addess
+                            Details</a>
+                    </li>
+
+                    <!--<div class="custom_btn-sideBar">
+                                <a title="Customize" class="btn_custom">
+                                    <span><i class="fa fa-edit"></i></span>
+                                </a>
+                                <a title="Reset" class="btn_reset">
+                                    <span> <i class="fa fa-refresh"></i></span>
+                                </a>
+                            </div>-->
+                </ul>
+            </div>
+        </div>
+        <!-- <router-outlet></router-outlet> -->
+    </div>
+</div>

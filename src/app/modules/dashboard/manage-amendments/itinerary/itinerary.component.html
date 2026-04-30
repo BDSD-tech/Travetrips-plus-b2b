@@ -1,0 +1,96 @@
+<div class="dashboard-wrapper-container">
+    <ol class="breadcrumb-arrow">
+        <li>
+            <a href="/dashboard/manage-carts"><i class="fa fa-home"></i></a>
+        </li>
+        <li><span>Amendment</span></li>
+        <li><span>itinerary</span></li>
+    </ol>
+    <section class="amendment_container">
+        <div class="amendment_col-2">
+            <div class="amend_details">
+                <div class="amend_details-content">
+                    <p class="amend_details-p"><span class="title_color">Type : </span> <span> {{params['amendment-type']|uppercase}}</span></p>
+                    <p class="amend_details-p"><span class="title_color">Booking ID : </span> <a class="tts-atag" routerLink="/dashboard/manage-carts/cart-detail/{{params['bookingid']}}"> {{params['bookingid']}}</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center" *ngIf="loading">
+            <div class="spinner-border tts-admin-loader" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        
+        <div *ngIf="loading==false">
+            <div class="main-j" *ngFor="let trip of BookingDetail['segments']; let tripkey=index;">
+                <div class="segment_details">
+                    <div class="segment_header-top">
+                        <span class="">{{trip[0]['Origin']['CityName']}}</span><span class="arrow_right-sm"></span><span> {{trip[trip.length-1]['Destination']['CityName']}}</span>
+                        <span class="margin-left">on {{trip[0]['Origin']['DepartTime'] | date:'d MMM y'}}</span>
+                    </div>
+                    <div class="segment_details-content">
+                        <div class="segment_body mb-3" *ngFor="let segment of trip; let segkey=index;">
+                            <div class="segment_body-airlogo">
+                                <img src="{{AirlineLogoURL}}{{segment['Airline']['AirlineCode']}}.png" class="size-30 me-2">
+                                <p class="margin-zero mob_elipsis">{{segment['Airline']['AirlineName']}} <span class="airline-code">{{segment['Airline']['AirlineCode']}}-{{segment['Airline']['FlightNumber']}}</span></p>
+                            </div>
+                            <div class="segment_body-flight-info">
+                                <p class="margin-zero mob_elipsis">
+                                    {{segment['Origin']['CityName']}} <span class="air_sourcr-none"> {{segment['Origin']['CountryName']}} ( {{segment['Origin']['AirportName']}}) - {{segment['Origin']['AirportCode']}} </span>
+                                </p>
+                                <p class="margin-zero mob_elipsis">{{segment['Origin']['DepartTime'] | date:'HH:mm'}}, {{segment['Origin']['DepartTime'] | date:'EEE d MMM'}}</p>
+                            </div>
+                            <div class="segment_body-flight-stop">
+                                
+
+                                <span class="via-city-codes" *ngIf="segment['TechStopPoint'].length==0" >Non-Stop</span>
+                                <span class="via-city-codes" *ngIf="segment['TechStopPoint'] && segment['TechStopPoint']['Code']">1 Stop(s)</span>
+                              
+                                <div class="arrow_right-sm"></div>
+
+                                <span *ngIf="segment['TechStopPoint'] && segment['TechStopPoint']['Code']" class="d-block">Via:{{segment['TechStopPoint']['Code']}}</span>
+                            </div>
+                            <div class="segment_body-flight-info">
+                                <p class="margin-zero mob_elipsis">
+                                    {{segment['Destination']['CityName']}}
+                                    <span class="air_sourcr-none"> {{segment['Destination']['CountryName']}} ( {{segment['Destination']['AirportName']}}) - {{segment['Destination']['AirportCode']}} </span>
+                                </p>
+                                <p class="margin-zero mob_elipsis">{{segment['Destination']['ArrivalTime'] | date:'HH:mm'}}, {{segment['Destination']['ArrivalTime'] | date:'EEE d MMM'}}</p>
+                            </div>
+                        </div>
+                        <div class="passenger_list">
+                            <div class="row">
+                                <div class="col-md-4 col-xs-6" *ngFor="let pax of BookingDetail['travelersInfo']">
+                                    <div class="passenger_list-details">
+                                        <div class="passenger_list-details-fix-box">
+                                            <p class="pax-name no_margin">{{pax['title']}}.{{pax['first_name']}} {{pax['last_name']}} ({{pax['pax_type']|uppercase}})</p>
+                                        </div>
+                                        <p *ngIf="pax['booking_status']!='Cancelled' && pax['booking_status']!='Requested'">
+                                            <input type="checkbox" class="al-checkfield" (click)="SelectPax($event,pax['id'])" />
+                                        </p>
+                                        <div class="passenger_list-details-erormsg" *ngIf="pax['booking_status']=='Cancelled'">
+                                            <div class="tool_tip">
+                                                <p class="margin_zero elipsis">Cancelled</p>
+                                            </div>
+                                        </div>
+                                        <div class="passenger_list-details-erormsg" *ngIf="pax['booking_status']=='Requested'">
+                                            <div class="tool_tip">
+                                                <p class="margin_zero elipsis">Requested</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row"></div>
+            <div class="ammendment_submit">
+                <div class="remark_content"><textarea type="text" placeholder="Remarks" [(ngModel)]="Remark" #ctrl="ngModel" class="remarks_text" rows="5"></textarea></div>
+                <button class="btn ammend_submit_btn" (click)="SubmitRequest()"  [disabled]="submitloading"> <span *ngIf="submitloading" class="spinner-border spinner-border-sm mr-1"></span>  Submit</button>
+            </div>
+        </div>
+    </section>
+</div>

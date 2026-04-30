@@ -1,0 +1,569 @@
+<!----------search--form---width----banner------------>
+<section class="flight_section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="flight_box">
+          <h1 class="flight_box_title"><span>Book flights and explore the world with us.</span></h1>
+
+          <form [formGroup]="SearchForm" (ngSubmit)="SearchData()" id="flight-form">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item" role="presentation" (click)="gettype('O')">
+                <button class="nav-link" [ngClass]="{'active':f['Type'].value=='O'}" id="flight-tab"
+                  data-bs-toggle="tab" data-bs-target="#flight-tab-pane" type="button" role="tab"
+                  aria-controls="home-tab-pane" aria-selected="true">One Way</button>
+              </li>
+              <li class="nav-item" role="presentation" (click)="gettype('R')">
+                <button class="nav-link" [ngClass]="{'active':f['Type'].value=='R'}" id="flight-tab"
+                  data-bs-toggle="tab" data-bs-target="#flight-tab-pane" type="button" role="tab"
+                  aria-controls="profile-tab-pane" aria-selected="false">Round Way</button>
+              </li>
+              <li class="nav-item" role="presentation" (click)="gettype('M')">
+                <button class="nav-link" [ngClass]="{'active':f['Type'].value=='M'}" id="flight-multi-tab"
+                  data-bs-toggle="tab" data-bs-target="#flight-multi-tab-pane" type="button" role="tab"
+                  aria-controls="flight-multi-tab-pane" aria-selected="false">Multi City</button>
+              </li>
+            </ul>
+
+            <div class="tab-content">
+              <div class="tab-pane fade show active" id="flight-tab-pane" role="tabpanel" aria-labelledby="flight-tab"
+                tabindex="0">
+                <div class="flight-tab d-lg-flex">
+                  <div class="d-flex  form-info">
+                    <div class="persent-one">
+                      <span>
+                        <img src="assets/img/flight-from.svg" alt="flight-from.svg" class="img-fluid">
+                      </span>
+                      <input type="text" formControlName="Origin" class="textboxstyle autosuggeest"
+                        placeholder="Where From ?" (click)="openautocomplete($event,'input')">
+                      <i class="fa fa-angle-down search-form-inp-down" *ngIf="f['Origin'].value==''"></i>
+                      <i class="fa fa-times search-form-inp-down" (click)="Cleardata('Origin')"
+                        *ngIf="f['Origin'].value!=''"></i>
+                      <div class="at-exchange" (click)="swapecity()"></div>
+                      <div *ngIf="submitted && f['Origin'].errors" class="error-msg">
+                        <div *ngIf="f['Origin'].errors['required']">Please enter a valid Source
+                        </div>
+                      </div>
+                    </div>
+                    <div class="persent-one">
+                      <span>
+                        <img src="assets/img/flight-to.svg" alt="flight-to.svg" class="img-fluid">
+                      </span>
+                      <input type="text" formControlName="Destination" class="textboxstyle autosuggeest"
+                        placeholder="Where To ?" (click)="openautocomplete($event,'input')">
+                      <i class="fa fa-angle-down search-form-inp-down" *ngIf="f['Destination'].value==''"></i>
+                      <i class="fa fa-times search-form-inp-down" (click)="Cleardata('Destination')"
+                        *ngIf="f['Destination'].value!=''"></i>
+                      <div *ngIf="submitted && f['Destination'].errors" class="error-msg">
+                        <div *ngIf="f['Destination'].errors['required']">Please enter a valid Destination
+                        </div>
+                        <div *ngIf="f['Destination'].errors['notmatching']">Source and Destination cannot be same</div>
+                      </div>
+                    </div>
+                    <div class="persent-one less-per">
+                      <span>
+                        <img src="assets/img/calendar.svg" alt="calendar.svg" class="img-fluid">
+                      </span>
+                      <input type="text" formControlName="DepartDate" class="textboxstyle" data-depart-date readonly>
+                      <div *ngIf="submitted && f['DepartDate'].errors" class="error-msg">
+                        <div *ngIf="f['DepartDate'].errors['required']">Please enter a valid departure date</div>
+                      </div>
+                    </div>
+                    <div class="persent-one less-per at-returnin">
+                      <span>
+                        <img src="assets/img/calendar.svg" alt="calendar.svg" class="img-fluid">
+                      </span>
+                      <input type="text" formControlName="ReturnDate" class="textboxstyle border-start textboxstyle-bg"
+                        data-return-date [ngClass]="{'at-disable':f['Type'].value!='R'}" readonly>
+                      <i class="fa fa-times search-form-inp-close" (click)="gettype('O')"></i>
+                      <div *ngIf="submitted && f['ReturnDate'].errors" class="error-msg">
+                        <div *ngIf="f['ReturnDate'].errors['required']">Please enter a valid return date</div>
+                      </div>
+                    </div>
+                    <div class="persent-one">
+                      <span>
+                        <img src="assets/img/seat.svg" alt="seat.svg" class="img-fluid">
+                      </span>
+                      <div class="textboxstyle search-form-class-padding" id="passenger" (click)="PaxDisplay()">
+                        Passanger and Class
+                        <p class="Pass"> {{travellertxt}}</p>
+                      </div>
+
+                      <div class="at-passection" [ngClass]="{'d-none': isShow===false}">
+                        <div class="row">
+                          <div class="col-md-8">
+                            <div class="persent-one_frm">
+                              <h2>Select Passanger</h2>
+                              <div class="persent-one_frm_close" (click)="PaxDisplay()"></div>
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <h4 class="persent-one_passenger">Adult <small>Age 12+</small> </h4>
+                                  <ul class="at-passhalf" id="myDIV">
+                                    <li class="at-passhalf_list tts-cursor-pointer"
+                                      *ngFor="let adt of arrayOne(9); let a=index"
+                                      [ngClass]="{'active': adultcount==a+1}" (click)="SelectPax(a+1,'ADT')">
+                                      <a href="javascript:void(0);">{{a+1}}</a>
+                                    </li>
+                                  </ul>
+                                </div>
+                                @if(f['ResultFareType'].value=='RegularFare'){
+                                <div class="col-md-12">
+                                  <h4 class="persent-one_passenger">Children <small>Age 2-12</small> </h4>
+                                  <ul class="at-passhalf">
+                                    <li class="at-passhalf_list tts-cursor-pointer"
+                                      *ngFor="let adt of arrayOne(9); let c=index" [ngClass]="{'active': childcount==c}"
+                                      (click)="SelectPax(c,'CHD')">
+                                      <a href="javascript:void(0);">{{c}}</a>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <div class="col-md-12">
+                                  <h4 class="persent-one_passenger">Infant <small>Age 0-2</small> </h4>
+                                  <ul class="at-passhalf">
+                                    <li class="at-passhalf_list tts-cursor-pointer"
+                                      *ngFor="let adt of arrayOne(9); let i=index"
+                                      [ngClass]="{'active': infantcount==i}" (click)="SelectPax(i,'INF')">
+                                      <a href="javascript:void(0);">{{i}}</a>
+                                    </li>
+                                  </ul>
+                                </div>
+                                }
+                                <div class="col-md-12">
+                                  <span class="paxcount_message mt-3"></span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="persent-one_frm persent-one_frm1">
+                              <h2>Select Class</h2>
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <div class="form-check form-check-reverse form-check-reverse1"
+                                    (change)="TravellerCount()">
+                                    <input class="form-check-input" type="radio" formControlName="Class" value="Economy"
+                                      id="Economy" checked>
+                                    <label class="form-check-label persent-label tts-cursor-pointer" for="Economy">
+                                      Economy
+                                    </label>
+                                  </div>
+                                  <div class="form-check form-check-reverse form-check-reverse1"
+                                    (change)="TravellerCount()">
+                                    <input class="form-check-input" type="radio" formControlName="Class"
+                                      value="Premium Economy" id="Premium">
+                                    <label class="form-check-label persent-label tts-cursor-pointer" for="Premium">
+                                      Premium Economy
+                                    </label>
+                                  </div>
+                                  <div class="form-check form-check-reverse form-check-reverse1"
+                                    (change)="TravellerCount()">
+                                    <input class="form-check-input" type="radio" formControlName="Class"
+                                      value="Business" id="Business">
+                                    <label class="form-check-label persent-label tts-cursor-pointer" for="Business">
+                                      Business
+                                    </label>
+                                  </div>
+                                  <div class="form-check form-check-reverse form-check-reverse1"
+                                    (change)="TravellerCount()">
+                                    <input class="form-check-input" type="radio" formControlName="Class" value="First"
+                                      id="First">
+                                    <label class="form-check-label persent-label tts-cursor-pointer" for="First">
+                                      First
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12 mt-3 text-end">
+                                <a href="javascript:void(0);" class="persent-one_frm_done"
+                                  (click)="PaxDisplay()">DONE</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="less-btn">
+                    <button type="submit" class="btn cst-btn" [disabled]="Flightloading || paxcountstop"> <span
+                        *ngIf="Flightloading" class="spinner-border spinner-border-sm mr-1"></span> Search</button>
+                  </div>
+                </div>
+                <div class="makeflex mt-2">
+                  <span>Popular Filters:</span>
+                  <div class="search_filters">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" formControlName="Nonstop" id="direct_flight">
+                      <label class="form-check-label" for="direct_flight">Non-Stop</label>
+                    </div>
+                    <span class="blackBorder"></span>
+                    <div class="form-check form-check-inline" *ngFor="let item of preferredairlinelist;">
+                      <input class="form-check-input" type="checkbox" id="inlineCheckbox{{item.code}}"
+                        value="{{item.code}}" (change)="GetPreferredAirline($event)">
+                      <label class="form-check-label" for="inlineCheckbox{{item.code}}">{{item.name}}</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="makeflex mt-2">
+                  <span>Advance Search:</span>
+                  <div class="d-flex flex-wrap bg-white px-2">
+                    <div class="form-check me-2 custom-radio" *ngFor="let list of GetWebSiteData['FlightResulFareType'] |keyvalue:compareKeepOrder">
+                      <input class="form-check-input" type="radio" value="{{list.key}}" formControlName="ResultFareType"
+                        id="{{list.key}}">
+                      <label class="form-check-label text-dark" for="{{list.key}}">
+                        {{list.value}}
+                      </label>
+                    </div>
+                    <!-- <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox"  formControlName="SeriesFare" id="series_fare_flight">
+                                    <label class="form-check-label" for="series_fare_flight">Series Fare</label>
+                                  </div> -->
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="tab-pane fade" id="flight-multi-tab-pane" role="tabpanel" aria-labelledby="flight-multi-tab"
+                tabindex="0">
+                <div formArrayName="MultiCity" *ngFor="let MForm of multicity.controls; let i = index">
+                  <div class="flight-tab d-lg-flex" formGroupName={{i}}>
+                    <div class="d-flex form-info">
+                      <div class="persent-one">
+                        <span>
+                          <img src="assets/img/flight-from.svg" alt="flight-from.svg" class="img-fluid">
+                        </span>
+                        <input type="text" class="textboxstyle autosuggeest" placeholder="Where From ?"
+                          (click)="openautocomplete($event,'input')" attr.key="{{i}}" tp="Origin"
+                          id="multi-f-origin-{{i}}">
+                        <i class="fa fa-angle-down search-form-inp-down" *ngIf="MForm.value['Origin']==''"></i>
+                        <i class="fa fa-times search-form-inp-down" (click)="Cleardata('Origin',i)"
+                          *ngIf="MForm.value['Origin']!=''"></i>
+                        <div class="at-exchange"></div>
+                        <div *ngIf="submitted && SearchForm.get('MultiCity.'+i+'.Origin')?.errors" class="error-msg">
+                          <div *ngIf="SearchForm.get('MultiCity.'+i+'.Origin')?.errors?.['required']">Please enter a
+                            valid
+                            Source</div>
+                        </div>
+
+                      </div>
+
+                      <div class="persent-one">
+                        <span>
+                          <img src="assets/img/flight-to.svg" alt="flight-to.svg" class="img-fluid">
+                        </span>
+                        <input type="text" class="textboxstyle autosuggeest" placeholder="Where To ?"
+                          (click)="openautocomplete($event,'input')" attr.key="{{i}}" tp="Destination"
+                          id="multi-f-destination-{{i}}">
+                        <i class="fa fa-angle-down search-form-inp-down" *ngIf="MForm.value['Destination']==''"></i>
+                        <i class="fa fa-times search-form-inp-down" (click)="Cleardata('Destination',i)"
+                          *ngIf="MForm.value['Destination']!=''"></i>
+
+                        <div *ngIf="submitted && SearchForm.get('MultiCity.'+i+'.Destination')?.errors"
+                          class="error-msg">
+                          <div *ngIf="SearchForm.get('MultiCity.'+i+'.Destination')?.errors?.['required']">Please enter
+                            a
+                            valid Destination</div>
+                          <div *ngIf="SearchForm.get('MultiCity.'+i+'.Destination')?.errors?.['notmatching']">Source and
+                            Destination cannot be same</div>
+                        </div>
+                      </div>
+
+                      <div class="persent-one less-per">
+                        <span>
+                          <img src="assets/img/calendar.svg" alt="calendar.svg" class="img-fluid">
+                        </span>
+                        <input type="text" class="textboxstyle" data-depart-date attr.key="{{i}}" tp="DepartDate"
+                          placeholder="Depart Date" id="multi-f-depart-{{i}}" readonly>
+                        <div *ngIf="submitted && SearchForm.get('MultiCity.'+i+'.DepartDate')?.errors"
+                          class="error-msg">
+                          <div *ngIf="SearchForm.get('MultiCity.'+i+'.DepartDate')?.errors?.['required']">Please enter a
+                            valid departure date</div>
+                        </div>
+
+                      </div>
+
+                      <div class="persent-one" *ngIf="i==0">
+                        <span>
+                          <img src="assets/img/seat.svg" alt="seat.svg" class="img-fluid">
+                        </span>
+                        <div class="textboxstyle search-form-class-padding" id="passenger" (click)="PaxDisplay()">
+                          Passanger and Class
+                          <p class="Pass"> {{travellertxt}}</p>
+                        </div>
+
+                        <div class="at-passection" [ngClass]="{'d-none': isShow===false}">
+                          <div class="row">
+                            <div class="col-md-8">
+                              <div class="persent-one_frm">
+                                <h2>Select Passanger</h2>
+                                <div class="persent-one_frm_close" (click)="PaxDisplay()"></div>
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <h4 class="persent-one_passenger">Adult <small>Age 12+</small> </h4>
+                                    <ul class="at-passhalf" id="myDIV">
+                                      <li class="at-passhalf_list tts-cursor-pointer"
+                                        *ngFor="let adt of arrayOne(9); let a=index"
+                                        [ngClass]="{'active': adultcount==a+1}" (click)="SelectPax(a+1,'ADT')">
+                                        <a href="javascript:void(0);">{{a+1}}</a>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  @if(f['ResultFareType'].value=='RegularFare'){
+                                  <div class="col-md-12">
+                                    <h4 class="persent-one_passenger">Children <small>Age 2-12</small> </h4>
+                                    <ul class="at-passhalf">
+                                      <li class="at-passhalf_list tts-cursor-pointer"
+                                        *ngFor="let adt of arrayOne(9); let c=index"
+                                        [ngClass]="{'active': childcount==c}" (click)="SelectPax(c,'CHD')">
+                                        <a href="javascript:void(0);">{{c}}</a>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <h4 class="persent-one_passenger">Infant <small>Age 0-2</small> </h4>
+                                    <ul class="at-passhalf">
+                                      <li class="at-passhalf_list tts-cursor-pointer"
+                                        *ngFor="let adt of arrayOne(9); let i=index"
+                                        [ngClass]="{'active': infantcount==i}" (click)="SelectPax(i,'INF')">
+                                        <a href="javascript:void(0);">{{i}}</a>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  }
+                                  <div class="col-md-12">
+                                    <span class="paxcount_message mt-3"></span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="persent-one_frm persent-one_frm1">
+                                <h2>Select Class</h2>
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <div class="form-check form-check-reverse form-check-reverse1"
+                                      (change)="TravellerCount()">
+                                      <input class="form-check-input tts-cursor-pointer" type="radio" name="class"
+                                        value="Economy" id="MEconomy" checked>
+                                      <label class="form-check-label persent-label tts-cursor-pointer"
+                                        (click)="MClass('Economy')" for="MEconomy">
+                                        <b>Economy</b>
+                                      </label>
+                                    </div>
+                                    <div class="form-check form-check-reverse form-check-reverse1"
+                                      (change)="TravellerCount()">
+                                      <input class="form-check-input tts-cursor-pointer" type="radio" name="class"
+                                        value="Premium Economy" id="MPremium">
+                                      <label class="form-check-label persent-label tts-cursor-pointer"
+                                        (click)="MClass('Premium Economy')" for="MPremium">
+                                        <b>Premium Economy</b>
+                                      </label>
+                                    </div>
+                                    <div class="form-check form-check-reverse form-check-reverse1"
+                                      (change)="TravellerCount()">
+                                      <input class="form-check-input tts-cursor-pointer" type="radio" name="class"
+                                        value="Business" id="MBusiness">
+                                      <label class="form-check-label persent-label tts-cursor-pointer"
+                                        (click)="MClass('Business')" for="MBusiness">
+                                        <b>Business</b>
+                                      </label>
+                                    </div>
+                                    <div class="form-check form-check-reverse form-check-reverse1"
+                                      (change)="TravellerCount()">
+                                      <input class="form-check-input tts-cursor-pointer" type="radio" name="class"
+                                        value="First" id="MFirst">
+                                      <label class="form-check-label persent-label tts-cursor-pointer"
+                                        (click)="MClass('First')" for="MFirst">
+                                        <b>First</b>
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12 mt-3 text-end">
+                                  <a href="javascript:void(0);" class="persent-one_frm_done"
+                                    (click)="PaxDisplay()">DONE</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="less-btn" *ngIf="i==0">
+                      <button type="submit" class="btn cst-btn" [disabled]="Flightloading || paxcountstop"> <span
+                          *ngIf="Flightloading" class="spinner-border spinner-border-sm mr-1"></span> Search</button>
+                    </div>
+
+                    <a href="javascript:void(0);" class="tts-multyclose" *ngIf="i!=0 && i!=1"
+                      (click)="RemoveCity(i)">×</a>
+                    <input type="button" value="Add One More" *ngIf="i==1" class="btn tts-addmulti-btn"
+                      (click)="AddCity()">
+                  </div>
+                </div>
+
+                <div class="makeflex">
+                  <span>Popular Filters:</span>
+                  <div class="search_filters">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" formControlName="Nonstop"
+                        id="direct_flight_multicity">
+                      <label class="form-check-label" for="direct_flight_multicity">Non-Stop</label>
+                    </div>
+                    <span class="blackBorder"></span>
+                    <div class="form-check form-check-inline" *ngFor="let item of preferredairlinelist;">
+                      <input class="form-check-input" type="checkbox" id="minlineCheckbox{{item.code}}"
+                        value="{{item.code}}" (change)="GetPreferredAirline($event)">
+                      <label class="form-check-label" for="minlineCheckbox{{item.code}}">{{item.name}}</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="makeflex mt-2">
+                  <span>Advance Search:</span>
+                  <div class="d-flex flex-wrap bg-white px-2">
+                    <div class="form-check me-2 custom-radio" *ngFor="let list of GetWebSiteData['FlightResulFareType'] |keyvalue:compareKeepOrder">
+                      <input class="form-check-input" type="radio" value="{{list.key}}" formControlName="ResultFareType"
+                        id="{{list.key}}">
+                      <label class="form-check-label text-dark" for="{{list.key}}">
+                        {{list.value}}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!----------search--form---width----banner------end------>
+<!-------------view-----search--------->
+<section class="view-section" *ngIf="getRecentSearch.length!=0">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+          <div class="accordion-item">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+              View your last search
+            </button>
+            <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne"
+              data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body ">
+                <div class="row gy-3">
+                  <div class="col-md-2" *ngFor="let item of getRecentSearch" (click)="recentsearch(item)">
+                    <div class="at-viewlastbg">
+                      <div *ngIf="item['Type']=='M'">
+                        <div class="at-vielasin">
+                          <h4 class="at-mnlbt">{{item['MultiCity'][0]['OriginCode']}}</h4>
+                        </div>
+                        <div class="at-vielasin "><i class="fa fa-plane at-vieicon"></i></div>
+                        <div class="at-vielasin">
+                          <h4 class="at-mnlbt">{{item['MultiCity'][0]['DestinationCode']}}</h4>
+                        </div>
+                        <p class="mb-0 d-flex align-items-center justify-content-between">
+                          <span class="">{{item['MultiCity'][0]['DepartDate']}} </span>
+                          <span class="fs9" *ngIf="item['Type']=='M'">Multi City</span>
+                        </p>
+                      </div>
+                      <div *ngIf="item['Type']!='M'">
+                        <div class="at-vielasin">
+                          <h4 class="at-mnlbt">{{item['OriginCode']}}</h4>
+                        </div>
+                        <div class="at-vielasin "><i class="fa fa-plane at-vieicon"></i></div>
+                        <div class="at-vielasin">
+                          <h4 class="at-mnlbt">{{item['DestinationCode']}}</h4>
+                        </div>
+                        <p class="mb-0 d-flex align-items-center justify-content-between"><span class="">{{item['DepartDate']}} </span>
+                          <span *ngIf="item['Type']=='O'">One Way</span>
+                          <span *ngIf="item['Type']=='R'">Round Trip</span>
+                        </p>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-------------view-----search-----end---->
+
+<!----------Deal---and---offer---start------->
+<section class="deal-offer-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Deals and Offers
+            <img src="assets/img/down.svg" alt="down.svg" class="img-fluid">
+          </h3>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="text-center" *ngIf="offerloading===true">
+          <div class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+        <div class="row" *ngIf="offerloading===false">
+          <div class="col-md-4" *ngFor="let item of Offer">
+            <div class="card bg-dark text-white card-hover-overlay">
+              <div class="photo">
+                <img [src]="item['Image']" class="card-img-top" alt="{{item['Title']}}">
+              </div>
+              <div class="card-img-overlay d-flex flex-column justify-content-end">
+                <h5 class="card-title">
+                  {{item['Title']}}
+                </h5>
+                <p class="card-text">
+                  {{item['Description']}}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="at-notification">
+          <h3 class="at-notify">Important Links and Notifications</h3>
+          <div class="text-center" *ngIf="offerloading===true">
+            <div class="lds-ellipsis">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+          <div *ngIf="offerloading===false">
+            <div class="at-nodetails" *ngFor="let item of Notifications; let i=index">
+              <div class="art-newnoti badge" *ngIf="i==0">New</div>
+              <h5 class="heading-notify">{{item['Title']}} <span class="float-end"><i
+                    class="fa fa-angle-right"></i></span></h5>
+              <p class="art-notipara--link">{{item['Description']}} </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!----------Deal---and---offer----end-------->

@@ -1,0 +1,531 @@
+import { keyframes } from '@angular/animations';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { __values } from 'tslib';
+declare  var  $:any;
+@Component({
+  selector: 'app-filter',
+  templateUrl: './filter.component.html',
+  styleUrls: ['./filter.component.css']
+})
+export class FilterComponent implements OnInit {
+  @Input('result') Response : any =[];
+  @Input('filter') Filter : any =[];
+  @Input('clearfilter') clearfilter : any =[];
+  @Output() messageEvent =  new EventEmitter();
+  @Output() fareEvent = new EventEmitter();
+  GetSearchData: any=[];
+
+  filterresponse:any=[];
+
+  shownetfare=false;
+  showincentivefare=false;
+  LocationType:any=[];
+
+  HotelNameList:any=[];
+  HotelFacilitiesList:any=[];
+  HotelAddressList:any=[];
+
+  InputHotelNametxt:any='';
+  HotelFacilityText:any='';
+  HotelAddressText:any='';
+
+  SelectedHotelName='';
+  SelectedHotelFacility='';
+  SelectedHotelAddress='';
+  
+  
+  constructor(private router:Router ) {
+    if (sessionStorage.getItem('HotelSearch')) {
+      let HotelSearch:any=sessionStorage.getItem('HotelSearch');
+      this.GetSearchData = JSON.parse(HotelSearch);
+    } else {
+      this.router.navigate(['/hotel']);
+    }
+   }
+
+  ngOnInit(): void {
+    this.LocationType  =  this.Filter['LocationType'];
+    this.pricefilter();
+  }
+
+  ngOnChanges() {
+    if(this.clearfilter)
+    {
+      this.clearFilterByCat('all'); 
+    }
+  }
+  
+  showfares(type:any,val:any) {
+    let obj={
+                'type':type,
+                'val':val
+            }
+    this.fareEvent.emit(obj);
+  }
+  togglebutton(event:any)
+  {
+    if(event.target.classList.contains("collapsed"))
+    {
+      event.target.classList.remove('fa-minus');
+      event.target.classList.add('fa-plus');
+    } else {
+      event.target.classList.add('fa-minus');
+      event.target.classList.remove('fa-plus');
+    }
+  }
+  clearFilterByCat(type:any)
+  {
+   
+    if(type=='all')
+    {
+      this.resetfilter(this.Filter['StarRatingType']);
+      this.resetfilter(this.Filter['LocationType']);
+      this.pricefilter();
+    }
+
+    if(type=='Price')
+    {
+      this.pricefilter();
+    }
+    if(type=='HotelName')
+    {
+      this.InputHotelNametxt='';
+      this.SelectedHotelName='';
+      this.HotelNameList=[];
+    }
+    if(type=='HotelFacilitiesList')
+    {
+      this.HotelFacilityText='';
+      this.SelectedHotelFacility='';
+      this.HotelFacilitiesList=[];
+    }
+    if(type=='HotelAddressList')
+    {
+      this.HotelAddressText='';
+      this.SelectedHotelAddress='';
+      this.HotelAddressList=[];
+    }
+    if(type=='StarRating')
+    {
+      this.resetfilter(this.Filter['StarRatingType']);
+    }
+    if(type=='HotelMealType')
+    {
+      this.resetfilter(this.Filter['HotelMealType']);
+    }
+    if(type=='FareType')
+    {
+      this.resetfilter(this.Filter['FareType']);
+    }
+    if(type=='Location')
+    {
+      this.resetfilter(this.Filter['LocationType']);
+    }
+    this.doFilter('re-call', '', '');
+  }
+
+  doFilter(type:any,event:any,item:any){
+      if(type=='StarRating')
+      {
+        if(event.target.checked){
+          item['isChecked']=true;
+        }
+        else{
+          item['isChecked']=false;
+        }
+          
+      }
+      if(type=='HotelLocation')
+      {
+        if(event.target.checked){
+          item['isChecked']=true;
+        }
+        else{
+          item['isChecked']=false;
+        }
+      }
+      let hotelname='';
+      if(type=='HotelName')
+      {
+        hotelname=item;
+      }
+      let hotelfacility=''
+      if(type=='HotelFacilitiesList')
+      {
+        hotelfacility=item;
+      }
+      
+    let min = $.trim($(".left-price").val());
+    let max = $.trim($(".right-price").val());
+    min=min.replace(/,/g, '')
+    max=max.replace(/,/g, '')
+    
+
+    let FilterData:any=[];
+    FilterData=this.Filter;
+    setTimeout(() => {
+
+      let filtered:any;
+      let filters:any = [];
+      let filteredResult:any = [];
+
+      let StarRatingType = this.checkedfilter(FilterData['StarRatingType'],'label');
+      let HotelMealType = this.checkedfilter(FilterData['HotelMealType'],'label');
+      let LocationType = this.checkedfilter(FilterData['LocationType'],'label');
+      let FareType = this.checkedfilter(FilterData['FareType'],'label');
+     
+
+      if(FareType.length !== 0) 
+      {
+          filters['FareType'] = FareType;
+      }
+      if(HotelMealType.length !== 0) 
+      {
+          filters['MealType'] = HotelMealType;
+      }
+      if(StarRatingType.length !== 0) 
+      {
+          filters['StarRating'] = StarRatingType;
+      }
+      if(LocationType.length !== 0) 
+      {
+          filters['HotelLocation'] = LocationType;
+      }
+      if(this.SelectedHotelName!='')
+      {
+        filters['HotelName'] = this.SelectedHotelName;
+      }
+      if(this.SelectedHotelFacility!='')
+      {
+        filters['HotelFacilities'] = this.SelectedHotelFacility;
+      }
+      if(this.HotelAddressText!='')
+      {
+        filters['HotelAddress'] = this.SelectedHotelAddress;
+      }
+      
+      if (type == 'clear') {
+        filters = [];
+      }
+
+      let data:any=[];
+      data=this.Response;
+  
+      filtered=multiFilter(data, filters);
+
+      if(filtered) {
+        filtered.forEach(function(item:any,key:any) {
+          if(item['Price']['PublishedPrice'] >= min && item['Price']['PublishedPrice'] <= max) {
+            filteredResult.push(item);
+           }
+        });
+      }    
+      if (filteredResult.length == 0) {
+        $('.nohotels').show();
+      } else {
+        $('.nohotels').hide();
+      }
+
+      this.emitdata(filteredResult);
+    }, 10);
+
+  }
+  checkedfilter(array:any,field:any)
+  {
+    let response:any = [];
+    array.forEach(function(value:any, key:any) {
+        if (value.isChecked) {
+            response.push(value[field]);
+        }
+    });
+    return response;
+  }
+  pricefilter()
+  {
+      var _this = this;
+      var step:any=0.01;
+      $(".price-range" ).slider({
+        range: true,
+        min:_this.Filter['Price']['min'],
+        max:_this.Filter['Price']['max'],
+        step: parseFloat(step),
+        values: [_this.Filter['Price']['min'],_this.Filter['Price']['max']],
+    
+        slide: function( event:any, ui:any ) {
+          $(".left-price").val(ui.values[0].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+          $(".right-price").val(ui.values[1].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+        },
+        stop: function( event:any, ui:any ) {
+
+          var min = ui.values[0];
+          var max = ui.values[1];
+
+          let FilterData:any=[];
+          FilterData=_this.Filter;
+
+          let filtered:any;
+          let filters:any = [];
+          let filteredResult:any = [];
+
+          let StarRatingType = _this.checkedfilter(FilterData['StarRatingType'],'label');
+          let LocationType = _this.checkedfilter(FilterData['LocationType'],'label');
+      
+          if(StarRatingType.length !== 0) 
+          {
+              filters['StarRating'] = StarRatingType;
+          }
+          if(LocationType.length !== 0) 
+          {
+              filters['HotelLocation'] = LocationType;
+          }
+          if(_this.SelectedHotelName!='')
+          {
+            filters['HotelName'] = _this.SelectedHotelName;
+          }
+
+          let data:any=[];
+          data=_this.Response;
+          filtered=multiFilter(data, filters);
+          if(filtered) {
+            filtered.forEach(function(item:any,key:any) {
+              if(item.Price.PublishedPrice >= min && item.Price.PublishedPrice <= max) 
+              {  
+                filteredResult.push(item);
+              }  
+            });
+          }     
+          if (filteredResult.length == 0) {
+            $('.nohotels').show();
+          } else {
+            $('.nohotels').hide();
+          }
+        
+          _this.emitdata(filteredResult);
+       }
+
+      });
+
+      $( ".left-price" ).val($(".price-range" ).slider( "values", 0 ).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+      $( ".right-price" ).val($(".price-range" ).slider( "values", 1 ).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+
+  }
+ 
+
+  emitdata(filterresult:any)
+  {
+    this.filterresponse=filterresult;
+    let obj={'response':filterresult}
+    this.messageEvent.emit(obj);
+  }
+  search(event:any,searchType:any)
+  {
+    let  searchValue  =  event.target.value;
+    let data= this.Filter[searchType].filter((val:any) =>
+    val.label.toLowerCase().includes(searchValue));
+    if(searchType=='Location')
+    {
+      this.LocationType =  data;
+    }
+  }
+  search_hotel(event:any,searchType:any)
+  {
+    if(this.InputHotelNametxt)
+    {
+    const searchText = (this.InputHotelNametxt || '').toLowerCase().trim();
+    let data = this.Filter[searchType].filter((val: any) =>
+      val?.toString().toLowerCase().includes(searchText)
+    );
+      if(searchType=='HotelName')
+      {
+        this.HotelNameList =  data;
+      }
+    } else {
+      this.HotelNameList=[];
+    }
+
+    // hotel Facility Search
+
+    if(this.HotelFacilityText)
+    {
+      // let data= this.Filter[searchType].filter((val:any) =>
+      // val.toLowerCase().includes(this.HotelFacilityText));
+      
+      const searchText = (this.HotelFacilityText || '').toLowerCase().trim();
+        let data = this.Filter[searchType].filter((val: any) =>
+          val?.toString().toLowerCase().includes(searchText)
+        );
+      if(searchType=='HotelFacilitiesList')
+      {
+        this.HotelFacilitiesList =  data;
+      }
+    } else {
+      this.HotelFacilitiesList=[];
+    }
+    
+    // Hotel Adress List 
+    if(this.HotelAddressText)
+    {
+      // let data= this.Filter[searchType].filter((val:any) =>
+      // val.toLowerCase().includes(this.HotelAddressText));
+       const searchText = (this.HotelAddressText || '').toLowerCase().trim();
+        let data = this.Filter[searchType].filter((val: any) =>
+          val?.toString().toLowerCase().includes(searchText)
+        );
+      if(searchType=='HotelAddressList')
+      {
+        this.HotelAddressList =  data;
+      }
+    } else {
+      this.HotelAddressList=[];
+    }
+  }
+
+  select_hotelname(item:any,type:any)
+  {
+    if(type=='HotelName'){
+      this.InputHotelNametxt=item;
+      this.HotelNameList=[];
+      this.SelectedHotelName=item;
+      this.doFilter('HotelName',null,item)
+    }
+
+    if(type=='HotelFacilitiesList'){
+      this.HotelFacilityText=item;
+      this.HotelFacilitiesList=[];
+      this.SelectedHotelFacility=item;
+      this.doFilter('HotelFacilitiesList',null,item)
+    }
+    if(type=='HotelAddressList'){
+      this.HotelAddressText=item;
+      this.HotelAddressList=[];
+      this.SelectedHotelAddress=item;
+      this.doFilter('HotelAddressList',null,item)
+    }
+    
+  }
+
+  resetfilter(array:any)
+  {
+    let response:any = [];
+    array.forEach(function(value:any, key:any) {
+        value.isChecked = false;
+        response.push(value);
+    });
+    return response;
+  }
+
+}
+// function multiFilter(array:any, filters:any) {
+//   console.log(filters);
+  
+//   var filterKeys = Object.keys(filters);
+//    return array.filter((item:any) => {
+//    return filterKeys.every(key => !!~filters[key].indexOf(item[key]));		 
+//   });
+// }
+
+
+function multiFilter(array:any, filters:any) {
+  var filterKeys = Object.keys(filters);
+  let response:any=[];
+  array.filter((item:any) => {
+      if(filterKeys.includes("HotelFacilities")){
+        if(item['HotelFacilities'].every((value:any) => filters['HotelFacilities'].includes(value))){
+              response.push(item)
+            }
+        
+      }
+      if(filterKeys.includes("FareType")){
+        if(filters['FareType'].includes("Free Cancellation")){
+          if(item['IsRefundable'].every((value:any) => value ==true)){
+            response.push(item)
+          }
+        }
+        if(filters['FareType'].includes("Non-Refundable")){
+          if(item['IsRefundable'].every((value:any) => value ==false)){
+            response.push(item)
+          }
+        }
+        
+        
+      }
+      if(filterKeys.includes("MealType"))
+      {
+        
+            if(filters['MealType'].every((value:any) => item['MealType'].includes(value))){
+              response.push(item)
+            }
+      } else {
+          if(filterKeys.every(key => !!~filters[key].indexOf(item[key])))
+          {
+                  response.push(item);
+          }
+      }
+  });
+  return response;
+}
+// function multiFilter(array: any[], filters: any) {
+//   const filterKeys = Object.keys(filters);
+//   const response: any[] = [];
+
+//   array.forEach((item) => {
+//     let include = true;
+
+//     // HotelFacilities filter
+//     if (filterKeys.includes("HotelFacilities")) {
+//       if (
+//         !item.HotelFacilities ||
+//         !filters.HotelFacilities.every((facility: any) =>
+//           item.HotelFacilities.includes(facility)
+//         )
+//       ) {
+//         include = false;
+//       }
+//     }
+
+//     // FareType filter
+//     if (include && filterKeys.includes("FareType")) {
+//       if (filters.FareType.includes("Free Cancellation")) {
+//         if (item.IsRefundable !== true) include = false;
+//       }
+//       if (filters.FareType.includes("Non-Refundable")) {
+//         if (item.IsRefundable !== false) include = false;
+//       }
+//     }
+
+//     // MealType filter
+//     if (include && filterKeys.includes("MealType")) {
+//       if (
+//         !item.MealType ||
+//         !filters.MealType.every((meal: any) => item.MealType.includes(meal))
+//       ) {
+//         include = false;
+//       }
+//     }
+
+//     // Generic filters for other keys
+//     if (include) {
+//       for (const key of filterKeys) {
+//         if (
+//           !["HotelFacilities", "FareType", "MealType"].includes(key) &&
+//           filters[key] &&
+//           filters[key].length &&
+//           !filters[key].includes(item[key])
+//         ) {
+//           include = false;
+//           break;
+//         }
+//       }
+//     }
+
+//     // Add item only if it passes all filters
+//     if (include) {
+//       response.push(item);
+//     }
+//   });
+
+//   return response;
+// }
+
+

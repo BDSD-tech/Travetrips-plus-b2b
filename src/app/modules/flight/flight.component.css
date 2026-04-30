@@ -1,0 +1,107 @@
+.at-exchange {
+    cursor: pointer;
+}
+
+.paxcount_message {
+    color: #dc3545;
+    font-size: 12px;
+    position: unset !important;
+}
+
+.at-disable {
+    background: #e6edf0 !important;
+    border-radius: 0 !important;
+}
+
+.search-form-inp-close {
+    font-size: 20px;
+    position: absolute;
+    right: 18px;
+    top: 20px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.search-form-inp-down {
+    font-size: 20px;
+    position: absolute;
+    right: 30px;
+    top: 20px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.tts-multyclose {
+    background: var(--second-color);
+    color: var(--white);
+    font-size: 20px;
+    font-weight: 500;
+    border-radius: 0%;
+    position: relative;
+    top: 0px;
+    padding: 20px;
+    height: 60px;
+    border-radius: 0px;
+    border: 1px solid var(--white);
+    display: inline-block;
+}
+
+.tts-addmulti-btn {
+    background: var(--second-color);
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 0%;
+    position: relative;
+    top: 0px;
+    padding: 20px;
+    height: 60px;
+    border-radius: 0px;
+    border: 1px solid var(--white);
+}
+
+.custom-radio {
+  position: relative;
+  padding-left: 28px;
+  cursor: pointer;
+}
+
+.custom-radio input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.custom-radio .form-check-label {
+  cursor: pointer;
+}
+
+
+.custom-radio input[type="radio"] + .form-check-label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 13px;
+  height: 13px;
+  border: 1px solid rgb(210, 210, 210); 
+  border-radius: 50%; 
+  background: #fff;
+}
+
+
+.custom-radio input[type="radio"]:checked + .form-check-label::before {
+  background: #28479d;
+  
+}
+
+
+.custom-radio input[type="radio"]:checked + .form-check-label::after {
+ content: "\2714";
+    position: absolute;
+    left: 3px;
+    top: 5px;
+    font-size: 8px;
+    color: #fff;
+    font-weight: bold;
+}

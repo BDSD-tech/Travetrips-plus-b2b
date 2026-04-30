@@ -1,0 +1,593 @@
+<div class="flight-list-section sticky-top p-8" *ngIf="isModifyShow==false">
+  <div class="container">
+    <div class="row align-items-center g-3">
+      <div class="col-lg-10 col-md-9 col-12">
+        <div class="row row-cols-2 row-cols-lg-5 gy-3" *ngIf="GetSearchData['Type']!='M'">
+          <div class="col">
+            <ul class="modify_list">
+              <li>
+                <h2>{{GetSearchData['OriginCode']}} <span
+                    class="d-block">{{GetSearchData['Origin'].split('(')[0]}}</span></h2>
+              </li>
+              <li *ngIf="GetSearchData['Type']=='O'">
+                <i class="fa fa-plane tts-plane-icon"></i>
+              </li>
+              <li *ngIf="GetSearchData['Type']=='R'">
+                <span class="exchange-main"></span>
+                <span class="exchange-maintwo"></span>
+              </li>
+              <li>
+                <h2>{{GetSearchData['DestinationCode']}} <span
+                    class="d-block">{{GetSearchData['Destination'].split('(')[0]}}</span></h2>
+              </li>
+            </ul>
+          </div>
+          <div class="col">
+            <ul class="modify_list">
+              <li>
+                <h2>Departure Date<span class="d-block text-white">{{GetSearchData['DepartDate'] | date:'E, d MMM yyyy'
+                    }}</span></h2>
+              </li>
+            </ul>
+          </div>
+          <div class="col" *ngIf="GetSearchData['Type']=='R'">
+            <ul class="modify_list">
+              <li>
+                <h2>Return Date<span class="d-block text-white">{{GetSearchData['ReturnDate'] | date:'E, d MMM yyyy'
+                    }}</span></h2>
+              </li>
+            </ul>
+          </div>
+          <div class="col">
+            <ul class="modify_list">
+              <li>
+                <h2>Passengers & Class<span class="d-block text-white">{{striptravellertxt}}</span></h2>
+              </li>
+            </ul>
+          </div>
+          <div class="col">
+            <ul class="modify_list">
+              <li>
+                <h2>Preferred Airline
+                  <span class="d-block" *ngIf="GetSearchData['PreferredAirline']==''">None</span>
+                  <span class="d-block"
+                    *ngIf="GetSearchData['PreferredAirline']!=''">{{GetSearchData['PreferredAirline']}}</span>
+                </h2>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="GetSearchData['Type']=='M'">
+          <div class="col-md-7">
+            <div class="col" *ngFor="let item of GetSearchData['MultiCity']">
+              <ul class="modify_list">
+                <li>
+                  <h2>{{item['OriginCode']}} <span class="d-block">{{item['Origin'].split('(')[0]}}</span></h2>
+                </li>
+                <li>
+                  <i class="fa fa-plane tts-plane-icon"></i>
+                </li>
+                <li>
+                  <h2>{{item['DestinationCode']}} <span class="d-block">{{item['Destination'].split('(')[0]}}</span>
+                  </h2>
+                </li>
+                <li>
+                  <h2>Departure Date
+                    <span class="d-block text-white">
+                      {{item['DepartDate'] | date:'E, d MMM yyyy'}}
+                    </span>
+                  </h2>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-md-3 col-4">
+            <ul class="modify_list">
+              <li>
+                <h2>Passengers & Class<span class="d-block text-white">{{travellertxt}}</span></h2>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-md-2 col-4">
+            <ul class="modify_list">
+              <li>
+                <h2>Preferred Airline
+                  <span class="d-block" *ngIf="GetSearchData['PreferredAirline']==''">None</span>
+                  <span class="d-block" *ngIf="GetSearchData['PreferredAirline']!=''">
+                    {{GetSearchData['PreferredAirline']}}
+                  </span>
+                </h2>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="col-lg-2 col-md-3 col-12">
+        <ul class="modify_list1">
+          <li>
+            <button type="button" class="btn btn-link modify_btn" (click)="modifysearch()">Modify search
+              <i class="fa fa-chevron-down ms-2"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!------modify-----section---start---->
+<div class="flight_section modify-section pt-3 pb-2 sticky-top" *ngIf="isModifyShow">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 ">
+
+        <div class="flight_box">
+          <form [formGroup]="ModifySearchForm" (ngSubmit)="ModifySearchData()" id="flight-form">
+            <div class="d-flex align-items-center justify-content-between">
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation" (click)="gettype('O')">
+                  <button class="nav-link" [ngClass]="{'active':f['Type'].value=='O'}" id="flight-tab"
+                    data-bs-toggle="tab" data-bs-target="#flight-tab-pane" type="button" role="tab"
+                    aria-controls="home-tab-pane" aria-selected="true">One Way</button>
+                </li>
+                <li class="nav-item" role="presentation" (click)="gettype('R')">
+                  <button class="nav-link" [ngClass]="{'active':f['Type'].value=='R'}" id="flight-tab"
+                    data-bs-toggle="tab" data-bs-target="#flight-tab-pane" type="button" role="tab"
+                    aria-controls="profile-tab-pane" aria-selected="false">Round Way</button>
+                </li>
+                <li class="nav-item" role="presentation" (click)="gettype('M')">
+                  <button class="nav-link" [ngClass]="{'active':f['Type'].value=='M'}" id="flight-multi-tab"
+                    data-bs-toggle="tab" data-bs-target="#flight-multi-tab-pane" type="button" role="tab"
+                    aria-controls="flight-multi-tab-pane" aria-selected="false">Multi City</button>
+                </li>
+              </ul>
+              <span class="modify-cross" (click)="modifysearch()">×</span>
+            </div>
+
+            <div class="tab-content">
+              <div class="tab-pane fade show active" id="flight-tab-pane" role="tabpanel" aria-labelledby="flight-tab"
+                tabindex="0" [ngClass]="{'show active':f['Type'].value!='M'}">
+                <div class="flight-tab d-lg-flex">
+                  <div class="d-flex form-info">
+                    <div class="persent-one">
+                      <span>
+                        <img src="assets/img/flight-from.svg" alt="flight-from.svg" class="img-fluid">
+                      </span>
+                      <input type="text" formControlName="Origin" class="textboxstyle autosuggeest"
+                        placeholder="Where From ?" (click)="openautocomplete($event,'input')">
+                      <i class="fa fa-angle-down search-form-inp-down" *ngIf="f['Origin'].value==''"></i>
+                      <i class="fa fa-times search-form-inp-down" (click)="Cleardata('Origin')"
+                        *ngIf="f['Origin'].value!=''"></i>
+                      <div class="at-exchange" (click)="swapecity()"></div>
+                      <div *ngIf="submitted && f['Origin'].errors" class="error-msg">
+                        <div *ngIf="f['Origin'].errors['required']">Please enter a valid Source
+                        </div>
+                      </div>
+                    </div>
+                    <div class="persent-one">
+                      <span>
+                        <img src="assets/img/flight-to.svg" alt="flight-to.svg" class="img-fluid">
+                      </span>
+                      <input type="text" formControlName="Destination" class="textboxstyle autosuggeest"
+                        placeholder="Where To ?" (click)="openautocomplete($event,'input')">
+                      <i class="fa fa-angle-down search-form-inp-down" *ngIf="f['Destination'].value==''"></i>
+                      <i class="fa fa-times search-form-inp-down" (click)="Cleardata('Destination')"
+                        *ngIf="f['Destination'].value!=''"></i>
+                      <div *ngIf="submitted && f['Destination'].errors" class="error-msg">
+                        <div *ngIf="f['Destination'].errors['required']">Please enter a valid Destination
+                        </div>
+                        <div *ngIf="f['Destination'].errors['notmatching']">Source and Destination cannot be same</div>
+                      </div>
+                    </div>
+                    <div class="persent-one less-per">
+                      <span>
+                        <img src="assets/img/calendar.svg" alt="calendar.svg" class="img-fluid">
+                      </span>
+                      <input type="text" appDatepicker #datepicker="datepicker" class="textboxstyle cal-depart-date"
+                        formControlName="DepartDate" (dateEventEmitter)="dateEventEmitter($event)"
+                        placeholder="Depart Date" minDate="0" maxDate="+1Y" calType="O" readonly>
+
+                      <div *ngIf="submitted && f['DepartDate'].errors" class="error-msg">
+                        <div *ngIf="f['DepartDate'].errors['required']">Please enter a valid departure date</div>
+                      </div>
+                    </div>
+                    <div class="persent-one less-per at-returnin">
+                      <span>
+                        <img src="assets/img/calendar.svg" alt="calendar.svg" class="img-fluid">
+                      </span>
+                      <input type="text" appDatepicker #datepicker="datepicker" class="textboxstyle cal-depart-date"
+                        formControlName="ReturnDate" (dateEventEmitter)="dateEventEmitter($event)"
+                        placeholder="Return Date" [ngClass]="{'at-disable':f['Type'].value!='R'}" (click)="gettype('R')"
+                        minDate="{{f['DepartDate'].value}}" maxDate="+1Y" calType="R" readonly>
+
+                      <i class="fa fa-times search-form-inp-close" (click)="gettype('O')"></i>
+                      <div *ngIf="submitted && f['ReturnDate'].errors" class="error-msg">
+                        <div *ngIf="f['ReturnDate'].errors['required']">Please enter a valid return date</div>
+                      </div>
+                    </div>
+                    <div class="persent-one persent-one_ps-4">
+                      <span>
+                        <img src="assets/img/seat.svg" alt="seat.svg" class="img-fluid">
+                      </span>
+                      <div class="textboxstyle" id="passenger" (click)="PaxDisplay()"> Passanger and Class
+                        <p class="Pass"> {{travellertxt}}</p>
+                      </div>
+
+                      <div class="at-passection" [ngClass]="{'d-none': isShow===false}">
+                        <div class="row">
+                          <div class="col-md-8">
+                            <div class="persent-one_frm">
+                              <h2>Select Passanger</h2>
+                              <div class="persent-one_frm_close" (click)="PaxDisplay()"></div>
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <h4 class="persent-one_passenger">Adult <small>Age 12+</small> </h4>
+                                  <ul class="at-passhalf" id="myDIV">
+                                    <li class="at-passhalf_list tts-cursor-pointer"
+                                      *ngFor="let adt of arrayOne(9); let a=index"
+                                      [ngClass]="{'active': adultcount==a+1}" (click)="SelectPax(a+1,'ADT')">
+                                      <a href="javascript:void(0);">{{a+1}}</a>
+                                    </li>
+                                  </ul>
+                                </div>
+                                @if(f['ResultFareType'].value=='RegularFare'){
+                                <div class="col-md-12">
+                                  <h4 class="persent-one_passenger">Children <small>Age 2-12</small> </h4>
+                                  <ul class="at-passhalf">
+                                    <li class="at-passhalf_list tts-cursor-pointer"
+                                      *ngFor="let adt of arrayOne(9); let c=index" [ngClass]="{'active': childcount==c}"
+                                      (click)="SelectPax(c,'CHD')">
+                                      <a href="javascript:void(0);">{{c}}</a>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <div class="col-md-12">
+                                  <h4 class="persent-one_passenger">Infant <small>Age 0-2</small> </h4>
+                                  <ul class="at-passhalf">
+                                    <li class="at-passhalf_list tts-cursor-pointer"
+                                      *ngFor="let adt of arrayOne(9); let i=index"
+                                      [ngClass]="{'active': infantcount==i}" (click)="SelectPax(i,'INF')">
+                                      <a href="javascript:void(0);">{{i}}</a>
+                                    </li>
+                                  </ul>
+                                </div>
+                                }
+                                <div class="col-md-12">
+                                  <span class="paxcount_message mt-3"></span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="persent-one_frm persent-one_frm1">
+                              <h2>Select Class</h2>
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <div class="form-check form-check-reverse form-check-reverse1"
+                                    (change)="TravellerCount()">
+                                    <input class="form-check-input" type="radio" formControlName="Class" value="Economy"
+                                      id="Economy" checked>
+                                    <label class="form-check-label persent-label tts-cursor-pointer" for="Economy">
+                                      Economy
+                                    </label>
+                                  </div>
+                                  <div class="form-check form-check-reverse form-check-reverse1"
+                                    (change)="TravellerCount()">
+                                    <input class="form-check-input" type="radio" formControlName="Class"
+                                      value="Premium Economy" id="Premium">
+                                    <label class="form-check-label persent-label tts-cursor-pointer" for="Premium">
+                                      Premium Economy
+                                    </label>
+                                  </div>
+                                  <div class="form-check form-check-reverse form-check-reverse1"
+                                    (change)="TravellerCount()">
+                                    <input class="form-check-input" type="radio" formControlName="Class"
+                                      value="Business" id="Business">
+                                    <label class="form-check-label persent-label tts-cursor-pointer" for="Business">
+                                      Business
+                                    </label>
+                                  </div>
+                                  <div class="form-check form-check-reverse form-check-reverse1"
+                                    (change)="TravellerCount()">
+                                    <input class="form-check-input" type="radio" formControlName="Class" value="First"
+                                      id="First">
+                                    <label class="form-check-label persent-label tts-cursor-pointer" for="First">
+                                      First
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12 mt-3 text-end">
+                                <a href="javascript:void(0);" class="persent-one_frm_done"
+                                  (click)="PaxDisplay()">DONE</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="less-btn">
+                    <button type="submit" class="btn cst-btn" [disabled]="Flightloading || paxcountstop"> <span
+                        *ngIf="Flightloading" class="spinner-border spinner-border-sm mr-1"></span> Search</button>
+                  </div>
+                </div>
+                <div class="makeflex mt-2">
+                  <span>Popular Filters:</span>
+                  <div class="search_filters">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" formControlName="Nonstop" id="direct_flight">
+                      <label class="form-check-label" for="direct_flight">Non-Stop</label>
+                    </div>
+                    <span class="blackBorder"></span>
+                    <div class="form-check form-check-inline" *ngFor="let item of preferredairlinelist;">
+                      <input class="form-check-input" type="checkbox" id="inlineCheckbox{{item.code}}"
+                        value="{{item.code}}" (change)="GetPreferredAirline($event)" [checked]="item.ischecked">
+                      <label class="form-check-label" for="inlineCheckbox{{item.code}}">{{item.name}}</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="makeflex mt-2">
+                  <span>Advance Search:</span>
+                  <div class="d-flex bg-white px-2">
+                    <div class="form-check me-2 custom-radio"
+                      *ngFor="let list of GetWebSiteData['FlightResulFareType'] |keyvalue:compareKeepOrder">
+                      <input class="form-check-input" type="radio" value="{{list.key}}" formControlName="ResultFareType"
+                        id="{{list.key}}">
+                      <label class="form-check-label text-dark" for="{{list.key}}">
+                        {{list.value}}
+                      </label>
+                    </div>
+                  </div>
+                  <!-- <div class="">
+                                     <div class="form-check form-check-inline">
+                                       <input class="form-check-input" type="checkbox"  formControlName="SeriesFare" id="series_fare_flight">
+                                       <label class="form-check-label" for="series_fare_flight">Series Fare</label>
+                                     </div>
+                                   </div> -->
+                </div>
+              </div>
+
+              <div class="tab-pane fade" id="flight-multi-tab-pane" role="tabpanel" aria-labelledby="flight-multi-tab"
+                tabindex="0" [ngClass]="{'show active':f['Type'].value=='M'}">
+                <div formArrayName="MultiCity" *ngFor="let MForm of multicity.controls; let i = index">
+
+                  <div class="flight-tab d-lg-flex" formGroupName={{i}}>
+                    <div class="d-flex form-info">
+                      <div class="persent-one">
+                        <span>
+                          <img src="assets/img/flight-from.svg" alt="flight-from.svg" class="img-fluid">
+                        </span>
+                        <input type="text" class="textboxstyle autosuggeest" placeholder="Where From ?"
+                          (click)="openautocomplete($event,'input')" attr.key="{{i}}" tp="Origin"
+                          id="multi-f-origin-{{i}}" value="{{MForm.value['Origin']}}">
+                        <i class="fa fa-angle-down search-form-inp-down" *ngIf="MForm.value['Origin']==''"></i>
+                        <i class="fa fa-times search-form-inp-down" (click)="Cleardata('Origin',i)"
+                          *ngIf="MForm.value['Origin']!=''"></i>
+                        <div class="at-exchange"></div>
+                        <div *ngIf="submitted && ModifySearchForm.get('MultiCity.'+i+'.Origin')?.errors"
+                          class="error-msg">
+                          <div *ngIf="ModifySearchForm.get('MultiCity.'+i+'.Origin')?.errors?.['required']">Please enter
+                            a
+                            valid Source</div>
+                        </div>
+
+                      </div>
+
+                      <div class="persent-one">
+                        <span>
+                          <img src="assets/img/flight-to.svg" alt="flight-to.svg" class="img-fluid">
+                        </span>
+                        <input type="text" class="textboxstyle autosuggeest" placeholder="Where To ?"
+                          (click)="openautocomplete($event,'input')" attr.key="{{i}}" tp="Destination"
+                          id="multi-f-destination-{{i}}" value="{{MForm.value['Destination']}}">
+                        <i class="fa fa-angle-down search-form-inp-down" *ngIf="MForm.value['Destination']==''"></i>
+                        <i class="fa fa-times search-form-inp-down" (click)="Cleardata('Destination',i)"
+                          *ngIf="MForm.value['Destination']!=''"></i>
+
+                        <div *ngIf="submitted && ModifySearchForm.get('MultiCity.'+i+'.Destination')?.errors"
+                          class="error-msg">
+                          <div *ngIf="ModifySearchForm.get('MultiCity.'+i+'.Destination')?.errors?.['required']">Please
+                            enter a valid Destination</div>
+                          <div *ngIf="ModifySearchForm.get('MultiCity.'+i+'.Destination')?.errors?.['notmatching']">
+                            Source
+                            and Destination cannot be same</div>
+                        </div>
+                      </div>
+
+                      <div class="persent-one less-per">
+                        <span>
+                          <img src="assets/img/calendar.svg" alt="calendar.svg" class="img-fluid">
+                        </span>
+
+                        <input type="text" appDatepicker #datepicker="datepicker"
+                          class="textboxstyle cal-depart-date w-100" formControlName="DepartDate"
+                          (dateEventEmitter)="dateEventEmitter($event)" placeholder="Depart Date"
+                          [minDate]="i==0?'0':ModifySearchForm.get('MultiCity.'+(i-1)+'.DepartDate')?.value"
+                          maxDate="+1Y" calType="M" attr.key="{{i}}" itemkey="{{i}}" tp="DepartDate"
+                          id="multi-f-depart-{{i}}" value="{{MForm.value['DepartDate']}}" readonly>
+
+                        <div *ngIf="submitted && ModifySearchForm.get('MultiCity.'+i+'.DepartDate')?.errors"
+                          class="error-msg">
+                          <div *ngIf="ModifySearchForm.get('MultiCity.'+i+'.DepartDate')?.errors?.['required']">Please
+                            enter a valid departure date</div>
+                        </div>
+
+                      </div>
+
+                      <div class="persent-one persent-one_ps-4" *ngIf="i==0">
+                        <span>
+                          <img src="assets/img/seat.svg" alt="seat.svg" class="img-fluid">
+                        </span>
+                        <div class="textboxstyle" id="passenger" (click)="PaxDisplay()"> Passanger and Class
+                          <p class="Pass"> {{travellertxt}}</p>
+                        </div>
+
+                        <div class="at-passection" [ngClass]="{'d-none': isShow===false}">
+                          <div class="row">
+                            <div class="col-md-8">
+                              <div class="persent-one_frm">
+                                <h2>Select Passanger</h2>
+                                <div class="persent-one_frm_close" (click)="PaxDisplay()"></div>
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <h4 class="persent-one_passenger">Adult <small>Age 12+</small> </h4>
+                                    <ul class="at-passhalf" id="myDIV">
+                                      <li class="at-passhalf_list tts-cursor-pointer"
+                                        *ngFor="let adt of arrayOne(9); let a=index"
+                                        [ngClass]="{'active': adultcount==a+1}" (click)="SelectPax(a+1,'ADT')">
+                                        <a href="javascript:void(0);">{{a+1}}</a>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  @if(f['ResultFareType'].value=='RegularFare'){
+                                  <div class="col-md-12">
+                                    <h4 class="persent-one_passenger">Children <small>Age 2-12</small> </h4>
+                                    <ul class="at-passhalf">
+                                      <li class="at-passhalf_list tts-cursor-pointer"
+                                        *ngFor="let adt of arrayOne(9); let c=index"
+                                        [ngClass]="{'active': childcount==c}" (click)="SelectPax(c,'CHD')">
+                                        <a href="javascript:void(0);">{{c}}</a>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <h4 class="persent-one_passenger">Infant <small>Age 0-2</small> </h4>
+                                    <ul class="at-passhalf">
+                                      <li class="at-passhalf_list tts-cursor-pointer"
+                                        *ngFor="let adt of arrayOne(9); let i=index"
+                                        [ngClass]="{'active': infantcount==i}" (click)="SelectPax(i,'INF')">
+                                        <a href="javascript:void(0);">{{i}}</a>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  }
+                                  <div class="col-md-12">
+                                    <span class="paxcount_message mt-3"></span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="persent-one_frm persent-one_frm1">
+                                <h2>Select Class</h2>
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <div class="form-check form-check-reverse form-check-reverse1"
+                                      (change)="TravellerCount()">
+                                      <input class="form-check-input tts-cursor-pointer" type="radio" name="class"
+                                        value="Economy" id="MEconomy" checked>
+                                      <label class="form-check-label persent-label tts-cursor-pointer"
+                                        (click)="MClass('Economy')" for="MEconomy">
+                                        Economy
+                                      </label>
+                                    </div>
+                                    <div class="form-check form-check-reverse form-check-reverse1"
+                                      (change)="TravellerCount()">
+                                      <input class="form-check-input tts-cursor-pointer" type="radio" name="class"
+                                        value="Premium Economy" id="MPremium">
+                                      <label class="form-check-label persent-label tts-cursor-pointer"
+                                        (click)="MClass('Premium Economy')" for="MPremium">
+                                        Premium Economy
+                                      </label>
+                                    </div>
+                                    <div class="form-check form-check-reverse form-check-reverse1"
+                                      (change)="TravellerCount()">
+                                      <input class="form-check-input tts-cursor-pointer" type="radio" name="class"
+                                        value="Business" id="MBusiness">
+                                      <label class="form-check-label persent-label tts-cursor-pointer"
+                                        (click)="MClass('Business')" for="MBusiness">
+                                        Business
+                                      </label>
+                                    </div>
+                                    <div class="form-check form-check-reverse form-check-reverse1"
+                                      (change)="TravellerCount()">
+                                      <input class="form-check-input tts-cursor-pointer" type="radio" name="class"
+                                        value="First" id="MFirst">
+                                      <label class="form-check-label persent-label tts-cursor-pointer"
+                                        (click)="MClass('First')" for="MFirst">
+                                        First
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12 mt-3 text-end">
+                                  <a href="javascript:void(0);" class="persent-one_frm_done"
+                                    (click)="PaxDisplay()">DONE</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="persent-one less-btn" *ngIf="i==0">
+                      <button type="submit" class="btn cst-btn" [disabled]="Flightloading || paxcountstop"> <span
+                          *ngIf="Flightloading" class="spinner-border spinner-border-sm mr-1"></span> Search</button>
+                    </div>
+
+                    <a href="javascript:void(0);" class="tts-multyclose" *ngIf="i!=0 && i!=1"
+                      (click)="RemoveCity(i)">×</a>
+                    <input type="button" value="Add One More" *ngIf="i==1" class="btn tts-addmulti-btn"
+                      (click)="AddCity()">
+                  </div>
+
+                </div>
+
+
+                <div class="makeflex mt-2">
+                  <span>Popular Filters:</span>
+                  <div class="search_filters">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" formControlName="Nonstop"
+                        id="direct_flight_multicity">
+                      <label class="form-check-label" for="direct_flight_multicity">Non-Stop</label>
+                    </div>
+                    <span class="blackBorder"></span>
+                    <div class="form-check form-check-inline" *ngFor="let item of preferredairlinelist;">
+                      <input class="form-check-input" type="checkbox" id="minlineCheckbox{{item.code}}"
+                        value="{{item.code}}" (change)="GetPreferredAirline($event)" [checked]="item.ischecked">
+                      <label class="form-check-label" for="minlineCheckbox{{item.code}}">{{item.name}}</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="makeflex mt-2">
+                  <span>Advance Search:</span>
+                  <div class="d-flex bg-white px-2">
+                    <div class="form-check me-2 custom-radio"
+                      *ngFor="let list of GetWebSiteData['FlightResulFareType'] |keyvalue:compareKeepOrder">
+                      <input class="form-check-input" type="radio" value="{{list.key}}" formControlName="ResultFareType"
+                        id="{{list.key}}">
+                      <label class="form-check-label text-dark" for="{{list.key}}">
+                        {{list.value}}
+                      </label>
+                    </div>
+                  </div>
+
+                </div>
+
+
+
+
+              </div>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!------modify-----section----end----->

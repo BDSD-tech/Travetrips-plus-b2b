@@ -1,0 +1,25 @@
+<div *ngIf="loading">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center min-h400">
+                <div class="flight-segmentcolor text-center mb-4 mt-5 pt-5">
+                    <div class="lds-ellipsis">
+                        <div></div><div></div><div></div><div></div>
+                     </div>
+                    <h5>Please wait</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="loading===false">
+    <div class="main-container">
+        <div class="back-topbar p-3">
+            <div class="text-center">
+                <a href="javascript:history.go(-1)" class="print_back me-3"><i class="fa fa-long-arrow-left me-2"></i>Back</a>
+                <a href="javascript:void(0)" (click)="PrintDiv('print_stvinv')" class="print_back"><i class="fa fa-print me-2"></i>Print</a>
+            </div>
+            <div id="print_stvinv" [innerHTML]="tickethtml|safeHtml"></div>
+          </div>
+    </div>
+</div>

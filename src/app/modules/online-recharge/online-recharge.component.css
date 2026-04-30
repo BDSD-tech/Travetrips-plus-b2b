@@ -1,0 +1,99 @@
+.top-up-wrapper {
+    min-height: 350px;
+    padding: 100px 0;
+    position: relative;
+    background: #0000000f;
+}
+#floating-amount{
+    height: 51px;
+    border-radius: 0px;
+}
+.tts-button-primary{
+    height: 51px;
+    border-radius: 0px;
+}
+
+button[disabled]{
+    cursor: not-allowed;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    opacity: .65;
+}
+.booking-main{
+    background: #f9f7f4;
+    display: inline-block;
+    border-radius: 6px;
+    padding: 40px;
+    box-shadow: 1px 1px 15px rgb(0 0 0 / 10%);
+    border: 1px solid #ececec;
+}
+
+.subTypeWrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+.subTypeWrapper__box {
+    max-width: 33.33%;
+    width: 33.33%;
+    margin-bottom: 20px;
+}
+.subTypeWrapper .paySelect__input {
+    padding: 0;
+    height: initial;
+    width: initial;
+    margin-bottom: 0;
+    display: none;
+    cursor: pointer;
+}
+.subTypeWrapper .paySelect__img {
+    max-width: 100px;
+}
+.subTypeWrapper .paySelect__label {
+    position: relative;
+    cursor: pointer;
+    width: 150px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-align: center;
+    padding: 25px;
+    min-height: 81px;
+}
+
+.subTypeWrapper .paySelect input[type="radio"]:checked ~ .paySelect__label {
+    background-color: #fffcf6;
+    border: 1px solid #e6d4b9;
+}
+
+.subTypeWrapper .paySelect input[type="radio"]:checked + .paySelect__label::before {
+    display: inline-block;
+}
+.subTypeWrapper .paySelect__label:before {
+    content: '';
+    -webkit-appearance: none;
+    background: #4aa301;
+    border-radius: 50%;
+    padding: 15px;
+    display: none;
+    position: absolute;
+    top: -15px;
+    left: 42%;
+    cursor: pointer;
+}
+.subTypeWrapper .paySelect input[type="radio"]:checked + .paySelect__label:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    width: 8px;
+    height: 15px;
+    border: solid #fff;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+.order-box{
+    background-color: #56aa90;
+    border-radius: 10px;
+    color: #fff;
+}

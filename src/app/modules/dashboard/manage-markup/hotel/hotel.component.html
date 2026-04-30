@@ -1,0 +1,162 @@
+<div class="dashboard-wrapper-container">
+    <ol class="breadcrumb-arrow">
+        <li>
+            <a routerLink="/dashboard/manage-carts"><i class="fa fa-home"></i></a>
+        </li>
+        <li><span>manage-hotel-markup</span></li>
+    </ol>
+
+    <a title="Add Markip" class="tts-floating__icon-link" data-bs-toggle="modal" data-bs-target="#addformmodal"><i class="fa fa-plus"></i></a>
+
+    <div class="row mg_bt-20 align-items-center">
+        <div class="nodata__found-container" *ngIf="MarkupList.length==0 && loading==false">
+            <img class="ttsnodata-fount-image" src="assets/img/noData.svg" />
+            <h2 class="table__body-nodata">No Markup Information!</h2>
+        </div>
+
+        <div class="text-center" *ngIf="loading">
+            <div class="spinner-border tts-admin-loader" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        <div class="col-md-12" *ngIf="MarkupList.length!=0">
+            <h3 class="dash-borderRadius main-heading-tableIcon"><i class="fa fa-table me-1"></i> <span>{{MarkupList.length}} rows found !</span></h3>
+        </div>
+    </div>
+
+    <div class="body_manage dash-padding dashboard__main__content" *ngIf="MarkupList.length!=0 && loading==false">
+        <div class="row">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table manage__user-table-container m-0" matSort (matSortChange)="sortData($event)">
+                        <thead class="theader table__tableHeader-container">
+                            <tr>
+                                <td mat-sort-header="created">Created On</td>
+                                <td mat-sort-header="product">Product</td>
+                                <td mat-sort-header="markupType">Markup Type</td>
+                                <td mat-sort-header="airlineName">Display Markup </td>
+                              
+                                <td mat-sort-header="value">Value </td>
+                                <td>Action </td>
+                                <td>Delete </td>
+                            </tr>
+                        </thead>
+                        <tbody class="table__body-border">
+
+                             <tr *ngFor="let item of MarkupList">
+                            
+                                <td>{{item['created']}}</td>
+                                <td>{{item['ProductType']|uppercase}}</td>
+                                <td>{{Replace(item['HotelMarkupType']) |titlecase}}</td>
+                                <td>{{Replace(item['DisplayMarkup']) |titlecase}}</td>
+                                
+                                <td>{{item['Value']}}</td>
+                                <td>
+                                    <a href="javascript:void(0);" (click)="Edititem(item)"><i class="fa fa-edit text-secondary me-1"></i> <span class="text-secondary">Action</span></a>
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0);" (click)="Deleteitem(item['ID'])"><i class="fa fa-trash text-danger"></i></a>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Add Markup Modal -->
+<div class="modal fade" id="addformmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addformmodal" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content rounded-0">
+            <div class="dashboard-wrapper-container m-0 w-100 p-0">
+                <div class="body_manage dash-padding dashboard__main__content mb-0">
+                    <div class="col-sm-12 mb-3">
+                        <h3 class="dash-borderRadius main-heading-content"> Hotel MARKUP <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button></h3>
+                    </div>
+                    <form [formGroup]="AddMarkupForm" (ngSubmit)="SubmitMarkup()">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Region Type</mat-label>
+                                    <mat-select formControlName="RegionType">
+                                       <mat-option value="All">All</mat-option>
+                                        <mat-option value="Domestic">Domestic</mat-option>
+                                        <mat-option value="International">International</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <div *ngIf="submitted && f['RegionType'].errors" class="error-msg">
+                                    <div *ngIf="f['RegionType'].errors['required']">Please Provide Region Type</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Hotel Markup Type</mat-label>
+                                    <mat-select formControlName="HotelMarkupType">
+                                        <mat-option value="per_night">Per Night</mat-option>
+                                        <mat-option value="per_room">Per Room</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <div *ngIf="submitted && f['HotelMarkupType'].errors" class="error-msg">
+                                    <div *ngIf="f['HotelMarkupType'].errors['required']">Please Provide Markup Type</div>
+                                </div>
+                            </div>
+
+                            
+                            <div class="col-md-6">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Value</mat-label>
+                                    <input matInput placeholder="Value" formControlName="Value" />
+                                </mat-form-field>
+                                <div *ngIf="submitted && f['Value'].errors" class="error-msg">
+                                    <div *ngIf="f['Value'].errors['required']">Please provide value</div>
+                                    <div *ngIf="f['Value'].errors['pattern']">Please enter correct value.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Status</mat-label>
+                                    <mat-select formControlName="Status">
+                                        <mat-option value="active">Active</mat-option>
+                                        <mat-option value="inactive">Inactive</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <div *ngIf="submitted && f['Status'].errors" class="error-msg">
+                                    <div *ngIf="f['Status'].errors['required']">Please Select Status</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="form__buttons">
+                            <button type="submit" class="btn sign_btn" [disabled]="addmarkuploading">Submit <i class="fa fa-paper-plane"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- delete Modal -->
+<div class="modal fade tts-delete-modal" id="tts-delete-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tts-delete-modal" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content p-3">
+            <div class="icon text-center">
+                <img src="assets/img/information.svg" width="80" height="80">
+           </div>
+            <h5 class="text-center mt-2">Are you sure to Delete?</h5>
+            <div class="row mt-2">
+                <div class="col-sm-6 text-end">
+                    <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancel <i class="fa fa-times"></i></button>
+                </div>
+                <div class="col-sm-6">
+                     <button class="btn btn btn-danger btn-sm" (click)="ConfirmDelete()">Delete <i class="fa fa-trash"></i></button>
+                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+

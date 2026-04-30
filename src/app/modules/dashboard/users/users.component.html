@@ -1,0 +1,503 @@
+<div class="dashboard-wrapper-container">
+    <ol class="breadcrumb-arrow">
+        <li>
+            <a routerLink="/dashboard/users"><i class="fa fa-home"></i></a>
+        </li>
+        <li><span>Users</span></li>
+    </ol>
+    <div class="animation__container">
+        <div class="body_manage dash-padding dashboard__main__content">
+            <div class="row">
+                
+                    <div class="col-sm-12 mb-3 d-flex justify-content-between align-items-center">
+                        <h3 class="dash-borderRadius main-heading-content">Users</h3>
+                        <button class="btn btn-add btn-sm" (click)="OpenModal('Add')">+ Add User</button>
+                    </div>
+                    
+               
+                <form [formGroup]="SearchForm" (ngSubmit)="SearchSubmit()">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <mat-form-field appearance="fill" class="tts-full-width">
+                                <mat-label>First Name</mat-label>
+                                <input matInput placeholder="First Name" formControlName="first_name" />
+                                <i class="fa fa-times tts-inp-close-icon" (click)="clear('first_name')" *ngIf="f['first_name'].value!=''"></i>
+
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field appearance="fill" class="tts-full-width">
+                                <mat-label>Last Name</mat-label>
+                                <input matInput placeholder="Last Name" formControlName="last_name" />
+                                <i class="fa fa-times tts-inp-close-icon" (click)="clear('last_name')" *ngIf="f['last_name'].value!=''"></i>
+
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field appearance="fill" class="tts-full-width">
+                                <mat-label>Mobile Number</mat-label>
+                                <input matInput placeholder="Mobile Number" formControlName="mobile_no" />
+                                <i class="fa fa-times tts-inp-close-icon" (click)="clear('mobile_no')" *ngIf="f['mobile_no'].value!=''"></i>
+
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field appearance="fill" class="tts-full-width">
+                                <mat-label>Email ID</mat-label>
+                                <input matInput placeholder="Email ID"  formControlName="email_id" />
+                                <i class="fa fa-times tts-inp-close-icon" (click)="clear('email_id')" *ngIf="f['email_id'].value!=''"></i>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field appearance="fill" class="tts-full-width">
+                                <mat-label>Designation</mat-label>
+                                <input matInput placeholder="Designation" formControlName="designation" />
+                                <i class="fa fa-times tts-inp-close-icon" (click)="clear('designation')" *ngIf="f['designation'].value!=''"></i>
+                            </mat-form-field>
+                        </div>
+                        
+
+                        <div class="col-md-3">
+                            <mat-form-field appearance="fill" class="tts-full-width">
+                                <mat-label>User Status</mat-label>
+                                <mat-select formControlName="status">
+                                    <mat-option value="All">All</mat-option>
+                                    <mat-option value="Active">Active</mat-option>
+                                    <mat-option value="Inactive">Inactive</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="f['status'].errors?.['required']">Please select status</mat-error>
+                            </mat-form-field>
+                        </div>
+                         
+                    </div>
+
+                    
+                    <div class="form__buttons">
+                        <button type="submit" class="btn sign_btn" [disabled]="Searchloading">Search <i class="fa fa-search"></i></button>
+
+                        
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="body_manage dash-padding dashboard__main__content" *ngIf="Searchloading">
+        <div class="text-center">
+            <div class="spinner-border tts-admin-loader" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="body_manage dash-padding dashboard__main__content" *ngIf="isshowdiv">
+        <div class="card-body" *ngIf="dataSource.data?.length!=0">
+            <div class="row mg_bt-20 align-items-center">
+                <div class="col-md-3">
+                    <h3 class="dash-borderRadius main-heading-tableIcon">
+                        <i class="fa fa-table me-1"></i> <span class="">( {{dataSource.paginator?.pageIndex}} - {{dataSource.filteredData?.length}} ) out of {{CartList.length}} results shown !</span>
+                    </h3>
+                </div>
+                <div class="col-md-9 allbuttons-tables">
+                    
+                </div>
+            </div>
+
+            <div class="tts-adm-search-bar">
+                <input type="text" class="tts-adm-search-bar__input" placeholder="Search" (keyup)="applyFilter($event)" />
+                <div class="tts-adm-search-bar__icon"><span class="tts-adm-search-bar__icon__item"></span></div>
+            </div>
+           
+            <div class="table-responsive table-scrollbar">
+                <table mat-table [dataSource]="dataSource"
+                        matSort
+                        (matSortChange)="sortData($event)"
+                        class="table manage__user-table-container customtable_tts">
+
+                    <!-- Name -->
+                    <ng-container matColumnDef="first_name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Name
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="generic-td">
+                        <span>{{element.first_name}} {{element.last_name}}</span>
+                        </div>
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef class="tts_td_fixed"></td>
+                    </ng-container>
+
+                    <!-- Date of Birth -->
+                    <ng-container matColumnDef="date_of_birth">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Date Of Birth
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="generic-td">
+                        <span>{{element.date_of_birth}}</span>
+                        </div>
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Status
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="generic-td">
+                        <span [ngClass]="{'text-success':element['status']=='active','text-danger':element['status']=='inactive'}">{{element.status |titlecase}}</span>
+                        </div>
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <!-- Job Joining Date -->
+                    <ng-container matColumnDef="job_joining_date">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Job Joining Date
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="generic-td">
+                        <a class="tts-atag">{{element.job_joining_date}}</a>
+                        </div>
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <!-- Email -->
+                    <ng-container matColumnDef="login_email">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Email
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="generic-td">
+                        <span>{{element.login_email}}</span>
+                        </div>
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <!-- Mobile Number -->
+                    <ng-container matColumnDef="mobile_no">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Mobile Number
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="generic-td">
+                        <span>{{element.mobile_isd}} {{element.mobile_no}}</span>
+                        </div>
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <!-- Designation -->
+                    <ng-container matColumnDef="designation">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                Designation
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                                <div class="generic-td">
+                                <span>{{element.designation}}</span>
+                                </div>
+                            </td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+                    <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                               Action
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                                 <div class="hstack gap-2 fs-15">
+                                        <a id="EditDropdown" data-bs-toggle="dropdown" class="btn btn-icon "><i class="fa-solid fa-ellipsis"></i></a>
+                                        <ul class="dropdown-menu" aria-labelledby="EditDropdown">
+                                            <li><a class="dropdown-item" href="javascript:void(0)" (click)="OpenModal('Edit',element)">Edit</a></li>
+                                            <li><a class="dropdown-item" href="javascropt:void(0)" (click)="OpenModalS('Status',element)">Change Status</a></li>
+                                            <li><a class="dropdown-item" href="javascropt:void(0)" (click)="OpenModalS('Password',element)">Change Password</a></li>
+                                          </ul>
+                                        
+                                    </div>
+                            </td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <!-- Table Rows -->
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr class="table__row__container banklist__propper-header-class"
+                        mat-row
+                        *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+
+                </table>
+            </div>
+
+<!-- Paginator -->
+<mat-paginator [pageSizeOptions]="pageSizeOptions"></mat-paginator>
+
+        </div>
+        <table class="w-100">
+            <tr *ngIf="!dataSource.data?.length">
+                <td style="text-align: center;" [attr.colspan]="displayedColumns.length">
+                    <div class="nodata__found-container">
+                        <img class="ttsnodata-fount-image" src="assets/img/noData.svg" />
+                        <h2 class="table__body-nodata">No Data Found!</h2>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!--Add Amendment Modal -->
+<div class="modal fade" id="addusermodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addamendmentmodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-0">
+                <div class="body_manage dash-padding dashboard__main__content mb-0">
+                    <div class="col-sm-12 mb-3">
+                        <h3 class="dash-borderRadius main-heading-content">{{modalTitle}} User <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button></h3>
+                    </div>
+                    <form [formGroup]="UserForm" (ngSubmit)="Submituser()">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>First Name</mat-label>
+                                    <input matInput placeholder="First Name" formControlName="first_name"/>
+                                </mat-form-field>
+                                <div *ngIf="Usersubmited && fa['first_name'].errors" class="error-msg">
+                                    <div *ngIf="fa['first_name'].errors['required']">Please provide first name</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Last Name</mat-label>
+                                    <input matInput placeholder="Last Name" formControlName="last_name"/>
+                                </mat-form-field>
+                                <div *ngIf="Usersubmited && fa['last_name'].errors" class="error-msg">
+                                    <div *ngIf="fa['last_name'].errors['required']">Please provide last name</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Dial Code</mat-label>
+                                    <mat-select formControlName="mobile_isd">
+                                          @for(coun of Dialcode; track $index){
+                                         <mat-option [value]="coun['phonecode']">{{coun['name']}}
+                                                                        (+{{coun['phonecode']}})</mat-option>
+                                         }
+                                    </mat-select>
+                                </mat-form-field>
+                                <div *ngIf="Usersubmited && fa['mobile_isd'].errors" class="error-msg">
+                                    <div *ngIf="fa['mobile_isd'].errors['required']">Please select amendment type</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Mobile Number</mat-label>
+                                    <input matInput placeholder="Mobile number"  (keyup)="allowNumbersOnly($event)" formControlName="mobile_no"/>
+                                </mat-form-field>
+                                <div *ngIf="Usersubmited && fa['mobile_no'].errors" class="error-msg">
+                                    <div *ngIf="fa['mobile_no'].errors['required']">Please provide mobile number</div>
+                                    <div *ngIf="fa['mobile_no'].errors['minlength'] ||fa['mobile_no'].errors['maxlength']">Please provide valid mobile number</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Email ID</mat-label>
+                                    <input matInput placeholder="Email ID" [autocomplete]="false" formControlName="email_id"/>
+                                </mat-form-field>
+                                <div *ngIf="Usersubmited && fa['email_id'].errors" class="error-msg">
+                                    <div *ngIf="fa['email_id'].errors['required']">Please provide email id.</div>
+                                    <div *ngIf="fa['email_id'].errors['email']">Please provide valid email id.</div>
+                                </div>
+                            </div>
+                            @if (modalTitle=='Add') {
+                            <div class="col-md-4">
+                                <mat-form-field appearance="fill" class="tts-full-width position-relative">
+                                    <mat-label>Password</mat-label>
+                                    <input matInput placeholder="Password" [type]="isVisible ==true  ? 'text' : 'password'" formControlName="password" [autocomplete]="false"/>
+                                     <i class="far form__field--icon" [ngClass]="isVisible ==true  ? 'fa-eye' : 'fa-eye-slash'" id="eyeIcon"
+                                            (click)="showPassword()"></i>
+                                </mat-form-field>
+                                <div *ngIf="Usersubmited && fa['password'].errors" class="error-msg">
+                                    <div *ngIf="fa['password'].errors['required']">Please provide password.</div>
+                                </div>
+                            </div>
+                            }
+                            <div class="col-md-4">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Phone Number</mat-label>
+                                    <input matInput placeholder="Phone Number" (keyup)="allowNumbersOnly($event)" formControlName="phone_number"/>
+                                </mat-form-field>
+                                <div *ngIf="Usersubmited && fa['phone_number'].errors" class="error-msg">
+                                    <div *ngIf="fa['phone_number'].errors['required']">Please provide phone number.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Whatsapp Number</mat-label>
+                                    <input matInput placeholder="Whatsapp Number" (keyup)="allowNumbersOnly($event)" formControlName="whatsapp_no"/>
+                                </mat-form-field>
+                                <div *ngIf="Usersubmited && fa['whatsapp_no'].errors" class="error-msg">
+                                    <div *ngIf="fa['whatsapp_no'].errors['required']">Please provide whatsapp number.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Date Of Birth</mat-label>
+                                    <input matInput placeholder="Date Of Birth" dob formControlName="date_of_birth" readonly/>
+                                </mat-form-field>
+                                <div *ngIf="Usersubmited && fa['date_of_birth'].errors" class="error-msg">
+                                    <div *ngIf="fa['date_of_birth'].errors['required']">Please provide dob.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Street</mat-label>
+                                    <input matInput placeholder="Street" formControlName="street"/>
+                                </mat-form-field>
+                                <div *ngIf="Usersubmited && fa['street'].errors" class="error-msg">
+                                    <div *ngIf="fa['street'].errors['required']">Please provide street.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>City</mat-label>
+                                    <input matInput placeholder="City" formControlName="city"/>
+                                </mat-form-field>
+                                <div *ngIf="Usersubmited && fa['city'].errors" class="error-msg">
+                                    <div *ngIf="fa['city'].errors['required']">Please provide city.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>State</mat-label>
+                                    <input matInput placeholder="State" formControlName="state"/>
+                                </mat-form-field>
+                                <div *ngIf="Usersubmited && fa['state'].errors" class="error-msg">
+                                    <div *ngIf="fa['state'].errors['required']">Please provide state.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Country</mat-label>
+                                    <mat-select formControlName="country">
+                                        @for(coun of Dialcode; track $index){
+                                         <mat-option [value]="coun.country_code">{{coun['name']}}</mat-option>
+                                         }
+                                    </mat-select>
+                                </mat-form-field>
+                                <div *ngIf="Usersubmited && fa['country'].errors" class="error-msg">
+                                    <div *ngIf="fa['country'].errors['required']">Please select country</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Pin Code</mat-label>
+                                    <input matInput placeholder="Pin Code" formControlName="pin_code"/>
+                                </mat-form-field>
+                                <div *ngIf="Usersubmited && fa['pin_code'].errors" class="error-msg">
+                                    <div *ngIf="fa['pin_code'].errors['required']">Please provide pin code.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Job Joining Date</mat-label>
+                                    <input matInput placeholder="Job Joining Date" jonjoining formControlName="job_joining_date" readonly/>
+                                </mat-form-field>
+                                <div *ngIf="Usersubmited && fa['job_joining_date'].errors" class="error-msg">
+                                    <div *ngIf="fa['job_joining_date'].errors['required']">Please provide job joining date.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Designation</mat-label>
+                                    <input matInput placeholder="Designation" formControlName="designation"/>
+                                </mat-form-field>
+                                <div *ngIf="Usersubmited && fa['designation'].errors" class="error-msg">
+                                    <div *ngIf="fa['designation'].errors['required']">Please provide designation.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Status</mat-label>
+                                    <mat-select formControlName="status">
+                                         <mat-option value="active">Active</mat-option>
+                                        <mat-option value="inactive">Inactive</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <div *ngIf="Usersubmited && fa['status'].errors" class="error-msg">
+                                    <div *ngIf="fa['status'].errors['required']">Please select status</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form__buttons">
+                            <button type="submit" class="btn btn-add" [disabled]="Userloading">Save</button>
+                        </div>
+                    </form>
+                </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="statusmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addamendmentmodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-0">
+                <div class="body_manage dash-padding dashboard__main__content mb-0">
+                    <div class="col-sm-12 mb-3">
+                        <h3 class="dash-borderRadius main-heading-content">Change  Status <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button></h3>
+                    </div>
+                    <form [formGroup]="StatusForm" (ngSubmit)="StatusSubmit()">
+                        <div class="row">
+                            
+                            <div class="col-12">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Status</mat-label>
+                                    <mat-select formControlName="Status">
+                                         <mat-option value="active">Active</mat-option>
+                                        <mat-option value="inactive">Inactive</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <div *ngIf="Statussubmit && fs['Status'].errors" class="error-msg">
+                                    <div *ngIf="fs['Status'].errors['required']">Please select status</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form__buttons">
+                            <button type="submit" class="btn btn-add" [disabled]="submitLoading">Change</button>
+                        </div>
+                    </form>
+                </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="passmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addamendmentmodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-0">
+                <div class="body_manage dash-padding dashboard__main__content mb-0">
+                    <div class="col-sm-12 mb-3">
+                        <h3 class="dash-borderRadius main-heading-content">Change Password <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button></h3>
+                    </div>
+                    <form [formGroup]="PasswordForm" (ngSubmit)="PassSubmit()">
+                        <div class="row">
+                            
+                            <div class="col-12">
+                                <mat-form-field appearance="fill" class="tts-full-width position-relative">
+                                    <mat-label>Password</mat-label>
+                                    <input matInput placeholder="Password" [type]="isVisible ==true  ? 'text' : 'password'" formControlName="Password"/>
+                                     <i class="far form__field--icon" [ngClass]="isVisible ==true  ? 'fa-eye' : 'fa-eye-slash'" id="eyeIcon"
+                                            (click)="showPassword()"></i>
+                                </mat-form-field>
+                                <div *ngIf="passsubmited && fp['Password'].errors" class="error-msg">
+                                    <div *ngIf="fp['Password'].errors['required']">Please provide password.</div>
+                                </div>
+                          
+                            </div>
+                        </div>
+                        <div class="form__buttons">
+                            <button type="submit" class="btn btn-add" [disabled]="passLoading">Change</button>
+                        </div>
+                    </form>
+                </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,279 @@
+.p-8 {
+    padding: 8px;
+}
+
+.exchange-main {
+    position: relative;
+    width: 20px;
+    display: inline-block;
+    height: 2px;
+    background: #999;
+}
+
+.exchange-main::after {
+    position: absolute;
+    content: '';
+    height: 10px;
+    width: 2px;
+    background: #999;
+    right: 2px;
+    transform: rotate(130deg);
+    top: -7px;
+}
+
+.exchange-maintwo {
+    position: relative;
+    width: 20px;
+    display: grid;
+    height: 2px;
+    background: #999;
+    margin-top: -2px;
+}
+
+.exchange-maintwo::before {
+    position: absolute;
+    content: '';
+    height: 10px;
+    width: 2px;
+    background: #999;
+    left: 2px;
+    transform: rotate(130deg);
+    top: -1px;
+}
+
+.tts-plane-icon {
+    font-size: 20px;
+    color: #999;
+}
+
+.modify-cross {
+    font-size: 24px;
+    color: var(--black);
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: var(--white);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+.paxcount_message {
+    color: #dc3545;
+    font-size: 12px;
+    position: unset !important;
+}
+
+.at-disable {
+    background: #f6eeee !important;
+    border-radius: 0 !important;
+}
+
+.search-form-inp-close {
+    font-size: 20px;
+    position: absolute;
+    right: 18px;
+    top: 20px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.search-form-inp-down {
+    font-size: 20px;
+    position: absolute;
+    right: 30px;
+    top: 20px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.tts-multyclose {
+    font-size: 25px;
+    font-weight: normal;
+    margin-left: 30px;
+    color: #fff;
+}
+
+.tts-addmulti-btn {
+    background: transparent;
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 0%;
+    position: relative;
+    top: 0px;
+    padding: 20px;
+    height: 60px;
+    border-radius: 3px;
+    border: 1px solid var(--white);
+    margin-left: 15px;
+}
+
+.flight-list-section .modify_list li {
+    margin-right: 30px;
+}
+
+@media only screen and (max-width: 600px) {}
+
+.tts-hdcontent {
+    max-width: 97%;
+    font-weight: normal;
+    float: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.flight_section .flight_box .tab-content .persent-one .at-exchange::after {
+    left: 453px !important;
+}
+
+.w-30 {
+    width: 30% !important;
+}
+
+.w-18 {
+    width: 20% !important;
+}
+
+.ps-18 {
+    padding-left: 18px !important;
+}
+
+.search-form-inp-down {
+    font-size: 20px;
+    position: absolute;
+    right: 30px;
+    top: 20px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+
+.flight_section .flight_box .tab-content .persent-one .at-passection {
+    padding: 0;
+    left: -25px;
+    width: 100%;
+}
+
+.flight_section .flight_box .tab-content .persent-one span.title {
+    position: relative;
+    left: 0;
+    top: 0;
+}
+
+.detail-content ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.detail-content ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 15px;
+    padding-top: 15px;
+    text-align: center;
+}
+
+.detail-content ul li .left-block {
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+
+.detail-content ul li .right-block {
+    flex: 0 0 35%;
+    max-width: 35%;
+}
+
+
+.detail-content ul li .left-block h5 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: #37404d;
+}
+
+.detail-content ul li .input-group {
+    justify-content: center;
+}
+
+.detail-content .input-group-append,
+.detail-content .input-group-prepend {
+    display: flex;
+}
+
+.detail-content button.btn {
+    width: 36px;
+    height: 36px;
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, .05);
+    border: 1px solid rgba(0, 0, 0, .15);
+    background-color: #f6f7fa;
+    padding: 0;
+    border-radius: 0 !important;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.detail-content .input-group-append .btn,
+.detail-content .input-group-prepend .btn {
+    position: relative;
+    z-index: 2;
+}
+
+.detail-content .right-block .quantity {
+    padding: 0;
+    text-align: center;
+    max-width: 45px;
+    height: 36px;
+    border-radius: 0;
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, .05);
+    border: 1px solid rgba(0, 0, 0, .15);
+    background-color: #fff;
+    color: #37404d;
+    font-size: 16px;
+    margin: 0;
+}
+
+.hotelpaxcount_message {
+    text-align: center;
+    display: block;
+    margin-bottom: 10px;
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    color: red;
+}
+
+.detail-content .add-remove-block {
+    display: inline-block;
+    width: 100%;
+    border-top: 1px solid rgba(0, 0, 0, .08);
+    vertical-align: middle;
+}
+
+.detail-content .add-remove-block button {
+    float: left;
+    width: 50%;
+    height: 52px;
+    background: none;
+    outline: none;
+    font-size: 16px;
+    line-height: 20px;
+    transition: all .3s;
+    border: none;
+    border-right: 1px solid rgba(0, 0, 0, .08);
+}
+
+.detail-content .add-remove-block button:last-child {
+    border-right: none;
+}
+.flight_section .flight_box .tab-content .persent-one .at-passection
+ {
+    width: 135%;
+}

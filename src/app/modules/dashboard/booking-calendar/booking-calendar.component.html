@@ -1,0 +1,105 @@
+<div class="dashboard-wrapper-container">
+    <ol class="breadcrumb-arrow">
+        <li>
+            <a routerLink="/dashboard/manage-carts"><i class="fa fa-home"></i></a>
+        </li>
+        <li><span>booking-calendar</span></li>
+    </ol>
+    <div class="animation__container">
+        <div class="body_manage dash-padding dashboard__main__content">
+            <div class="row">
+                <div class="col-sm-12"><h3 class="dash-borderRadius main-heading-content">BOOKING CALENDAR</h3></div>
+
+                <form [formGroup]="SearchForm" (ngSubmit)="Submit()">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <mat-form-field appearance="fill" class="tts-full-width">
+                                <mat-label>From (Date)</mat-label>
+                                <input matInput placeholder="From (Date)" formControlName="FromDate" from-date readonly />
+                                <i class="fa fa-times tts-inp-close-icon" (click)="clear('FromDate')" *ngIf="f['FromDate'].value!=''"></i>
+                                <mat-error *ngIf="f['FromDate'].errors?.['required']">Please provide from date</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field appearance="fill" class="tts-full-width">
+                                <mat-label>To (Date)</mat-label>
+                                <input matInput placeholder="To (Date)" formControlName="ToDate" to-date readonly />
+                                <i class="fa fa-times tts-inp-close-icon" (click)="clear('ToDate')" *ngIf="f['ToDate'].value!=''"></i>
+                                <mat-error *ngIf="f['ToDate'].errors?.['required']">Please provide to date</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field appearance="fill" class="tts-full-width">
+                                <mat-label>Month</mat-label>
+                                <mat-select formControlName="Month">
+                                    <mat-option value="01">January</mat-option>
+                                    <mat-option value="02">February</mat-option>
+                                    <mat-option value="03">March</mat-option>
+                                    <mat-option value="04">April</mat-option>
+                                    <mat-option value="05">May</mat-option>
+                                    <mat-option value="06">June</mat-option>
+                                    <mat-option value="07">July</mat-option>
+                                    <mat-option value="08">August</mat-option>
+                                    <mat-option value="09">September</mat-option>
+                                    <mat-option value="10">October</mat-option>
+                                    <mat-option value="11">November</mat-option>
+                                    <mat-option value="12">December</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="form__buttons">
+                        <button type="submit" class="btn sign_btn" [disabled]="loading">Search <i class="fa fa-search"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="body_manage dash-padding dashboard__main__content" *ngIf="loading">
+        <div class="text-center">
+            <div class="spinner-border tts-admin-loader" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="body_manage dash-padding dashboard__main__content" *ngIf="listkeys.length==0 && isshowdiv">
+        <div class="nodata__found-container">
+            <img class="ttsnodata-fount-image" src="assets/img/noData.svg" />
+            <h2 class="table__body-nodata">No Booking Information found!</h2>
+        </div>
+    </div>
+
+    <div class="main" *ngIf="isshowdiv">
+        <div class="booking__calendar-main-container" *ngFor="let list of listkeys">
+            <div class="booking__calendar-main-list">
+                <div class="booking__calendar-date-time">
+                    <h2 class="booking__calendar-date">{{list| date:'d'}} <span class="booking__calendar-day">{{list| date:'MMM'}} </span></h2>
+                </div>
+                <div class="booking__calendar-details-containerWrapper">
+                    <div class="booking__calendar-details-container" *ngFor="let sublist of CalendorList[list]">
+                        <div class="booking__calendar-date-logo"><span class="booking-generation-time">{{sublist['generationTime']}} </span><i class="fa fa-plane booking__calendar-before-icon"></i></div>
+                        <div class="booking__calendar-bookingid-name">
+                            <p>{{sublist['leadPassengerName']}}</p>
+                        </div>
+                        <div class="booking__calendar-bookingid-name">
+                            <p>
+                                Booking ID -<a routerLink="/dashboard/manage-carts/cart-detail/{{sublist['bookingRefNo']}}" target="_blank"><span class="booking__calendar-biiking-idcolor">{{sublist['bookingRefNo']}}</span></a>
+                            </p>
+                        </div>
+                        <div class="booking__calendar-bookingid-name">
+                            <p>
+                                Summary -<a [routerLink]="['/flight/confirmation']" [queryParams]="{token: sublist['Token']}" target="_blank"><span class="booking__calendar-biiking-idcolor">View</span></a>
+                            </p>
+                        </div>
+                        <div class="booking__calendar-city-name">{{sublist['summary']}}</div>
+                        <div class="booking__calendar-roundtrip-button hidden"><span class="booking__calendar-button-bg button-multicity">MC</span></div>
+                        <div class="booking__calendar-action-name"><span class="booking__calendar-Success">{{sublist['bookingStatus']}}</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

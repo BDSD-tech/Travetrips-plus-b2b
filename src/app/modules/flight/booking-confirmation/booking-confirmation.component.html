@@ -1,0 +1,491 @@
+<section class="flight-list" *ngIf="loading">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center min-h400">
+                <div class="flight-segmentcolor text-center mb-4 mt-5 pt-5">
+                    <div class="lds-ellipsis">
+                        <div></div><div></div><div></div><div></div>
+                     </div>
+                    <h5>Please wait</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="travelimp__thanku" *ngIf="loading==false">
+    <div class="container">
+        <div class="row">
+            <div class="travelimp__thanku--bookingSuccess d-flex align-items-center">
+                <img src="assets/img/bookingSuccessTi.png" *ngIf="Response['bookingStatus'][0]=='Confirmed'|| Response['bookingStatus'][0]=='PartialCancelled'" />
+                <img src="assets/img/abort.png" *ngIf="Response['bookingStatus'][0]=='Failed' || Response['bookingStatus'][0]=='Cancelled'" />
+                <img src="assets/img/onhold.png" *ngIf="Response['bookingStatus'][0]=='Hold'" />
+                <div class="travelimp__thanku--statuscontent">
+                    Booking<span *ngIf="Response['bookingStatusString']!=='PartialCancelled'" class="travelimp__thanku--statussize" [ngClass]="{'text-danger':Response['bookingStatus'][0]!='Confirmed'}">{{Response['bookingStatusString']}}</span>
+                    <span *ngIf="Response['bookingStatusString']=='PartialCancelled'" class="travelimp__thanku--statussize text-success">{{SpacePartialcanceled(Response['bookingStatusString'])}}</span>
+                    <p class="travelimp__thanku--bookingIdShow"><a class="travelimp__thanku--redirectid" routerLink="/dashboard/manage-carts/cart-detail/{{Response.bookingRefNumber[0]}}" *ngIf="Response['bookingRefNumber'][0]">{{Response['bookingRefNumber'][0]}}</a>
+                         <a class="travelimp__thanku--redirectid" routerLink="/dashboard/manage-carts/cart-detail/{{Response.bookingRefNumber[1]}}"  *ngIf="Response['bookingRefNumber'][1]">, {{Response['bookingRefNumber'][1]}}</a></p>
+
+                    <div class="travelimp__thanku--bookingIdShow" *ngIf="Response['paymentGatewayInfo'] && Response['bookingStatusString']!=='Confirmed'">
+                        <div *ngFor="let pginfo of Response['paymentGatewayInfo']; let tripkey=index;">
+                            <span><b>Order ID :</b> {{pginfo['OrderId']}}</span>  <br/>
+                            <span><b>Payment Status :</b> {{pginfo['PaymentStatus']}}</span><br/>
+                            <span><b>Amount :</b> {{pginfo['Amount']}}</span><br/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="flight-confirmation" *ngIf="loading==false">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="travelimp__thanku--leftside">
+                    <div class="travelimp__thanku--panelHeadwrap" *ngFor="let trip of Response['ConfirmationBookingData']; let tripkey=index;">
+                        <div class="travel-trip" *ngFor="let subtrip of trip['Segments']; let subtripkey=index;">
+                            <div class="travelimp__thanku--flightFlex">
+                                <div class="travelimp__thanku--flightFlex">
+                                    <div class="travelimp__thanku--panelHeading travelimp__thanku--panelHeading-positionHandle">
+                                        {{subtrip[0]['Origin']['CityName']}} <span class="travelimp__thanku--arrowIcon">→</span> {{subtrip[subtrip.length-1]['Destination']['CityName']}}
+                                        <span class="travelimp__thanku--tripdate travelimp__thanku--tripdate-positionHandle"> {{subtrip[0]['Origin']['DepartTime'] | date:'E, MMM d, y'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngFor="let segment of subtrip; let segkey=index;">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="travelimp__segmentwrap d-flex align-items-center pe-0">
+                                        
+                                            <img src="{{AirlineLogoURL}}{{segment['Airline']['AirlineCode']}}.png" class="size-30 me-2">
+                                            <ul class="travelimp__segmentwrap--flightul">
+                                                <li class="travelimp__segmentwrap--flightname">{{segment['Airline']['AirlineName']}}</li>
+                                                <li class="travelimp__segmentwrap--flightcode">
+                                                    {{segment['Airline']['AirlineCode']}}-{{segment['Airline']['FlightNumber']}}
+                                                    <span *ngIf="segment['Craft']"> <i class="fa fa-plane"></i>-{{segment['Craft']}}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="row">
+                                            <div class="col-md-5 col-4">
+                                                <ul class="travelimp__segmentwrap--airportul travelimp__segmentwrap">
+                                                    <li class="travelimp__segmentwrap--airportlist">{{segment['Origin']['DepartTime'] | date:'MMM d, EEE, HH:mm'}}</li>
+                                                    <li class="travelimp__segmentwrap--airportname">{{segment['Origin']['CityName']}}, {{segment['Origin']['CountryName']}}</li>
+                                                    <li class="travelimp__segmentwrap--airportname">{{segment['Origin']['AirportName']}}</li>
+                                                    <li class="travelimp__segmentwrap--airportname" *ngIf="segment['Origin']['Terminal']!=''">
+                                                        <span class="travelimp__segmentwrap--terminaltext">Terminal : </span>{{segment['Origin']['Terminal']}}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-2 col-4">
+                                                <ul class="travelimp__segmentwrap--stoparrowul travelimp__segmentwrap">
+
+                                                    <li *ngIf="segment['TechStopPoint'].length==0" class="travelimp__segmentwrap--stoparrowlist">Non-Stop</li>
+
+                                                    <li *ngIf="segment['TechStopPoint'] && segment['TechStopPoint']['Code']" class="travelimp__segmentwrap--stoparrowlist">1 Stop(s)</li>
+
+                                            
+                                                    <span *ngIf="segment['TechStopPoint'] && segment['TechStopPoint']['Code']" class="d-block mt-2">Via:{{segment['TechStopPoint']['Code']}}</span>
+                                                
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-5 col-4 text-end">
+                                                <ul class="travelimp__segmentwrap--airportul travelimp__segmentwrap">
+                                                    <li class="travelimp__segmentwrap--airportlist">{{segment['Destination']['ArrivalTime']| date: 'MMM d, EEE, HH:mm'}}</li>
+                                                    <li class="travelimp__segmentwrap--airportname">{{segment['Destination']['CityName']}}, {{segment['Destination']['CountryName']}}</li>
+                                                    <li class="travelimp__segmentwrap--airportname">{{segment['Destination']['AirportName']}}</li>
+                                                    <li class="travelimp__segmentwrap--airportname" *ngIf="segment['Destination']['Terminal']!=''">
+                                                        <span class="travelimp__segmentwrap--terminaltext">Terminal :</span>{{segment['Destination']['Terminal']}}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-4">
+                                        <ul class="travelimp__segmentwrap--airportul travelimp__segmentwrap">
+                                            <li class="travelimp__segmentwrap--airportlist">{{ FTduration(segment['Duration'])}}</li>
+                                            <li class="travelimp__segmentwrap--airportname">
+                                                {{ segment['CabinClass']}},
+                                                <span *ngIf="trip['IsRefundable']==true">Refundable</span>
+                                                <span *ngIf="trip['IsRefundable']!=true">Non Refundable</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-12 col-3">
+                                        <span class="label-{{trip['FareTypeColor']}} w-fit-content">{{trip['FareType']}}</span>
+                                    </div>
+                                    <div class="col-md-12 col-5">
+                                        <div class="travelimp__segmentwrap--baggageInfo">
+                                            <p *ngIf="segment['CheckInBaggage'] || segment['CabinBaggage']">Baggage Information</p>
+                                            <p *ngIf="segment['CheckInBaggage'] || segment['CabinBaggage']">
+                                                <i class="fa fa-suitcase"></i> :  
+                                                <span *ngIf="segment['CheckInBaggage']">
+                                                    <span class="graycolor">Check-in : {{segment['CheckInBaggage']}},</span> 
+                                                </span>
+                                                <span *ngIf="segment['CabinBaggage']">
+                                                     <span class="graycolor">Cabin : {{segment['CabinBaggage']}} </span> 
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 text-center" *ngIf="segment['Layover']">
+                                        <div class="apt-mainlaydesktop mt-1 mb-4">
+                                            <p class="tts-laypverdesktop"><span class="me-3">Require to change Plane</span><span> Layover Time - {{segment['Layover']}}</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="travelimp__segmentwrap--btn">
+                                    <button type="button" class="btn btn-default asr-viewbtn" (click)="faretogglebutton($event,tripkey)" data-expanded="true">
+                                        <span>Fare Rules</span>&nbsp;<i class="ttsfare{{tripkey}} fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 pt-3 mt-2" style="display: none;" id="fare-rule-{{tripkey}}">
+                                <div class="tts-farerule-content">
+                                    <div class="row" *ngFor="let farerule of trip['FareRule']; let farerulekey=index;">
+                                        <div class="col-md-12">
+                                            <button class="ars-activelist fare-rules-tabs">{{farerule.Origin}}-{{farerule.Destination}}</button>
+                                        </div>
+                                        <div class="col-md-12" [innerHTML]="farerule.FareRuleDetail |safeHtml"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 travelimp__thanku--panelHeadwrap">
+                        <div class="travelimp__thanku--panelHeading">Passenger Details ({{Response['ConfirmationBookingData'][0]['TravelersInfo'].length}})</div>
+                        <div class="travelimp__thanku--panelbody">
+                            <div class="table-responsive travelimp__thanku--responsivewrap">
+                                <table class="table table-bordered travelimp__thanku--tablewrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr.</th>
+                                            <th>Passenger Name</th>
+                                            <th>PNR, Ticket No. &amp; Status</th>
+                                            <th>Seat No. (s)</th>
+                                            <th>Baggage</th>
+                                            <th>Meal</th>
+                                            <!-- <th>Others</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let pax of Response['ConfirmationBookingData'][0]['TravelersInfo']; let paxkey=index;">
+                                            <td>{{paxkey+1}}</td>
+                                            <td>
+                                                <span class="travelimp__thanku--paxwiseprint"><i class="fa fa-print"></i></span>
+                                                {{pax['title']}} {{pax['first_name']}} {{pax['last_name']}} ({{pax['pax_type'].slice(0,1)}})
+                                                <p>
+                                                    <span *ngIf="pax['date_of_birth']"> {{pax['date_of_birth'] | date:'d MMM y'}},</span>
+                                                    <span *ngIf="pax['passport_number']">PP : {{pax['passport_number']}},</span>
+                                                    <span *ngIf="pax['passport_nationality']">N : {{pax['passport_nationality']}},</span>
+                                                    <span *ngIf="pax['passport_issue']">ID : {{pax['passport_issue'] | date:'d MMM y'}},</span>
+                                                    <span *ngIf="pax['passport_expiry']">ED : {{pax['passport_expiry']| date:'d MMM y'}}</span>
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <div class="pax-repeat" *ngFor="let paxinfo of Response['ConfirmationBookingData']; let tripkey=index;">
+                                                    <div *ngFor="let subtrip of paxinfo['Segments']; let subtripkey=index;">
+                                                        <div *ngFor="let paxd of paxinfo['TravelersInfo']; let pkey=index;">
+                                                            <div *ngIf="pax['title']+pax['first_name']+pax['last_name']+pax['pax_type'].slice(0,1)==paxd['title']+paxd['first_name']+paxd['last_name']+paxd['pax_type'].slice(0,1)">
+                                                                <p class="mb-0">
+                                                                    <b> {{subtrip[0]['Origin']['AirportCode']}} - {{subtrip[subtrip.length-1]['Destination']['AirportCode']}} </b>:
+                                                                    <span  class="text-success"> {{ArrayTostring(Response['pnr'])}} </span>
+                                                                    <span class="text-success" *ngIf="Response['ConfirmationBookingData'][0]['IsLCC']!==true">/{{paxd['validating_airline']}}{{paxd['ticket_number']}} </span>
+                                                                   
+                                                                    <span *ngIf="paxd['booking_status']!='Confirmed'"> {{paxd['booking_status']}}</span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div *ngFor="let paxinfo of Response['ConfirmationBookingData']; let tripkey=index;">
+                                                    <span *ngIf="!paxinfo['TravelersInfo'][paxkey]['seat']">
+                                                        NA
+                                                        </span>
+                                                    <span *ngIf="paxinfo['TravelersInfo'][paxkey]['seat']">
+                                                        <div *ngFor="let seat of JsonParse(paxinfo['TravelersInfo'][paxkey]['seat'])">
+                                                            <p class="m-0">
+                                                                <b> {{seat['Origin']}}-{{seat['Destination']}} :</b>
+                                                                {{seat['Code']}}   
+                                                            </p>
+                                                            
+                                                        </div>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div *ngFor="let paxinfo of Response['ConfirmationBookingData']; let tripkey=index;">
+                                                    <span *ngIf="!paxinfo['TravelersInfo'][paxkey]['baggage']">
+                                                        NA
+                                                        </span>
+                                                    <span *ngIf="paxinfo['TravelersInfo'][paxkey]['baggage']">
+                                                        <div *ngFor="let seat of JsonParse(paxinfo['TravelersInfo'][paxkey]['baggage'])">
+                                                            <p class="m-0">
+                                                                <b> {{seat['Origin']}}-{{seat['Destination']}} :</b>
+                                                                {{seat['AirlineDescription']}}   
+                                                            </p>
+                                                            
+                                                        </div>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div *ngFor="let paxinfo of Response['ConfirmationBookingData']; let tripkey=index;">
+                                                    <span *ngIf="!paxinfo['TravelersInfo'][paxkey]['meal']">
+                                                        NA
+                                                        </span>
+                                                    <span *ngIf="paxinfo['TravelersInfo'][paxkey]['meal']">
+                                                        <div *ngFor="let seat of JsonParse(paxinfo['TravelersInfo'][paxkey]['meal'])">
+                                                            <p class="m-0">
+                                                                <b> {{seat['Origin']}}-{{seat['Destination']}} :</b>
+                                                                {{seat['AirlineDescription']}}   
+                                                            </p>
+                                                            
+                                                        </div>
+                                                    </span>
+                                                </div>
+ 
+                                            </td>
+                                            <!-- <td>NA</td> -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 travelimp__thanku--panelHeadwrap">
+                        <div class="travelimp__thanku--panelHeading">Fare Summary</div>
+                        <ul class="travelimp__thanku--fareul">
+                            <li class="travelimp__thanku--fareulborder">
+                                <p class="travelimp__thanku--fareullist">
+                                    <span><span>{{FareDetail['FareBreakup']['BaseFare']['LabelText']}}</span></span><span>₹{{FareDetail['FareBreakup']['BaseFare']['Value'] | number:'1.2-2'}}</span>
+                                </p>
+                            </li>
+                            <li class="travelimp__thanku--fareulborder">
+
+                                <p class="travelimp__thanku--fareullist">
+                                    <span data-bs-toggle="collapse" href="#tax-fare" aria-expanded="false" class="tts-cursor-pointer"> {{FareDetail['FareBreakup']['Taxes']['LabelText']}} <i class="fa fa-angle-down mrg-left"></i></span>
+                                    <span class="float-end">₹{{FareDetail['FareBreakup']['Taxes']['Value'] | number:'1.2-2'}} <i title="Change markup" class="fa fa-edit tts-cursor-pointer" (click)="showmarkup()"></i></span>
+                                </p>
+                                
+                                <div class="tax-dropdown airline-gst-print collapse p-10 pt-0" id="tax-fare">
+
+                                    <div *ngIf="FareDetail['FareBreakup']['Taxes']['TaxBreakup']['Tax']['Value']!=0"><span>{{FareDetail['FareBreakup']['Taxes']['TaxBreakup']['Tax']['LabelText']}}</span><span class="float-end">₹{{FareDetail['FareBreakup']['Taxes']['TaxBreakup']['Tax']['Value'] | number:'1.2-2'}}</span></div>
+
+                                    <div *ngIf="FareDetail['FareBreakup']['Taxes']['TaxBreakup']['YQ']['Value']!=0"><span>{{FareDetail['FareBreakup']['Taxes']['TaxBreakup']['YQ']['LabelText']}}</span><span class="float-end">₹{{FareDetail['FareBreakup']['Taxes']['TaxBreakup']['YQ']['Value'] | number:'1.2-2'}}</span></div>
+
+                                    <div *ngIf="FareDetail['FareBreakup']['Taxes']['TaxBreakup']['OtherCharges']['Value']!=0"><span>{{FareDetail['FareBreakup']['Taxes']['TaxBreakup']['OtherCharges']['LabelText']}}</span><span class="float-end">₹{{FareDetail['FareBreakup']['Taxes']['TaxBreakup']['OtherCharges']['Value'] | number:'1.2-2'}}</span></div>
+
+                                    <div *ngIf="FareDetail['FareBreakup']['Taxes']['TaxBreakup']['ServiceCharges']['Value']!=0"><span>{{FareDetail['FareBreakup']['Taxes']['TaxBreakup']['ServiceCharges']['LabelText']}}</span><span class="float-end">₹{{FareDetail['FareBreakup']['Taxes']['TaxBreakup']['ServiceCharges']['Value'] | number:'1.2-2'}}</span></div>
+
+                                    <div *ngIf="FareDetail['FareBreakup']['Taxes']['TaxBreakup']['GST']['Value']!=0"><span>{{FareDetail['FareBreakup']['Taxes']['TaxBreakup']['GST']['LabelText']}}</span><span class="float-end">₹{{FareDetail['FareBreakup']['Taxes']['TaxBreakup']['GST']['Value'] | number:'1.2-2'}}</span></div>
+                                   
+                                </div>
+                            
+                                <div class="pos-rel" *ngIf="isshowmarkup">
+                                    <div class="markup__box-mainconatiner">
+                                        <div class="col me-3">
+                                            <div class="form-floating mb-2">
+                                                <input type="number" min="0" value="0" class="form-control" id="InputMarkup" placeholder="Markup Price" [(ngModel)]="markupvalue" />
+                                                <label for="InputMarkup">Markup Price</label>
+                                            </div>
+                                        </div>
+                                        <span class="markup__update-closebtn" (click)="showmarkup()">×</span><button class="markup__update-btn" (click)="updatemarkup()">Update</button>
+                                    </div>
+                                </div>
+
+                            </li>
+                            <li class="travelimp__thanku--fareulborder">
+                                <p class="travelimp__thanku--fareullist">{{FareDetail['FareBreakup']['MealBaggageSeat']['LabelText']}}<span>₹{{FareDetail['FareBreakup']['MealBaggageSeat']['Value'] | number:'1.2-2'}}</span></p>
+                            </li>
+                            <li class="travelimp__thanku--fareulborder">
+                                <p class="travelimp__thanku--fareullist">
+                                    <span><span data-bs-toggle="collapse" href="#total-fare" aria-expanded="false" class="tts-cursor-pointer">{{FareDetail['TotalAmount']['LabelText']}}</span><i class="fa fa-angle-down mrg-left"></i></span><span>₹{{FareDetail['TotalAmount']['Value'] | number:'1.2-2'}}</span>
+                                </p>
+                                <div class="tax-dropdown airline-gst-print collapse p-10 pt-0" id="total-fare">
+
+                                    <div><span>{{FareDetail['TotalAmount']['TotalAmountBreakup']['AgentCommission']['LabelText']}}</span><span class="float-end">-₹{{FareDetail['TotalAmount']['TotalAmountBreakup']['AgentCommission']['Value'] | number:'1.2-2'}}</span></div>
+
+                                    <div><span>{{FareDetail['TotalAmount']['TotalAmountBreakup']['Markup']['LabelText']}}</span><span class="float-end">-₹{{FareDetail['TotalAmount']['TotalAmountBreakup']['Markup']['Value'] | number:'1.2-2'}}</span></div>
+
+                                    <div><span>{{FareDetail['TotalAmount']['TotalAmountBreakup']['TDS']['LabelText']}}</span><span class="float-end">+₹{{FareDetail['TotalAmount']['TotalAmountBreakup']['TDS']['Value'] | number:'1.2-2'}}</span></div>
+
+                                    <div><span>{{FareDetail['TotalAmount']['TotalAmountBreakup']['NetAmount']['LabelText']}}</span><span class="float-end">₹{{FareDetail['TotalAmount']['TotalAmountBreakup']['NetAmount']['Value'] | number:'1.2-2'}}</span></div>
+
+
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-12 travelimp__thanku--panelHeadwrap">
+                        <div class="travelimp__thanku--panelHeading">Important Information</div>
+                        <ul class="travelimp__termswrap--termsul">
+                            <li class="travelimp__termswrap--termslist">1. You should carry a print-out of your booking and present for check-in.</li>
+                            <li class="travelimp__termswrap--termslist">2. Date &amp; Time is calculated based on the local time of city/destination.</li>
+                            <li class="travelimp__termswrap--termslist">3. Use the Reference Number for all Correspondence with us.</li>
+                            <li class="travelimp__termswrap--termslist">4. Use the Airline PNR for all Correspondence directly with the Airline</li>
+                            <li class="travelimp__termswrap--termslist">5. For departure terminal please check with airline first.</li>
+                            <li class="travelimp__termswrap--termslist">6. Please CheckIn atleast 2 hours prior to the departure for domestic flight and 3 hours prior to the departure of international flight.</li>
+                            <li class="travelimp__termswrap--termslist">7. For rescheduling/cancellation within 4 hours of departure time contact the airline directly</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="travelimp__thanku--rightside">
+                    <ul class="travelimp__thanku--moreoptions pb-0">
+                        <div *ngIf="Response['bookingStatus'][0]!='Processing' && Response['bookingStatus'][0]!='Pending' && Response['bookingStatus'][0]!='Failed'">
+                        <li class="travelimp__thanku--morelist" (click)="DownloadPDF()"><span class="travelimp__thanku--morecontent"> Download as PDF</span><span class="travelimp__thanku--moreicons fa fa-download"></span></li>
+                        <li class="travelimp__thanku--morelist" data-bs-toggle="modal" data-bs-target="#ticketformmodal-printtk">
+                            <span class="travelimp__thanku--morecontent">Print Ticket</span><span class="travelimp__thanku--moreicons fa fa-print"></span>
+                        </li>
+                        <li class="travelimp__thanku--morelist" data-bs-toggle="modal" data-bs-target="#ticketformmodal-email">
+                            <span class="travelimp__thanku--morecontent"> Email Ticket</span><span class="travelimp__thanku--moreicons fa fa-envelope"></span>
+                        </li>
+                        <li class="travelimp__thanku--morelist" data-bs-toggle="modal" data-bs-target="#ticketformmodal-mobile">
+                            <span class="travelimp__thanku--morecontent"> SMS Ticket </span><span class="travelimp__thanku--moreicons fa fa-envelope-open"></span>
+                        </li>
+                        <li class="travelimp__thanku--morelist">
+                            <a class="travelimp__thanku--anchorlink" href="javascript:void(0);" (click)="ViewTicketInvoice('AgencyInvoice')">
+                                <span class="travelimp__thanku--morecontent"> Invoice For Agency</span><span class="travelimp__thanku--moreicons fa fa-file-alt"></span>
+                            </a>
+                        </li>
+                        <li class="travelimp__thanku--morelist" (click)="ViewTicketInvoice('CustomerInvoice')">
+                            <span class="travelimp__thanku--morecontent"> Invoice For Customer</span><span class="travelimp__thanku--moreicons fa fa-file-alt"></span>
+                        </li>
+                    </div>
+                        <li class="travelimp__thanku--morelist">
+                            <a class="travelimp__thanku--anchorlink" routerLink="/dashboard/manage-carts/cart-detail/{{Response.bookingRefNumber[0]}}">
+                                <span class="travelimp__thanku--morecontent">Go to Cart Details</span> <span class="travelimp__thanku--moreicons fa fa-shopping-cart"></span>
+                            </a>
+                        </li>
+                        <li class="travelimp__thanku--morelist" *ngIf="Response.bookingRefNumber[1]">
+                            <a class="travelimp__thanku--anchorlink" routerLink="/dashboard/manage-carts/cart-detail/{{Response.bookingRefNumber[1]}}">
+                                <span class="travelimp__thanku--morecontent">Go to Return Cart Details</span><span class="travelimp__thanku--moreicons fa fa-shopping-cart"></span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--Send email Modal -->
+<div class="modal fade" id="ticketformmodal-email" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ticketformmodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="formmodal">SEND EMAIL</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="EmailForm" (ngSubmit)="onSubmitEmail()">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control main-select" id="email-ids" formControlName="EmailId" placeholder="Enter Email">
+                        <label for="email-ids">Enter Email</label>
+                        <div *ngIf="Emailsubmitted && fe['EmailId'].errors" class="error-msg">
+                            <div *ngIf="fe['EmailId'].errors['required']">Please enter Email ID.</div>
+                            <div *ngIf="fe['EmailId'].errors['email']">Please enter a valid Email ID.</div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12 text-center">
+                            <button type="submit" class="tts-button-primary" [disabled]="Emailloading"><span *ngIf="Emailloading" class="spinner-border spinner-border-sm mr-1"></span> Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Send Mobile number Modal -->
+<div class="modal fade" id="ticketformmodal-mobile" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="formmodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="formmodal">SEND SMS</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="MobileForm" (ngSubmit)="onSubmitSMS()">
+                <div class="form-floating mb-3">
+                    
+                    <input type="text" class="form-control  main-select" id="mobile-nos" formControlName="MobileNumber" placeholder="Enter Mobile Number"/>
+                    <label for="mobile-nos">Enter Mobile Number</label>
+                    <div *ngIf="Mobilesubmitted && fs['MobileNumber'].errors" class="error-msg">
+                        <div *ngIf="fs['MobileNumber'].errors['required']">Please enter Mobile Number.</div>
+                        <div *ngIf="fs['MobileNumber'].errors['pattern'] || fs['MobileNumber'].errors['minlength'] || fs['MobileNumber'].errors['maxlength']">Please enter a valid Mobile Number.</div>
+                      </div>
+                      
+                </div>
+
+    
+
+                <div class="row mb-3">
+                    <div class="col-12 text-center">
+                        <button type="submit" class="tts-button-primary" [disabled]="Mobileloading"> <span *ngIf="Mobileloading" class="spinner-border spinner-border-sm mr-1"></span> Submit</button>
+                    </div>
+                </div>
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Print Ticket Modal -->
+<div class="modal fade" id="ticketformmodal-printtk" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="formmodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="formmodal">PRINT TICKET</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="tk-with-price" [(ngModel)]="TicketWithPrice" #ctrl="ngModel" checked />
+                        <label class="form-check-label" for="tk-with-price">
+                            With Price
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="tk-with-agency" [(ngModel)]="TicketWithAgency" #ctrl="ngModel" checked />
+                        <label class="form-check-label" for="tk-with-agency">
+                            With Agency
+                        </label>
+                    </div>
+                </div>
+                <div class="mb-3" *ngIf="Response['ConfirmationBookingData']?.length==2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="TicketInvoiceJourney" id="onward-ticket" value="Onward"  [(ngModel)]="TicketInvoiceJourney" #ctrl="ngModel">
+                        <label class="form-check-label" for="onward-ticket">Onward Ticket</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="TicketInvoiceJourney" id="return-ticket" value="Return" [(ngModel)]="TicketInvoiceJourney" #ctrl="ngModel">
+                        <label class="form-check-label" for="return-ticket">Return Ticket</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="TicketInvoiceJourney" id="both-ticket" value="Both" [(ngModel)]="TicketInvoiceJourney" #ctrl="ngModel">
+                        <label class="form-check-label" for="both-ticket">Both Ticket</label>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-12 text-center">
+                        <button type="button" class="tts-button-primary" data-bs-dismiss="modal" (click)="ViewTicketInvoice('Ticket')">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

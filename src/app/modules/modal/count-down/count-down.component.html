@@ -1,0 +1,11 @@
+
+
+<div class="tts-session-timer" *ngIf="display=='on'">
+    <div class="tts-session-timer text-center">
+         <div class="tts-stripe-timer p-3">
+            <i class="fas fa-clock tgs-clock"></i>
+            <span>Your Session will expire in </span>
+            <span class="t-counter">{{minutesToDday}} mins : {{secondsToDday}} secs</span>
+        </div>
+    </div>
+</div>

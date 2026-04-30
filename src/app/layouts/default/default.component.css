@@ -1,0 +1,196 @@
+.aside-menubar-listAll a {
+    color: #333;
+    text-transform: capitalize;
+    transition: 0.5s ease all;
+    position: relative;
+    display: block;
+    padding: 13px 15px;
+}
+
+.sidebar__mainlist li a i {
+    margin-right: 10px;
+    color: #004684;
+}
+
+.sidebar__mainlist>.active>a,
+.sidebar__mainlist>.active>a:hover {
+    color: #fff;
+    background-color: #114678;
+}
+
+.sidebar__mainlist .aside-menubar-listAll.active a i {
+    color: #fff;
+}
+
+.main-header {
+    position: fixed;
+    top: 0;
+    z-index: 9;
+    box-shadow: 1px 0 10px #ccc;
+}
+
+.header .topbar {
+    float: none;
+}
+
+.header .topbar {
+    border-bottom: none !important;
+    padding: 0;
+}
+
+.header .topbar .border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+    padding: 8px 0;
+}
+
+.mega-menu.show-only2 {
+    left: -41px !important;
+    min-width: 258px !important;
+}
+
+.mega-menu .tableDropdown__wrap--list.list-only2 {
+    justify-content: space-around;
+}
+
+.mega-menu .tableDropdown__wrap--list__content.list-only2 {
+
+    justify-content: space-around !important;
+}
+
+
+
+
+#mobileOffcanvas {
+    width: 280px;
+    border-radius: 0 15px 15px 0;
+    overflow: hidden;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+#mobileOffcanvas .offcanvas-header {
+    background: linear-gradient(135deg, var(--second-dark-color), var(--second-color));
+    color: #fff;
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    border-bottom: none;
+    position: relative;
+}
+
+#mobileOffcanvas .offcanvas-header i {
+    font-size: 1.3rem;
+    transition: transform 0.3s ease;
+}
+
+#mobileOffcanvas .btn-close {
+    background: none;
+}
+
+#mobileOffcanvas .btn-close i {
+    font-size: 1rem;
+}
+
+#mobileOffcanvas .btn-close:hover i {
+    transform: rotate(90deg);
+    color: #ff4d4d;
+}
+
+/* Profile Section */
+#mobileOffcanvas .offcanvas-body>.d-flex.align-items-center {
+    background: linear-gradient(120deg, #f8f9fa, #e0f7fa);
+    border-bottom: 1px solid #dee2e6;
+}
+
+#mobileOffcanvas .fw-bold i {
+    color: var(--second-dark-color);
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Wallet Section */
+#mobileOffcanvas .offcanvas-body>.p-3.bg-light {
+    background: #fefefe;
+    border-bottom: 1px solid #ddd;
+}
+
+#mobileOffcanvas .offcanvas-body h5 {
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+#mobileOffcanvas .offcanvas-body .badge {
+    padding: 0.4em 0.6em;
+    font-size: 0.75rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+#mobileOffcanvas .offcanvas-body .badge.bg-success:hover {
+    background-color: #00cc66;
+    transform: scale(1.1);
+}
+
+/* Navigation Menu */
+#mobileOffcanvas .mobile-nav li {
+    transition: all 0.2s ease;
+}
+
+#mobileOffcanvas .mobile-nav li a {
+    color: #333;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    display: block;
+}
+
+#mobileOffcanvas .mobile-nav li a i {
+    margin-right: 6px;
+}
+
+#mobileOffcanvas .mobile-nav li a:hover {
+    background: linear-gradient(90deg, var(--second-color), var(--second-dark-color));
+    color: #fff;
+    transform: translateX(5px);
+}
+
+
+
+/* Scrollbar Styling */
+#mobileOffcanvas .offcanvas-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+#mobileOffcanvas .offcanvas-body::-webkit-scrollbar-thumb {
+    background-color: var(--second-color);
+    border-radius: 3px;
+}
+
+#mobileOffcanvas .offcanvas-body::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+/* Button Animations */
+#mobileOffcanvas button.btn-outline-secondary {
+    border: 1px solid var(--second-color);
+    color: var(--second-color);
+    transition: all 0.3s ease;
+}
+
+#mobileOffcanvas button.btn-outline-secondary:hover {
+    background-color: var(--second-color);
+    color: #fff;
+    transform: scale(1.1);
+}

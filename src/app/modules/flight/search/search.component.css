@@ -1,0 +1,269 @@
+.flight__dropdown__icon {
+    content: '';
+    display: block;
+    position: relative;
+    width: 23px;
+    border-radius: 50%;
+    top: -15px;
+    left: 60%;
+    height: 23px;
+    background-color: #5a5a5a;
+    transform: rotate(45deg);
+    transition: transform 0.2s linear;
+    cursor: pointer;
+}
+
+.flight__dropdown__icon:after {
+    content: '';
+    display: block;
+    float: none;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 0;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    padding: 4px;
+    height: 0;
+}
+
+.flight__dropdown__icon--selected {
+    transform: rotate(-135deg);
+}
+
+/* .form-check-input:checked {
+    background-color: #16a085;
+    border-color: #16a085;
+} */
+
+.form-check-input:focus {
+
+    outline: unset;
+    box-shadow: unset;
+}
+
+.tts-flight-detail {
+    display: none;
+}
+
+.fs-10 {
+    font-size: 10px;
+}
+
+.share_chekbox {
+    float: right;
+    margin-top: -35px;
+}
+
+.flight-icons-zeroFlight {
+    font-size: 70px;
+    color: var(--second-color);
+    transform: rotate(-49deg);
+}
+
+.noflight {
+    box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
+    padding: 25px 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0px;
+    display: none;
+}
+
+.no_flight-content {
+    text-align: center;
+}
+
+.no_flight-content p {
+    color: #333;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.mt-15-dura {
+    margin-top: -15px;
+}
+
+.ars-specialfare {
+    line-height: 10px;
+}
+
+/* .flight-list .flight-rowmain .margin-left-23 {
+    margin-left: -23px;
+} */
+
+.flight-list .flight-rowmain .margin-left-23 li {
+    margin: 0;
+}
+
+.ar-dateselect {
+    color: var(--second-color);
+}
+
+.filter-inrmark {
+    font-size: 22px;
+    margin-right: 10px;
+}
+
+/* .button-filters-search {
+    border-bottom: 3px solid transparent;
+    padding: 3px 0 0 10px;
+    width: 150px;
+    background-color: #dedede;
+    z-index: 9;
+    border-radius: 10px;
+    min-height: 40px;
+    line-height: normal;
+    cursor: pointer;
+}
+
+.sort_active {
+    bottom: 0;
+    border-bottom: 3px solid #16a085;
+}
+
+.indicator-content .message-content {
+    display: block;
+} */
+
+/* Main filter row */
+.button-filters-search {
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid #dcdcdc;
+    border-radius: 0px;
+    padding: 12px 16px;
+    height: 100%;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.button-filters-search i {
+    margin-right: 12px;
+    color: var(--second-color);
+}
+
+.sort_active {
+    background-color: var(--second-color);
+    border-color: var(--second-color);
+    color: #fff;
+}
+
+.sort_active i {
+    color: #fff;
+}
+
+.button-filters-search .detail h6 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.button-filters-search .detail p {
+    font-size: 12px;
+    font-weight: 500;
+    color: #555;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .button-filters-search {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .button-filters-search i {
+        margin-bottom: 8px;
+    }
+}
+
+.button-filters-search.sort_active .detail p {
+    color: var(--white);
+}
+
+.tts-flight-right {
+    height: 120vh;
+    overflow-y: scroll;
+}
+
+.fare-title {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.fare-price {
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.seat-info {
+    font-size: 13px;
+    color: #555;
+}
+
+.book-btn {
+    background-color: #28479d;
+    color: #fff;
+    border-radius: 25px;
+    padding: 6px 18px;
+    border: none;
+    font-size: 14px;
+}
+
+.book-btn:hover {
+    background-color: #28479d
+}
+
+.comparison-table th,
+.comparison-table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 14px 10px;
+    font-size: 14px;
+}
+
+.comparison-table th:first-child,
+.comparison-table td:first-child {
+    text-align: left;
+    font-weight: 500;
+    background: #fafafa;
+    min-width: 220px;
+}
+
+.check-icon {
+    color: #2e9b3f;
+    font-size: 18px;
+}
+
+.coin-icon {
+    color: #f5a623;
+    font-size: 18px;
+}
+
+.info-icon {
+    font-size: 13px;
+    color: #888;
+    margin-left: 5px;
+}
+
+.modal-body {
+    max-height: 75vh;
+    overflow-y: auto;
+}
+
+
+.filter-btn{
+    background-color: var(--second-color);
+    border: 1px solid var(--second-color);
+    color: #fff;
+    border-radius: 0;
+    box-shadow: none;
+}
+.flight-btnforfilter.duration{
+    position: absolute;
+    left: -25px;
+    bottom: 10px;
+}

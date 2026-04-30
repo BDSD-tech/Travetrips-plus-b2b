@@ -1,0 +1,79 @@
+<div *ngIf="type=='O'">
+  <div class="flight-rowmain mb-3" *ngFor="let adt of arrayOne(9); let a=index">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="flight-leftresult1 loading_animation">
+                            <ul class="flight-listair d-flex align-items-center h30"></ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-4">
+                        <ul class="flight-listair loading_animation h30"></ul>
+                    </div>
+                    <div class="col-sm-2 col-4">
+                        <span class="arrow-allright arrowclass-loader-flight-search"></span>
+                    </div>
+                    <div class="col-sm-2 col-4">
+                        <ul class="flight-listair loading_animation h30"></ul>
+                    </div>
+                    <div class="col-sm-12 clearfix">
+                        <p class="indicator-content loading_animation h30"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <ul class="flight-radiolist loading_animation h30"></ul>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="loading_animation h30"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="type=='R'">
+        <div class="row">
+            <div class="col-md-6" *ngFor="let adt of arrayOne(2); let i=index">
+                <div class="flight-rowmain mb-3" *ngFor="let adt of arrayOne(9); let a=index">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="row align-items-center">
+                                <div class="col-md-6">
+                                    <div class="flight-leftresult1 loading_animation">
+                                        <ul class="flight-listair d-flex align-items-center h30"></ul>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 col-4">
+                                    <ul class="flight-listair loading_animation h30"></ul>
+                                </div>
+                                <div class="col-sm-2 col-4">
+                                    <span class="arrow-allright arrowclass-loader-flight-search"></span>
+                                </div>
+                                <div class="col-sm-2 col-4">
+                                    <ul class="flight-listair loading_animation h30"></ul>
+                                </div>
+                                <div class="col-sm-12 clearfix">
+                                    <p class="indicator-content loading_animation h30"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <ul class="flight-radiolist loading_animation h30"></ul>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="loading_animation h30"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>

@@ -1,0 +1,8 @@
+.page-content ul li {
+    list-style-type: disc;
+    margin-bottom: 20px;
+}
+.page-content ul li p span{
+    font-size: 16px;
+    font-weight: 800;
+}

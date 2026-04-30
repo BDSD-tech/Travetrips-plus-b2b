@@ -1,0 +1,28 @@
+.nightTopBorder {
+    font-size: 14px;
+    font-weight: 700;
+    color: #525252; 
+    padding: 10px 20px 0;
+    border-top: 1px dashed #000;
+}
+.fs-14 {
+    font-size: 14px;
+}
+
+.img-hotel{
+    height:130px; 
+    width:100%; 
+    object-fit:cover
+}
+.gst-clear{
+    font-size: 14px;
+    border: 2px solid #eee;
+    cursor: pointer;
+    color: var(--second-color);
+    float: right;
+    padding: 10px;
+    margin-top: 10px;
+}
+.line-height-14{
+    line-height: 18px;
+}

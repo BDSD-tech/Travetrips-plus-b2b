@@ -1,0 +1,36 @@
+.loading_animation {
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: boxboxshimmer;
+    animation-timing-function: linear;
+    background: #eef1f9;
+    background: linear-gradient(90deg, #eee 8%, #ffffff 18%, #eee 33%);
+    background-size: 800px 104px;
+    position: relative;
+    margin: 3px 4px;
+}
+
+@keyframes boxboxshimmer { 
+    0% {
+        background-position: -468px 0;
+    }
+    100% {
+        background-position: 468px 0;
+    }
+}
+
+@-webkit-keyframes boxboxshimmer {
+    0% {
+        background-position: -468px 0;
+    }
+    100% {
+        background-position: 468px 0;
+    }
+}
+.h30{
+    height: 30px;
+} 
+.h160{
+    height: 160px;
+} 

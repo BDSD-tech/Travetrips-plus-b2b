@@ -1,0 +1,1937 @@
+<section class="flight-details">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3 col-6 booking-top-btn">
+                <div class="apt-common apt-firstep apt-active">
+                    <span class="graycolor"><span>FIRST STEP</span></span>
+                    <h4 class="apt-flightiti tts-cursor-pointer" (click)="goBack()"><span>Flight Itinerary</span></h4>
+                </div>
+            </div>
+            <div class="col-sm-3 col-6 booking-top-btn">
+                <div class="apt-common apt-second apt-black">
+                    <span class="graycolor"><span>SECOND STEP</span></span>
+                    <h4 class="apt-flightiti"><span>Passenger Details</span></h4>
+                </div>
+            </div>
+            <div class="col-sm-3 col-6 booking-top-btn">
+                <div class="apt-common apt-third">
+                    <span class="graycolor"><span>THIRD STEP</span></span>
+                    <h4 class="apt-flightiti"><span>Review</span></h4>
+                </div>
+            </div>
+            <div class="col-sm-3 col-6 booking-top-btn">
+                <div class="apt-common apt-forth">
+                    <span class="graycolor"><span>FINISH STEP</span></span>
+                    <h4 class="apt-flightiti"><span>Payments</span></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="flight-booking">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="booking-main">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h3 class="apt-heading">
+                            <span>Passenger Details</span>
+                        </h3>
+                    </div>
+
+                    <form [formGroup]="FlightForm" (ngSubmit)="SubmitPax()">
+                        <div class="scrollable wrapper-mainclass">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="accordion panel-default" id="adt-pax-accordion">
+                                        <!--Start Adult information -->
+                                        <div class="accordion-item panel-item mb-4" formArrayName="Adult"
+                                            *ngFor="let adt of fadt?.['controls']; let a=index;">
+                                            <div formGroupName="{{a}}">
+                                                <button class="accordion-button panel-heading h5 fw-bold" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    attr.data-bs-target="#collapse_adt_{{a+1}}" aria-expanded="false"
+                                                    [ngClass]="{'collapsed':a!=0}">
+                                                    ADULT {{a+1}}:
+                                                    <span *ngIf="adt.value['FirstName']==''">(12 + yrs)</span>
+                                                    <span *ngIf="adt.value['FirstName']!=''">{{ adt.value['Title'] }}
+                                                        {{adt.value['FirstName']}} {{adt.value['LastName']}}</span>
+                                                </button>
+                                                <div id="collapse_adt_{{a+1}}" class="accordion-collapse collapse"
+                                                    data-bs-parent="#adt-pax-accordion" [ngClass]="{'show':a==0}">
+                                                    <div class="accordion-body panel-body p-0">
+                                                        <div class="historybox__wrapper">
+                                                            <div class="historybox">
+                                                                <label class="historybox__label"></label>
+                                                                <div role="combobox" aria-haspopup="listbox"
+                                                                    aria-owns="react-autowhatever-1"
+                                                                    aria-expanded="false"
+                                                                    class="react-autosuggest__container">
+                                                                    <input type="text" class="react-autosuggest__input"
+                                                                        placeholder="Select from History"
+                                                                        (keyup)="TravellerAutocomplete($event,'Adult',a)"
+                                                                        [matAutocomplete]="auto" />
+                                                                </div>
+
+                                                                <mat-autocomplete #auto="matAutocomplete"
+                                                                    (optionSelected)="selectedpax($event,'Adult',a)">
+                                                                    <mat-option *ngFor="let list of travellerlist"
+                                                                        [value]="list['first_name']+' ' + list['last_name']">{{list['first_name']}}
+                                                                        {{list['last_name']}}</mat-option>
+                                                                </mat-autocomplete>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="paxlist-box">
+                                                            <div class="row">
+                                                                <div class="col-md-3">
+                                                                    <div class="form-floating">
+                                                                        <select class="form-select main-select"
+                                                                            formControlName="Title">
+                                                                            <option value="" selected>Title</option>
+                                                                            <option value="Mr">Mr</option>
+                                                                            <option value="Mrs">Mrs</option>
+                                                                            <option value="Ms">Ms</option>
+                                                                        </select>
+                                                                        <label for="floatingSelect">Title</label>
+                                                                    </div>
+
+                                                                    <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.Title')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Adult.'+a+'.Title')?.errors?.['required']">
+                                                                            Title is required.</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+
+                                                                    <div class="form-floating">
+                                                                        <input type="text"
+                                                                            class="form-control main-select"
+                                                                            formControlName="FirstName"
+                                                                            placeholder="First Name*"
+                                                                            oninput="this.value = this.value.toUpperCase()"
+                                                                            id="Adult-{{a}}-FirstName" />
+                                                                        <label for="Adult-{{a}}-FirstName">First
+                                                                            Name*</label>
+                                                                    </div>
+
+                                                                    <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.FirstName')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Adult.'+a+'.FirstName')?.errors?.['required']">
+                                                                            First name is required.</div>
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Adult.'+a+'.FirstName')?.errors?.['pattern'] || FlightForm.get('Adult.'+a+'.FirstName')?.errors?.['minlength']">
+                                                                            Please enter a valid first name.
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-floating">
+                                                                        <input type="text"
+                                                                            class="form-control main-select"
+                                                                            formControlName="LastName"
+                                                                            placeholder="Last Name*"
+                                                                            oninput="this.value = this.value.toUpperCase()"
+                                                                            id="Adult-{{a}}-LastNam" />
+
+                                                                        <label for="Adult-{{a}}-LastName">Last
+                                                                            Name*</label>
+                                                                    </div>
+
+                                                                    <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.LastName')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Adult.'+a+'.LastName')?.errors?.['required']">
+                                                                            Last name is required.</div>
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Adult.'+a+'.LastName')?.errors?.['pattern'] || FlightForm.get('Adult.'+a+'.LastName')?.errors?.['minlength']">
+                                                                            Please enter a valid last name.
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-3" *ngIf="showadtdob">
+                                                                    <div class="form-floating">
+                                                                        <input type="text"
+                                                                            class="form-control main-select"
+                                                                            formControlName="DOB"
+                                                                            placeholder="Date of Birth" attr.key="{{a}}"
+                                                                            paxtype="Adult" id="Adult-{{a}}-DOB"
+                                                                            (input)="onDobInput('Adult',$event, a,'DOB')" adt-dob-date />
+
+                                                                        <label for="Adult-{{a}}-DOB">Date of Birth<span
+                                                                                *ngIf="FlightForm.get('Adult.'+a+'.DOB')?.errors?.['required']">*</span></label>
+                                                                    </div>
+
+                                                                    <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.DOB')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Adult.'+a+'.DOB')?.errors?.['required']">
+                                                                            DOB is required.</div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-3" *ngIf="IsPANMandatory">
+                                                                    <div class="form-floating">
+                                                                        <input type="text"
+                                                                            class="form-control main-select"
+                                                                            formControlName="PAN"
+                                                                            placeholder="PAN Number*"
+                                                                            id="Adult-{{a}}-PAN" />
+                                                                        <label for="Adult-{{a}}-PAN">PAN Number*</label>
+                                                                    </div>
+
+                                                                    <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.PAN')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Adult.'+a+'.PAN')?.errors?.['required']">
+                                                                            PAN number is required.</div>
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Adult.'+a+'.PAN')?.errors?.['pattern']">
+                                                                            Please enter a valid PAN number.</div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-4" *ngIf="DocumentMendatory">
+                                                                    <div class="form-floating">
+                                                                        <input type="text"
+                                                                            class="form-control main-select"
+                                                                            formControlName="DocumentNumber"
+                                                                            placeholder="{{DocumentTitle}}*"
+                                                                            oninput="this.value = this.value.toUpperCase()"
+                                                                            id="Adult-{{a}}-DocumentNumber" />
+
+                                                                        <label for="Adult-{{a}}-DocumentNumber">Document
+                                                                            Number ({{DocumentTitle}})*</label>
+                                                                    </div>
+
+                                                                    <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.DocumentNumber')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Adult.'+a+'.DocumentNumber')?.errors?.['required']">
+                                                                            Last name is required.</div>
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Adult.'+a+'.DocumentNumber')?.errors?.['pattern'] || FlightForm.get('Adult.'+a+'.DocumentNumber')?.errors?.['minlength']">
+                                                                            Please enter a valid document number.
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4" *ngIf="DocumentIssueDate">
+                                                                    <div class="form-floating">
+                                                                        <input type="text"
+                                                                            class="form-control main-select"
+                                                                            formControlName="DocumentIssueDate"
+                                                                            placeholder="Document Issue Date"
+                                                                            adt-docissue-date attr.key="{{a}}"
+                                                                            paxtype="Adult" attr.key="{{a}}"
+                                                                            (input)="onDobInput('Adult',$event, a,'DocumentIssueDate')"
+                                                                            id="Adult-{{a}}-DocumentIssueDate"
+                                                                             />
+
+                                                                        <label
+                                                                            for="Adult-{{a}}-DocumentIssueDate">Document
+                                                                            Issue Date *<span
+                                                                                *ngIf="FlightForm.get('Adult.'+a+'.DocumentIssueDate')?.errors?.['required']">*</span></label>
+                                                                    </div>
+
+                                                                    <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.DocumentIssueDate')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Adult.'+a+'.DocumentIssueDate')?.errors?.['required']">
+                                                                            document issue date is required.</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4" *ngIf="DocumentExpiryDate">
+                                                                    <div class="form-floating">
+                                                                        <input type="text"
+                                                                            class="form-control main-select"
+                                                                            formControlName="DocumentExpireDate"
+                                                                            placeholder="Document Issue Date"
+                                                                            (input)="onDobInput('Adult',$event, a,'DocumentExpireDate')"
+                                                                            adt-docexpiry-date attr.key="{{a}}"
+                                                                            paxtype="Adult" attr.key="{{a}}"
+                                                                            id="Adult-{{a}}-DocumentExpireDate"
+                                                                             />
+
+                                                                        <label
+                                                                            for="Adult-{{a}}-DocumentExpireDate">Document
+                                                                            Expiry Date *<span
+                                                                                *ngIf="FlightForm.get('Adult.'+a+'.DocumentExpireDate')?.errors?.['required']">*</span></label>
+                                                                    </div>
+
+                                                                    <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.DocumentExpireDate')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Adult.'+a+'.DocumentExpireDate')?.errors?.['required']">
+                                                                            document expiry date is required.</div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="saveDetails_wrapper labelDetails">
+                                                            <div class="row mb-3 gy-3" *ngIf="IsDomestic=='false'">
+                                                                <p class="apt-addpassport"><span>ADD PASSPORT
+                                                                        INFORMATION</span></p>
+
+                                                                <div class="col-md-3">
+                                                                    <div class="form-floating">
+                                                                        <select class="form-select main-select"
+                                                                            id="Adult-{{a}}-Nationality"
+                                                                            formControlName="Nationality">
+                                                                            <option value="">Select</option>
+                                                                            <option value="IN">India</option>
+                                                                            <option value="{{mcode['country_code']}}"
+                                                                                *ngFor="let mcode of Dialcode;">
+                                                                                {{mcode['name']}}</option>
+                                                                        </select>
+                                                                        <label
+                                                                            for="Adult-{{a}}-Nationality">Nationality</label>
+
+                                                                        <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.Nationality')?.errors"
+                                                                            class="error-msg">
+                                                                            <div
+                                                                                *ngIf="FlightForm.get('Adult.'+a+'.Nationality')?.errors?.['required']">
+                                                                                Please select nationality.</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-floating">
+                                                                        <input type="text"
+                                                                            class="form-control main-select"
+                                                                            formControlName="PassportNo"
+                                                                            placeholder="Passport Number"
+                                                                            id="Adult-{{a}}-PassportNo" />
+                                                                        <label for="Adult-{{a}}-PassportNo">Passport
+                                                                            Number</label>
+                                                                    </div>
+                                                                    <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.PassportNo')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Adult.'+a+'.PassportNo')?.errors?.['required']">
+                                                                            Passport number is required.</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-floating">
+                                                                        <input type="text"
+                                                                            class="form-control main-select"
+                                                                            formControlName="PassportIssue"
+                                                                            passport-issue-date placeholder="Issue Date"
+                                                                            attr.key="{{a}}" paxtype="Adult"
+                                                                            id="Adult-{{a}}-PassportIssue" 
+                                                                            (input)="onDobInput('Adult',$event, a,'PassportIssue')" />
+                                                                        <label for="Adult-{{a}}-PassportIssue">Issue
+                                                                            Date</label>
+                                                                    </div>
+                                                                    <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.PassportIssue')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Adult.'+a+'.PassportIssue')?.errors?.['required']">
+                                                                            Issue date is required.</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-floating">
+                                                                        <input type="text"
+                                                                            class="form-control main-select"
+                                                                            formControlName="PassportExpiry"
+                                                                            passport-expiry-date
+                                                                            placeholder="Expiry Date" attr.key="{{a}}"
+                                                                            paxtype="Adult"
+                                                                            id="Adult-{{a}}-PassportExpiry" 
+                                                                            (input)="onDobInput('Adult',$event, a,'PassportExpiry')" />
+                                                                        <label for="Adult-{{a}}-PassportExpiry">Expiry
+                                                                            Date</label>
+                                                                    </div>
+
+                                                                    <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.PassportExpiry')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Adult.'+a+'.PassportExpiry')?.errors?.['required']">
+                                                                            Expiry date is required.</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-floating">
+                                                                        <select class="form-select main-select"
+                                                                            id="Adult-{{a}}-PassportIssueCountry"
+                                                                            formControlName="PassportIssueCountry">
+                                                                            <option value="">Select</option>
+                                                                            <option value="IN">India</option>
+                                                                            <option value="{{mcode['country_code']}}"
+                                                                                *ngFor="let mcode of Dialcode;">
+                                                                                {{mcode['name']}}</option>
+                                                                        </select>
+                                                                        <label
+                                                                            for="Adult-{{a}}-PassportIssueCountry">Passport
+                                                                            Issue Country</label>
+
+                                                                        <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.PassportIssueCountry')?.errors"
+                                                                            class="error-msg">
+                                                                            <div
+                                                                                *ngIf="FlightForm.get('Adult.'+a+'.PassportIssueCountry')?.errors?.['required']">
+                                                                                Please select passport issue country.
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row" *ngIf="IsFFDiv==false">
+                                                                <p class="apt-addpassport tts-cursor-pointer"
+                                                                    (click)="togglebutton('ADULT_ffdetail_'+a)">
+                                                                    <span>FREQUENT FLIER NUMBER (OPTIONAL) </span> <i
+                                                                        class="fa fa-angle-down"></i>
+                                                                </p>
+                                                                <div class="tts-hidden pb-4" id="ADULT_ffdetail_{{a}}">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-3">
+                                                                            <div class="form-floating">
+                                                                                <input type="text"
+                                                                                    id="ADULT_{{a}}_ffairline"
+                                                                                    class="form-control main-select bg-transparent"
+                                                                                    formControlName="FFAirline"
+                                                                                    placeholder="Airline" readonly />
+                                                                                <label
+                                                                                    for="ADULT_{{a}}_ffairline">Airline</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-3">
+                                                                            <div class="form-floating">
+                                                                                <input type="text"
+                                                                                    id="ADULT_{{a}}_fNumber"
+                                                                                    class="form-control main-select bg-transparent"
+                                                                                    placeholder="FF Number"
+                                                                                    formControlName="FFNumber" />
+                                                                                <label for="ADULT_{{a}}_fNumber">FF
+                                                                                    Number</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-check">
+                                                                <input class="form-check-input"
+                                                                    formControlName="SavePax" type="checkbox"
+                                                                    id="adult-{{a}}-save" value="true" />
+                                                                <label class="form-check-label" for="adult-{{a}}-save">
+                                                                    Save Passanger Details
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--End Adult information -->
+
+                                        <!--Start Child information -->
+                                        <div class="accordion-item panel-item mb-4" formArrayName="Child"
+                                            *ngFor="let chd of fchd?.['controls']; let c=index;">
+                                            <div formGroupName="{{c}}">
+                                                <button class="accordion-button collapsed panel-heading h5 fw-bold"
+                                                    type="button" data-bs-toggle="collapse"
+                                                    attr.data-bs-target="#collapse_chd_{{c+1}}" aria-expanded="true">
+                                                    CHILD {{c+1}}:
+                                                    <span *ngIf="chd.value['FirstName']==''">(2+ yrs)</span>
+                                                    <span *ngIf="chd.value['FirstName']!=''">{{ chd.value['Title'] }}
+                                                        {{chd.value['FirstName']}} {{chd.value['LastName']}}</span>
+                                                </button>
+                                                <div id="collapse_chd_{{c+1}}" class="accordion-collapse collapse"
+                                                    data-bs-parent="#adt-pax-accordion">
+                                                    <div class="accordion-body panel-body p-0">
+
+                                                        <div class="historybox__wrapper">
+                                                            <div class="historybox">
+                                                                <label class="historybox__label"></label>
+                                                                <div role="combobox" aria-haspopup="listbox"
+                                                                    aria-owns="react-autowhatever-1"
+                                                                    aria-expanded="false"
+                                                                    class="react-autosuggest__container">
+                                                                    <input type="text" class="react-autosuggest__input"
+                                                                        placeholder="Select from History"
+                                                                        (keyup)="TravellerAutocomplete($event,'Child',c)"
+                                                                        [matAutocomplete]="auto" />
+                                                                </div>
+                                                                <mat-autocomplete #auto="matAutocomplete"
+                                                                    (optionSelected)="selectedpax($event,'Child',c)">
+                                                                    <mat-option *ngFor="let list of travellerlist"
+                                                                        [value]="list['first_name']+' ' + list['last_name']">{{list['first_name']}}
+                                                                        {{list['last_name']}}</mat-option>
+                                                                </mat-autocomplete>
+                                                            </div>
+                                                        </div>
+                                                        <div class="paxlist-box">
+                                                            <div class="row">
+                                                                <div class="col-md-3">
+                                                                    <div class="form-floating">
+                                                                        <select class="form-select main-select"
+                                                                            formControlName="Title">
+                                                                            <option value="" selected>Title</option>
+                                                                            <option value="Ms">Ms</option>
+                                                                            <option value="Mstr">Master</option>
+                                                                        </select>
+                                                                        <label for="floatingSelect">Title</label>
+                                                                    </div>
+
+                                                                    <div *ngIf="submitted && FlightForm.get('Child.'+c+'.Title')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Child.'+c+'.Title')?.errors?.['required']">
+                                                                            Title is required.</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-floating">
+                                                                        <input type="text"
+                                                                            class="form-control main-select"
+                                                                            formControlName="FirstName"
+                                                                            placeholder="First Name*"
+                                                                            oninput="this.value = this.value.toUpperCase()"
+                                                                            id="Child-{{c}}-FirstName" />
+                                                                        <label for="Child-{{c}}-FirstName">First
+                                                                            Name*</label>
+                                                                    </div>
+
+                                                                    <div *ngIf="submitted && FlightForm.get('Child.'+c+'.FirstName')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Child.'+c+'.FirstName')?.errors?.['required']">
+                                                                            First name is required.</div>
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Child.'+c+'.FirstName')?.errors?.['pattern'] || FlightForm.get('Child.'+c+'.FirstName')?.errors?.['minlength']">
+                                                                            Please enter a valid first name.
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-floating">
+                                                                        <input type="text"
+                                                                            class="form-control main-select"
+                                                                            formControlName="LastName"
+                                                                            placeholder="Last Name*"
+                                                                            oninput="this.value = this.value.toUpperCase()"
+                                                                            id="Child-{{c}}-LastName" />
+
+                                                                        <label for="Child-{{c}}-LastName">Last
+                                                                            Name*</label>
+                                                                    </div>
+
+                                                                    <div *ngIf="submitted && FlightForm.get('Child.'+c+'.LastName')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Child.'+c+'.LastName')?.errors?.['required']">
+                                                                            Last name is required.</div>
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Child.'+c+'.LastName')?.errors?.['pattern'] || FlightForm.get('Child.'+c+'.LastName')?.errors?.['minlength']">
+                                                                            Please enter a valid last name.
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-3" *ngIf="showchddob">
+                                                                    <div class="form-floating">
+                                                                        <input type="text"
+                                                                            class="form-control main-select"
+                                                                            formControlName="DOB"
+                                                                            placeholder="Date of Birth*" chd-dob-date
+                                                                            attr.key="{{c}}" paxtype="Child"
+                                                                            (input)="onDobInput('Child',$event, c,'DOB')"
+                                                                            id="Child-{{c}}-DOB"  />
+                                                                        <label for="Child-{{c}}-DOB">Date of
+                                                                            Birth*</label>
+                                                                    </div>
+
+                                                                    <div *ngIf="submitted && FlightForm.get('Child.'+c+'.DOB')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Child.'+c+'.DOB')?.errors?.['required']">
+                                                                            DOB is required.</div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-3" *ngIf="IsPANMandatory">
+                                                                    <div class="form-floating">
+                                                                        <input type="text"
+                                                                            class="form-control main-select"
+                                                                            formControlName="PAN"
+                                                                            placeholder="PAN Number*"
+                                                                            id="Adult-{{c}}-PAN" />
+                                                                        <label for="Adult-{{c}}-PAN">PAN Number*</label>
+                                                                    </div>
+
+                                                                    <div *ngIf="submitted && FlightForm.get('Child.'+c+'.PAN')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Child.'+c+'.PAN')?.errors?.['required']">
+                                                                            PAN number is required.</div>
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Child.'+c+'.PAN')?.errors?.['pattern']">
+                                                                            Please enter a valid PAN number.</div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="saveDetails_wrapper labelDetails">
+                                                            <div class="row mb-3 gy-3" *ngIf="IsDomestic=='false'">
+                                                                <p class="apt-addpassport"><span>ADD PASSPORT
+                                                                        INFORMATION</span></p>
+
+                                                                <div class="col-md-3">
+                                                                    <div class="form-floating">
+                                                                        <select class="form-select main-select"
+                                                                            id="Child-{{c}}-Nationality"
+                                                                            formControlName="Nationality">
+                                                                            <option value="">Select</option>
+                                                                            <option value="IN">India</option>
+                                                                            <option value="{{mcode['country_code']}}"
+                                                                                *ngFor="let mcode of Dialcode;">
+                                                                                {{mcode['name']}}</option>
+                                                                        </select>
+                                                                        <label
+                                                                            for="Child-{{c}}-Nationality">Nationality</label>
+
+                                                                        <div *ngIf="submitted && FlightForm.get('Child.'+c+'.Nationality')?.errors"
+                                                                            class="error-msg">
+                                                                            <div
+                                                                                *ngIf="FlightForm.get('Child.'+c+'.Nationality')?.errors?.['required']">
+                                                                                Please select nationality.</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-3">
+                                                                    <div class="form-floating">
+                                                                        <input type="text"
+                                                                            class="form-control main-select"
+                                                                            formControlName="PassportNo"
+                                                                            placeholder="Passport Number"
+                                                                            id="Child-{{c}}-PassportNo" />
+
+                                                                        <label for="Child-{{c}}-PassportNo">Passport
+                                                                            Number</label>
+                                                                    </div>
+
+                                                                    <div *ngIf="submitted && FlightForm.get('Child.'+c+'.PassportNo')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Child.'+c+'.PassportNo')?.errors?.['required']">
+                                                                            Passport number is required.</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-floating">
+                                                                        <input type="text"
+                                                                            class="form-control main-select"
+                                                                            formControlName="PassportIssue"
+                                                                            placeholder="Issue Date" passport-issue-date
+                                                                            attr.key="{{c}}" paxtype="Child"
+                                                                            id="Child-{{c}}-PassportIssue" 
+                                                                            (input)="onDobInput('Child',$event, c,'PassportIssue')" />
+
+                                                                        <label for="Child-{{c}}-PassportIssue">Issue
+                                                                            Date</label>
+                                                                    </div>
+
+                                                                    <div *ngIf="submitted && FlightForm.get('Child.'+c+'.PassportIssue')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Child.'+c+'.PassportIssue')?.errors?.['required']">
+                                                                            Issue date is required.</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-floating">
+                                                                        <input type="text"
+                                                                            class="form-control main-select"
+                                                                            formControlName="PassportExpiry"
+                                                                            placeholder="Expiry Date"
+                                                                            passport-expiry-date attr.key="{{c}}"
+                                                                            paxtype="Child"
+                                                                            id="Child-{{c}}-PassportExpiry" 
+                                                                            (input)="onDobInput('Child',$event, c,'PassportExpiry')" />
+
+                                                                        <label for="Child-{{c}}-PassportExpiry">Expiry
+                                                                            Date</label>
+                                                                    </div>
+
+                                                                    <div *ngIf="submitted && FlightForm.get('Child.'+c+'.PassportExpiry')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Child.'+c+'.PassportExpiry')?.errors?.['required']">
+                                                                            Expiry date is required.</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-floating">
+                                                                        <select class="form-select main-select"
+                                                                            id="Child-{{c}}-PassportIssueCountry"
+                                                                            formControlName="PassportIssueCountry">
+                                                                            <option value="">Select</option>
+                                                                            <option value="IN">India</option>
+                                                                            <option value="{{mcode['country_code']}}"
+                                                                                *ngFor="let mcode of Dialcode;">
+                                                                                {{mcode['name']}}</option>
+                                                                        </select>
+                                                                        <label
+                                                                            for="Child-{{c}}-PassportIssueCountry">Passport
+                                                                            Issue Country</label>
+
+                                                                        <div *ngIf="submitted && FlightForm.get('Child.'+c+'.PassportIssueCountry')?.errors"
+                                                                            class="error-msg">
+                                                                            <div
+                                                                                *ngIf="FlightForm.get('Child.'+c+'.PassportIssueCountry')?.errors?.['required']">
+                                                                                Please select passport issue country.
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="row" *ngIf="IsFFDiv==false">
+                                                                <p class="apt-addpassport tts-cursor-pointer"
+                                                                    (click)="togglebutton('CHILD_ffdetail_'+c)">
+                                                                    <span>FREQUENT FLIER NUMBER (OPTIONAL) </span> <i
+                                                                        class="fa fa-angle-down"></i>
+                                                                </p>
+                                                                <div class="tts-hidden pb-4" id="CHILD_ffdetail_{{c}}">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-3">
+                                                                            <div class="form-floating">
+                                                                                <input type="text"
+                                                                                    id="CHILD_{{c}}_ffairline"
+                                                                                    class="form-control main-select bg-transparent"
+                                                                                    formControlName="FFAirline"
+                                                                                    placeholder="Airline" readonly />
+                                                                                <label
+                                                                                    for="CHILD_{{c}}_ffairline">Airline</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-3">
+                                                                            <div class="form-floating">
+                                                                                <input type="text"
+                                                                                    id="CHILD_{{c}}_fNumber"
+                                                                                    class="form-control main-select bg-transparent"
+                                                                                    placeholder="FF Number"
+                                                                                    formControlName="FFNumber" />
+                                                                                <label for="CHILD_{{c}}_fNumber">FF
+                                                                                    Number</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-check">
+                                                                <input class="form-check-input"
+                                                                    formControlName="SavePax" type="checkbox"
+                                                                    id="child-{{c}}-save" value="true" />
+                                                                <label class="form-check-label" for="child-{{c}}-save">
+                                                                    Save Passanger Details
+                                                                </label>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--End Child information -->
+
+                                        <!--Start Infant information -->
+                                        <div class="accordion-item panel-item mb-4" formArrayName="Infant"
+                                            *ngFor="let inf of finf?.['controls']; let i=index;">
+                                            <div formGroupName="{{i}}">
+                                                <button class="accordion-button collapsed panel-heading h5 fw-bold"
+                                                    type="button" data-bs-toggle="collapse"
+                                                    attr.data-bs-target="#collapse_inf_{{i+1}}" aria-expanded="false">
+                                                    INFANT {{i+1}}:
+                                                    <span *ngIf="inf.value['FirstName']==''">(0 - 2 yrs)</span>
+                                                    <span *ngIf="inf.value['FirstName']!=''">{{ inf.value['Title'] }}
+                                                        {{inf.value['FirstName']}} {{inf.value['LastName']}}</span>
+                                                </button>
+                                                <div id="collapse_inf_{{i+1}}" class="accordion-collapse collapse"
+                                                    data-bs-parent="#adt-pax-accordion">
+                                                    <div class="accordion-body panel-body p-0">
+                                                        <div class="historybox__wrapper">
+                                                            <div class="historybox">
+                                                                <label class="historybox__label"></label>
+                                                                <div role="combobox" aria-haspopup="listbox"
+                                                                    aria-owns="react-autowhatever-1"
+                                                                    aria-expanded="false"
+                                                                    class="react-autosuggest__container">
+                                                                    <input type="text" class="react-autosuggest__input"
+                                                                        placeholder="Select from History"
+                                                                        (keyup)="TravellerAutocomplete($event,'Infant',i)"
+                                                                        [matAutocomplete]="auto" />
+                                                                </div>
+
+                                                                <mat-autocomplete #auto="matAutocomplete"
+                                                                    (optionSelected)="selectedpax($event,'Infant',i)">
+                                                                    <mat-option *ngFor="let list of travellerlist"
+                                                                        [value]="list['first_name']+' ' + list['last_name']">{{list['first_name']}}
+                                                                        {{list['last_name']}}</mat-option>
+                                                                </mat-autocomplete>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="paxlist-box">
+                                                            <div class="row">
+                                                                <div class="col-md-3">
+                                                                    <div class="form-floating">
+                                                                        <select class="form-select main-select"
+                                                                            formControlName="Title">
+                                                                            <option value="" selected>Title</option>
+                                                                            <option value="Ms">Ms</option>
+                                                                            <option value="Mstr">Master</option>
+                                                                        </select>
+                                                                        <label for="floatingSelect">Title</label>
+                                                                    </div>
+
+                                                                    <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.Title')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Infant.'+i+'.Title')?.errors?.['required']">
+                                                                            Title is required.</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-floating">
+                                                                        <input type="text"
+                                                                            class="form-control main-select"
+                                                                            formControlName="FirstName"
+                                                                            placeholder="First Name*"
+                                                                            oninput="this.value = this.value.toUpperCase()"
+                                                                            id="Infant-{{i}}-FirstName" />
+                                                                        <label for="Infant-{{i}}-FirstName">First
+                                                                            Name*</label>
+                                                                    </div>
+
+                                                                    <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.FirstName')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Infant.'+i+'.FirstName')?.errors?.['required']">
+                                                                            First name is required.</div>
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Infant.'+i+'.FirstName')?.errors?.['pattern'] || FlightForm.get('Infant.'+i+'.FirstName')?.errors?.['minlength']">
+                                                                            Please enter a valid first name.
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-floating">
+                                                                        <input type="text"
+                                                                            class="form-control main-select"
+                                                                            formControlName="LastName"
+                                                                            placeholder="Last Name*"
+                                                                            oninput="this.value = this.value.toUpperCase()" />
+
+                                                                        <label for="Infant-{{i}}-LastName">Last
+                                                                            Name*</label>
+                                                                    </div>
+
+                                                                    <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.LastName')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Infant.'+i+'.LastName')?.errors?.['required']">
+                                                                            Last name is required.</div>
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Infant.'+i+'.LastName')?.errors?.['pattern'] || FlightForm.get('Infant.'+i+'.LastName')?.errors?.['minlength']">
+                                                                            Please enter a valid last name.
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-3" *ngIf="showinfdob">
+                                                                    <div class="form-floating">
+                                                                        <input type="text"
+                                                                            class="form-control main-select"
+                                                                            formControlName="DOB"
+                                                                            placeholder="Date of Birth" inf-dob-date
+                                                                            attr.key="{{i}}" paxtype="Infant"
+                                                                            id="Infant-{{i}}-DOB" 
+                                                                             (input)="onDobInput('Infant',$event, i,'DOB')"/>
+
+                                                                        <label for="Infant-{{i}}-DOB">Date of
+                                                                            Birth*</label>
+                                                                    </div>
+
+                                                                    <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.DOB')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Infant.'+i+'.DOB')?.errors?.['required']">
+                                                                            DOB is required.</div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-3" *ngIf="IsPANMandatory">
+                                                                    <div class="form-floating">
+                                                                        <input type="text"
+                                                                            class="form-control main-select"
+                                                                            formControlName="PAN"
+                                                                            placeholder="PAN Number"
+                                                                            id="Infant-{{i}}-PAN" />
+                                                                        <label for="Infant-{{i}}-PAN">PAN
+                                                                            Number*</label>
+                                                                    </div>
+
+                                                                    <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.PAN')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Infant.'+i+'.PAN')?.errors?.['required']">
+                                                                            PAN number is required.</div>
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Infant.'+i+'.PAN')?.errors?.['pattern']">
+                                                                            Please enter a valid PAN number.</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="saveDetails_wrapper labelDetails">
+                                                            <div class="row mb-3 gy-3" *ngIf="IsDomestic=='false'">
+                                                                <p class="apt-addpassport"><span>ADD PASSPORT
+                                                                        INFORMATION</span></p>
+
+                                                                <div class="col-md-3">
+                                                                    <div class="form-floating">
+                                                                        <select class="form-select main-select"
+                                                                            id="Infant-{{i}}-Nationality"
+                                                                            formControlName="Nationality">
+                                                                            <option value="">Select</option>
+                                                                            <option value="IN">India</option>
+                                                                            <option value="{{mcode['country_code']}}"
+                                                                                *ngFor="let mcode of Dialcode;">
+                                                                                {{mcode['name']}}</option>
+                                                                        </select>
+                                                                        <label
+                                                                            for="Infant-{{i}}-Nationality">Nationality</label>
+
+                                                                        <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.Nationality')?.errors"
+                                                                            class="error-msg">
+                                                                            <div
+                                                                                *ngIf="FlightForm.get('Infant.'+i+'.Nationality')?.errors?.['required']">
+                                                                                Please select nationality.</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-3">
+                                                                    <div class="form-floating">
+                                                                        <input type="text"
+                                                                            class="form-control main-select"
+                                                                            formControlName="PassportNo"
+                                                                            placeholder="Passport Number"
+                                                                            id="Infant-{{i}}-PassportNo" />
+                                                                        <label for="Infant-{{i}}-PassportNo">Passport
+                                                                            Number</label>
+                                                                    </div>
+
+                                                                    <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.PassportNo')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Infant.'+i+'.PassportNo')?.errors?.['required']">
+                                                                            Passport number is required.</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-floating">
+                                                                        <input type="text"
+                                                                            class="form-control main-select"
+                                                                            formControlName="PassportIssue"
+                                                                            placeholder="Issue Date" passport-issue-date
+                                                                            attr.key="{{i}}" paxtype="Infant"
+                                                                            id="Infant-{{i}}-PassportIssue" 
+                                                                            (input)="onDobInput('Infant',$event, i,'PassportIssue')"/>
+                                                                        <label for="Infant-{{i}}-PassportIssue">Issue
+                                                                            Date</label>
+                                                                    </div>
+
+                                                                    <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.PassportIssue')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Infant.'+i+'.PassportIssue')?.errors?.['required']">
+                                                                            Issue date is required.</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-floating">
+                                                                        <input type="text"
+                                                                            class="form-control main-select"
+                                                                            formControlName="PassportExpiry"
+                                                                            placeholder="Expiry Date"
+                                                                            passport-expiry-date attr.key="{{i}}"
+                                                                            paxtype="Infant"
+                                                                            id="Infant-{{i}}-PassportExpiry"
+                                                                            (input)="onDobInput('Infant',$event, i,'PassportExpiry')" />
+
+                                                                        <label for="Infant-{{i}}-PassportExpiry">Expiry
+                                                                            Date</label>
+                                                                    </div>
+
+                                                                    <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.PassportExpiry')?.errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="FlightForm.get('Infant.'+i+'.PassportExpiry')?.errors?.['required']">
+                                                                            Expiry date is required.</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-floating">
+                                                                        <select class="form-select main-select"
+                                                                            id="Infant-{{i}}-PassportIssueCountry"
+                                                                            formControlName="PassportIssueCountry">
+                                                                            <option value="">Select</option>
+                                                                            <option value="IN">India</option>
+                                                                            <option value="{{mcode['country_code']}}"
+                                                                                *ngFor="let mcode of Dialcode;">
+                                                                                {{mcode['name']}}</option>
+                                                                        </select>
+                                                                        <label
+                                                                            for="Infant-{{i}}-PassportIssueCountry">Passport
+                                                                            Issue Country</label>
+
+                                                                        <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.PassportIssueCountry')?.errors"
+                                                                            class="error-msg">
+                                                                            <div
+                                                                                *ngIf="FlightForm.get('Infant.'+i+'.PassportIssueCountry')?.errors?.['required']">
+                                                                                Please select passport issue country.
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row" *ngIf="IsFFDiv==false">
+                                                                <p class="apt-addpassport tts-cursor-pointer"
+                                                                    (click)="togglebutton('INFANT_ffdetail_'+i)">
+                                                                    <span>FREQUENT FLIER NUMBER (OPTIONAL) </span> <i
+                                                                        class="fa fa-angle-down"></i>
+                                                                </p>
+                                                                <div class="tts-hidden pb-4" id="INFANT_ffdetail_{{i}}">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-3">
+                                                                            <div class="form-floating">
+                                                                                <input type="text"
+                                                                                    id="INFANT_{{i}}_ffairline"
+                                                                                    class="form-control main-select bg-transparent"
+                                                                                    formControlName="FFAirline"
+                                                                                    placeholder="Airline" readonly />
+                                                                                <label
+                                                                                    for="INFANT_{{i}}_ffairline">Airline</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-3">
+                                                                            <div class="form-floating">
+                                                                                <input type="text"
+                                                                                    id="INFANT_{{i}}_fNumber"
+                                                                                    class="form-control main-select bg-transparent"
+                                                                                    placeholder="FF Number"
+                                                                                    formControlName="FFNumber" />
+                                                                                <label for="INFANT_{{i}}_fNumber">FF
+                                                                                    Number</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-check">
+                                                                <input class="form-check-input"
+                                                                    formControlName="SavePax" type="checkbox"
+                                                                    id="infant-{{i}}-save" value="true" />
+                                                                <label class="form-check-label" for="infant-{{i}}-save">
+                                                                    Save Passanger Details
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--End Infant information -->
+                                    </div>
+
+                                    <div class="panel-item border">
+                                        <button class="accordion-button collapsed panel-heading h5 fw-bold"
+                                            type="button">
+                                            Contact Details
+                                        </button>
+                                        <div id="collapseFour" class="accordion-collapse collapse show"
+                                            aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body p-0">
+                                                <div class="paxlist-box">
+                                                    <div class="row g-3 needs-validation">
+                                                        <div class="col-md-3">
+                                                            <div class="form-floating">
+                                                                <select class="form-select main-select"
+                                                                    id="floating-countrycode" (change)="GetPhonecodeVal($event)" formControlName="ISDCode">
+                                                                    <option value="{{mcode['phonecode']}}"
+                                                                        *ngFor="let mcode of Dialcode;">
+                                                                        {{mcode['name']}}
+                                                                        (+{{mcode['phonecode']}})</option>
+
+                                                                </select>
+                                                                <label for="floating-countrycode">Country Code</label>
+
+                                                                <div *ngIf="submitted && FlightForm.get('ISDCode')?.errors"
+                                                                    class="error-msg">
+                                                                    <div
+                                                                        *ngIf="FlightForm.get('ISDCode')?.errors?.['required']">
+                                                                        Country code is required.</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-floating">
+                                                                <input type="phone" class="form-control main-select"
+                                                                    id="floating-mobile" placeholder="Mobile Number *"
+                                                                    formControlName="MobileNumber" />
+                                                                <label for="floating-mobile">Moblie Number *</label>
+
+                                                                <div *ngIf="submitted && FlightForm.get('MobileNumber')?.errors"
+                                                                    class="error-msg">
+                                                                    <div
+                                                                        *ngIf="FlightForm.get('MobileNumber')?.errors?.['required']">
+                                                                        Mobile number is required.</div>
+
+                                                                    <div
+                                                                        *ngIf="FlightForm.get('MobileNumber')?.errors?.['pattern'] || FlightForm.get('MobileNumber')?.errors?.['minlength'] || FlightForm.get('MobileNumber')?.errors?.['maxlength']">
+                                                                        Please enter a valid mobile number.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-floating">
+                                                                <input type="email" class="form-control main-select"
+                                                                    id="floating-email" placeholder="Email ID *"
+                                                                    formControlName="EmailId" />
+                                                                <label for="floating-email">Email ID *</label>
+
+                                                                <div *ngIf="submitted && FlightForm.get('EmailId')?.errors"
+                                                                    class="error-msg">
+                                                                    <div
+                                                                        *ngIf="FlightForm.get('EmailId')?.errors?.['required']">
+                                                                        Email address is required.</div>
+                                                                    <div
+                                                                        *ngIf="FlightForm.get('EmailId')?.errors?.['email']">
+                                                                        Please enter a valid email.</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="accordion panel-item mt-3 border" *ngIf="SSRData.length!==0">
+                                        <button class="accordion-button panel-heading h5 fw-bold collapsed"
+                                            type="button" data-bs-toggle="collapse" data-bs-target="#add-meal-baggage">
+                                            Add Baggage meal and other Service
+                                        </button>
+                                        <div id="add-meal-baggage" class="accordion-collapse collapse">
+                                            <div class="accordion-body p-0">
+
+                                                <div class="paxlist-box">
+
+                                                    <div *ngFor="let data of SSRData;let t=index">
+                                                        <div>
+                                                            <div class="border-bottom mb-2"
+                                                                *ngFor="let segment of data|keyvalue :maintainOrder ; let segkey=index">
+
+                                                                <h6 *ngIf="getSegment(segment.key) as dateData">
+                                                                    {{ dateData.Origin }} - {{ dateData.Destination }}
+                                                                    <span class="text-muted fs-12">{{ dateData.Date |
+                                                                        date:'dd MMM YYYY' }}</span>
+                                                                </h6>
+                                                                <div>
+                                                                    <div class="row"
+                                                                        *ngFor="let adult of BaggegeA;let Ai=index">
+                                                                        <div class="col-md-3">
+                                                                            <div class="form-floating mb-3">
+                                                                                <label for="floatingInput">Adult
+                                                                                    {{Ai+1}}</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-floating mb-3">
+                                                                                <select class="form-select main-select"
+                                                                                    (change)="SelectSSr('Adult',Ai,segment.key,'Baggage',$event,t)"
+                                                                                    *ngIf="segkey===0">
+                                                                                    <option value="">Select Baggage
+                                                                                    </option>
+                                                                                    <option
+                                                                                        *ngFor="let data of getSegmentValues(segment.value,'Baggage')"
+                                                                                        value="{{data['Code']}}">
+                                                                                        <span>{{data['AirlineDescription']}}
+                                                                                            ₹ {{data['Price']}}</span>
+                                                                                    </option>
+                                                                                </select>
+                                                                                <select class="form-select main-select"
+                                                                                    *ngIf="segkey!==0">
+                                                                                    <option>Same As Above</option>
+                                                                                </select>
+                                                                                <label for="floatingInput">Baggage
+                                                                                    Information</label>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-floating mb-3">
+                                                                                <select class="form-select main-select"
+                                                                                    (change)="SelectSSr('Adult',Ai,segment.key,'Meal',$event,t)">
+                                                                                    <option value="">Select Meal
+                                                                                    </option>
+                                                                                    <option
+                                                                                        *ngFor="let data of getSegmentValues(segment.value,'Meal')"
+                                                                                        value="{{data['Code']}}">
+
+                                                                                        <span>{{data['AirlineDescription']}}
+                                                                                            ₹ {{data['Price']}}</span>
+                                                                                    </option>
+                                                                                </select>
+                                                                                <label for="floatingInput">Meals</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div>
+                                                                    <div class="row"
+                                                                        *ngFor="let adult of BaggegeC;let Ci=index">
+                                                                        <div class="col-md-3">
+                                                                            <div class="form-floating mb-3">
+                                                                                <label for="floatingInput">Child
+                                                                                    {{Ci+1}}</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-floating mb-3">
+                                                                                <select class="form-select main-select"
+                                                                                    (change)="SelectSSr('Child',Ci,segment.key,'Baggage',$event,t)"
+                                                                                    *ngIf="segkey===0">
+                                                                                    <option value="">Select Baggage
+                                                                                    </option>
+                                                                                    <option
+                                                                                        *ngFor="let data of getSegmentValues(segment.value,'Baggage')"
+                                                                                        value="{{data['Code']}}">
+
+                                                                                        <span>{{data['AirlineDescription']}}
+                                                                                            ₹ {{data['Price']}}</span>
+                                                                                    </option>
+                                                                                </select>
+                                                                                <select class="form-select main-select"
+                                                                                    *ngIf="segkey!==0">
+                                                                                    <option>Same As Above</option>
+                                                                                </select>
+                                                                                <label for="floatingInput">Baggage
+                                                                                    Information</label>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-floating mb-3">
+                                                                                <select class="form-select main-select"
+                                                                                    (change)="SelectSSr('Child',Ci,segment.key,'Meal',$event,t)">
+                                                                                    <option value="">Select Meal
+                                                                                    </option>
+                                                                                    <option
+                                                                                        *ngFor="let data of getSegmentValues(segment.value,'Meal')"
+                                                                                        value="{{data['Code']}}">
+
+                                                                                        <span>{{data['AirlineDescription']}}
+                                                                                            ₹ {{data['Price']}}</span>
+                                                                                    </option>
+                                                                                </select>
+                                                                                <label for="floatingInput">Meals</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion panel-item mt-3 border" *ngIf="seatData.length!==0">
+                                        <button class="accordion-button panel-heading h5 fw-bold collapsed"
+                                            type="button" data-bs-toggle="collapse" data-bs-target="#add-seats">
+                                            Add Seats
+                                        </button>
+                                        <div id="add-seats" class="accordion-collapse collapse">
+                                            <div class="accordion-body p-0">
+                                                <div>
+                                                    <div
+                                                        class="seat-map-box d-flex justify-content-between align-items-center">
+                                                        <div class="">
+                                                            <h6>{{removeCityCode(GetSearchData['Origin'])}} -
+                                                                {{removeCityCode(GetSearchData['Destination'])}}</h6>
+                                                            <span>{{GetSearchData['DepartDate']}}</span>
+                                                        </div>
+                                                        <button type="button" class="btn asr-book add-seat-button"
+                                                            data-bs-toggle="modal" data-bs-target="#seat-selectmodal">
+                                                            Show Seat Map
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="accordion panel-item mt-3 border">
+                                        <button class="accordion-button panel-heading h5 fw-bold collapsed"
+                                            type="button" data-bs-toggle="collapse" data-bs-target="#add-insurance">
+                                            Add Travel Insurance
+                                        </button>
+                                        <div id="add-insurance" class="accordion-collapse collapse">
+                                            <div class="accordion-body p-2">
+
+                                                @if(GetSearchData['Type']=='R' && GetSearchData['Isdomestic']=='true'){
+
+                                                <ul class="nav nav-tabs insurance" id="myTab" role="tablist">
+                                                    <li class="nav-item" role="presentation">
+                                                        <button class="nav-link active" id="oneway" data-bs-toggle="tab"
+                                                            data-bs-target="#Oneway" type="button" role="tab"
+                                                            aria-controls="home"
+                                                            aria-selected="true">{{GetSearchData['Origin']}} -
+                                                            {{GetSearchData['Destination']}}</button>
+                                                    </li>
+                                                    <li class="nav-item" role="presentation">
+                                                        <button class="nav-link" id="roundtrip-tab" data-bs-toggle="tab"
+                                                            data-bs-target="#RoundTrip" type="button" role="tab"
+                                                            aria-controls="profile"
+                                                            aria-selected="false">{{GetSearchData['Destination']}} -
+                                                            {{GetSearchData['Origin']}} </button>
+                                                    </li>
+                                                </ul>
+
+                                                }
+                                                <div class="tab-content" id="myTabContent">
+                                                    <div class="tab-pane fade show active" id="Oneway" role="tabpanel"
+                                                        aria-labelledby="oneway">
+                                                        <div class="card shadow-sm border-0">
+                                                            <div class="card-body">
+                                                                <div class="mb-3">
+                                                                    <div class="d-flex align-items-center mb-2">
+                                                                        <i
+                                                                            class="bi bi-shield-check text-primary fs-4 me-2"></i>
+                                                                        <div>
+                                                                            <strong>Domestic Travel Assistance and
+                                                                                Insurance</strong><br />
+                                                                            <small class="text-muted">Valid from
+                                                                                {{GetSearchData['DepartDate']}} to your
+                                                                                date of journey or till your date of
+                                                                                return, whichever is earlier. . To know
+                                                                                more on the coverage.</small>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row text-center gy-3">
+                                                                    @for (item of InsuranceDetail; track $index) {
+                                                                    <div class="col-md-4">
+                                                                        <div class="border rounded p-3 h-100">
+                                                                            <div class="fw-bold mb-1">
+                                                                                {{item['PlanName']}} </div>
+                                                                            <div class="fs-5 fw-semibold">₹
+                                                                                {{item['Fare']['PerPaxPrice']}}</div>
+                                                                            <div class="text-muted mb-2">Per Person
+                                                                            </div>
+                                                                            @if(SelectedIns==item['ResultIndex']){
+                                                                            <button class="btn asr-book add-seat-button"
+                                                                                (click)="AddInsurance(item,'onward')">Remove</button>
+
+                                                                            }@else{
+                                                                            <button class="btn asr-book add-seat-button"
+                                                                                (click)="AddInsurance(item,'onward')">Add</button>
+                                                                            }
+                                                                            <div
+                                                                                class="mt-2 d-flex justify-content-around small">
+                                                                                <a href="javascript:void(0)"
+                                                                                    (click)="OpenModal(item,'KnowMore')">Know
+                                                                                    More</a>
+                                                                                <a href="javascript:void(0)"
+                                                                                    (click)="OpenModal(item,'TC')">T&amp;C</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    }
+
+
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="RoundTrip" role="tabpanel"
+                                                        aria-labelledby="roundtrip-tab">
+
+                                                        <div class="card shadow-sm border-0">
+                                                            <div class="card-body">
+                                                                <div class="mb-3">
+                                                                    <div class="d-flex align-items-center mb-2">
+                                                                        <i
+                                                                            class="bi bi-shield-check text-primary fs-4 me-2"></i>
+                                                                        <div>
+                                                                            <strong>Domestic Travel Assistance and
+                                                                                Insurance</strong><br />
+                                                                            <small class="text-muted">Valid from
+                                                                                {{GetSearchData['ReturnDate']}} to your
+                                                                                date of journey or till your date of
+                                                                                return, whichever is earlier. To know
+                                                                                more on the coverage.</small>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row text-center gy-3">
+                                                                    @for (item of InsuranceDetail; track $index) {
+                                                                    <div class="col-md-4">
+                                                                        <div class="border rounded p-3 h-100">
+                                                                            <div class="fw-bold mb-1">
+                                                                                {{item['PlanName']}} </div>
+                                                                            <div class="fs-5 fw-semibold">₹
+                                                                                {{item['Fare']['PerPaxPrice']}}</div>
+                                                                            <div class="text-muted mb-2">Per Person
+                                                                            </div>
+                                                                            @if(SelectedInsib==item['ResultIndex']){
+                                                                            <button class="btn asr-book add-seat-button"
+                                                                                (click)="AddInsurance(item,'return')">Remove</button>
+
+                                                                            }@else{
+                                                                            <button class="btn asr-book add-seat-button"
+                                                                                (click)="AddInsurance(item,'return')">Add</button>
+                                                                            }
+                                                                            <div
+                                                                                class="mt-2 d-flex justify-content-around small">
+                                                                                <a href="#">Know More</a>
+                                                                                <a href="#">T&amp;C</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <div class="accordion panel-item mt-3 border">
+                                        <button class="accordion-button panel-heading h5 fw-bold collapsed"
+                                            type="button" data-bs-toggle="collapse" data-bs-target="#gst-detail">
+                                            GST Number for Business Travel ({{GSTTxt}})
+                                        </button>
+                                        <div id="gst-detail" class="accordion-collapse collapse"
+                                            [ngClass]="{'show':isGSTShow}">
+                                            <div class="accordion-body p-0">
+                                                <div class="historybox__wrapper">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <div class="historybox">
+                                                                <label class="historybox__label"></label>
+                                                                <div role="combobox"
+                                                                    class="react-autosuggest__container">
+                                                                    <input type="text" class="react-autosuggest__input"
+                                                                        placeholder="Select from History"
+                                                                        (keyup)="GSTAutocomplete($event)"
+                                                                        [matAutocomplete]="auto" #gsteInput />
+                                                                </div>
+
+                                                                <mat-autocomplete #auto="matAutocomplete"
+                                                                    (optionSelected)="selectedgst($event)">
+                                                                    <mat-option *ngFor="let list of gstlist"
+                                                                        [value]="list['company_name']">
+                                                                        {{list['company_name']}}</mat-option>
+                                                                </mat-autocomplete>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <span class="gst-clear" (click)="cleargst()">Clear</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <form [formGroup]="GSTForm">
+                                                    <div class="paxlist-box">
+                                                        <p class="mb-0">To claim credit of GST charged by airlines,
+                                                            Please
+                                                            enter your company's GST number</p>
+
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <div class="form-floating mb-3">
+                                                                    <input type="text" class="form-control main-select"
+                                                                        id="floatingInput"
+                                                                        placeholder="Registration Number"
+                                                                        formControlName="GSTNumber" />
+                                                                    <label for="floatingInput">Registration
+                                                                        Number</label>
+
+                                                                    <div *ngIf="Gstsubmitted && f['GSTNumber'].errors"
+                                                                        class="error-msg">
+                                                                        <div *ngIf="f['GSTNumber'].errors['required']">
+                                                                            Registration number is required.</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="form-floating mb-3">
+                                                                    <input type="text" class="form-control main-select"
+                                                                        id="floatingInput"
+                                                                        placeholder="Registered Company Name"
+                                                                        formControlName="CompanyName" />
+                                                                    <label for="floatingInput">Registered Company
+                                                                        Name</label>
+
+                                                                    <div *ngIf="Gstsubmitted && f['CompanyName'].errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="f['CompanyName'].errors['required']">
+                                                                            Company name is required.</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="form-floating mb-3">
+                                                                    <input type="email" class="form-control main-select"
+                                                                        id="floatingInput"
+                                                                        placeholder="Registered Email"
+                                                                        formControlName="Email" />
+                                                                    <label for="floatingInput">Registered Email</label>
+                                                                    <div *ngIf="Gstsubmitted && f['Email'].errors"
+                                                                        class="error-msg">
+                                                                        <div *ngIf="f['Email'].errors['required']">Email
+                                                                            is
+                                                                            required.</div>
+                                                                        <div *ngIf="f['Email'].errors['email']">Please
+                                                                            enter
+                                                                            a valid email</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="form-floating mb-3">
+                                                                    <input type="phone" class="form-control main-select"
+                                                                        id="floatingInput"
+                                                                        placeholder="Registered Phone"
+                                                                        formControlName="PhoneNumber" />
+                                                                    <label for="floatingInput">Registered Phone</label>
+
+                                                                    <div *ngIf="Gstsubmitted && f['PhoneNumber'].errors"
+                                                                        class="error-msg">
+                                                                        <div
+                                                                            *ngIf="f['PhoneNumber'].errors['required']">
+                                                                            Phone number is required.</div>
+                                                                        <div
+                                                                            *ngIf="f['PhoneNumber'].errors['pattern'] || f['PhoneNumber'].errors['minlength'] ||  f['PhoneNumber'].errors['maxlength']">
+                                                                            Please enter a valid mobile number</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="form-floating mb-3">
+                                                                    <input type="address"
+                                                                        class="form-control main-select"
+                                                                        id="floatingInput"
+                                                                        placeholder="Registered Address"
+                                                                        formControlName="Address" />
+                                                                    <label for="floatingInput">Registered
+                                                                        Address</label>
+                                                                    <div *ngIf="Gstsubmitted && f['Address'].errors"
+                                                                        class="error-msg">
+                                                                        <div *ngIf="f['Address'].errors['required']">
+                                                                            Address
+                                                                            is required.</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="saveDetails_wrapper labelDetails">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                id="save-gst-detail" formControlName="SaveGST" />
+                                                            <label class="form-check-label" for="save-gst-detail">
+                                                                Save GST Details
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row pt-20 desktop-bookback">
+                                <div class="col-sm-6 col-4">
+                                    <button type="button" id="flightdetails" class="btn asr-book" (click)="goBack()"><i
+                                            class="fa fa-angle-double-left me-1"></i> <span>Back</span></button>
+                                </div>
+                                <div class="col-md-6 col-sm-8 col-xs-9 col-8 text-end confirming--button-price">
+                                    <button type="submit" id="review" class="btn asr-book"><span>Proceed To
+                                            Review</span>
+                                        &nbsp; <i class="fa fa-angle-double-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="booking-rightside">
+                    <div class="fare-details">
+                        <h4><span>Fare Summary</span></h4>
+                        <div>
+                            <div class="btm-border bold-font-bf"><span>Base fare</span> <span
+                                    class="float-end">₹{{CurrentFare['BaseFare'] | number:'1.0-2'}}</span></div>
+                            <div class="btm-border bold-font">
+                                <span data-bs-toggle="collapse" href="#tax-fare" aria-expanded="false"> Taxes and fees
+                                    <i class="fa fa-angle-down mrg-left"></i></span>
+                                <span class="float-end">₹{{CurrentFare['Tax'] + CurrentFare['OtherCharges'] +
+                                    CurrentFare['AgentMarkup'] | number:'1.0-2'}}<i title="Change markup"
+                                        class="fa fa-edit ms-2" (click)="showmarkup()" style="margin-left: 10px;"></i></span>
+                                <div class="tax-dropdown airline-gst-print collapse" id="tax-fare">
+                                    <div><span>YQ</span><span class="float-end">₹{{CurrentFare['YQTax'] |
+                                            number:'1.0-2'}}</span></div>
+                                    <div *ngIf="CurrentFare['AgentMarkup']!=0"><span>Markup</span><span
+                                            class="float-end">₹{{CurrentFare['AgentMarkup'] | number:'1.0-2'}}</span>
+                                    </div>
+                                    <div><span> Other Charges </span><span
+                                            class="float-end">₹{{CurrentFare['OtherCharges'] |
+                                            number:'1.0-2'}}</span></div>
+                                </div>
+
+                                <div class="pos-rel" *ngIf="isshowmarkup">
+                                    <div class="markup__box-mainconatiner">
+                                        <div class="col me-3">
+                                            <div class="form-floating mb-2">
+                                                <input type="number" min="0" value="0" class="form-control"
+                                                    id="InputMarkup" placeholder="Markup Price"
+                                                    [(ngModel)]="markupvalue" />
+                                                <label for="InputMarkup">Markup Price</label>
+                                            </div>
+                                        </div>
+                                        <span class="markup__update-closebtn" (click)="showmarkup()"></span><button
+                                            class="markup__update-btn" (click)="updatemarkup()">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                            @if(CurrentFare['InsurancePrice']){
+                            <div class="btm-border bold-font-bf"><span>Insurance Price</span> <span
+                                    class="float-end">₹{{CurrentFare['InsurancePrice'] | number:'1.0-2'}}</span></div>
+                            }
+
+                            <!--Start:: SSR BY Pradeep -->
+                            <div class="btm-border bold-font" *ngIf="CurrentFare['SSR']">
+                                <span data-bs-toggle="collapse" href="#ssr-pax" aria-expanded="false"> Meal, Baggage &
+                                    Seats <i class="fa fa-angle-down mrg-left"></i></span>
+                                <span class="float-end">₹{{CurrentFare['SSR']['Meal'] +
+                                    CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Seat']| number:'1.0-2'}}</span>
+                                <div class="tax-dropdown airline-gst-print collapse" id="ssr-pax">
+                                    <div *ngIf="CurrentFare['SSR']['Seat']!=0"><span>Seat</span><span
+                                            class="float-end">₹{{CurrentFare['SSR']['Seat'] |
+                                            number:'1.0-2'}}</span></div>
+                                    <div *ngIf="CurrentFare['SSR']['Meal']!=0"><span>Meal</span><span
+                                            class="float-end">₹{{CurrentFare['SSR']['Meal'] |
+                                            number:'1.0-2'}}</span></div>
+                                    <div *ngIf="CurrentFare['SSR']['Baggage']!=0"><span>Baggage</span><span
+                                            class="float-end">₹{{CurrentFare['SSR']['Baggage'] | number:'1.0-2'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--End:: SSR BY Pradeep -->
+
+                            <div class="bold-font btm-border">
+                                <span data-bs-toggle="collapse" href="#net-fare" aria-expanded="false">
+                                    Gross Fare <i class="fa fa-angle-down mrg-left"></i>
+                                </span>
+                                <span
+                                    class="float-end">₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat']+InsurancePrice
+                                    |number:'1.0-2'}}</span>
+                                <div class="tax-dropdown airline-gst-print collapse" id="net-fare">
+                                    <div><span>Commission</span><span
+                                            class="float-end">-₹{{CurrentFare['AgentCommission']+CurrentFare['Discount']
+                                            |
+                                            number:'1.0-2'}}</span></div>
+                                    <div><span>TDS</span><span class="float-end">+₹{{CurrentFare['TDS'] |
+                                            number:'1.0-2'}}</span></div>
+                                    <div><span>Net Price</span><span
+                                            class="float-end">₹{{this.CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat'] |
+                                            number:'1.0-2'}}</span></div>
+                                </div>
+                            </div>
+                            <!-- <div class="btm-border py-2"><span>Net Fare</span><span class="float-end">₹{{this.CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat'] |
+                                        number:'1.0-2'}}</span></div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<app-count-down display="on"></app-count-down>
+
+
+<!--:: Seat selection Modal -->
+
+<div class="modal fade" id="seat-selectmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Select Seats</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="background: #e4e3e3;">
+                <div class="row">
+                    <nav class="nav nav-pills nav-justified">
+                        <div *ngFor="let segmentSeats of seatData; let jkey = index" class="d-flex">
+                            <a class="nav-link" aria-current="page" href="javascript:void(0);"
+                                *ngFor="let Segment of segmentSeats; let segkey = index"
+                                [ngClass]="{'active': seatactivetab == jkey + '' + segkey }"
+                                (click)="selectseattab(jkey, segkey, Segment)">
+                                <span *ngIf="jkey === 0">Departure</span>
+                                <span *ngIf="jkey === 1">Return</span>
+                                {{Segment.Origin}}-{{Segment.Destination}}
+                            </a>
+                        </div>
+                    </nav>
+
+                    <div *ngFor="let segmentSeats of seatData; let jkey = index">
+                        <div class="seatlayoutbox seatlayoutbox_departure"
+                            *ngFor="let Segment of segmentSeats ; let segkey = index">
+                            <div class="flightboxmain" *ngIf="seatactivetab==jkey+''+segkey">
+                                <div class="flightboxmain_seatmain">
+                                    <div class="seatmapdiv flightboxmain_seatmain2">
+                                        <div class="flightboxmain_seatmain1"></div>
+                                        <span>Available Seat</span>
+                                    </div>
+                                    <div class="seatmapdiv flightboxmain_seatmain3">
+                                        <div class="flightboxmain_seatmain1"></div>
+                                        <span>Booked Seat</span>
+                                    </div>
+                                    <div class="seatmapdiv flightboxmain_seatmain4">
+                                        <div class="flightboxmain_seatmain1"></div>
+                                        <span>Selected Seat</span>
+                                    </div>
+                                </div>
+                                <div>
+                                <div class="seat-body rounded mb-3 row">
+                                     
+                                            <div class="p-0"
+                                                *ngFor="let detail of travellerJson[jkey] |keyvalue; let paxkey = index">
+
+                                                <div class="col-12 seat-li"
+                                                    *ngFor="let paxdetail of getval(detail) | keyvalue; let paxcountkey = index"
+                                                   >
+
+                                                    <span>
+                                                        <span
+                                                            *ngIf="FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value==''">{{detail.key}}-{{paxdetail.key}}</span>
+                                                        <span *ngIf="FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value!==''">{{FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value}}
+                                                            {{FlightForm.get(detail.key+'.'+paxcountkey+'.LastName')?.value}}</span>
+                                                    </span>
+
+                                                    <span class="float-end"
+                                                        *ngIf="getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Code']">
+                                                       <strong> -  {{getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Code']}}
+                                                        <!-- | ₹
+                                                        {{getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Price']
+                                                        | number:'1.0-2' }} -->
+                                                        </strong></span>
+                                                </div>
+                                                
+                                            </div>
+                                           
+                                        </div>
+                            </div>
+                            <div class="">
+                                    <div>
+                                    <button (click)="clearSeat()" class="btn btn-danger mb-2 w-100">
+                                        Clear
+                                    </button>
+                                    <button data-bs-dismiss="modal" aria-label="Close" class="btn btn-primary w-100">
+                                        Procced
+                                    </button>
+                                    
+                                </div>
+                            </div>
+                            </div>
+                            
+                            <div class="flightbox" *ngIf="seatactivetab==jkey+''+segkey">
+
+
+                                <div class="seatdetails" [ngStyle]="tootipstyle" style="display: none;"
+                                    (click)="$event.stopPropagation();">
+                                    <div class="seatinfo">
+                                        <div class="row seat-header">
+                                            <div class="col-5 text-start">Seat {{clickedseat['Code']}}</div>
+                                            <div class="col-5 text-end">₹ {{clickedseat['Price'] | number:'1.0-2'}}
+                                            </div>
+                                            <div class="col-2 text-end">
+                                                <button type="button" class="tooltrip-close" (click)="CLOSETootip()"><i
+                                                        class="fa fa-times" aria-hidden="true"></i></button>
+                                            </div>
+                                        </div>
+                                        <div class="seat-body row">
+
+                                            <div class="p-0"
+                                                *ngFor="let detail of travellerJson[jkey] |keyvalue; let paxkey = index">
+
+                                                <div class="col-12 seat-li"
+                                                    *ngFor="let paxdetail of getval(detail) | keyvalue; let paxcountkey = index"
+                                                    (click)="selectseat(clickedseat,paxdetail.value,Segment,jkey)">
+
+                                                    <span><i class="fa fa-check-circle" aria-hidden="true"
+                                                            [ngClass]="{'pax-seat-assign':getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Code']}"></i>
+                                                        <span
+                                                            *ngIf="FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value==''">{{detail.key}}-{{paxdetail.key}}</span>
+                                                        <span
+                                                            *ngIf="FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value!==''">{{FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value}}
+                                                            {{FlightForm.get(detail.key+'.'+paxcountkey+'.LastName')?.value}}</span>
+                                                    </span>
+                                                    <span class="float-end"
+                                                        *ngIf="getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Code']">
+                                                        {{getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Code']}}
+                                                        | ₹
+                                                        {{getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Price']
+                                                        | number:'1.0-2' }}</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div><span class="bgProperties iconflFront"
+                                        style="background-image: url('assets/img/flightSmallFront.png');"></span></div>
+                                <div class="flightboxplan">
+                                    <h1 class="flightdetails">
+                                        <font style="vertical-align: inherit;">
+                                            <font style="vertical-align: inherit;">{{Segment?.Origin}} to
+                                                {{Segment?.Destination}}</font>
+                                        </font>
+                                    </h1>
+                                    <div class="flgtrow mb-3">
+                                        <span class="leftwing"></span>
+                                        <div class="innerrow">
+                                            <h2>Front Entrance</h2>
+                                        </div>
+                                        <span class="rightwing"></span>
+                                    </div>
+
+                                    <div class="flgtrow" *ngFor="let segmentul of objectKeys(Segment.ul);">
+                                        <span class="leftwing"></span>
+                                        <div class="innerrow">
+                                            <ul class="seatrow">
+
+                                                <li *ngFor="let segmentli of Segment.ul[segmentul]"
+                                                    class="{{segmentli?.SeatClass}} {{segmentli?.uid}}"
+                                                    [ngClass]="{'selectedseat': paxseatselected?.[Segment?.Origin+'-'+Segment?.Destination]?.includes(segmentli?.Code)}"
+                                                    (click)="seatClicked($event,segmentli)" #showhidetooltrip
+                                                    (mouseover)="seatTooltip(segmentli,'mouseover')"
+                                                    (mouseleave)="seatTooltip(segmentli,'mouseleave')">
+                                                    <span class="segmetsetnum">{{segmentli?.Code}}</span>
+
+                                                    <div class="seatdetails-tooltip" [ngStyle]="segmentli?.tooltrip"
+                                                        (click)="$event.stopPropagation();">
+                                                        {{segmentli.Code}} | ₹ {{segmentli.Price | number:'1.0-2'}}
+                                                    </div>
+
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="flgtrow">
+                                        <span class="leftwing"></span>
+                                        <div class="innerrow">
+                                            <h2>Back Entrance</h2>
+                                        </div>
+                                        <span class="rightwing"></span>
+                                    </div>
+                                </div>
+                                <div><span class="bgProperties iconflTail"
+                                        style="background-image: url('assets/img/flightSmallTail.png');"></span></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--:: Seat selection Modal -->
+
+
+<div class="modal fade" id="insurancedetailmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Coverage Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th> Details</th>
+                            <th> Coverage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(item of KnowmoreData;track $index){
+                        <tr>
+                            <td> {{item['Coverage']}}</td>
+                            <td> ₹{{item['SumInsured']}}</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="term&condition" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Term & Conditions</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <p class="term_condition">
+                        {{TermandCondition}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

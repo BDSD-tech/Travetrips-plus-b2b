@@ -1,0 +1,87 @@
+.at-exchange{
+    cursor: pointer;
+}
+
+.paxcount_message {
+    color:#dc3545;
+    font-size: 12px;
+    position: unset !important;
+}
+
+.at-disable {
+    background: #f6eeee !important;
+    border-radius: 0 !important;
+}
+
+.search-form-inp-close{
+    font-size: 20px;
+    position: absolute;
+    right: 18px;
+    top: 20px;
+    cursor: pointer;
+    z-index: 1;
+}
+.search-form-inp-down{
+    font-size: 20px;
+    position: absolute;
+    right: 30px;
+    top: 20px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.tts-multyclose {
+    font-size: 25px;
+    font-weight: normal;
+    margin-left: 30px;
+    color: #fff;
+}
+
+.tts-addmulti-btn{
+    background: transparent;
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 0%;
+    position: relative;
+    top: 0px;
+    padding: 20px;
+    height: 60px;
+    border-radius: 3px;
+    border: 1px solid var(--white);
+    margin-left: 15px;
+}
+
+.form-control,
+.form-select {
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+}
+
+textarea.form-control {
+  resize: none;
+}
+
+.cst-btn {
+  background-color: var(--second-color); 
+  color: var(--white);              
+  border: none;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.cst-btn:hover {
+  background-color: var(--second-color);
+}
+.form-blur-wrapper {
+  background: rgba(255, 255, 255, 0.25); 
+  backdrop-filter: blur(10px);         
+  -webkit-backdrop-filter: blur(10px); 
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* var(--second-color) */

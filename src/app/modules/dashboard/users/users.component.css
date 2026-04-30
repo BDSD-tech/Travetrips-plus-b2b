@@ -1,0 +1,8 @@
+.btn-add{
+    background-color: var(--second-color);
+    color: aliceblue;
+}
+.form__field--icon{
+    position: absolute;
+    right: 5px;
+}

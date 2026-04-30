@@ -1,0 +1,52 @@
+.apt-active::before {
+    color: #fff !important;
+    background: #4aa301 !important;
+    content: "\F00C" !important;
+}
+.apt-active .apt-flightiti {
+    color: #4aa301;
+}
+.apt-active::after {
+    background: #4aa301 !important;
+}
+
+.apt-black::before {
+    background-color: var(--primary-bg-color) !important;
+    color: #fff !important;
+}
+
+.flight-details{
+    counter-reset: my-sec-counter;
+}
+.counter::before{
+    counter-increment: my-sec-counter;
+    content: counter(my-sec-counter) ". ";
+}
+
+.pax-detailsAll {
+    width: 100%;
+    display: inherit;
+}
+.pax-passportSize {
+    font-size: 11px;
+    color: #848f91;
+    display: inline-block;
+    line-height: 16px;
+}
+.flight-booking .booking-main .passenger_list_ul li{
+    width: 25%;
+    line-height: 15px;
+}
+.flight-booking .booking-main .passenger_list_ul li:first-child{
+    width: 5%;
+}
+.flight-booking .booking-main .passenger_list_ul li:nth-child(2){
+    width: 30%;
+}
+.flight-booking .booking-main .passenger_list_ul li:nth-child(3){
+    width: 15%;
+}
+.flight-booking .booking-main .passenger_list_ul li:nth-child(4){
+    width: 50%;
+    text-align: center;
+}

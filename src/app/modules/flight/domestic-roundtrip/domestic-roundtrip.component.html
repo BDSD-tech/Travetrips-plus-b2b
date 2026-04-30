@@ -1,0 +1,927 @@
+<main class="inner-main-section" role="main">
+    <app-modify-search></app-modify-search>
+    <!---------------flight--list--------------->
+    <section class="flight-list">
+        <div class="container">
+            <div class="row" *ngIf="ErrorCode==0">
+                <div class="col-md-3">
+                    <div class="flight-leftbgcolor tts-flight-left">
+                        <app-loading-filter *ngIf="APILoading"></app-loading-filter>
+                        <app-filter *ngIf="APILoading==false" [result]="Response" [filter]="FilterResponse"
+                            [filtertype]="filtertype" (messageEvent)="receiveMessage($event)"
+                            (fareEvent)="receiveFare($event)" [clearfilter]="clearfilter"
+                            [clearfilterib]="clearfilterib"></app-filter>
+                    </div>
+                </div>
+
+                <div class="col-md-9 tts-flight-right">
+
+                    <div *ngIf="APILoading">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="flight-segmentcolor text-center mb-4">
+                                    <div class="lds-ellipsis">
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <app-loading *ngIf="resultloading" [type]="filtertype"></app-loading>
+                    <div class="row" *ngIf="resultloading==false">
+                        <div class="col-md-6" *ngFor="let mjitem of sortedData; let j=index;">
+                            <div class="row mb-3" *ngIf="j==0">
+                                <div class="col-sm-12">
+                                    <div class="flight-segmentcolor mb-0">
+                                        Found <span><b>{{filterresultcount}} Flights</b></span>
+                                        {{GetSearchData['Origin'].split('(')[0]}} to
+                                        {{GetSearchData['Destination'].split('(')[0]}}
+                                        {{GetSearchData['DepartDate'] | date:'E, d MMM yyyy' }}<span
+                                            class="oneway-creditBalance"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row filter-flights mb-3" *ngIf="j==0 && APILoading==false">
+                                <div class="col-lg-4">
+                                    <div class="button-filters-search d-flex align-items-center"
+                                        [ngClass]="{'sort_active':Activestep==='totalfare'}"
+                                        (click)="ActiveStep('totalfare',j)">
+                                        <span><i class="filter-inrmark fa-solid fa-indian-rupee-sign"></i></span>
+                                        <div class="detail">
+                                            <h6>Cheapest</h6>
+                                            <p>
+                                                ₹ {{OBMinPrice | number:'1.0-2'}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="button-filters-search d-flex align-items-center"
+                                        [ngClass]="{'sort_active':Activestep==='duration'}"
+                                        (click)="ActiveStep('duration',j)">
+                                        <span><i class="filter-inrmark fa-solid fa-bolt-lightning"></i></span>
+                                        <div class="detail">
+                                            <h6>Fastest</h6>
+                                            <p>
+                                                Duration: {{FTduration(OBMinDuration)}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="button-filters-search d-flex align-items-center"
+                                        [ngClass]="{'sort_active':Activestep==='commision'}"
+                                        (click)="ActiveStep('commision',j,'dsc')">
+                                        <span><i class="filter-inrmark fa-solid fa-percent"></i></span>
+                                        <div class="detail">
+                                            <h6>Max Commission</h6>
+                                            <p *ngIf="showincentivefare">
+                                                ₹ {{OBMaxIncentive | number:'1.0-2'}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row gy-3 mb-3" *ngIf="j==1">
+                                <div class="col-sm-12">
+                                    <p class="flight-segmentcolor mb-0">
+                                        Found <span><b>{{filterresultcountib}} Flights</b></span>
+                                        {{GetSearchData['Destination'].split('(')[0]}} to
+                                        {{GetSearchData['Origin'].split('(')[0]}} {{GetSearchData['ReturnDate']
+                                        | date:'E, d MMM yyyy' }}<span class="oneway-creditBalance"></span>
+                                    </p>
+                                </div>
+                                <div class="col-sm-12">
+                                    <i class="fa fa-share-alt"> </i> &nbsp;Share By : &nbsp;
+                                    <button class=" sendetails-button-green" *ngIf="sharebuttontext==''"
+                                        (click)="Shareby('Whatsapp')"><i class="fab fa-whatsapp"></i>
+                                        Whatsapp</button>
+                                    <button class=" sendetails-button-ornage" *ngIf="sharebuttontext==''"
+                                        (click)="Shareby('Email')"><i class="fa fa-envelope"></i> Email</button>
+                                    <button class=" sendetails-button-brown" *ngIf="sharebuttontext==''"
+                                        (click)="Shareby('View')"><i class="fa fa-eye"></i> View</button>
+                                    <button class=" sendetails-button-brown" *ngIf="sharebuttontext!=''"
+                                        (click)="SendData()">{{sharebuttontext}}</button>
+                                    <button class=" sendetails-button-brown text-dark" (click)="Shareby('Close')"
+                                        *ngIf="sharebuttontext!=''">
+                                        <i class="fa fa-close"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            
+                                <div class="row filter-flights mb-3" *ngIf="j==1 && APILoading==false">
+                                    <div class="col-lg-4">
+                                        <div class="button-filters-search d-flex align-items-center"
+                                            [ngClass]="{'sort_active':RActivestep==='totalfare'}"
+                                            (click)="ActiveStep('totalfare',j)">
+                                            <span><i class="filter-inrmark fa-solid fa-indian-rupee-sign"></i></span>
+                                            <div class="detail">
+                                                <h6>Cheapest</h6>
+                                                <p>
+                                                    ₹ {{IBMinPrice | number:'1.0-2'}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="button-filters-search d-flex align-items-center"
+                                            [ngClass]="{'sort_active':RActivestep==='duration'}"
+                                            (click)="ActiveStep('duration',j)">
+                                            <span><i class="filter-inrmark fa-solid fa-bolt-lightning"></i></span>
+                                            <div class="detail">
+                                                <h6>Fastest</h6>
+                                                <p>
+                                                    Duration: {{FTduration(IBMinDuration)}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="button-filters-search d-flex align-items-center"
+                                            [ngClass]="{'sort_active':RActivestep==='commision'}"
+                                            (click)="ActiveStep('commision',j,'dsc')">
+                                            <span><i class="filter-inrmark fa-solid fa-percent"></i></span>
+                                            <div class="detail">
+                                                <h6>Max Commission</h6>
+                                                <p *ngIf="showincentivefare">
+                                                    ₹ {{IBMaxIncentive | number:'1.0-2'}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                           
+
+                            <div class="flight-listbtrow">
+                                <div class="flight-listbt">
+                                    <div class="row m-0" *ngIf="j==0">
+                                         <div class="col-3">
+                                            <button class="flight-btnforfilter"
+                                                [ngClass]="{'flight-activefilter':obfield=='departtime'}"
+                                                (click)="orderby('departtime',j,$event)">
+                                                Sort By : Departure
+                                                <i class="fa" *ngIf="j==0 && obfield === 'departtime'"
+                                                    [ngClass]="(obreverse) ? 'fa-sort-up' : 'fa-sort-down'"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-2 text-center">
+                                            <button class="flight-btnforfilter"
+                                                [ngClass]="{'flight-activefilter':obfield=='duration'}"
+                                                (click)="orderby('duration',j,$event)">
+                                                 Duration
+                                                <i class="fa" *ngIf="j==0 && obfield === 'duration'"
+                                                    [ngClass]="(obreverse) ? 'fa-sort-up' : 'fa-sort-down'"></i>
+                                            </button>
+                                        </div>
+                                       
+                                        <div class="col-2 ps-0 text-center">
+                                            <button class="flight-btnforfilter"
+                                                [ngClass]="{'flight-activefilter':obfield=='arrivaltime'}"
+                                                (click)="orderby('arrivaltime',j,$event)">
+                                                Arrival
+                                                <i class="fa" *ngIf="j==0 && obfield === 'arrivaltime'"
+                                                    [ngClass]="(obreverse) ? 'fa-sort-up' : 'fa-sort-down'"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-3 text-center p-0">
+                                            <button class="flight-btnforfilter"
+                                                [ngClass]="{'flight-activefilter':obfield=='totalfare'}"
+                                                (click)="orderby('totalfare',j,$event)">
+                                                Price
+                                                <i class="fa" *ngIf="j==0 && obfield === 'totalfare'"
+                                                    [ngClass]="(obreverse) ? 'fa-sort-up' : 'fa-sort-down'"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="row m-0" *ngIf="j==1">
+                                        <div class="col-3">
+                                            <button class="flight-btnforfilter"
+                                                [ngClass]="{'flight-activefilter':ibfield=='departtime'}"
+                                                (click)="orderby('departtime',j,$event)">
+                                                Sort By : Departure
+                                                <i class="fa" *ngIf="j==1 && ibfield === 'departtime'"
+                                                    [ngClass]="(ibreverse) ? 'fa-sort-up' : 'fa-sort-down'"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-2 text-center">
+                                            <button class="flight-btnforfilter"
+                                                [ngClass]="{'flight-activefilter':ibfield=='duration'}"
+                                                (click)="orderby('duration',j,$event)">
+                                                 Duration
+                                                <i class="fa" *ngIf="j==1 && ibfield === 'duration'"
+                                                    [ngClass]="(ibreverse) ? 'fa-sort-up' : 'fa-sort-down'"></i>
+                                            </button>
+                                        </div>
+                                        
+                                        <div class="col-2 text-center ps-0">
+                                            <button class="flight-btnforfilter"
+                                                [ngClass]="{'flight-activefilter':ibfield=='arrivaltime'}"
+                                                (click)="orderby('arrivaltime',j,$event)">
+                                                Arrival
+                                                <i class="fa" *ngIf="j==1 && ibfield === 'arrivaltime'"
+                                                    [ngClass]="(ibreverse) ? 'fa-sort-up' : 'fa-sort-down'"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-3 text-center p-0">
+                                            <button class="flight-btnforfilter"
+                                                [ngClass]="{'flight-activefilter':ibfield=='totalfare'}"
+                                                (click)="orderby('totalfare',j,$event)">
+                                                Price
+                                                <i class="fa" *ngIf="j==1 && ibfield === 'totalfare'"
+                                                    [ngClass]="(ibreverse) ? 'fa-sort-up' : 'fa-sort-down'"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flight-rowmain round-trip" *ngFor="let item of mjitem;">
+                                <div class="row">
+                                    <div class="col-sm-7" *ngFor="let trip of item['MainSegment']; let tripskey=index;">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="flight-leftresult1">
+                                                    <ul class="flight-listair d-flex flex-column gap-2">
+                                                        <li>
+                                                            <img src="{{AirlineLogoURL}}{{trip['Airlinecode']}}.png"
+                                                                class="size-30 me-2">
+                                                        </li>
+                                                        <li>
+                                                            {{trip['AirlineName']}}
+                                                            <div class="flight-holdid">
+                                                                <span class="flightids" data-bs-toggle="tooltip"
+                                                                    data-bs-placement="top"
+                                                                    [attr.title]="trip['AirlineCodeFlightNumberString']">
+                                                                    {{trip['AirlineCodeFlightNumberString']}}
+                                                                </span>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3 col-4">
+                                                <ul class="flight-listair">
+                                                    <li>
+                                                        <p class="flight-city">{{trip['DepartureCity']}}</p>
+                                                        <span class="flight-timefont">{{trip['DepartTime']}}</span>
+
+                                                        <span class="flight-dur-timefont">{{trip['DepartDate']}}</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-sm-3 col-4">
+                                                <div class="atls-holdid">
+                                                    <span class="flight-arrow" *ngIf="trip['Stops']==0">Non
+                                                        Stop</span>
+                                                    <span class="flight-arrow" *ngIf="trip['Stops']>0">{{trip['Stops']}}
+                                                        Stop(s)</span>
+                                                </div>
+                                                <span
+                                                    class="arrow-allright arrowclass-loader-flight-search w-100"></span>
+                                                <span class="fs-11">{{trip['Duration']}}</span>
+                                            </div>
+                                            <div class="col-sm-3 col-4">
+                                                <ul class="flight-listair">
+                                                    <li class="">
+                                                        <p class="flight-city">{{trip['ArrivalCity']}}</p>
+                                                        <span class="flight-timefont">{{trip['ArrivalTime']}}</span>
+
+                                                        <span class="flight-dur-timefont">{{trip['ArrivalDate']}}</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="view-details-mainbtn">
+
+                                                <button type="button" class="btn btn-default flight-viewbtn"
+                                                    [ngClass]="{'tts-plus':showFlightTab[j]!=item['TtsIndex'],'tts-minus':showFlightTab[j]==item['TtsIndex']}"
+                                                    (click)="flightdetail($event,item,j)">View Details <i class="fa"
+                                                        [ngClass]="{'fa-plus tts-plus':showFlightTab[j]!=item['TtsIndex'],'fa-minus tts-minus':showFlightTab[j]==item['TtsIndex']}"></i></button>
+
+
+                                            </div>
+                                            <div class="col-sm-12 clearfix">
+                                                <p class="indicator-content">
+                                                    <span class="flightarrives-after" *ngIf="trip['ArrivalDays']!=0"> <i
+                                                            class="fa fa-plane flightarrive-icons"></i> Flight
+                                                        Arrives after {{trip['ArrivalDays']}} Day(s)</span>
+
+                                                    <span class="handbag-icons handbag-icons-positionHandle"
+                                                        *ngIf="item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable']!=0 && item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable']!='' && item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable']!=null"
+                                                        id="seat_left_{{item.TtsIndex}}{{tripskey}}{{j}}"
+                                                        [ngClass]="{'green':item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable'] > 9,'orange':item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable'] > 3,'red': item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable'] <= 3}">
+                                                        Seats
+                                                        left:{{item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable']}}
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <ul class="flight-radiolist farelist_{{item['TtsIndex']}}{{j}}">
+                                                    <li *ngFor="let farelist of item['FareList']; let farelistkey=index;"
+                                                        [ngClass]="{'d-none' : farelistkey >= fareshowlimit}">
+                                                        <!-- <p class="ars-specialfare">
+                                                            <span>{{userinfo['CompanyId']}}</span>
+                                                        </p> -->
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="search_result_{{j}}" *ngIf="farelistkey==0"
+                                                                    value="{{farelist.FareId}}"
+                                                                    (click)="FareOptionSelected(item['TtsIndex'],j)"
+                                                                    [checked]="radiochecked[j]==farelist.FareId" />
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="search_result_{{j}}" *ngIf="farelistkey!=0"
+                                                                    value="{{farelist.FareId}}"
+                                                                    (click)="FareOptionSelected(item['TtsIndex'],j)" />
+                                                                <span>₹{{farelist['Fare']['PublishedPrice'] |
+                                                                    number:'1.0-2'}} </span>
+                                                                <span class="graycolor fs-10"
+                                                                    *ngIf="showincentivefare">|
+                                                                    INC
+                                                                    ₹{{farelist['Fare']['PublishedPrice']-farelist['Fare']['OfferedPrice']
+                                                                    | number:'1.0-2'}} </span>
+                                                                <span class="graycolor fs-10" *ngIf="shownetfare">|
+                                                                    NET ₹{{farelist['Fare']['OfferedPrice'] |
+                                                                    number:'1.0-2'}} </span>
+                                                                <span class="graycolor fs-10"
+                                                                    *ngIf="shownetfare==false && farelist['Source']">{{farelist['Source']}}</span>
+                                                            </label>
+                                                            <ul class="d-flex align-items-center margin-left-23">
+                                                                <li class="label-{{farelist['FareTypeColor']}}">
+                                                                    {{farelist['FareType']}}</li>
+                                                                <li>
+                                                                    <span
+                                                                        class="ars-refunsleft ars-lastre ars-last-positionHandle">
+                                                                        {{farelist['CabinClass']}}
+                                                                        <span class="cursor-pointer"
+                                                                            *ngIf="farelist['IsRefundable']">,
+                                                                            Refundable</span>
+                                                                        <span class="cursor-pointer text-danger"
+                                                                            *ngIf="farelist['IsRefundable']===false">,
+                                                                            Non Refundable</span>
+                                                                    </span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="form-check share_chekbox"
+                                                            *ngIf="sharebuttontext!=''">
+                                                            <input class="form-check-input tts-cursor-pointer"
+                                                                name="shareinput[]" type="checkbox"
+                                                                value="{{j}}_{{item['TtsIndex']}}_{{farelist['FareId']}}_{{APISEARCHTOKENLIST[farelist['Supplier']]}}_{{farelist['Supplier']}}_{{farelist['Fare']['PublishedPrice']}}" />
+                                                        </div>
+                                                        <hr class="m-0"
+                                                            *ngIf="item['FareList'].length!=(farelistkey+1)" />
+                                                    </li>
+                                                </ul>
+                                                <span class="flight__dropdown__icon"
+                                                    *ngIf="item['FareList'].length > fareshowlimit"
+                                                    (click)="MoreFare($event,item['TtsIndex'],j)"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--<div class="col-sm-12 clearfix" *ngIf="item['FareList']?.[0]?.['AirlineRemark']!='' && item['FareList']?.[0]?.['AirlineRemark']!=null">
+                                            <p class="indicator-content">
+                                                <span class="message-content" id="airline_remark_{{j}}_{{item.TtsIndex}}">Airline Remark : {{item['FareList']?.[0]?.['AirlineRemark']}}</span>
+                                            </p>
+                                        </div>-->
+
+                                    <div class="col-sm-12 clearfix"
+                                        *ngIf="item['FareList']?.[0]?.['SpecialNotes']!='' && item['FareList']?.[0]?.['SpecialNotes']!=null">
+                                        <div class="indicator-content" id="special_notes_{{j}}_{{item.TtsIndex}}">
+                                            <div>
+                                                <span class="message-content"
+                                                    *ngFor="let snotes of item['FareList']?.[0]?.['SpecialNotes']">*
+                                                    {{snotes}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row" *ngIf="showFlightTab[j]==item['TtsIndex']">
+                                    <div class="col-12 col-md-12">
+                                        <div class="flight-list-tab">
+                                            <nav
+                                                class="d-flex align-items-center justify-content-between border-bottom">
+                                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                                    <button class="nav-link active flight-list-tab-btn"
+                                                        id="nav-flightDeatil_{{item.TtsIndex}}{{j}}-tab"
+                                                        data-bs-toggle="tab"
+                                                        attr.data-bs-target="#nav-flightDeatil_{{item.TtsIndex}}{{j}}"
+                                                        type="button" role="tab"
+                                                        attr.aria-controls="nav-flightDeatil_{{item.TtsIndex}}{{j}}"
+                                                        aria-selected="true">
+                                                        Flight Details
+                                                    </button>
+
+                                                    <button class="nav-link flight-list-tab-btn"
+                                                        id="nav-fareInfo_{{item.TtsIndex}}{{j}}-tab"
+                                                        data-bs-toggle="tab"
+                                                        attr.data-bs-target="#nav-fareInfo_{{item.TtsIndex}}{{j}}"
+                                                        type="button" role="tab"
+                                                        attr.aria-controls="nav-fareInfo_{{item.TtsIndex}}{{j}}"
+                                                        aria-selected="false" tabindex="-1">
+                                                        Fare Details
+                                                    </button>
+
+                                                    <button class="nav-link flight-list-tab-btn"
+                                                        id="nav-farerule_{{item.TtsIndex}}{{j}}-tab"
+                                                        data-bs-toggle="tab"
+                                                        attr.data-bs-target="#nav-farerule_{{item.TtsIndex}}{{j}}"
+                                                        type="button" role="tab"
+                                                        attr.aria-controls="nav-farerule_{{item.TtsIndex}}{{j}}"
+                                                        aria-selected="false" tabindex="-1"
+                                                        (click)="farerule(item.TtsIndex,j)">
+                                                        Fare Rules
+                                                    </button>
+
+                                                    <button class="nav-link flight-list-tab-btn"
+                                                        id="nav-baggageinfo_{{item.TtsIndex}}{{j}}-tab"
+                                                        data-bs-toggle="tab"
+                                                        attr.data-bs-target="#nav-baggageinfo_{{item.TtsIndex}}{{j}}"
+                                                        type="button" role="tab"
+                                                        attr.aria-controls="nav-baggageinfo_{{item.TtsIndex}}{{j}}"
+                                                        aria-selected="false" tabindex="-1">
+                                                        Baggage Information
+                                                    </button>
+                                                </div>
+                                                <div>
+                                                    <button type="button" class="btn cross-btn"
+                                                        (click)="hideflightdetail(item.TtsIndex,j)"><i
+                                                            class="fas fa-times"></i></button>
+                                                </div>
+                                            </nav>
+                                            <div class="tab-content flight-list-tab-content" id="nav-tabContent">
+                                                <div class="tab-pane fade show active"
+                                                    id="nav-flightDeatil_{{item.TtsIndex}}{{j}}" role="tabpanel"
+                                                    attr.aria-labelledby="nav-flightDeatil_{{item.TtsIndex}}{{j}}-tab"
+                                                    tabindex="0">
+                                                    <div class="row align-items-center"
+                                                        *ngFor="let tripSegment of item['Segments']; let tripsegkey=index;">
+                                                        <p class="flight-details-top-list">
+                                                            <b class="">
+                                                                <span>{{tripSegment[0]['Origin']['CityName']}}</span>
+                                                                <span class="ars-arright">→</span>
+                                                                <span>{{tripSegment[tripSegment.length-1]['Destination']['CityName']}}</span>
+                                                            </b>
+                                                            <span class="graycolor">
+                                                                {{tripSegment[0]['Origin']['DepartTime'] | date:'E,
+                                                                MMM d, y'}}</span>
+                                                        </p>
+                                                        <div class="col-md-12"
+                                                            *ngFor="let segment of tripSegment; let segkey=index;">
+                                                            <div class="row mb-2">
+                                                                <div class="col-sm-3 pr-0">
+                                                                    <ul class="flight-listair1">
+                                                                        <li>
+                                                                            <img src="{{AirlineLogoURL}}{{segment['Airline']['AirlineCode']}}.png"
+                                                                                class="size-30 me-2">
+                                                                        </li>
+                                                                        <li>
+                                                                            <div class="flight-holdid">
+                                                                                <span
+                                                                                    class="at-fontweight arct-idcode tts-cursor-pointer"
+                                                                                    data-bs-toggle="tooltip"
+                                                                                    data-bs-placement="top"
+                                                                                    [attr.title]="segment['Airline']['AirlineName']">{{segment['Airline']['AirlineCode']}}-{{segment['Airline']['FlightNumber']}}</span>
+                                                                                <span class="equipType"
+                                                                                    *ngIf="segment['Craft'] && segment['Craft']!=''"><i
+                                                                                        class="fa fa-plane"></i>-{{segment['Craft']}}</span>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="col-sm-7 no-padding">
+                                                                    <ul class="flight-listair1">
+                                                                        <li class="ars-lsprice ars-prclist">
+                                                                            {{segment['Origin']['DepartTime'] |
+                                                                            date:'MMM d, EEE, HH:mm'}} <br />
+                                                                            <span
+                                                                                class="at-fontweight atb-airport graycolor">{{segment['Origin']['CityName']}},
+                                                                                {{segment['Origin']['CountryName']}}</span>
+                                                                            <span
+                                                                                class="at-fontweight atb-airport graycolor">{{segment['Origin']['AirportName']}}</span>
+                                                                            <span class="graycolor"
+                                                                                *ngIf="segment['Origin']['Terminal']!=''">Terminal
+                                                                                {{segment['Origin']['Terminal']}}</span>
+                                                                        </li>
+                                                                        <li
+                                                                            class="ars-lsprice ars-prclist stop-arrowline">
+
+                                                                            <span
+                                                                                *ngIf="segment['TechStopPoint'].length==0"
+                                                                                class="ars-lsprice ars-prclist atb-iconclass abt-nnstop stop-arrowline">Non-Stop</span>
+
+                                                                            <span
+                                                                                *ngIf="segment['TechStopPoint'] && segment['TechStopPoint']['Code']"
+                                                                                class="ars-lsprice ars-prclist atb-iconclass abt-nnstop stop-arrowline">1
+                                                                                Stop(s)</span>
+
+                                                                            <span
+                                                                                class="arrow-allright arrowclass-loader-flight-search"></span>
+
+                                                                            <span
+                                                                                *ngIf="segment['TechStopPoint'] && segment['TechStopPoint']['Code']"
+                                                                                class="ars-lsprice ars-prclist atb-iconclass abt-nnstop stop-arrowline">Via:{{segment['TechStopPoint']['Code']}}</span>
+
+                                                                        </li>
+                                                                        <li class="ars-lsprice ars-prclist">
+                                                                            {{segment['Destination']['ArrivalTime']|
+                                                                            date: 'MMM d, EEE, HH:mm'}} <br />
+                                                                            <span
+                                                                                class="at-fontweight atb-airport graycolor">{{segment['Destination']['CityName']}},
+                                                                                {{segment['Destination']['CountryName']}}</span>
+                                                                            <span
+                                                                                class="at-fontweight atb-airport graycolor">{{segment['Destination']['AirportName']}}</span>
+                                                                            <span class="graycolor"
+                                                                                *ngIf="segment['Destination']['Terminal']!=''">Terminal
+                                                                                {{segment['Destination']['Terminal']}}</span>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="col-sm-2 pr-0">
+                                                                    <ul class="flight-listair1">
+                                                                        <li class="ars-lsprice">
+                                                                            {{
+                                                                            FTduration(segment['Duration'])}}<br />
+                                                                            <span class="atb-airport graycolor"
+                                                                                *ngIf="FlightFareDetail[j] && FlightFareDetail[j]['CabinClass']">{{FlightFareDetail[j]['CabinClass']}}</span>
+
+                                                                            <span class="fs-10"
+                                                                                *ngIf="FlightFareDetail[j] && FlightFareDetail[j]['FareClass']!=''">CB:{{FlightFareDetail[j]['FareClass']}}</span>
+
+                                                                            <span class="ars-seatleft fs-10"
+                                                                                *ngIf="FlightBaggageInfo[j] && FlightBaggageInfo?.[j][tripsegkey][segkey]?.NoOfSeatAvailable!='' && FlightBaggageInfo?.[j][tripsegkey][segkey]?.NoOfSeatAvailable!=null">
+                                                                                {{FlightBaggageInfo?.[j][tripsegkey][segkey]?.NoOfSeatAvailable}}
+                                                                                seat(s) left
+                                                                            </span>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-12 text-center"
+                                                                *ngIf="segment['Layover']">
+                                                                <div class="apt-mainlaydesktop mt-4 mb-4">
+                                                                    <p class="tts-laypverdesktop"><span
+                                                                            class="me-3">Require
+                                                                            to change
+                                                                            Plane</span><span> Layover Time -
+                                                                            {{segment['Layover']}}</span></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="nav-fareInfo_{{item.TtsIndex}}{{j}}"
+                                                    role="tabpanel"
+                                                    attr.aria-labelledby="nav-fareInfo_{{item.TtsIndex}}{{j}}-tab"
+                                                    tabindex="0">
+                                                    <div *ngIf="FlightFareDetail">
+                                                        <div class="row">
+                                                            <div class="col-sm-4">
+                                                                <h5 class="flight-typefare at-fontweight">
+                                                                    TYPE
+                                                                </h5>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <h5 class="flight-typefare at-fontweight">
+                                                                    Fare
+                                                                </h5>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <h5 class="flight-typefare at-fontweight">Total</h5>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" *ngFor="let paxFare of FareBreakdown?.[j];">
+                                                            <span class="graycolor fare-details-text-label">Fare
+                                                                Details for {{paxFare['PaxType']}}</span>
+                                                            <div class="col-sm-4">
+                                                                <ul class="ars-trasfee">
+                                                                    <li class="list-fare-ddetials-content">
+                                                                        <span>Base Price</span>
+                                                                    </li>
+                                                                    <li class="list-fare-ddetials-content">
+                                                                        <span>Taxes and fees</span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+
+                                                            <div class="col-sm-4">
+                                                                <ul class="ars-trasfee">
+                                                                    <li class="list-fare-ddetials-content"><span>₹
+                                                                            {{paxFare['BaseFare']/paxFare['PassengerCount']
+                                                                            | number:'1.0-2'}} x
+                                                                            {{paxFare['PassengerCount']}}</span>
+                                                                    </li>
+                                                                    <li class="list-fare-ddetials-content"><span>₹
+                                                                            {{paxFare['Tax']/paxFare['PassengerCount']
+                                                                            | number:'1.0-2'}} x
+                                                                            {{paxFare['PassengerCount']}}</span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <ul class="ars-trasfee">
+                                                                    <li class="list-fare-ddetials-content"><span>₹
+                                                                            {{paxFare['BaseFare'] |
+                                                                            number:'1.0-2'}}</span></li>
+                                                                    <li class="list-fare-ddetials-content"><span>₹
+                                                                            {{paxFare['Tax'] |
+                                                                            number:'1.0-2'}}</span></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" *ngIf="FlightFareDetail?.[j]">
+                                                            <span class="graycolor fare-details-text-label"></span>
+                                                            <div class="col-sm-4">
+                                                                <ul class="ars-trasfee">
+                                                                    <li class="list-fare-ddetials-content">
+                                                                        <span>Service and Other Charges</span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <ul class="ars-trasfee">
+                                                                    <li class="list-fare-ddetials-content"><span>₹
+                                                                            {{FlightFareDetail?.[j]?.['Fare']?.['OtherCharges']+FlightFareDetail?.[j]?.['Fare']?.['ServiceCharges']}}
+                                                                        </span></li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <ul class="ars-trasfee">
+                                                                    <li class="list-fare-ddetials-content"><span>₹
+                                                                            {{FlightFareDetail?.[j]['Fare']?.['OtherCharges']+FlightFareDetail?.[j]?.['Fare']?.['ServiceCharges']}}</span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row border-top">
+                                                            <div class="col-sm-7 mt-2">
+                                                                <h6>Total</h6>
+                                                            </div>
+                                                            <div class="col-sm-5 mt-2">
+                                                                <h6>₹
+                                                                    {{FlightFareDetail?.[j]?.['Fare']?.['PublishedPrice']
+                                                                    | number:'1.0-2'}}</h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="tab-pane fade" id="nav-farerule_{{item.TtsIndex}}{{j}}"
+                                                    role="tabpanel"
+                                                    attr.aria-labelledby="nav-farerule_{{item.TtsIndex}}{{j}}-tab"
+                                                    tabindex="0">
+                                                    <div class="row" *ngIf="fareRuleLoading">
+                                                        <div class="col-md-12">
+                                                            <div class="text-center">
+                                                                <div class="loader mt-3 mb-3">
+                                                                    <div class="lds-ellipsis">
+                                                                        <div></div>
+                                                                        <div></div>
+                                                                        <div></div>
+                                                                        <div></div>
+                                                                    </div>
+                                                                </div>
+                                                                <p>Please Wait...</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div *ngIf="fareRuleLoading==false && FareRuleErrorCode[j]==0">
+                                                        <div class="row"
+                                                            *ngFor="let farerule of FlightFareRule[j]; let farerulekey=index;">
+                                                            <div class="col-md-12">
+                                                                <button
+                                                                    class="ars-activelist fare-rules-tabs">{{farerule.Origin}}-{{farerule.Destination}}</button>
+                                                            </div>
+                                                            <div class="col-md-12"
+                                                                id="fareRuleData{{item.TtsIndex+farerule.Origin+farerule.Destination+farerulekey}}"
+                                                                [innerHTML]="farerule.FareRuleDetail |safeHtml">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row"
+                                                        *ngIf="fareRuleLoading==false && FareRuleErrorCode[j]!=0">
+                                                        <div class="col-md-12">
+                                                            {{FareRuleErrorMessage[j]}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="nav-baggageinfo_{{item.TtsIndex}}{{j}}"
+                                                    role="tabpanel"
+                                                    attr.aria-labelledby="nav-baggageinfo_{{item.TtsIndex}}{{j}}-tab"
+                                                    tabindex="0">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <h5 class="flight-typefare at-fontweight">
+                                                                SECTOR
+                                                            </h5>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <h5 class="flight-typefare at-fontweight">
+                                                                CHECKIN
+                                                            </h5>
+                                                        </div>
+                                                        <div class="col-sm-5">
+                                                            <h5 class="flight-typefare at-fontweight">
+                                                                CHECKIN
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="baggage__data"
+                                                        *ngFor="let tripBaggageInfo of FlightBaggageInfo?.[j]; let tripBaggagekey=index;">
+                                                        <div class="row"
+                                                            *ngFor="let BaggageInfo of tripBaggageInfo; let segmentBaggagekey=index;">
+                                                            <div class="col-sm-3">
+                                                                <ul class="ars-trasfee">
+                                                                    <li class="list-fare-ddetials-content">
+                                                                        <span>{{BaggageInfo['Sector']}}</span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <ul class="ars-trasfee">
+                                                                    <li class="list-fare-ddetials-content">
+                                                                        <span>{{BaggageInfo['CheckIn']}}</span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="col-sm-5">
+                                                                <ul class="ars-trasfee">
+                                                                    <li class="list-fare-ddetials-content">
+                                                                        <span>{{BaggageInfo['Cabin']}}</span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" *ngIf="mjitem.length==0 && APILoading==false">
+                                <div class="no_flight-content">
+                                    <i class="fa fa-plane flight-icons-zeroFlight mb-4"></i>
+                                    <p>No flight found that matches your filter criteria.Reset your filter</p>
+                                    <button type="submit" class="tts-button-primary mt-3"
+                                        (click)="resetfilterdata(j)">Reset
+                                        All Filter</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="ErrorCode!=0">
+                <div class="col-md-12 text-center p-5">
+                    <img src="assets/img/no-flight-found.png" width="30%;" />
+                    <h5>{{ErrorMessage}}</h5>
+                    <p>Sorry, There were no flights found for this route and date combination. We suggest you modify
+                        your search and try again.</p>
+                    <a routerLink="/flight" class="btn flight-book" style="width: 15%;">GO TO HOME</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!---------------flight--list-----end---------->
+    <section class="flight_list_asp-btm" *ngIf="resultloading!=true && ErrorCode==0">
+        <div class="container" *ngIf="selectedfareob['fare'] && selectedfareib['fare']">
+            <div class="row">
+                <div class="col-sm-4 d-flex align-items-center justify-content-between border-right">
+                    <div class="ars-listair d-flex align-items-center">
+                        <img src="{{AirlineLogoURL}}{{selectedfareob['segment']?.['Airlinecode']}}.png"
+                            class="size-30 me-2">
+                        <div class="asp-totalam select-flightsname">{{selectedfareob['segment']?.['AirlineName']}}<span
+                                class="bottom-gridcode">{{selectedfareob['segment']?.['AirlineCodeFlightNumberString']}}</span>
+                        </div>
+                    </div>
+                    <ul class="ars-list">
+                        <li>
+                            <p>{{selectedfareob['segment']?.['DepartTime']}}</p>
+                            <span class="graycolor">{{selectedfareob['segment']?.['DepartureCity']}}</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-arrow-right-long"></i>
+                        </li>
+                        <li>
+                            <p>{{selectedfareob['segment']?.['ArrivalTime']}}</p>
+                            <span class="graycolor">{{selectedfareob['segment']?.['ArrivalCity']}}</span>
+                        </li>
+                    </ul>
+                    <div>
+                        <h5 class="whitecolor">₹{{selectedfareob['fare'] | number:'1.0-2'}}</h5>
+                    </div>
+                </div>
+                <div class="col-sm-4 d-flex align-items-center justify-content-between border-right">
+                    <div class="ars-listair d-flex align-items-center">
+                        <img src="{{AirlineLogoURL}}{{selectedfareib['segment']?.['Airlinecode']}}.png"
+                            class="size-30 me-2">
+                        <div class="asp-totalam select-flightsname">{{selectedfareib['segment']?.['AirlineName']}}<span
+                                class="bottom-gridcode">{{selectedfareib['segment']?.['AirlineCodeFlightNumberString']}}</span>
+                        </div>
+                    </div>
+                    <ul class="ars-list">
+                        <li>
+                            <p>{{selectedfareib['segment']?.['DepartTime']}}</p>
+                            <span class="graycolor">{{selectedfareib['segment']?.['DepartureCity']}}</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-arrow-right-long"></i>
+                        </li>
+                        <li>
+                            <p>{{selectedfareib['segment']?.['ArrivalTime']}}</p>
+                            <span class="graycolor">{{selectedfareib['segment']?.['ArrivalCity']}}</span>
+                        </li>
+                    </ul>
+                    <div>
+                        <h5 class="whitecolor">₹{{selectedfareib['fare'] | number:'1.0-2'}}</h5>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 d-flex align-items-center justify-content-end">
+                    <ul class="ars-list">
+                        <li>
+                            <h3 class="mb-0">₹{{selectedfareob['fare']+selectedfareib['fare'] | number:'1.0-2'}}</h3>
+                        </li>
+                        <li>
+                            <button type="button" class="btn round_trip_book" (click)="confirmation()">BOOK</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!--Share View Detail Modal -->
+<div class="modal fade" id="formmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="formmodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="formmodal">View Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="content" [innerHTML]="shareviewdetail"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Share email Detail Modal -->
+<div class="modal fade" id="formmodal-email" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="formmodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="formmodal">Flights Quotation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="email-ids" class="form-label">Email Id</label>
+                    <input type="email" class="form-control" id="email-ids" [(ngModel)]="shareemaillist"
+                        aria-describedby="emailHelp" />
+                    <div id="emailHelp" class="form-text">you can add multiple email with comma separated.</div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <button type="button" class="tts-button-primary" (click)="sendemail('with-price')"
+                            [disabled]="sharebuttonloding">With Price</button>
+                    </div>
+                    <div class="col-6 text-end">
+                        <button type="button" class="tts-button-primary" (click)="sendemail('without-price')"
+                            [disabled]="sharebuttonloding">Without Price</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-count-down display="off"></app-count-down>

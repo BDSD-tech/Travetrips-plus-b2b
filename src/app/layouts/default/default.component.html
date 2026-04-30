@@ -1,0 +1,387 @@
+<p class="tts_agentUserId">{{TextWaterMark}}</p>
+<section class="header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-4">
+                <a class="navbar-brand" (click)="OpenHome()"><img [src]="LogoURL" class="img-fluid logo__img" /></a>
+            </div>
+            <div class="col-md-8">
+                <ul class="topbar d-lg-flex d-none d-flex align-items-center justify-content-md-end">
+                    <div class="border-bottom">
+                        <li class="topbar__list"><a class="tts-head-a"
+                                routerLink="/dashboard/user-detail/{{LoginAgentinfo['CompanyId']}}"
+                                target="_blank">Welcome {{LoginAgentinfo['CompanyName']}}
+                                ({{LoginAgentinfo['CompanyId']}}) </a></li>
+                        <li class="topbar__list">
+                            <div class="dropdown">
+                                <span class="d-flex gap-2 align-items-center" data-bs-toggle="dropdown"
+                                    aria-expanded="false">My Balance: ₹{{this.WalletBalance | number:'1.2-2'}}
+                                    <span (click)="RefreshBalance()">
+                                        <img class="topbar__list--refresh-icon img-fluid" src="assets/img/refresh.png"
+                                            alt="Refresh" />
+                                    </span>
+                                </span>
+                                <ul class="dropdown-menu mega-menu  show-{{dyclass}}">
+                                    <li class="tableDropdown__wrap--list list-{{dyclass}}">
+                                        <p>Deposit Balance</p>
+                                        <p *ngIf="WalletCreditLimit!==0">Credit Balance</p>
+                                        <p *ngIf="WalletCreditLimit!==0">Dues</p>
+                                        <p>Wallet Status</p>
+                                        <p *ngIf="WalletCreditLimit!==0">Credit Status</p>
+                                    </li>
+                                    <li class="tableDropdown__wrap--list__content  list-{{dyclass}}">
+                                        <p class="my-bal-dropdown">₹{{WalletDepositBalance | number:'1.2-2'}}</p>
+                                        <p *ngIf="WalletCreditLimit!==0">
+                                            <span class="d-block">₹{{WalletCreditLimit | number:'1.2-2'}}</span>
+                                            <!--<span class="d-block" *ngIf="WalletCreditLimit!=0"><b>ED:</b> {{WalletCreditExpireDate}}</span>-->
+                                        </p>
+                                        <p *ngIf="WalletCreditLimit!==0">₹{{WalletDueAmount | number:'1.2-2'}}</p>
+                                        <p
+                                            [ngClass]="{'text-success':WalletStatus=='Active','text-danger':WalletStatus!='Active'}">
+                                            {{WalletStatus}}</p>
+                                        <p *ngIf="WalletCreditLimit!==0"
+                                            [ngClass]="{'text-success':WalletCreditStatus=='Active','text-danger':WalletCreditStatus!='Active'}">
+                                            {{WalletCreditStatus}}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="topbar__list" *ngIf="WalletDueAmount!=0"><span
+                                class="topbar__list--dues">Dues</span>: ₹{{this.WalletDueAmount | number:'1.2-2'}}
+                            <!--<span class="tts-due-expirydate" *ngIf="WalletCreditLimit!=0"><b>ED:</b> {{WalletCreditExpireDate}}</span>-->
+                        </li>
+
+                        <li class="topbar__list" routerLink="/dashboard/online-recharge">Recharge</li>
+
+                        <li class="topbar__list" (click)="logout()">Logout</li>
+                    </div>
+                </ul>
+                <nav class="navbar navbar-expand-lg p-0 justify-content-md-end">
+                    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button> -->
+
+                    <button class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#mobileOffcanvas">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <div class="topbar mobile-topbar d-none d-flex align-items-center justify-content-md-end">
+                            <li class="topbar__list"><a class="tts-head-a"
+                                    routerLink="/dashboard/user-detail/{{LoginAgentinfo['CompanyId']}}"
+                                    target="_blank">Welcome {{LoginAgentinfo['CompanyName']}}
+                                    ({{LoginAgentinfo['CompanyId']}}) </a></li>
+                            <!-- <li class="topbar__list">
+                                <div class="dropdown">
+                                    <span data-bs-toggle="dropdown" aria-expanded="false">My Balance: ₹{{this.WalletBalance | number:'1.2-2'}}</span>
+                                    <span class="ms-1" (click)="RefreshBalance()"> <img class="topbar__list--refresh-icon img-fluid" src="assets/img/refresh.png" alt="Refresh" /></span>
+                                    <ul class="dropdown-menu mega-menu">
+                                        <li class="tableDropdown__wrap--list">
+                                            <p>Deposit Balance</p>
+                                            <p>Credit Balance</p>
+                                            <p>Dues</p>
+                                            <p>Wallet Status</p>
+                                            <p>Credit Status</p>
+                                        </li>
+                                        <li class="tableDropdown__wrap--list__content">
+                                            <p class="my-bal-dropdown">₹{{WalletDepositBalance | number:'1.2-2'}}</p>
+                                            <p>
+                                                <span class="d-block">₹{{WalletCreditLimit | number:'1.2-2'}}</span>
+                                                <span class="d-block" *ngIf="WalletCreditLimit!=0"><b>ED:</b> {{WalletCreditExpireDate}}</span>
+                                            </p>
+                                            <p>₹{{WalletDueAmount | number:'1.2-2'}}</p>
+                                            <p [ngClass]="{'text-success':WalletStatus=='Active','text-danger':WalletStatus!='Active'}">{{WalletStatus}}</p>
+                                            <p [ngClass]="{'text-success':WalletCreditStatus=='Active','text-danger':WalletCreditStatus!='Active'}">{{WalletCreditStatus}}</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li> -->
+                            <li class="topbar__list">
+                                <div class="dropdown">
+                                    <span data-bs-toggle="dropdown" aria-expanded="false">My Balance:
+                                        ₹{{this.WalletBalance | number:'1.2-2'}}</span>
+                                    <span class="ms-1" (click)="RefreshBalance()"> <img
+                                            class="topbar__list--refresh-icon img-fluid" src="assets/img/refresh.png"
+                                            alt="Refresh" /></span>
+                                    <ul class="dropdown-menu mega-menu  show-{{dyclass}}">
+                                        <li class="tableDropdown__wrap--list list-{{dyclass}}">
+                                            <p>Deposit Balance</p>
+                                            <p *ngIf="WalletCreditLimit!==0">Credit Balance</p>
+                                            <p *ngIf="WalletCreditLimit!==0">Dues</p>
+                                            <p>Wallet Status</p>
+                                            <p *ngIf="WalletCreditLimit!==0">Credit Status</p>
+                                        </li>
+                                        <li class="tableDropdown__wrap--list__content  list-{{dyclass}}">
+                                            <p class="my-bal-dropdown">₹{{WalletDepositBalance | number:'1.2-2'}}</p>
+                                            <p *ngIf="WalletCreditLimit!==0">
+                                                <span class="d-block">₹{{WalletCreditLimit | number:'1.2-2'}}</span>
+                                                <!--<span class="d-block" *ngIf="WalletCreditLimit!=0"><b>ED:</b> {{WalletCreditExpireDate}}</span>-->
+                                            </p>
+                                            <p *ngIf="WalletCreditLimit!==0">₹{{WalletDueAmount | number:'1.2-2'}}</p>
+                                            <p
+                                                [ngClass]="{'text-success':WalletStatus=='Active','text-danger':WalletStatus!='Active'}">
+                                                {{WalletStatus}}</p>
+                                            <p *ngIf="WalletCreditLimit!==0"
+                                                [ngClass]="{'text-success':WalletCreditStatus=='Active','text-danger':WalletCreditStatus!='Active'}">
+                                                {{WalletCreditStatus}}</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="topbar__list" *ngIf="WalletDueAmount!=0"><span>Dues</span>:
+                                ₹{{this.WalletDueAmount | number:'1.2-2'}}</li>
+
+                            <li class="topbar__list" (click)="logout()">Logout</li>
+                        </div>
+                        <ul class="navbar-nav ms-auto navbar-list">
+                            <li class="nav-item">
+                                <a class="nav-link" routerLinkActive="active" aria-current="page"
+                                    routerLink="/flight">Flight</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" routerLinkActive="active" aria-current="page"
+                                    routerLink="/hotel">Hotel</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" routerLinkActive="active" aria-current="page"
+                                    routerLink="/bus">Bus</a>
+                            </li>
+                            
+                            <li class="nav-item">
+                                <a class="nav-link" routerLinkActive="active"
+                                    routerLink="dashboard/manage-carts">Dashboard</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Bootstrap Offcanvas Sidebar -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="mobileOffcanvas" aria-labelledby="offcanvasLabel">
+
+    <!-- Header -->
+    <div class="offcanvas-header bg-primary text-white">
+        <h6 class="offcanvas-title" id="offcanvasLabel">
+            <i class="fas fa-building me-2"></i>{{ LoginAgentinfo.CompanyName }}
+        </h6>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close">
+            <i class="fa-solid fa-x"></i>
+        </button>
+    </div>
+
+    <!-- Body -->
+    <div class="offcanvas-body p-0">
+        <!-- Profile Section -->
+        <div class="d-flex align-items-center p-3 border-bottom">
+            <div>
+                <div class="fw-bold">
+                    <i class="fas fa-user-circle me-1"></i> Welcome, {{ LoginAgentinfo.CompanyName }}
+                </div>
+                <small class="text-muted">ID: {{ LoginAgentinfo.CompanyId }}</small>
+            </div>
+        </div>
+
+        <!-- Wallet Section -->
+        <div class="p-3 border-bottom bg-light">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="fw-semibold"><i class="fas fa-wallet me-1"></i> My Balance</span>
+                <button class="btn btn-sm btn-outline-secondary" (click)="RefreshBalance()">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
+            <h5 class="text-success mb-2">₹{{ WalletBalance | number:'1.2-2' }}</h5>
+            <div class="small text-muted mb-2">
+                <div><i class="fas fa-coins me-1"></i> Deposit: ₹{{ WalletDepositBalance | number:'1.2-2' }}</div>
+                <div *ngIf="WalletCreditLimit !== 0"><i class="fas fa-credit-card me-1"></i> Credit: ₹{{
+                    WalletCreditLimit | number:'1.2-2' }}</div>
+                <div *ngIf="WalletDueAmount !== 0" class="text-danger"><i class="fas fa-exclamation-triangle me-1"></i>
+                    Dues: ₹{{ WalletDueAmount | number:'1.2-2' }}</div>
+            </div>
+            <div class="d-flex gap-2">
+                <span class="badge"
+                    [ngClass]="{'bg-success': WalletStatus=='Active','bg-secondary': WalletStatus!='Active'}">{{
+                    WalletStatus }}
+                </span>
+                <span *ngIf="WalletCreditLimit !== 0" class="badge"
+                    [ngClass]="{'bg-success': WalletCreditStatus=='Active','bg-secondary': WalletCreditStatus!='Active'}">Credit
+                    {{ WalletCreditStatus }}
+                </span>
+            </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <ul class="mobile-nav">
+            <li>
+                <a [routerLink]="['/flight']">
+                    <i class="fas fa-plane "></i> Flights
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['/hotel']">
+                    <i class="fas fa-hotel "></i> Hotels
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['/bus']">
+                    <i class="fas fa-car-side "></i> Bus
+                </a>
+            </li>
+           
+            <li>
+                <a [routerLink]="['/dashboard/manage-carts']">
+                    <i class="fas fa-tachometer-alt "></i> Dashboard
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['/dashboard/online-recharge']">
+                    <i class="fas fa-wallet "></i> Recharge
+                </a>
+            </li>
+            <li class="logout-btn">
+                <a href="javascript:void(0);" (click)="logout()">
+                    <i class="fas fa-sign-out-alt "></i> Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+</div>
+
+
+
+<router-outlet></router-outlet>
+<div class="tts-session-timer"></div>
+<!--<section class="footer_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 footer__work text-white">
+                <h5 class="main__heading">How can we help You</h5>
+                <p class="">Contact Us any time</p>
+            </div>
+            <div class="col-12 col-md-5 col-lg-5">
+                <div class="row footer_bg">
+                    <div class="col-md-6 footer__touch text-white">
+                        <p class="main__heading">Send Us an email at</p>
+                        <p class="mb-0">{{GetWebSiteData['SupportEmail']}}</p>
+                    </div>
+                    <div class="col-md-6 footer__work text-white">
+                        <p class="main__heading">Our call us at</p>
+                        <p class="mb-0">{{GetWebSiteData['SupportNo']}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>-->
+<footer class="footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="row">
+                        <!-- <div class="col-lg-3 col-md-3 footer-info">
+                            <img [src]="LogoURL" class="img-fluid" />
+                        </div> -->
+                        @for (link of FooterMenu; track $index) {
+                        <div class="col-lg-3 col-md-3 footer-links mb-3 mb-md-0">
+                            <h5>{{link['MenuName']}}</h5>
+                            <ul>
+                                @for (item of link['Pages']; track $index) {
+                                <li>
+                                    @if(item.CustomUrl){
+                                    <a href="{{item.CustomUrl}}" target="_blank">{{item.Title}}</a>
+
+                                    }@else {
+                                    <a routerLink="/pages/page/{{item.SlugUrl}}">{{item.Title}}</a>
+
+                                    }
+                                </li>
+                                }
+                            </ul>
+                        </div>
+                        }
+                        <!-- <div class="col-lg-3 col-md-3 footer-links mb-3 mb-md-0">
+                            <h5>Policies</h5>
+                            <ul>
+                                <li><a routerLink="/pages/privacy-policy">Privacy Policy</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 col-md-3 footer-links mb-3 mb-md-0">
+                            <h5>Resources</h5>
+                            <ul>
+                                <li>
+                                    <a href="javascript:void(0);">Careers</a>
+                                </li>
+                            </ul>
+                        </div> -->
+                        <div class="col-lg-3 col-md-3 footer-links mb-3 mb-md-0">
+                            <h5>Get In Touch</h5>
+                            <ul>
+                                <li>
+                                    <a routerLink="/pages/contact-us">Contact Us</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-lg-3 footer-links mb-3 mb-md-0">
+
+                    <h5>Contact Us</h5>
+                    <ul>
+                        <li class="d-flex">
+                            <span class="me-2 d-flex align-items-center"><i
+                                    class="fa-solid fa-location-dot me-1"></i>:</span>
+                            <a href="javascript:void(0)">{{GetWebSiteData['Street']}} {{GetWebSiteData['City']}}
+                                {{GetWebSiteData['State']}} {{GetWebSiteData['Country']}}</a>
+                        </li>
+                        <li>
+                            <span class="me-2"><i class="fa-solid fa-phone  me-1"></i>:</span>
+                            <a href="tel:{{GetWebSiteData['SupportNo']}}">{{GetWebSiteData['SupportNo']}}</a>
+                        </li>
+                        <li>
+                            <span class="me-2"><i class="fa-solid fa-envelope me-1"></i>:</span>
+                            <a href="mailto:support@travelimpression.in">{{GetWebSiteData['SupportEmail']}}</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+
+            <div
+                class="copyright d-flex flex-column flex-md-row align-items-center justify-content-md-between mb-3 gap-2">
+                <ul class="list-unstyled social-icons">
+                    <li><a href="javascript:void(0)" class="facebook"><img src="assets/img/paymentgetway/mc.jpg"
+                                alt=""></a></li>
+                    <li><a href="javascript:void(0)" class="instagram"><img src="assets/img/paymentgetway/rp.jpg"
+                                alt=""></a></li>
+                    <li><a href="javascript:void(0)" class="instagram"><img src="assets/img/paymentgetway/visa.jpg"
+                                alt=""></a></li>
+                    <li><a href="javascript:void(0)" class="instagram"><img src="assets/img/paymentgetway/upi.jpg"
+                                alt=""></a></li>
+                    <li><a href="javascript:void(0)" class="instagram"><img src="assets/img/paymentgetway/nb.jpg"
+                                alt=""></a></li>
+                </ul>
+                <p class="rights__content">{{GetWebSiteData['CopyRight']}}</p>
+                <ul class="list-unstyled social-icons ">
+                    <!-- <li><a href="javascript:void(0)" class="facebook"><img src="assets/img/travelpartner/atoi.jpg"
+                                alt=""></a></li> -->
+                    <li><a href="javascript:void(0)" class="instagram"><img src="assets/img/travelpartner/iata.jpg"
+                                alt=""></a></li>
+                    <!-- <li><a href="javascript:void(0)" class="instagram"><img src="assets/img/travelpartner/j&k.jpg" alt=""></a></li> -->
+                    <!-- <li><a href="javascript:void(0)" class="instagram"><img src="assets/img/travelpartner/taai.jpg"
+                                alt=""></a></li> -->
+                    <!-- <li><a href="javascript:void(0)" class="instagram"><img src="assets/img/travelpartner/tafi.jpg" alt=""></a></li> -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,178 @@
+<!----------search--form---width----banner------------>
+<section class="flight_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="flight_box">
+                    <h1 class="flight_box_title"><span>Book Your Visa and explore the world with us.</span></h1>
+                    <div class="form-blur-wrapper">
+                        <form [formGroup]="VisaQueryForm" (ngSubmit)="VisaQuery()">
+                            <div class="container py-4">
+                                <div class="row g-3">
+
+                                    <!-- Name -->
+                                    <div class="col-md-4">
+                                        <label class="form-label">Name <span class="text-danger">*</span></label>
+                                        <input type="text" formControlName="Name" class="form-control"
+                                            placeholder="Enter your Name" />
+                                        <div *ngIf="visasubmitted && fh['Name'].errors" class="text-danger mt-1">
+                                            <small *ngIf="fh['Name'].errors['required']">Please enter a valid
+                                                Name</small>
+                                        </div>
+                                    </div>
+
+                                    <!-- Email -->
+                                    <div class="col-md-4">
+                                        <label class="form-label">Email <span class="text-danger">*</span></label>
+                                        <input type="text" formControlName="Email" class="form-control"
+                                            placeholder="Enter your Email" />
+                                        <div *ngIf="visasubmitted && fh['Email'].errors" class="text-danger mt-1">
+                                            <small
+                                                *ngIf="fh['Email'].errors['required'] || fh['Email'].errors['email']">
+                                                Please enter a valid Email
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                    <!-- Mobile -->
+                                    <div class="col-md-4">
+                                        <label class="form-label">Mobile <span class="text-danger">*</span></label>
+                                        <input type="text" formControlName="Mobile" inputmode="numeric"
+                                            class="form-control" placeholder="Enter your Mobile.no" />
+                                        <div *ngIf="visasubmitted && fh['Mobile'].errors" class="text-danger mt-1">
+                                            <small *ngIf="fh['Mobile'].errors['required']">Please enter a valid
+                                                Mobile</small>
+                                        </div>
+                                    </div>
+
+                                    <!-- Origin (Destination) -->
+                                    <div class="col-md-3 position-relative">
+                                        <label class="form-label">Destination <span class="text-danger">*</span></label>
+                                        <input type="text" formControlName="Origin" class="form-control"
+                                            placeholder="Where To?" />
+                                        <div *ngIf="visasubmitted && fh['Origin'].errors" class="text-danger mt-1">
+                                            <small *ngIf="fh['Origin'].errors['required']">Please enter a valid
+                                                Destination</small>
+                                        </div>
+                                    </div>
+
+                                    <!-- Depart Date -->
+                                    <div class="col-md-3 position-relative">
+                                        <label class="form-label">Departure Date</label>
+                                        <input type="text" formControlName="DepartDate" class="form-control"
+                                            placeholder="Select date" data-depart-date />
+                                        <div *ngIf="visasubmitted && fh['DepartDate'].errors" class="text-danger mt-1">
+                                            <small *ngIf="fh['DepartDate'].errors['required']">Please select a departure
+                                                date</small>
+                                        </div>
+                                    </div>
+
+                                    <!-- Visa Type -->
+                                    <div class="col-md-3">
+                                        <label class="form-label">Visa Type <span class="text-danger">*</span></label>
+                                        <select formControlName="type" class="form-select">
+                                            <option value="">Select Visa Type</option>
+                                            <option *ngFor="let type of visaTypes" [value]="type">{{ type }}</option>
+                                        </select>
+                                        <div *ngIf="visasubmitted && fh['type'].errors" class="text-danger mt-1">
+                                            <small *ngIf="fh['type'].errors['required']">Please select a Visa
+                                                type</small>
+                                        </div>
+                                    </div>
+
+                                    <!-- Traveller Count -->
+                                    <div class="col-md-3 traveller-input-wrapper">
+                                        <label class="form-label">Traveller</label>
+                                        <div class="position-relative">
+                                            <input type="text" formControlName="traveller" inputmode="numeric"
+                                                class="form-control traveller-input" placeholder="Traveller"
+                                                [value]="travellerCount" readonly />
+                                            <div class="spinner-buttons">
+                                                <button type="button" class="spinner-btn"
+                                                    (click)="incrementTraveller()">▲</button>
+                                                <button type="button" class="spinner-btn mt-1"
+                                                    (click)="decrementTraveller()">▼</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Message -->
+                                    <div class="col-md-12">
+                                        <label class="form-label">Message</label>
+                                        <textarea formControlName="SendMessage" class="form-control" rows="3"
+                                            placeholder="Enter your message"></textarea>
+                                        <div *ngIf="visasubmitted && fh['SendMessage'].errors" class="text-danger mt-1">
+                                            <small *ngIf="fh['SendMessage'].errors['required']">Please enter a
+                                                message</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 text-center">
+                                        <button type="submit" class="btn cst-btn w-100" [disabled]="Carloading">
+                                            <span *ngIf="Carloading"
+                                                class="spinner-border spinner-border-sm mr-1"></span> Send Query
+                                        </button>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </form>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!----------End search--form---width----banner------------>
+
+
+<!----------Deal---and---offer---start------->
+<section class="deal-offer-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Deals and Offers
+                    <img src="assets/img/down.svg" alt="down.svg" class="img-fluid">
+                </h3>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-center" *ngIf="offerloading===true">
+                    <div class="lds-ellipsis">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="offerloading===false">
+                    <div class="col-md-3" *ngFor="let item of Offer">
+
+                        <div class="card bg-dark text-white card-hover-overlay">
+                            <div class="photo">
+                                <img [src]="item['Image']" class="card-img-top" alt="{{item['Title']}}">
+                            </div>
+                            <div class="card-img-overlay d-flex flex-column justify-content-end">
+                                <h5 class="card-title">
+                                    {{item['Title']}}
+                                </h5>
+                                <p class="card-text">
+                                    {{item['Description']}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!----------Deal---and---offer----end-------->

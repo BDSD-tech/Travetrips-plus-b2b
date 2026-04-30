@@ -1,0 +1,231 @@
+<section class="flight-list-section sticky-top p-8" *ngIf="isModifyShow==false">
+  <div class="container">
+    <div class="row g-3 align-items-center">
+      <div class="col-lg-10">
+        <div class="row g-3">
+          <div class="col-lg-3">
+            <ul class="modify_list">
+              <li>
+                <h2>Location {{GetSearchData['OriginCode']}} <span
+                    class="d-block">{{GetSearchData['Destination']}}</span></h2>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-6">
+            <ul class="modify_list">
+              <li>
+                <h2>Check-in Date<span class="d-block text-white">{{GetSearchData['CheckIn'] | date:'E, d MMM yyyy'
+                    }}</span></h2>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-6">
+            <ul class="modify_list">
+              <li>
+                <h2>Check-out Date<span class="d-block text-white">{{GetSearchData['CheckOut'] | date:'E, d MMM yyyy'
+                    }}</span></h2>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-12">
+            <ul class="modify_list">
+              <li>
+                <h2>Rooms and Guests<span class="d-block text-white">{{Occupancy}}</span></h2>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <ul class="modify_list1">
+          <li>
+            <button type="button" class="btn btn-link modify_btn w-100" (click)="modifysearch()">Modify search
+              <i class="fa fa-chevron-down ms-2"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!------modify-----section---start---->
+<section class="flight_section modify-section pt-3 pb-2 sticky-top" *ngIf="isModifyShow">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="d-flex align-items-center justify-content-end mb-2">
+          <span class="modify-cross" (click)="modifysearch()">×</span>
+        </div>
+
+        <div class="flight_box">
+          <form [formGroup]="HotelSearchForm" (ngSubmit)="HotelSearchData()" id="hotel-form">
+            <div class="tab-content">
+              <div class="tab-pane fade show active" id="flight-tab-pane" role="tabpanel" aria-labelledby="flight-tab"
+                tabindex="0">
+                <div class="flight-tab d-lg-flex">
+                  <div class="d-flex form-info">
+                    <div class="persent-one">
+                      <span>
+                        <img src="assets/img/map-marker-alt.svg" alt="location.svg" class="img-fluid">
+                      </span>
+                      <input type="text" formControlName="Destination" class="textboxstyle autosuggeest-hotel"
+                        placeholder="Destination ?" (click)="openautocomplete($event,'input')">
+                      <i class="fa fa-angle-down search-form-inp-down" *ngIf="fh['Destination'].value==''"></i>
+                      <i class="fa fa-times search-form-inp-down" (click)="Cleardata('Destination')"
+                        *ngIf="fh['Destination'].value!=''"></i>
+                      <div *ngIf="hotelsubmitted && fh['Destination'].errors" class="error-msg">
+                        <div *ngIf="fh['Destination'].errors['required']">Please enter a location name
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="persent-one less-per">
+                      <span>
+                        <img src="assets/img/calendar.svg" alt="calendar.svg" class="img-fluid">
+                      </span>
+                      <input type="text" formControlName="CheckIn" class="textboxstyle" appDatepicker
+                        #datepicker="datepicker" (dateEventEmitter)="dateEventEmitter($event)" minDate="0" maxDate="+1Y"
+                        calType="CheckIN">
+                      <div *ngIf="hotelsubmitted && fh['CheckIn'].errors" class="error-msg">
+                        <div *ngIf="fh['CheckIn'].errors['required']">Please enter a valid check in date</div>
+                      </div>
+                    </div>
+
+                    <div class="persent-one less-per at-returnin">
+                      <span>
+                        <img src="assets/img/calendar.svg" alt="calendar.svg" class="img-fluid">
+                      </span>
+                      <input type="text" formControlName="CheckOut"
+                        class="textboxstyle border-start textboxstyle-bg w-100"
+                        (dateEventEmitter)="dateEventEmitter($event)" appDatepicker #datepicker="datepicker"
+                        minDate="{{fh['CheckIn'].value}}" maxDate="+1Y" calType="CheckOut"
+                        [ngClass]="{ 'is-invalid': hotelsubmitted && fh['CheckOut'].errors }">
+                      <div *ngIf="hotelsubmitted && fh['CheckOut'].errors" class="error-msg">
+                        <div *ngIf="fh['CheckOut'].errors['required']">Please enter a valid check out date</div>
+                        <div *ngIf="fh['CheckOut'].errors['noofnight']">Maximum 14 nights for online hotel booking is
+                          allowed.</div>
+                      </div>
+                    </div>
+
+                    <div class="persent-one persent-one_ps-4">
+                      <span>
+                        <img src="assets/img/user-search.svg" alt="user.svg" class="img-fluid">
+                      </span>
+                      <div class="textboxstyle search-form-class-padding" id="passenger" (click)="HotelPaxDisplay()">
+                        Rooms and Guests
+                        <p class="Pass"> {{Occupancy}}</p>
+                      </div>
+
+                      <div class="at-passection" [ngClass]="{'d-none': isHotelShow===false}">
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <div class="persent-one_frm border-0">
+                              <h2 class="mt-3 ms-3">Select Rooms</h2>
+                              <div class="persent-one_frm_close" (click)="HotelPaxDisplay()"></div>
+                              <div class="row">
+                                <div class="col-lg-12">
+                                  <div class="detail-content">
+                                    <ul>
+                                      <li class="row">
+                                        <div class="left-block">
+                                          <span class="title">ROOMS</span>
+                                        </div>
+                                        <div class="right-block">
+                                          <span class="title">GUESTS</span>
+                                        </div>
+                                        <div class="right-block">
+                                          <span class="title">CHILD</span>
+                                        </div>
+                                      </li>
+                                      <li class="row" *ngFor="let roomrow of arrayOne(roomcount), let r = index">
+                                        <div class="left-block">
+                                          <h5>Room {{r+1}}</h5>
+                                        </div>
+                                        <div class="right-block">
+                                          <div class="input-group inline-group">
+                                            <div class="input-group-prepend">
+                                              <button type="button" class="btn btn-outline-secondary btn-minus"
+                                                (click)="hotelminus('a',r)">
+                                                -
+                                              </button>
+                                            </div>
+                                            <input class="form-control quantity" min="1" value="{{roomobject[r].Adult}}"
+                                              type="number" readonly>
+                                            <div class="input-group-append">
+                                              <button type="button" class="btn btn-outline-secondary btn-plus"
+                                                (click)="hotelplus('a',r)">
+                                                +
+                                              </button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="right-block">
+                                          <div class="input-group inline-group">
+                                            <div class="input-group-prepend">
+                                              <button type="button" class="btn btn-outline-secondary btn-minus"
+                                                (click)="hotelminus('c',r)">
+                                                -
+                                              </button>
+                                            </div>
+                                            <input class="form-control quantity" min="0" value="{{roomobject[r].Child}}"
+                                              type="number" readonly>
+                                            <div class="input-group-append">
+                                              <button type="button" class="btn btn-outline-secondary btn-plus"
+                                                (click)="hotelplus('c',r)">
+                                                +
+                                              </button>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        <div class="col-lg-4 mt-3  offset-md-4" *ngIf="roomobject[r].Child > 0">
+                                          <p class="m-0">Age of Child 1</p>
+                                          <select class="ageselect form-select" (change)="childage($event,0,r)">
+                                            <option *ngFor="let chdage of arrayOne(12), let c = index" [value]="c+1"
+                                              [selected]="roomobject[r].ChildAge[0]==c+1"> {{c+1}} </option>
+                                          </select>
+                                        </div>
+
+                                        <div class="col-lg-4 mt-3 pl-0" *ngIf="roomobject[r].Child==2">
+                                          <p class="m-0">Age of Child 2</p>
+                                          <select class="ageselect form-select" (change)="childage($event,1,r)">
+                                            <option *ngFor="let chdage of arrayOne(12), let c = index" [value]="c+1"
+                                              [selected]="roomobject[r].ChildAge[1]==c+1">
+                                              {{c+1}}
+                                            </option>
+                                          </select>
+                                        </div>
+                                      </li>
+
+                                    </ul>
+                                    <span class="hotelpaxcount_message mt-3"></span>
+                                    <div class="add-remove-block">
+                                      <button type="button" (click)="removeroom()"
+                                        [disabled]="roomcount==1">Remove</button>
+                                      <button type="button" (click)="addroom()" [disabled]="roomcount==4">Add</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="less-btn">
+                    <button type="submit" class="btn cst-btn" [disabled]="Hotelloading"> <span *ngIf="Hotelloading"
+                        class="spinner-border spinner-border-sm"></span> Search</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!------modify-----section----end----->

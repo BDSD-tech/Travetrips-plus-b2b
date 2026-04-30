@@ -1,0 +1,8 @@
+<div *ngIf="connectionStatus === 'online'" class="tts-online-notification" [ngClass]="{'d-none': msghide=='yes'}">
+    <span>{{connectionStatusMessage}}</span>
+</div>
+<div *ngIf="connectionStatus === 'offline'" class="tts-offline-notification">
+    <span>{{connectionStatusMessage}}</span>
+</div>
+<router-outlet></router-outlet>
+<div id="data-message" class="message"></div>

@@ -1,0 +1,49 @@
+<div class="dashboard-wrapper-container">
+    <ol class="breadcrumb-arrow">
+        <li>
+            <a routerLink="/dashboard/manage-carts"><i class="fa fa-home"></i></a>
+        </li>
+        <li><span>download-report</span></li>
+    </ol>
+    <div class="animation__container">
+        <div class="body_manage dash-padding dashboard__main__content">
+            <div class="row">
+                <div class="col-sm-12"><h3 class="dash-borderRadius main-heading-content">REPORT TYPE</h3></div>
+                <form [formGroup]="SearchForm" (ngSubmit)="Submit()">
+                <div class="row">
+                    <div class="col-md-3">
+                            <mat-form-field appearance="fill" class="tts-full-width">
+                                <mat-label>Report Type</mat-label>
+                                <mat-select formControlName="ReportType">
+                                    <mat-option value="flight">Flight Booking Report</mat-option>
+                                    <mat-option value="hotel">Hotel Booking Report</mat-option>
+                                    <mat-option value="deposit">Payment Deposit Request</mat-option>
+                                    <mat-option value="passbook">Account Transaction</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="f['ReportType'].errors?.['required']">Please select report type</mat-error>
+                            </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                            <mat-form-field appearance="fill" class="tts-full-width">
+                                <mat-label>From</mat-label>
+                                <input matInput placeholder="From" from-date formControlName="FromDate" readonly/>
+                                <i class="fa fa-times tts-inp-close-icon" (click)="clear('FromDate')" *ngIf="f['FromDate'].value!=''"></i>
+                                <mat-error *ngIf="f['FromDate'].errors?.['required']">Please provide from date</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <mat-form-field appearance="fill" class="tts-full-width">
+                                <mat-label>To</mat-label>
+                                <input matInput placeholder="To" to-date formControlName="ToDate" readonly/>
+                                <i class="fa fa-times tts-inp-close-icon" (click)="clear('ToDate')" *ngIf="f['ToDate'].value!=''"></i>
+                                <mat-error *ngIf="f['ToDate'].errors?.['required']">Please provide to date</mat-error>
+                            </mat-form-field>
+                        </div>
+                </div>
+                <div class="form__buttons">
+                    <button type="submit" class="btn sign_btn" [disabled]="loading">Search <i class="fa fa-search"></i></button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>

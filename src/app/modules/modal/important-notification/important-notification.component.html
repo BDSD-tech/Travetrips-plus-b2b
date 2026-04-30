@@ -1,0 +1,10 @@
+<div class="modal_img" *ngIf="PopupNotifications && PopupNotifications['Image']">
+    <a [attr.href]="PopupNotifications['Url']" *ngIf="PopupNotifications['Url']!=''" target="_blank"> 
+      <img [src]="PopupNotifications['Image']" class="img-fluid" [attr.alt]="PopupNotifications['Title']">
+    </a>
+    <img [src]="PopupNotifications['Image']" *ngIf="PopupNotifications['Url']==''" class="img-fluid" [attr.alt]="PopupNotifications['Title']">
+</div>
+<div class="modal_content p-3">
+  <h5 *ngIf="PopupNotifications['Title']">{{PopupNotifications['Title']}}</h5>
+  <p class="mb-0" *ngIf="PopupNotifications['Description']">{{PopupNotifications['Description']}}</p>
+</div>

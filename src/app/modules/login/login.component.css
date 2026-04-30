@@ -1,0 +1,621 @@
+/* =========================
+   Login Banner Section
+========================= */
+section.loginbanner {
+    position: relative;
+    z-index: 1;
+    padding: 80px 0; /* Desktop padding */
+    background: url(/assets/img/login-banner.jpg) center / cover no-repeat;
+}
+
+section.loginbanner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: -1;
+}
+
+/* Eye toggle icons */
+.fa-eye,
+.fa-eye-slash {
+    float: right;
+    margin-right: 12px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+/* Error message styling */
+.error-msg {
+    position: absolute;
+    margin: -30px 4px 0;
+}
+
+/* Login form container */
+.banner__login {
+    text-align: center;
+    border-radius: 10px;
+    padding: 60px 40px;
+}
+
+/* =========================
+   Travel Impression Banner
+========================= */
+.Travelimpression_banner .section-subtitle {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.Travelimpression_banner .company-name {
+    font-size: 3.5rem;
+    background: linear-gradient(90deg, var(--primary-color, #ff6a00), #fff, var(--primary-color, #ff6a00));
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: shine 5s linear infinite;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
+    letter-spacing: 1px;
+    line-height: 1.2;
+}
+
+@keyframes shine {
+    0% { background-position: 200% center; }
+    100% { background-position: -200% center; }
+}
+
+.Travelimpression_banner .company-slug,
+.Travelimpression_banner .text {
+    color: #fff;
+}
+
+.Travelimpression_banner h1 {
+    color: var(--black);
+    font-size: 48px;
+    font-weight: 700;
+}
+
+.Travelimpression_banner h1 mark {
+    display: block;
+    padding: 0;
+    background-color: transparent;
+    color: var(--second-color);
+}
+
+.Travelimpression_banner .text {
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+/* Buttons */
+.custom-btn {
+    flex: 1 1 auto;
+    min-width: 120px;
+    display: inline-block;
+    text-align: center;
+    background-color: var(--second-color);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    animation: bg-color-shift 5s ease-in-out infinite alternate;
+}
+
+@keyframes bg-color-shift {
+    0%, 100% { background-color: var(--second-color); color: var(--white); }
+    50% { background-color: var(--primary-color); color: var(--black); }
+}
+
+/* =========================
+   Airline Section
+========================= */
+.airline-section {
+    padding: 20px 0;
+    background: #f8fafc;
+}
+
+.our-partners {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.airlinelogo img {
+    max-height: 55px;
+    max-width: 120px;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.75;
+    transition: all 0.3s ease;
+}
+
+.airlinelogo img:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.08);
+}
+
+.black-and-white-filter {
+    filter: grayscale(100%) !important;
+}
+
+/* =========================
+   Responsive CSS
+========================= */
+
+/* Tablet: 768px – 991px */
+@media (max-width: 991px) {
+    section.loginbanner {
+        padding: 20px 0;
+    }
+
+    .banner__login {
+        padding: 50px 30px;
+    }
+
+    .Travelimpression_banner .company-name {
+        font-size: 3rem;
+    }
+
+    .Travelimpression_banner h1 {
+        font-size: 38px;
+    }
+
+    .Travelimpression_banner .text {
+        font-size: 15px;
+    }
+
+    .airline-section {
+        padding: 20px 0;
+    }
+
+    .airlinelogo img {
+        max-height: 45px;
+        max-width: 100px;
+    }
+}
+
+/* Mobile: < 768px */
+@media (max-width: 767px) {
+    section.loginbanner {
+        padding: 20px 0;
+    }
+
+    .banner__login {
+        padding: 30px 20px;
+    }
+
+    .Travelimpression_banner .company-name {
+        font-size: 2.2rem;
+    }
+
+    .Travelimpression_banner h1 {
+        font-size: 28px;
+    }
+
+    .Travelimpression_banner .text {
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+
+    .custom-btn {
+        padding: 10px 18px;
+        font-size: 14px;
+    }
+
+    .airlinelogo img {
+        max-height: 35px;
+        max-width: 80px;
+    }
+}
+
+
+
+/*======airline=====*
+.airline .airlinelogo img {
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    transition: 0.3s;
+    filter: grayscale(100);
+}
+
+.airline .airlinelogo img:hover {
+    filter: none;
+    opacity: 1;
+}
+
+/*--------------------------------------------------------------
+# Features Section
+--------------------------------------------------------------*
+.features h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: var(--black);
+    font-weight: 700;
+}
+
+.features p {
+    line-height: 1.7;
+    color: #314235;
+    font-size: 16px;
+}
+
+.features .nav-tabs {
+    border: 0;
+    display: grid;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+}
+
+.features .nav-item {
+    margin-top: 40px;
+    height: 100%;
+}
+
+.trekking-slider swiper-slide {
+    transition: transform 0.5s ease;
+}
+
+.features .nav-item:last-child {
+    margin-bottom: 0;
+}
+
+.features .nav-link {
+    color: rgb(20, 20, 22);
+    background-color: rgba(255, 255, 255, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    padding: 10px 20px;
+    transition: 0.3s;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: rgba(186, 223, 197, 0.3) 0px 0px 0px 0px;
+    height: 100%;
+}
+
+.features .nav-link .icon {
+    background-color: #ffffff;
+    color: rgb(20, 20, 22);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    width: 75px;
+    height: 75px;
+    flex-shrink: 0;
+    border-radius: 50px;
+}
+
+.features .nav-link .icon img {
+    width: 30px;
+    height: 30px;
+}
+
+.features .nav-link h4 {
+    font-size: 20px;
+    margin: 0 0 0px 0;
+    transition: 0.3s;
+    color: var(--second-color);
+}
+
+.features .nav-link p {
+    font-size: 15px;
+    margin: 0;
+}
+
+.features .nav-link.active {
+    opacity: 1;
+
+    z-index: 20;
+    color: rgb(255, 255, 255);
+    backdrop-filter: blur(4px);
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.72);
+    box-shadow: rgba(186, 223, 197, 0.4) 0px 16px 24px 0px;
+}
+
+.features .nav-link:hover {
+    transform: scale(1.02) translateZ(0px);
+}
+
+.features .tab-pane img {
+    border-radius: 15px;
+}
+
+
+/*=====business-usecases====*
+.business-usecases .image-wrapper img {
+    width: 100%;
+    height: 400px;
+}
+
+swiper-slide {
+    height: auto;
+}
+
+.icon-box {
+    transition: all 0.5s ease-in-out;
+    height: 100%;
+    background: #ffff;
+    padding: 20px;
+    border-radius: 50px
+}
+
+.business-usecases .card-texts {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    position: relative;
+    margin-top: 36px;
+}
+
+.rounded {
+    border-radius: 20px;
+}
+
+.business-usecases .card-texts h3 {
+    color: var(--black);
+}
+
+.business-usecases .card-texts p {
+    margin-top: 10px;
+    line-height: 1.7;
+    font-size: 16px;
+    margin-bottom: 0;
+}
+
+.business-usecases .mySwiper .swiper-button-prev,
+.business-usecases .mySwiper .swiper-button-next {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.business-usecases .mySwiper .swiper-button-prev {
+    justify-content: flex-start;
+    padding-left: 15px;
+    left: -10%;
+}
+
+.business-usecases .mySwiper .swiper-button-next {
+    justify-content: flex-end;
+    padding-right: 15px;
+    right: -10%;
+}
+
+.business-usecases .mySwiper .swiper-button-prev:hover,
+.business-usecases .mySwiper .swiper-button-next:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    transform: scale(1.1);
+}
+
+/*======conatct======*
+.contact .section-inner {
+    display: flex;
+    flex-direction: row;
+    background: #DBE1E2;
+    border-radius: 20px;
+    margin-top: 96px;
+}
+
+ .contact .section-inner .image-container {
+    position: relative;
+    flex: 4;
+    display: flex;
+    justify-content: center;
+}
+
+.image-container .image-wrapper {
+
+    height: 400px;
+    width: 100%;
+
+}
+
+.image-container .image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    transform: translateY(-96px) translateZ(0px);
+}
+
+.contact .section-inner .texts-container {
+    flex: 4;
+    margin-top: 112px;
+    margin-bottom: 112px;
+    margin-right: 76px;
+    margin-left: 76px;
+}
+
+.contact .section-inner .texts-container .texts {
+    margin-bottom: 32px;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+.contact .section-inner .texts-container .texts h2 {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.contact .section-inner .texts-container .texts .texts-description {
+    margin-top: 32px;
+}
+
+.contact .section-inner .texts-container .buttons-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.contact .section-inner .texts-container .buttons-wrapper .css-1s1tew8 {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.contact .section-inner .texts-container .buttons-wrapper .contactbtn a {
+    border-radius: 10px;
+    padding: 12px 36px;
+    border: 2px solid transparent;
+    transition: 0.3s all ease-in-out;
+    font-size: 14px;
+    color: var(--second-color);
+}
+
+.contact .section-inner .texts-container .buttons-wrapper .contbtn a {
+    background-color: var(--second-color);
+    color: var(--white);
+}
+
+
+.airline-section {
+    background-color: #ffffff;
+    padding: 20px 0;
+}
+
+section.loginbanner {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 50px 0 50px;
+    background-image: url(/assets/img/login-banner.jpg);
+    position: relative;
+    z-index: 1;
+}
+
+section.loginbanner::before {
+    position: absolute;
+    content: "";
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: -1;
+}
+
+.Travelimpression_banner .techno-heading {
+    color: #727272;
+    position: relative;
+    max-width: 290px;
+    width: 100%;
+    text-align: center;
+    margin: auto;
+}
+
+.Travelimpression_banner .techno-heading:before {
+    right: -107px;
+    top: 12px;
+}
+
+.text-green {
+    color: #2f695d
+}
+
+.Travelimpression_banner .techno-heading:before {
+    content: "";
+    position: absolute;
+    max-width: 195px;
+    width: 100%;
+    height: 1px;
+    background-color: #727272;
+}
+
+.Travelimpression_banner .techno-heading:after {
+    left: -107px;
+    top: 12px;
+}
+
+.Travelimpression_banner .techno-heading:after {
+    content: "";
+    position: absolute;
+    max-width: 195px;
+    width: 100%;
+    height: 1px;
+    background-color: #727272;
+}
+
+.our-partners img {
+    max-height: 42px;
+    transition: 0.3s;
+    padding: 0 10px;
+}
+
+.our-partners img:hover {
+    transform: scale(1.1);
+}
+
+.black-and-white-filter {
+    filter: grayscale(100%);
+}
+
+.background-white {
+    border-radius: 20px;
+    padding: 20px;
+    background: #fff !important;
+}
+
+.image-box-why {
+    width: 100%;
+    height: 85%;
+}
+
+.image-box-why .tab-pane {
+
+    margin-top: 7%;
+    height: 434px;
+    width: 100%;
+}
+
+.image-box-why .tab-pane img {
+    margin: auto;
+    height: 100%;
+    object-fit: fill;
+    width: 100%;
+}
+
+.Travelimpression_banner .form__field--input {
+    border-radius: 10px !important;
+
+}
+
+.Travelimpression_banner .btn-submit {
+    border-radius: 10px !important;
+}
+
+.section-title {
+    padding-bottom: 20px !important;
+}
+
+.section-title h3 {
+    font-weight: 700;
+
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+}
+
+-----*/
