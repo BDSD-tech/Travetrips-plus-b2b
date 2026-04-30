@@ -1,43 +1,86 @@
-<section class="Travelimpression_banner loginbanner">
+<section class="travel-auth-section">
   <div class="container">
-    <div class="row align-items-center justify-content-between gy-4">
-      <div class="col-lg-7">
-        <span class="section-subtitle">Welcome</span>
-        <h1 class="mb-3 company-name">{{GetWebSiteData['CompanyName']}} </h1>
-        <h3 class="fw-semibold company-slug">Building Better And Profitable Experience <br> For Travel Business</h3>
-        <p class="text">
-          Vinayak Travel stands as one of the premier B2B travel portals, continuously empower agents with cutting-edge
-          technology, un-paralleled deals, and seamless platform for transactions, enabling financial Independence.
-        </p>
-        <div class="d-flex flex-wrap gap-3">
-          <a href="javascript:void(0)" class="btn custom-btn">Flights</a>
-          <a href="javascript:void(0)" class="btn custom-btn contact-btn">Hotels</a>
-          <a href="javascript:void(0)" class="btn custom-btn contact-btn">Visa</a>
-          <a href="javascript:void(0)" class="btn custom-btn contact-btn">Car</a>
+    <div class="row align-items-center justify-content-center g-0">
+      <!-- LEFT SIDE CONTENT -->
+      <div class="col-lg-7 d-none d-lg-block">
+        <div class="travel-auth-banner">
+
+          <div class="travel-shape shape-1"></div>
+          <div class="travel-shape shape-2"></div>
+          <div class="travel-shape shape-3"></div>
+
+          <div class="travel-banner-content">
+            <span class="travel-badge">
+              <i class="fa-solid fa-plane-departure"></i>
+              Smart Travel Experience
+            </span>
+
+            <h1>
+              Travel Smarter <br>
+              With <span>{{GetWebSiteData['CompanyName']}}</span>
+            </h1>
+
+            <p>
+              Manage bookings, track activities, verify securely,
+              and enjoy a premium digital travel experience.
+            </p>
+
+            <div class="travel-feature-grid">
+
+              <div class="travel-feature-box">
+                <i class="fa-solid fa-earth-asia"></i>
+                <h5>Worldwide Tours</h5>
+              </div>
+
+              <div class="travel-feature-box">
+                <i class="fa-solid fa-shield-heart"></i>
+                <h5>Secure Access</h5>
+              </div>
+
+              <div class="travel-feature-box">
+                <i class="fa-solid fa-ticket"></i>
+                <h5>Easy Booking</h5>
+              </div>
+
+              <div class="travel-feature-box">
+                <i class="fa-solid fa-headset"></i>
+                <h5>24×7 Support</h5>
+              </div>
+
+            </div>
+
+          </div>
         </div>
       </div>
-      <div class="col-xl-4 " *ngIf="ActiveStep=='CheckUser'">
-        <div class="banner__login">
-          <h2 class="banner__login--head">Already using {{GetWebSiteData['CompanyName']}} ?</h2>
-          <p class="banner__login--text borderBottom mb-3"> Login here to your account</p>
+      <div class="col-xl-4 col-lg-5 col-md-8" *ngIf="ActiveStep=='CheckUser'">
+        <div class="auth-card">
+          <div class="auth-card-top">
+            <img src="{{GetWebSiteData['Logo']}}" alt="" class="logo">
+            <h2>Welcome Back</h2>
+            <p>Login to continue your journey</p>
+          </div>
+
           <form [formGroup]="LoginForm" (ngSubmit)="LoginSubmit()">
-            <div class="mb-4">
-              <input type="email" class="form-control form__field--input" formControlName="emailphone"
-                placeholder="Enter email or mobile number" autocomplete="off">
-              <i class="far fa-envelope form__field--icon"></i>
+            <!-- EMAIL -->
+            <div class="input-group-custom mb-4">
+              <i class="fa-regular auth-icons fa-envelope"></i>
+              <input type="email" formControlName="emailphone" placeholder="Enter email or mobile number"
+                autocomplete="off">
               <div *ngIf="Loginsubmitted && f['emailphone'].errors" class="error-msg">
                 <div *ngIf="f['emailphone'].errors['required'] || f['emailphone'].errors['pattern']">Please enter valid
                   Email Id / Mobile Number.
                 </div>
               </div>
             </div>
-            <div class="mb-4">
-              <input type="password" [type]="isVisible ==true  ? 'text' : 'password'"
-                class="form-control form__field--input" formControlName="password" placeholder="Password"
-                autocomplete="off">
-              <i class="fas fa-key form__field--icon"></i>
-              <i class="far form__field--icon" [ngClass]="isVisible ==true  ? 'fa-eye' : 'fa-eye-slash'" id="eyeIcon"
-                (click)="showPassword()"></i>
+
+            <!-- PASSWORD -->
+            <div class="input-group-custom mb-3">
+              <i class="fa-solid fa-lock auth-icons"></i>
+              <input type="password" [type]="isVisible ==true  ? 'text' : 'password'" formControlName="password"
+                placeholder="Password" autocomplete="off">
+              <span class="toggle-pass" (click)="showPassword()" id="eyeIcon">
+                <i class="fa-regular" [ngClass]="isVisible ? 'fa-eye' : 'fa-eye-slash'"></i>
+              </span>
 
               <div *ngIf="Loginsubmitted && f['password'].errors" class="error-msg">
                 <div *ngIf="f['password'].errors['required']">Please enter valid Password. </div>
@@ -46,423 +89,84 @@
               </div>
             </div>
 
-            <button class="btn btn-submit mb-3" type="submit" [disabled]="Loginloading"> <span *ngIf="Loginloading"
-                class="spinner-border spinner-border-sm mr-1"></span> Login</button>
+            <!-- BUTTON -->
+            <button class="btn-login" type="submit" [disabled]="Loginloading">
+              <span *ngIf="Loginloading" class="spinner-border spinner-border-sm me-2"></span> Login Now
+            </button>
 
             <div *ngIf="LoginMessage" [innerHtml]="LoginMessage"></div>
 
-            <p class="forgot__text mb-2">Forgot your password?
-              <a routerLink="/forgot-password" class="forgot__text--link">Reset Here </a>
-            </p>
-            <!-- <p class="forgot__text">Don’t have any account?
-              <a class="forgot__text--link" routerLink="/register">Sign up here</a>
-            </p> -->
+            <!-- REMEMBER -->
+            <div class="remember-row mt-4">
+              <a routerLink="/forgot-password">Forgot Password?</a>
+            </div>
           </form>
         </div>
       </div>
-      <div class="col-xl-4 " *ngIf="ActiveStep=='VarifyOTP'">
-        <div class="banner__login">
-          <div class="text-center">
-            <h2 class="banner__login--head">Verify Your Account</h2>
-            <p class="banner__login--text borderBottom"> Enter the 6 digit code sent to the registered email and mobile.
-            </p>
+      <div class="col-xl-4 col-lg-5 col-md-8" *ngIf="ActiveStep=='VarifyOTP'">
+        <div class="auth-card otp-card">
+          <div class="auth-card-top text-center">
+            <div class="otp-icon">
+              <i class="fa-solid fa-user-shield"></i>
+            </div>
+            <h2>OTP Verification</h2>
+            <p>Enter the 6 digit code sent to your registered email & mobile number </p>
           </div>
+
           <form [formGroup]="VarifyOTP" (ngSubmit)="LoginSubmitOTP()">
-            <div class="row gy-3 otp-box mb-3">
-              <div class="col-2 px-1">
-                <input type="text" class="form-control form-control-lg text-center" id="one" maxlength="1"
-                  (keyup)="clickEvent($event,'two')" (keydown)="onKeyDown($event, 0)" (paste)="onPaste($event)" (keypress)="numberOnly($event)"
-                  #otpInput
-                  [ngClass]="{ 'is-invalid': VerifyOTPSubmitted && fv['otp'].errors }" [(ngModel)]="inputotp[0]"
-                  [ngModelOptions]="{standalone: true}">
-              </div>
-              <div class="col-2 px-1">
-                <input type="text" class="form-control form-control-lg text-center" id="two" maxlength="1"
-                  (keyup)="clickEvent($event,'three')" (keydown)="onKeyDown($event, 1)" (paste)="onPaste($event)" (keypress)="numberOnly($event)"
-                  #otpInput
-                  [ngClass]="{ 'is-invalid': VerifyOTPSubmitted && fv['otp'].errors }" [(ngModel)]="inputotp[1]"
-                  [ngModelOptions]="{standalone: true}">
-              </div>
-              <div class="col-2 px-1">
-                <input type="text" class="form-control form-control-lg text-center" id="three" maxlength="1"
-                  (keyup)="clickEvent($event,'four')" (keydown)="onKeyDown($event, 2)" (paste)="onPaste($event)" (keypress)="numberOnly($event)"
-                  #otpInput
-                  [ngClass]="{ 'is-invalid': VerifyOTPSubmitted && fv['otp'].errors }" [(ngModel)]="inputotp[2]"
-                  [ngModelOptions]="{standalone: true}">
-              </div>
-              <div class="col-2 px-1">
-                <input type="text" class="form-control form-control-lg text-center" id="four" maxlength="1"
-                  (keyup)="clickEvent($event,'five')" (keydown)="onKeyDown($event, 3)" (paste)="onPaste($event)" (keypress)="numberOnly($event)"
-                  #otpInput
-                  [ngClass]="{ 'is-invalid': VerifyOTPSubmitted && fv['otp'].errors }" [(ngModel)]="inputotp[3]"
-                  [ngModelOptions]="{standalone: true}">
-              </div>
-              <div class="col-2 px-1">
-                <input type="text" class="form-control form-control-lg text-center" id="five" maxlength="1"
-                  (keyup)="clickEvent($event,'six')" (keydown)="onKeyDown($event, 4)" (paste)="onPaste($event)" (keypress)="numberOnly($event)"
-                  #otpInput
-                  [ngClass]="{ 'is-invalid': VerifyOTPSubmitted && fv['otp'].errors }" [(ngModel)]="inputotp[4]"
-                  [ngModelOptions]="{standalone: true}">
-              </div>
-              <div class="col-2 px-1">
-                <input type="text" class="form-control form-control-lg text-center" id="six" maxlength="1"
-                  #otpInput
-                  (paste)="onPaste($event)"
-                  (keypress)="numberOnly($event)" (keydown)="onKeyDown($event, 5)" [ngClass]="{ 'is-invalid': VerifyOTPSubmitted && fv['otp'].errors }"
-                  [(ngModel)]="inputotp[5]" [ngModelOptions]="{standalone: true}">
-              </div>
-              <div *ngIf="VerifyOTPSubmitted && fv['otp'].errors" class="error-feedback">
-                <div
-                  *ngIf="fv['otp'].errors['required'] || fv['otp'].errors['minlength'] || fv['otp'].errors['maxlength']">
-                  Please Please enter valid OTP.
-                </div>
+            <div class="otp-wrapper mb-4">
+
+              <input type="text" id="one" maxlength="1" (keyup)="clickEvent($event,'two')"
+                (keydown)="onKeyDown($event, 0)" (paste)="onPaste($event)" (keypress)="numberOnly($event)" #otpInput
+                [ngClass]="{ 'is-invalid': VerifyOTPSubmitted && fv['otp'].errors }" [(ngModel)]="inputotp[0]"
+                [ngModelOptions]="{standalone: true}">
+
+
+              <input type="text" id="two" maxlength="1" (keyup)="clickEvent($event,'three')"
+                (keydown)="onKeyDown($event, 1)" (paste)="onPaste($event)" (keypress)="numberOnly($event)" #otpInput
+                [ngClass]="{ 'is-invalid': VerifyOTPSubmitted && fv['otp'].errors }" [(ngModel)]="inputotp[1]"
+                [ngModelOptions]="{standalone: true}">
+
+
+              <input type="text" id="three" maxlength="1" (keyup)="clickEvent($event,'four')"
+                (keydown)="onKeyDown($event, 2)" (paste)="onPaste($event)" (keypress)="numberOnly($event)" #otpInput
+                [ngClass]="{ 'is-invalid': VerifyOTPSubmitted && fv['otp'].errors }" [(ngModel)]="inputotp[2]"
+                [ngModelOptions]="{standalone: true}">
+
+
+              <input type="text" id="four" maxlength="1" (keyup)="clickEvent($event,'five')"
+                (keydown)="onKeyDown($event, 3)" (paste)="onPaste($event)" (keypress)="numberOnly($event)" #otpInput
+                [ngClass]="{ 'is-invalid': VerifyOTPSubmitted && fv['otp'].errors }" [(ngModel)]="inputotp[3]"
+                [ngModelOptions]="{standalone: true}">
+
+
+              <input type="text" id="five" maxlength="1" (keyup)="clickEvent($event,'six')"
+                (keydown)="onKeyDown($event, 4)" (paste)="onPaste($event)" (keypress)="numberOnly($event)" #otpInput
+                [ngClass]="{ 'is-invalid': VerifyOTPSubmitted && fv['otp'].errors }" [(ngModel)]="inputotp[4]"
+                [ngModelOptions]="{standalone: true}">
+
+
+              <input type="text" id="six" maxlength="1" #otpInput (paste)="onPaste($event)"
+                (keypress)="numberOnly($event)" (keydown)="onKeyDown($event, 5)"
+                [ngClass]="{ 'is-invalid': VerifyOTPSubmitted && fv['otp'].errors }" [(ngModel)]="inputotp[5]"
+                [ngModelOptions]="{standalone: true}">
+
+
+            </div>
+            <div *ngIf="VerifyOTPSubmitted && fv['otp'].errors" class="error-feedback">
+              <div
+                *ngIf="fv['otp'].errors['required'] || fv['otp'].errors['minlength'] || fv['otp'].errors['maxlength']">
+                Please enter valid OTP.
               </div>
             </div>
-            <button class="btn btn-submit mb-3" type="submit" [disabled]="OTPLoginloading"> <span *ngIf="Loginloading"
-                class="spinner-border spinner-border-sm mr-1"></span> Verify</button>
+            <button class="btn-login" type="submit" [disabled]="OTPLoginloading">
+              <span *ngIf="Loginloading" class="spinner-border spinner-border-sm me-2"></span> Verify OTP
+            </button>
             <div *ngIf="LoginMessage" [innerHtml]="LoginMessage"></div>
           </form>
         </div>
       </div>
-      
+
     </div>
   </div>
 </section>
-
-<section class="airline-section">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="airline-apis">
-
-          <div class="airlinelogo">
-            <swiper-container class="mySwiper our-partners" space-between="30" autoplay="true"
-               [breakpoints]="{
-    '0': { slidesPerView: 3, spaceBetween: 10 },
-    '576': { slidesPerView: 3, spaceBetween: 15 },
-    '768': { slidesPerView: 4, spaceBetween: 20 },
-    '992': { slidesPerView: 5, spaceBetween: 25 },
-    '1200': { slidesPerView: 7, spaceBetween: 30 }
-  }"
-            >
-
-              <swiper-slide>
-                <img src="assets/img/airlinelogo/indigo.png">
-              </swiper-slide>
-              <swiper-slide>
-                <img class="black-and-white-filter" src="assets/img/airlinelogo/airindia.svg">
-              </swiper-slide>
-              <swiper-slide>
-                <img src="assets/img/airlinelogo/spicejet.png">
-              </swiper-slide>
-              <swiper-slide>
-                <img class="black-and-white-filter" src="assets/img/airlinelogo/airexp.png">
-              </swiper-slide>
-              <swiper-slide>
-                <img class="black-and-white-filter" src="assets/img/airlinelogo/akasha.png">
-              </swiper-slide>
-              <swiper-slide>
-                <img src="assets/img/airlinelogo/galileo.png">
-              </swiper-slide>
-              <swiper-slide>
-                <img src="assets/img/airlinelogo/amadeus.png">
-              </swiper-slide>
-
-            </swiper-container>
-          </div>
-          <!-- <div class="airlinelogo"><img src="assets/img/airlinelogo/galileo.png" alt="airbnb-4" loading="lazy"></div>
-            <div class="airlinelogo"><img src="assets/img/airlinelogo/indigo.png" alt="netflix-3" loading="lazy"></div>
-            <div class="airlinelogo"><img src="assets/img/airlinelogo/spicejet.png" alt="redbus" loading="lazy"></div> -->
-
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!----features----->
-<!-- <section id="features" class="features section">
-  <div class="container">
-    <div class="row justify-content-between gy-4">
-      
-      <div class="col-lg-7 d-flex flex-column order-2 order-lg-1">
-        <h2>Why <span class="text-green">Vinayak Travels ?</span></h2>
-        <p>Partner with us to discover smart business growth with our unbeatable rates and extensive selection. We offer a
-           comprehensive range of options to suit all your travel needs. Join us and unlock your business potential with the best rates and a
-            wide variety of choices, ensuring a seamless and secure experience.</p>
-        <div class="row justify-content-between">
-          <div class="col-lg-12 d-flex align-items-center">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-              <li class="nav-item" *ngFor="let tab of tabs; let i = index" role="presentation">
-                <a class="nav-link" [class.active]="i === currentIndex" id="tab-{{i}}" href="javascript:void(0);"
-                  role="tab" aria-selected="i === currentIndex" (click)="ActiveImage(i)">
-                  <div class="icon">
-                    <img [src]="tab['Image']" [alt]="tab.title" loading="lazy">
-                  </div>
-                  <div>
-                    <h4 class="d-none d-lg-block">{{ tab.Title }}</h4>
-                    
-                  </div>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-5 order-1 order-lg-2 ">
-        <div class="tab-content image-box-why">
-          <div *ngFor="let tab of tabs; let i = index" class="tab-pane fade" [class.show]="i === currentIndex"
-            [class.active]="i === currentIndex" id="tab-content-{{i}}" role="tabpanel">
-            <img src="{{tab['ImageSlider']}}" alt="" class="img-fluid">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> -->
-
-
-<!-----Customized solutions---->
-<!-- <section class="business-usecases">
-  <div class="container">
-    <div class="section-title">
-      <h2> Advantages of Using <span class="text-green">Vinayak Travels</span> </h2>
-      <p>Vinayak Travels offers personalized service, exclusive deals, and hassle-free interface. Our team provides 24/7 support, expert knowledge,
-         and comprehensive pricing .
-         Enjoy value for money and ultimate convenience. Choose Vinayak Travels for a seamless booking experience!</p>
-    </div>
-    <swiper-container id="Slider-second" class="mySwiper" init="false" [attr.speed]="2000" >
-      <swiper-slide>
-        <div class="icon-box">
-          <div class="image-wrapper"><img class="rounded" src="assets\img\advantage/1.png"
-              loading="lazy" alt="slider1" class="img-fluid"></div>
-          <div class="card-texts">
-            <h3 class="h5">Automated Payments</h3>
-            <p class="body2">Simple and efficient fund uploading   into your login IDs using RTGS, NEFT, IMPS, and other multiple payment gateways. Our system ensures quick processing and secure transactions, providing you with a smooth and hassle-free funding experience. Enjoy the convenience of various payment options tailored to fit your needs and streamline your financial management.
-            </p>
-          </div>
-        </div>
-      </swiper-slide>
-      <swiper-slide>
-        <div class="icon-box">
-          <div class="image-wrapper"><img class="rounded" src="assets\img\advantage/2.png"
-              loading="lazy" alt="slider1" class="img-fluid"></div>
-          <div class="card-texts">
-            <h3 class="h5">Easy Access to Bookings and payment records</h3>
-            <p class="body2">Experience seamless access to your bookings and payment records with our optimized system anytime, anywhere. Easily track and manage your travel details with real-time updates and comprehensive insights. Our user-friendly interface ensures that all your information is at your fingertips, making travel management straightforward and efficient.
-            </p>
-          </div>
-        </div>
-      </swiper-slide>
-      <swiper-slide>
-        <div class="icon-box">
-          <div class="image-wrapper"><img class="rounded" src="assets\img\advantage/3.png"
-              loading="lazy" alt="slider1" class="img-fluid"></div>
-          <div class="card-texts">
-            <h3 class="h5">Post Booking Modification</h3>
-            <p class="body2">Easily manage all your bookings through our online platform with hassle-free control. Make changes like rescheduling ,
-               adding SSR's or Cancellations anytime, from anywhere, with a user-friendly interface. Our system ensures seamless handling of your bookings.</p>
-          </div>
-        </div>
-      </swiper-slide>
-      <swiper-slide>
-        <div class="icon-box">
-          <div class="image-wrapper"><img class="rounded" src="assets\img\advantage/4.png"
-              loading="lazy" alt="slider1" class="img-fluid"></div>
-          <div class="card-texts">
-            <h3 class="h5">Wide Range Of B2B Products</h3>
-            <p class="body2">Vinayak Travels offers a diverse range of B2B products, including competitive flight options, a wide selection of hotels, efficient
-               visa processing, customizable holiday packages, thrilling trekking adventures, and exciting skiing packages. </p>
-          </div>
-        </div>
-      </swiper-slide>
-    </swiper-container>
-  </div>
-</section> -->
-
-
-<!-- 
-<section class="slides-trekking">
-  <div class="container">
-    <div class="background-white">
-      <div class="section-title px-3">
-        <h3 class="">Trekking with <span class="text-green">Vinayak Travels</span></h3>
-        <p class="m-0">
-          Experience world-class trekking with our unbeatable B2B rates and exceptional services.
-        </p>
-      </div>
-      <swiper-container  class="mySwiper detail-slider trekking-slider" slides-per-view="1" [attr.speed]="2000" pagination="true" pagination-clickable="true" autoplay="true">
-        <swiper-slide>
-         <div class="row align-items-center">
-              <div class="col-md-6 col-12">
-                <div class="image-container">
-                  <div class="image-wrapper p-3">
-                    <img class="rounded" src="assets/img/trekking1.jpeg" loading="lazy"
-                      alt="contactus">
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-12">
-                <div class="texts-container">
-                  <div class="texts px-4">
-                    <h2>Kashmir Great Lakes Trek</h2>
-                    <p class="texts-description">The Kashmir Great Lakes Trek is a breathtaking adventure through the stunning landscapes of the Himalayas. Stretching over 67 kilometers and reaching altitudes of up to 4,200 meters, this trek takes adventurers through lush meadows, dense forests, and rugged glacial terrain. Trekkers are rewarded with the sight of sparkling seven alpine lakes like Vishansar,Krishansar,Gangbal and awe-inspiring views of snow-capped peaks like Mt.Harmukh .
-
-                      The trek offers a challenging yet rewarding experience, showcasing the diverse beauty of the region, from verdant valleys to snow-covered passes. Accompanied by experienced guides, trekkers can focus on soaking in the natural splendor while navigating the varied terrain.
-                      
-                      Beyond its natural allure, the trek also provides a glimpse into the local culture, enriching the adventure with insights into the region's traditions.</p>
-                  </div>
-                 
-                </div>
-              </div>
-         </div>
-          
-        </swiper-slide>
-        <swiper-slide>
-         <div class="row">
-              <div class="col-md-6 col-12">
-                <div class="image-container">
-                  <div class="image-wrapper p-3">
-                    <img class="rounded" src="assets/img/trek-marsar.jpeg" loading="lazy"
-                      alt="contactus">
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-12 mt-4">
-                <div class="texts-container">
-                  <div class="texts px-4">
-                    <h2>Tarsar Marsar Trek</h2>
-                    <p class="texts-description">The Tarsar Marsar Trek invites adventurers to explore one of the Himalayas' most serene and picturesque corners. Covering around 50 kilometers, this trek traverses through enchanting landscapes, combining lush meadows, dense forests, and dramatic mountain vistas with the tranquil beauty of alpine lakes.
-
-                      The trek's centerpiece is the stunning Tarsar and Marsar Lakes. These pristine, high-altitude lakes, with their crystal-clear waters reflecting the surrounding snow-capped peaks, offer breathtaking views and a sense of peaceful seclusion.
-                      
-                      Ideal for trekkers seeking a balance of adventure and calm, the Tarsar Marsar Trek offers a moderate challenge, supported by knowledgeable guides who ensure a smooth journey. Along the way, trekkers experience the region’s natural splendor and gain insights into local culture.</p>
-                  </div>
-                </div>
-              </div>
-         </div>
-          
-        </swiper-slide>
-        <swiper-slide>
-         <div class="row">
-              <div class="col-md-6 col-12">
-                <div class="image-container">
-                  <div class="image-wrapper p-3">
-                    <img class="rounded" src="assets/img/nafran-trek.jpeg" loading="lazy"
-                      alt="contactus">
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-12 mt-4">
-                <div class="texts-container">
-                  <div class="texts px-4">
-                    <h2>Nafran Valley Trek</h2>
-                    <p class="texts-description">Nestled in the heart of the Himalayas, the Nafran Valley Trek offers an off-the-beaten-path adventure through one of the region’s most untouched and scenic landscapes. This lesser-known gem showcases the pristine beauty of the mountains, with a journey  of breathtaking terrain.
-
-                      The trek features an array of stunning landscapes, from verdant meadows and alpine forests to rugged mountain passes and serene river valleys. As trekkers traverse the route, they are treated to panoramic views of snow-capped peaks and the tranquil beauty of isolated high-altitude lake.
-                      
-                      The Nafran Valley Trek is renowned for its sense of solitude and natural grandeur, making it an ideal choice for those seeking a peaceful escape from more crowded trails. The trek presents a moderate challenge, suitable for those with a bit of trekking experience, and is supported by expert guides who ensure a smooth and enriching experience.</p>
-                  </div>
-                </div>
-              </div>
-         </div>
-          
-        </swiper-slide>
-    
-    </swiper-container>
-    </div>
-  </div>
-</section> -->
-
-<!-- 
-<section class="slides-trekking">
-  <div class="container">
-    <div class="background-white">
-      <div class="section-title px-3">
-        <h3 class="">Skiing in Gulmarg: <span class="text-green">A Winter Wonderland</span></h3>
-        <p class="m-0">Deliver exceptional winter thrills with our B2B skiing packages, featuring exclusive rates and premier snow experiences.</p>
-      </div>
-      <swiper-container  class="mySwiper detail-slider" [attr.speed]="2000" slides-per-view="1" pagination="true" pagination-clickable="true" autoplay="true" loop="true">
-        <swiper-slide>
-         <div class="row">
-              
-              <div class="col-md-6 col-12 mt-4">
-                <div class="texts-container">
-                  <div class="texts px-4">
-                    <h2>Basic Ski Course - Gulmarg</h2>
-                    <p class="texts-description">For beginners, Gulmarg provides a nurturing environment with gentle slopes and dedicated beginner areas.
-                      For beginners, Gulmarg offers a nurturing environment with gentle slopes and dedicated beginner areas. Our professional instructors are skilled in teaching the fundamentals, ensuring that newcomers feel comfortable and safe as they learn the basics of skiing. The easy gradients and controlled conditions create an ideal setting for first-time skiers to build their skills and gain confidence.
-                      In addition to personalized instruction, we provide all necessary equipment and safety gear to make your learning experience as smooth as possible. Our supportive atmosphere and gradual progression ensure that you develop your skiing abilities at your own pace. Enjoy the thrill of skiing while mastering essential techniques in a friendly and encouraging setting.
-                      </p>
-                  </div>
-                 
-                </div>
-              </div>
-              <div class="col-md-6 col-12">
-                <div class="image-container">
-                  <div class="image-wrapper p-3">
-                    <img class="rounded" src="assets/img/besic-sky-course.jpeg" loading="lazy"
-                      alt="contactus">
-                  </div>
-                </div>
-              </div>
-         </div>
-        </swiper-slide>
-
-        <swiper-slide>
-         <div class="row">
-             
-              <div class="col-md-6 col-12 mt-4" >
-                <div class="texts-container">
-                  <div class="texts px-4">
-                    <h2>Intermediate Ski Course - Gulmarg</h2>
-                    <p class="texts-description"> Intermediate skiers will find a diverse range of runs that offer a perfect blend of challenge and enjoyment. Gulmarg's intermediate trails feature varied terrain and picturesque views, allowing skiers to refine their technique and experience more dynamic skiing. The resort's well-maintained slopes and stunning surroundings enhance the thrill of advancing to more complex skiing styles.
-                      Our course is designed to take your skills to the next level with targeted instruction on advanced techniques such as carving, mogul skiing, and navigating more challenging slopes. Experience the joy of mastering turns on varied terrain and gain confidence in handling different snow conditions.
-                      </p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-12">
-                <div class="image-container">
-                  <div class="image-wrapper p-3">
-                    <img class="rounded" src="assets/img/intermediate-ski.jpeg" loading="lazy"
-                      alt="contactus">
-                  </div>
-                </div>
-              </div>
-         </div>
-          
-        </swiper-slide>
-        <swiper-slide>
-         <div class="row">
-              
-              <div class="col-md-6 col-12 mt-4">
-                <div class="texts-container">
-                  <div class="texts px-4">
-                    <h2>Advance Ski Course - Gulmarg</h2>
-                    <p class="texts-description"> Advanced skiers are in for an exhilarating experience with Gulmarg's expansive and demanding 
-                      terrain. The resort boasts some of the Himalayas' highest skiable elevations, with steep slopes, deep powder, and challenging 
-                      off-piste conditions. This advanced terrain provides an adrenaline rush for seasoned skiers seeking thrilling descents and 
-                      exploration of untouched snowfields.
-
-                      Gulmarg's exceptional skiing conditions, combined with its breathtaking natural beauty, cater to all levels of skiers.
-                       Whether you’re a novice looking to learn, an intermediate skier seeking to improve, or an expert craving intense challenges,
-                        Gulmarg promises a remarkable winter adventure in one of the most stunning locations in the world.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-12">
-                <div class="image-container">
-                  <div class="image-wrapper p-3">
-                    <img class="rounded" src="assets/img/advance-sky.jpeg" loading="lazy"
-                      alt="contactus">
-                  </div>
-                </div>
-              </div>
-         </div>
-        </swiper-slide>
-    
-    </swiper-container>
-    </div>
-  </div>
-</section> -->

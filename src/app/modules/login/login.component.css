@@ -1,621 +1,550 @@
-/* =========================
-   Login Banner Section
-========================= */
-section.loginbanner {
+/* =========================================================
+   TRAVEL AUTH UI — PREMIUM PROFESSIONAL VERSION
+========================================================= */
+
+.travel-auth-section {
     position: relative;
+    min-height: 100vh;
+    padding: 70px 0;
+    overflow: hidden;
     z-index: 1;
-    padding: 80px 0; /* Desktop padding */
-    background: url(/assets/img/login-banner.jpg) center / cover no-repeat;
+
+    background:
+        linear-gradient(135deg,
+            #021b3a 0%,
+            #0b4d8d 45%,
+            #00b4ff 100%);
 }
 
-section.loginbanner::before {
+/* GLASS OVERLAY */
+.travel-auth-section::before {
     content: "";
     position: absolute;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.3);
     z-index: -1;
+
+    background:
+        radial-gradient(circle at top right,
+            rgba(255, 255, 255, 0.12),
+            transparent 35%),
+
+        radial-gradient(circle at bottom left,
+            rgba(255, 255, 255, 0.08),
+            transparent 30%);
 }
 
-/* Eye toggle icons */
-.fa-eye,
-.fa-eye-slash {
-    float: right;
-    margin-right: 12px;
-    font-size: 15px;
-    cursor: pointer;
-}
-
-/* Error message styling */
-.error-msg {
-    position: absolute;
-    margin: -30px 4px 0;
-}
-
-/* Login form container */
-.banner__login {
-    text-align: center;
-    border-radius: 10px;
-    padding: 60px 40px;
-}
 
 /* =========================
-   Travel Impression Banner
+   LEFT BANNER
 ========================= */
-.Travelimpression_banner .section-subtitle {
-    display: block;
-    font-size: 16px;
-    margin-bottom: 10px;
-    color: #fff;
+.travel-auth-banner {
+    position: relative;
+    z-index: 2;
+
+    height: 720px;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+
+    padding: 70px;
+
+    border-radius: 32px 0 0 32px;
+
+    background:
+        linear-gradient(145deg,
+            rgba(255, 255, 255, 0.08),
+            rgba(255, 255, 255, 0.03));
+
+    backdrop-filter: blur(14px);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.Travelimpression_banner .company-name {
-    font-size: 3.5rem;
-    background: linear-gradient(90deg, var(--primary-color, #ff6a00), #fff, var(--primary-color, #ff6a00));
-    background-size: 200% auto;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-    animation: shine 5s linear infinite;
-    margin-bottom: 1.5rem;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
-    letter-spacing: 1px;
-    line-height: 1.2;
+
+/* =========================
+   FLOATING SHAPES
+========================= */
+.travel-shape {
+    position: absolute;
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    animation: floating 6s infinite ease-in-out;
 }
 
-@keyframes shine {
-    0% { background-position: 200% center; }
-    100% { background-position: -200% center; }
+.shape-1 {
+    width: 220px;
+    height: 220px;
+    top: -80px;
+    right: -60px;
 }
 
-.Travelimpression_banner .company-slug,
-.Travelimpression_banner .text {
-    color: #fff;
+.shape-2 {
+    width: 140px;
+    height: 140px;
+    left: -40px;
+    bottom: 40px;
+    animation-delay: 2s;
 }
 
-.Travelimpression_banner h1 {
-    color: var(--black);
-    font-size: 48px;
-    font-weight: 700;
+.shape-3 {
+    width: 90px;
+    height: 90px;
+    top: 50%;
+    right: 18%;
+    animation-delay: 1s;
 }
 
-.Travelimpression_banner h1 mark {
-    display: block;
-    padding: 0;
-    background-color: transparent;
-    color: var(--second-color);
+@keyframes floating {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-18px);
+    }
 }
 
-.Travelimpression_banner .text {
-    line-height: 1.7;
+
+/* =========================
+   BANNER CONTENT
+========================= */
+.travel-banner-content {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+
+    color: var(--white);
+}
+
+.travel-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 10px 22px;
+
+    border-radius: 60px;
+
+    background: rgba(255, 255, 255, 0.14);
+
+    backdrop-filter: blur(10px);
+
+    font-size: 14px;
+    font-weight: 500;
+
+    margin-bottom: 20px;
+
+    color: var(--white);
+}
+
+.travel-banner-content h1 {
+    font-size: 58px;
+    line-height: 1.15;
+    font-weight: 800;
+
+    margin-bottom: 20px;
+
+    color: var(--white);
+
+    letter-spacing: -1px;
+}
+
+.travel-banner-content h1 span {
+    color: var(--primary-bg-color);
+}
+
+.travel-banner-content p {
+    max-width: 560px;
+
+    font-size: 17px;
+    line-height: 1.9;
+
+    color: #dce7ff;
+
     margin-bottom: 20px;
 }
 
-/* Buttons */
-.custom-btn {
-    flex: 1 1 auto;
-    min-width: 120px;
-    display: inline-block;
+
+/* =========================
+   FEATURE GRID
+========================= */
+.travel-feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+}
+
+.travel-feature-box {
+    padding: 24px;
+
     text-align: center;
-    background-color: var(--second-color);
-    color: var(--white);
-    border: none;
-    border-radius: 6px;
-    padding: 12px 25px;
+
+    border-radius: 20px;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    transition: var(--transition);
+}
+
+.travel-feature-box:hover {
+    transform: translateY(-6px);
+
+    background: rgba(255, 255, 255, 0.14);
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.travel-feature-box i {
+    font-size: 30px;
+
+    color: var(--primary-bg-color);
+
+    margin-bottom: 14px;
+}
+
+.travel-feature-box h5 {
+    margin: 0;
+
     font-size: 16px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    animation: bg-color-shift 5s ease-in-out infinite alternate;
+    font-weight: 600;
+
+    color: var(--white);
 }
 
-@keyframes bg-color-shift {
-    0%, 100% { background-color: var(--second-color); color: var(--white); }
-    50% { background-color: var(--primary-color); color: var(--black); }
-}
 
 /* =========================
-   Airline Section
+   RIGHT AUTH CARD
 ========================= */
-.airline-section {
-    padding: 20px 0;
-    background: #f8fafc;
-}
+.auth-card {
+    min-height: 720px;
 
-.our-partners {
-    width: 100%;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
-    gap: 30px;
+
+    padding: 60px 45px;
+
+    border-radius: 0 32px 32px 0;
+
+    background: var(--white);
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.15);
 }
 
-.airlinelogo img {
-    max-height: 55px;
-    max-width: 120px;
-    object-fit: contain;
-    filter: grayscale(100%);
-    opacity: 0.75;
-    transition: all 0.3s ease;
+
+/* =========================
+   AUTH TOP
+========================= */
+.auth-card-top {
+    text-align: center;
 }
 
-.airlinelogo img:hover {
-    filter: grayscale(0%);
-    opacity: 1;
-    transform: scale(1.08);
+.auth-card-top h2 {
+    font-size: 36px;
+    font-weight: 800;
+
+    color: #0d1b2a;
+
+    margin-bottom: 10px;
 }
 
-.black-and-white-filter {
-    filter: grayscale(100%) !important;
+.auth-card-top p {
+    color: #6b7280;
+
+    font-size: 15px;
+    line-height: 1.8;
+
+    margin-bottom: 40px;
+}
+
+
+.auth-card-top img {
+    max-width: 100%;
+    max-height: 60px;
+    margin: auto;
 }
 
 /* =========================
-   Responsive CSS
+   INPUT GROUP
 ========================= */
+.input-group-custom {
+    position: relative;
+}
 
-/* Tablet: 768px – 991px */
+.input-group-custom i.auth-icons {
+    position: absolute;
+    top: 50%;
+    left: 18px;
+
+    transform: translateY(-50%);
+
+    color: #7b8794;
+
+    font-size: 16px;
+}
+
+.input-group-custom input {
+    width: 100%;
+    height: 62px;
+
+    padding: 0 55px;
+
+    border: 1px solid #dedede;
+    border-radius: 18px;
+
+    background: #f4f7fb;
+
+    font-size: 15px;
+    font-weight: 500;
+
+    transition: var(--transition);
+}
+
+.input-group-custom input:focus {
+    background: var(--white);
+    border-color: var(--primary-color);
+}
+
+.toggle-pass {
+    position: absolute;
+    top: 50%;
+    right: 18px;
+
+    transform: translateY(-50%);
+
+    cursor: pointer;
+
+    color: #7b8794;
+}
+
+
+/* =========================
+   REMEMBER ROW
+========================= */
+.remember-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.remember-row a {
+    color: var(--primary-color);
+
+    font-weight: 600;
+}
+
+.remember-row a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================
+   LOGIN BUTTON
+========================= */
+.btn-login {
+    width: 100%;
+    height: 60px;
+
+    border: none;
+    border-radius: 18px;
+
+    background:
+        linear-gradient(135deg,
+            var(--primary-bg-color),
+            var(--primary-bg-color));
+
+    color: var(--white);
+
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: var(--transition);
+
+    box-shadow:
+        0 12px 30px rgba(0, 114, 255, 0.35);
+}
+
+.btn-login:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 16px 40px rgba(0, 114, 255, 0.45);
+}
+
+
+/* =========================
+   OTP SECTION
+========================= */
+.otp-card {
+    text-align: center;
+}
+
+.otp-icon {
+    width: 95px;
+    height: 95px;
+
+    margin: auto auto 22px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 38px;
+
+    color: var(--white);
+
+    background:
+        linear-gradient(135deg,
+            var(--primary-color),
+            var(--primary-bg-color));
+
+    box-shadow:
+        0 12px 30px rgba(0, 114, 255, 0.3);
+}
+
+.otp-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.otp-wrapper input {
+    width: 50px;
+    height: 50px;
+
+    border: 1px solid #dedede;
+    border-radius: 50%;
+
+    background: #f4f7fb;
+
+    text-align: center;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    transition: var(--transition);
+}
+
+.otp-wrapper input:focus {
+    background: var(--white);
+
+    box-shadow:
+        0 0 0 4px rgba(0, 180, 255, 0.18);
+}
+
+
+/* =========================
+   ERROR MESSAGE
+========================= */
+.error-msg,
+.error-feedback {
+    padding-left: 5px;
+    margin-top: 8px;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    color: #e53935;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 1199px) {
+
+    .travel-auth-banner {
+        padding: 50px;
+    }
+
+    .travel-banner-content h1 {
+        font-size: 48px;
+    }
+}
+
 @media (max-width: 991px) {
-    section.loginbanner {
-        padding: 20px 0;
+
+    .travel-auth-section {
+        padding: 40px 15px;
     }
 
-    .banner__login {
-        padding: 50px 30px;
+    .travel-auth-banner {
+        height: auto;
+
+        padding: 50px 35px;
+
+        border-radius: 30px 30px 0 0;
     }
 
-    .Travelimpression_banner .company-name {
-        font-size: 3rem;
+    .auth-card {
+        min-height: auto;
+
+        border-radius: 0 0 30px 30px;
     }
 
-    .Travelimpression_banner h1 {
-        font-size: 38px;
+    .travel-banner-content h1 {
+        font-size: 42px;
+    }
+}
+
+@media (max-width: 767px) {
+
+    .travel-feature-grid {
+        grid-template-columns: 1fr;
     }
 
-    .Travelimpression_banner .text {
+    .travel-banner-content h1 {
+        font-size: 34px;
+    }
+
+    .travel-banner-content p {
         font-size: 15px;
     }
 
-    .airline-section {
-        padding: 20px 0;
+    .auth-card {
+        padding: 40px 25px;
     }
 
-    .airlinelogo img {
-        max-height: 45px;
-        max-width: 100px;
-    }
-}
-
-/* Mobile: < 768px */
-@media (max-width: 767px) {
-    section.loginbanner {
-        padding: 20px 0;
-    }
-
-    .banner__login {
-        padding: 30px 20px;
-    }
-
-    .Travelimpression_banner .company-name {
-        font-size: 2.2rem;
-    }
-
-    .Travelimpression_banner h1 {
+    .auth-card-top h2 {
         font-size: 28px;
     }
+}
 
-    .Travelimpression_banner .text {
-        font-size: 14px;
-        margin-bottom: 15px;
+@media (max-width: 576px) {
+
+    .travel-auth-banner {
+        padding: 40px 25px;
     }
 
-    .custom-btn {
-        padding: 10px 18px;
-        font-size: 14px;
+    .travel-badge {
+        font-size: 13px;
     }
 
-    .airlinelogo img {
-        max-height: 35px;
-        max-width: 80px;
+    .otp-wrapper {
+        gap: 8px;
+    }
+
+    .otp-wrapper input {
+        width: 48px;
+        height: 56px;
+
+        font-size: 20px;
+    }
+
+    .btn-login {
+        height: 56px;
     }
 }
-
-
-
-/*======airline=====*
-.airline .airlinelogo img {
-    width: 100%;
-    height: 100%;
-    opacity: 0.5;
-    transition: 0.3s;
-    filter: grayscale(100);
-}
-
-.airline .airlinelogo img:hover {
-    filter: none;
-    opacity: 1;
-}
-
-/*--------------------------------------------------------------
-# Features Section
---------------------------------------------------------------*
-.features h2 {
-    font-size: 32px;
-    margin-bottom: 20px;
-    color: var(--black);
-    font-weight: 700;
-}
-
-.features p {
-    line-height: 1.7;
-    color: #314235;
-    font-size: 16px;
-}
-
-.features .nav-tabs {
-    border: 0;
-    display: grid;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    grid-template-columns: 1fr 1fr;
-}
-
-.features .nav-item {
-    margin-top: 40px;
-    height: 100%;
-}
-
-.trekking-slider swiper-slide {
-    transition: transform 0.5s ease;
-}
-
-.features .nav-item:last-child {
-    margin-bottom: 0;
-}
-
-.features .nav-link {
-    color: rgb(20, 20, 22);
-    background-color: rgba(255, 255, 255, 0.4);
-    border: 2px solid rgba(255, 255, 255, 0.9);
-    padding: 10px 20px;
-    transition: 0.3s;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    box-shadow: rgba(186, 223, 197, 0.3) 0px 0px 0px 0px;
-    height: 100%;
-}
-
-.features .nav-link .icon {
-    background-color: #ffffff;
-    color: rgb(20, 20, 22);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 15px;
-    width: 75px;
-    height: 75px;
-    flex-shrink: 0;
-    border-radius: 50px;
-}
-
-.features .nav-link .icon img {
-    width: 30px;
-    height: 30px;
-}
-
-.features .nav-link h4 {
-    font-size: 20px;
-    margin: 0 0 0px 0;
-    transition: 0.3s;
-    color: var(--second-color);
-}
-
-.features .nav-link p {
-    font-size: 15px;
-    margin: 0;
-}
-
-.features .nav-link.active {
-    opacity: 1;
-
-    z-index: 20;
-    color: rgb(255, 255, 255);
-    backdrop-filter: blur(4px);
-    background-color: rgba(255, 255, 255, 0.6);
-    border: 2px solid rgba(255, 255, 255, 0.72);
-    box-shadow: rgba(186, 223, 197, 0.4) 0px 16px 24px 0px;
-}
-
-.features .nav-link:hover {
-    transform: scale(1.02) translateZ(0px);
-}
-
-.features .tab-pane img {
-    border-radius: 15px;
-}
-
-
-/*=====business-usecases====*
-.business-usecases .image-wrapper img {
-    width: 100%;
-    height: 400px;
-}
-
-swiper-slide {
-    height: auto;
-}
-
-.icon-box {
-    transition: all 0.5s ease-in-out;
-    height: 100%;
-    background: #ffff;
-    padding: 20px;
-    border-radius: 50px
-}
-
-.business-usecases .card-texts {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    position: relative;
-    margin-top: 36px;
-}
-
-.rounded {
-    border-radius: 20px;
-}
-
-.business-usecases .card-texts h3 {
-    color: var(--black);
-}
-
-.business-usecases .card-texts p {
-    margin-top: 10px;
-    line-height: 1.7;
-    font-size: 16px;
-    margin-bottom: 0;
-}
-
-.business-usecases .mySwiper .swiper-button-prev,
-.business-usecases .mySwiper .swiper-button-next {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.business-usecases .mySwiper .swiper-button-prev {
-    justify-content: flex-start;
-    padding-left: 15px;
-    left: -10%;
-}
-
-.business-usecases .mySwiper .swiper-button-next {
-    justify-content: flex-end;
-    padding-right: 15px;
-    right: -10%;
-}
-
-.business-usecases .mySwiper .swiper-button-prev:hover,
-.business-usecases .mySwiper .swiper-button-next:hover {
-    background-color: rgba(0, 0, 0, 0.7);
-    transform: scale(1.1);
-}
-
-/*======conatct======*
-.contact .section-inner {
-    display: flex;
-    flex-direction: row;
-    background: #DBE1E2;
-    border-radius: 20px;
-    margin-top: 96px;
-}
-
- .contact .section-inner .image-container {
-    position: relative;
-    flex: 4;
-    display: flex;
-    justify-content: center;
-}
-
-.image-container .image-wrapper {
-
-    height: 400px;
-    width: 100%;
-
-}
-
-.image-container .image-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 20px;
-    transform: translateY(-96px) translateZ(0px);
-}
-
-.contact .section-inner .texts-container {
-    flex: 4;
-    margin-top: 112px;
-    margin-bottom: 112px;
-    margin-right: 76px;
-    margin-left: 76px;
-}
-
-.contact .section-inner .texts-container .texts {
-    margin-bottom: 32px;
-    line-height: 1.7;
-    font-size: 16px;
-}
-
-.contact .section-inner .texts-container .texts h2 {
-    font-size: 32px;
-    font-weight: 700;
-}
-
-.contact .section-inner .texts-container .texts .texts-description {
-    margin-top: 32px;
-}
-
-.contact .section-inner .texts-container .buttons-wrapper {
-    display: flex;
-    flex-direction: row;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-}
-
-.contact .section-inner .texts-container .buttons-wrapper .css-1s1tew8 {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.contact .section-inner .texts-container .buttons-wrapper .contactbtn a {
-    border-radius: 10px;
-    padding: 12px 36px;
-    border: 2px solid transparent;
-    transition: 0.3s all ease-in-out;
-    font-size: 14px;
-    color: var(--second-color);
-}
-
-.contact .section-inner .texts-container .buttons-wrapper .contbtn a {
-    background-color: var(--second-color);
-    color: var(--white);
-}
-
-
-.airline-section {
-    background-color: #ffffff;
-    padding: 20px 0;
-}
-
-section.loginbanner {
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    padding: 50px 0 50px;
-    background-image: url(/assets/img/login-banner.jpg);
-    position: relative;
-    z-index: 1;
-}
-
-section.loginbanner::before {
-    position: absolute;
-    content: "";
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.3);
-    z-index: -1;
-}
-
-.Travelimpression_banner .techno-heading {
-    color: #727272;
-    position: relative;
-    max-width: 290px;
-    width: 100%;
-    text-align: center;
-    margin: auto;
-}
-
-.Travelimpression_banner .techno-heading:before {
-    right: -107px;
-    top: 12px;
-}
-
-.text-green {
-    color: #2f695d
-}
-
-.Travelimpression_banner .techno-heading:before {
-    content: "";
-    position: absolute;
-    max-width: 195px;
-    width: 100%;
-    height: 1px;
-    background-color: #727272;
-}
-
-.Travelimpression_banner .techno-heading:after {
-    left: -107px;
-    top: 12px;
-}
-
-.Travelimpression_banner .techno-heading:after {
-    content: "";
-    position: absolute;
-    max-width: 195px;
-    width: 100%;
-    height: 1px;
-    background-color: #727272;
-}
-
-.our-partners img {
-    max-height: 42px;
-    transition: 0.3s;
-    padding: 0 10px;
-}
-
-.our-partners img:hover {
-    transform: scale(1.1);
-}
-
-.black-and-white-filter {
-    filter: grayscale(100%);
-}
-
-.background-white {
-    border-radius: 20px;
-    padding: 20px;
-    background: #fff !important;
-}
-
-.image-box-why {
-    width: 100%;
-    height: 85%;
-}
-
-.image-box-why .tab-pane {
-
-    margin-top: 7%;
-    height: 434px;
-    width: 100%;
-}
-
-.image-box-why .tab-pane img {
-    margin: auto;
-    height: 100%;
-    object-fit: fill;
-    width: 100%;
-}
-
-.Travelimpression_banner .form__field--input {
-    border-radius: 10px !important;
-
-}
-
-.Travelimpression_banner .btn-submit {
-    border-radius: 10px !important;
-}
-
-.section-title {
-    padding-bottom: 20px !important;
-}
-
-.section-title h3 {
-    font-weight: 700;
-
-}
-
-.image-container img {
-    width: 100%;
-    height: 100%;
-}
-
------*/
