@@ -429,22 +429,24 @@ export class FlightComponent implements OnInit {
           $(this).data('ui-autocomplete')._renderItem = function (ul:any, item:any) {
             var label = item.label;
             var airportname = item.airport_name;
+            var airportcode = item.airport_code;
             return $("<li>")
               .data("ui-autocomplete-item", item)
               .append(
-                "<div>"
-                + "<div class='tts-autosuggest-li'>"
-                + "<div class='location-dot'>"
-                + "<i class='fa-solid fa-location-dot'></i>"
-                + "</div>"
-                + "<b class='label'>"
-                + label
-                + "</b>"
-                + "<p class='airport m-0'>"
-                + airportname
-                + "</p>"
-                + "</div>"
-                + "</div>").appendTo(ul);
+                "<a href='javascript:void(0)' class='autocomplete-link'>" +
+                "<div class='item-left'>" +
+
+                "<span class='city-name''>" +
+                label +
+                "</span>" +
+                "<span class='airport-name'>" +
+                "<i class='fa-solid fa-plane-departure'></i>" +
+                airportname +
+                ")</span>" +
+                "</div><div class='item-right'><span class='airport-code'>[" +
+                airportcode +
+                "]</span></div>" +
+                "</a>").appendTo(ul);
           };
         }
       });

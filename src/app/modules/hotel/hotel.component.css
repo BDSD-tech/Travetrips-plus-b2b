@@ -1,125 +1,619 @@
-.w-30 {
-    width: 27% !important;
-}
-.w-18 {
-    width: 20% !important;
-}
-.ps-18{
-    padding-left: 18px !important;
+/* =========================================================
+HERO SECTION (CREATIVE UPGRADE)
+========================================================= */
+.hero-section {
+    padding: 120px 0;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: url("/assets/img/vt-banner.jpg") no-repeat center center;
+    background-size: cover;
+    isolation: isolate;
 }
 
-.search-form-inp-down{
-    font-size: 20px;
-    position: absolute;
-    right: 30px;
-    top: 20px;
-    cursor: pointer;
+/* .hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg,
+      rgba(0, 0, 0, 0.85),
+      rgba(0, 0, 0, 0.6),
+      rgba(0, 0, 0, 0.75));
+  backdrop-filter: blur(3px);
+  z-index: 1;
+} */
+
+
+.hero-section .container {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    font-weight: 800;
+    font-family: var(--heading-font);
+    color: var(--white);
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    animation: fadeUp 0.8s ease forwards;
+}
+
+.hero-content h1 span {
+    background: linear-gradient(90deg, var(--second-color), var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-content p {
+    margin-top: 18px;
+    font-size: 17px;
+    color: var(--white);
+    animation: fadeUp 1s ease forwards;
+}
+
+.hero-buttons {
+    margin-top: 28px;
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    animation: fadeUp 1.2s ease forwards;
+}
+
+.hero-buttons .btn {
+    padding: 12px 22px;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-buttons .btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-color));
+    border: none;
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.hero-buttons .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+}
+
+.hero-buttons .btn-outline-primary {
+    border: 2px solid var(--primary-bg-color);
+    color: #fff;
+    background: var(--primary-bg-color);
+    position: relative;
     z-index: 1;
 }
 
-.flight_section .flight_box .tab-content .persent-one .at-passection{
-       padding: 0;
-    left: -83px;
-    width: 133%;
+.hero-buttons .btn-outline-primary::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--primary-bg-color);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+    z-index: -1;
 }
-.flight_section .flight_box .tab-content .persent-one span.title{
+
+.hero-buttons .btn-outline-primary:hover {
+    color: #fff;
+}
+
+.hero-buttons .btn-outline-primary:hover::before {
+    transform: scaleX(1);
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 992px) {
+    .hero-section {
+        padding: 60px 0;
+        text-align: center;
+    }
+
+    .hero-content h1 {
+        font-size: 34px;
+    }
+
+    .hero-content p {
+        margin: 15px auto 0;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+}
+
+/* =========================================================
+PARENT SECTION
+========================================================= */
+.flight_section {
     position: relative;
-    left: 0;
-    top: 0;
-}
-.detail-content ul{
-    padding: 0;
-    margin: 0;
-    list-style: none;
-}
-.detail-content ul li{
-    display: flex;
-    align-items: center;
-    justify-content: space-between ;
-    margin: 0 15px;
-    padding-top: 15px;
-    text-align: center;
-}
-.detail-content ul li .left-block {
-    flex: 0 0 25%;
-    max-width: 25%;
-}
-.detail-content ul li .right-block  {
-    flex: 0 0 35%;
-    max-width: 35%;
 }
 
-
-.detail-content ul li .left-block  h5 {
-    margin: 0;
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 1.5;
-    color: #37404d;
-}
-.detail-content ul li .input-group {
-    justify-content: center;
-}
-.detail-content .input-group-append, .detail-content .input-group-prepend {
-    display: flex;
-}
-.detail-content  button.btn {
-    width: 36px;
-    height: 36px;
-    box-shadow: 0 1px 0 0 rgba(0,0,0,.05);
-    border: 1px solid rgba(0,0,0,.15);
-    background-color: #f6f7fa;
-    padding: 0;
-    border-radius: 0!important;
-    color: #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.detail-content .input-group-append .btn, .detail-content .input-group-prepend .btn {
+.flight_section .container {
     position: relative;
     z-index: 2;
 }
-.detail-content .right-block .quantity {
-    padding: 0 ;
-    text-align: center;
-    max-width: 45px;
-    height: 36px;
-    border-radius: 0;
-    box-shadow: 0 1px 0 0 rgba(0,0,0,.05);
-    border: 1px solid rgba(0,0,0,.15);
-    background-color: #fff;
-    color: #37404d;
-    font-size: 16px;
-    margin: 0 -12px;
+
+.flight_box {
+    position: relative;
+    background: var(--white);
+    border: 1px solid rgba(29, 72, 163, 0.08);
+    border-radius: var(--radius-lg);
+    padding: 25px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+    z-index: 2;
+    margin-top: -50px;
 }
-.hotelpaxcount_message{
+
+.flight_box_title {
+    margin-bottom: 28px;
     text-align: center;
-    display: block;
-    margin-bottom: 10px;
-    position: relative!important;
-    top: 0!important;
-    left: 0!important;
-    color: red;
+    position: relative;
+    z-index: 2;
 }
-.detail-content .add-remove-block {
+
+.flight_box_title::before {
+    content: 'Flight Booking';
     display: inline-block;
-    width: 100%;
-    border-top: 1px solid rgba(0,0,0,.08);
-    vertical-align: middle;
+    margin-bottom: 14px;
+    padding: 8px 18px;
+    border-radius: 50px;
+    background: rgba(29, 72, 163, 0.08);
+    color: var(--primary-color);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
-.detail-content .add-remove-block button {
-    float: left;
-    width: 50%;
-    height: 52px;
-    background: none;
-    outline: none;
-    font-size: 16px;
-    line-height: 20px;
-    transition: all .3s;
+
+.flight_box_title span {
+    display: block;
+    font-size: 40px;
+    line-height: 1.3;
+    font-weight: 800;
+    font-family: var(--heading-font);
+    color: var(--second-dark-color);
+}
+
+.nav-tabs {
     border: none;
-    border-right: 1px solid rgba(0,0,0,.08);
+    gap: 14px;
+    margin-bottom: 18px;
+    position: relative;
+    z-index: 2;
 }
-.detail-content .add-remove-block button:last-child {
-    border-right: none;
+
+.nav-tabs .nav-link {
+    border: 1px solid rgba(29, 72, 163, 0.08);
+    border-radius: 50px;
+    padding: 8px 24px;
+    background: #f8fbff;
+    color: var(--second-dark-color);
+    font-size: 14px;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.nav-tabs .nav-link:hover {
+    background: rgba(29, 72, 163, 0.08);
+    color: var(--primary-color);
+}
+
+.nav-tabs .nav-link.active {
+    background: linear-gradient(135deg, var(--primary-color), var(--color-dark));
+    color: var(--white);
+    box-shadow: 0 10px 20px rgba(29, 72, 163, 0.25);
+}
+
+.flight-tab {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    position: relative;
+}
+
+.form-info {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.persent-one {
+    position: relative;
+    flex: 1;
+    min-width: 210px;
+    background: #f9fbff;
+    border-radius: var(--radius-md);
+    padding: 14px 18px 12px 45px;
+    border: 1px solid #e5e7eb;
+    transition: var(--transition);
+}
+
+.persent-one:hover {
+    border-color: rgba(29, 72, 163, 0.25);
+    background: var(--white);
+    box-shadow: var(--shadow-md);
+}
+
+.persent-one.less-per {
+    min-width: 170px;
+}
+
+.persent-one i {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+}
+
+.persent-one img {
+    width: 100%;
+    object-fit: contain;
+}
+
+.textboxstyle {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--second-dark-color);
+    font-family: var(--body-font);
+}
+
+.textboxstyle::placeholder {
+    color: #9ca3af;
+    font-weight: 500;
+}
+
+.search-form-class-padding {
+    cursor: pointer;
+    min-height: 45px;
+}
+
+.Pass {
+    margin: 0px 0 0;
+    color: var(--body-text-color);
+    font-weight: 500;
+}
+
+.persent-one .search-form-inp-down,
+.persent-one .search-form-inp-close {
+    position: absolute;
+    right: 16px;
+    left: auto;
+    top: 20px;
+    font-size: 14px;
+    color: var(--dark);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.persent-one .search-form-inp-down:hover,
+.persent-one .search-form-inp-close:hover {
+    color: var(--primary-color);
+}
+
+.at-exchange {
+    position: absolute;
+    right: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--color-dark));
+    border: 4px solid var(--white);
+    box-shadow: 0 8px 20px rgba(29, 72, 163, 0.25);
+    cursor: pointer;
+    z-index: 5;
+    transition: var(--transition);
+}
+
+.at-exchange::before {
+    content: '⇄';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--white);
+}
+
+.at-exchange:hover {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.less-btn {
+    display: flex;
+    align-items: center;
+}
+
+.cst-btn {
+    min-width: 170px;
+    height: 50px;
+    border: none;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, var(--primary-bg-color), #ffb835);
+    color: var(--white);
+    font-size: 16px;
+    font-weight: 700;
+    box-shadow: 0 12px 25px rgba(247, 157, 6, 0.30);
+    transition: var(--transition);
+}
+
+.cst-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 35px rgba(247, 157, 6, 0.40);
+}
+
+
+.at-passection {
+    position: absolute;
+    top: calc(100% + 15px);
+    left: auto;
+    right: 0;
+    width: 650px;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 25px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+    border: 1px solid #eef2f7;
+    z-index: 999;
+}
+
+.persent-one_frm h2 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--second-color);
+    font-family: var(--heading-font);
+}
+
+
+/* =========================================================
+HOTEL ROOM SELECTOR UI
+========================================================= */
+
+.room-header {
+    display: grid;
+    grid-template-columns: 1fr 180px 180px;
+    align-items: center;
+    gap: 15px;
+    padding: 0 0 15px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 15px;
+}
+
+.room-header span {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--primary-color);
+    font-family: var(--heading-font);
+}
+
+/* =========================================================
+ROOM CARD
+========================================================= */
+
+.room-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+
+    display: grid;
+    grid-template-columns: 1fr 180px 180px;
+    gap: 15px;
+    align-items: center;
+
+    transition: var(--transition);
+}
+
+.room-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.room-title h5 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--second-dark-color);
+    font-family: var(--heading-font);
+}
+
+/* =========================================================
+COUNTER
+========================================================= */
+
+.counter-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.counter-btn {
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--white);
+}
+
+.counter-btn.minus {
+    background: var(--primary-bg-color);
+}
+
+.counter-btn.plus {
+    background: var(--primary-color);
+}
+
+.counter-btn:hover {
+    transform: scale(1.08);
+}
+
+.counter-input {
+    width: 70px;
+    height: 35px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    background: var(--white);
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--second-dark-color);
+    outline: none;
+    font-family: var(--body-font);
+}
+
+/* =========================================================
+CHILD AGE
+========================================================= */
+
+.child-age-wrapper {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    padding-top: 15px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.age-box {
+    min-width: 220px;
+}
+
+.age-box label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+    font-family: var(--body-font);
+}
+
+.age-select {
+    width: 100%;
+    height: 48px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    padding: 0 15px;
+    font-size: 15px;
+    outline: none;
+    background: var(--white);
+    color: var(--second-dark-color);
+    font-family: var(--body-font);
+    transition: var(--transition);
+}
+
+.age-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(29, 72, 163, 0.12);
+}
+
+/* =========================================================
+BUTTONS
+========================================================= */
+
+.room-action-btns {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.room-action-btns button {
+    border: none;
+    padding: 10px 26px;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: var(--body-font);
+}
+
+.add-btn {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+.remove-btn {
+    background: var(--footer-second);
+    color: var(--primary-color);
+}
+
+.room-action-btns button:hover {
+    transform: translateY(-2px);
+}
+
+.room-action-btns button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* =========================================================
+RESPONSIVE
+========================================================= */
+
+@media(max-width:991px) {
+
+    .room-header {
+        display: none;
+    }
+
+    .room-card {
+        grid-template-columns: 1fr;
+    }
+
+    .counter-box {
+        justify-content: space-between;
+    }
+
+    .room-action-btns {
+        flex-direction: column;
+    }
+
+    .room-action-btns button {
+        width: 100%;
+    }
+
+    .age-box {
+        width: 100%;
+        min-width: 100%;
+    }
 }

@@ -1,3 +1,360 @@
+<div class="flight-filter-sidebar">
+
+    <!-- HEADER -->
+    <div class="filter-header">
+        <div class="filter-heading">
+            <h5>Flight Filters</h5>
+            <small>Refine your search</small>
+        </div>
+
+        <button class="reset-btn" (click)="clearFilter()">
+            RESET ALL
+        </button>
+    </div>
+
+    <!-- PRICE FILTER -->
+    <div class="filter-card">
+
+        <div class="filter-card-header">
+            <span *ngIf="Filter.length==1">Price</span>
+            <span *ngIf="Filter.length==2">Onward Price</span>
+
+            <i class="fa fa-minus" data-bs-toggle="collapse" href="#filter-price">
+            </i>
+        </div>
+
+        <div class="collapse show" id="filter-price">
+            <div class="filter-card-body">
+                <div class="price-range price-filter"></div>
+                <div class="price-inputs">
+                    <input type="text" class="left-price" readonly>
+                    <input type="text" class="right-price text-end" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RETURN PRICE -->
+    <div class="filter-card" *ngIf="Filter[1] && GetSearchData['Isdomestic']=='true'">
+
+        <div class="filter-card-header">
+
+            <span>Return Price</span>
+
+            <i class="fa fa-minus" data-bs-toggle="collapse" href="#filter-price1">
+            </i>
+
+        </div>
+
+        <div class="collapse show" id="filter-price1">
+
+            <div class="filter-card-body">
+
+                <div class="return-price-range price-filter"></div>
+
+                <div class="price-inputs">
+                    <input type="text" class="return-left-price" readonly>
+                    <input type="text" class="return-right-price text-end" readonly>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- SHOW FARES -->
+    <div class="filter-card">
+
+        <div class="filter-card-body">
+
+            <div class="fare-switch-wrap">
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="showincvfare" [(ngModel)]="showincentivefare"
+                        (ngModelChange)="showfares('incv',showincentivefare)">
+
+                    <label class="form-check-label" for="showincvfare">
+                        Show Incv
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="shownetfare" [(ngModel)]="shownetfare"
+                        (ngModelChange)="showfares('net',shownetfare)">
+
+                    <label class="form-check-label" for="shownetfare">
+                        Show Net
+                    </label>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- FARE TYPE -->
+    <div class="filter-card" *ngIf="Filter[0]">
+
+        <div class="filter-card-header">
+            <span>Fare Type</span>
+        </div>
+
+        <div class="filter-card-body">
+
+            <div class="form-check form-switch" *ngFor="let item of Filter[0]['FareType']; let i=index">
+
+                <input class="form-check-input" type="checkbox" id="fareType{{i}}" [(ngModel)]="item.isChecked"
+                    (click)="doFilter(0,'FareType',$event,item)">
+
+                <label class="form-check-label" for="fareType{{i}}">
+                    {{item.label}}
+                </label>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- RETURN FARE TYPE -->
+    <div class="filter-card" *ngIf="Filter[1] && GetSearchData['Isdomestic']=='true'">
+
+        <div class="filter-card-header">
+            <span>Fare Type Return</span>
+        </div>
+
+        <div class="filter-card-body">
+
+            <div class="form-check form-switch" *ngFor="let item of Filter[1]['FareType']; let i=index">
+
+                <input class="form-check-input" type="checkbox" id="returnFareType{{i}}" [(ngModel)]="item.isChecked"
+                    (click)="doFilter(1,'FareType',$event,item)">
+
+                <label class="form-check-label" for="returnFareType{{i}}">
+                    {{item.label}}
+                </label>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- STOPS -->
+    <div class="filter-card">
+
+        <div class="filter-card-header">
+            <span>Stops</span>
+        </div>
+
+        <div class="filter-card-body">
+
+            <!-- MULTI CITY -->
+            <ul class="trip-tabs" *ngIf="Filter.length==2">
+
+                <li (click)="isshowfilter('stop',$event,0)" [ngClass]="{'active-trip':isstopshow==0}">
+                    {{GetSearchData['OriginCode']}}-{{GetSearchData['DestinationCode']}}
+                </li>
+
+                <li (click)="isshowfilter('stop',$event,1)" [ngClass]="{'active-trip':isstopshow==1}">
+                    {{GetSearchData['DestinationCode']}}-{{GetSearchData['OriginCode']}}
+                </li>
+
+            </ul>
+
+            <!-- ONWARD STOPS -->
+            <div class="stop-grid" *ngIf="Filter[0] && isstopshow==0">
+
+                <label class="stop-box" *ngFor="let item of Filter[0]['Stops']; let i=index"
+                    [ngClass]="{'active-stop':item.isChecked}">
+
+                    <input type="checkbox" class="d-none" [(ngModel)]="item.isChecked"
+                        (click)="doFilter(0,'Stop',$event,item)">
+
+                    <span>{{item.value}}</span>
+
+                </label>
+
+            </div>
+
+            <!-- RETURN STOPS -->
+            <div class="stop-grid" *ngIf="Filter[1] && isstopshow==1">
+
+                <label class="stop-box" *ngFor="let item of Filter[1]['Stops']; let i=index"
+                    [ngClass]="{'active-stop':item.isChecked}">
+
+                    <input type="checkbox" class="d-none" [(ngModel)]="item.isChecked"
+                        (click)="doFilter(1,'Stops',$event,item)">
+
+                    <span>{{item.value}}</span>
+
+                </label>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- DEPARTURE -->
+    <div class="filter-card">
+
+        <div class="filter-card-header">
+            <span>
+                Departure From {{GetSearchData['Origin']}}
+            </span>
+        </div>
+
+        <div class="filter-card-body">
+
+            <div class="time-grid">
+
+                <label class="time-box" *ngFor="let item of Filter[0]['DepartTime']; let i=index"
+                    [ngClass]="{'active-time': item.isChecked}">
+                    <input type="checkbox" class="d-none" id="departTime{{i}}" name="depart_time" value="{{item['value']}}"
+                        [(ngModel)]="item.isChecked" (click)="doFilter(0, 'DepartTime', $event, item);" />
+                    <div class="time-icon {{item['icon']}}">
+
+                    </div>
+            
+                    <span>{{item.label}}</span>
+                
+                </label>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- RETURN DEPARTURE -->
+    <div class="filter-card" *ngIf="Filter[1]">
+
+        <div class="filter-card-header">
+            <span>
+                Departure From {{GetSearchData['Destination']}}
+            </span>
+        </div>
+
+        <div class="filter-card-body">
+
+            <div class="time-grid">
+
+                <label class="time-box" *ngFor="let item of Filter[1]['DepartTime']; let i=index"
+                    [ngClass]="{'active-time':item.isChecked}">
+
+                    <input type="checkbox" class="d-none" [(ngModel)]="item.isChecked"
+                        (click)="doFilter(1,'DepartTime',$event,item)">
+
+                    <div class="time-icon">
+                        <div class="{{item['icon']}}"></div>
+                    </div>
+
+                    <span>{{item.label}}</span>
+
+                </label>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- FARE IDENTIFIER -->
+    <div class="filter-card">
+
+        <div class="filter-card-header">
+            <span *ngIf="Filter.length==1">Fare Identifier</span>
+            <span *ngIf="Filter.length==2">Onward Fare Identifier</span>
+        </div>
+
+        <div class="filter-card-body">
+
+            <div class="fare-color-grid">
+
+                <label class="fare-color-box" *ngFor="let item of Filter[0]['FareIdentiferColor']; let i=index">
+
+                    <input type="checkbox" class="d-none" [(ngModel)]="item.isChecked"
+                        (click)="doFilter(0,'FareIdentifer',$event,item)">
+
+                    <div class="fare-color-item fliterlist-{{item.label}}" [ngClass]="{'active-fare':item.isChecked}">
+                    </div>
+
+                    <small>{{item.count}}</small>
+
+                </label>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- AIRLINES -->
+    <div class="filter-card">
+
+        <div class="filter-card-header">
+
+            <span *ngIf="Filter.length==1">Airlines</span>
+            <span *ngIf="Filter.length==2">Onward Airlines</span>
+
+            <button class="clear-link" (click)="clearFilterByCat(0,'Airlines')">
+                Clear
+            </button>
+
+        </div>
+
+        <div class="filter-card-body airline-scroll">
+
+            <div class="airline-item" *ngFor="let item of Filter[0]['Airlines']; let i=index">
+
+                <label class="airline-label">
+
+                    <div class="airline-left">
+
+                        <input type="checkbox" [(ngModel)]="item.isChecked" (click)="doFilter(0,'Airline',$event,item)">
+
+
+                        <div class="airline-name">
+                            {{item.label}}
+                        </div>
+
+                        <small>
+                            {{item.count}} Flights
+                        </small>
+
+
+
+                    </div>
+
+                    <div class="airline-price">
+                        ₹{{item.fare | number:'1.0-2'}}
+                    </div>
+
+                </label>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!----old code---->
+
 <div class="al-listbtm">
     <div class="al-priceac">
         <div class="d-flex justify-content-end">
@@ -224,8 +581,7 @@
         <div class="al-prresets">
             <span>
                 Departure From
-                {{ GetSearchData['Destination']
-                }}
+                {{ GetSearchData['Destination']}}
             </span>
         </div>
     </div>
