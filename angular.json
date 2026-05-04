@@ -28,8 +28,7 @@
               "src/custom-theme.scss",
               "src/assets/css/bootstrap.min.css",
               "src/assets/css/jquery-ui.css",
-              "src/assets/css/style.css",
-              "src/styles.css"
+              "src/assets/css/style.css"
             ],
             "scripts": [
               "src/assets/js/bootstrap.bundle.min.js",

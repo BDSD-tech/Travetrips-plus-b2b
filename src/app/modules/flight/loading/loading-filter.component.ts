@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-loading-filter',
   template: `
-  <div class="al-listbtm">
+  <div class="al-listbtm filter-loading">
       <div class="al-priceac">
           <p class="al-prresets">
               <span>Price</span>
@@ -14,19 +14,19 @@ import { Component, OnInit } from '@angular/core';
           </p>
       </div>
   </div>
-  <div class="al-listbtm">
-      <div class="form-check form-check-reverse form-check-inline">
+  <div class="al-listbtm filter-loading">
+      <div class="form-check">
           <label class="form-check-label" for="reverseCheck1">
               Show Incv
           </label>
       </div>
-      <div class="form-check form-check-reverse form-check-inline float-end me-0 pe-0">
+      <div class="form-check">
           <label class="form-check-label" for="reverseCheck2">
               Show Net
           </label>
       </div>
   </div>
-  <div class="al-listbtm">
+  <div class="al-listbtm filter-loading">
       <div class="al-priceac">
           <p class="al-prresets">
               <span>Stops</span>
@@ -34,7 +34,7 @@ import { Component, OnInit } from '@angular/core';
           </p>
       </div>
   </div>
-  <div class="al-listbtm">
+  <div class="al-listbtm filter-loading">
       <div class="al-priceac">
           <p class="al-prresets">
               <span>Departure Time</span>
@@ -42,7 +42,7 @@ import { Component, OnInit } from '@angular/core';
           </p>
       </div>
   </div>
-  <div class="al-listbtm">
+  <div class="al-listbtm filter-loading">
       <div class="al-priceac">
           <p class="al-prresets">
               <span>Arrival Time</span>
@@ -50,7 +50,7 @@ import { Component, OnInit } from '@angular/core';
           </p>
       </div>
   </div>
-  <div class="al-listbtm">
+  <div class="al-listbtm filter-loading">
       <div class="al-priceac">
           <p class="al-prresets">
               <span>Airlines</span>
