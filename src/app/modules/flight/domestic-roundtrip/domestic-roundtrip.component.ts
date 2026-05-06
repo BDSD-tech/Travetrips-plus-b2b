@@ -490,8 +490,6 @@ export class DomesticRoundtripComponent implements OnInit {
             selindex = checkbox[i].value;
         }
     }
-    console.log(selindex);
-    
   if(selindex) {
       let flightInfo =this.Response[jkey].filter(function(flightItem:any) {
                   return flightItem.TtsIndex == ttsindex;
@@ -695,7 +693,7 @@ export class DomesticRoundtripComponent implements OnInit {
     const navigationExtras: NavigationExtras = {
       queryParams:data
     };
-   this.router.navigate(['flight/itinerary'],navigationExtras);
+   this.router.navigate(['flight/traveller'],navigationExtras);
   }
 
   farerule(ttsindex:any,jkey:any) {

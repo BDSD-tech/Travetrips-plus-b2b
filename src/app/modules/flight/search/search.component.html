@@ -109,7 +109,7 @@
                     <app-loading *ngIf="resultloading" [type]="filtertype"></app-loading>
 
                     <div class="tts-main-right" *ngIf="resultloading==false">
-                        <div class="flight-listbtrow" style="top: 190px;">
+                        <div class="flight-listbtrow" style="top: 0px;">
                             <div class="flight-listbt">
                                 <div class="row m-0">
                                     <div class="col-sm-2 sort__duration">
@@ -255,7 +255,20 @@
 
                                                                 <!-- <span class="graycolor fs-10"
                                                                 *ngIf="farelist['Source']">{{farelist['Source']}}</span> -->
-
+                                                                <span class="baggage-wrapper">
+                                                                    <a href="javascript:void(0)" class="baggage-icon" ><i class="fa-solid fa-suitcase-rolling"></i></a>
+                                                                    <div class="baggage-detail">
+                                                                        <span *ngFor="let bag of farelist['SeatBaggage'];let i=index">
+                                                                            <span *ngFor="let segbag of bag;let bagi=index" class="baggage-items" [ngClass]="{'border-bottom py-1': bagi < bag.length - 1}">
+                                                                                <strong>{{ segbag.Sector }}</strong> :
+                                                                                Cabin-{{ segbag.Cabin }},
+                                                                                Checkin-{{ segbag.CheckIn }}
+                                                                            </span>
+                                                                        </span>
+                                                                    </div>
+                                                                       
+                                                                </span>
+                                                                <a href="javascript:void(0)" (click)="OpenFareruleModal(item.TtsIndex)" class="farerule-icon" ><i class="fa-solid fa-file-lines"></i></a>
                                                             </label>
 
                                                         </div>
@@ -282,7 +295,7 @@
                                                             name="shareinput[]" type="checkbox"
                                                             value="0_{{item['TtsIndex']}}_{{farelist['FareId']}}_{{APISEARCHTOKENLIST[farelist['Supplier']]}}_{{farelist['Supplier']}}_{{farelist['Fare']['PublishedPrice']}}">
                                                     </div>
-
+                                                  
                                                     <hr class="m-0" *ngIf="item['FareList'].length!=(farelistkey+1)" />
                                                 </li>
                                             </ul>
@@ -699,6 +712,46 @@
     </div>
     <!---------------flight--list-----end---------->
 </main>
+
+
+<!--Fare Rule Modal -->
+<div class="modal fade" id="farerule-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="farerule-modal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="farerule-modal">View Fare Rule</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row" *ngIf="fareRuleLoading">
+                    <div class="col-md-12">
+                        <div class="text-center">
+                            <div class="loader mt-3 mb-3">
+                                <div class="lds-ellipsis">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </div>
+                            <h6>Please Wait...</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="row"
+                    *ngFor="let farerule of FlightFareRule; let farerulekey=index;">
+                    <div class="col-md-12">
+                        <button
+                            class="ars-activelist fare-rules-tabs">{{farerule.Origin}}-{{farerule.Destination}}</button>
+                    </div>
+                    <div class="col-md-12" [innerHTML]="farerule.FareRuleDetail |safeHtml"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <!--Share View Detail Modal -->

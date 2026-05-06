@@ -56,7 +56,7 @@ export class PaymentComponent implements OnInit {
     }
 
     this.route.queryParams.subscribe((resp:any)=>{
-      this.Service=resp['service']
+      this.Service=resp['service'];
     })
     if(this.Service=='Flight'){
           if (sessionStorage.getItem('TSFP')) {

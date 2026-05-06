@@ -77,6 +77,9 @@ export class DetailsReviewComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    
+
+
 
     if (sessionStorage.getItem('TSF')) {
       let TSF:any=sessionStorage.getItem('TSF');

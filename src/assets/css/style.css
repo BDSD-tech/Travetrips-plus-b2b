@@ -3189,8 +3189,8 @@ color: var(--black) !important;
 
 @media (min-width: 992px) {
     .filter-flights {
-        position: sticky;
-        top: 55px;
+        /* position: sticky; */
+        top: 0px;
         z-index: 1;
         background-color: #ffffff;
         padding: 10px;

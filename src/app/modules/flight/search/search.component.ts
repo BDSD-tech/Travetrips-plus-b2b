@@ -59,11 +59,12 @@ export class SearchComponent implements OnInit,OnDestroy {
   showTTsIndex:any | undefined;
   showFareRule=false;
 
-  shownetfare=true;
-  showincentivefare=false;
+  shownetfare=false;
+  showincentivefare=true;
 
   formModal: any;
   formmodalemail: any;
+  FareRuleModal: any;
   sharebuttontext='';
   shareviewdetail='';
   sharetype='';
@@ -142,6 +143,9 @@ export class SearchComponent implements OnInit,OnDestroy {
           //this.windowscroll();
        }, 1000);
 
+       this.FareRuleModal = new window.bootstrap.Modal(
+        document.getElementById('farerule-modal')
+      );
        this.formModal = new window.bootstrap.Modal(
         document.getElementById('formmodal')
       );
@@ -675,7 +679,7 @@ export class SearchComponent implements OnInit,OnDestroy {
       const navigationExtras: NavigationExtras = {
         queryParams:data
       };
-      this.router.navigate(['flight/itinerary'],navigationExtras);
+      this.router.navigate(['flight/traveller'],navigationExtras);
       }
 
   }
@@ -721,12 +725,19 @@ export class SearchComponent implements OnInit,OnDestroy {
       const navigationExtras: NavigationExtras = {
         queryParams:data
       };
-      this.router.navigate(['flight/itinerary'],navigationExtras);
+      this.router.navigate(['flight/traveller'],navigationExtras);
     
 
   }
 
+  OpenFareruleModal(ttsindex:any){
+    this.FlightFareRule=[]
+    this.FareRuleModal.show()
+    this.farerule(ttsindex)
+  }
+
   farerule(ttsindex:any) {
+
     this.fareRuleLoading=true;
 
     this.showFareRule=true;

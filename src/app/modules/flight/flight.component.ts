@@ -481,7 +481,7 @@ export class FlightComponent implements OnInit {
                 $(".ui-datepicker-next").hide();
                 $(".ui-datepicker-prev").hide();
 
-                inst.dpDiv.find('.ui-state-active').css({'background':'#46a086','color':'#fff'});
+                inst.dpDiv.find('.ui-state-active').css({'background':"var(--primary-color)",'color':'#fff'});
             }, 1);
             /*---End Open in bottom--*/
 
@@ -584,7 +584,7 @@ export class FlightComponent implements OnInit {
     $(".ui-datepicker-prev").hide();
 
     inst.dpDiv.find('.ui-state-active')
-        .css({'background':'#46a086','color':'#fff'});
+        .css({'background':"var(--primary-color)",'color':'#fff'});
 }, 1);
 
             /*---End Open in bottom--*/
