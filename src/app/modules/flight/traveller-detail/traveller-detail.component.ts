@@ -11,6 +11,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 declare var $: any;
 declare var bootstrap: any;
+declare var window: any;
 
 @Component({
   selector: 'app-traveller-detail',
@@ -18,7 +19,7 @@ declare var bootstrap: any;
   styleUrls: ['./traveller-detail.component.css']
 })
 export class TravellerDetailComponent implements OnInit {
-
+  AllResponse:any=[]
 
   SessionTime: any;
 
@@ -120,6 +121,21 @@ export class TravellerDetailComponent implements OnInit {
   inSUranceDetailmodal:any
   TermConditionModal:any
 
+  fareloading=false
+  FareList:any=[];
+  ssr_Request:any={}
+  FareBrekdown:any={}
+
+  modaldata:any=[];
+  formModal: any;
+  isconfimation=false;
+  Segments:any=[];
+
+  oldprice:any=0;
+
+
+  MainSegments:any=[];
+  UserIp:any;
   constructor(private flightService: FlightService, private router: Router, private route: ActivatedRoute, private commonservice: CommonService, private fb: FormBuilder, private authenticationservice: AuthenticationService, private location: Location, private alertservice: AlertService) {
     this.route.queryParams.subscribe(params => {
       if (params) {
@@ -158,8 +174,7 @@ export class TravellerDetailComponent implements OnInit {
     for (let i = 0; i < this.GetSearchData['Child']; i++) {
       this.BaggegeC.push(i)
     }
-    // //End:: baggage dynamic form by Pradeep 
-
+    //End:: baggage dynamic form by Pradeep
 
   }
 
@@ -186,80 +201,458 @@ GetPhonecodeVal(event: Event): void {
 }
 
   ngOnInit(): void {
-
+    
     this.inSUranceDetailmodal = new bootstrap.Modal(document.getElementById('insurancedetailmodal'));
     this.TermConditionModal = new bootstrap.Modal(document.getElementById('term&condition'));
 
     if (sessionStorage.getItem('time')) {
       let time: any = sessionStorage.getItem('time');
       this.SessionTime = JSON.parse(time);
+    } 
+    
+    this.formModal = new window.bootstrap.Modal(
+      document.getElementById('pricemodel')
+    );
+    if (sessionStorage.getItem('TSF')) {
+      let TSF:any=sessionStorage.getItem('TSF');
+      let resp=JSON.parse(TSF);  
+      let Segment:any=[]; let farelist:any=[]; let mainsegments:any=[]; let oldprice=0;
+      resp.forEach(function(value:any,key:any) {
+        Segment.push(value['Segments']);
+        farelist.push(value['FareList']);
+        mainsegments.push(value['MainSegment']);
+        oldprice+=value['FareList']['Fare']['PublishedPrice'];
+      });
+      this.MainSegments=mainsegments;
+      this.Segments=Segment;
+      this.FareList=farelist;
+      this.oldprice=oldprice;
+      this.UserIp=resp[0]['UserIp'];
+      if(this.isconfimation==false)
+      {
+        this.FareConfirmation();
+      }
+    } else {
+       this.router.navigate(['flight']);
     }
+    // if (sessionStorage.getItem('TSFP')) {
 
-    if (sessionStorage.getItem('TSFP')) {
+   
 
-      let TSFP: any = sessionStorage.getItem('TSFP');
-      let resp = JSON.parse(TSFP);
-      this.AllTSFPRESP = resp
-      this.Response = resp['response']['Result'];
+    //   if (resp['ssrresp'].length !== 0) {
+    //     this.SSRDetail = resp['ssrresp']
+    //     this.CreateSSRData(resp);
+    //     this.seatData = resp['ssrresp']['SeatData'];
+    //     this.travellerJson = resp['ssrresp']['SeatPaxData'];
+      
+    //     setTimeout(() => {
+    //       this.CreateSeatJson()
+    //     }, 100);
+    //   }
+
+      this.SearchTokenId = this.param['stoken'];
+      if (this.param['ibstoken']) {
+        this.SearchTokenIdIB = this.param['ibstoken'];
+      }
+      // if (sessionStorage.getItem('TAGM')) {
+      //   let markup: any = sessionStorage.getItem('TAGM');
+      //   this.markupvalue = parseFloat(markup);
+      //   this.CurrentFare['AgentMarkup'] = this.markupvalue;
+      // }
+
+     // Added By Pradeep*********************
+      if (!this.CurrentFare['SSR']) {
+        this.CurrentFare['SSR'] = {}
+      }
+      this.CurrentFare['SSR']['Meal'] = 0
+      this.CurrentFare['SSR']['Baggage'] = 0
+      this.CurrentFare['SSR']['Seat'] = 0
+
+    //   let obpanrequired: boolean | undefined;
+    //   let ibpanrequired: boolean | undefined;
+
+    //   let obpassportrequired: boolean | undefined;
+    //   let ibpassportrequired: boolean | undefined;
+
+    //   let obgstrequired: boolean | undefined;
+    //   let ibgstrequired: boolean | undefined;
+
+    //   let obislcc: boolean | undefined;
+    //   let ibislcc: boolean | undefined;
+
+    //   let obisadtdob: boolean | undefined;
+    //   let ibisadtdob: boolean | undefined;
+
+    //   let obischddob: boolean | undefined;
+    //   let ibischddob: boolean | undefined;
+
+    //   let obisinfdob: boolean | undefined;
+    //   let ibisinfdob: boolean | undefined;
+    //   this.Response.forEach(function (value: any, key: any) {
+
+    //     if (key == 0) {
+
+    //       if (value['IsGSTMandatory']) {
+    //         obgstrequired = value['IsGSTMandatory'];
+    //       }
+
+    //       if (value['IsPanRequiredAtBook']) {
+    //         obpanrequired = value['IsPanRequiredAtBook'];
+
+    //       } else if (value['IsPanRequiredAtTicket']) {
+    //         obpanrequired = value['IsPanRequiredAtTicket'];
+    //       }
+    //       if (value['IsPassportRequiredAtBook']) {
+    //         obpassportrequired = value['IsPassportRequiredAtBook'];
+
+    //       } else if (value['IsPassportRequiredAtTicket']) {
+    //         obpassportrequired = value['IsPassportRequiredAtTicket'];
+    //       }
+
+    //       if (value['IsLCC']) {
+    //         obislcc = true;
+    //       } else {
+    //         obislcc = false;
+    //       }
+
+    //       if (value['IsADTDOBRequired']) {
+    //         obisadtdob = true;
+    //       } else {
+    //         obisadtdob = false;
+    //       }
+    //       if (value['IsCHDDOBRequired']) {
+    //         obischddob = true;
+    //       } else {
+    //         obischddob = false;
+    //       }
+    //       if (value['IsINFTDOBRequired']) {
+    //         obisinfdob = true;
+    //       } else {
+    //         obisinfdob = false;
+    //       }
+
+    //     } else if (key == 1) {
+    //       if (value['IsGSTMandatory']) {
+    //         ibgstrequired = value['IsGSTMandatory'];
+    //       }
+
+    //       if (value['IsPanRequiredAtBook']) {
+    //         ibpanrequired = value['IsPanRequiredAtBook'];
+
+    //       } else if (value['IsPanRequiredAtTicket']) {
+    //         ibpanrequired = value['IsPanRequiredAtTicket'];
+    //       }
+    //       if (value['IsPassportRequiredAtBook']) {
+    //         ibpassportrequired = value['IsPassportRequiredAtBook'];
+
+    //       } else if (value['IsPassportRequiredAtTicket']) {
+    //         ibpassportrequired = value['IsPassportRequiredAtTicket'];
+    //       }
+
+    //       if (value['IsLCC']) {
+    //         ibislcc = true;
+    //       } else {
+    //         ibislcc = false;
+    //       }
+
+    //       if (value['IsADTDOBRequired']) {
+    //         ibisadtdob = true;
+    //       } else {
+    //         ibisadtdob = false;
+    //       }
+    //       if (value['IsCHDDOBRequired']) {
+    //         ibischddob = true;
+    //       } else {
+    //         ibischddob = false;
+    //       }
+    //       if (value['IsINFTDOBRequired']) {
+    //         ibisinfdob = true;
+    //       } else {
+    //         ibisinfdob = false;
+    //       }
+    //     }
+
+    //   });
+
+    //   if (obgstrequired || ibgstrequired) {
+    //     this.isGSTShow = true;
+    //     this.GSTTxt = 'Required';
+    //   } else {
+    //     this.isGSTShow = false;
+    //     this.GSTTxt = 'Optional';
+    //   }
+
+    //   if (obpanrequired || ibpanrequired) {
+    //     this.IsPANMandatory = true;
+    //   } else {
+    //     this.IsPANMandatory = false;
+    //   }
+
+    //   if (obpassportrequired || ibpassportrequired) {
+    //     this.IsPassportMandatory = true;
+    //   } else {
+    //     this.IsPassportMandatory = false;
+    //   }
+
+    //   if (obislcc || ibislcc) {
+    //     this.IsFFDiv = true;
+    //   } else {
+    //     this.IsFFDiv = false;
+    //   }
+
+    //   if (obisadtdob || ibisadtdob) {
+    //     this.showadtdob = true;
+    //     this.Adltdob=true
+    //   } else {
+    //     this.showadtdob = false;
+    //     this.Adltdob=false
+    //   }
+    //   if (obischddob || ibischddob) {
+    //     this.showchddob = true;
+    //     this.childdob=true
+    //   } else {
+    //     this.showchddob = false;
+    //     this.childdob=false
+    //   }
+    //   if (obisinfdob || ibisinfdob) {
+    //     this.showinfdob = true;
+    //     this.infdob=true
+    //   } else {
+    //     this.showinfdob = false;
+    //      this.infdob=false
+    //   }
+
+    //   setTimeout(() => {
+    //     this.PassportIssueDate();
+    //     this.DocExpiryDate();
+    //     this.DocumentDate();
+    //     this.PassportExpiryDate();
+    //     this.ADTDOBDate();
+    //     this.CHDDOBDate();
+    //     this.INFDOBDate();
+    //   }, 50);
+    // } else {
+    //   this.router.navigate(['flight']);
+    // }
+
+    //this.GeneratePax();
+
+    // this.authenticationservice.currentUser.subscribe(data => {
+    //   if (data) {
+    //     this.FlightForm.patchValue({ 'EmailId': data['EmailId'], 'MobileNumber': data['MobileNo'] });
+    //   }
+    // });
+   
+    
+    this.GetDialCode();
+    // if (sessionStorage.getItem('TSFPAX')) {
+    //   let TSFPAX: any = sessionStorage.getItem('TSFPAX');
+    //   let resp = JSON.parse(TSFPAX);
+    //   this.FlightForm.patchValue({
+    //     'Adult': resp['paxdata']['Adult'],
+    //     'Child': resp['paxdata']['Child'],
+    //     'Infant': resp['paxdata']['Infant'],
+    //     'ISDCode': resp['ISDCode'],
+    //     'MobileNumber': resp['MobileNumber'],
+    //     'EmailId': resp['EmailId'],
+    //   });
+    //   this.GSTForm.patchValue(resp['gstdata']);
+    //   this.CalculateSSrPrice()
+    // }
+   //this.GetInsuranceData();
+   
+  }
+
+   FareConfirmation()
+  {
+    this.fareloading = true;
+    let data = {
+      'SearchTokenId'   : this.param['stoken'],
+      'ResultIndex'     : this.param['fareid'],
+      'FareRuleId'      : this.FareList[0]['FareRuleId']
+    };
+
+    if(this.param['ibfareid'])
+    {
+      Object.assign(data, {ResultIndexIB: this.param['ibfareid'],SearchTokenIdIB:this.param['ibstoken'],FareRuleId:this.FareList[1]['FareRuleId']});
+    }
+    
+    
+    this.ssr_Request=data
+    this.flightService.fare_confimation(data).subscribe(data => {
+      this.isconfimation=true;
+      let response:any=data;
+      this.AllResponse=data;
+      this.SearchTokenId = response['stoken'];
+       
+      // if (resp['param']['ibstoken']) {
+      //   this.SearchTokenIdIB = resp['param']['ibstoken'];
+      // }
+      if(response['Error']['ErrorCode']==0)
+      {
+      this.Response = response['Result'];
+      this.AddRequiredFields()
       this.DocumentMendatory= this.Response[0]['IsDocumentIdMandatory'];
       this.DocumentIssueDate= this.Response[0]['IsDocumentIssueDateMandatory'];
       this.DocumentExpiryDate= this.Response[0]['IsDocumentExpiryDateMandatory'];
       this.DocumentTitle=this.Response[0]['DocumentType'];
       this.SegmentData = this.Response[0]['Segments']
       this.lccFlight = this.Response[0]['IsLCC']
+        this.get_ssr()
+        this.markupvalue=response['TotalMarkup'];
+        let markup:any=this.markupvalue;
+        sessionStorage.setItem('TAGM',markup);
 
-      if (resp['ssrresp'].length !== 0) {
-        this.SSRDetail = resp['ssrresp']
-        this.CreateSSRData(resp);
-        this.seatData = resp['ssrresp']['SeatData'];
-        this.travellerJson = resp['ssrresp']['SeatPaxData'];
-      
-        setTimeout(() => {
-          this.CreateSeatJson()
-        }, 100);
+        let Segment:any=[];
+        let BaseFare=0; let Tax=0; let YQTax=0; let OtherCharges=0; let Discount=0; let PublishedPrice=0; let OfferedPrice=0;let AgentCommission=0; let ServiceCharges=0; let TDS=0; let CGSTAmount=0; let CGSTRate=0; let IGSTAmount=0; let IGSTRate=0; let SGSTAmount=0; let SGSTRate=0; let TaxableAmount=0;
+
+        let adltpaxcount=0;let adltbasefare=0; let adlttax=0;let adltyqtax=0;let adltservicecharge=0;
+        let childpaxcount=0;let childbasefare=0; let childtax=0;let childyqtax=0;let childservicecharge=0;
+        let infpaxcount=0;let infbasefare=0; let inftax=0;let infyqtax=0;let infservicecharge=0;
+
+        response['Result'].forEach(function(value:any,key:any) {
+        Segment.push(value['Segments']);
+  
+          BaseFare+=value['Fare']['BaseFare'];
+          Tax+=value['Fare']['Tax'];
+          YQTax+=value['Fare']['YQTax'];
+          OtherCharges+=value['Fare']['OtherCharges'];
+          Discount+=value['Fare']['Discount'];
+          PublishedPrice+=value['Fare']['PublishedPrice'];
+          OfferedPrice+=value['Fare']['OfferedPrice'];
+          AgentCommission+=value['Fare']['AgentCommission'];
+          ServiceCharges+=value['Fare']['ServiceCharges'];
+          TDS+=value['Fare']['TDS'];
+          CGSTAmount+=value['Fare']['GST']['CGSTAmount'];
+          CGSTRate+=value['Fare']['GST']['CGSTRate'];
+          IGSTAmount+=value['Fare']['GST']['IGSTAmount'];
+          IGSTRate+=value['Fare']['GST']['IGSTRate'];
+          SGSTAmount+=value['Fare']['GST']['SGSTAmount'];
+          SGSTRate+=value['Fare']['GST']['SGSTRate'];
+          TaxableAmount+=value['Fare']['GST']['TaxableAmount'];
+          if(value['FareBreakdown']['ADT']){
+            adltpaxcount+=value['FareBreakdown']['ADT']['PassengerCount']
+            adltbasefare+=value['FareBreakdown']['ADT']['BaseFare']
+            adlttax+=value['FareBreakdown']['ADT']['Tax']
+            adltyqtax+=value['FareBreakdown']['ADT']['YQTax']
+            adltservicecharge+=value['FareBreakdown']['ADT']['ServiceCharges']
+          }
+          if(value['FareBreakdown']['CHD']){
+            childpaxcount+=value['FareBreakdown']['CHD']['PassengerCount']
+            childbasefare+=value['FareBreakdown']['CHD']['BaseFare']
+            childtax+=value['FareBreakdown']['CHD']['Tax']
+            childyqtax+=value['FareBreakdown']['CHD']['YQTax']
+            childservicecharge+=value['FareBreakdown']['CHD']['ServiceCharges']
+          }
+          if(value['FareBreakdown']['INF']){
+            infpaxcount+=value['FareBreakdown']['INF']['PassengerCount']
+            infbasefare+=value['FareBreakdown']['INF']['BaseFare']
+            inftax+=value['FareBreakdown']['INF']['Tax']
+            infyqtax+=value['FareBreakdown']['INF']['YQTax']
+            infservicecharge+=value['FareBreakdown']['INF']['ServiceCharges']
+          }
+        });
+  
+       this.Segments=Segment;
+      //  this.MainSegments=response['MainSegment'];
+       this.FareBrekdown['Adult']={
+        'BaseFare':adltbasefare,
+        "PaxCount":adltpaxcount,
+        "Tax":adlttax,
+        "YQTax":adltyqtax,
+        "ServiceCharge":adltservicecharge,
+       }
+       this.FareBrekdown['Child']={
+        'BaseFare':childbasefare,
+        "PaxCount":childpaxcount,
+        "Tax":childtax,
+        "YQTax":childyqtax,
+        "ServiceCharge":childservicecharge,
+       }
+       this.FareBrekdown['Infant']={
+        'BaseFare':infbasefare,
+        "PaxCount":infpaxcount,
+        "Tax":inftax,
+        "YQTax":infyqtax,
+        "ServiceCharge":infservicecharge,
+       }
+       this.CurrentFare['BaseFare']=BaseFare;
+       this.CurrentFare['Tax']=Tax;
+       this.CurrentFare['YQTax']=YQTax;
+       this.CurrentFare['OtherCharges']=OtherCharges;
+       this.CurrentFare['Discount']=Discount;
+       this.CurrentFare['PublishedPrice']=PublishedPrice;
+       this.CurrentFare['OfferedPrice']=OfferedPrice;
+       this.CurrentFare['AgentCommission']=AgentCommission;
+       this.CurrentFare['ServiceCharges']=ServiceCharges;
+       this.CurrentFare['TDS']=TDS;
+       this.CurrentFare['AgentMarkup']=this.markupvalue;
+       this.CurrentFare['GST']={
+                                  'CGSTAmount':CGSTAmount,
+                                  'CGSTRate':CGSTRate,
+                                  'IGSTAmount':IGSTAmount,
+                                  'IGSTRate':IGSTRate,
+                                  'SGSTAmount':SGSTAmount,
+                                  'SGSTRate':SGSTRate,
+                                  'TaxableAmount':TaxableAmount
+                                };
+       if(response['IsPriceChanged'])
+       {
+         let newprice=this.CurrentFare['PublishedPrice']+this.CurrentFare['AgentMarkup'];
+         let pricetxt='<div class="col-lg-12 text-center">'
+             +'<table class="table">'
+               +'<tbody class="border">'
+               +'<tr>'
+               +'<td>Old Fare was-</td>'
+               +'<td>₹ '+this.flightService.transformDecimal(this.oldprice)+' </td>'
+               +'</tr>'
+               +'<tr>'
+               +'<td> New Fare is -</td>'
+               +'<td class="text-danger">₹ '+this.flightService.transformDecimal(newprice)+'</td>'
+               +'</tr>'
+               +'</table>'
+               +'</div>';
+  
+             this.modaldata['head']='Fare have changed';
+             this.modaldata['message']=pricetxt;
+             this.modaldata['type']='';
+  
+             this.formModal.show();
+       }
+      } else {
+       
+        this.formModal.show();
+        this.modaldata['head']='Fare Error';
+        this.modaldata['message']=response['Error']['ErrorMessage'];
+        this.modaldata['type']='FC';
       }
 
-      this.SearchTokenId = resp['param']['stoken'];
-      
-      if (resp['param']['ibstoken']) {
-        this.SearchTokenIdIB = resp['param']['ibstoken'];
-      }
-      this.CurrentFare = resp['fare'];
-      if (sessionStorage.getItem('TAGM')) {
-        let markup: any = sessionStorage.getItem('TAGM');
-        this.markupvalue = parseFloat(markup);
-        this.CurrentFare['AgentMarkup'] = this.markupvalue;
+    });
 
-        // Added By Pradeep*********************
-        if (!this.CurrentFare['SSR']) {
-          this.CurrentFare['SSR'] = {}
-        }
-        this.CurrentFare['SSR']['Meal'] = 0
-        this.CurrentFare['SSR']['Baggage'] = 0
-        this.CurrentFare['SSR']['Seat'] = 0
-      }
+    
+    
+  }
+  AddRequiredFields(){
+      let obpanrequired: boolean =false;
+      let ibpanrequired: boolean =false;
 
+      let obpassportrequired: boolean =false;
+      let ibpassportrequired: boolean =false;
 
-      let obpanrequired: boolean | undefined;
-      let ibpanrequired: boolean | undefined;
+      let obgstrequired: boolean =false;
+      let ibgstrequired: boolean =false;
 
-      let obpassportrequired: boolean | undefined;
-      let ibpassportrequired: boolean | undefined;
+      let obislcc: boolean =false;
+      let ibislcc: boolean =false;
 
-      let obgstrequired: boolean | undefined;
-      let ibgstrequired: boolean | undefined;
+      let obisadtdob: boolean =false;
+      let ibisadtdob: boolean =false;
 
-      let obislcc: boolean | undefined;
-      let ibislcc: boolean | undefined;
+      let obischddob: boolean =false;
+      let ibischddob: boolean =false;
 
-      let obisadtdob: boolean | undefined;
-      let ibisadtdob: boolean | undefined;
-
-      let obischddob: boolean | undefined;
-      let ibischddob: boolean | undefined;
-
-      let obisinfdob: boolean | undefined;
-      let ibisinfdob: boolean | undefined;
+      let obisinfdob: boolean =false;
+      let ibisinfdob: boolean =false;
       this.Response.forEach(function (value: any, key: any) {
 
         if (key == 0) {
@@ -320,7 +713,6 @@ GetPhonecodeVal(event: Event): void {
           } else if (value['IsPassportRequiredAtTicket']) {
             ibpassportrequired = value['IsPassportRequiredAtTicket'];
           }
-
           if (value['IsLCC']) {
             ibislcc = true;
           } else {
@@ -345,7 +737,6 @@ GetPhonecodeVal(event: Event): void {
         }
 
       });
-
       if (obgstrequired || ibgstrequired) {
         this.isGSTShow = true;
         this.GSTTxt = 'Required';
@@ -365,7 +756,6 @@ GetPhonecodeVal(event: Event): void {
       } else {
         this.IsPassportMandatory = false;
       }
-
       if (obislcc || ibislcc) {
         this.IsFFDiv = true;
       } else {
@@ -394,6 +784,18 @@ GetPhonecodeVal(event: Event): void {
          this.infdob=false
       }
 
+      
+   
+
+      this.GeneratePax();
+  } 
+
+
+
+  get_ssr(){
+    let req=this.ssr_Request
+    this.flightService.ssr_info(req).subscribe((ssrresp:any)=>{
+      this.fareloading = false;
       setTimeout(() => {
         this.PassportIssueDate();
         this.DocExpiryDate();
@@ -402,34 +804,21 @@ GetPhonecodeVal(event: Event): void {
         this.ADTDOBDate();
         this.CHDDOBDate();
         this.INFDOBDate();
-      }, 50);
-    } else {
-      this.router.navigate(['flight']);
-    }
-    this.GeneratePax();
-
-    this.authenticationservice.currentUser.subscribe(data => {
-      if (data) {
-        this.FlightForm.patchValue({ 'EmailId': data['EmailId'], 'MobileNumber': data['MobileNo'] });
+      }, 100);
+      if(ssrresp['Error']['ErrorCode']==0){
+         this.SSRDetail=ssrresp['Result'];
+            this.SSRDetail = ssrresp['Result']
+            this.CreateSSRData(this.SSRDetail);
+            this.seatData = this.SSRDetail ['SeatData'];
+            this.travellerJson = this.SSRDetail ['SeatPaxData'];
+          
+            setTimeout(() => {
+              this.CreateSeatJson()
+            }, 100);
+     
       }
-    });
+    })
 
-    this.GetDialCode();
-    if (sessionStorage.getItem('TSFPAX')) {
-      let TSFPAX: any = sessionStorage.getItem('TSFPAX');
-      let resp = JSON.parse(TSFPAX);
-      this.FlightForm.patchValue({
-        'Adult': resp['paxdata']['Adult'],
-        'Child': resp['paxdata']['Child'],
-        'Infant': resp['paxdata']['Infant'],
-        'ISDCode': resp['ISDCode'],
-        'MobileNumber': resp['MobileNumber'],
-        'EmailId': resp['EmailId'],
-      });
-      this.GSTForm.patchValue(resp['gstdata']);
-      this.CalculateSSrPrice()
-    }
-   this.GetInsuranceData();
   }
 
   GetInsuranceData(){
@@ -647,6 +1036,7 @@ GetPhonecodeVal(event: Event): void {
       Infant: this.fb.array(arrinf),
     });
     this.loading = false;
+   
   }
 
   BuildFormPaxDynamic(paxtype: any) {
@@ -664,8 +1054,8 @@ GetPhonecodeVal(event: Event): void {
       passportissueval = [Validators.required];
       passportexpiryval = [Validators.required];
     }
-
     let airlinecode: any = this.Response[0]['Segments'][0][0]['Airline']['AirlineCode'];
+
     let dob;
     if (paxtype == "Adult") {
       if (this.showadtdob) {
@@ -698,6 +1088,7 @@ GetPhonecodeVal(event: Event): void {
     if(this.GetSearchData['Isdomestic']!=='false'){
       title=[Validators.required]
     }
+    
     return this.fb.group({
       Title: ['', title],
       FirstName: ['', [Validators.required, Validators.pattern('[a-zA-Z /\s/g]+'), Validators.minLength(2)]],
@@ -719,6 +1110,7 @@ GetPhonecodeVal(event: Event): void {
       Seat: [''],
       SavePax: [''],
     });
+     
   }
 
   showmarkup() {
@@ -756,10 +1148,9 @@ GetPhonecodeVal(event: Event): void {
 
 
   CreateSSRData(resp: any) {
-    let ssrAPiMeal: any = resp['ssrresp']['Meal']
-    let ssrAPibag: any = resp['ssrresp']['Baggage']
+    let ssrAPiMeal: any = resp['Meal']
+    let ssrAPibag: any = resp['Baggage']
     let SSRData: any = []
-    
     if(this.IsDomestic==="true"){
         ssrAPiMeal.forEach((element: any, dkey: any) => {
           element.forEach((element: any, ikey: any) => {
@@ -970,7 +1361,11 @@ GetPhonecodeVal(event: Event): void {
   // End:: Pradeep's Code Here*********************************************************************************************************************
 
 
-  SubmitPax() {
+  SubmitPax() { 
+
+    this.AllTSFPRESP['param']=this.param;
+    this.AllTSFPRESP['response']=this.AllResponse;
+    this.AllTSFPRESP['fare']=this.CurrentFare;
     this.AllTSFPRESP['fare']['SSR'] = this.CurrentFare['SSR'];
     if (!this.AllTSFPRESP['fare']['SSR']) {
       this.AllTSFPRESP['fare']['SSR'] = {}
@@ -978,10 +1373,10 @@ GetPhonecodeVal(event: Event): void {
       this.AllTSFPRESP['fare']['SSR']['Baggage'] = 0
       this.AllTSFPRESP['fare']['SSR']['Seat'] = 0
     }
-
     if (this.isGSTShow) {
       this.submitted = true;
       this.Gstsubmitted = true;
+    
       if (this.GSTForm.invalid || this.FlightForm.invalid) {
         return;
       }
@@ -999,9 +1394,9 @@ GetPhonecodeVal(event: Event): void {
     this.CurrentFare['InsurancePrice']=this.InsurancePrice
     let savedata: any = {};
     savedata['gstdata'] = this.GSTForm.value;
-    savedata['SearchTokenId'] = this.SearchTokenId;
-    if (this.SearchTokenIdIB) {
-      savedata['SearchTokenIdIB'] = this.SearchTokenIdIB;
+    savedata['SearchTokenId'] = this.param['stoken'];
+    if (this.param['ibstoken']) {
+      savedata['SearchTokenIdIB'] = this.param['ibstoken'];
     }
     savedata['ISDCode'] = this.FlightForm.get('ISDCode')?.value;
     savedata['MobileNumber'] = this.FlightForm.get('MobileNumber')?.value;
@@ -1028,8 +1423,7 @@ GetPhonecodeVal(event: Event): void {
     if (this.FlightForm.get('Infant')?.value?.length != 0) {
       Object.assign(paxobj, { 'Infant': this.FlightForm.get('Infant')?.value });
     }
-    ;
-
+  
     Object.assign(savedata, { 'paxdata': paxobj });
     sessionStorage.setItem('TSFP', JSON.stringify(this.AllTSFPRESP))
     sessionStorage.setItem('TSFPAX', JSON.stringify(savedata));

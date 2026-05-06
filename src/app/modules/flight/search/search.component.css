@@ -267,3 +267,29 @@
     left: -25px;
     bottom: 10px;
 }
+
+
+.baggage-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.baggage-detail {
+    display: none;
+    position: absolute;
+    top: 30px;
+    left: 0;
+    font-size: 12px;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 250px;
+    z-index: 100;
+}
+
+.baggage-wrapper:hover .baggage-detail {
+    display: block;
+}
+.baggage-items{
+    display: block;
+}
