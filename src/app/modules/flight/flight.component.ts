@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NavigationExtras, Router } from '@angular/router';
@@ -7,14 +7,12 @@ import { CommonService } from '../../services/common.service';
 import Validation from '../../utils/validation';
 import { tts_config } from '../../../environments/tts_config';
 import { FlightService } from './flight.service';
-
 declare var $: any;
-declare var bootstrap: any;
 
 @Component({
   selector: 'app-flight',
   templateUrl: './flight.component.html',
-  styleUrls: ['./flight.component.css']
+  styleUrls: ['./flight.component.css'],
 })
 export class FlightComponent implements OnInit {
 

@@ -9,11 +9,24 @@
     overflow: hidden;
     z-index: 1;
 
+     /* background:
+        linear-gradient(
+            135deg,
+            rgba(2, 27, 58, 0.85) 0%,
+            rgba(11, 77, 141, 0.8) 45%,
+            rgba(0, 180, 255, 0.75) 100%
+        ),
+        rgba(0, 0, 0, 0.5), url('/../assets/img/localhost_4200_flight (1).png'); */
+
     background:
-        linear-gradient(135deg,
-            #021b3a 0%,
-            #0b4d8d 45%,
-            #00b4ff 100%);
+        linear-gradient(
+            135deg,
+            rgba(0, 0, 0, 0.5) 100%
+        ), url('/../assets/img/localhost_4200_flight (1).png');
+
+    background-size: cover;
+    background-position:top center;
+    background-repeat: no-repeat;
 }
 
 /* GLASS OVERLAY */
@@ -41,20 +54,21 @@
     position: relative;
     z-index: 2;
 
-    height: 720px;
+    height: 650px;
     overflow: hidden;
 
     display: flex;
     align-items: center;
 
-    padding: 70px;
+    padding: 50px;
 
     border-radius: 32px 0 0 32px;
 
     background:
         linear-gradient(145deg,
-            rgba(255, 255, 255, 0.08),
-            rgba(255, 255, 255, 0.03));
+            rgba(2, 27, 58, 0.85) 0%,
+            rgba(11, 77, 141, 0.8) 45%,
+            rgba(0, 180, 255, 0.75) 100%);
 
     backdrop-filter: blur(14px);
 
@@ -143,7 +157,7 @@
 }
 
 .travel-banner-content h1 {
-    font-size: 58px;
+    font-size: 45px;
     line-height: 1.15;
     font-weight: 800;
 
@@ -223,7 +237,7 @@
    RIGHT AUTH CARD
 ========================= */
 .auth-card {
-    min-height: 720px;
+    min-height: 650px;
 
     display: flex;
     flex-direction: column;
@@ -268,7 +282,7 @@
 
 .auth-card-top img {
     max-width: 100%;
-    max-height: 60px;
+    max-height: 45px;
     margin: auto;
 }
 
