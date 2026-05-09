@@ -55,11 +55,11 @@ PARENT SECTION
 
 .flight_box {
   position: relative;
-  background: var(--white);
+  /* background: var(--white);
   border: 1px solid rgba(29, 72, 163, 0.08);
   border-radius: var(--radius-lg);
   padding: 25px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08); */
   z-index: 2;
 }
 
@@ -127,11 +127,11 @@ FLIGHT SEARCH TOP BAR
   transition: var(--transition);
 }
 
-.flight-search-wrapper .flight-tabs .nav-link:hover {
+/* .flight-search-wrapper .flight-tabs .nav-link:hover {
   border-color: var(--primary-color);
   background: rgba(29, 72, 163, 0.05);
   color: var(--primary-color);
-}
+} */
 
 .flight-search-wrapper .flight-tabs .nav-link.active {
   background: linear-gradient(135deg,
@@ -419,12 +419,13 @@ RESPONSIVE
   gap: 14px;
   margin-top: 18px;
   position: relative;
+  color: var(--white);
 }
 
 .makeflex span {
   font-size: 14px;
   font-weight: 700;
-  color: var(--second-dark-color);
+   color: var(--white);
 }
 
 .search_filters {
@@ -454,7 +455,7 @@ RESPONSIVE
 
 .form-check-label {
   font-size: 14px;
-  color: var(--second-dark-color);
+  color: var(--white);
   cursor: pointer;
 }
 
@@ -607,10 +608,6 @@ RESPONSIVE
 }
 
 @media(max-width:991px) {
-  .flight_box {
-    padding: 25px;
-  }
-
   .flight_box_title span {
     font-size: 30px;
   }
@@ -629,10 +626,6 @@ RESPONSIVE
 }
 
 @media(max-width:767px) {
-  .flight_box {
-    padding: 20px;
-    border-radius: 16px;
-  }
 
   .flight_box_title span {
     font-size: 24px;
