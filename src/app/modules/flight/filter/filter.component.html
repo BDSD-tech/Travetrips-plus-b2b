@@ -213,14 +213,15 @@
 
                 <label class="time-box" *ngFor="let item of Filter[0]['DepartTime']; let i=index"
                     [ngClass]="{'active-time': item.isChecked}">
-                    <input type="checkbox" class="d-none" id="departTime{{i}}" name="depart_time" value="{{item['value']}}"
-                        [(ngModel)]="item.isChecked" (click)="doFilter(0, 'DepartTime', $event, item);" />
+                    <input type="checkbox" class="d-none" id="departTime{{i}}" name="depart_time"
+                        value="{{item['value']}}" [(ngModel)]="item.isChecked"
+                        (click)="doFilter(0, 'DepartTime', $event, item);" />
                     <div class="time-icon {{item['icon']}}">
 
                     </div>
-            
+
                     <span>{{item.label}}</span>
-                
+
                 </label>
 
             </div>
@@ -354,169 +355,172 @@
 
 
 <!----old code---->
+<div class="d-none">
+    <div class="al-listbtm">
+        <div class="al-priceac">
+            <div class="d-flex justify-content-end">
+                <a href="javascript:void(0);" (click)="clearFilter()">
+                    <span class="text-danger"><span class="fw-bold">RESET ALL</span></span>
+                </a>
+            </div>
+            <div class="al-prresets">
+                <span *ngIf="Filter.length==1">Price</span>
+                <span *ngIf="Filter.length==2">Onward Price</span>
 
-<div class="al-listbtm">
-    <div class="al-priceac">
-        <div class="d-flex justify-content-end">
-            <a href="javascript:void(0);" (click)="clearFilter()">
-                <span class="text-danger"><span class="fw-bold">RESET ALL</span></span>
-            </a>
-        </div>
-        <div class="al-prresets">
-            <span *ngIf="Filter.length==1">Price</span>
-            <span *ngIf="Filter.length==2">Onward Price</span>
-            
-            <i class="fa fa-minus float-end filter-minus tts-cursor-pointer" data-bs-toggle="collapse"
-                href="#filter-price" (click)="togglebutton($event)"></i>
-        </div>
-        <div class="collapse show" id="filter-price">
-            <div class="p-2 tts__filter-price price-range-slider">
-                <div class="price-range price-filter"></div>
-                <p class="tts-price-range">
-                    <input type="text" class="left-price" readonly />
-                    <input type="text" class="right-price text-end" readonly />
-                </p>
+                <i class="fa fa-minus float-end filter-minus tts-cursor-pointer" data-bs-toggle="collapse"
+                    href="#filter-price" (click)="togglebutton($event)"></i>
+            </div>
+            <div class="collapse show" id="filter-price">
+                <div class="p-2 tts__filter-price price-range-slider">
+                    <div class="price-range price-filter"></div>
+                    <p class="tts-price-range">
+                        <input type="text" class="left-price" readonly />
+                        <input type="text" class="right-price text-end" readonly />
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="al-listbtm" *ngIf="Filter[1] && this.GetSearchData['Isdomestic']=='true'">
-    <div class="al-priceac">
-        <div class="al-prresets">
-            <span>Return Price</span>
-            <!-- <a href="javascript:void(0);" (click)="clearFilterByCat(1,'Price')">
+    <div class="al-listbtm" *ngIf="Filter[1] && this.GetSearchData['Isdomestic']=='true'">
+        <div class="al-priceac">
+            <div class="al-prresets">
+                <span>Return Price</span>
+                <!-- <a href="javascript:void(0);" (click)="clearFilterByCat(1,'Price')">
                 <span class="ast-recolor"><span> RESET</span></span>
             </a> -->
-            <i class="fa fa-minus float-end filter-minus tts-cursor-pointer" data-bs-toggle="collapse"
-                href="#filter-price1" (click)="togglebutton($event)"></i>
-        </div>
-        <div class="collapse show" id="filter-price1">
-            <div class="p-2 tts__filter-price price-range-slider">
-                <div class="return-price-range price-filter"></div>
-                <p class="tts-price-range">
-                    <input type="text" class="return-left-price" readonly />
-                    <input type="text" class="return-right-price text-end" readonly />
-                </p>
+                <i class="fa fa-minus float-end filter-minus tts-cursor-pointer" data-bs-toggle="collapse"
+                    href="#filter-price1" (click)="togglebutton($event)"></i>
             </div>
-        </div>
-
-    </div>
-</div>
-
-<div class="al-listbtm">
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="showincvfare" [(ngModel)]="showincentivefare"
-            (ngModelChange)="showfares('incv',showincentivefare)">
-        <label class="form-check-label" for="showincvfare">
-            Show Incv
-        </label>
-    </div>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="shownetfare" [(ngModel)]="shownetfare"
-            (ngModelChange)="showfares('net',shownetfare)">
-        <label class="form-check-label" for="shownetfare">
-            Show Net
-        </label>
-    </div>
-</div>
-@if(Filter[0]){
-<div class="filter-item border-bottom p-3">
-    <div class="accordion-header">
-        <button class="accordion-button p-0" type="button" data-bs-toggle="collapse"
-            data-bs-target="#collapseRefundable" aria-expanded="false" aria-controls="collapseRefundable">
-            <i class="bi bi-shield-x me-2"></i> Fare Type
-        </button>
-    </div>
-    <div id="collapseRefundable" class="accordion-collapse collapse show" aria-labelledby="headingRefundable"
-        data-bs-parent="#filterAccordion">
-        <div class="accordion-body">
-            @for (item of Filter[0]['FareType']; track $index) {
-
-            <div class="form-check form-switch">
-                <input class="form-check-input" [(ngModel)]="item['isChecked']" name="{{item.label}}"
-                    (click)="doFilter(0,'FareType',$event,item);" type="checkbox" id="nonRefundableSwitch_{{$index}}" />
-                <label class="form-check-label fw-semibold" for="nonRefundableSwitch_{{$index}}">{{item.label}}</label>
+            <div class="collapse show" id="filter-price1">
+                <div class="p-2 tts__filter-price price-range-slider">
+                    <div class="return-price-range price-filter"></div>
+                    <p class="tts-price-range">
+                        <input type="text" class="return-left-price" readonly />
+                        <input type="text" class="return-right-price text-end" readonly />
+                    </p>
+                </div>
             </div>
 
-            }
         </div>
     </div>
-</div>
-}
-@if(Filter[1] && this.GetSearchData['Isdomestic']=='true'){
-<div class="filter-item border-bottom p-3">
-    <div class="accordion-header">
-        <button class="accordion-button p-0" type="button" data-bs-toggle="collapse" data-bs-target="#refundable_1"
-            aria-expanded="false" aria-controls="refundable_1">
-            <i class="bi bi-shield-x me-2"></i> Fare Type Return
-        </button>
-    </div>
-    <div id="refundable_1" class="accordion-collapse collapse show" aria-labelledby="headingRefundable"
-        data-bs-parent="#filterAccordion">
-        <div class="accordion-body">
-            @for (item of Filter[1]['FareType']; track $index) {
 
-            <div class="form-check form-switch">
-                <input class="form-check-input" [(ngModel)]="item['isChecked']" name="{{item.label}}"
-                    (click)="doFilter(1,'FareType',$event,item);" type="checkbox" id="RefundableSwitch_{{$index}}" />
-                <label class="form-check-label fw-semibold" for="RefundableSwitch_{{$index}}">{{item.label}}</label>
-            </div>
-
-            }
-        </div>
-    </div>
-</div>
-}
-
-<div class="al-listbtm">
-    <div class="al-priceac">
-        <div class="al-prresets"><span>Stops</span></div>
-    </div>
-
-    <ul *ngIf="Filter.length==2">
-        <li class="multi-cityname" (click)="isshowfilter('stop',$event,0)"
-            [ngClass]="{'multicity-active':isstopshow==0}">
-            {{GetSearchData['OriginCode']}}-{{GetSearchData['DestinationCode']}}</li>
-        <li class="multi-cityname" (click)="isshowfilter('stop',$event,1)"
-            [ngClass]="{'multicity-active':isstopshow==1}">
-            {{GetSearchData['DestinationCode']}}-{{GetSearchData['OriginCode']}}</li>
-    </ul>
-
-    <ul class="list-unstyled list-unstyled1" *ngIf="Filter[0] && isstopshow==0">
-        <li *ngFor="let item of Filter[0]['Stops']; let i=index;" class="tts-cursor-pointer stop-filter"
-            [ngClass]="{'':i < Filter[0]['Stops'].length-1,'tts-filter-select':item.isChecked}">
-            <label class="tts__inputradio_label tts__checkbox__label tts-cursor-pointer w-100">
-                <input type="checkbox" name="stop" value="{{item['value']}}" class="d-none tts__checkbox__input"
-                    [(ngModel)]="item.isChecked" (click)="doFilter(0,'Stop',$event,item);" />
-                <span>{{item['value']}}</span>
+    <div class="al-listbtm">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="showincvfare" [(ngModel)]="showincentivefare"
+                (ngModelChange)="showfares('incv',showincentivefare)">
+            <label class="form-check-label" for="showincvfare">
+                Show Incv
             </label>
-        </li>
-    </ul>
-
-    <ul class="list-unstyled list-unstyled1" *ngIf="Filter[1] && isstopshow==1">
-
-        <li *ngFor="let item of Filter[1]['Stops']; let i=index;" class="tts-cursor-pointer stop-filter"
-            [ngClass]="{'':i < Filter[1]['Stops'].length-1,'tts-filter-select':item.isChecked}">
-            <label class="tts__inputradio_label tts__checkbox__label tts-cursor-pointer w-100">
-                <input type="checkbox" name="stop" value="{{item['value']}}" class="d-none tts__checkbox__input"
-                    [(ngModel)]="item.isChecked" (click)="doFilter(1,'Stops',$event,item);" />
-                <span>{{item['value']}}</span>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="shownetfare" [(ngModel)]="shownetfare"
+                (ngModelChange)="showfares('net',shownetfare)">
+            <label class="form-check-label" for="shownetfare">
+                Show Net
             </label>
-        </li>
-    </ul>
-
-
-</div>
-
-<div class="al-listbtm">
-    <div class="al-priceac">
-        <div class="al-prresets"><span>
-                Departure From
-                {{ GetSearchData['Origin'] }}
-            </span></div>
+        </div>
     </div>
-    <!-- <div class="flight-time">
+    @if(Filter[0]){
+    <div class="filter-item border-bottom p-3">
+        <div class="accordion-header">
+            <button class="accordion-button p-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseRefundable" aria-expanded="false" aria-controls="collapseRefundable">
+                <i class="bi bi-shield-x me-2"></i> Fare Type
+            </button>
+        </div>
+        <div id="collapseRefundable" class="accordion-collapse collapse show" aria-labelledby="headingRefundable"
+            data-bs-parent="#filterAccordion">
+            <div class="accordion-body">
+                @for (item of Filter[0]['FareType']; track $index) {
+
+                <div class="form-check form-switch">
+                    <input class="form-check-input" [(ngModel)]="item['isChecked']" name="{{item.label}}"
+                        (click)="doFilter(0,'FareType',$event,item);" type="checkbox"
+                        id="nonRefundableSwitch_{{$index}}" />
+                    <label class="form-check-label fw-semibold"
+                        for="nonRefundableSwitch_{{$index}}">{{item.label}}</label>
+                </div>
+
+                }
+            </div>
+        </div>
+    </div>
+    }
+    @if(Filter[1] && this.GetSearchData['Isdomestic']=='true'){
+    <div class="filter-item border-bottom p-3">
+        <div class="accordion-header">
+            <button class="accordion-button p-0" type="button" data-bs-toggle="collapse" data-bs-target="#refundable_1"
+                aria-expanded="false" aria-controls="refundable_1">
+                <i class="bi bi-shield-x me-2"></i> Fare Type Return
+            </button>
+        </div>
+        <div id="refundable_1" class="accordion-collapse collapse show" aria-labelledby="headingRefundable"
+            data-bs-parent="#filterAccordion">
+            <div class="accordion-body">
+                @for (item of Filter[1]['FareType']; track $index) {
+
+                <div class="form-check form-switch">
+                    <input class="form-check-input" [(ngModel)]="item['isChecked']" name="{{item.label}}"
+                        (click)="doFilter(1,'FareType',$event,item);" type="checkbox"
+                        id="RefundableSwitch_{{$index}}" />
+                    <label class="form-check-label fw-semibold" for="RefundableSwitch_{{$index}}">{{item.label}}</label>
+                </div>
+
+                }
+            </div>
+        </div>
+    </div>
+    }
+
+    <div class="al-listbtm">
+        <div class="al-priceac">
+            <div class="al-prresets"><span>Stops</span></div>
+        </div>
+
+        <ul *ngIf="Filter.length==2">
+            <li class="multi-cityname" (click)="isshowfilter('stop',$event,0)"
+                [ngClass]="{'multicity-active':isstopshow==0}">
+                {{GetSearchData['OriginCode']}}-{{GetSearchData['DestinationCode']}}</li>
+            <li class="multi-cityname" (click)="isshowfilter('stop',$event,1)"
+                [ngClass]="{'multicity-active':isstopshow==1}">
+                {{GetSearchData['DestinationCode']}}-{{GetSearchData['OriginCode']}}</li>
+        </ul>
+
+        <ul class="list-unstyled list-unstyled1" *ngIf="Filter[0] && isstopshow==0">
+            <li *ngFor="let item of Filter[0]['Stops']; let i=index;" class="tts-cursor-pointer stop-filter"
+                [ngClass]="{'':i < Filter[0]['Stops'].length-1,'tts-filter-select':item.isChecked}">
+                <label class="tts__inputradio_label tts__checkbox__label tts-cursor-pointer w-100">
+                    <input type="checkbox" name="stop" value="{{item['value']}}" class="d-none tts__checkbox__input"
+                        [(ngModel)]="item.isChecked" (click)="doFilter(0,'Stop',$event,item);" />
+                    <span>{{item['value']}}</span>
+                </label>
+            </li>
+        </ul>
+
+        <ul class="list-unstyled list-unstyled1" *ngIf="Filter[1] && isstopshow==1">
+
+            <li *ngFor="let item of Filter[1]['Stops']; let i=index;" class="tts-cursor-pointer stop-filter"
+                [ngClass]="{'':i < Filter[1]['Stops'].length-1,'tts-filter-select':item.isChecked}">
+                <label class="tts__inputradio_label tts__checkbox__label tts-cursor-pointer w-100">
+                    <input type="checkbox" name="stop" value="{{item['value']}}" class="d-none tts__checkbox__input"
+                        [(ngModel)]="item.isChecked" (click)="doFilter(1,'Stops',$event,item);" />
+                    <span>{{item['value']}}</span>
+                </label>
+            </li>
+        </ul>
+
+
+    </div>
+
+    <div class="al-listbtm">
+        <div class="al-priceac">
+            <div class="al-prresets"><span>
+                    Departure From
+                    {{ GetSearchData['Origin'] }}
+                </span></div>
+        </div>
+        <!-- <div class="flight-time">
         <div *ngFor="let item of Filter[0]['DepartTime']; let i=index;" class="tts-cursor-pointer"
             [ngClass]="{'':i < Filter[0]['DepartTime'].length-1,'tts-filter-select':item.isChecked}">
             <label class="w-100 tts__checkbox__label tts__flight__timing tts-cursor-pointer">
@@ -527,23 +531,24 @@
             </label>
         </div>
     </div> -->
-    <div class="flight-time">
-        <div *ngFor="let item of Filter[0]['DepartTime']; let i = index"
-            class="form-check form-check-inline tts-cursor-pointer" [ngClass]="{'tts-filter-select': item.isChecked}">
+        <div class="flight-time">
+            <div *ngFor="let item of Filter[0]['DepartTime']; let i = index"
+                class="form-check form-check-inline tts-cursor-pointer"
+                [ngClass]="{'tts-filter-select': item.isChecked}">
 
-            <input type="checkbox" class="form-check-input" id="departTime{{i}}" name="depart_time"
-                value="{{item['value']}}" [(ngModel)]="item.isChecked"
-                (click)="doFilter(0, 'DepartTime', $event, item);" />
+                <input type="checkbox" class="form-check-input" id="departTime{{i}}" name="depart_time"
+                    value="{{item['value']}}" [(ngModel)]="item.isChecked"
+                    (click)="doFilter(0, 'DepartTime', $event, item);" />
 
-            <label class="form-check-label" for="departTime{{i}}">
-                <div class="icon_sort {{item['icon']}}"></div>
-                <span class="icon_num">{{item['label']}}</span>
-            </label>
+                <label class="form-check-label" for="departTime{{i}}">
+                    <div class="icon_sort {{item['icon']}}"></div>
+                    <span class="icon_num">{{item['label']}}</span>
+                </label>
+            </div>
         </div>
-    </div>
 
-</div>
-<!-- <div class="al-listbtm">
+    </div>
+    <!-- <div class="al-listbtm">
     <div class="al-priceac">
         <div class="al-prresets"><span>Arrival From {{GetSearchData['Destination'].split('(')[0]}}</span></div>
     </div>
@@ -576,16 +581,16 @@
 
 </div> -->
 
-<div class="al-listbtm" *ngIf="Filter[1]">
-    <div class="al-priceac">
-        <div class="al-prresets">
-            <span>
-                Departure From
-                {{ GetSearchData['Destination']}}
-            </span>
+    <div class="al-listbtm" *ngIf="Filter[1]">
+        <div class="al-priceac">
+            <div class="al-prresets">
+                <span>
+                    Departure From
+                    {{ GetSearchData['Destination']}}
+                </span>
+            </div>
         </div>
-    </div>
-    <!-- <ul class="list-unstyled1">
+        <!-- <ul class="list-unstyled1">
         <li *ngFor="let item of Filter[1]['DepartTime']; let i=index;" class="tts-cursor-pointer"
             [ngClass]="{'':i < Filter[1]['DepartTime'].length-1,'tts-filter-select':item.isChecked}">
             <label class="w-100 tts__checkbox__label tts__flight__timing tts-cursor-pointer">
@@ -596,23 +601,25 @@
             </label>
         </li>
     </ul> -->
-    <div class="flight-time">
-        <div *ngFor="let item of Filter[1]['DepartTime']; let i = index"
-            class="form-check form-check-inline tts-cursor-pointer" [ngClass]="{'tts-filter-select': item.isChecked}">
+        <div class="flight-time">
+            <div *ngFor="let item of Filter[1]['DepartTime']; let i = index"
+                class="form-check form-check-inline tts-cursor-pointer"
+                [ngClass]="{'tts-filter-select': item.isChecked}">
 
-            <input type="checkbox" id="DepartTime{{i}}" class="form-check-input" name="depart_time" [value]="item.value"
-                [(ngModel)]="item.isChecked" (click)="doFilter(1, 'DepartTime', $event, item)" />
+                <input type="checkbox" id="DepartTime{{i}}" class="form-check-input" name="depart_time"
+                    [value]="item.value" [(ngModel)]="item.isChecked"
+                    (click)="doFilter(1, 'DepartTime', $event, item)" />
 
-            <label class="form-check-label d-flex align-items-center gap-2" for="DepartTime{{i}}">
-                <div class="icon_sort {{item.icon}}"></div>
-                <span class="icon_num">{{item.label}}</span>
-            </label>
+                <label class="form-check-label d-flex align-items-center gap-2" for="DepartTime{{i}}">
+                    <div class="icon_sort {{item.icon}}"></div>
+                    <span class="icon_num">{{item.label}}</span>
+                </label>
+            </div>
         </div>
+
+
     </div>
-
-
-</div>
-<!-- <div class="al-listbtm" *ngIf="Filter[1]">
+    <!-- <div class="al-listbtm" *ngIf="Filter[1]">
     <div class="al-priceac">
         <div class="al-prresets"><span>Arrival From {{GetSearchData['Origin'].split('(')[0]}}</span></div>
     </div>
@@ -644,108 +651,111 @@
 </div> -->
 
 
-<div class="al-listbtm">
-    <div class="al-priceac">
-        <div class="al-prresets">
-            <span *ngIf="Filter.length==1">Fare Identifier</span>
-            <span *ngIf="Filter.length==2">Onward Fare Identifier</span>
+    <div class="al-listbtm">
+        <div class="al-priceac">
+            <div class="al-prresets">
+                <span *ngIf="Filter.length==1">Fare Identifier</span>
+                <span *ngIf="Filter.length==2">Onward Fare Identifier</span>
+            </div>
         </div>
-    </div>
-    <nav aria-label="">
-        <ul class="pagination">
-            <li class="page-item" *ngFor="let item of Filter[0]['FareIdentiferColor']; let i=index;">
-                <label class="w-100 tts-cursor-pointer">
-                    <input type="checkbox" class="d-none tts__checkbox__input" name="fare_identifer"
-                        value="{{item['value']}}" [(ngModel)]="item.isChecked"
-                        (click)="doFilter(0,'FareIdentifer',$event,item);" />
-                    <div attr.data-name="{{item['label']}}"
-                        class="fliterlist__wrap--list fliterlist-{{item['label']}} me-1">
-                        <span [ngClass]="{'fliterlist__wrap--rightcheck':item.isChecked}"></span>
-                    </div>
-                    <span class="fliterlist__element fliterlist__element--text"> {{item['count']}} </span>
-                </label>
-            </li>
-        </ul>
-    </nav>
-</div>
-
-<div class="al-listbtm" *ngIf="Filter[1]  && this.GetSearchData['Isdomestic']=='true'">
-    <div class="al-priceac">
-        <div class="al-prresets"><span>Return Fare Identifier</span></div>
-    </div>
-    <nav aria-label="">
-        <ul class="pagination">
-            <li class="page-item" *ngFor="let item of Filter[1]['FareIdentiferColor']; let i=index;">
-                <label class="w-100 tts-cursor-pointer">
-                    <input type="checkbox" class="d-none tts__checkbox__input" name="fare_identifer"
-                        value="{{item['value']}}" [(ngModel)]="item.isChecked"
-                        (click)="doFilter(1,'FareIdentifer',$event,item);" />
-                    <div attr.data-name="{{item['label']}}"
-                        class="fliterlist__wrap--list fliterlist-{{item['label']}} me-1">
-                        <span [ngClass]="{'fliterlist__wrap--rightcheck':item.isChecked}"></span>
-                    </div>
-                    <span class="fliterlist__element fliterlist__element--text"> {{item['count']}} </span>
-                </label>
-            </li>
-        </ul>
-    </nav>
-</div>
-
-<div class="al-listbtm ">
-    <div class="al-priceac">
-        <div class="al-prresets">
-            <span *ngIf="Filter.length==1">Airlines</span>
-            <span *ngIf="Filter.length==2">Onward Airlines</span>
-            <a href="javascript:void(0)" (click)="clearFilterByCat(0,'Airlines')">
-                <span class="ast-recolor"><span>Clear</span></span>
-            </a>
-            <i class="fa fa-minus float-end filter-minus tts-cursor-pointer" data-bs-toggle="collapse"
-                href="#filter-airline" (click)="togglebutton($event)"></i>
-        </div>
-
-        <div class="collapse show" id="filter-airline">
-            <ul class="flight__airline__list">
-                <li class="flight__airline__item mt-0 a" *ngFor="let item of Filter[0]['Airlines']; let i=index;">
-                    <label class="tts-filter-airline">
-                        <span class="flight__airline__name">{{item['label']}} <span
-                                class="airline_total-search">{{item['count']}}</span></span>
-                        <span class="float-end">
-                            <span class="airline__total-price">₹{{item['fare']| number:'1.0-2'}} &nbsp;</span>
-                            <input type="checkbox" value="{{item['value']}}" [(ngModel)]="item['isChecked']"
-                                class="al-checkfield airline_filtercheck" (click)="doFilter(0,'Airline',$event,item);">
-                        </span>
+        <nav aria-label="">
+            <ul class="pagination">
+                <li class="page-item" *ngFor="let item of Filter[0]['FareIdentiferColor']; let i=index;">
+                    <label class="w-100 tts-cursor-pointer">
+                        <input type="checkbox" class="d-none tts__checkbox__input" name="fare_identifer"
+                            value="{{item['value']}}" [(ngModel)]="item.isChecked"
+                            (click)="doFilter(0,'FareIdentifer',$event,item);" />
+                        <div attr.data-name="{{item['label']}}"
+                            class="fliterlist__wrap--list fliterlist-{{item['label']}} me-1">
+                            <span [ngClass]="{'fliterlist__wrap--rightcheck':item.isChecked}"></span>
+                        </div>
+                        <span class="fliterlist__element fliterlist__element--text"> {{item['count']}} </span>
                     </label>
                 </li>
             </ul>
-        </div>
+        </nav>
     </div>
-</div>
 
-<div class="al-listbtm" *ngIf="Filter[1]  && this.GetSearchData['Isdomestic']=='true'">
-    <div class="al-priceac">
-        <div class="al-prresets">
-            <span *ngIf="Filter.length==2">Return Airlines</span>
-            <a href="javascript:void(0)" (click)="clearFilterByCat(1,'Airlines')">
-                <span class="ast-recolor"><span>Clear</span></span>
-            </a>
-            <i class="fa fa-minus float-end filter-minus tts-cursor-pointer" data-bs-toggle="collapse"
-                href="#filter-airline1" (click)="togglebutton($event)"></i>
+    <div class="al-listbtm" *ngIf="Filter[1]  && this.GetSearchData['Isdomestic']=='true'">
+        <div class="al-priceac">
+            <div class="al-prresets"><span>Return Fare Identifier</span></div>
         </div>
-
-        <div class="collapse show" id="filter-airline1">
-            <ul class="flight__airline__list">
-                <li class="flight__airline__item mt-0 a" *ngFor="let item of Filter[1]['Airlines']; let i=index;">
-                    <label class="tts-filter-airline">
-                        <span class="flight__airline__name">{{item['label']}} <span
-                                class="airline_total-search">{{item['count']}}</span></span>
-                        <span class="float-end">
-                            <span class="airline__total-price">₹{{item['fare']| number:'1.0-2'}} &nbsp;</span>
-                            <input type="checkbox" value="{{item['value']}}" [(ngModel)]="item['isChecked']"
-                                class="al-checkfield airline_filtercheck" (click)="doFilter(1,'Airline',$event,item);">
-                        </span>
+        <nav aria-label="">
+            <ul class="pagination">
+                <li class="page-item" *ngFor="let item of Filter[1]['FareIdentiferColor']; let i=index;">
+                    <label class="w-100 tts-cursor-pointer">
+                        <input type="checkbox" class="d-none tts__checkbox__input" name="fare_identifer"
+                            value="{{item['value']}}" [(ngModel)]="item.isChecked"
+                            (click)="doFilter(1,'FareIdentifer',$event,item);" />
+                        <div attr.data-name="{{item['label']}}"
+                            class="fliterlist__wrap--list fliterlist-{{item['label']}} me-1">
+                            <span [ngClass]="{'fliterlist__wrap--rightcheck':item.isChecked}"></span>
+                        </div>
+                        <span class="fliterlist__element fliterlist__element--text"> {{item['count']}} </span>
                     </label>
                 </li>
             </ul>
+        </nav>
+    </div>
+
+    <div class="al-listbtm ">
+        <div class="al-priceac">
+            <div class="al-prresets">
+                <span *ngIf="Filter.length==1">Airlines</span>
+                <span *ngIf="Filter.length==2">Onward Airlines</span>
+                <a href="javascript:void(0)" (click)="clearFilterByCat(0,'Airlines')">
+                    <span class="ast-recolor"><span>Clear</span></span>
+                </a>
+                <i class="fa fa-minus float-end filter-minus tts-cursor-pointer" data-bs-toggle="collapse"
+                    href="#filter-airline" (click)="togglebutton($event)"></i>
+            </div>
+
+            <div class="collapse show" id="filter-airline">
+                <ul class="flight__airline__list">
+                    <li class="flight__airline__item mt-0 a" *ngFor="let item of Filter[0]['Airlines']; let i=index;">
+                        <label class="tts-filter-airline">
+                            <span class="flight__airline__name">{{item['label']}} <span
+                                    class="airline_total-search">{{item['count']}}</span></span>
+                            <span class="float-end">
+                                <span class="airline__total-price">₹{{item['fare']| number:'1.0-2'}} &nbsp;</span>
+                                <input type="checkbox" value="{{item['value']}}" [(ngModel)]="item['isChecked']"
+                                    class="al-checkfield airline_filtercheck"
+                                    (click)="doFilter(0,'Airline',$event,item);">
+                            </span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="al-listbtm" *ngIf="Filter[1]  && this.GetSearchData['Isdomestic']=='true'">
+        <div class="al-priceac">
+            <div class="al-prresets">
+                <span *ngIf="Filter.length==2">Return Airlines</span>
+                <a href="javascript:void(0)" (click)="clearFilterByCat(1,'Airlines')">
+                    <span class="ast-recolor"><span>Clear</span></span>
+                </a>
+                <i class="fa fa-minus float-end filter-minus tts-cursor-pointer" data-bs-toggle="collapse"
+                    href="#filter-airline1" (click)="togglebutton($event)"></i>
+            </div>
+
+            <div class="collapse show" id="filter-airline1">
+                <ul class="flight__airline__list">
+                    <li class="flight__airline__item mt-0 a" *ngFor="let item of Filter[1]['Airlines']; let i=index;">
+                        <label class="tts-filter-airline">
+                            <span class="flight__airline__name">{{item['label']}} <span
+                                    class="airline_total-search">{{item['count']}}</span></span>
+                            <span class="float-end">
+                                <span class="airline__total-price">₹{{item['fare']| number:'1.0-2'}} &nbsp;</span>
+                                <input type="checkbox" value="{{item['value']}}" [(ngModel)]="item['isChecked']"
+                                    class="al-checkfield airline_filtercheck"
+                                    (click)="doFilter(1,'Airline',$event,item);">
+                            </span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

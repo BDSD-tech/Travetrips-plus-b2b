@@ -535,17 +535,13 @@ UTILITY COLORS
 RESPONSIVE
 ========================================================= */
 @media (max-width: 768px) {
-    .flight-filter-sidebar {
-        padding: 16px;
-    }
-
     .filter-header {
         flex-direction: column;
         align-items: flex-start;
     }
 
     .time-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .fare-switch-wrap {

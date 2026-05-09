@@ -180,10 +180,6 @@ RESPONSIVE
     .section-title h2 {
         font-size: 28px;
     }
-
-    .btn {
-        width: 100%;
-    }
 }
 
 /*=======header================end==========*/
@@ -731,7 +727,7 @@ background-repeat: no-repeat;
 background-position: center;
 } */
 /*========modify==========list=======end======*/
-/*========flight==========list================*/
+/*========flight==========list================*
 .flight-list .flight-list-item {
     position: relative;
     box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.1);
@@ -844,10 +840,10 @@ background-position: center;
     line-height: 0;
 }
 
-/* 
+
 .flight-list .flight-activefilter {
 color: var(--second-color);
-} */
+}
 .flight-list .flight-activefilter i {
     margin-left: 5px;
 }
@@ -882,7 +878,7 @@ color: var(--second-color);
     padding-bottom: 20px;
 }
 
-/* .flight-list .flight-listair {
+.flight-list .flight-listair {
 padding: 0;
 margin: 0;
 list-style: none;
@@ -895,7 +891,7 @@ font-size: 15px;
 color: #2e464a;
 cursor: pointer;
 margin-bottom: 15px;
-} */
+}
 .flight-radiolist {
     margin-bottom: 0px;
 }
@@ -919,32 +915,32 @@ margin-bottom: 15px;
 
 .flight-list .flightids {
     font-size: 12px;
-    /* color: #848f91; */
+    color: #848f91;
 }
 
 .flight-list .flight-listair .flight-city {
-    /* color: #848f91; */
+    color: #848f91;
     font-weight: bold;
     font-size: 15px;
     margin-bottom: 0;
 }
 
 .flight-list .flight-timefont {
-    /* font-weight: bold; */
+    font-weight: bold;
     display: block;
-    /* margin: 5px 0; */
+    margin: 5px 0;
 }
 
 .flight-list .flight-dur-timefont {
     font-size: 15px;
     font-weight: bold;
-    /* color: #848f91; */
+    color: #848f91;
 }
 
 .flight-list .flight-arrow {
     line-height: 5px;
     font-size: 11px;
-    /* color: #848f91; */
+    color: #848f91;
 }
 
 .flight-list .flight-arrow-center-arrow {
@@ -1034,9 +1030,9 @@ margin-bottom: 15px;
 
 .flight-radiolist li label {
     display: block;
-    /* margin: 0 auto;
+    margin: 0 auto;
 height: 20px;
-width: 75%; */
+width: 75%;
     cursor: pointer;
     font-weight: bold;
 }
@@ -3186,17 +3182,6 @@ color: var(--black) !important;
 .arrow.top:after {
     bottom: -20px;
     top: auto;
-}
-
-@media (min-width: 992px) {
-    .filter-flights {
-        /* position: sticky; */
-        top: 0px;
-        z-index: 1;
-        background-color: #ffffff;
-        padding: 10px;
-        box-shadow: 1px 1px 15px rgb(0 0 0 / 10%);
-    }
 }
 
 .download-button {
