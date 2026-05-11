@@ -362,10 +362,22 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   receiveMessage($event: any) {
     this.sortedData = $event.response;
+    this.sortedData.forEach((trip: any) => {
+      if (trip.FareList?.length) {
+        this.selectedfare[trip.TtsIndex] = trip.FareList.reduce(
+          (cheapest: any, current: any) =>
+            current.Fare.OfferedPrice < cheapest.Fare.OfferedPrice
+              ? current
+              : cheapest
+        );
+      }
+    });
     this.filterresultcount = this.sortedData.length;
     this.resultcount = this.filterresultcount;
     this.resultlimit = 20;
     this.clearfilter = false;
+
+
   }
 
   receiveFare($event: any) {
@@ -520,10 +532,10 @@ export class SearchComponent implements OnInit, OnDestroy {
       let farelistobj = flightInfo['FareList'].filter(function (item: any) {
         return item.FareId == selindex;
       })[0];
-      this.selectedfare[ttsindex] = farelistobj
+      this.selectedfare[ttsindex] = farelistobj;
+      
       this.FlightFareDetail = farelistobj;
       this.FlightBaggageInfo = farelistobj['SeatBaggage'];
-
       this.FareBreakdown = [];
       if (this.FlightFareDetail['FareBreakdown']['ADT']) {
         this.FlightFareDetail['FareBreakdown']['ADT']['PaxType'] = 'Adult';

@@ -262,7 +262,6 @@ export class FilterComponent implements OnInit {
       } else {
         $('.noflight').hide();
       }
-
       this.emitdata(filteredResult,filtertype);
     }, 10);
 

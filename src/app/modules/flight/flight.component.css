@@ -3,7 +3,7 @@ HERO SECTION (CREATIVE UPGRADE)
 ========================================================= */
 .hero-section {
   padding: 100px 0;
-  min-height: 300px;
+  min-height: 250px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -165,7 +165,7 @@ PARENT SECTION
   align-items: center;
   justify-content: start;
   gap: 10px;
-  padding:10px 25px;
+  padding: 10px 25px;
   overflow-x: auto;
   scrollbar-width: none;
   margin: -25px -25px 25px -25px;
@@ -823,225 +823,143 @@ RESPONSIVE
   }
 }
 
-/* =========================
-   Recent Search Section
-========================= */
-
+/*recent-search-section*/
 .recent-search-section {
+  position: relative;
+  overflow: hidden;
   padding-top: 50px;
 }
 
 .recent-search-section .recent-search-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 15px;
 }
 
-.recent-search-section .recent-search-header .title {
+.recent-search-section .title {
   font-size: 25px;
   font-weight: 700;
-  color: var(--second-dark-color);
-  margin: 0 0 6px;
-  font-family: var(--heading-font);
-}
-
-.recent-search-section .recent-search-header .subtitle {
-  font-size: 14px;
-  color: var(--body-text-color);
-  margin: 0;
-  font-weight: 400;
+  color: #0f172a;
 }
 
 .recent-search-section .recent-search-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 24px;
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+}
+
+.recent-search-section .recent-search-grid::-webkit-scrollbar {
+  display: none;
 }
 
 .recent-search-section .recent-card {
-  height: 100%;
-  cursor: pointer;
-  transition: var(--transition);
+  min-width: 280px;
+  max-width: 280px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  transition: 0.35s ease;
 }
 
-.recent-search-section .recent-card:hover {
-  transform: translateY(-6px);
-}
 
 .recent-search-section .at-viewlastbg {
   position: relative;
-  padding: 18px;
-  border-radius: var(--radius-lg);
-  background: var(--white);
   overflow: hidden;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 10px;
   border: 1px solid var(--border-color);
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition);
+  background:
+    rgba(255, 255, 255, 0.92);
+
+  backdrop-filter: blur(14px);
+
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.06);
+
+  transition: 0.35s ease;
 }
 
-.recent-search-section .at-viewlastbg:hover {
-  border-color: var(--primary-color);
-  box-shadow: var(--shadow-md);
+.recent-search-section .recent-card:hover .at-viewlastbg {
+  box-shadow:
+    0 18px 40px rgba(37, 99, 235, 0.12);
+    border: 1px solid var(--primary-color);
 }
 
-.recent-search-section .trip-type {
-  margin-bottom: 18px;
-}
-
-.recent-search-section .trip-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 30px;
-  padding: 0 14px;
-  border-radius: 50px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.4px;
-  text-transform: uppercase;
-}
-
-.recent-search-section .trip-badge.oneway {
-  background: rgba(16, 185, 129, 0.12);
-  color: #059669;
-}
-
-.recent-search-section .trip-badge.roundtrip {
-  background: rgba(247, 157, 6, 0.12);
-  color: #f79d06;
-}
-
-.recent-search-section .trip-badge.multi {
-  background: rgba(29, 72, 163, 0.12);
-  color: var(--primary-color);
-}
-
-.recent-search-section .route-area {
+.recent-search-section .recent-top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 14px;
-  margin-bottom: 18px;
+  ;
 }
 
-.recent-search-section .route-city {
-  flex: 1;
-  text-align: center;
-}
-
-.recent-search-section .route-city small {
-  display: block;
-  margin-top: 5px;
-  font-size: 12px;
-  color: var(--body-text-color);
-  font-weight: 500;
-}
-
-.recent-search-section .at-mnlbt {
-  font-size: 18px;
-  margin: 0;
-  color: var(--second-dark-color);
-  letter-spacing: 1px;
-  font-family: var(--heading-font);
-}
-
-.recent-search-section .plane-icon {
-  width: 42px;
-  height: 42px;
-  min-width: 42px;
-  border-radius: 50%;
-  background: linear-gradient(135deg,
-      var(--primary-color),
-      var(--color-dark));
+.recent-search-section .flight-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 18px rgba(29, 72, 163, 0.20);
-}
-
-.recent-search-section .at-vieicon {
-  color: var(--white);
-  font-size: 15px;
-  transform: rotate(45deg);
-}
-
-.recent-search-section .card-footer-info {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding-top: 15px;
-  border-top: 1px dashed var(--border-color);
-  flex-wrap: wrap;
-}
-
-.recent-search-section .date-text,
-.recent-search-section .trip-count,
-.recent-search-section .return-text {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--second-dark-color);
-}
-
-.recent-search-section .date-text {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.recent-search-section .date-text i {
   color: var(--primary-color);
+  font-size: 18px;
 }
 
-@media (max-width: 768px) {
+.recent-search-section .route-text {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
-  .recent-search-section {
-    padding-top: 30px;
-  }
-
-  .recent-search-section .recent-search-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .recent-search-section .recent-search-header .title {
-    font-size: 24px;
-  }
-
-  .recent-search-section .recent-search-grid {
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
-
-  .recent-search-section .at-viewlastbg {
-    padding: 16px;
-  }
-
-  .recent-search-section .at-mnlbt {
-    font-size: 24px;
-  }
-
-  .recent-search-section .plane-icon {
-    width: 40px;
-    height: 40px;
-    min-width: 40px;
-  }
-
-  .recent-search-section .at-vieicon {
-    font-size: 14px;
-  }
-
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
 }
 
+.recent-search-section .route-arrow {
+  color: #64748b;
+  font-size: 18px;
+}
+
+.recent-search-section .recent-bottom {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding-left: 28px;
+
+  color: #64748b;
+  font-size: 13px;
+}
+
+.recent-search-section .dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #94a3b8;
+}
+
+.recent-search-section .user-icon {
+  color: #2563eb;
+}
+
+@media (max-width:768px) {
+
+  .recent-search-section .recent-card {
+    min-width: 240px;
+    max-width: 240px;
+  }
+
+  .recent-search-section .title {
+    font-size: 22px;
+  }
+
+  .recent-search-section .route-text {
+    font-size: 16px;
+  }
+}
 
 /* =========================
    Deals & Offers Section
 ========================= */
-.deal-offer-section{
+.deal-offer-section {
   padding: 50px 0;
 }
 

@@ -162,8 +162,17 @@
                 </div>
                 <!-- Preferred Airline -->
                 <select class="airline-select" (change)="GetPreferredAirline($event)">
-                  <option value="">Select Airline</option>
-                  <option *ngFor="let item of preferredairlinelist" [value]="item.code">{{ item.name }}</option>
+                  <option *ngFor="let item of preferredairlinelist" [value]="item.code" [selected]="item.ischecked">
+                    {{item.name}}
+                  </option>
+                </select>
+
+                <select class="airline-select" formControlName="ResultFareType">
+                  <option value="">Select Fare Type</option>
+                  <option *ngFor="let list of GetWebSiteData['FlightResulFareType'] | keyvalue: compareKeepOrder"
+                    [value]="list.key">
+                    {{ list.value }}
+                  </option>
                 </select>
               </div>
             </div>
@@ -290,28 +299,32 @@
                                   <div class="form-check " (change)="TravellerCount()">
                                     <input class="form-check-input" type="radio" formControlName="Class" value="Economy"
                                       id="Economy" checked>
-                                    <label class="form-check-label persent-label tts-cursor-pointer text-dark text-dakr" for="Economy">
+                                    <label class="form-check-label persent-label tts-cursor-pointer text-dark text-dakr"
+                                      for="Economy">
                                       Economy
                                     </label>
                                   </div>
                                   <div class="form-check " (change)="TravellerCount()">
                                     <input class="form-check-input" type="radio" formControlName="Class"
                                       value="Premium Economy" id="Premium">
-                                    <label class="form-check-label persent-label tts-cursor-pointer text-dark text-dakr" for="Premium">
+                                    <label class="form-check-label persent-label tts-cursor-pointer text-dark text-dakr"
+                                      for="Premium">
                                       Premium Economy
                                     </label>
                                   </div>
                                   <div class="form-check " (change)="TravellerCount()">
                                     <input class="form-check-input" type="radio" formControlName="Class"
                                       value="Business" id="Business">
-                                    <label class="form-check-label persent-label tts-cursor-pointer text-dark text-dakr" for="Business">
+                                    <label class="form-check-label persent-label tts-cursor-pointer text-dark text-dakr"
+                                      for="Business">
                                       Business
                                     </label>
                                   </div>
                                   <div class="form-check " (change)="TravellerCount()">
                                     <input class="form-check-input" type="radio" formControlName="Class" value="First"
                                       id="First">
-                                    <label class="form-check-label persent-label tts-cursor-pointer text-dark text-dakr" for="First">
+                                    <label class="form-check-label persent-label tts-cursor-pointer text-dark text-dakr"
+                                      for="First">
                                       First
                                     </label>
                                   </div>
@@ -331,7 +344,7 @@
 
                   </div>
                   <div class="less-btn">
-                    <button type="submit" class="btn cst-btn" [disabled]="Flightloading || paxcountstop"> <span
+                    <button type="submit" class="cst-btn" [disabled]="Flightloading || paxcountstop"> <span
                         *ngIf="Flightloading" class="spinner-border spinner-border-sm mr-1"></span> Search</button>
                   </div>
                 </div>
@@ -350,7 +363,7 @@
                     </div>
                   </div>
                 </div> -->
-                <div class="makeflex">
+                <!-- <div class="makeflex">
                   <span>Advance Search:</span>
                   <div class="search_filters">
                     <div class="form-check custom-radio"
@@ -362,13 +375,16 @@
                       </label>
                     </div>
                   </div>
-                  <!-- <div class="">
+                  </div> -->
+                <!-- <div class="">
                                      <div class="form-check form-check-inline">
                                        <input class="form-check-input" type="checkbox"  formControlName="SeriesFare" id="series_fare_flight">
                                        <label class="form-check-label" for="series_fare_flight">Series Fare</label>
                                      </div>
                                    </div> -->
-                </div>
+
+
+
               </div>
 
               <div class="tab-pane fade" id="flight-multi-tab-pane" role="tabpanel" aria-labelledby="flight-multi-tab"
@@ -544,7 +560,7 @@
                     </div>
 
                     <div class="less-btn" *ngIf="i==0">
-                      <button type="submit" class="btn cst-btn" [disabled]="Flightloading || paxcountstop"> <span
+                      <button type="submit" class="cst-btn" [disabled]="Flightloading || paxcountstop"> <span
                           *ngIf="Flightloading" class="spinner-border spinner-border-sm mr-1"></span> Search</button>
                     </div>
 
@@ -574,7 +590,9 @@
                   </div>
                 </div> -->
 
-                <div class="makeflex">
+
+
+                <!-- <div class="makeflex">
                   <span>Advance Search:</span>
                   <div class="search_filters">
                     <div class="form-check custom-radio" *ngFor="let list of GetWebSiteData['FlightResulFareType'] |keyvalue:compareKeepOrder">
@@ -582,7 +600,9 @@
                       <label class="form-check-label" for="{{list.key}}">{{list.value}}</label>
                     </div>
                   </div>
-                </div>
+                </div> -->
+
+
               </div>
             </div>
           </form>
