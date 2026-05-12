@@ -31,10 +31,10 @@ const routes: Routes = [
                             path:'traveller',
                             component:TravellerDetailComponent
                           },
-                          {
-                            path:'review-detail',
-                            component:ReviewComponent
-                          },
+                          // {
+                          //   path:'review-detail',
+                          //   component:ReviewComponent
+                          // },
                           {
                             path:'confirmation',
                             component:BookingConfirmationComponent

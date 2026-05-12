@@ -161,11 +161,29 @@
                   <label for="direct_flight">Non-Stop</label>
                 </div>
                 <!-- Preferred Airline -->
-                <select class="airline-select" (change)="GetPreferredAirline($event)">
+                <!-- <select class="airline-select" (change)="GetPreferredAirline($event)">
                   <option *ngFor="let item of preferredairlinelist" [value]="item.code" [selected]="item.ischecked">
                     {{item.name}}
                   </option>
-                </select>
+                </select> -->
+                <div class="dropdown">
+                  <button class="btn airline-select dropdown-toggle" type="button"
+                    data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                    {{ preferredairlinedata.length ? preferredairlinedata.length + ' Selected' : 'Select Airlines' }}
+                  </button>
+
+                  <ul class="dropdown-menu p-2" style="min-width:200px; max-height:250px; overflow-y:auto;">
+                    <li *ngFor="let item of preferredairlinelist" class="dropdown-item">
+                      <div class="form-check mb-0">
+                        <input class="form-check-input" type="checkbox"
+                          [id]="item.code" [value]="item.code"
+                          [checked]="item.ischecked"
+                          (change)="GetPreferredAirline($event)">
+                        <label class="form-check-label text-dark" [for]="item.code">{{ item.name }}</label>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
 
                 <select class="airline-select" formControlName="ResultFareType">
                   <option value="">Select Fare Type</option>

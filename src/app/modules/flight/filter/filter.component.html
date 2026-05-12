@@ -23,12 +23,19 @@
         </div>
 
         <div class="collapse show" id="filter-price">
-            <div class="filter-card-body">
-                <div class="price-range price-filter"></div>
-                <div class="price-inputs">
-                    <input type="text" class="left-price" readonly>
-                    <input type="text" class="right-price text-end" readonly>
-                </div>
+             <div class="tts__filter-price price-range-slider">
+               <mat-slider class="w-100" [min]="min" [max]="max" (change)="doFilter(0,'Price','','')">
+                <input [(ngModel)]="Filter[0]['Price']['MinPrice']" name="first" matSliderStartThumb>
+                <input [(ngModel)]="Filter[0]['Price']['MaxPrice']" [ngModelOptions]="{standalone: true}"
+                    matSliderEndThumb>
+            </mat-slider>
+
+            <div class="d-flex justify-content-between">
+                <span class="fw-bold"><i class="bi bi-currency-rupee me-1"></i>{{ Filter[0]['Price']['MinPrice']
+                    |number:'1.0-2' }}</span>
+                <span class="fw-bold"><i class="bi bi-currency-rupee me-1"></i>{{ Filter[0]['Price']['MaxPrice']
+                    |number:'1.0-2' }}</span>
+            </div>
             </div>
         </div>
     </div>
@@ -46,18 +53,20 @@
         </div>
 
         <div class="collapse show" id="filter-price1">
+            <div class="p-2 tts__filter-price price-range-slider">
+               <mat-slider class="w-100" [min]="minib" [max]="maxib" (change)="doFilter(1,'Price','','')">
+                <input [(ngModel)]="Filter[1]['Price']['MinPrice']" name="first" matSliderStartThumb>
+                <input [(ngModel)]="Filter[1]['Price']['MaxPrice']" [ngModelOptions]="{standalone: true}"
+                    matSliderEndThumb>
+            </mat-slider>
 
-            <div class="filter-card-body">
-
-                <div class="return-price-range price-filter"></div>
-
-                <div class="price-inputs">
-                    <input type="text" class="return-left-price" readonly>
-                    <input type="text" class="return-right-price text-end" readonly>
-                </div>
-
+            <div class="d-flex justify-content-between">
+                <span class="fw-bold"> <i class="bi bi-currency-rupee me-1"></i>{{ Filter[1]['Price']['MinPrice']
+                    |number:'1.0-2' }}</span>
+                <span class="fw-bold"> <i class="bi bi-currency-rupee me-1"></i>{{ Filter[1]['Price']['MaxPrice']
+                    |number:'1.0-2' }} </span>
             </div>
-
+            </div>
         </div>
 
     </div>

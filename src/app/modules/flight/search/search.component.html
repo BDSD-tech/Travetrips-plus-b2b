@@ -824,10 +824,9 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
-                    <div class=" noflight">
+                    
+                    <div class="noflight" *ngIf="sortedData.length === 0">
                         <div class="no_flight-content">
                             <i class="fa fa-plane flight-icons-zeroFlight mb-4"></i>
                             <p>No flight found that matches your filter criteria.Reset your filter </p>

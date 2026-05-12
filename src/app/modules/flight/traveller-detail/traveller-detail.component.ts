@@ -7,6 +7,7 @@ import { FlightService } from '../flight.service';
 import { Location } from '@angular/common';
 import { AlertService } from '../../../services/alert.service';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { tts_config } from '../../../../environments/tts_config';
 
 
 declare var $: any;
@@ -132,10 +133,14 @@ export class TravellerDetailComponent implements OnInit {
   Segments:any=[];
 
   oldprice:any=0;
-
+  AirlineLogoURL:any=tts_config['BASEURL']+'uploads/airline-images/';
 
   MainSegments:any=[];
   UserIp:any;
+
+  showReviewpage=false;
+
+  Showmeal=false;
   constructor(private flightService: FlightService, private router: Router, private route: ActivatedRoute, private commonservice: CommonService, private fb: FormBuilder, private authenticationservice: AuthenticationService, private location: Location, private alertservice: AlertService) {
     this.route.queryParams.subscribe(params => {
       if (params) {
@@ -225,6 +230,8 @@ GetPhonecodeVal(event: Event): void {
       });
       this.MainSegments=mainsegments;
       this.Segments=Segment;
+      console.log(this.Segments);
+      
       this.FareList=farelist;
       this.oldprice=oldprice;
       this.UserIp=resp[0]['UserIp'];
@@ -462,7 +469,15 @@ GetPhonecodeVal(event: Event): void {
    //this.GetInsuranceData();
    
   }
-
+  FTduration(n : number)
+  {
+    var num = n;
+    var hours = (num / 60);
+    var rhours = Math.floor(hours);
+    var minutes = (hours - rhours) * 60;
+    var rminutes = Math.round(minutes);
+    return  rhours + "h  "+ rminutes + "m";
+  }
    FareConfirmation()
   {
     this.fareloading = true;
@@ -1431,7 +1446,13 @@ GetPhonecodeVal(event: Event): void {
     const navigationExtras: NavigationExtras = {
       queryParams: this.param
     };
-    this.router.navigate(['flight/review-detail'], navigationExtras);
+    // this.router.navigate(['flight/review-detail'], navigationExtras);
+
+    this.showReviewpage = true;
+    setTimeout(() => {
+         this.openModal()
+    }, 100);
+   
   }
 
 
@@ -2098,4 +2119,12 @@ GetPhonecodeVal(event: Event): void {
     return item?.value;
   }
 
+
+  openModal() {
+    const modalElement = document.getElementById('ReviewModal')!;
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
+  }
+
+  
 }
