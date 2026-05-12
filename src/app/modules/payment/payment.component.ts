@@ -192,7 +192,7 @@ export class PaymentComponent implements OnInit {
         {
           window.location.href=data['Result']['url'];
         } else {
-            this.alertservice.error(data['Error']['ErrorMessage']);
+          this.alertservice.error(data['Error']['ErrorMessage']);
         }   
       });
 

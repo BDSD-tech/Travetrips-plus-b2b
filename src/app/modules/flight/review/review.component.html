@@ -1,456 +1,446 @@
-<section class="flight-details">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-3 col-6 booking-top-btn">
-                <div class="apt-common apt-firstep apt-active">
-                    <span class="graycolor"><span>FIRST STEP</span></span>
-                    <h4 class="apt-flightiti"><span>Flight Itinerary</span></h4>
-                </div>
-            </div>
-            <div class="col-sm-3 col-6 booking-top-btn">
-                <div class="apt-common apt-second apt-active">
-                    <span class="graycolor"><span>SECOND STEP</span></span>
-                    <h4 class="apt-flightiti"><span>Passenger Details</span></h4>
-                </div>
-            </div>
-            <div class="col-sm-3 col-6 booking-top-btn">
-                <div class="apt-common apt-third apt-black">
-                    <span class="graycolor"><span>THIRD STEP</span></span>
-                    <h4 class="apt-flightiti"><span>Review</span></h4>
-                </div>
-            </div>
-            <div class="col-sm-3 col-6 booking-top-btn">
-                <div class="apt-common apt-forth">
-                    <span class="graycolor"><span>FINISH STEP</span></span>
-                    <h4 class="apt-flightiti"><span>Payments</span></h4>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-<section class="flight-booking">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-9">
-                <div class="booking-main">
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h4 class="apt-heading">
-                            <span>Flight Details</span>
-                        </h4>
-                    </div>
-                    <div class="scrollable  wrapper-mainclass">
+<div class="modal fade" id="ReviewModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
 
-                        <div class="apt-btmborder" *ngFor="let trip of Segments; let tripkey=index;">
-                            <div class="tts-trip" *ngFor="let subtrip of trip; let subtripkey=index;">
-                                <p class="apt-firstpr">
-                                    {{subtrip[0]['Origin']['CityName']}}
-                                    <span class="apt-arrowpr"> →</span>
-                                    {{subtrip[subtrip.length-1]['Destination']['CityName']}}
-                                    <span class="graycolor at-fontweight">
-                                        <span>on</span>
-                                        {{subtrip[0]['Origin']['DepartTime'] | date:'E, MMM d, y'}}
-                                    </span>
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel">Review Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
 
-                                    <span class="apt-redpr" *ngIf="MainSegments[tripkey][subtripkey]['ArrivalDays']!=0">
-                                        <i class="fa fa-info-circle"></i> Arrives after
-                                        {{MainSegments[tripkey][subtripkey]['ArrivalDays']}} Day(s) </span>
-                                    <span class="float-end"><i class="far fa-clock"></i>
-                                        {{MainSegments[tripkey][subtripkey]['Duration']}} </span>
+        <div class="modal-body">
+            <section class="flight-booking p-0">
+                <div class="">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="booking-main">
+                                <div class="scrollable  wrapper-mainclass">
 
-                                </p>
-                                <div *ngFor="let segment of subtrip; let segkey=index;">
+                                    <div class="apt-btmborder" *ngFor="let trip of Segments; let tripkey=index;">
+                                        <div class="tts-trip" *ngFor="let subtrip of trip; let subtripkey=index;">
+                                            <p class="apt-firstpr">
+                                                {{subtrip[0]['Origin']['CityName']}}
+                                                <span class="apt-arrowpr"> →</span>
+                                                {{subtrip[subtrip.length-1]['Destination']['CityName']}}
+                                                <span class="graycolor at-fontweight">
+                                                    <span>on</span>
+                                                    {{subtrip[0]['Origin']['DepartTime'] | date:'E, MMM d, y'}}
+                                                </span>
+
+                                                <span class="apt-redpr" *ngIf="MainSegments[tripkey][subtripkey]['ArrivalDays']!=0">
+                                                    <i class="fa fa-info-circle"></i> Arrives after
+                                                    {{MainSegments[tripkey][subtripkey]['ArrivalDays']}} Day(s) </span>
+                                                <span class="float-end"><i class="far fa-clock"></i>
+                                                    {{MainSegments[tripkey][subtripkey]['Duration']}} </span>
+
+                                            </p>
+                                            <div *ngFor="let segment of subtrip; let segkey=index;">
+
+                                                <div class="row">
+                                                    <div class="col-sm-3 col-xs-12">
+                                                        <ul class="apt-ullist">
+                                                            <li>
+                                                                <img src="{{AirlineLogoURL}}{{segment['Airline']['AirlineCode']}}.png"
+                                                                    class="size-30 me-2">
+                                                            </li>
+                                                            <li class="apt-listspan">
+                                                                {{segment['Airline']['AirlineName']}}
+                                                                <span class="apt-gridspan graycolor">
+                                                                    {{segment['Airline']['AirlineCode']}}-{{segment['Airline']['FlightNumber']}}
+                                                                    <span class="at-fontweight equipType"
+                                                                        *ngIf="segment['Craft']"><i
+                                                                            class="fa fa-plane"></i>-{{segment['Craft']}}</span>
+                                                                </span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-sm-7 col-xs-12">
+                                                        <ul class="apt-namelist">
+                                                            <li>
+                                                                {{segment['Origin']['DepartTime'] | date:'MMM d, EEE, HH:mm'}} <span
+                                                                    class="apt-airportname at-fontweight graycolor">{{segment['Origin']['CityName']}},
+                                                                    {{segment['Origin']['CountryName']}}</span>
+                                                                <span class="apt-airplace at-fontweight graycolor">
+                                                                    {{segment['Origin']['AirportName']}}
+                                                                </span>
+                                                                <span class="apt-airterminal graycolor"
+                                                                    *ngIf="segment['Origin']['Terminal']!=''">Terminal
+                                                                    {{segment['Origin']['Terminal']}}</span>
+                                                            </li>
+
+                                                            <li class="text-center">
+
+
+                                                                <span *ngIf="segment['TechStopPoint'].length==0">Non-Stop</span>
+                                                                <span
+                                                                    *ngIf="segment['TechStopPoint'] && segment['TechStopPoint']['Code']">1
+                                                                    Stop(s)</span>
+
+
+                                                                <span class="flight-arrow-itinenry-page d-block"></span>
+                                                                <img class="media__right-arrow-image"
+                                                                    src="assets/img/airarrow.png" />
+
+                                                                <span
+                                                                    *ngIf="segment['TechStopPoint'] && segment['TechStopPoint']['Code']"
+                                                                    class="d-block">Via:{{segment['TechStopPoint']['Code']}}</span>
+                                                            </li>
+
+                                                            <li>
+                                                                {{segment['Destination']['ArrivalTime']| date: 'MMM d, EEE, HH:mm'}}
+                                                                <span
+                                                                    class="apt-airportname at-fontweight graycolor">{{segment['Destination']['CityName']}},
+                                                                    {{segment['Destination']['CountryName']}}</span>
+                                                                <span class="apt-airplace at-fontweight graycolor">
+                                                                    {{segment['Destination']['AirportName']}}
+                                                                </span>
+                                                                <span class="apt-airterminal graycolor"
+                                                                    *ngIf="segment['Destination']['Terminal']!=''">Terminal
+                                                                    {{segment['Destination']['Terminal']}}</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-sm-2 col-xs-12">
+                                                        <p class="apt-lasthour"> {{ FTduration(segment['Duration'])}}
+                                                            <span class="at-fontweight graycolor apt-classname d-block"
+                                                                *ngIf="segment['CabinClass']">{{segment['CabinClass']}},
+                                                                <span *ngIf="FareList[tripkey]['IsRefundable']">Refundable</span>
+                                                                <span *ngIf="FareList[tripkey]['IsRefundable']!=true">Non
+                                                                    Refundable</span>
+                                                            </span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="mt-10 indicator-content">
+                                                            <span
+                                                                class="label-{{FareList[tripkey]['FareTypeColor']}}">{{FareList[tripkey]['FareType']}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 farerules-mobhide">
+
+                                                        <p class="m-0" *ngIf="segment['CheckInBaggage'] || segment['CabinBaggage']">
+                                                            <i class="fa fa-suitcase"></i> :
+                                                            <span *ngIf="segment['CheckInBaggage']">
+                                                                <span class="graycolor">Check-in :
+                                                                    {{segment['CheckInBaggage']}},</span>
+                                                            </span>
+                                                            <span *ngIf="segment['CabinBaggage']">
+                                                                <span class="graycolor">Cabin : {{segment['CabinBaggage']}} </span>
+                                                            </span>
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="col-sm-12 text-center" *ngIf="segment['Layover']">
+                                                        <div class="apt-mainlaydesktop mt-1 mb-5">
+                                                            <p class="tts-laypverdesktop"><span class="me-3">Require to change
+                                                                    Plane</span><span> Layover Time - {{segment['Layover']}}</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="row">
-                                        <div class="col-sm-3 col-xs-12">
-                                            <ul class="apt-ullist">
+
+                                        <div class="col-md-12">
+                                            <h6> <span>Passenger Details</span></h6>
+                                            <ul class="passenger_list_ul pt-3 pb-3">
+                                                <li class="graycolor">Sr.</li>
+                                                <li class="graycolor">Name, Age &amp; Passport</li>
+                                                <li class="graycolor">Seat Booking</li>
+                                                <li class="graycolor">Meal &amp; Baggage Preference</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <ul class="passenger_list_ul d-flex align-items-center justify-content-between pt-3 pb-3 border-bottom"
+                                                *ngFor="let pax of Paxinfo['paxdata']['Adult']; let paxkey=index;">
+
                                                 <li>
-                                                    <img src="{{AirlineLogoURL}}{{segment['Airline']['AirlineCode']}}.png"
-                                                        class="size-30 me-2">
+                                                    <div class="art-tdfirst graycolor counter"></div>
                                                 </li>
-                                                <li class="apt-listspan">
-                                                    {{segment['Airline']['AirlineName']}}
-                                                    <span class="apt-gridspan graycolor">
-                                                        {{segment['Airline']['AirlineCode']}}-{{segment['Airline']['FlightNumber']}}
-                                                        <span class="at-fontweight equipType"
-                                                            *ngIf="segment['Craft']"><i
-                                                                class="fa fa-plane"></i>-{{segment['Craft']}}</span>
-                                                    </span>
+                                                <li>
+                                                    <div class="art-tdsecond">
+                                                        <span class="pax-detailsAll">{{pax['Title']}} {{pax['FirstName']}}
+                                                            {{pax['LastName']}}</span>
+
+                                                        <span class="pax-passportSize" *ngIf="pax['DOB']">DOB :{{pax['DOB']}}
+                                                        </span>
+
+                                                        <span class="pax-passportSize" *ngIf="pax['PassportNo']">PP
+                                                            :{{pax['PassportNo']}} N :{{pax['Nationality']}} ID
+                                                            :{{pax['PassportIssue']}} ED: {{pax['PassportExpiry']}} </span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="art-tdthird" *ngIf="!pax['Seat']"> <span class="art-spnlist "> NA
+                                                        </span></div>
+                                                    <div class="art-tdthird" *ngIf="pax['Seat']">
+                                                        <span class="art-spnlist " *ngFor="let trip of pax['Seat'] let i=index">
+                                                            <span *ngFor="let data of objectKeys(trip)">
+                                                                <span
+                                                                    class="text-muted">{{trip[data]['Origin']}}-{{trip[data]['Destination']}}
+                                                                    :</span>
+                                                                {{trip[data]['Code']}},
+                                                            </span>
+                                                        </span>
+
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="art-tdfour">
+                                                        <div *ngIf="!pax['Baggage'] ||!pax['Meal']">
+                                                            NA
+                                                        </div>
+
+
+                                                        <div *ngIf="pax['Baggage']">
+                                                            <div *ngFor="let trip of pax['Baggage']">
+                                                                <div *ngFor="let innerKey of trip">
+                                                                    <span class="text-muted"><i
+                                                                            class="fa-solid fa-bag-shopping"></i> {{ innerKey.Origin
+                                                                        }}-{{ innerKey.Destination }} :</span>
+                                                                    <span>
+                                                                        <span> {{ innerKey.Weight }} KG</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div *ngIf="pax['Meal']">
+                                                            <div *ngFor="let outerKey of pax['Meal']">
+                                                                <div *ngFor="let data of outerKey">
+                                                                    <span class="text-muted"><i class="fa-solid fa-utensils"></i> {{
+                                                                        data.Origin }}-{{ data.Destination }}:</span>
+                                                                    <span>
+                                                                        <span> {{ data.AirlineDescription }} </span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <ul class="passenger_list_ul d-flex align-items-center justify-content-between pt-3 pb-3 border-bottom"
+                                                *ngFor="let pax of Paxinfo['paxdata']['Child']; let paxkey=index;">
+
+                                                <li>
+                                                    <div class="art-tdfirst graycolor counter"></div>
+                                                </li>
+                                                <li>
+                                                    <div class="art-tdsecond"><span class="pax-detailsAll">{{pax['Title']}}
+                                                            {{pax['FirstName']}} {{pax['LastName']}}</span>
+
+                                                        <span class="pax-passportSize" *ngIf="pax['DOB']">DOB :{{pax['DOB']}}
+                                                        </span>
+                                                        <span class="pax-passportSize" *ngIf="pax['PassportNo']">PP
+                                                            :{{pax['PassportNo']}} N :{{pax['Nationality']}} ID
+                                                            :{{pax['PassportIssue']}} ED: {{pax['PassportExpiry']}} </span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="art-tdthird" *ngIf="!pax['Seat']"> <span class="art-spnlist "> NA
+                                                        </span></div>
+                                                    <div class="art-tdthird" *ngIf="pax['Seat']">
+                                                        <span class="art-spnlist " *ngFor="let trip of pax['Seat'] let i=index">
+                                                            <span *ngFor="let data of objectKeys(trip)">
+                                                                <span
+                                                                    class="text-muted">{{trip[data]['Origin']}}-{{trip[data]['Destination']}}
+                                                                    :</span>
+                                                                {{trip[data]['Code']}},
+                                                            </span>
+                                                        </span>
+
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="art-tdfour">
+                                                        <div *ngIf="!pax['Baggage'] ||!pax['Meal']">
+                                                            NA
+                                                        </div>
+
+
+                                                        <div *ngIf="pax['Baggage']">
+                                                            <div *ngFor="let trip of pax['Baggage']">
+                                                                <div *ngFor="let innerKey of trip">
+                                                                    <span class="text-muted"><i
+                                                                            class="fa-solid fa-bag-shopping"></i> {{ innerKey.Origin
+                                                                        }}-{{ innerKey.Destination }} :</span>
+                                                                    <span>
+                                                                        <span> {{ innerKey.Weight }} KG</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div *ngIf="pax['Meal']">
+                                                            <div *ngFor="let outerKey of pax['Meal']">
+                                                                <div *ngFor="let data of outerKey">
+                                                                    <span class="text-muted"><i class="fa-solid fa-utensils"></i> {{
+                                                                        data.Origin }}-{{ data.Destination }}:</span>
+                                                                    <span>
+                                                                        <span> {{ data.AirlineDescription }} </span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                            <ul class="passenger_list_ul d-flex align-items-center justify-content-between pt-3 pb-3 border-bottom"
+                                                *ngFor="let pax of Paxinfo['paxdata']['Infant']; let paxkey=index;">
+
+                                                <li>
+                                                    <div class="art-tdfirst graycolor counter"></div>
+                                                </li>
+                                                <li>
+                                                    <div class="art-tdsecond"><span class="pax-detailsAll">{{pax['Title']}}
+                                                            {{pax['FirstName']}} {{pax['LastName']}} </span>
+
+                                                        <span class="pax-passportSize" *ngIf="pax['DOB']">DOB :{{pax['DOB']}}
+                                                        </span>
+
+                                                        <span class="pax-passportSize" *ngIf="pax['PassportNo']">PP
+                                                            :{{pax['PassportNo']}} N :{{pax['Nationality']}} ID
+                                                            :{{pax['PassportIssue']}} ED: {{pax['PassportExpiry']}} </span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="art-tdthird"> <span class="art-spnlist"> NA </span></div>
+                                                </li>
+                                                <li>
+                                                    <div class="art-tdfour">NA</div>
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div class="col-sm-7 col-xs-12">
-                                            <ul class="apt-namelist">
-                                                <li>
-                                                    {{segment['Origin']['DepartTime'] | date:'MMM d, EEE, HH:mm'}} <span
-                                                        class="apt-airportname at-fontweight graycolor">{{segment['Origin']['CityName']}},
-                                                        {{segment['Origin']['CountryName']}}</span>
-                                                    <span class="apt-airplace at-fontweight graycolor">
-                                                        {{segment['Origin']['AirportName']}}
-                                                    </span>
-                                                    <span class="apt-airterminal graycolor"
-                                                        *ngIf="segment['Origin']['Terminal']!=''">Terminal
-                                                        {{segment['Origin']['Terminal']}}</span>
-                                                </li>
-
-                                                <li class="text-center">
-
-
-                                                    <span *ngIf="segment['TechStopPoint'].length==0">Non-Stop</span>
-                                                    <span
-                                                        *ngIf="segment['TechStopPoint'] && segment['TechStopPoint']['Code']">1
-                                                        Stop(s)</span>
-
-
-                                                    <span class="flight-arrow-itinenry-page d-block"></span>
-                                                    <img class="media__right-arrow-image"
-                                                        src="assets/img/airarrow.png" />
-
-                                                    <span
-                                                        *ngIf="segment['TechStopPoint'] && segment['TechStopPoint']['Code']"
-                                                        class="d-block">Via:{{segment['TechStopPoint']['Code']}}</span>
-                                                </li>
-
-                                                <li>
-                                                    {{segment['Destination']['ArrivalTime']| date: 'MMM d, EEE, HH:mm'}}
-                                                    <span
-                                                        class="apt-airportname at-fontweight graycolor">{{segment['Destination']['CityName']}},
-                                                        {{segment['Destination']['CountryName']}}</span>
-                                                    <span class="apt-airplace at-fontweight graycolor">
-                                                        {{segment['Destination']['AirportName']}}
-                                                    </span>
-                                                    <span class="apt-airterminal graycolor"
-                                                        *ngIf="segment['Destination']['Terminal']!=''">Terminal
-                                                        {{segment['Destination']['Terminal']}}</span>
-                                                </li>
+                                        <div class="col-md-12 mt-3">
+                                            <h6> <span>Contact Details</span></h6>
+                                           <div class="d-flex justify-content-between align-items-center">
+                                             <ul class="pt-3">
+                                                <li>Email :<span></span>{{Paxinfo['EmailId']}}</li>
+                                                <li>Mobile :<span>{{Paxinfo['MobileNumber']}}</span></li>
                                             </ul>
-                                        </div>
-                                        <div class="col-sm-2 col-xs-12">
-                                            <p class="apt-lasthour"> {{ FTduration(segment['Duration'])}}
-                                                <span class="at-fontweight graycolor apt-classname d-block"
-                                                    *ngIf="segment['CabinClass']">{{segment['CabinClass']}},
-                                                    <span *ngIf="FareList[tripkey]['IsRefundable']">Refundable</span>
-                                                    <span *ngIf="FareList[tripkey]['IsRefundable']!=true">Non
-                                                        Refundable</span>
-                                                </span>
-                                            </p>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="mt-10 indicator-content">
-                                                <span
-                                                    class="label-{{FareList[tripkey]['FareTypeColor']}}">{{FareList[tripkey]['FareType']}}</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 farerules-mobhide">
-
-                                            <p *ngIf="segment['CheckInBaggage'] || segment['CabinBaggage']">
-                                                <i class="fa fa-suitcase"></i> :
-                                                <span *ngIf="segment['CheckInBaggage']">
-                                                    <span class="graycolor">Check-in :
-                                                        {{segment['CheckInBaggage']}},</span>
-                                                </span>
-                                                <span *ngIf="segment['CabinBaggage']">
-                                                    <span class="graycolor">Cabin : {{segment['CabinBaggage']}} </span>
-                                                </span>
-                                            </p>
+                                            <h6>Total Price : ₹{{this.CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['AgentMarkup']+CurrentFare['SSR']['Meal']
+                                            + CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Seat'] |
+                                                    number:'1.0-2'}}</h6>
+                                           </div>
                                         </div>
 
-                                        <div class="col-sm-12 text-center" *ngIf="segment['Layover']">
-                                            <div class="apt-mainlaydesktop mt-1 mb-5">
-                                                <p class="tts-laypverdesktop"><span class="me-3">Require to change
-                                                        Plane</span><span> Layover Time - {{segment['Layover']}}</span>
-                                                </p>
-                                            </div>
+                                    </div>
+                                    <div class="row pt-20 desktop-bookback ">
+                                        <div class="col-sm-6 col-4">
+                                            <button data-bs-dismiss="modal" aria-label="Close" type="button" id="srch" class="btn asr-book" ><i
+                                                    class="fa fa-angle-double-left me-1"></i> <span>Back</span></button>
                                         </div>
-
+                                        <div class="col-md-6 col-sm-8 col-xs-9 col-8 text-end confirming--button-price">
+                                            <button type="button" id="reviews" class="btn asr-book"
+                                                (click)="ProceedToPay()"><span>Proceed To Pay</span> &nbsp; <i
+                                                    class="fa fa-angle-double-right"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="row">
-
-                            <div class="col-md-12">
-                                <h5> <span>Passenger Details</span></h5>
-                                <ul class="passenger_list_ul pt-3 pb-3">
-                                    <li class="graycolor">Sr.</li>
-                                    <li class="graycolor">Name, Age &amp; Passport</li>
-                                    <li class="graycolor">Seat Booking</li>
-                                    <li class="graycolor">Meal &amp; Baggage Preference</li>
-                                </ul>
-                            </div>
-                            <div class="col-md-12">
-                                <ul class="passenger_list_ul d-flex align-items-center justify-content-between pt-3 pb-3 border-bottom"
-                                    *ngFor="let pax of Paxinfo['paxdata']['Adult']; let paxkey=index;">
-
-                                    <li>
-                                        <div class="art-tdfirst graycolor counter"></div>
-                                    </li>
-                                    <li>
-                                        <div class="art-tdsecond">
-                                            <span class="pax-detailsAll">{{pax['Title']}} {{pax['FirstName']}}
-                                                {{pax['LastName']}}</span>
-
-                                            <span class="pax-passportSize" *ngIf="pax['DOB']">DOB :{{pax['DOB']}}
-                                            </span>
-
-                                            <span class="pax-passportSize" *ngIf="pax['PassportNo']">PP
-                                                :{{pax['PassportNo']}} N :{{pax['Nationality']}} ID
-                                                :{{pax['PassportIssue']}} ED: {{pax['PassportExpiry']}} </span>
+                        <!-- <div class="col-lg-3">
+                            <div class="booking-rightside">
+                                <h4><span>Fare Summary</span></h4>
+                                <div>
+                                    <div class="btm-border bold-font-bf"><span>Base fare</span> <span
+                                            class="float-end">₹{{CurrentFare['BaseFare'] | number:'1.0-2'}}</span></div>
+                                    <div class="btm-border bold-font">
+                                        <span data-bs-toggle="collapse" href="#tax-fare" aria-expanded="false"> Taxes and fees <i
+                                                class="fa fa-angle-down mrg-left"></i></span>
+                                        <span class="float-end">₹{{CurrentFare['Tax'] + CurrentFare['OtherCharges'] +
+                                            CurrentFare['AgentMarkup'] | number:'1.0-2'}}<i title="Change markup" class="fa fa-edit ms-2"
+                                                (click)="showmarkup()"></i></span>
+                                        <div class="tax-dropdown airline-gst-print collapse" id="tax-fare">
+                                            <div><span>YQ</span><span class="float-end">₹{{CurrentFare['YQTax'] |
+                                                    number:'1.0-2'}}</span></div>
+                                            <div *ngIf="CurrentFare['AgentMarkup']!=0"><span>Markup</span><span
+                                                    class="float-end">₹{{CurrentFare['AgentMarkup'] | number:'1.0-2'}}</span></div>
+                                            <div><span>Other Charges</span><span class="float-end">₹{{CurrentFare['OtherCharges'] |
+                                                    number:'1.0-2'}}</span></div>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="art-tdthird" *ngIf="!pax['Seat']"> <span class="art-spnlist "> NA
-                                            </span></div>
-                                        <div class="art-tdthird" *ngIf="pax['Seat']">
-                                            <span class="art-spnlist " *ngFor="let trip of pax['Seat'] let i=index">
-                                                <span *ngFor="let data of objectKeys(trip)">
-                                                    <span
-                                                        class="text-muted">{{trip[data]['Origin']}}-{{trip[data]['Destination']}}
-                                                        :</span>
-                                                    {{trip[data]['Code']}},
-                                                </span>
-                                            </span>
 
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="art-tdfour">
-                                            <div *ngIf="!pax['Baggage'] ||!pax['Meal']">
-                                                NA
-                                            </div>
-
-
-                                            <div *ngIf="pax['Baggage']">
-                                                <div *ngFor="let trip of pax['Baggage']">
-                                                    <div *ngFor="let innerKey of trip">
-                                                        <span class="text-muted"><i
-                                                                class="fa-solid fa-bag-shopping"></i> {{ innerKey.Origin
-                                                            }}-{{ innerKey.Destination }} :</span>
-                                                        <span>
-                                                            <span> {{ innerKey.Weight }} KG</span>
-                                                        </span>
+                                        <div class="pos-rel" *ngIf="isshowmarkup">
+                                            <div class="markup__box-mainconatiner">
+                                                <div class="col me-3">
+                                                    <div class="form-floating mb-2">
+                                                        <input type="number" min="0" value="0" class="form-control" id="InputMarkup"
+                                                            placeholder="Markup Price" [(ngModel)]="markupvalue" />
+                                                        <label for="InputMarkup">Markup Price</label>
                                                     </div>
                                                 </div>
+                                                <span class="markup__update-closebtn" (click)="showmarkup()">×</span><button
+                                                    class="markup__update-btn" (click)="updatemarkup()">Update</button>
                                             </div>
-                                            <div *ngIf="pax['Meal']">
-                                                <div *ngFor="let outerKey of pax['Meal']">
-                                                    <div *ngFor="let data of outerKey">
-                                                        <span class="text-muted"><i class="fa-solid fa-utensils"></i> {{
-                                                            data.Origin }}-{{ data.Destination }}:</span>
-                                                        <span>
-                                                            <span> {{ data.AirlineDescription }} </span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </li>
-                                </ul>
-                                <ul class="passenger_list_ul d-flex align-items-center justify-content-between pt-3 pb-3 border-bottom"
-                                    *ngFor="let pax of Paxinfo['paxdata']['Child']; let paxkey=index;">
-
-                                    <li>
-                                        <div class="art-tdfirst graycolor counter"></div>
-                                    </li>
-                                    <li>
-                                        <div class="art-tdsecond"><span class="pax-detailsAll">{{pax['Title']}}
-                                                {{pax['FirstName']}} {{pax['LastName']}}</span>
-
-                                            <span class="pax-passportSize" *ngIf="pax['DOB']">DOB :{{pax['DOB']}}
-                                            </span>
-                                            <span class="pax-passportSize" *ngIf="pax['PassportNo']">PP
-                                                :{{pax['PassportNo']}} N :{{pax['Nationality']}} ID
-                                                :{{pax['PassportIssue']}} ED: {{pax['PassportExpiry']}} </span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="art-tdthird" *ngIf="!pax['Seat']"> <span class="art-spnlist "> NA
-                                            </span></div>
-                                        <div class="art-tdthird" *ngIf="pax['Seat']">
-                                            <span class="art-spnlist " *ngFor="let trip of pax['Seat'] let i=index">
-                                                <span *ngFor="let data of objectKeys(trip)">
-                                                    <span
-                                                        class="text-muted">{{trip[data]['Origin']}}-{{trip[data]['Destination']}}
-                                                        :</span>
-                                                    {{trip[data]['Code']}},
-                                                </span>
-                                            </span>
-
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="art-tdfour">
-                                            <div *ngIf="!pax['Baggage'] ||!pax['Meal']">
-                                                NA
-                                            </div>
-
-
-                                            <div *ngIf="pax['Baggage']">
-                                                <div *ngFor="let trip of pax['Baggage']">
-                                                    <div *ngFor="let innerKey of trip">
-                                                        <span class="text-muted"><i
-                                                                class="fa-solid fa-bag-shopping"></i> {{ innerKey.Origin
-                                                            }}-{{ innerKey.Destination }} :</span>
-                                                        <span>
-                                                            <span> {{ innerKey.Weight }} KG</span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div *ngIf="pax['Meal']">
-                                                <div *ngFor="let outerKey of pax['Meal']">
-                                                    <div *ngFor="let data of outerKey">
-                                                        <span class="text-muted"><i class="fa-solid fa-utensils"></i> {{
-                                                            data.Origin }}-{{ data.Destination }}:</span>
-                                                        <span>
-                                                            <span> {{ data.AirlineDescription }} </span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </li>
-                                </ul>
-
-                                <ul class="passenger_list_ul d-flex align-items-center justify-content-between pt-3 pb-3 border-bottom"
-                                    *ngFor="let pax of Paxinfo['paxdata']['Infant']; let paxkey=index;">
-
-                                    <li>
-                                        <div class="art-tdfirst graycolor counter"></div>
-                                    </li>
-                                    <li>
-                                        <div class="art-tdsecond"><span class="pax-detailsAll">{{pax['Title']}}
-                                                {{pax['FirstName']}} {{pax['LastName']}} </span>
-
-                                            <span class="pax-passportSize" *ngIf="pax['DOB']">DOB :{{pax['DOB']}}
-                                            </span>
-
-                                            <span class="pax-passportSize" *ngIf="pax['PassportNo']">PP
-                                                :{{pax['PassportNo']}} N :{{pax['Nationality']}} ID
-                                                :{{pax['PassportIssue']}} ED: {{pax['PassportExpiry']}} </span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="art-tdthird"> <span class="art-spnlist"> NA </span></div>
-                                    </li>
-                                    <li>
-                                        <div class="art-tdfour">NA</div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-md-12 mt-3">
-                                <h5> <span>Contact Details</span></h5>
-                                <ul class="pt-3 pb-3">
-                                    <li>Email :<span></span>{{Paxinfo['EmailId']}}</li>
-                                    <li>Mobile :<span>{{Paxinfo['MobileNumber']}}</span></li>
-                                </ul>
-                            </div>
-
-                        </div>
-                        <div class="row pt-20 desktop-bookback ">
-                            <div class="col-sm-6 col-4">
-                                <button type="button" id="srch" class="btn asr-book" (click)="goBack()"><i
-                                        class="fa fa-angle-double-left me-1"></i> <span>Back</span></button>
-                            </div>
-                            <div class="col-md-6 col-sm-8 col-xs-9 col-8 text-end confirming--button-price">
-                                <button type="button" id="reviews" class="btn asr-book"
-                                    (click)="ProceedToPay()"><span>Proceed To Pay</span> &nbsp; <i
-                                        class="fa fa-angle-double-right"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="booking-rightside">
-                    <h4><span>Fare Summary</span></h4>
-                    <div>
-                        <div class="btm-border bold-font-bf"><span>Base fare</span> <span
-                                class="float-end">₹{{CurrentFare['BaseFare'] | number:'1.0-2'}}</span></div>
-                        <div class="btm-border bold-font">
-                            <span data-bs-toggle="collapse" href="#tax-fare" aria-expanded="false"> Taxes and fees <i
-                                    class="fa fa-angle-down mrg-left"></i></span>
-                            <span class="float-end">₹{{CurrentFare['Tax'] + CurrentFare['OtherCharges'] +
-                                CurrentFare['AgentMarkup'] | number:'1.0-2'}}<i title="Change markup" class="fa fa-edit ms-2"
-                                    (click)="showmarkup()"></i></span>
-                            <div class="tax-dropdown airline-gst-print collapse" id="tax-fare">
-                                <div><span>YQ</span><span class="float-end">₹{{CurrentFare['YQTax'] |
-                                        number:'1.0-2'}}</span></div>
-                                <div *ngIf="CurrentFare['AgentMarkup']!=0"><span>Markup</span><span
-                                        class="float-end">₹{{CurrentFare['AgentMarkup'] | number:'1.0-2'}}</span></div>
-                                <div><span>Other Charges</span><span class="float-end">₹{{CurrentFare['OtherCharges'] |
-                                        number:'1.0-2'}}</span></div>
-                            </div>
-
-                            <div class="pos-rel" *ngIf="isshowmarkup">
-                                <div class="markup__box-mainconatiner">
-                                    <div class="col me-3">
-                                        <div class="form-floating mb-2">
-                                            <input type="number" min="0" value="0" class="form-control" id="InputMarkup"
-                                                placeholder="Markup Price" [(ngModel)]="markupvalue" />
-                                            <label for="InputMarkup">Markup Price</label>
                                         </div>
                                     </div>
-                                    <span class="markup__update-closebtn" (click)="showmarkup()">×</span><button
-                                        class="markup__update-btn" (click)="updatemarkup()">Update</button>
+                                    @if(CurrentFare['InsurancePrice']){
+                                    <div class="btm-border bold-font-bf"><span>Insurance Price</span> <span
+                                            class="float-end">₹{{CurrentFare['InsurancePrice'] | number:'1.0-2'}}</span></div>
+                                    }
+
+
+
+                                    
+                                    <div class="btm-border bold-font" *ngIf="CurrentFare['SSR']">
+                                        <span data-bs-toggle="collapse" href="#ssr-pax" aria-expanded="false"> Meal, Baggage & Seats
+                                            <i class="fa fa-angle-down mrg-left"></i></span>
+                                        <span class="float-end">₹{{CurrentFare['SSR']['Meal'] + CurrentFare['SSR']['Baggage']+
+                                            CurrentFare['SSR']['Seat']}}</span>
+                                        <div class="tax-dropdown airline-gst-print collapse" id="ssr-pax">
+                                            <div *ngIf="CurrentFare['SSR']['Meal']!=0"><span>Seat</span><span
+                                                    class="float-end">₹{{CurrentFare['SSR']['Seat']|
+                                                    number:'1.0-2'}}</span></div>
+                                            <div *ngIf="CurrentFare['SSR']['Meal']!=0"><span>Meal</span><span
+                                                    class="float-end">₹{{CurrentFare['SSR']['Meal'] |
+                                                    number:'1.0-2'}}</span></div>
+                                            <div *ngIf="CurrentFare['SSR']['Baggage']!=0"><span>Baggage</span><span
+                                                    class="float-end">₹{{CurrentFare['SSR']['Baggage'] | number:'1.0-2'}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                   
+                                    <div class="bold-font btm-border">
+                                        <span data-bs-toggle="collapse" href="#net-fare" aria-expanded="false">Gross Fare <i class="fa fa-angle-down mrg-left"></i></span>
+                                        <span
+                                            class="float-end">₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']+CurrentFare['SSR']['Meal']
+                                            + CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Seat']
+                                            +CurrentFare['InsurancePrice']| number:'1.0-2'}}</span>
+                                        <div class="tax-dropdown airline-gst-print collapse" id="net-fare">
+                                            <div><span>Commission</span><span
+                                                    class="float-end">-₹{{CurrentFare['AgentCommission']+CurrentFare['Discount'] |
+                                                    number:'1.0-2'}}</span></div>
+                                            <div><span>TDS</span><span class="float-end">+₹{{CurrentFare['TDS'] |
+                                                    number:'1.0-2'}}</span></div>
+                                            <div><span>Net Price</span><span
+                                                    class="float-end">₹{{this.CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['AgentMarkup']+CurrentFare['SSR']['Meal']
+                                            + CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Seat'] |
+                                                    number:'1.0-2'}}</span></div>
+                                        </div>
+                                    </div>
+                                   
                                 </div>
                             </div>
-                        </div>
-                        @if(CurrentFare['InsurancePrice']){
-                        <div class="btm-border bold-font-bf"><span>Insurance Price</span> <span
-                                class="float-end">₹{{CurrentFare['InsurancePrice'] | number:'1.0-2'}}</span></div>
-                        }
-
-
-
-                        <!--Start:: SSR BY Pradeep -->
-                        <div class="btm-border bold-font" *ngIf="CurrentFare['SSR']">
-                            <span data-bs-toggle="collapse" href="#ssr-pax" aria-expanded="false"> Meal, Baggage & Seats
-                                <i class="fa fa-angle-down mrg-left"></i></span>
-                            <span class="float-end">₹{{CurrentFare['SSR']['Meal'] + CurrentFare['SSR']['Baggage']+
-                                CurrentFare['SSR']['Seat']}}</span>
-                            <div class="tax-dropdown airline-gst-print collapse" id="ssr-pax">
-                                <div *ngIf="CurrentFare['SSR']['Meal']!=0"><span>Seat</span><span
-                                        class="float-end">₹{{CurrentFare['SSR']['Seat']|
-                                        number:'1.0-2'}}</span></div>
-                                <div *ngIf="CurrentFare['SSR']['Meal']!=0"><span>Meal</span><span
-                                        class="float-end">₹{{CurrentFare['SSR']['Meal'] |
-                                        number:'1.0-2'}}</span></div>
-                                <div *ngIf="CurrentFare['SSR']['Baggage']!=0"><span>Baggage</span><span
-                                        class="float-end">₹{{CurrentFare['SSR']['Baggage'] | number:'1.0-2'}}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--End:: SSR BY Pradeep -->
-                        <div class="bold-font btm-border">
-                            <span data-bs-toggle="collapse" href="#net-fare" aria-expanded="false">Gross Fare <i class="fa fa-angle-down mrg-left"></i></span>
-                            <span
-                                class="float-end">₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']+CurrentFare['SSR']['Meal']
-                                + CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Seat']
-                                +CurrentFare['InsurancePrice']| number:'1.0-2'}}</span>
-                            <div class="tax-dropdown airline-gst-print collapse" id="net-fare">
-                                <div><span>Commission</span><span
-                                        class="float-end">-₹{{CurrentFare['AgentCommission']+CurrentFare['Discount'] |
-                                        number:'1.0-2'}}</span></div>
-                                <div><span>TDS</span><span class="float-end">+₹{{CurrentFare['TDS'] |
-                                        number:'1.0-2'}}</span></div>
-                                <div><span>Net Price</span><span
-                                        class="float-end">₹{{this.CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['AgentMarkup']+CurrentFare['SSR']['Meal']
-                                + CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Seat'] |
-                                        number:'1.0-2'}}</span></div>
-                            </div>
-                        </div>
-                        <!-- <div class="btm-border py-2"><span>Net Fare</span><span class="float-end">₹{{this.CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat'] |
-                                        number:'1.0-2'}}</span></div> -->
+                        </div> -->
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
+
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save Changes</button>
+      </div> -->
+
     </div>
-</section>
+  </div>
+</div>
+
 <app-count-down display="on"></app-count-down>

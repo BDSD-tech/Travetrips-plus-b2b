@@ -29,6 +29,13 @@ export class FilterComponent implements OnInit {
   ispriceshow:any=0;
   isstopshow:any=0;
 
+
+  min:any=0
+  max:any=0
+  minib:any=0
+  maxib:any=0
+
+
   constructor(private router: Router) { 
 
     if (sessionStorage.getItem('FlightSearch')) {
@@ -42,12 +49,20 @@ export class FilterComponent implements OnInit {
 
   ngOnInit(): void {
   
-    this.pricefilter();
+    // this.pricefilter();
+    // if(this.Filter.length==2)
+    // {
+    //   setTimeout(() => {
+    //     this.pricefilterIB();
+    //   }, 200);
+    
+    // }
+    this.min=this.Filter[0]['Price']['MinPrice'];
+    this.max=this.Filter[0]['Price']['MaxPrice'];
     if(this.Filter.length==2)
     {
-      setTimeout(() => {
-        this.pricefilterIB();
-      }, 200);
+      this.minib=this.Filter[1]['Price']['MinPrice']
+      this.maxib=this.Filter[1]['Price']['MaxPrice']
     
     }
   }
@@ -145,8 +160,8 @@ export class FilterComponent implements OnInit {
     let max = $.trim($(".right-price").val());
    
     
-    let minprice = min.replace(/,/g, "");
-    let maxprice = max.replace(/,/g, "");
+    // let minprice = min.replace(/,/g, "");
+    // let maxprice = max.replace(/,/g, "");
      
     let FilterData:any=[];
     FilterData=this.Filter[filtertype];
@@ -236,6 +251,9 @@ export class FilterComponent implements OnInit {
       {
         data=this.Response[filtertype];
       }
+
+      let minprice = this.Filter[filtertype]['Price']['MinPrice'];
+      let maxprice = this.Filter[filtertype]['Price']['MaxPrice'];
 
       filtered=multiFilter(filtertype,data, filters,ir);
      
@@ -531,11 +549,13 @@ export class FilterComponent implements OnInit {
 
       if(filtertype==0)
       {
-        this.pricefilter();
+          this.min=this.Filter[0]['Price']['MinPrice'];
+          this.max=this.Filter[0]['Price']['MaxPrice'];
       }
       if(filtertype==1)
       {
-        this.pricefilterIB();
+        this.minib=this.Filter[1]['Price']['MinPrice']
+        this.maxib=this.Filter[1]['Price']['MaxPrice']
       }
 
       this.shownetfare=false;

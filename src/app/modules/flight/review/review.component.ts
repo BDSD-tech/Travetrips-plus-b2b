@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { AuthenticationService } from '../../../services/authentication.service';
@@ -7,7 +7,7 @@ import { FlightService } from '../flight.service';
 import { Location } from '@angular/common';
 import { AlertService } from '../../../services/alert.service';
 import { tts_config } from '../../../../environments/tts_config';
-import { Baggage } from './baggage';
+declare var bootstrap: any;
 @Component({
   selector: 'app-review',
   templateUrl: './review.component.html',
@@ -20,6 +20,7 @@ import { Baggage } from './baggage';
 export class ReviewComponent implements OnInit {
 [x: string]: any;
 
+  @Input() params:any=[];
 
   SessionTime:any;
   Response:any=[];
@@ -44,14 +45,15 @@ export class ReviewComponent implements OnInit {
 
   constructor(private flightService: FlightService,private router: Router,private route: ActivatedRoute,private commonservice: CommonService,private fb: FormBuilder,private authenticationservice: AuthenticationService,private location: Location,private alertservice:AlertService) { 
 
-    this.route.queryParams.subscribe(params => {
-      if(params) {
-          this.param=params;
-      } else {
-          this.router.navigate(['/']);
-       }
-    });
-
+    // this.route.queryParams.subscribe(params => {
+    //   if(params) {
+    //       this.param=params;
+    //   } else {
+    //       this.router.navigate(['/']);
+    //    }
+    // });
+  
+  
     if (sessionStorage.getItem('FlightSearch')) {
       let flightsearch:any=sessionStorage.getItem('FlightSearch');
       this.GetSearchData = JSON.parse(flightsearch);
@@ -62,8 +64,7 @@ export class ReviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
+    this.param=this.params;
     if(sessionStorage.getItem('time')) {
       let time:any=sessionStorage.getItem('time');
       this.SessionTime=JSON.parse(time);
@@ -142,6 +143,7 @@ export class ReviewComponent implements OnInit {
 
   ProceedToPay()
   {
+    this.closeModal();
     let data:any={
       "service":'Flight',
       "params":this.param
@@ -150,6 +152,13 @@ export class ReviewComponent implements OnInit {
       queryParams:data
     };
     this.router.navigate(['payment'],navigationExtras);
+  }
+
+closeModal() {
+    // this.showReviewpage = false;
+    const modalElement = document.getElementById('ReviewModal')!;
+    const modal = bootstrap.Modal.getInstance(modalElement);
+    modal?.hide();
   }
 
 }
