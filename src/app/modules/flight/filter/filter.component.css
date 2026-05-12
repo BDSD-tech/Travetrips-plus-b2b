@@ -1,332 +1,166 @@
-/* =========================================================
-HEADER
-========================================================= */
+.flight-filter-sidebar {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    overflow: hidden;
+}
+
+/* HEADER */
 .filter-header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    gap: 12px;
-    padding-bottom: 18px;
-    margin-bottom: 22px;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.filter-heading h5 {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--second-dark-color);
-    font-family: var(--heading-font);
-}
-
-.filter-heading small {
-    font-size: 13px;
-    color: var(--body-text-color);
-}
-
-.reset-btn {
-    border: none;
-    background: rgba(247, 157, 6, .12);
-    color: var(--primary-bg-color);
-    padding: 9px 16px;
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.reset-btn:hover {
-    background: var(--primary-bg-color);
-    color: var(--white);
-}
-
-/* =========================================================
-FILTER CARD
-========================================================= */
-.filter-card {
-    background: var(--white);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    margin-bottom: 18px;
-    box-shadow: var(--shadow-sm);
-}
-
-.filter-card-header {
-    background: var(--main-bg-color);
-    padding: 15px 18px;
-    display: flex;
     align-items: center;
-    justify-content: space-between;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--second-dark-color);
-    font-family: var(--heading-font);
-}
-
-.filter-card-header i {
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.filter-card-header i:hover {
-    color: var(--primary-color);
-}
-
-.filter-card-body {
-    padding: 18px;
-}
-
-/* =========================================================
-PRICE INPUTS
-========================================================= */
-.price-inputs {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 12px;
-}
-
-.price-inputs input {
-    width: 100%;
-    height: 44px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    background: var(--second-bg-color);
-    padding: 0 14px;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--second-dark-color);
-    outline: none;
-    transition: var(--transition);
-}
-
-.price-inputs input:focus {
-    border-color: var(--primary-color);
-    background: var(--white);
-}
-
-/* =========================================================
-PRICE RANGE SLIDER
-========================================================= */
-.price-range.price-filter.ui-slider {
-    position: relative;
-    height: 6px;
-    border: none;
-    border-radius: 999px;
-    background: #e5e7eb;
-    margin: 24px 10px;
-}
-
-/* Active Range */
-.price-range.price-filter .ui-slider-range {
-    position: absolute;
-    height: 100%;
-    background: var(--primary-color);
-    border-radius: 999px;
-}
-
-/* Slider Handles */
-.price-range.price-filter .ui-slider-handle {
-    position: absolute;
-    top: 50%;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    border: 3px solid var(--primary-color);
-    background: var(--white);
-    transform: translateY(-50%);
-    cursor: pointer;
-    box-shadow: 0 4px 14px rgba(29, 78, 216, .25);
-    transition: var(--transition);
-    z-index: 10;
-}
-
-/* Inner Dot */
-.price-range.price-filter .ui-slider-handle::before {
-    content: "";
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--primary-color);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-/* Hover */
-.price-range.price-filter .ui-slider-handle:hover {
-    transform: translateY(-50%) scale(1.08);
-}
-
-/* Active */
-.price-range.price-filter .ui-slider-handle:active {
-    transform: translateY(-50%) scale(1.15);
-}
-
-/* Focus */
-.price-range.price-filter .ui-slider-handle:focus {
-    outline: none;
-    box-shadow:
-        0 0 0 5px rgba(247, 157, 6, .18),
-        0 4px 14px rgba(29, 78, 216, .28);
-}
-
-/* Remove jQuery Defaults */
-.ui-widget.ui-widget-content {
-    border: none;
-}
-
-.ui-widget-header {
-    border: none;
-    background: var(--primary-color);
-}
-
-.ui-state-default,
-.ui-widget-content .ui-state-default,
-.ui-widget-header .ui-state-default {
-    border: none;
-    background: transparent;
-}
-
-/* =========================================================
-FARE SWITCH
-========================================================= */
-.fare-switch-wrap {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.form-check-input {
-    cursor: pointer;
-}
-
-.form-check-input:checked {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-}
-
-.form-check-label {
-    font-weight: 500;
-    color: var(--second-dark-color);
-}
-
-/* =========================================================
-TRIP TABS
-========================================================= */
-.trip-tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    list-style: none;
     margin-bottom: 16px;
 }
 
-.trip-tabs li {
-    padding: 9px 14px;
-    border-radius: var(--radius-sm);
-    background: var(--main-bg-color);
-    font-size: 13px;
+.filter-heading h5 {
+    margin: 0;
+    font-size: 18px;
     font-weight: 600;
-    color: var(--second-dark-color);
+}
+
+.reset-btn,
+.clear-link {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 12px;
     cursor: pointer;
     transition: var(--transition);
 }
 
-.trip-tabs li:hover,
-.active-trip {
-    background: var(--primary-color);
-    color: var(--white);
+.reset-btn:hover,
+.clear-link:hover {
+    opacity: 0.8;
 }
 
-/* =========================================================
-STOP BOXES
-========================================================= */
-.stop-grid {
+/* FILTER CARD */
+.filter-card {
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.filter-card:last-child {
+    border-bottom: none;
+}
+
+.filter-card-header {
     display: flex;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.filter-card-header span {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+/* PRICE */
+.price-range,
+.return-price-range {
+    height: 4px;
+    background: #ddd;
+    border-radius: var(--radius-sm);
+    margin: 10px 0;
+}
+
+.price-inputs {
+    display: flex;
+    justify-content: space-between;
     gap: 10px;
 }
 
-.stop-box {
-    flex: 1;
-    min-width: 100px;
-    padding: 10px 16px;
+.price-inputs input {
+    width: 48%;
+    border: none;
+    background: transparent;
+    font-size: 13px;
+    outline: none;
+}
+
+/* TRIP TABS */
+.trip-tabs {
+    display: flex;
+    gap: 6px;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 10px;
+}
+
+.trip-tabs li {
+    padding: 6px 12px;
     border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    background: var(--white);
-    text-align: center;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--second-dark-color);
+    border-radius: 20px;
+    font-size: 12px;
     cursor: pointer;
     transition: var(--transition);
 }
 
-.stop-box:hover {
+.active-trip {
+    background: var(--primary-color);
+    color: var(--white);
     border-color: var(--primary-color);
-    color: var(--primary-color);
+}
+
+/* STOPS */
+.stop-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.stop-box {
+    padding: 6px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: var(--transition);
 }
 
 .active-stop {
     background: var(--primary-color);
-    border-color: var(--primary-color);
     color: var(--white);
+    border-color: var(--primary-color);
 }
 
-/* =========================================================
-TIME GRID
-========================================================= */
+/* TIME FILTER */
 .time-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
 }
 
 .time-box {
-    padding: 16px;
     border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    background: var(--white);
+    padding: 10px 6px;
     text-align: center;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
     cursor: pointer;
     transition: var(--transition);
 }
 
-.time-box:hover {
-    border-color: var(--primary-color);
-    transform: translateY(-2px);
-}
-
 .active-time {
-    background: var(--second-bg-color);
     border-color: var(--primary-color);
+    background: #eaf3ff;
 }
 
-.time-box span {
-    display: block;
-    margin-top: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--second-dark-color);
-}
-
-/* =========================================================
-ICONS
-========================================================= */
-.time-icon,
-.icon_sort {
-    width: 22px;
-    height: 22px;
-    margin: 0 auto 8px;
-    display: block;
+.time-icon {
+    width: 20px;
+    height: 20px;
+    margin: 0 auto 10px auto;
     background-repeat: no-repeat;
     background-position: center;
 }
 
-/* Use Real SVG Files */
+/* ICONS (NOTE: SVG fragment URLs may NOT work in CSS background-image in many browsers) */
 .icon-morning {
     background-image: url('/assets/img/ficon.svg#morning');
 }
@@ -401,165 +235,36 @@ FARE COLORS
     color: var(--body-text-color);
 }
 
-/* =========================================================
-LABELS
-========================================================= */
-.label-magenta,
-.label-orange,
-.label-green,
-.label-yellow,
-.label-iceblue,
-.label-blue {
-    display: inline-block;
-    padding: 4px 7px;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: 600;
-    line-height: 1;
-}
-
-.label-magenta {
-    background: #ffe2f6;
-    color: #ff1da8;
-}
-
-.label-orange {
-    background: #fff4e9;
-    color: #ff7b39;
-}
-
-.label-green {
-    background: #eaffda;
-    color: #699c44;
-}
-
-.label-yellow {
-    background: #fdf4d5;
-    color: #876e1e;
-}
-
-.label-iceblue {
-    background: #e7faf9;
-    color: #058c91;
-}
-
-.label-blue {
-    background: #e4eaff;
-    color: #2f55c3;
-}
-
-/* =========================================================
-AIRLINES
-========================================================= */
+/* AIRLINES */
 .airline-scroll {
-    max-height: 320px;
+    max-height: 300px;
     overflow-y: auto;
 }
 
-.airline-scroll::-webkit-scrollbar {
-    width: 5px;
-}
-
-.airline-scroll::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
-    border-radius: 999px;
-}
-
 .airline-item {
-    padding: 12px 0;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.airline-item:last-child {
-    border-bottom: none;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
 }
 
 .airline-label {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     cursor: pointer;
 }
 
 .airline-left {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
 }
 
 .airline-name {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--second-dark-color);
-}
-
-.airline-left small {
-    font-size: 12px;
-    color: var(--body-text-color);
+    font-size: 13px;
+    font-weight: 500;
 }
 
 .airline-price {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--primary-color);
-}
-
-/* =========================================================
-CLEAR BUTTON
-========================================================= */
-.clear-link {
-    border: none;
-    background: none;
     font-size: 13px;
     font-weight: 600;
-    color: var(--primary-color);
-    cursor: pointer;
-}
-
-/* =========================================================
-UTILITY COLORS
-========================================================= */
-.orange {
-    color: orange;
-}
-
-.red {
-    color: red;
-}
-
-.green {
-    color: green;
-}
-
-/* =========================================================
-RESPONSIVE
-========================================================= */
-@media (max-width: 768px) {
-    .filter-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .time-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .fare-switch-wrap {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-
-    .stop-box {
-        width: 100%;
-    }
-
-    .price-range.price-filter.ui-slider {
-        margin: 20px 6px;
-    }
-
-    .price-range.price-filter .ui-slider-handle {
-        width: 20px;
-        height: 20px;
-    }
 }

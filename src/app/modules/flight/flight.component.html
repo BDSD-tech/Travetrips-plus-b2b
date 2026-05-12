@@ -10,13 +10,13 @@
           Track wallet balance, manage trips, and control everything easily.
         </p>
         <!-- <div class="hero-buttons">
-          <a routerLink="/flight" class="btn btn-primary">
-            <i class="fas fa-plane "></i> Book Flight
-          </a>
-          <a routerLink="/hotel" class="btn btn-outline-primary">
-            <i class="fas fa-hotel "></i> Find Hotels
-          </a>
-        </div> -->
+               <a routerLink="/flight" class="btn btn-primary">
+                 <i class="fas fa-plane "></i> Book Flight
+               </a>
+               <a routerLink="/hotel" class="btn btn-outline-primary">
+                 <i class="fas fa-hotel "></i> Find Hotels
+               </a>
+               </div> -->
       </div>
     </div>
   </div>
@@ -26,16 +26,14 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
-
         <div class="flight_box">
           <ul class="search-tabs">
             <li>
               <a href="javascript:void(0)" routerLink="/flight" class="tab-link active">
-                 <i class="fas fa-plane-departure"></i>
+                <i class="fas fa-plane-departure"></i>
                 <span>Flight</span>
               </a>
             </li>
-
             <li>
               <a href="javascript:void(0)" routerLink="/hotel" class="tab-link">
                 <i class="fas fa-building"></i>
@@ -475,94 +473,66 @@
       <div>
         <h3 class="title">Recent Searches</h3>
         <!-- <p class="subtitle">
-          Quickly continue your previous flight searches
-        </p> -->
+               Quickly continue your previous flight searches
+               </p> -->
       </div>
     </div>
     <!-- Search Cards -->
     <div class="recent-search-grid">
-      <div class="recent-search-item" *ngFor="let item of getRecentSearch" (click)="recentsearch(item)">
-        <div class="recent-card">
-          <!-- Multi City -->
+     
+        <div class="recent-card" *ngFor="let item of getRecentSearch" (click)="recentsearch(item)">
+          <!-- MULTI CITY -->
           <div class="at-viewlastbg" *ngIf="item['Type']=='M'">
-            <!-- <div class="trip-type">
-                  <span class="trip-badge multi">
-                    Multi City
-                  </span>
-                  </div> -->
-            <div class="route-area">
-              <div class="route-city">
-                <h4 class="at-mnlbt">
-                  {{item['MultiCity'][0]['OriginCode']}}
-                </h4>
-                <small>From</small>
+            <!-- TOP -->
+            <div class="recent-top">
+              <div class="flight-icon">
+                <i class="fa fa-plane"></i>
               </div>
-              <div class="plane-icon">
-                <i class="fa fa-plane at-vieicon"></i>
-              </div>
-              <div class="route-city">
-                <h4 class="at-mnlbt">
-                  {{item['MultiCity'][0]['DestinationCode']}}
-                </h4>
-                <small>To</small>
+              <div class="route-text">
+                {{item['MultiCity'][0]['OriginCode']}}
+                <i class="fa fa-arrow-right route-arrow"></i>
+                {{item['MultiCity'][0]['DestinationCode']}}
               </div>
             </div>
-            <div class="card-footer-info">
+            <!-- BOTTOM -->
+            <div class="recent-bottom">
               <span class="date-text">
-                <i class="fa fa-calendar"></i>
                 {{item['MultiCity'][0]['DepartDate']}}
               </span>
-              <span class="trip-count">
-                {{item['MultiCity'].length}} Routes
+              <span class="dot"></span>
+              <span class="passenger-count">
+                {{item['MultiCity'].length}}
               </span>
-              <span class="trip-count">
-                Multi City
-              </span>
+              <i class="fa fa-user user-icon"></i>
             </div>
           </div>
-          <!-- One Way / Round Trip -->
+          <!-- ONE WAY / ROUND -->
           <div class="at-viewlastbg" *ngIf="item['Type']!='M'">
-            <!-- <div class="trip-type">
-                  <span class="trip-badge oneway" *ngIf="item['Type']=='O'">
-                    One Way
-                  </span>
-                  
-                  <span class="trip-badge roundtrip" *ngIf="item['Type']=='R'">
-                    Round Trip
-                  </span>
-                  </div> -->
-            <div class="route-area">
-              <div class="route-city">
-                <h4 class="at-mnlbt">
-                  {{item['OriginCode']}}
-                </h4>
-                <small>From</small>
+            <!-- TOP -->
+            <div class="recent-top">
+              <div class="flight-icon">
+                <i class="fa fa-plane"></i>
               </div>
-              <div class="plane-icon">
-                <i class="fa fa-plane at-vieicon"></i>
-              </div>
-              <div class="route-city">
-                <h4 class="at-mnlbt">
-                  {{item['DestinationCode']}}
-                </h4>
-                <small>To</small>
+              <div class="route-text">
+                {{item['OriginCode']}}
+                <i class="fa fa-arrow-right route-arrow"></i>
+                {{item['DestinationCode']}}
               </div>
             </div>
-            <div class="card-footer-info">
+            <!-- BOTTOM -->
+            <div class="recent-bottom">
               <span class="date-text">
-                <i class="fa fa-calendar"></i>
                 {{item['DepartDate']}}
               </span>
-              <span class="return-text" *ngIf="item['Type']=='R'">
-                Return Trip
+              <span class="dot"></span>
+              <span class="passenger-count">
+                1
               </span>
-              <span class="return-text" *ngIf="item['Type']=='O'">
-                One Way
-              </span>
+              <i class="fa fa-user user-icon"></i>
             </div>
           </div>
         </div>
-      </div>
+
     </div>
   </div>
 </div>
@@ -572,12 +542,10 @@
 <section class="deal-offer-section">
   <div class="container">
     <!-- Section Header -->
-
     <div class="section-title">
       <h2>Deals & Offers</h2>
       <!-- <p>Explore the latest travel deals, discounts and important updates</p> -->
     </div>
-
     <!-- Main Layout -->
     <div class="deal-layout">
       <!-- Offer Cards -->

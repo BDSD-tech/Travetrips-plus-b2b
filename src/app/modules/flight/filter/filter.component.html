@@ -4,7 +4,6 @@
     <div class="filter-header">
         <div class="filter-heading">
             <h5>Flight Filters</h5>
-            <small>Refine your search</small>
         </div>
 
         <button class="reset-btn" (click)="clearFilter()">
@@ -166,17 +165,12 @@
 
             <!-- ONWARD STOPS -->
             <div class="stop-grid" *ngIf="Filter[0] && isstopshow==0">
-
                 <label class="stop-box" *ngFor="let item of Filter[0]['Stops']; let i=index"
                     [ngClass]="{'active-stop':item.isChecked}">
-
                     <input type="checkbox" class="d-none" [(ngModel)]="item.isChecked"
                         (click)="doFilter(0,'Stop',$event,item)">
-
                     <span>{{item.value}}</span>
-
                 </label>
-
             </div>
 
             <!-- RETURN STOPS -->
