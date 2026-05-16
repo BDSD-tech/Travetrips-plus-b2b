@@ -72,12 +72,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.startAutoSlide()
-
+    console.log(this.authenticationservice.currentUserValue);
+    
     if (this.authenticationservice.currentUserValue) {
       this.router.navigate(['/flight']);
-    } else {
-      this.router.navigate(['/']);
-    }
+    } 
 
     this.commonservice.GetWebSiteData().subscribe(data => {
       this.GetWebSiteData = data;

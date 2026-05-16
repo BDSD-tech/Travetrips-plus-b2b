@@ -5,6 +5,7 @@ import { LoginComponent } from './login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { SafeHtmlModule } from '../../shared/safe-html.module';
+import { LandingPageComponent } from '../landing-page/landing-page.component';
 
 
 
@@ -12,6 +13,7 @@ import { SafeHtmlModule } from '../../shared/safe-html.module';
   declarations: [
     LoginComponent,
     ForgotPasswordComponent,
+    LandingPageComponent
   ],
   imports: [
     CommonModule,

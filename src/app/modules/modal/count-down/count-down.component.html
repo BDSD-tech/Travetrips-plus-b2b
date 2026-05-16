@@ -1,11 +1,14 @@
+@if(display == 'on'){
+<div class="tts-session-timer">
+    <div class="timer-card">
+        <i class="fas fa-clock timer-icon"></i>
 
-
-<div class="tts-session-timer" *ngIf="display=='on'">
-    <div class="tts-session-timer text-center">
-         <div class="tts-stripe-timer p-3">
-            <i class="fas fa-clock tgs-clock"></i>
-            <span>Your Session will expire in </span>
-            <span class="t-counter">{{minutesToDday}} mins : {{secondsToDday}} secs</span>
+        <div class="timer-content">
+            <span class="timer-text">Your session will expire in</span>
+            <span class="timer-count">
+                {{minutesToDday}}mins : {{secondsToDday}}secs
+            </span>
         </div>
     </div>
 </div>
+}
