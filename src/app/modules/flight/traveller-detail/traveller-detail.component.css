@@ -1,387 +1,417 @@
-.apt-active::before {
-    color: #fff !important;
-    background: #4aa301 !important;
-    content: "\F00C" !important;
-}
-.apt-active .apt-flightiti {
-    color: #4aa301;
-}
-.apt-active::after {
-    background: #4aa301 !important;
+.booking-stepper {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
+    border: 1px solid #edf1f7;
 }
 
-.apt-black::before {
-    background-color: var(--primary-bg-color) !important;
-    color: #fff !important;
+.booking-stepper .step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #111;
+    font-size: 16px;
+    font-weight: 500;
 }
-.tts-hidden{
-    display: none;
+
+.booking-stepper .step-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    background: #fff;
 }
-.gst-clear{
+
+.booking-stepper .step.completed .step-icon {
+    background: #00a884;
+    border-color: #00a884;
+    color: #fff;
+}
+
+.booking-stepper .step.active {
+    color: #00a0c6;
+}
+
+.booking-stepper .step.active .step-icon {
+    border-color: #00a0c6;
+    color: #00a0c6;
+}
+
+.booking-stepper .step-dots {
+    color: #999;
     font-size: 14px;
-    border: 2px solid #eee;
-    cursor: pointer;
-    color: var(--second-color);
-    float: right;
-    padding: 10px;
-    margin-top: 10px;
+    letter-spacing: 2px;
 }
-.border-bottom:last-child{
-    border-bottom: none!important;
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .booking-stepper {
+        gap: 6px;
+        padding: 12px;
+    }
+
+    .booking-stepper .step-text {
+        font-size: 13px;
+    }
+
+    .booking-stepper .step-icon {
+        width: 22px;
+        height: 22px;
+        font-size: 11px;
+    }
 }
-.booking-rightside{
+
+
+/* =========================================================
+FLIGHT BOOKING WRAPPER
+========================================================= */
+
+.flight-booking-wrapper {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
+    border: 1px solid #edf1f7;
+}
+
+.flight-booking-header {
+    margin-bottom: 10px;
+}
+
+.flight-booking-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #111827;
+    margin: 0;
     position: relative;
 }
-.fare-details{
-    position: sticky;
-    top: 44px;
-    
-}
-.seat-map-box{
-    padding: 20px;
-}
-.seat-map-box h6{
-   margin: 0    ;
-}
-.seat-map-box span{
-   margin: 0;
-   color: rgb(121, 117, 117);
-}
-.seat-map-box .add-seat-button{
-  border-radius: 10px;
-  margin: 0;
+
+.flight-booking-title span {
+    position: relative;
+    padding-left: 14px;
 }
 
-
-
-
-
-
-
-/*----------Start Seatmap---------*/
-
-    .selectedseat{
-        color: #4caf50 !important;
-        background: #4caf502b !important;
-    }
-
-    .flightboxmain_seatmain {
-        margin: 23px 0;
-    }
-    .seatmapdiv {
-        display: flex;
-        font-size: 15px;
-        justify-content: space-between;
-        font-weight: 500;
-    }
-
-    .flightboxmain_seatmain1 {
-        cursor: pointer;
-        position: relative;
-        flex-direction: column-reverse;
-        width: 33px;
-        height: 31px;
-        padding: 0;
-        margin-right: 5px;
-        margin-bottom: 20px;
-        font-size: 11px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 5px;
-        font-weight: 500;
-        border: 1px solid;
-    }
-
-    .flightboxmain_seatmain2 {
-        color: #2196f3;
-    }
-    .flightboxmain_seatmain3 {
-        color: #f44336;
-    }
-    .flightboxmain_seatmain4 {
-        color: #4caf50;
-    }
-    .innerrow h2 {
-        font-size: 13px;
-        text-transform: capitalize;
-        border: 1px solid #ccc;
-        color: #9e9e9e;
-        padding: 0 11px;
-        font-weight: 500;
-        border-radius: 5px;
-        margin-top: 12px;
-        margin-bottom: 12px;
-    }
-    .switchfilterbox {
-        box-shadow: 0 1px 12px 0 rgba(0, 0, 0, 0.12);
-        border: 1px solid #f3f3f3;
-        background-color: #fff;
-        margin: 20px 0px;
-        position: relative;
-        float: left;
-    }
-    .depart_ssr_seat {
-        background: #2196f30f;
-        float: left;
-        width: 100%;
-        padding: 20px;
-    }
-    .adi-full {
-        width: 100%;
-        float: left;
-    }
-    .seatlayoutbox {
-        display: flex;
-        flex-direction: row-reverse;
-        padding-top: 20px;
-    }
-    .flightbox {
-        margin: 0 auto;
-        position: relative;
-    }
-    .bgProperties {
-        background-repeat: no-repeat;
-        background-position: center;
-        display: inline-block;
-        background-size: contain;
-    }
-    .iconflFront {
-       width: 381px;
-        height: 291px;
-    }
-
-    .flightboxplan {
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        justify-content: center;
-        border: 0 solid #ccc;
-        width: 380px;
-        border-top: 0;
-        margin: -11px 0;
-        background: #fff;
-    }
-    .flightdetails {
-        font-size: 16px;
-    }
-    .baggagesegement ul {
-        margin: 0;
-        float: left;
-        width: 100%;
-        border-bottom: 1px solid #ccc;
-        padding: 0;
-        list-style: none;
-    }
-    .seatrow {
-        display: flex;
-        border-bottom: 0 !important;
-        padding: 0px;
-    }
-    .baggagesegement ul li {
-        width: auto;
-        float: left;
-        text-align: center;
-        padding: 0 0 11px;
-    }
-    .seatlayoutbox ul li {
-        cursor: pointer;
-        position: relative;
-        flex-direction: column-reverse;
-        width: 30px;
-        height: 30px;
-        padding: 0;
-        margin-right: 5px;
-        margin-bottom: 15px;
-        font-size: 11px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 5px;
-        font-weight: 500;
-        background: #03a9f408;
-        border: 1px solid;
-        color: #2196f3;
-    }
- 
-    .seatlayoutbox ul li::after {
-        position: relative;
-        content: attr(data-letter);
-        font-family: tahoma;
-        top: -25px;
-    }
-    .booked {
-        background: #f443361c !important;
-        cursor: not-allowed !important;
-        color: #f44336 !important;
-        border: 1px solid !important;
-    }
-    .segmetsetnum {
-        position: absolute;
-        /*top: -19px;*/
-        color: #000;
-        font-weight: 500;
-        padding: 10px;
-    }
-
-    .seatdetails-tooltip {
-        box-shadow: rgb(0 0 0 / 14%) 0 2px 2px 0, rgb(0 0 0 / 12%) 0 1px 5px 0, rgb(0 0 0 / 20%) 0 3px 1px -2px;
-        font-weight: 500;
-        margin-top: 23px;
-        width: max-content;
-        display: none;
-        z-index: 10;
-        border-radius: 5px;
-        background: #000;
-        position: absolute;
-        top: 9px;
-        font-size: 12px;
-        color: #ffff;
-        padding: 10px;
-    }
-
-    .seatdetails {
-        box-shadow: rgb(0 0 0 / 14%) 0 2px 2px 0, rgb(0 0 0 / 12%) 0 1px 5px 0, rgb(0 0 0 / 20%) 0 3px 1px -2px;
-        font-size: 14px;
-        color: #000;
-        font-weight: 700;
-        margin-top: 23px;
-        width: 240px;
-        z-index: 10;
-        border-radius: 5px;
-        background: #fff;
-        position: absolute;
-        top: 9px;
-    }
-
-    .seat-header{
-        padding: 10px;
-        background: #000;
-        color: #fff;
-    }
-    .seat-body{
-        background: #fff;
-        box-shadow: 0 4px 26px 0 rgba(60,60,60,0.5);
-    }
-    .seat-body .seat-li{
-        padding: 12px 18px;
-        border-bottom: 1px solid #eeeeee;
-        cursor: pointer;
-    }
-    .seat-body .seat-li i{ 
-        margin-right: 5px;
-        color: #e2e2e2;
-        font-size: 18px;
-    }
-
-    .bgProperties {
-        background-repeat: no-repeat;
-        background-position: center;
-        display: inline-block;
-        background-size: contain;
-    }
-    .gallery {
-        margin-right: 25px !important;
-    }
-    .iconflTail {
-       width: 380px;
-    height: 495px;
-    margin-top: -2px;
-    }
-    
-    .seatinfo .seat-body:after {
+.flight-booking-title span::before {
     content: "";
-    border-top: 14px solid #fff;
-    border-left: 11px solid transparent;
-    border-right: 11px solid transparent;
     position: absolute;
-    bottom: -13px;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    top: 4px;
+    width: 5px;
+    height: 24px;
+    border-radius: 20px;
+    background: #0d6efd;
 }
 
-.blankrow li, li.blankseat {visibility:hidden; width:26px;}
-.blankrow li span, li.blankseat  span{display:none;}
-.recline{padding-top:10px;}
+/* =========================================================
+SCROLL AREA
+========================================================= */
 
-.pax-seat-assign{
-    color:green !important;
-}
-.tooltrip-close{
-    background: red;
-    color: #fff;
-    border: 0px;
-    border-radius: 50%;
-    width: 22px;
-    height: 22px;
-    padding: 0;
+.flight-booking-scroll {
+    max-height: 900px;
+    overflow-y: auto;
+    padding-right: 6px;
 }
 
-/*----------End Seatmap---------*/
+.flight-booking-scroll::-webkit-scrollbar {
+    width: 6px;
+}
 
+.flight-booking-scroll::-webkit-scrollbar-thumb {
+    background: #d0d7e2;
+    border-radius: 10px;
+}
 
-.nav.nav-tabs.insurance{
-      display: flex;
-    justify-content: center;
+/* =========================================================
+TRIP CARD
+========================================================= */
+
+.flight-trip-card {
+    margin-bottom: 22px;
 }
-.nav.nav-tabs.insurance li.nav-item{
-     padding: 10px;
-     padding-bottom:2px;
-     margin: 0 10px;
+
+.flight-route-block {
+    background: #fff;
+    border: 1px solid #ebf0f6;
+    border-radius: 16px;
+    padding: 22px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
 }
-.nav.nav-tabs.insurance li.nav-item button{
-      color: black;
+
+.flight-route-block:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
 }
-.nav.nav-tabs.insurance li.nav-item button:hover{
-      border-top: none!important;
-      border-right: none!important;
-      border-left: none!important;
+
+/* =========================================================
+ROUTE TITLE
+========================================================= */
+
+.flight-route-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 24px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #dbe4f0;
 }
-.nav.nav-tabs.insurance li.nav-item button:focus-within{
-      border-top: none!important;
-      border-right: none!important;
-      border-left: none!important;
+
+.flight-route-arrow {
+    color: #0d6efd;
+    margin: 0 5px;
 }
-.nav.nav-tabs.insurance li.nav-item button:focus{
-      border-top: none!important;
-      border-right: none!important;
-      border-left: none!important;
+
+.flight-date-info {
+    font-size: 13px;
+    color: #6b7280;
+    font-weight: 500;
+    margin-left: 10px;
 }
-.nav.nav-tabs.insurance li.nav-item button.active{
-      border-bottom: 3px solid var(--second-color);
-      border-top: none!important;
-      border-left: none!important;
-      border-right: none!important;
+
+.flight-arrival-info {
+    background: #fff3f3;
+    color: #dc3545;
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 30px;
+    margin-left: 12px;
+    display: inline-block;
 }
-.term_condition{
-    line-height: 18px;
+
+.flight-total-duration {
     font-size: 14px;
-    color: #151515;
+    color: #374151;
+    font-weight: 600;
 }
 
-.ssr-detail-stripe{
+/* =========================================================
+AIRLINE INFO
+========================================================= */
+
+.flight-airline-list {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.flight-airline-logo {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #edf2f7;
+    padding: 5px;
+}
+
+.flight-airline-details {
+    font-size: 15px;
+    font-weight: 700;
+    color: #111827;
+    line-height: 1.5;
+}
+
+.flight-airline-code {
+    display: block;
+    font-size: 13px;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.flight-aircraft-type {
+    margin-left: 6px;
+    color: #0d6efd;
+    font-weight: 600;
+}
+
+/* =========================================================
+TIMELINE
+========================================================= */
+
+.flight-timeline-list {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid #eee;
-    background: #f9f9f9;
-    border-radius: 2px;
-    margin-top: 20px;
-    padding: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 15px;
 }
-.ssr-detail-stripe h6{
-   font-size: 14px;
 
+.flight-timeline-list li {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
 }
-.ssr-icons {
-    display: flex;
+
+.flight-airport-city {
+    display: block;
+    margin-top: 4px;
+    font-size: 13px;
+    color: #6b7280;
+    font-weight: 500;
 }
-.ssr-icons a{
-   
-    margin-left: 10px;
+
+.flight-airport-name {
+    display: block;
+    margin-top: 3px;
+    font-size: 12px;
+    color: #9ca3af;
+    font-weight: 500;
 }
-.meal-box{
-   border: 1px solid #e8e8e8;
-   border-top: none;
-   border-radius: 0 0 5px 5px;
+
+.flight-terminal-info {
+    display: inline-block;
+    margin-top: 8px;
+    background: #eff6ff;
+    color: #2563eb;
+    padding: 4px 10px;
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/* =========================================================
+FLIGHT ROUTE CENTER
+========================================================= */
+
+.flight-route-line {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, #0d6efd, #93c5fd);
+    margin: 10px 0;
+    border-radius: 10px;
+}
+
+.flight-route-image {
+    width: 28px;
+    margin: auto;
+    display: block;
+}
+
+/* =========================================================
+DURATION BOX
+========================================================= */
+
+.flight-duration-box {
+    text-align: right;
+    font-size: 16px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.flight-cabin-info {
+    margin-top: 6px;
+    font-size: 13px;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+/* =========================================================
+FARE BADGE
+========================================================= */
+
+.flight-fare-badge-wrapper {
+    margin-top: 12px;
+}
+
+.flight-fare-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* =========================================================
+BAGGAGE
+========================================================= */
+
+.flight-baggage-section {
+    margin-top: 10px;
+}
+
+.flight-baggage-info {
+    color: #6b7280;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* =========================================================
+LAYOVER
+========================================================= */
+
+.flight-layover-wrapper {
+    background: #f8fafc;
+    border: 1px dashed #cbd5e1;
+    border-radius: 14px;
+    padding: 14px;
+}
+
+.flight-layover-text {
+    margin: 0;
+    font-size: 13px;
+    color: #475569;
+    font-weight: 600;
+}
+
+/* =========================================================
+RESPONSIVE
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .flight-timeline-list {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .flight-duration-box {
+        text-align: left;
+        margin-top: 15px;
+    }
+
+    .flight-route-title .float-end {
+        float: none !important;
+        display: block;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 767px) {
+
+    .flight-booking-wrapper {
+        padding: 16px;
+    }
+
+    .flight-route-block {
+        padding: 16px;
+    }
+
+    .flight-route-title {
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    .flight-airline-list {
+        margin-bottom: 18px;
+    }
+
+    .flight-duration-box {
+        margin-top: 18px;
+    }
 }

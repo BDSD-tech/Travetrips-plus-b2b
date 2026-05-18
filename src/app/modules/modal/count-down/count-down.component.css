@@ -1,0 +1,79 @@
+.tts-session-timer {
+    position: sticky;
+    bottom: 0px;
+    right: 0px;
+    z-index: 997;
+}
+
+.timer-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 12px 0px;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+    animation: slideIn 0.4s ease;
+}
+
+.timer-icon {
+    font-size: 20px;
+    opacity: 0.9;
+    color: var(--primary);
+}
+
+.timer-content {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.timer-text {
+    font-size: 13px;
+    opacity: 0.85;
+    color: var(--primary);
+}
+
+.timer-count {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--primary);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.timer-count.warning {
+    animation: blink 1s infinite;
+    color: #fff;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@media (max-width: 480px) {
+    .timer-card {
+        min-width: auto;
+        padding: 10px 14px;
+    }
+
+    .timer-count {
+        font-size: 16px;
+    }
+}

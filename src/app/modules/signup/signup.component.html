@@ -280,7 +280,7 @@
             </div>
 
             <!-- EMAIL Top-->
-            <div class="col-lg-2 col-md-12" *ngIf="isshowemailotp">
+            <div class="col-lg-3 col-md-12" *ngIf="isshowemailotp">
               <div class="input-box">
                 <label>Email OTP</label>
                 <div class="input-wrapper">
@@ -307,7 +307,7 @@
             </div>
 
             <!-- OTP BUTTON -->
-            <div class="col-lg-2 col-md-6" *ngIf=" emailverifydone==false">
+            <div class="col-lg-3 col-md-6" *ngIf=" emailverifydone==false">
               <!-- SEND OTP -->
               <button *ngIf="isshowemailotp===false" class="btn_otp" type="button"
                 (click)="sendotp('email','email_successMsg')">
@@ -387,7 +387,7 @@
               Personal In charge (optional)
             </h4>
           </div>
-          <div class="row g-4">
+          <div class="row g-4 align-items-end">
             <div class="col-md-4">
               <div class="input-box">
                 <label>Full Name</label>
@@ -417,7 +417,7 @@
               <div class="input-box">
                 <label>Mobile Number</label>
                 <div class="input-wrapper">
-                  <i class="customiocns fa-regular fa-phone"></i>
+                  <i class="customiocns fal fa-phone"></i>
                   <input type="tel" class="form-control custom-input" placeholder="Mobile Number"
                     formControlName="PersonMobileNumber" (keypress)="numberOnly($event)" maxlength="15" />
                 </div>

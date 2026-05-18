@@ -258,7 +258,8 @@ export class SearchComponent implements OnInit, OnDestroy {
               );
             }
           });
-
+          // console.log(this.selectedfare);
+          
           this.filterresultcount = this.sortedData.length;
 
         }

@@ -332,7 +332,25 @@ select.custom-input {
 /* =========================================================
    REGISTER BUTTON
 ========================================================= */
-.btn-register {
+.btn_otp, .verify-edit-btn {
+    width: 100%;
+    margin-top: 30px;
+    height: 58px;
+    border: none;
+    border-radius: 18px;
+    background:
+        linear-gradient(135deg,
+            var(--primary-bg-color),
+            #ffb92c);
+    color: var(--white);
+    font-size: 16px;
+    font-weight: 700;
+    transition: var(--transition);
+    box-shadow:
+        0 15px 35px rgba(247, 157, 6, 0.3);
+}
+
+.btn-register{
     min-width: 240px;
     height: 58px;
     border: none;
