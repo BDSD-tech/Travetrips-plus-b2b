@@ -817,14 +817,14 @@
                     </div>
                 </div>
             </div>
-            <div class="row" *ngIf="ErrorCode!=0">
-                <div class="col-md-12 text-center p-5 text-center">
+            <div class="row justify-content-center" *ngIf="ErrorCode!=0">
+                <div class="col-md-6 text-center">
                     <img src="assets/img/no-flight-found.png" width="30%;" class="mx-auto" />
                     <h5>{{ErrorMessage}}</h5>
                     <p>Sorry, There were no flights found for this route and date combination. We suggest you modify
                         your search and try again.
                     </p>
-                    <a routerLink="/flight" class="btn flight-book" style="width: 15%;">GO TO HOME</a>
+                    <a routerLink="/flight" class="btn flight-book">GO TO HOME</a>
                 </div>
             </div>
         </div>
