@@ -2,19 +2,26 @@
     <div class="al-priceac">
         <p class="al-prresets">
             <span>Price</span>
-            <a href="javascript:void(0);" (click)="clearFilterByCat('Price')">
+            <!-- <a href="javascript:void(0);" (click)="clearFilterByCat('Price')">
                 <span class="ast-recolor"><span>RESET</span></span>
-            </a>
+            </a> -->
             <i class="fa fa-minus float-end filter-minus tts-cursor-pointer" data-bs-toggle="collapse"
                 href="#filter-price" (click)="togglebutton($event)"></i>
         </p>
         <div class="collapse show" id="filter-price">
-            <div class="tts__filter-price price-range-slider">
-                <div class="price-range price-filter"></div>
-                <p class="tts-price-range">
-                    <input type="text" class="left-price" readonly />
-                    <input type="text" class="right-price text-end" readonly />
-                </p>
+           <div class="pe-3">
+                <mat-slider [min]="min" [max]="max" class="w-100" (change)="doFilter('','','')">
+
+                    <input [(ngModel)]="Filter['Price']['min']" name="first" matSliderStartThumb>
+                    <input [(ngModel)]="Filter['Price']['max']" [ngModelOptions]="{standalone: true}" matSliderEndThumb>
+                </mat-slider>
+
+                <div class="d-flex justify-content-between">
+                    <span><i class="bi bi-currency-rupee me-1"></i>{{ Filter['Price']['min'] |number:'1.0-2'
+                        }}</span>
+                    <span><i class="bi bi-currency-rupee me-1"></i>{{ Filter['Price']['max'] |number:'1.0-2'
+                        }}</span>
+                </div>
             </div>
         </div>
 

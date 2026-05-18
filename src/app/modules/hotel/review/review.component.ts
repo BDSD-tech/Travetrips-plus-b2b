@@ -44,7 +44,7 @@ showFullText=false
   markupvalue=0;
 
   nopaxcount=0;
-
+  ShowReviewModal=false;
   @ViewChild('gsteInput') gsteInput!: ElementRef<HTMLInputElement>;
   constructor(private router:Router,private route:ActivatedRoute,private location:Location,private fb:FormBuilder, private commonservice:CommonService, private hotelService:HotelService,private authenticationservice: AuthenticationService,private alertservice:AlertService) {
 
@@ -108,7 +108,6 @@ showFullText=false
       if(sessionStorage.getItem('TSFPAX')){
         let resp:any=sessionStorage.getItem('TSFPAX')
         let paxdetail:any=JSON.parse(resp)
-        console.log(paxdetail);
         this.HotelPaxForm.get('RoomDetails')?.patchValue(paxdetail['paxdata'])
       }
       setTimeout(() => {
@@ -286,7 +285,12 @@ showFullText=false
     const navigationExtras: NavigationExtras = {
      queryParams:this.params
     };
-    this.router.navigate(['hotel/review'],navigationExtras);
+    this.ShowReviewModal=true;
+    setTimeout(() => {
+        this.openModal();
+    }, 100);
+    
+    // this.router.navigate(['hotel/review'],navigationExtras);
   }
 
   GetDialCode()
@@ -540,6 +544,13 @@ showFullText=false
       this.CurrentFare['PublishedPrice']=PublishedPrice;
       this.CurrentFare['AgentMarkup']=0;
       this.CurrentFare['TDS']=TDS;
+  }
+
+
+  openModal() {
+    const modalElement = document.getElementById('ReviewModal')!;
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
   }
 
 }
