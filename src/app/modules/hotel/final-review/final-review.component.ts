@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -10,7 +10,7 @@ declare var bootstrap:any;
   styleUrls: ['./final-review.component.css']
 })
 export class FinalReviewComponent implements OnInit {
-
+   @Input() params:any=[];
   GetSearchData:any =[];
   BlockRoomResult:any =[];
   RoomCancellationPolicyData:any =[];
@@ -27,13 +27,13 @@ export class FinalReviewComponent implements OnInit {
   constructor(private router:Router,private route:ActivatedRoute,private location:Location) {
 
 
-    this.route.queryParams.subscribe(params => {
-      if(params) {
-          this.param=params;
-      } else {
-          this.router.navigate(['/']);
-       }
-    });
+    // this.route.queryParams.subscribe(params => {
+    //   if(params) {
+    //       this.param=params;
+    //   } else {
+    //       this.router.navigate(['/']);
+    //    }
+    // });
 
     if(sessionStorage.getItem('HotelBlockRoomData')!=null)
     {
@@ -68,7 +68,7 @@ export class FinalReviewComponent implements OnInit {
    }
 
   ngOnInit(): void {
-
+    this.param=this.params;
     this.Fare_information(this.BlockRoomResult);
   }
 
@@ -160,10 +160,19 @@ export class FinalReviewComponent implements OnInit {
     const navigationExtras: NavigationExtras = {
       queryParams:req
     };
+    this.closeModal()
     this.router.navigate(['payment'],navigationExtras);
   }
 
-  
+  closeModal() {
+    // this.showReviewpage = false;
+    const modalElement = document.getElementById('ReviewModal')!;
+    const modal = bootstrap.Modal.getInstance(modalElement);
+    modal?.hide();
+  }
+
+
+
    formatCustomDate(dateString: string): Date {
       // Convert "27-07-2025T00:00:00" to "2025-07-27T00:00:00"
       const [day, month, yearWithTime] = dateString.split('-');
