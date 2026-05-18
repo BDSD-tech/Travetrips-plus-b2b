@@ -46,3 +46,10 @@
 .flight-booking .booking-main .passenger_list_ul li:nth-child(3){
     width: 25%;
 }
+.img-hotel{
+    height: 100px;
+}
+.flight-booking .booking-main .apt-heading {
+    margin-top: 0;
+    font-size: 17px;
+}

@@ -1,4 +1,4 @@
-<section class="flight-details">
+<!-- <section class="flight-details">
     <div class="container">
         <div class="row">
             <div class="col-sm-3 col-6 booking-top-btn">
@@ -27,238 +27,252 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
+<div class="modal fade" id="ReviewModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
 
-<section class="flight-booking">
-    <div class="container">
-        <div class="row d-flex">
-            <div class="booking-main col-9">
-                <div class="d-flex align-items-center justify-content-between">
-                    <h3 class="apt-heading">
-                        <span>Hotel Details</span>
-                    </h3>
-                    <div class="d-flex align-items-center">
-                        <div class="iterinery-pageback" (click)="goBack()"><i class="fa fa-angle-double-left"></i> Back to Search</div>
-                    </div>
-                </div>
-                <div class="scrollable wrapper-mainclass">
-                    <div class="">
-                        <div class="tts-trip">
-                            <p class="apt-firstpr">
-                                <span class="fs-16">{{BlockRoomResult['HotelName']}}</span><br />
-                                <span class=""> <i class="fa fa-map-marker"></i> {{BlockRoomResult['AddressLine1']}}</span>
-                                <span class="float-end d-flex" [innerHTML]="star_rating(BlockRoomResult['StarRating'])"> </span>
-                            </p>
-                            <div class="row apt-btmborder">
-                                <div class="col-sm-3 col-xs-12">
-                                    <ul class="apt-ullist">
-                                        <li>
-                                            <img src="{{BlockRoomResult['HotelPicture']}}" onError="this.src='assets/img/no-photo.png';" alt="{{BlockRoomResult['HotelPicture']}}" class="img-fluid rounded img-hotel" />
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-sm-6 col-xs-12">
-                                    <ul class="apt-namelist">
-                                        <li>
-                                            <span>Check In</span>
-                                            <p>{{GetSearchData['CheckIn'] | date:'d MMM , yyyy'}} <span class="apt-airportname at-fontweight graycolor">{{GetSearchData['CheckIn'] | date:'EEEE'}}</span></p>
-                                        </li>
-                                        <li class="text-center">
-                                            <span class="fs-14">{{GetSearchData['Nights']}} Nights</span>
-                                        </li>
-                                        <li>
-                                            <span>Check Out</span>
-                                            <p>{{GetSearchData['CheckOut'] | date:'d MMM , yyyy'}} <span class="apt-airportname at-fontweight graycolor">{{GetSearchData['CheckOut'] | date:'EEEE'}}</span></p>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-sm-3 col-xs-12 text-end">
-                                    <span class="apt-lasthour">ROOMS & GUESTS</span>
-                                    <p><span> {{GetSearchData['Occupancy']}}</span></p>
-                                </div>
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel">Review Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+        <div class="modal-body">
+            <section class="flight-booking p-0">
+                <div class="container">
+                    <div class="row d-flex">
+                        <div class="booking-main col-12">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h6 class="apt-heading">
+                                    <span>Hotel Details</span>
+                                </h6>
                             </div>
-                        </div>
-                        <div class="row">
-                            <table class="table mb-0">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">ROOM TYPE</th>
-                                        <th scope="col">NO.OF GUESTS</th>
-                                        <th scope="col">CANCELLATION POLICY</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let RoomData  of BlockRoomResult['HotelRoomsDetails'];let roomkey=index;">
-                                        <td>{{RoomData['RoomTypeName']}}</td>
-                                        <td>
-                                            <span>{{GetSearchData['RoomGuests'][roomkey]['Adult']}} Adults </span>
-                                            <span *ngIf="GetSearchData['RoomGuests'][roomkey]['Child']>0">, {{GetSearchData['RoomGuests'][roomkey]['Child']}} Childs </span>
-                                        </td>
-                                        <td>
-                                            <a href="javascript:void(0)" (click)="roomCancellationPolicy(RoomData)">CANCELLATION POLICY</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-
-                        <div class="col-md-12">
-                            <h3 class="apt-heading">  <span>Passenger Details</span></h3>
-                            <ul class="passenger_list_ul pt-3 pb-3">
-                                <li class="graycolor">Sr.</li>
-                                <li class="graycolor">Name, Age &amp; Passport</li>
-                                <li class="graycolor">Room</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-12">
-                            <div *ngFor="let paxdata of Paxinfo['paxdata']; let roomkey=index;">
-                                <ul class="passenger_list_ul d-flex align-items-center justify-content-between pt-3 pb-3 border-bottom" *ngFor="let pax of paxdata['Adult']; let a=index;">
-
-                                    <li><div class="art-tdfirst graycolor counter"></div></li>
-                                    <li>
-                                        <div class="art-tdsecond">
-                                            <span class="pax-detailsAll">{{pax['Title']}} {{pax['FirstName']}} {{pax['LastName']}} (A)</span> 
-                                        
-                                            <span class="pax-passportSize" *ngIf="pax['PAN']">PAN : {{pax['PAN']}}</span> 
-
-                                            <span class="pax-passportSize" *ngIf="pax['PassportNo']">PP :{{pax['PassportNo']}}  N :{{pax['Nationality']}} ID :{{pax['PassportIssue']}} ED: {{pax['PassportExpiry']}}   </span> 
+                            <div class="scrollable wrapper-mainclass">
+                                <div class="">
+                                    <div class="tts-trip">
+                                        <p class="apt-firstpr">
+                                            <span class="fs-16">{{BlockRoomResult['HotelName']}}</span><br />
+                                            <span class=""> <i class="fa fa-map-marker"></i> {{BlockRoomResult['AddressLine1']}}</span>
+                                            <span class="float-end d-flex" [innerHTML]="star_rating(BlockRoomResult['StarRating'])"> </span>
+                                        </p>
+                                        <div class="row apt-btmborder">
+                                            <div class="col-sm-3 col-xs-12">
+                                                <ul class="apt-ullist">
+                                                    <li>
+                                                        <img src="{{BlockRoomResult['HotelPicture']}}" onError="this.src='assets/img/no-photo.png';" alt="{{BlockRoomResult['HotelPicture']}}" class="img-fluid rounded img-hotel" />
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-sm-6 col-xs-12">
+                                                <ul class="apt-namelist">
+                                                    <li>
+                                                        <span>Check In</span>
+                                                        <p>{{GetSearchData['CheckIn'] | date:'d MMM , yyyy'}} <span class="apt-airportname at-fontweight graycolor">{{GetSearchData['CheckIn'] | date:'EEEE'}}</span></p>
+                                                    </li>
+                                                    <li class="text-center">
+                                                        <span class="fs-14">{{GetSearchData['Nights']}} Nights</span>
+                                                    </li>
+                                                    <li>
+                                                        <span>Check Out</span>
+                                                        <p>{{GetSearchData['CheckOut'] | date:'d MMM , yyyy'}} <span class="apt-airportname at-fontweight graycolor">{{GetSearchData['CheckOut'] | date:'EEEE'}}</span></p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-sm-3 col-xs-12 text-end">
+                                                <span class="apt-lasthour">ROOMS & GUESTS</span>
+                                                <p><span> {{GetSearchData['Occupancy']}}</span></p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    </li>
-                                    <li>
-                                        <div class="art-tdthird"> <span class="art-spnlist"> {{roomkey+1}} </span></div>
-                                    </li>
+                                    <div class="row">
+                                        <table class="table mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">ROOM TYPE</th>
+                                                    <th scope="col">NO.OF GUESTS</th>
+                                                    <th scope="col">CANCELLATION POLICY</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let RoomData  of BlockRoomResult['HotelRoomsDetails'];let roomkey=index;">
+                                                    <td>{{RoomData['RoomTypeName']}}</td>
+                                                    <td>
+                                                        <span>{{GetSearchData['RoomGuests'][roomkey]['Adult']}} Adults </span>
+                                                        <span *ngIf="GetSearchData['RoomGuests'][roomkey]['Child']>0">, {{GetSearchData['RoomGuests'][roomkey]['Child']}} Childs </span>
+                                                    </td>
+                                                    <td>
+                                                        <a href="javascript:void(0)" (click)="roomCancellationPolicy(RoomData)">CANCELLATION POLICY</a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+                                <div class="row mt-2">
+
+                                    <div class="col-md-12">
+                                        <h3 class="apt-heading">  <span>Passenger Details</span></h3>
+                                        <ul class="passenger_list_ul pt-3 pb-3">
+                                            <li class="graycolor">Sr.</li>
+                                            <li class="graycolor">Name, Age &amp; Passport</li>
+                                            <li class="graycolor">Room</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div *ngFor="let paxdata of Paxinfo['paxdata']; let roomkey=index;">
+                                            <ul class="passenger_list_ul d-flex align-items-center justify-content-between pt-3 pb-3 border-bottom" *ngFor="let pax of paxdata['Adult']; let a=index;">
+
+                                                <li><div class="art-tdfirst graycolor counter"></div></li>
+                                                <li>
+                                                    <div class="art-tdsecond">
+                                                        <span class="pax-detailsAll">{{pax['Title']}} {{pax['FirstName']}} {{pax['LastName']}} (A)</span> 
+                                                    
+                                                        <span class="pax-passportSize" *ngIf="pax['PAN']">PAN : {{pax['PAN']}}</span> 
+
+                                                        <span class="pax-passportSize" *ngIf="pax['PassportNo']">PP :{{pax['PassportNo']}}  N :{{pax['Nationality']}} ID :{{pax['PassportIssue']}} ED: {{pax['PassportExpiry']}}   </span> 
+                                                </div>
+                                                </li>
+                                                <li>
+                                                    <div class="art-tdthird"> <span class="art-spnlist"> {{roomkey+1}} </span></div>
+                                                </li>
+                                                
+                                            </ul>
+                                            <ul class="passenger_list_ul d-flex align-items-center justify-content-between pt-3 pb-3 border-bottom" *ngFor="let pax of paxdata['Child']; let c=index;">
+
+                                                <li><div class="art-tdfirst graycolor counter"></div></li>
+                                                <li>
+                                                    <div class="art-tdsecond">
+                                                        <span class="pax-detailsAll">{{pax['Title']}} {{pax['FirstName']}} {{pax['LastName']}} (C)</span> 
+                                                    
+                                                        <span class="pax-passportSize" *ngIf="pax['PAN']">PAN : {{pax['PAN']}} AGE: {{paxdata['ChildAge']?.[c]}}</span> 
+
+                                                        <span class="pax-passportSize" *ngIf="pax['PassportNo']">PP :{{pax['PassportNo']}}  N :{{pax['Nationality']}} ID :{{pax['PassportIssue']}} ED: {{pax['PassportExpiry']}}   </span> 
+                                                </div>
+                                                </li>
+                                                <li>
+                                                    <div class="art-tdthird"> <span class="art-spnlist"> {{roomkey+1}}  </span></div>
+                                                </li>
+                                                
+                                            </ul>
+                                        </div>
                                     
-                                </ul>
-                                <ul class="passenger_list_ul d-flex align-items-center justify-content-between pt-3 pb-3 border-bottom" *ngFor="let pax of paxdata['Child']; let c=index;">
-
-                                    <li><div class="art-tdfirst graycolor counter"></div></li>
-                                    <li>
-                                        <div class="art-tdsecond">
-                                            <span class="pax-detailsAll">{{pax['Title']}} {{pax['FirstName']}} {{pax['LastName']}} (C)</span> 
-                                        
-                                            <span class="pax-passportSize" *ngIf="pax['PAN']">PAN : {{pax['PAN']}} AGE: {{paxdata['ChildAge']?.[c]}}</span> 
-
-                                            <span class="pax-passportSize" *ngIf="pax['PassportNo']">PP :{{pax['PassportNo']}}  N :{{pax['Nationality']}} ID :{{pax['PassportIssue']}} ED: {{pax['PassportExpiry']}}   </span> 
                                     </div>
-                                    </li>
-                                    <li>
-                                        <div class="art-tdthird"> <span class="art-spnlist"> {{roomkey+1}}  </span></div>
-                                    </li>
-                                    
-                                </ul>
-                            </div>
-                        
-                        </div>
-                        <div class="col-md-12 mt-3">
-                            <h3 class="apt-heading">  <span>Contact Details</span></h3>
-                            <ul class="pt-3 pb-3">
-                                <li>Email :<span></span>{{Paxinfo['EmailId']}}</li>
-                                <li>Mobile :<span>{{Paxinfo['MobileNumber']}}</span></li>
-                            </ul>
-                        </div>
-                       
-                    </div>
-                    <div class="row pt-20 desktop-bookback ">
-                            <div class="col-sm-6 col-4">
-                                <button type="button" id="srch" class="btn asr-book" (click)="goBack()"><i class="fa fa-angle-double-left me-1"></i> <span>Back</span></button>
-                            </div>
-                            <div class="col-md-6 col-sm-8 col-xs-9 col-8 text-end confirming--button-price">
-                                <button type="button" id="reviews" class="btn asr-book" (click)="ProceedToPay()"><span>Proceed To Pay</span> &nbsp;  <i class="fa fa-angle-double-right"></i>
-                                </button>
-                            </div>
-                    </div>
-
-                </div>
-            </div>
-           
-            <div class="booking-rightside col-3">
-                <span class="graycolor"><span>FARE SUMMARY</span></span>
-                <div>
-                    <div class="btm-border bold-font-bf"><span>Room Price</span> <span class="float-end">₹{{CurrentFare['RoomPrice'] | number:'1.0-2'}}</span></div>
-                    <div class="btm-border bold-font">
-                        <span data-bs-toggle="collapse" href="#tax-fare" aria-expanded="false"> Taxes and fees <i class="fa fa-angle-down mrg-left"></i></span>
-                        <span class="float-end">₹{{CurrentFare['Tax'] +CurrentFare['OtherCharges']+CurrentFare['ServiceCharges']+CurrentFare['AgentMarkup'] | number:'1.0-2'}} <i title="Change markup" class="fa fa-edit" (click)="showmarkup()"></i></span>
-                        <div class="tax-dropdown airline-gst-print collapse" id="tax-fare">
-                            <div *ngIf="CurrentFare['AgentMarkup']!=0"><span>Markup</span><span class="float-end">₹{{CurrentFare['AgentMarkup'] | number:'1.0-2'}}</span></div>
-
-                            <div *ngIf="CurrentFare['OtherCharges']!=0"><span>Other Charges</span><span class="float-end">₹{{CurrentFare['OtherCharges'] | number:'1.0-2'}}</span></div>
-
-                            <div *ngIf="CurrentFare['ServiceCharges']!=0"><span>Service Charges</span><span class="float-end">₹{{CurrentFare['OtherCharges'] | number:'1.0-2'}}</span></div>
-
-                        </div>
-                        <div class="pos-rel" *ngIf="isshowmarkup">
-                            <div class="markup__box-mainconatiner">
-                                <div class="col me-3">
-                                    <div class="form-floating mb-2">
-                                        <input type="number" min="0" value="0" class="form-control" id="InputMarkup" placeholder="Markup Price" [(ngModel)]="markupvalue" />
-                                        <label for="InputMarkup">Markup Price</label>
+                                    <div class="col-md-12 mt-3">
+                                        <h3 class="apt-heading">  <span>Contact Details</span></h3>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <ul class="pt-3 pb-3">
+                                                <li>Email :<span></span>{{Paxinfo['EmailId']}}</li>
+                                                <li>Mobile :<span>{{Paxinfo['MobileNumber']}}</span></li>
+                                            </ul>
+                                            <h6><span>Total Price : </span> ₹{{CurrentFare['OfferedPrice']+CurrentFare['TDS'] |
+                                            number:'1.0-2'}}</h6>
+                                        </div>
                                     </div>
+                                
                                 </div>
-                                <span class="markup__update-closebtn" (click)="showmarkup()">×</span><button class="markup__update-btn" (click)="updatemarkup()">Update</button>
+                                <div class="row pt-20 desktop-bookback ">
+                                        <div class="col-sm-6 col-4">
+                                            <button type="button" id="srch" class="btn asr-book" data-bs-dismiss="modal" aria-label="Close"><i class="fa fa-angle-double-left me-1"></i> <span>Back</span></button>
+                                        </div>
+                                        <div class="col-md-6 col-sm-8 col-xs-9 col-8 text-end confirming--button-price">
+                                            <button type="button" id="reviews" class="btn asr-book" (click)="ProceedToPay()"><span>Proceed To Pay</span> &nbsp;  <i class="fa fa-angle-double-right"></i>
+                                            </button>
+                                        </div>
+                                </div>
+
                             </div>
                         </div>
-                      
-                    </div>
+                    
+                        <!-- <div class="booking-rightside col-3">
+                            <span class="graycolor"><span>FARE SUMMARY</span></span>
+                            <div>
+                                <div class="btm-border bold-font-bf"><span>Room Price</span> <span class="float-end">₹{{CurrentFare['RoomPrice'] | number:'1.0-2'}}</span></div>
+                                <div class="btm-border bold-font">
+                                    <span data-bs-toggle="collapse" href="#tax-fare" aria-expanded="false"> Taxes and fees <i class="fa fa-angle-down mrg-left"></i></span>
+                                    <span class="float-end">₹{{CurrentFare['Tax'] +CurrentFare['OtherCharges']+CurrentFare['ServiceCharges']+CurrentFare['AgentMarkup'] | number:'1.0-2'}} <i title="Change markup" class="fa fa-edit" (click)="showmarkup()"></i></span>
+                                    <div class="tax-dropdown airline-gst-print collapse" id="tax-fare">
+                                        <div *ngIf="CurrentFare['AgentMarkup']!=0"><span>Markup</span><span class="float-end">₹{{CurrentFare['AgentMarkup'] | number:'1.0-2'}}</span></div>
 
-                    <div class="bold-font btm-border">
-                        <span data-bs-toggle="collapse" href="#net-fare" aria-expanded="false">Gross Fare</span>
-                        <span class="float-end">₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup'] | number:'1.0-2'}}</span>
-                       
-                    </div>
-                    <div class="bold-font btm-border">
-                            <span >Net Fare</span>
-                            <span class="float-end">₹{{CurrentFare['OfferedPrice']+CurrentFare['TDS'] |
-                                number:'1.0-2'}}</span>
+                                        <div *ngIf="CurrentFare['OtherCharges']!=0"><span>Other Charges</span><span class="float-end">₹{{CurrentFare['OtherCharges'] | number:'1.0-2'}}</span></div>
 
-                        </div>
+                                        <div *ngIf="CurrentFare['ServiceCharges']!=0"><span>Service Charges</span><span class="float-end">₹{{CurrentFare['OtherCharges'] | number:'1.0-2'}}</span></div>
+
+                                    </div>
+                                    <div class="pos-rel" *ngIf="isshowmarkup">
+                                        <div class="markup__box-mainconatiner">
+                                            <div class="col me-3">
+                                                <div class="form-floating mb-2">
+                                                    <input type="number" min="0" value="0" class="form-control" id="InputMarkup" placeholder="Markup Price" [(ngModel)]="markupvalue" />
+                                                    <label for="InputMarkup">Markup Price</label>
+                                                </div>
+                                            </div>
+                                            <span class="markup__update-closebtn" (click)="showmarkup()">×</span><button class="markup__update-btn" (click)="updatemarkup()">Update</button>
+                                        </div>
+                                    </div>
+                                
+                                </div>
+
+                                <div class="bold-font btm-border">
+                                    <span data-bs-toggle="collapse" href="#net-fare" aria-expanded="false">Gross Fare</span>
+                                    <span class="float-end">₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup'] | number:'1.0-2'}}</span>
+                                
+                                </div>
+                                <div class="bold-font btm-border">
+                                        <span >Net Fare</span>
+                                        <span class="float-end">₹{{CurrentFare['OfferedPrice']+CurrentFare['TDS'] |
+                                            number:'1.0-2'}}</span>
+
+                                    </div>
+                            </div>
+                        </div> -->
+                    </div>
                 </div>
-            </div>
+            </section>
+            <app-count-down display="on" redirecturl="/hotel"></app-count-down>
         </div>
     </div>
-</section>
+  </div>
+</div>
 <div class="modal fade" id="CancellationPolicyModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
+    <div class="modal-content">
         <div class="modal-body">
-          <div class="d-flex align-items-center justify-content-between mb-3 float-end">
+        <div class="d-flex align-items-center justify-content-between mb-3 float-end">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <table class="table table-bordered">
+        </div>
+        <table class="table table-bordered">
             <thead>
-              <tr>
+            <tr>
                 <th scope="col">Cancelled on or After</th>
                 <th scope="col">Cancelled on or Before</th>
                 <th scope="col">Cancelled on or Charges</th>
-              </tr>
+            </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of RoomCancellationPolicyData['CancellationPolicies']">
+            <tr *ngFor="let item of RoomCancellationPolicyData['CancellationPolicies']">
                 <td>{{formatCustomDate(item['FromDate'])| date:'dd MMM yyyy'  }}</td>
                 <td>{{formatCustomDate(item['ToDate'])| date:'dd MMM yyyy' }}</td>
                 <td>
-                  <span *ngIf="item['ChargeType']=='1'">Rs. {{item['Charge']}}</span>
-                  <span *ngIf="item['ChargeType']=='2'">{{item['Charge']}}%</span>
-                  <span *ngIf="item['ChargeType']=='3'">{{item['Charge']}} Night(s) charge</span>
+                <span *ngIf="item['ChargeType']=='1'">Rs. {{item['Charge']}}</span>
+                <span *ngIf="item['ChargeType']=='2'">{{item['Charge']}}%</span>
+                <span *ngIf="item['ChargeType']=='3'">{{item['Charge']}} Night(s) charge</span>
                 </td>
-              </tr>
-              <tr>
+            </tr>
+            <tr>
                 <td colspan="3">
-                  No Show will attract full cancellation charge unless otherwise specified.
+                No Show will attract full cancellation charge unless otherwise specified.
                 </td>
-              </tr>
-              <tr>
+            </tr>
+            <tr>
                 <td colspan="3">
-                  Early check out will attract full cancellation charge unless otherwise specified.Show Room Description
+                Early check out will attract full cancellation charge unless otherwise specified.Show Room Description
                 </td>
-              </tr>
+            </tr>
             </tbody>
-          </table>
+        </table>
         </div>
-      </div>
     </div>
-  </div>
-<app-count-down display="on" redirecturl="/hotel"></app-count-down>
+    </div>
+</div>

@@ -34,7 +34,8 @@ export class FilterComponent implements OnInit {
   SelectedHotelFacility='';
   SelectedHotelAddress='';
   
-  
+  min:any=0;
+  max:any=0;
   constructor(private router:Router ) {
     if (sessionStorage.getItem('HotelSearch')) {
       let HotelSearch:any=sessionStorage.getItem('HotelSearch');
@@ -46,7 +47,8 @@ export class FilterComponent implements OnInit {
 
   ngOnInit(): void {
     this.LocationType  =  this.Filter['LocationType'];
-    this.pricefilter();
+    this.min=this.Filter?.['Price']?.['min']
+    this.max=this.Filter?.['Price']?.['max']
   }
 
   ngOnChanges() {
@@ -81,12 +83,14 @@ export class FilterComponent implements OnInit {
     {
       this.resetfilter(this.Filter['StarRatingType']);
       this.resetfilter(this.Filter['LocationType']);
-      this.pricefilter();
+      this.min=this.Filter?.['Price']?.['min']
+      this.max=this.Filter?.['Price']?.['max']
     }
 
     if(type=='Price')
     {
-      this.pricefilter();
+      this.min=this.Filter?.['Price']?.['min']
+      this.max=this.Filter?.['Price']?.['max']
     }
     if(type=='HotelName')
     {
@@ -156,10 +160,8 @@ export class FilterComponent implements OnInit {
         hotelfacility=item;
       }
       
-    let min = $.trim($(".left-price").val());
-    let max = $.trim($(".right-price").val());
-    min=min.replace(/,/g, '')
-    max=max.replace(/,/g, '')
+    let min = this.Filter['Price']['min'];
+    let max = this.Filter['Price']['max'];
     
 
     let FilterData:any=[];
@@ -240,75 +242,6 @@ export class FilterComponent implements OnInit {
         }
     });
     return response;
-  }
-  pricefilter()
-  {
-      var _this = this;
-      var step:any=0.01;
-      $(".price-range" ).slider({
-        range: true,
-        min:_this.Filter['Price']['min'],
-        max:_this.Filter['Price']['max'],
-        step: parseFloat(step),
-        values: [_this.Filter['Price']['min'],_this.Filter['Price']['max']],
-    
-        slide: function( event:any, ui:any ) {
-          $(".left-price").val(ui.values[0].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-          $(".right-price").val(ui.values[1].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-        },
-        stop: function( event:any, ui:any ) {
-
-          var min = ui.values[0];
-          var max = ui.values[1];
-
-          let FilterData:any=[];
-          FilterData=_this.Filter;
-
-          let filtered:any;
-          let filters:any = [];
-          let filteredResult:any = [];
-
-          let StarRatingType = _this.checkedfilter(FilterData['StarRatingType'],'label');
-          let LocationType = _this.checkedfilter(FilterData['LocationType'],'label');
-      
-          if(StarRatingType.length !== 0) 
-          {
-              filters['StarRating'] = StarRatingType;
-          }
-          if(LocationType.length !== 0) 
-          {
-              filters['HotelLocation'] = LocationType;
-          }
-          if(_this.SelectedHotelName!='')
-          {
-            filters['HotelName'] = _this.SelectedHotelName;
-          }
-
-          let data:any=[];
-          data=_this.Response;
-          filtered=multiFilter(data, filters);
-          if(filtered) {
-            filtered.forEach(function(item:any,key:any) {
-              if(item.Price.PublishedPrice >= min && item.Price.PublishedPrice <= max) 
-              {  
-                filteredResult.push(item);
-              }  
-            });
-          }     
-          if (filteredResult.length == 0) {
-            $('.nohotels').show();
-          } else {
-            $('.nohotels').hide();
-          }
-        
-          _this.emitdata(filteredResult);
-       }
-
-      });
-
-      $( ".left-price" ).val($(".price-range" ).slider( "values", 0 ).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-      $( ".right-price" ).val($(".price-range" ).slider( "values", 1 ).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-
   }
  
 

@@ -27,10 +27,10 @@ const routes: Routes = [
                             path:'itinerary',
                             component:ReviewComponent,
                             },
-                            {
-                            path:'review',
-                            component:FinalReviewComponent,
-                            },
+                            // {
+                            // path:'review',
+                            // component:FinalReviewComponent,
+                            // },
                             {
                             path:'confirmation',
                             component:BookingConfirmationComponent,
