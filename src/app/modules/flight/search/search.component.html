@@ -48,16 +48,16 @@
                   ===================================================== -->
                     <div class="fare-calendar-wrapper d-none" *ngIf="GetSearchData['Type']=='O' && APILoading==false">
                         <!-- <div class="fare-calendar-header">
-                     <div>
-                         <h5 class="calendar-title">
-                             <i class="fa-solid fa-calendar-days"></i>
-                             Fare Calendar
-                         </h5>
-                         <p class="calendar-subtitle">
-                             Compare fares for nearby travel dates
-                         </p>
-                     </div>
-                     </div> -->
+                        <div>
+                            <h5 class="calendar-title">
+                                <i class="fa-solid fa-calendar-days"></i>
+                                Fare Calendar
+                            </h5>
+                            <p class="calendar-subtitle">
+                                Compare fares for nearby travel dates
+                            </p>
+                        </div>
+                        </div> -->
                         <ul class="flight-list-item">
                             <li *ngFor="let item of CalendorRespone.slice(0, 7)" (click)="Farecalendorsearch(item.date)"
                                 [ngClass]="{'ar-dateselect':item.active=='true'}">
@@ -109,6 +109,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <!-- RIGHT CONTENT -->
                             <div class="col-lg-6 text-lg-end text-center" *ngIf="APILoading==false">
                                 <div class="share-flight-wrapper">
@@ -191,6 +192,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <app-loading *ngIf="resultloading" [type]="filtertype"></app-loading>
                     <div class="tts-main-right" *ngIf="resultloading==false">
                         <div class="flight-listbtrow">
@@ -656,6 +658,7 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                         <!-- FARE DETAILS -->
                                         <div class="tab-pane fade" id="nav-fareInfo_{{item.TtsIndex}}" role="tabpanel"
                                             attr.aria-labelledby="nav-fareInfo_{{item.TtsIndex}}-tab" tabindex="0">
@@ -726,6 +729,7 @@
                                                 </table>
                                             </div>
                                         </div>
+
                                         <div class="tab-pane fade" id="nav-farerule_{{item.TtsIndex}}" role="tabpanel"
                                             attr.aria-labelledby="nav-farerule_{{item.TtsIndex}}-tab" tabindex="0">
                                             <div class="row" *ngIf="fareRuleLoading">
@@ -761,6 +765,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                         <!-- BAGGAGE -->
                                         <div class="tab-pane fade" id="nav-baggageinfo_{{item.TtsIndex}}"
                                             role="tabpanel" attr.aria-labelledby="nav-baggageinfo_{{item.TtsIndex}}-tab"
@@ -818,8 +823,8 @@
                 </div>
             </div>
             <div class="row justify-content-center" *ngIf="ErrorCode!=0">
-                <div class="col-md-6 text-center">
-                    <img src="assets/img/no-flight-found.png" width="30%;" class="mx-auto" />
+                <div class="col-md-4 text-center">
+                    <img src="assets/img/no-flight-found.png" class="img-fluid" />
                     <h5>{{ErrorMessage}}</h5>
                     <p>Sorry, There were no flights found for this route and date combination. We suggest you modify
                         your search and try again.

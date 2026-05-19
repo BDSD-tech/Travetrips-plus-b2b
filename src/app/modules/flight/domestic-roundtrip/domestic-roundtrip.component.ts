@@ -532,7 +532,6 @@ export class DomesticRoundtripComponent implements OnInit {
 
         this.radiochecked[1]=farelistobj['FareId'];
       }
-      
         for (let seats = 0; seats < this.FlightBaggageInfo[jkey].length; ++seats) {
           if(this.FlightBaggageInfo[jkey][seats][0].NoOfSeatAvailable)
           {

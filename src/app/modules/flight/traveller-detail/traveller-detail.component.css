@@ -1,3 +1,4 @@
+
 /* =========================================================
 BOOKING STEPPER
 ========================================================= */
@@ -5,14 +6,14 @@ BOOKING STEPPER
 .booking-stepper {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 20px;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding: 24px;
     background: var(--white);
     border-radius: var(--radius-lg);
-    padding: 22px;
-    box-shadow: var(--shadow-md);
     border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
     position: relative;
     overflow: hidden;
 }
@@ -22,38 +23,39 @@ BOOKING STEPPER
     position: absolute;
     inset: 0;
     background: linear-gradient(to right,
-            rgba(29, 72, 163, 0.03),
+            rgba(29, 72, 163, 0.04),
             transparent);
+    pointer-events: none;
 }
 
 .booking-stepper .step {
     display: flex;
     align-items: center;
-    gap: 8px;
-    color: var(--dark);
-    font-size: 15px;
-    font-weight: 600;
+    gap: 10px;
     position: relative;
     z-index: 2;
-    transition: var(--transition);
 }
 
 .booking-stepper .step-icon {
-    width: 32px;
-    height: 32px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     border: 2px solid #d1d5db;
+    background: var(--white);
+    color: var(--dark);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 700;
-    background: var(--white);
     transition: var(--transition);
 }
 
-.booking-stepper .step.completed {
-    color: var(--second-dark-color);
+.booking-stepper .step-text {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--dark);
+    white-space: nowrap;
 }
 
 .booking-stepper .step.completed .step-icon {
@@ -62,26 +64,30 @@ BOOKING STEPPER
     color: var(--white);
 }
 
-.booking-stepper .step.active {
-    color: var(--primary-color);
+.booking-stepper .step.completed .step-text {
+    color: var(--second-dark-color);
 }
 
 .booking-stepper .step.active .step-icon {
     background: var(--primary-color);
     border-color: var(--primary-color);
     color: var(--white);
+    box-shadow: 0 0 0 5px rgba(29, 72, 163, 0.15);
+}
+
+.booking-stepper .step.active .step-text {
+    color: var(--primary-color);
 }
 
 .booking-stepper .step-dots {
     flex: 1;
     min-width: 40px;
-    height: 2px;
+    height: 4px;
     border-radius: 30px;
     background: linear-gradient(to right,
-            #dbeafe,
+            #c7d7f6,
             var(--primary-color));
 }
-
 /* =========================================================
 FLIGHT BOOKING WRAPPER
 ========================================================= */
@@ -828,14 +834,14 @@ GST HISTORY WRAPPER
     background: #f8fafc;
     border: 1px solid #eef2f7;
     border-radius: 14px;
-    padding: 16px 18px;
+    padding: 8px 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 15px;
     font-weight: 600;
     color: #1e293b;
     transition: 0.3s ease;
+     font-size: 12px;
 }
 
 
@@ -851,6 +857,7 @@ GST HISTORY WRAPPER
 .fare-collapse-btn {
     cursor: pointer;
     transition: 0.3s;
+    font-size: 12px;
 }
 
 .fare-collapse-btn:hover {
