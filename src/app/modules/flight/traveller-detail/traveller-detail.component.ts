@@ -442,11 +442,7 @@ GetPhonecodeVal(event: Event): void {
 
     //this.GeneratePax();
 
-    // this.authenticationservice.currentUser.subscribe(data => {
-    //   if (data) {
-    //     this.FlightForm.patchValue({ 'EmailId': data['EmailId'], 'MobileNumber': data['MobileNo'] });
-    //   }
-    // });
+    
    
     
     this.GetDialCode();
@@ -1049,7 +1045,11 @@ GetPhonecodeVal(event: Event): void {
       Infant: this.fb.array(arrinf),
     });
     this.loading = false;
-   
+   this.authenticationservice.currentUser.subscribe(data => {
+      if (data) {
+        this.FlightForm.patchValue({ 'EmailId': data['EmailId'], 'MobileNumber': data['MobileNo'] });
+      }
+    });
   }
 
   BuildFormPaxDynamic(paxtype: any) {

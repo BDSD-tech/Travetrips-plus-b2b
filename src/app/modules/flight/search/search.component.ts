@@ -60,7 +60,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   showFareRule = false;
 
   shownetfare = false;
-  showincentivefare = true;
+  showincentivefare = false;
 
   formModal: any;
   formmodalemail: any;

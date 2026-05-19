@@ -24,7 +24,7 @@ export class FilterComponent implements OnInit {
   filterresponse:any=[];
 
   shownetfare=false;
-  showincentivefare=true;
+  showincentivefare=false;
 
   ispriceshow:any=0;
   isstopshow:any=0;
