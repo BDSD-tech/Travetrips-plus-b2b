@@ -238,7 +238,7 @@
 
         <div class="filter-card-header">
             <span>
-                Departure From {{GetSearchData['Destination']}}
+                Departure To {{GetSearchData['Destination']}}
             </span>
         </div>
 
@@ -344,6 +344,56 @@
         </div>
 
     </div>
+
+        <!-- AIRLINES -->
+    <div class="filter-card" *ngIf="Filter[1]">
+
+        <div class="filter-card-header">
+
+            <span *ngIf="Filter.length==1">Airlines</span>
+            <span *ngIf="Filter.length==2">Return Airlines</span>
+
+            <button class="clear-link" (click)="clearFilterByCat(1,'Airlines')">
+                Clear
+            </button>
+
+        </div>
+
+        <div class="filter-card-body airline-scroll">
+
+            <div class="airline-item" *ngFor="let item of Filter[1]['Airlines']; let i=index">
+
+                <label class="airline-label">
+
+                    <div class="airline-left">
+
+                        <input type="checkbox" [(ngModel)]="item.isChecked" (click)="doFilter(1,'Airline',$event,item)">
+
+
+                        <div class="airline-name">
+                            {{item.label}}
+                        </div>
+
+                        <small>
+                            {{item.count}} Flights
+                        </small>
+
+
+
+                    </div>
+
+                    <div class="airline-price">
+                        ₹{{item.fare | number:'1.0-2'}}
+                    </div>
+
+                </label>
+
+            </div>
+
+        </div>
+
+    </div>
+    
 
 </div>
 

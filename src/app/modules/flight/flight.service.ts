@@ -16,7 +16,7 @@ export class FlightService {
   }
 
   get_search(data: any) {
-     //return this.http.get('assets/flight-result.json');
+    // return this.http.get('assets/flight-result.json');
     let url=tts_config.APIURL+'/flight/search';
     return this.http.post(url, data, {headers: { 'Content-Type': 'application/json'}});
   }
