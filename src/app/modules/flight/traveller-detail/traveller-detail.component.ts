@@ -229,8 +229,7 @@ GetPhonecodeVal(event: Event): void {
         oldprice+=value['FareList']['Fare']['PublishedPrice'];
       });
       this.MainSegments=mainsegments;
-      this.Segments=Segment;
-
+      this.Segments=Segment;  
       this.FareList=farelist;
       this.oldprice=oldprice;
       this.UserIp=resp[0]['UserIp'];
