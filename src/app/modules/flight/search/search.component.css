@@ -1395,3 +1395,148 @@
     }
 
 }
+
+
+/* =========================
+   NO FLIGHT FOUND SECTION
+========================= */
+
+.noflight {
+    width: 100%;
+    padding: 50px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.no_flight-content {
+    width: 100%;
+    max-width: 500px;
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 50px 35px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #e8edf5;
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.06),
+        0 2px 10px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s ease;
+}
+
+/* Hover Effect */
+.no_flight-content:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        0 16px 40px rgba(0, 0, 0, 0.08),
+        0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* Top Gradient Glow */
+.no_flight-content::before {
+    content: "";
+    position: absolute;
+    top: -120px;
+    left: -120px;
+    width: 240px;
+    height: 240px;
+    background: rgba(0, 123, 255, 0.08);
+    border-radius: 50%;
+}
+
+/* Bottom Gradient Glow */
+.no_flight-content::after {
+    content: "";
+    position: absolute;
+    bottom: -100px;
+    right: -100px;
+    width: 220px;
+    height: 220px;
+    background: rgba(13, 110, 253, 0.05);
+    border-radius: 50%;
+}
+
+/* Flight Icon */
+.flight-icons-zeroFlight {
+    width: 90px;
+    height: 90px;
+    line-height: 90px;
+    border-radius: 50%;
+    font-size: 38px;
+    color: #0d6efd;
+    background: linear-gradient(135deg, #eef5ff, #dbe9ff);
+    box-shadow: 0 8px 20px rgba(13, 110, 253, 0.15);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* Message Text */
+.no_flight-content p {
+    font-size: 16px;
+    line-height: 28px;
+    color: #4b5563;
+    margin: 0 auto;
+    max-width: 360px;
+    font-weight: 500;
+}
+
+/* Reset Button */
+.tts-button-primary {
+    border: none;
+    outline: none;
+    padding: 14px 30px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #0d6efd, #0056d6);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(13, 110, 253, 0.2);
+}
+
+.tts-button-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(13, 110, 253, 0.28);
+}
+
+.tts-button-primary:active {
+    transform: scale(0.98);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 576px) {
+
+    .noflight {
+        padding: 30px 15px;
+    }
+
+    .no_flight-content {
+        padding: 40px 20px;
+        border-radius: 18px;
+    }
+
+    .flight-icons-zeroFlight {
+        width: 75px;
+        height: 75px;
+        line-height: 75px;
+        font-size: 30px;
+    }
+
+    .no_flight-content p {
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+    .tts-button-primary {
+        width: 100%;
+        padding: 13px 20px;
+    }
+}

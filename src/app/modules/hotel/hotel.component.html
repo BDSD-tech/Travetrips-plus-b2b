@@ -10,7 +10,7 @@
           Track wallet balance, manage trips, and control everything easily.
         </p>
 
-        <div class="hero-buttons">
+        <!-- <div class="hero-buttons">
           <a routerLink="/flight" class="btn btn-primary">
             <i class="fa-solid fa-plane me-2"></i> Book Flight
           </a>
@@ -18,7 +18,7 @@
           <a routerLink="/hotel" class="btn btn-outline-primary">
             <i class="fa-solid fa-hotel me-2"></i> Find Hotels
           </a>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -29,7 +29,20 @@
     <div class="row">
       <div class="col-md-12">
         <div class="flight_box">
-
+          <ul class="search-tabs">
+            <li>
+              <a href="javascript:void(0)" routerLink="/flight" class="tab-link ">
+                <i class="fas fa-plane-departure"></i>
+                <span>Flight</span>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" routerLink="/hotel" class="tab-link active">
+                <i class="fas fa-building"></i>
+                <span>Hotel</span>
+              </a>
+            </li>
+          </ul>
           <form [formGroup]="HotelSearchForm" (ngSubmit)="HotelSearchData()" id="hotel-form">
 
             <div class="tab-content">
@@ -334,45 +347,41 @@
 <!----------Deal---and---offer---start------->
 <section class="deal-offer-section">
   <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <h3>Deals and Offers
-          <img src="assets/img/down.svg" alt="down.svg" class="img-fluid">
-        </h3>
+    <div class="section-title">
+      <h2>Deals & Offers</h2>
+      <!-- <p>Explore the latest travel deals, discounts and important updates</p> -->
+    </div>
+
+    <div class="text-center" *ngIf="offerloading===true">
+      <div class="lds-ellipsis">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
       </div>
     </div>
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="text-center" *ngIf="offerloading===true">
-          <div class="lds-ellipsis">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </div>
-        <div class="row" *ngIf="offerloading===false">
-          <div class="col-md-3" *ngFor="let item of Offer">
-            <div class="card bg-dark text-white card-hover-overlay">
-              <div class="photo">
-                <img [src]="item['Image']" class="card-img-top" alt="{{item['Title']}}">
-              </div>
-              <div class="card-img-overlay d-flex flex-column justify-content-end">
-                <h5 class="card-title">
-                  {{item['Title']}}
-                </h5>
-                <p class="card-text">
-                  {{item['Description']}}
-                </p>
-              </div>
+
+    <div class="deal-layout" *ngIf="offerloading===false">
+      <div class="offer-grid">
+        <div class="offer-item" *ngFor="let item of Offer">
+          <div class="offer-card">
+            <div class="offer-image">
+              <img [src]="item['Image']" class="card-img-top" alt="{{item['Title']}}">
+            </div>
+            <div class="offer-overlay">
+              <h5 class="offer-title">
+                {{item['Title']}}
+              </h5>
+              <p class="offer-description">
+                {{item['Description']}}
+              </p>
+              <button type="button" class="offer-btn"> Explore Deal <i class="fa fa-arrow-right"></i></button>
             </div>
           </div>
         </div>
       </div>
-
     </div>
+
   </div>
 </section>
 <!----------Deal---and---offer----end-------->
