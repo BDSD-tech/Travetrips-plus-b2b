@@ -428,6 +428,24 @@
                                                     *ngIf="!selectedfare[item['TtsIndex']]['IsRefundable']">Non
                                                     Refundable</span>
                                             </div>
+                                            @if(selectedfare[item['TtsIndex']]['IsHoldabel']){
+                                            <div class="flight-info-item">
+                                                <span>Hold With SSR : 
+                                                    @if(selectedfare[item['TtsIndex']]['IsHoldabelWithSsr']){
+                                                    <span class="text-success">Yes</span>   
+                                                    }@else {
+                                                        <span class="text-danger">No</span>   
+                                                    }
+                                                </span>
+                                            </div>
+                                            <div class="flight-info-item">
+                                                <span>Hold Without SSR :  @if(selectedfare[item['TtsIndex']]['IsHoldabelWithOutSsr']){
+                                                    <span class="text-success">Yes</span>   
+                                                    }@else {
+                                                        <span class="text-danger">No</span>   
+                                                    }</span>
+                                            </div>
+                                            }
                                         </div>
                                         <div class="flight-links">
                                             @if(selectedfare[item['TtsIndex']]['IsUpsellAllowed']){
@@ -811,7 +829,7 @@
                             <!----new code End---->
                         </div>
                     </div>
-                    <div class="noflight" *ngIf="sortedData.length === 0">
+                    <div class="noflight" *ngIf="resultloading==false && sortedData.length === 0">
                         <div class="no_flight-content">
                             <i class="fa fa-plane flight-icons-zeroFlight mb-4"></i>
                             <p>No flight found that matches your filter criteria.Reset your filter </p>
