@@ -55,7 +55,9 @@
       <div class="col-xl-4 col-lg-5 col-md-8" *ngIf="ActiveStep=='CheckUser'">
         <div class="auth-card">
           <div class="auth-card-top">
-            <img src="{{GetWebSiteData['Logo']}}" alt="" class="logo">
+            <a href="javascript:void(0);" routerLink="/">
+              <img src="{{GetWebSiteData['Logo']}}" alt="" class="logo">
+            </a>
             <h2>Welcome Back</h2>
             <p>Login to continue your journey</p>
           </div>

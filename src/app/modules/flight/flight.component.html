@@ -1,5 +1,5 @@
 <section class="hero-section">
-  <div class="container">
+  <!-- <div class="container">
     <div class="row align-items-center">
       <div class="col-lg-12 hero-content">
         <h1>
@@ -9,17 +9,9 @@
           Flight, Hotel, and Bus bookings all in one dashboard.
           Track wallet balance, manage trips, and control everything easily.
         </p>
-        <!-- <div class="hero-buttons">
-               <a routerLink="/flight" class="btn btn-primary">
-                 <i class="fas fa-plane "></i> Book Flight
-               </a>
-               <a routerLink="/hotel" class="btn btn-outline-primary">
-                 <i class="fas fa-hotel "></i> Find Hotels
-               </a>
-               </div> -->
       </div>
     </div>
-  </div>
+  </div> -->
 </section>
 <!----------search--form---width----banner------------>
 <div class="flight_section">
@@ -467,7 +459,7 @@
   </div>
 </div>
 <!----------search--form---width----banner------end------>
-<div class="recent-search-section" *ngIf="getRecentSearch.length != 0">
+<section class="recent-search-section" *ngIf="getRecentSearch.length != 0">
   <div class="container">
     <!-- Header -->
     <div class="recent-search-header">
@@ -536,11 +528,11 @@
 
     </div>
   </div>
-</div>
+</section>
 <!-- =========================
    Deals & Offers Section
    ========================= -->
-<section class="deal-offer-section">
+<section class="deal-offer-section d-none">
   <div class="container">
     <!-- Section Header -->
     <div class="section-title">

@@ -76,74 +76,72 @@
                   RESULT HEADER SECTION
                   ===================================================== -->
                     <div class="filter-flights">
-                        <div class="row align-items-center g-3">
+                    
+                        <div class="d-flex align-items-center gap-3">
                             <!-- LEFT CONTENT -->
-                            <div class="col-lg-6">
-                                <div class="flight-route-card">
-                                    <div class="flight-route-icon">
-                                        <i class="fa-solid fa-plane-departure"></i>
+                            <div class="flight-route-card">
+                                <!-- <div class="flight-route-icon">
+                                    <i class="fa-solid fa-plane-departure"></i>
+                                </div> -->
+                                <div class="flight-route-content">
+                                    <div class="flight-route-name">
+                                        <h4 class="flight-result-title"> Found <span>{{resultcount}} Flights</span>
+                                        </h4>
+                                        <span class="route-city">
+                                            {{GetSearchData['Origin'].split('(')[0]}}
+                                        </span>
+                                        <span class="route-arrow">
+                                            <i class="fa-solid fa-arrow-right-long"></i>
+                                        </span>
+                                        <span class="route-city">
+                                            {{GetSearchData['Destination'].split('(')[0]}}
+                                        </span>
                                     </div>
-                                    <div class="flight-route-content">
-                                        <div class="flight-route-name">
-                                            <h4 class="flight-result-title"> Found <span>{{resultcount}} Flights</span>
-                                            </h4>
-                                            <span class="route-city">
-                                                {{GetSearchData['Origin'].split('(')[0]}}
-                                            </span>
-                                            <span class="route-arrow">
-                                                <i class="fa-solid fa-arrow-right-long"></i>
-                                            </span>
-                                            <span class="route-city">
-                                                {{GetSearchData['Destination'].split('(')[0]}}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <!-- LOADER -->
-                                    <div class="flight-loading" *ngIf="APILoading">
-                                        <div class="lds-ellipsis">
-                                            <div></div>
-                                            <div></div>
-                                            <div></div>
-                                            <div></div>
-                                        </div>
+                                </div>
+                                <!-- LOADER -->
+                                <div class="flight-loading" *ngIf="APILoading">
+                                    <div class="lds-ellipsis">
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
                                     </div>
                                 </div>
                             </div>
+        
+                            <div class="divider"></div>
 
                             <!-- RIGHT CONTENT -->
-                            <div class="col-lg-6 text-lg-end text-center" *ngIf="APILoading==false">
-                                <div class="share-flight-wrapper">
-                                    <span class="share-label">
-                                        <i class="fa-solid fa-share-nodes"></i>
-                                        Share By :
-                                    </span>
-                                    <!-- DEFAULT BUTTONS -->
-                                    <ng-container *ngIf="sharebuttontext==''">
-                                        <button class="share-btn whatsapp-btn" (click)="Shareby('Whatsapp')">
-                                            <i class="fab fa-whatsapp"></i>
-                                        </button>
-                                        <button class="share-btn email-btn" (click)="Shareby('Email')">
-                                            <i class="fa-solid fa-envelope"></i>
-                                        </button>
-                                        <button class="share-btn view-btn" (click)="Shareby('View')">
-                                            <i class="fa-solid fa-eye"></i>
-                                        </button>
-                                    </ng-container>
-                                    <!-- ACTION BUTTONS -->
-                                    <ng-container *ngIf="sharebuttontext!=''">
-                                        <button class="share-btn active-share-btn" (click)="SendData()">
-                                            {{sharebuttontext}}
-                                        </button>
-                                        <button class="share-btn close-share-btn" (click)="Shareby('Close')">
-                                            <i class="fa-solid fa-xmark"></i>
-                                        </button>
-                                    </ng-container>
-                                </div>
+                            <div class="share-flight-wrapper" *ngIf="APILoading==false">
+                                <!-- <span class="share-label"><i class="fa-solid fa-share-nodes"></i>Share By :</span> -->
+                                <!-- DEFAULT BUTTONS -->
+                                <ng-container *ngIf="sharebuttontext==''">
+                                    <button class="share-btn whatsapp-btn" (click)="Shareby('Whatsapp')">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </button>
+                                    <button class="share-btn email-btn" (click)="Shareby('Email')">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </button>
+                                    <button class="share-btn view-btn" (click)="Shareby('View')">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </ng-container>
+                                <!-- ACTION BUTTONS -->
+                                <ng-container *ngIf="sharebuttontext!=''">
+                                    <button class="share-btn active-share-btn" (click)="SendData()">
+                                        {{sharebuttontext}}
+                                    </button>
+                                    <button class="share-btn close-share-btn" (click)="Shareby('Close')">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </ng-container>
                             </div>
                         </div>
+                    
+                    
                         <!-- =====================================================
-                     QUICK FILTER CARDS
-                     ===================================================== -->
+                                                    QUICK FILTER CARDS
+                                                    ===================================================== -->
                         <div class="row mt-3 g-3 d-none" *ngIf="APILoading==false">
                             <!-- CHEAPEST -->
                             <div class="col-lg-4 col-md-4 col-12">
@@ -231,8 +229,7 @@
                         <div class="flight-card" *ngFor="let item of sortedData">
                             <div class="row g-3 align-items-start">
                                 <div class="col-lg-6">
-                                    <div class="segment-box"
-                                        *ngFor="let trip of item['MainSegment']; let tripskey=index;">
+                                    <div class="segment-box" *ngFor="let trip of item['MainSegment']; let tripskey=index;">
                                         <div class="row align-items-center g-3">
                                             <div class="col-lg-3 col-md-4 col-12">
                                                 <div class="airline-info">
@@ -330,51 +327,40 @@
                                                     [ngClass]="{'d-none' : farelistkey >= fareshowlimit}">
                                                     <div class="form-check">
                                                         <!-- <p class="ars-specialfare">
-                                 <span>{{userinfo['CompanyId']}}</span>
-                                 </p> -->
+                                                        <span>{{userinfo['CompanyId']}}</span>
+                                                        </p> -->
                                                         <label class="form-check-label">
-                                                            <input class="form-check-input" type="radio"
-                                                                name="search_result_{{item['TtsIndex']}}"
-                                                                *ngIf="farelistkey==0" value="{{farelist.FareId}}"
-                                                                (click)="FareOptionSelected(item['TtsIndex'])"
-                                                                checked />
-                                                            <input class="form-check-input" type="radio"
-                                                                name="search_result_{{item['TtsIndex']}}"
-                                                                *ngIf="farelistkey!=0" value="{{farelist.FareId}}"
+                                                            <input class="form-check-input" type="radio" name="search_result_{{item['TtsIndex']}}" *ngIf="farelistkey==0" value="{{farelist.FareId}}"
+                                                                (click)="FareOptionSelected(item['TtsIndex'])" checked />
+                                                            <input class="form-check-input" type="radio" name="search_result_{{item['TtsIndex']}}" *ngIf="farelistkey!=0" value="{{farelist.FareId}}"
                                                                 (click)="FareOptionSelected(item['TtsIndex'])" />
-                                                            <span
-                                                                [ngClass]="{'graycolor':shownetfare}">₹{{farelist['Fare']['PublishedPrice']
+                                                            <span [ngClass]="{'graycolor':shownetfare}">₹{{farelist['Fare']['PublishedPrice'] | number:'1.0-2'}} </span>
+                                                            <span class="graycolor" *ngIf="showincentivefare">| INC ₹{{farelist['Fare']['PublishedPrice']-farelist['Fare']['OfferedPrice']
                                                                 | number:'1.0-2'}} </span>
-                                                            <span class="graycolor" *ngIf="showincentivefare">|
-                                                                INC
-                                                                ₹{{farelist['Fare']['PublishedPrice']-farelist['Fare']['OfferedPrice']
-                                                                | number:'1.0-2'}} </span>
-                                                            <span *ngIf="shownetfare==true"><span>
-                                                                    NET</span>
-                                                                ₹{{farelist['Fare']['OfferedPrice'] |
-                                                                number:'1.0-2'}}
+                                                            <span *ngIf="shownetfare==true">
+                                                                <span> NET</span> ₹{{farelist['Fare']['OfferedPrice'] | number:'1.0-2'}}
                                                             </span>
-                                                            <!-- <span class="graycolor fs-10"
-                                    *ngIf="farelist['Source']">{{farelist['Source']}}</span> -->
-                                                            <!-- <span class="baggage-wrapper">
-                                    <a href="javascript:void(0)" class="baggage-icon"><i class="fa-solid fa-suitcase-rolling"></i></a>
-                                    <div class="baggage-detail">
-                                        <span
-                                            *ngFor="let bag of farelist['SeatBaggage'];let i=index">
-                                            <span *ngFor="let segbag of bag;let bagi=index"
-                                                class="baggage-items"
-                                                [ngClass]="{'border-bottom py-1': bagi < bag.length - 1}">
-                                                <strong>{{ segbag.Sector }}</strong> :
-                                                Cabin-{{ segbag.Cabin }},
-                                                Checkin-{{ segbag.CheckIn }}
-                                            </span>
-                                        </span>
-                                    </div>
-                                    </span> 
-                                    <a href="javascript:void(0)" (click)="OpenFareruleModal(item.TtsIndex)" class="farerule-icon">
-                                    <i class="fa-solid fa-file-lines"></i>
-                                    </a>
-                                    -->
+                                                                                    <!-- <span class="graycolor fs-10"
+                                                            *ngIf="farelist['Source']">{{farelist['Source']}}</span> -->
+                                                                                    <!-- <span class="baggage-wrapper">
+                                                            <a href="javascript:void(0)" class="baggage-icon"><i class="fa-solid fa-suitcase-rolling"></i></a>
+                                                            <div class="baggage-detail">
+                                                                <span
+                                                                    *ngFor="let bag of farelist['SeatBaggage'];let i=index">
+                                                                    <span *ngFor="let segbag of bag;let bagi=index"
+                                                                        class="baggage-items"
+                                                                        [ngClass]="{'border-bottom py-1': bagi < bag.length - 1}">
+                                                                        <strong>{{ segbag.Sector }}</strong> :
+                                                                        Cabin-{{ segbag.Cabin }},
+                                                                        Checkin-{{ segbag.CheckIn }}
+                                                                    </span>
+                                                                </span>
+                                                            </div>
+                                                            </span> 
+                                                            <a href="javascript:void(0)" (click)="OpenFareruleModal(item.TtsIndex)" class="farerule-icon">
+                                                            <i class="fa-solid fa-file-lines"></i>
+                                                                </a>
+                                                                -->
                                                             <span class="label-{{farelist['FareTypeColor']}}">
                                                                 {{farelist['FareType']}}
                                                             </span>
@@ -481,10 +467,10 @@
                                     </div>
                                 </div>
                                 <!--<div class="col-sm-12 clearfix" *ngIf="item['FareList']?.[0]?.['AirlineRemark']!='' && item['FareList']?.[0]?.['AirlineRemark']!=null">
-               <p class="indicator-content">
-                   <span class="message-content" id="airline_remark_{{item.TtsIndex}}">Airline Remark : {{item['FareList']?.[0]?.['AirlineRemark']}}</span>
-               </p>
-               </div>-->
+                                    <p class="indicator-content">
+                                        <span class="message-content" id="airline_remark_{{item.TtsIndex}}">Airline Remark : {{item['FareList']?.[0]?.['AirlineRemark']}}</span>
+                                    </p>
+                                    </div>-->
                                 <div class="col-sm-12 clearfix"
                                     *ngIf="item['FareList']?.[0]?.['SpecialNotes']!='' && item['FareList']?.[0]?.['SpecialNotes']!=null">
                                     <div class="indicator-content" id="special_notes_{{item.TtsIndex}}">
@@ -514,6 +500,7 @@
                                         aria-label="Close" (click)="hideflightdetail(item.TtsIndex)">
                                     </button>
                                 </div>
+
                                 <!-- BODY -->
                                 <div class="offcanvas-body modern-body">
                                     <!-- TABS -->

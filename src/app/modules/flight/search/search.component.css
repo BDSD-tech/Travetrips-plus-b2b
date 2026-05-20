@@ -153,25 +153,20 @@
 }
 
 .flight-route-icon {
-    width: 42px;
-    height: 42px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     background: rgba(29, 72, 163, 0.1);
     color: var(--primary-color);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
 }
 
 .flight-result-title {
     margin: 0;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
-}
-
-.flight-result-title span {
-    color: var(--primary-color);
 }
 
 .flight-route-name {
@@ -183,12 +178,13 @@
 }
 
 .route-city {
-    font-weight: 600;
-    color: var(--dark);
+    color: var(--primary-color);
+    font-size: 16px;
+    font-weight: 700;
 }
 
 .route-arrow {
-    color: var(--primary-bg-color);
+    color: var(--primary-color);
 }
 
 /* =========================================================
@@ -207,23 +203,31 @@
     color: var(--dark);
 }
 
+.divider {
+    width: 0.0625rem;
+    height: 1.5625rem;
+    background-color: rgba(51, 51, 51, .4);
+}
+
 .share-btn {
     border: none;
     border-radius: 30px;
-    width: 32px;
-    height: 32px;
+    /* width: 32px;
+    height: 32px; */
     text-align: center;
-    color: var(--white);
+    /* color: var(--white); */
+    color: rgb(91, 91, 91);
     font-weight: 600;
     transition: var(--transition);
-    font-size: 14px;
+    font-size: 16px;
+    background-color: transparent;
 }
 
 .share-btn:hover {
     transform: translateY(-2px);
 }
 
-.whatsapp-btn {
+/* .whatsapp-btn {
     background: #25D366;
 }
 
@@ -233,7 +237,7 @@
 
 .view-btn {
     background: #5c6bc0;
-}
+} */
 
 .active-share-btn {
     background: var(--primary-color);
@@ -390,15 +394,14 @@
 }
 
 .flight-time-box h5 {
-    font-size: 18px;
-    font-weight: 800;
+    font-size: 16px;
     color: #111827;
     margin-bottom: 0px;
 }
 
 .flight-time-box p {
     margin: 0;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
     color: #374151;
 }
@@ -1006,17 +1009,17 @@
 }
 
 .airline-logo {
-    width: 54px;
-    height: 54px;
-    object-fit: contain;
+    width: 24px;
+    height: 24px;
+    border-radius: 10px;
+    /* object-fit: contain;
     border-radius: 14px;
     background: var(--white);
-    padding: 6px;
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-sm); */
 }
 
 .airline-box h6 {
-    font-size: 15px;
+    font-size: 12px;
     color: var(--second-dark-color);
     margin-bottom: 4px;
 }
