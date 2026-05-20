@@ -252,9 +252,10 @@
                     <input type="checkbox" class="d-none" [(ngModel)]="item.isChecked"
                         (click)="doFilter(1,'DepartTime',$event,item)">
 
-                    <div class="time-icon">
-                        <div class="{{item['icon']}}"></div>
+                    <div class="time-icon {{item['icon']}}">
+
                     </div>
+
 
                     <span>{{item.label}}</span>
 
