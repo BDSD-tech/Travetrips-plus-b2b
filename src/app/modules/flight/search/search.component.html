@@ -76,7 +76,7 @@
                   RESULT HEADER SECTION
                   ===================================================== -->
                     <div class="filter-flights">
-                    
+
                         <div class="d-flex align-items-center gap-3">
                             <!-- LEFT CONTENT -->
                             <div class="flight-route-card">
@@ -108,7 +108,7 @@
                                     </div>
                                 </div>
                             </div>
-        
+
                             <div class="divider"></div>
 
                             <!-- RIGHT CONTENT -->
@@ -137,8 +137,8 @@
                                 </ng-container>
                             </div>
                         </div>
-                    
-                    
+
+
                         <!-- =====================================================
                                                     QUICK FILTER CARDS
                                                     ===================================================== -->
@@ -190,15 +190,15 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <app-loading *ngIf="resultloading" [type]="filtertype"></app-loading>
                     <div class="tts-main-right" *ngIf="resultloading==false">
                         <div class="flight-listbtrow">
                             <div class="flight-listbt">
                                 <div class="row align-items-center g-3">
-                                    <div class="col-lg-7 col-9">
+                                    <div class="col-lg-6">
                                         <div class="row align-items-center g-3">
-                                            <div class="col-lg-4 col-md-4 col-12">
+                                            <div class="col-lg-3 col-md-4 col-12">
                                                 <span>Sort By</span>
                                             </div>
                                             <div class="col-lg-3 col-md-3 col-4">
@@ -206,7 +206,7 @@
                                                     [ngClass]="{'flight-activefilter':obfield=='departtime'}"
                                                     mat-sort-header="departtime">Departure</button>
                                             </div>
-                                            <div class="col-lg-2 col-md-2 col-4 text-center">
+                                            <div class="col-lg-3 col-md-3 col-4 text-center">
                                                 <button class="flight-btnforfilter duration"
                                                     [ngClass]="{'flight-activefilter':obfield=='duration'}"
                                                     mat-sort-header="duration">Duration</button>
@@ -218,7 +218,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-5 col-3">
+                                    <div class="col-lg-6">
                                         <button class="flight-btnforfilter"
                                             [ngClass]="{'flight-activefilter':obfield=='totalfare'}"
                                             mat-sort-header="totalfare">Price</button>
@@ -229,7 +229,8 @@
                         <div class="flight-card" *ngFor="let item of sortedData">
                             <div class="row g-3 align-items-start">
                                 <div class="col-lg-6">
-                                    <div class="segment-box" *ngFor="let trip of item['MainSegment']; let tripskey=index;">
+                                    <div class="segment-box"
+                                        *ngFor="let trip of item['MainSegment']; let tripskey=index;">
                                         <div class="row align-items-center g-3">
                                             <div class="col-lg-3 col-md-4 col-12">
                                                 <div class="airline-info">
@@ -244,26 +245,28 @@
                                             <div class="col-lg-3 col-md-3 col-4">
                                                 <div class="flight-time-box">
                                                     <h5> {{trip['DepartTime']}}</h5>
-                                                    <p>{{trip['DepartureCity']}}</p>
+                                                    <p>({{trip['DepartureCity']}})</p>
                                                     <small>{{trip['DepartDate']}}</small>
                                                 </div>
                                             </div>
                                             <!-- Duration -->
                                             <div class="col-lg-3 col-md-3 col-4 text-center">
+
+                                                <small>{{trip['Duration']}}</small>
+                                                <div class="flight-line"></div>
                                                 <span class="stop-badge" [ngClass]="{
-                              'non-stop': trip.Stops == 0,
-                              'has-stop': trip.Stops > 0
-                              }">
+                                                    'non-stop': trip.Stops == 0,
+                                                    'has-stop': trip.Stops > 0
+                                                    }">
                                                     {{ trip.Stops == 0 ? 'Non Stop' : trip.Stops + ' Stop(s)' }}
                                                 </span>
-                                                <div class="flight-line"></div>
-                                                <small>{{trip['Duration']}}</small>
+
                                             </div>
                                             <!-- Arrival -->
                                             <div class="col-lg-3 col-md-3 col-4 text-end">
                                                 <div class="flight-time-box">
                                                     <h5> {{trip['ArrivalTime']}}</h5>
-                                                    <p>{{trip['ArrivalCity']}}</p>
+                                                    <p>({{trip['ArrivalCity']}})</p>
                                                     <small>{{trip['ArrivalDate']}}</small>
                                                 </div>
                                             </div>
@@ -330,19 +333,39 @@
                                                         <span>{{userinfo['CompanyId']}}</span>
                                                         </p> -->
                                                         <label class="form-check-label">
-                                                            <input class="form-check-input" type="radio" name="search_result_{{item['TtsIndex']}}" *ngIf="farelistkey==0" value="{{farelist.FareId}}"
-                                                                (click)="FareOptionSelected(item['TtsIndex'])" checked />
-                                                            <input class="form-check-input" type="radio" name="search_result_{{item['TtsIndex']}}" *ngIf="farelistkey!=0" value="{{farelist.FareId}}"
+                                                            <input class="form-check-input" type="radio"
+                                                                name="search_result_{{item['TtsIndex']}}"
+                                                                *ngIf="farelistkey==0" value="{{farelist.FareId}}"
+                                                                (click)="FareOptionSelected(item['TtsIndex'])"
+                                                                checked />
+                                                            <input class="form-check-input" type="radio"
+                                                                name="search_result_{{item['TtsIndex']}}"
+                                                                *ngIf="farelistkey!=0" value="{{farelist.FareId}}"
                                                                 (click)="FareOptionSelected(item['TtsIndex'])" />
-                                                            <span [ngClass]="{'graycolor':shownetfare}">₹{{farelist['Fare']['PublishedPrice'] | number:'1.0-2'}} </span>
-                                                            <span class="graycolor" *ngIf="showincentivefare">| INC ₹{{farelist['Fare']['PublishedPrice']-farelist['Fare']['OfferedPrice']
+                                                            <span
+                                                                [ngClass]="{'graycolor':shownetfare}">₹{{farelist['Fare']['PublishedPrice']
                                                                 | number:'1.0-2'}} </span>
-                                                            <span *ngIf="shownetfare==true">
-                                                                <span> NET</span> ₹{{farelist['Fare']['OfferedPrice'] | number:'1.0-2'}}
-                                                            </span>
-                                                                                    <!-- <span class="graycolor fs-10"
+                                                            <span
+                                                                class="label-{{farelist['FareTypeColor']}}">({{farelist['FareType']}})</span>
+                                                            <br>
+                                                            <small class="graycolor text-muted"
+                                                                *ngIf="showincentivefare">
+                                                                INC ₹{{ (farelist['Fare']['PublishedPrice'] -
+                                                                farelist['Fare']['OfferedPrice']) | number:'1.0-2' }}
+                                                            </small>
+
+                                                            <small class="mx-1 text-muted"
+                                                                *ngIf="showincentivefare && shownetfare">
+                                                                |
+                                                            </small>
+
+                                                            <small class="graycolor text-muted" *ngIf="shownetfare">
+                                                                NET ₹{{ farelist['Fare']['OfferedPrice'] |
+                                                                number:'1.0-2' }}
+                                                            </small>
+                                                            <!-- <span class="graycolor fs-10"
                                                             *ngIf="farelist['Source']">{{farelist['Source']}}</span> -->
-                                                                                    <!-- <span class="baggage-wrapper">
+                                                            <!-- <span class="baggage-wrapper">
                                                             <a href="javascript:void(0)" class="baggage-icon"><i class="fa-solid fa-suitcase-rolling"></i></a>
                                                             <div class="baggage-detail">
                                                                 <span
@@ -361,9 +384,7 @@
                                                             <i class="fa-solid fa-file-lines"></i>
                                                                 </a>
                                                                 -->
-                                                            <span class="label-{{farelist['FareTypeColor']}}">
-                                                                {{farelist['FareType']}}
-                                                            </span>
+
                                                         </label>
                                                         <!-- <div class="d-flex align-items-center gap-3 flex-wrap small">
                                  <div class="ars-refunsleft ars-lastre ars-last-positionHandle">
@@ -390,23 +411,31 @@
                                         <div class="col-sm-3 col-12">
                                             <button type="button" class="flight-book" id="flightdetails"
                                                 (click)="confirmation(item['TtsIndex'])">BOOK</button>
+                                            @if(selectedfare[item['TtsIndex']]['SeatBaggage']?.[0]?.[0]?.['NoOfSeatAvailable']){
+                                            <div class="flight-info-item seats-left">
+                                                <span>{{selectedfare[item['TtsIndex']]['SeatBaggage']?.[0]?.[0]?.['NoOfSeatAvailable']}}
+                                                    Seat</span>
+                                            </div>
+                                            }
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="flight-info-bar">
                                         <div class="flight-info-bar">
+                                            @if(selectedfare[item['TtsIndex']]['SeatBaggage']?.[0]?.[0]?.['CheckIn']){
                                             <div class="flight-info-item">
                                                 <i class="fa-regular fa-heart"></i>
                                                 <span>{{selectedfare[item['TtsIndex']]['SeatBaggage']?.[0]?.[0]?.['CheckIn']}}</span>
                                             </div>
+                                            }
+                                            @if(selectedfare[item['TtsIndex']]['SeatBaggage']?.[0]?.[0]?.['Cabin']){
                                             <div class="flight-info-item">
                                                 <i class="fa-solid fa-briefcase"></i>
                                                 <span>{{selectedfare[item['TtsIndex']]['SeatBaggage']?.[0]?.[0]?.['Cabin']}}</span>
                                             </div>
-                                            <div class="flight-info-item seats-left">
-                                                <span>{{selectedfare[item['TtsIndex']]['SeatBaggage']?.[0]?.[0]?.['NoOfSeatAvailable']}} Seat</span>
-                                            </div>
+                                            }
+
                                             <div class="flight-info-item ">
                                                 <span class="refundable"
                                                     *ngIf="selectedfare[item['TtsIndex']]['IsRefundable']">Refundable</span>
@@ -416,19 +445,20 @@
                                             </div>
                                             @if(selectedfare[item['TtsIndex']]['IsHoldabel']){
                                             <div class="flight-info-item">
-                                                <span>Hold With SSR : 
+                                                <span>Hold With SSR :
                                                     @if(selectedfare[item['TtsIndex']]['IsHoldabelWithSsr']){
-                                                    <span class="text-success">Yes</span>   
+                                                    <span class="text-success">Yes</span>
                                                     }@else {
-                                                        <span class="text-danger">No</span>   
+                                                    <span class="text-danger">No</span>
                                                     }
                                                 </span>
                                             </div>
                                             <div class="flight-info-item">
-                                                <span>Hold Without SSR :  @if(selectedfare[item['TtsIndex']]['IsHoldabelWithOutSsr']){
-                                                    <span class="text-success">Yes</span>   
+                                                <span>Hold Without SSR :
+                                                    @if(selectedfare[item['TtsIndex']]['IsHoldabelWithOutSsr']){
+                                                    <span class="text-success">Yes</span>
                                                     }@else {
-                                                        <span class="text-danger">No</span>   
+                                                    <span class="text-danger">No</span>
                                                     }</span>
                                             </div>
                                             }
@@ -439,29 +469,29 @@
                                                 (click)="FareUpSell(item)">More Fare</button>
                                             }
                                             <!-- <button type="button" class="flight-view-btn" [ngClass]="{
-                        'active': showFlightTab==item['TtsIndex']
-                        }" (click)="flightdetail($event,item)" data-bs-toggle="offcanvas"
-                        attr.data-bs-target="#flightOffcanvas_{{item.TtsIndex}}">
-                        
-                        View Details
-                        
-                        <i class="fa" [ngClass]="{
-                                        'fa-plus': showFlightTab!=item['TtsIndex'],
-                                        'fa-minus': showFlightTab==item['TtsIndex']
-                                    }">
-                        </i>
-                        
-                        </button> -->
-                                            <button type="button" class="flight-view-btn" [ngClass]="{
-                     'active': showFlightTab==item['TtsIndex']
-                     }" (click)="flightdetail($event,item)" data-bs-toggle="offcanvas"
+                                                'active': showFlightTab==item['TtsIndex']
+                                                }" (click)="flightdetail($event,item)" data-bs-toggle="offcanvas"
                                                 attr.data-bs-target="#flightOffcanvas_{{item.TtsIndex}}">
+                                                
                                                 View Details
+                                                
                                                 <i class="fa" [ngClass]="{
-                        'fa-plus': showFlightTab!=item['TtsIndex'],
-                        'fa-minus': showFlightTab==item['TtsIndex']
-                        }">
+                                                                'fa-plus': showFlightTab!=item['TtsIndex'],
+                                                                'fa-minus': showFlightTab==item['TtsIndex']
+                                                            }">
                                                 </i>
+                                                
+                                                </button> -->
+                                            <button type="button" class="flight-view-btn" [ngClass]="{
+                                            'active': showFlightTab==item['TtsIndex']
+                                            }" (click)="flightdetail($event,item)" data-bs-toggle="offcanvas"
+                                                attr.data-bs-target="#flightOffcanvas_{{item.TtsIndex}}">
+                                                Flight Details
+                                                <!-- <i class="fa" [ngClass]="{
+                                                'fa-plus': showFlightTab!=item['TtsIndex'],
+                                                'fa-minus': showFlightTab==item['TtsIndex']
+                                                }">
+                                                </i> -->
                                             </button>
                                         </div>
                                     </div>
@@ -482,9 +512,565 @@
                                     </div>
                                 </div>
                             </div>
-                            <!----new code Start---->
+
+
+                            <!----New 21-05-2026 Code----->
+                            <div class="offcanvas offcanvas-end custom-offcanvas" tabindex="-1"
+                                id="flightOffcanvas_{{item.TtsIndex}}" aria-modal="true" role="dialog">
+
+
+                                <!-- Header -->
+
+                                <div class="offcanvas-header offcanvas-header-custom">
+
+                                    <div>
+
+                                        <small class="trip-label">
+                                            One way • 1 Traveller, Economy
+                                        </small>
+
+                                        <h5 class="trip-title">
+
+                                            <span class="trip-route">
+                                                Dabolim - Bangalore
+                                            </span>
+
+                                            <small class="trip-meta">
+                                                • Fri, Jun 26 • 14h 15m • 1 Stop
+                                            </small>
+
+                                        </h5>
+
+                                    </div>
+
+                                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas">
+                                    </button>
+
+                                </div>
+
+                                <!-- Tabs -->
+
+                                <ul class="nav nav-tabs nav-justified" id="flightTabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="nav-flightDeatil_{{item.TtsIndex}}-tab"
+                                            data-bs-toggle="tab"
+                                            attr.data-bs-target="#nav-flightDeatil_{{item.TtsIndex}}" type="button"
+                                            role="tab">
+                                            <i class="fa fa-plane me-2"></i>Itinerary
+                                        </button>
+                                    </li>
+
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="nav-fareInfo_{{item.TtsIndex}}-tab"
+                                            data-bs-toggle="tab" attr.data-bs-target="#nav-fareInfo_{{item.TtsIndex}}"
+                                            type="button" role="tab">
+                                            <i class="fa fa-money-bill-wave me-2"></i>Fare Info
+                                        </button>
+                                    </li>
+
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="nav-farerule_{{item.TtsIndex}}-tab"
+                                            data-bs-toggle="tab" attr.data-bs-target="#nav-farerule_{{item.TtsIndex}}"
+                                            type="button" role="tab" (click)="farerule(item.TtsIndex)">
+                                            <i class="fa fa-file-alt me-2"></i>Fare Rules
+                                        </button>
+                                    </li>
+
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="nav-baggageinfo_{{item.TtsIndex}}-tab"
+                                            data-bs-toggle="tab"
+                                            attr.data-bs-target="#nav-baggageinfo_{{item.TtsIndex}}" type="button"
+                                            role="tab">
+                                            <i class="fa fa-suitcase me-2"></i>Baggage
+                                        </button>
+                                    </li>
+                                </ul>
+                                <!-- Body -->
+
+                                <div class="offcanvas-body">
+                                    <div class="tab-content h-100">
+                                        <!-- =====================================================
+                                            ITINERARY
+                                        ====================================================== -->
+                                        <div class="tab-pane fade h-100 active show"
+                                            id="nav-flightDeatil_{{item.TtsIndex}}" role="tabpanel">
+
+                                            <div class="scrollable-content">
+
+                                                <!-- Flight Summary -->
+
+                                                <div class="flight-summary">
+
+                                                    <div class="airline-info">
+
+                                                        <div class="logo-gradient">
+                                                            <img src="" alt="">
+                                                        </div>
+
+                                                        <div>
+
+                                                            <div class="airline-name">
+                                                                Air India
+                                                            </div>
+
+                                                            <div class="airline-code">
+                                                                AI 9532, AI 2603
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="flight-time-block">
+
+                                                        <div class="flight-time">
+                                                            GOI - 18:20
+                                                        </div>
+
+                                                        <div class="flight-date">
+                                                            26 Jun 2026
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="flight-time-block">
+
+                                                        <div class="flight-duration">
+                                                            14h 15m
+                                                        </div>
+
+                                                        <div class="flight-stop">
+                                                            1 Stop
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="flight-time-block">
+
+                                                        <div class="flight-time">
+                                                            BLR - 08:35
+                                                        </div>
+
+                                                        <div class="flight-date">
+                                                            27 Jun 2026
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <!-- Timeline -->
+
+                                                <div class="timeline-grid">
+
+                                                    <!-- Departure -->
+
+                                                    <div class="timeline-time">
+
+                                                        <div class="timeline-main-time">
+                                                            18:20
+                                                        </div>
+
+                                                        <div class="timeline-date">
+                                                            26 Jun 2026
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="track-node">
+
+                                                        <div class="circle-indicator"></div>
+                                                        <div class="line-dashed"></div>
+
+                                                    </div>
+
+                                                    <div>
+
+                                                        <div class="airport-name">
+                                                            Dabolim (GOI)
+                                                        </div>
+
+                                                        <div class="airport-desc">
+                                                            Dabolim Airport
+                                                        </div>
+
+                                                    </div>
+
+                                                    <!-- Flight Segment -->
+
+                                                    <div class="timeline-time">
+
+                                                        <div class="timeline-duration">
+                                                            1h 30m
+                                                        </div>
+
+                                                        <div class="timeline-duration-label">
+                                                            Travel Duration
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="track-node">
+
+                                                        <div class="plane-wrapper">
+                                                            <i class="fa-solid fa-plane"></i>
+                                                        </div>
+
+                                                        <div class="line-dashed"></div>
+
+                                                    </div>
+
+                                                    <div class="segment-info">
+
+                                                        <div class="segment-airline">
+
+                                                            <div class="mini-logo">
+                                                                <img src="" alt="">
+                                                            </div>
+
+                                                            <div>
+                                                                <strong>Air India</strong>
+                                                                <span class="segment-code">
+                                                                    • AI 9532
+                                                                </span>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <!-- Arrival -->
+
+                                                    <div class="timeline-time">
+
+                                                        <div class="timeline-main-time">
+                                                            19:50
+                                                        </div>
+
+                                                        <div class="timeline-date">
+                                                            26 Jun 2026
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="track-node">
+
+                                                        <div class="circle-indicator"></div>
+
+                                                    </div>
+
+                                                    <div>
+
+                                                        <div class="airport-name">
+                                                            Mumbai (BOM)
+                                                        </div>
+
+                                                        <div class="airport-desc">
+                                                            Chhatrapati Shivaji Airport • Terminal 2
+                                                        </div>
+
+                                                    </div>
+
+                                                    <!-- Layover -->
+
+                                                    <div class="layover-row">
+
+                                                        <div></div>
+
+                                                        <div class="layover-icon">
+                                                            <i class="fa-regular fa-clock"></i>
+                                                        </div>
+
+                                                        <div>
+
+                                                            <div class="layover-title">
+                                                                1 Stop at Mumbai
+                                                            </div>
+
+                                                            <div class="layover-duration">
+                                                                10h 45m Layover
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <!-- Next Flight -->
+
+                                                    <div class="timeline-time">
+
+                                                        <div class="timeline-main-time">
+                                                            06:35
+                                                        </div>
+
+                                                        <div class="timeline-date">
+                                                            27 Jun 2026
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="track-node">
+
+                                                        <div class="circle-indicator"></div>
+                                                        <div class="line-dashed"></div>
+
+                                                    </div>
+
+                                                    <div>
+
+                                                        <div class="airport-name">
+                                                            Mumbai (BOM)
+                                                        </div>
+
+                                                        <div class="airport-desc">
+                                                            Chhatrapati Shivaji Airport • Terminal 2
+                                                        </div>
+
+                                                    </div>
+
+                                                    <!-- Second Segment -->
+
+                                                    <div class="timeline-time">
+
+                                                        <div class="timeline-duration">
+                                                            2h 0m
+                                                        </div>
+
+                                                        <div class="timeline-duration-label">
+                                                            Travel Duration
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="track-node">
+
+                                                        <div class="plane-wrapper">
+                                                            <i class="fa-solid fa-plane"></i>
+                                                        </div>
+
+                                                        <div class="line-dashed"></div>
+
+                                                    </div>
+
+                                                    <div class="segment-info">
+
+                                                        <div class="segment-airline">
+
+                                                            <div class="mini-logo"></div>
+
+                                                            <div>
+                                                                <strong>Air India</strong>
+                                                                <span class="segment-code">
+                                                                    • AI 2603
+                                                                </span>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <!-- Final Arrival -->
+
+                                                    <div class="timeline-time">
+
+                                                        <div class="timeline-main-time">
+                                                            08:35
+                                                        </div>
+
+                                                        <div class="timeline-date">
+                                                            27 Jun 2026
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="track-node">
+
+                                                        <div class="circle-indicator"></div>
+
+                                                    </div>
+
+                                                    <div>
+
+                                                        <div class="airport-name">
+                                                            Bangalore (BLR)
+                                                        </div>
+
+                                                        <div class="airport-desc">
+                                                            Kempegowda International Airport • Terminal 2
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <!-- Camera -->
+
+                                                <!-- <div class="camera-section">
+                                                    <i class="fa-solid fa-camera"></i>
+                                                </div> -->
+                                            </div>
+                                        </div>
+
+                                        <!-- FARE Info -->
+                                        <div class="tab-pane fade h-100" id="nav-fareInfo_{{item.TtsIndex}}"
+                                            role="tabpanel" attr.aria-labelledby="nav-fareInfo_{{item.TtsIndex}}-tab"
+                                            tabindex="0">
+                                            <div class="modern-card p-3" *ngIf="FlightFareDetail">
+                                                <table class="table table-bordered modern-table align-middle">
+                                                    <thead class="table-light">
+                                                        <tr>
+                                                            <th>Passenger</th>
+                                                            <th>Fare</th>
+                                                            <th>Total</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngFor="let paxFare of FareBreakdown">
+                                                        <tr class="table-section-title">
+                                                            <td colspan="3">
+                                                                {{ paxFare['PaxType'] }}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Base Fare</td>
+                                                            <td>
+                                                                ₹ {{ paxFare['BaseFare'] / paxFare['PassengerCount']
+                                                                | number:'1.0-2' }}
+                                                                x {{ paxFare['PassengerCount'] }}
+                                                            </td>
+                                                            <td>
+                                                                ₹ {{ paxFare['BaseFare'] | number:'1.0-2' }}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Taxes</td>
+                                                            <td>
+                                                                ₹ {{ paxFare['Tax'] / paxFare['PassengerCount'] |
+                                                                number:'1.0-2' }}
+                                                                x {{ paxFare['PassengerCount'] }}
+                                                            </td>
+                                                            <td>
+                                                                ₹ {{ paxFare['Tax'] | number:'1.0-2' }}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Service and Other Charges</td>
+                                                            <td>
+                                                                ₹ {{
+                                                                FlightFareDetail['Fare']['OtherCharges'] +
+                                                                FlightFareDetail['Fare']['ServiceCharges']
+                                                                }}
+                                                            </td>
+                                                            <td>
+                                                                ₹ {{
+                                                                FlightFareDetail['Fare']['OtherCharges'] +
+                                                                FlightFareDetail['Fare']['ServiceCharges']
+                                                                }}
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr class="grand-total-row">
+                                                            <th colspan="2">
+                                                                Grand Total
+                                                            </th>
+                                                            <th>
+                                                                ₹ {{ FlightFareDetail['Fare']['PublishedPrice'] |
+                                                                number:'1.0-2' }}
+                                                            </th>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <!-- FARE Rules -->
+                                        <div class="tab-pane fade h-100" id="nav-farerule_{{item.TtsIndex}}"
+                                            role="tabpanel" attr.aria-labelledby="nav-farerule_{{item.TtsIndex}}-tab"
+                                            tabindex="0">
+                                            <div class="row" *ngIf="fareRuleLoading">
+                                                <div class="col-md-12">
+                                                    <div class="text-center">
+                                                        <div class="loader mt-3 mb-3">
+                                                            <div class="lds-ellipsis">
+                                                                <div></div>
+                                                                <div></div>
+                                                                <div></div>
+                                                                <div></div>
+                                                            </div>
+                                                        </div>
+                                                        <h6>Please Wait...</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modern-card p-3"
+                                                *ngIf="fareRuleLoading==false && FareRuleErrorCode==0">
+                                                <div class="row"
+                                                    *ngFor="let farerule of FlightFareRule; let farerulekey=index;">
+                                                    <div class="col-md-12">
+                                                        <button
+                                                            class="ars-activelist fare-rules-tabs">{{farerule.Origin}}-{{farerule.Destination}}</button>
+                                                    </div>
+                                                    <div class="col-md-12"
+                                                        id="fareRuleData{{item.TtsIndex+farerule.Origin+farerule.Destination+farerulekey}}"
+                                                        [innerHTML]="farerule.FareRuleDetail |safeHtml"></div>
+                                                </div>
+                                            </div>
+                                            <div class="row" *ngIf="fareRuleLoading==false && FareRuleErrorCode!=0">
+                                                <div class="col-md-12">
+                                                    {{fareruleerrormessage}}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- BAGGAGE -->
+                                        <div class="tab-pane fade h-100" id="nav-baggageinfo_{{item.TtsIndex}}"
+                                            role="tabpanel" attr.aria-labelledby="nav-baggageinfo_{{item.TtsIndex}}-tab"
+                                            tabindex="0">
+                                            <div class="modern-card p-3">
+                                                <table class="table table-bordered modern-table align-middle">
+                                                    <thead class="table-light">
+                                                        <tr>
+                                                            <th>Sector</th>
+                                                            <th>Check-In</th>
+                                                            <th>Cabin</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        <ng-container *ngFor="let tripBaggageInfo of FlightBaggageInfo">
+                                                            <tr *ngFor="let BaggageInfo of tripBaggageInfo">
+
+                                                                <td>{{ BaggageInfo['Sector'] }}</td>
+                                                                <td>{{ BaggageInfo['CheckIn'] }}</td>
+                                                                <td>{{ BaggageInfo['Cabin'] }}</td>
+                                                            </tr>
+                                                        </ng-container>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Footer -->
+                                    <div class="sticky-action-footer">
+
+                                        <div class="price-text">
+                                            ₹{{selectedfare[item.TtsIndex]['Fare']['OfferedPrice']}}
+                                        </div>
+
+                                        <button type="button" id="flightdetails" class="btn btn-action"
+                                            (click)="confirmation(item['TtsIndex'])">
+                                            Book Now
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!----New 21-05-2026 Code----->
+
+                            <!----old code Start---->
                             <div class="offcanvas offcanvas-end flight-details-offcanvas modern-flight-offcanvas"
-                                tabindex="-1" id="flightOffcanvas_{{item.TtsIndex}}">
+                                tabindex="-1" id="flightOffcanvasss_{{item.TtsIndex}}">
                                 <!-- HEADER -->
                                 <div class="offcanvas-header modern-header">
                                     <div>
@@ -667,7 +1253,7 @@
                                         <!-- FARE DETAILS -->
                                         <div class="tab-pane fade" id="nav-fareInfo_{{item.TtsIndex}}" role="tabpanel"
                                             attr.aria-labelledby="nav-fareInfo_{{item.TtsIndex}}-tab" tabindex="0">
-                                            <div class="modern-card" *ngIf="FlightFareDetail">
+                                            <div class="modern-card p-3" *ngIf="FlightFareDetail">
                                                 <table class="table table-bordered modern-table align-middle">
                                                     <thead>
                                                         <tr>
@@ -770,12 +1356,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <!-- BAGGAGE -->
                                         <div class="tab-pane fade" id="nav-baggageinfo_{{item.TtsIndex}}"
                                             role="tabpanel" attr.aria-labelledby="nav-baggageinfo_{{item.TtsIndex}}-tab"
                                             tabindex="0">
-                                            <div class="modern-card">
+                                            <div class="modern-card p-3">
                                                 <table class="table table-bordered modern-table align-middle">
                                                     <thead>
                                                         <tr>
@@ -804,16 +1390,18 @@
                                 <div class="offcanvas-footer modern-footer">
                                     <div class="footer-price-section">
                                         <small class="price-label">Total Fare</small>
-                                        <h4 class="footer-price">₹{{selectedfare[item.TtsIndex]['Fare']['OfferedPrice']}}</h4>
+                                        <h4 class="footer-price">
+                                            ₹{{selectedfare[item.TtsIndex]['Fare']['OfferedPrice']}}</h4>
                                     </div>
 
-                                    <button type="button" id="flightdetails" class="modern-book-btn" (click)="confirmation(item['TtsIndex'])">
+                                    <button type="button" id="flightdetails" class="modern-book-btn"
+                                        (click)="confirmation(item['TtsIndex'])">
                                         <i class="fa fa-plane-departure me-2"></i>
                                         Book Now
                                     </button>
                                 </div>
                             </div>
-                            <!----new code End---->
+                            <!----old code End---->
                         </div>
                     </div>
                     <div class="noflight" *ngIf="resultloading==false && sortedData.length === 0">

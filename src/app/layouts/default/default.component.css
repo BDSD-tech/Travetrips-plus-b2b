@@ -36,7 +36,7 @@
     box-shadow: var(--shadow-sm);
     position: sticky;
     top: 0;
-    z-index: 1050;
+    z-index: 997;
     transition: var(--transition);
     border-bottom: 1px solid #f1f1f1;
 }
@@ -804,6 +804,7 @@ TRAVEL FOOTER - CLEAN MODERN DESIGN
     background: var(--footer-Bg-color);
     padding: 16px 0;
     border-top: 1px solid rgba(0, 0, 0, 0.06);
+    margin-top: 30px;
 }
 
 .footer-wrapper {
@@ -813,10 +814,6 @@ TRAVEL FOOTER - CLEAN MODERN DESIGN
     gap: 20px;
     flex-wrap: wrap;
 }
-
-/* =========================================================
-   LEFT CONTENT
-========================================================= */
 
 .footer-left {
     display: flex;
@@ -836,23 +833,15 @@ TRAVEL FOOTER - CLEAN MODERN DESIGN
     font-family: var(--body-font);
 }
 
-/* Divider */
-
 .footer-left a::before {
     content: "•";
     margin-right: 12px;
     color: var(--dark);
 }
 
-/* Hover */
-
 .footer-left a:hover {
     color: var(--primary-color);
 }
-
-/* =========================================================
-   SOCIAL ICONS
-========================================================= */
 
 .footer-social {
     display: flex;
@@ -880,10 +869,6 @@ TRAVEL FOOTER - CLEAN MODERN DESIGN
     color: var(--white);
     transform: translateY(-2px);
 }
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
 
 @media (max-width: 991px) {
 
