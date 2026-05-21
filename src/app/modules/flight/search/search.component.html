@@ -526,17 +526,22 @@
                                     <div>
 
                                         <small class="trip-label">
-                                            One way • 1 Traveller, Economy
+                                            @if(GetSearchData['Type']=="O"){
+                                                One way
+                                            }@else if(GetSearchData['Type']=="R"){
+                                                Roundtrip
+                                            }
+                                             • {{GetSearchData['Adult']+GetSearchData['Child']}} Traveller, {{GetSearchData['Class']}}
                                         </small>
 
                                         <h5 class="trip-title">
 
                                             <span class="trip-route">
-                                                Dabolim - Bangalore
+                                                {{item['MainSegment'][0]['DepartureCity']}} - {{item['MainSegment'][item['MainSegment'].length-1]['ArrivalCity']}}
                                             </span>
 
                                             <small class="trip-meta">
-                                                • Fri, Jun 26 • 14h 15m • 1 Stop
+                                                • {{item['MainSegment'][0]['DepartDate']}} • {{item['MainSegment'][0]['Duration']}} @if(item['MainSegment'][0]['Stops']){• {{item['MainSegment'][0]['Stops']}} Stop}
                                             </small>
 
                                         </h5>
@@ -585,36 +590,26 @@
                                         </button>
                                     </li>
                                 </ul>
-                                <!-- Body -->
+                               
 
                                 <div class="offcanvas-body">
                                     <div class="tab-content h-100">
-                                        <!-- =====================================================
-                                            ITINERARY
-                                        ====================================================== -->
                                         <div class="tab-pane fade h-100 active show"
                                             id="nav-flightDeatil_{{item.TtsIndex}}" role="tabpanel">
-
+                                            @for (trip of item['Segments']; track $index) {
                                             <div class="scrollable-content">
-
-                                                <!-- Flight Summary -->
-
                                                 <div class="flight-summary">
-
                                                     <div class="airline-info">
-
                                                         <div class="logo-gradient">
-                                                            <img src="" alt="">
+                                                            <img src="{{AirlineLogoURL}}/{{trip[0]['Airline']['AirlineCode']}}.png" alt="{{trip[0]['Airline']['AirlineName']}}">
                                                         </div>
-
                                                         <div>
-
                                                             <div class="airline-name">
-                                                                Air India
+                                                                {{trip[0]['Airline']['AirlineName']}}
                                                             </div>
 
                                                             <div class="airline-code">
-                                                                AI 9532, AI 2603
+                                                                {{trip[0]['Airline']['AirlineCode']}}-{{trip[0]['Airline']['FlightNumber']}}
                                                             </div>
 
                                                         </div>
@@ -624,11 +619,11 @@
                                                     <div class="flight-time-block">
 
                                                         <div class="flight-time">
-                                                            GOI - 18:20
+                                                          {{trip[0]['Origin']['AirportCode']}} - {{trip[0]['Origin']['DepartTime']|date:'HH:mm'}}
                                                         </div>
 
                                                         <div class="flight-date">
-                                                            26 Jun 2026
+                                                           {{trip[0]['Origin']['DepartTime']|date:'dd MMM yyyy'}}
                                                         </div>
 
                                                     </div>
@@ -636,11 +631,16 @@
                                                     <div class="flight-time-block">
 
                                                         <div class="flight-duration">
-                                                            14h 15m
+                                                            {{FTduration(trip[0]['TotalDuration'])}}
                                                         </div>
 
                                                         <div class="flight-stop">
-                                                            1 Stop
+                                                            @if(trip[0]['Layover']){
+                                                                1 Stop
+                                                            }@else{
+                                                                0 Stop
+                                                            }
+                                                            
                                                         </div>
 
                                                     </div>
@@ -648,68 +648,47 @@
                                                     <div class="flight-time-block">
 
                                                         <div class="flight-time">
-                                                            BLR - 08:35
+                                                           {{trip[trip.length-1]['Destination']['AirportCode']}} - {{trip[trip.length-1]['Destination']['ArrivalTime']|date:'HH:mm'}}
                                                         </div>
 
                                                         <div class="flight-date">
-                                                            27 Jun 2026
+                                                            {{trip[trip.length-1]['Destination']['ArrivalTime']|date:'dd MMM yyyy'}}
                                                         </div>
 
                                                     </div>
 
                                                 </div>
-
-                                                <!-- Timeline -->
-
+                                                @for (seg of trip; track $index) {
                                                 <div class="timeline-grid">
-
-                                                    <!-- Departure -->
-
                                                     <div class="timeline-time">
-
                                                         <div class="timeline-main-time">
-                                                            18:20
+                                                            {{seg['Origin']['DepartTime']|date:'HH :mm'}}
                                                         </div>
-
                                                         <div class="timeline-date">
-                                                            26 Jun 2026
+                                                             {{seg['Origin']['DepartTime']|date:'dd MMM yyyy'}}
                                                         </div>
-
                                                     </div>
-
                                                     <div class="track-node">
-
                                                         <div class="circle-indicator"></div>
                                                         <div class="line-dashed"></div>
-
                                                     </div>
-
                                                     <div>
-
-                                                        <div class="airport-name">
-                                                            Dabolim (GOI)
-                                                        </div>
-
-                                                        <div class="airport-desc">
-                                                            Dabolim Airport
-                                                        </div>
-
+                                                    <div class="airport-name">
+                                                        {{seg['Origin']['CityName']}} ({{seg['Origin']['AirportCode']}})
                                                     </div>
-
-                                                    <!-- Flight Segment -->
+                                                    <div class="airport-desc">
+                                                       {{seg['Origin']['AirportName']}} @if(seg['Origin']['Terminal']){• Terminal {{seg['Origin']['Terminal']}}}
+                                                    </div>
+                                                    </div>
 
                                                     <div class="timeline-time">
-
                                                         <div class="timeline-duration">
-                                                            1h 30m
+                                                             {{FTduration(seg['Duration'])}}
                                                         </div>
-
                                                         <div class="timeline-duration-label">
                                                             Travel Duration
                                                         </div>
-
                                                     </div>
-
                                                     <div class="track-node">
 
                                                         <div class="plane-wrapper">
@@ -717,198 +696,79 @@
                                                         </div>
 
                                                         <div class="line-dashed"></div>
-
                                                     </div>
-
                                                     <div class="segment-info">
 
                                                         <div class="segment-airline">
 
                                                             <div class="mini-logo">
-                                                                <img src="" alt="">
+                                                                <img src="{{AirlineLogoURL}}/{{seg['Airline']['AirlineCode']}}.png" alt="">
                                                             </div>
 
                                                             <div>
-                                                                <strong>Air India</strong>
+                                                                <strong>{{seg['Airline']['AirlineName']}}</strong>
                                                                 <span class="segment-code">
-                                                                    • AI 9532
+                                                                    • {{seg['Airline']['AirlineCode']}}-{{seg['Airline']['FlightNumber']}}
                                                                 </span>
                                                             </div>
 
                                                         </div>
 
                                                     </div>
-
-                                                    <!-- Arrival -->
-
                                                     <div class="timeline-time">
 
                                                         <div class="timeline-main-time">
-                                                            19:50
+                                                            {{seg['Destination']['ArrivalTime']|date:'HH:mm'}}
                                                         </div>
 
                                                         <div class="timeline-date">
-                                                            26 Jun 2026
+                                                            {{seg['Destination']['ArrivalTime']|date:'dd MMM yyyy'}}
                                                         </div>
 
                                                     </div>
-
                                                     <div class="track-node">
 
                                                         <div class="circle-indicator"></div>
 
                                                     </div>
-
                                                     <div>
 
                                                         <div class="airport-name">
-                                                            Mumbai (BOM)
+                                                            {{seg['Destination']['CityName']}} ({{seg['Destination']['AirportCode']}})
                                                         </div>
 
                                                         <div class="airport-desc">
-                                                            Chhatrapati Shivaji Airport • Terminal 2
+                                                           {{seg['Destination']['AirportName']}}  @if(seg['Destination']['Terminal']){• Terminal {{seg['Destination']['Terminal']}}}
                                                         </div>
 
                                                     </div>
+                                                </div>
+                                                @if(seg['Layover']){
+                                                <div class="layover-row mb-3">
 
-                                                    <!-- Layover -->
+                                                    <div></div>
 
-                                                    <div class="layover-row">
-
-                                                        <div></div>
-
-                                                        <div class="layover-icon">
-                                                            <i class="fa-regular fa-clock"></i>
-                                                        </div>
-
-                                                        <div>
-
-                                                            <div class="layover-title">
-                                                                1 Stop at Mumbai
-                                                            </div>
-
-                                                            <div class="layover-duration">
-                                                                10h 45m Layover
-                                                            </div>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                    <!-- Next Flight -->
-
-                                                    <div class="timeline-time">
-
-                                                        <div class="timeline-main-time">
-                                                            06:35
-                                                        </div>
-
-                                                        <div class="timeline-date">
-                                                            27 Jun 2026
-                                                        </div>
-
-                                                    </div>
-
-                                                    <div class="track-node">
-
-                                                        <div class="circle-indicator"></div>
-                                                        <div class="line-dashed"></div>
-
+                                                    <div class="layover-icon">
+                                                        <i class="fa-regular fa-clock"></i>
                                                     </div>
 
                                                     <div>
 
-                                                        <div class="airport-name">
-                                                            Mumbai (BOM)
+                                                        <div class="layover-title">
+                                                            1 Stop at {{seg['Destination']['CityName']}} 
                                                         </div>
 
-                                                        <div class="airport-desc">
-                                                            Chhatrapati Shivaji Airport • Terminal 2
-                                                        </div>
-
-                                                    </div>
-
-                                                    <!-- Second Segment -->
-
-                                                    <div class="timeline-time">
-
-                                                        <div class="timeline-duration">
-                                                            2h 0m
-                                                        </div>
-
-                                                        <div class="timeline-duration-label">
-                                                            Travel Duration
-                                                        </div>
-
-                                                    </div>
-
-                                                    <div class="track-node">
-
-                                                        <div class="plane-wrapper">
-                                                            <i class="fa-solid fa-plane"></i>
-                                                        </div>
-
-                                                        <div class="line-dashed"></div>
-
-                                                    </div>
-
-                                                    <div class="segment-info">
-
-                                                        <div class="segment-airline">
-
-                                                            <div class="mini-logo"></div>
-
-                                                            <div>
-                                                                <strong>Air India</strong>
-                                                                <span class="segment-code">
-                                                                    • AI 2603
-                                                                </span>
-                                                            </div>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                    <!-- Final Arrival -->
-
-                                                    <div class="timeline-time">
-
-                                                        <div class="timeline-main-time">
-                                                            08:35
-                                                        </div>
-
-                                                        <div class="timeline-date">
-                                                            27 Jun 2026
-                                                        </div>
-
-                                                    </div>
-
-                                                    <div class="track-node">
-
-                                                        <div class="circle-indicator"></div>
-
-                                                    </div>
-
-                                                    <div>
-
-                                                        <div class="airport-name">
-                                                            Bangalore (BLR)
-                                                        </div>
-
-                                                        <div class="airport-desc">
-                                                            Kempegowda International Airport • Terminal 2
+                                                        <div class="layover-duration">
+                                                           {{seg['Layover']}} Layover
                                                         </div>
 
                                                     </div>
 
                                                 </div>
-
-                                                <!-- Camera -->
-
-                                                <!-- <div class="camera-section">
-                                                    <i class="fa-solid fa-camera"></i>
-                                                </div> -->
+                                                }
+                                             }
                                             </div>
+                                            }
                                         </div>
 
                                         <!-- FARE Info -->
