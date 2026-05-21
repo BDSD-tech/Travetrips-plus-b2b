@@ -112,6 +112,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     if (sessionStorage.getItem('FlightSearch')) {
       let flightsearch: any = sessionStorage.getItem('FlightSearch');
       this.GetSearchData = JSON.parse(flightsearch);
+      console.log(this.GetSearchData);
+      
     } else {
       this.router.navigate(['/']);
     }
@@ -248,6 +250,8 @@ export class SearchComponent implements OnInit, OnDestroy {
           this.Response = allapiresponse;
           this.resultcount = allapiresponse.length;
           this.sortedData = allapiresponse;
+          console.log(this.sortedData);
+          
           this.sortedData.forEach((trip: any, key: any) => {
             if (trip.FareList?.length) {
               this.selectedfare[trip.TtsIndex] = trip.FareList.reduce(

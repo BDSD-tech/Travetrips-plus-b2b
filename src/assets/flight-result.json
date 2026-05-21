@@ -1,6 +1,6 @@
 {
     "UserIp": "110.225.225.150",
-    "SearchTokenId": "4e9a2f5801f057f5c57d34c8b870195d232cbd69",
+    "SearchTokenId": "bb3f2902d8738c0f0e2039f1e6d6c015daa501d8",
     "Error": {
         "ErrorCode": 0,
         "ErrorMessage": ""
@@ -20,28 +20,28 @@
                                 "AirlineCode": "6E",
                                 "AirlineName": "Indigo",
                                 "FlightNumber": 5038,
-                                "FareClass": "R",
-                                "OperatingCarrier": "6E"
+                                "FareClass": "FL",
+                                "OperatingCarrier": ""
                             },
                             "Origin": {
                                 "AirportCode": "DEL",
-                                "AirportName": "Delhi Indira Gandhi Intl",
+                                "AirportName": "Indira Gandhi Airport",
                                 "CityCode": "DEL",
                                 "CityName": "Delhi",
                                 "CountryCode": "IN",
                                 "CountryName": "India",
                                 "Terminal": "3",
-                                "DepartTime": "2026-05-28T14:10"
+                                "DepartTime": "2026-08-19T14:10:00"
                             },
                             "Destination": {
                                 "AirportCode": "IXC",
-                                "AirportName": "Chandigarh Arpt",
+                                "AirportName": "Chandigarh",
                                 "CityCode": "IXC",
                                 "CityName": "Chandigarh",
                                 "CountryCode": "IN",
                                 "CountryName": "India",
                                 "Terminal": "",
-                                "ArrivalTime": "2026-05-28T15:00"
+                                "ArrivalTime": "2026-08-19T15:00:00"
                             },
                             "LayoverTime": 0,
                             "Layover": "",
@@ -49,92 +49,30 @@
                         }
                     ]
                 ],
-                "CustomeKey": "6E-5038-2026-05-28-14:10-2026-05-28-15:00",
+                "CustomeKey": "6E-5038-2026-08-19-14:10-2026-08-19-15:00",
                 "FareList": [
                     {
-                        "FareId": "ET-OB-0",
-                        "FareInclusions": [],
-                        "IsRefundable": false,
-                        "AirlineRemark": null,
-                        "FareType": "Promo",
-                        "IsHoldabelWithOutSsr": true,
-                        "IsHoldabelWithSsr": true,
-                        "IsHoldabel": true,
-                        "SeatBaggage": [
-                            [
-                                {
-                                    "NoOfSeatAvailable": 3,
-                                    "Sector": "DEL-IXC",
-                                    "CheckIn": "",
-                                    "Cabin": ""
-                                }
-                            ]
-                        ],
-                        "FareClass": "R",
-                        "CabinClass": "Economy",
-                        "Fare": {
-                            "BaseFare": 2018,
-                            "Tax": 883,
-                            "YQTax": 0,
-                            "OtherCharges": 0,
-                            "Discount": 0,
-                            "PublishedPrice": 2901,
-                            "OfferedPrice": 2901,
-                            "AgentCommission": 0,
-                            "ServiceCharges": 0,
-                            "TDS": 0,
-                            "GST": {
-                                "CGSTAmount": 0,
-                                "CGSTRate": 0,
-                                "IGSTAmount": 0,
-                                "IGSTRate": 18,
-                                "SGSTAmount": 0,
-                                "SGSTRate": 0,
-                                "TaxableAmount": 0
-                            },
-                            "WebPMarkUp": 0,
-                            "WebPDiscount": 0
-                        },
-                        "FareBreakdown": {
-                            "ADT": {
-                                "PassengerCount": 1,
-                                "BaseFare": 2018,
-                                "Tax": 883,
-                                "YQTax": 0,
-                                "ServiceCharges": 0
-                            }
-                        },
-                        "PublishedPrice": 2901,
-                        "OfferedPrice": 2901,
-                        "IsTransitVisaRequired": false,
-                        "IsUpsellAllowed": false,
-                        "FareTypeColor": "yellow",
-                        "FareRuleId": "6E-5038_Domestic_R_Economy_Promo_ETRAV_1779906600",
-                        "SpecialNotes": "",
-                        "Supplier": 23,
-                        "Incentive": 0
-                    },
-                    {
-                        "FareId": "ET-OB-1",
-                        "FareInclusions": [],
-                        "IsRefundable": false,
-                        "AirlineRemark": null,
+                        "FareId": "TOB0",
+                        "IsRefundable": true,
+                        "AirlineRemark": " This is a Flexi Fare. Only standard seats are free. Lower cancellation. Please refer fare rules.. . 6E main.",
                         "FareType": "Flexi",
-                        "IsHoldabelWithOutSsr": true,
-                        "IsHoldabelWithSsr": true,
-                        "IsHoldabel": true,
+                        "IsHoldabelWithOutSsr": false,
+                        "IsHoldabelWithSsr": false,
+                        "IsHoldabel": false,
+                        "FareTypeColor": "yellow",
                         "SeatBaggage": [
                             [
                                 {
-                                    "NoOfSeatAvailable": 3,
+                                    "NoOfSeatAvailable": 9,
                                     "Sector": "DEL-IXC",
-                                    "CheckIn": "",
-                                    "Cabin": ""
+                                    "CheckIn": "15 Kilograms",
+                                    "Cabin": "7 KG"
                                 }
                             ]
                         ],
-                        "FareClass": "R",
+                        "FareClass": "FL",
                         "CabinClass": "Economy",
+                        "IsUpsellAllowed": false,
                         "Fare": {
                             "BaseFare": 3080,
                             "Tax": 936,
@@ -169,35 +107,33 @@
                         },
                         "PublishedPrice": 4016,
                         "OfferedPrice": 4016,
-                        "IsTransitVisaRequired": false,
-                        "IsUpsellAllowed": false,
-                        "FareTypeColor": "yellow",
-                        "FareRuleId": "6E-5038_Domestic_R_Economy_Flexi_ETRAV_1779906600",
+                        "FareRuleId": "6E-5038_Domestic_FL_Economy_Flexi_TBO_1787077800",
                         "SpecialNotes": "",
-                        "Supplier": 23,
+                        "Supplier": 1,
                         "Incentive": 0
                     },
                     {
-                        "FareId": "ET-OB-2",
-                        "FareInclusions": [],
-                        "IsRefundable": false,
-                        "AirlineRemark": null,
-                        "FareType": "Super 6E",
-                        "IsHoldabelWithOutSsr": true,
-                        "IsHoldabelWithSsr": true,
-                        "IsHoldabel": true,
+                        "FareId": "TOB3",
+                        "IsRefundable": true,
+                        "AirlineRemark": "6E main.",
+                        "FareType": "UpFront",
+                        "IsHoldabelWithOutSsr": false,
+                        "IsHoldabelWithSsr": false,
+                        "IsHoldabel": false,
+                        "FareTypeColor": "yellow",
                         "SeatBaggage": [
                             [
                                 {
-                                    "NoOfSeatAvailable": 3,
+                                    "NoOfSeatAvailable": 9,
                                     "Sector": "DEL-IXC",
-                                    "CheckIn": "",
-                                    "Cabin": ""
+                                    "CheckIn": "20 Kilograms",
+                                    "Cabin": "7 KG"
                                 }
                             ]
                         ],
-                        "FareClass": "R",
+                        "FareClass": "RO",
                         "CabinClass": "Economy",
+                        "IsUpsellAllowed": false,
                         "Fare": {
                             "BaseFare": 4780,
                             "Tax": 1021,
@@ -232,29 +168,26 @@
                         },
                         "PublishedPrice": 5801,
                         "OfferedPrice": 5801,
-                        "IsTransitVisaRequired": false,
-                        "IsUpsellAllowed": false,
-                        "FareTypeColor": "yellow",
-                        "FareRuleId": "6E-5038_Domestic_R_Economy_Super 6E_ETRAV_1779906600",
+                        "FareRuleId": "6E-5038_Domestic_RO_Economy_UpFront_TBO_1787077800",
                         "SpecialNotes": "",
-                        "Supplier": 23,
+                        "Supplier": 1,
                         "Incentive": 0
                     }
                 ],
-                "MinPublishedPrice": 2901,
+                "MinPublishedPrice": 4016,
                 "MainSegment": [
                     {
                         "DepartureCity": "DEL",
-                        "Fare": 2901,
+                        "Fare": 4016,
                         "ArrivalCity": "IXC",
                         "DepartTime": "14:10",
-                        "DepartDate": "28 May",
+                        "DepartDate": "19 Aug",
                         "ArrivalTime": "15:00",
-                        "ArrivalDate": "28 May",
+                        "ArrivalDate": "19 Aug",
                         "IsTransitVisaRequired": false,
                         "Stops": 0,
                         "ArrivalDays": 0,
-                        "Seats": 3,
+                        "Seats": 9,
                         "Airlinecodes": [
                             "6E"
                         ],
@@ -270,9 +203,9 @@
                         "ArrivalString": "Afternoon"
                     }
                 ],
-                "TtsIndex": "ETRAV0",
-                "Key": "6E-5038-2026-05-28-14:10-2026-05-28-15:00",
-                "AirlineRemark": null
+                "TtsIndex": "TBO0",
+                "Key": "6E-5038-2026-08-19-14:10-2026-08-19-15:00",
+                "AirlineRemark": " This is a Flexi Fare. Only standard seats are free. Lower cancellation. Please refer fare rules.. . 6E main."
             },
             {
                 "Segments": [
@@ -287,28 +220,28 @@
                                 "AirlineCode": "6E",
                                 "AirlineName": "Indigo",
                                 "FlightNumber": 6632,
-                                "FareClass": "R",
-                                "OperatingCarrier": "6E"
+                                "FareClass": "FL",
+                                "OperatingCarrier": ""
                             },
                             "Origin": {
                                 "AirportCode": "DEL",
-                                "AirportName": "Delhi Indira Gandhi Intl",
+                                "AirportName": "Indira Gandhi Airport",
                                 "CityCode": "DEL",
                                 "CityName": "Delhi",
                                 "CountryCode": "IN",
                                 "CountryName": "India",
                                 "Terminal": "1",
-                                "DepartTime": "2026-05-28T17:50"
+                                "DepartTime": "2026-08-19T17:50:00"
                             },
                             "Destination": {
                                 "AirportCode": "IXC",
-                                "AirportName": "Chandigarh Arpt",
+                                "AirportName": "Chandigarh",
                                 "CityCode": "IXC",
                                 "CityName": "Chandigarh",
                                 "CountryCode": "IN",
                                 "CountryName": "India",
                                 "Terminal": "",
-                                "ArrivalTime": "2026-05-28T18:45"
+                                "ArrivalTime": "2026-08-19T18:45:00"
                             },
                             "LayoverTime": 0,
                             "Layover": "",
@@ -316,92 +249,30 @@
                         }
                     ]
                 ],
-                "CustomeKey": "6E-6632-2026-05-28-17:50-2026-05-28-18:45",
+                "CustomeKey": "6E-6632-2026-08-19-17:50-2026-08-19-18:45",
                 "FareList": [
                     {
-                        "FareId": "ET-OB-3",
-                        "FareInclusions": [],
-                        "IsRefundable": false,
-                        "AirlineRemark": null,
-                        "FareType": "Promo",
-                        "IsHoldabelWithOutSsr": true,
-                        "IsHoldabelWithSsr": true,
-                        "IsHoldabel": true,
-                        "SeatBaggage": [
-                            [
-                                {
-                                    "NoOfSeatAvailable": 3,
-                                    "Sector": "DEL-IXC",
-                                    "CheckIn": "",
-                                    "Cabin": ""
-                                }
-                            ]
-                        ],
-                        "FareClass": "R",
-                        "CabinClass": "Economy",
-                        "Fare": {
-                            "BaseFare": 2018,
-                            "Tax": 883,
-                            "YQTax": 0,
-                            "OtherCharges": 0,
-                            "Discount": 0,
-                            "PublishedPrice": 2901,
-                            "OfferedPrice": 2901,
-                            "AgentCommission": 0,
-                            "ServiceCharges": 0,
-                            "TDS": 0,
-                            "GST": {
-                                "CGSTAmount": 0,
-                                "CGSTRate": 0,
-                                "IGSTAmount": 0,
-                                "IGSTRate": 18,
-                                "SGSTAmount": 0,
-                                "SGSTRate": 0,
-                                "TaxableAmount": 0
-                            },
-                            "WebPMarkUp": 0,
-                            "WebPDiscount": 0
-                        },
-                        "FareBreakdown": {
-                            "ADT": {
-                                "PassengerCount": 1,
-                                "BaseFare": 2018,
-                                "Tax": 883,
-                                "YQTax": 0,
-                                "ServiceCharges": 0
-                            }
-                        },
-                        "PublishedPrice": 2901,
-                        "OfferedPrice": 2901,
-                        "IsTransitVisaRequired": false,
-                        "IsUpsellAllowed": false,
-                        "FareTypeColor": "yellow",
-                        "FareRuleId": "6E-6632_Domestic_R_Economy_Promo_ETRAV_1779906600",
-                        "SpecialNotes": "",
-                        "Supplier": 23,
-                        "Incentive": 0
-                    },
-                    {
-                        "FareId": "ET-OB-4",
-                        "FareInclusions": [],
-                        "IsRefundable": false,
-                        "AirlineRemark": null,
+                        "FareId": "TOB2",
+                        "IsRefundable": true,
+                        "AirlineRemark": " This is a Flexi Fare. Only standard seats are free. Lower cancellation. Please refer fare rules.. . 6E main.",
                         "FareType": "Flexi",
-                        "IsHoldabelWithOutSsr": true,
-                        "IsHoldabelWithSsr": true,
-                        "IsHoldabel": true,
+                        "IsHoldabelWithOutSsr": false,
+                        "IsHoldabelWithSsr": false,
+                        "IsHoldabel": false,
+                        "FareTypeColor": "yellow",
                         "SeatBaggage": [
                             [
                                 {
-                                    "NoOfSeatAvailable": 3,
+                                    "NoOfSeatAvailable": 7,
                                     "Sector": "DEL-IXC",
-                                    "CheckIn": "",
-                                    "Cabin": ""
+                                    "CheckIn": "15 Kilograms",
+                                    "Cabin": "7 KG"
                                 }
                             ]
                         ],
-                        "FareClass": "R",
+                        "FareClass": "FL",
                         "CabinClass": "Economy",
+                        "IsUpsellAllowed": false,
                         "Fare": {
                             "BaseFare": 3080,
                             "Tax": 936,
@@ -436,35 +307,33 @@
                         },
                         "PublishedPrice": 4016,
                         "OfferedPrice": 4016,
-                        "IsTransitVisaRequired": false,
-                        "IsUpsellAllowed": false,
-                        "FareTypeColor": "yellow",
-                        "FareRuleId": "6E-6632_Domestic_R_Economy_Flexi_ETRAV_1779906600",
+                        "FareRuleId": "6E-6632_Domestic_FL_Economy_Flexi_TBO_1787077800",
                         "SpecialNotes": "",
-                        "Supplier": 23,
+                        "Supplier": 1,
                         "Incentive": 0
                     },
                     {
-                        "FareId": "ET-OB-5",
-                        "FareInclusions": [],
-                        "IsRefundable": false,
-                        "AirlineRemark": null,
-                        "FareType": "Super 6E",
-                        "IsHoldabelWithOutSsr": true,
-                        "IsHoldabelWithSsr": true,
-                        "IsHoldabel": true,
+                        "FareId": "TOB5",
+                        "IsRefundable": true,
+                        "AirlineRemark": "6E main.",
+                        "FareType": "UpFront",
+                        "IsHoldabelWithOutSsr": false,
+                        "IsHoldabelWithSsr": false,
+                        "IsHoldabel": false,
+                        "FareTypeColor": "yellow",
                         "SeatBaggage": [
                             [
                                 {
-                                    "NoOfSeatAvailable": 3,
+                                    "NoOfSeatAvailable": 7,
                                     "Sector": "DEL-IXC",
-                                    "CheckIn": "",
-                                    "Cabin": ""
+                                    "CheckIn": "20 Kilograms",
+                                    "Cabin": "7 KG"
                                 }
                             ]
                         ],
-                        "FareClass": "R",
+                        "FareClass": "RO",
                         "CabinClass": "Economy",
+                        "IsUpsellAllowed": false,
                         "Fare": {
                             "BaseFare": 4780,
                             "Tax": 1021,
@@ -499,29 +368,26 @@
                         },
                         "PublishedPrice": 5801,
                         "OfferedPrice": 5801,
-                        "IsTransitVisaRequired": false,
-                        "IsUpsellAllowed": false,
-                        "FareTypeColor": "yellow",
-                        "FareRuleId": "6E-6632_Domestic_R_Economy_Super 6E_ETRAV_1779906600",
+                        "FareRuleId": "6E-6632_Domestic_RO_Economy_UpFront_TBO_1787077800",
                         "SpecialNotes": "",
-                        "Supplier": 23,
+                        "Supplier": 1,
                         "Incentive": 0
                     }
                 ],
-                "MinPublishedPrice": 2901,
+                "MinPublishedPrice": 4016,
                 "MainSegment": [
                     {
                         "DepartureCity": "DEL",
-                        "Fare": 2901,
+                        "Fare": 4016,
                         "ArrivalCity": "IXC",
                         "DepartTime": "17:50",
-                        "DepartDate": "28 May",
+                        "DepartDate": "19 Aug",
                         "ArrivalTime": "18:45",
-                        "ArrivalDate": "28 May",
+                        "ArrivalDate": "19 Aug",
                         "IsTransitVisaRequired": false,
                         "Stops": 0,
                         "ArrivalDays": 0,
-                        "Seats": 3,
+                        "Seats": 7,
                         "Airlinecodes": [
                             "6E"
                         ],
@@ -537,9 +403,9 @@
                         "ArrivalString": "Night"
                     }
                 ],
-                "TtsIndex": "ETRAV1",
-                "Key": "6E-6632-2026-05-28-17:50-2026-05-28-18:45",
-                "AirlineRemark": null
+                "TtsIndex": "TBO1",
+                "Key": "6E-6632-2026-08-19-17:50-2026-08-19-18:45",
+                "AirlineRemark": " This is a Flexi Fare. Only standard seats are free. Lower cancellation. Please refer fare rules.. . 6E main."
             },
             {
                 "Segments": [
@@ -554,28 +420,28 @@
                                 "AirlineCode": "6E",
                                 "AirlineName": "Indigo",
                                 "FlightNumber": 6050,
-                                "FareClass": "Q",
-                                "OperatingCarrier": "6E"
+                                "FareClass": "FL",
+                                "OperatingCarrier": ""
                             },
                             "Origin": {
                                 "AirportCode": "DEL",
-                                "AirportName": "Delhi Indira Gandhi Intl",
+                                "AirportName": "Indira Gandhi Airport",
                                 "CityCode": "DEL",
                                 "CityName": "Delhi",
                                 "CountryCode": "IN",
                                 "CountryName": "India",
                                 "Terminal": "1",
-                                "DepartTime": "2026-05-28T08:15"
+                                "DepartTime": "2026-08-19T08:15:00"
                             },
                             "Destination": {
                                 "AirportCode": "IXC",
-                                "AirportName": "Chandigarh Arpt",
+                                "AirportName": "Chandigarh",
                                 "CityCode": "IXC",
                                 "CityName": "Chandigarh",
                                 "CountryCode": "IN",
                                 "CountryName": "India",
                                 "Terminal": "",
-                                "ArrivalTime": "2026-05-28T09:10"
+                                "ArrivalTime": "2026-08-19T09:10:00"
                             },
                             "LayoverTime": 0,
                             "Layover": "",
@@ -583,37 +449,38 @@
                         }
                     ]
                 ],
-                "CustomeKey": "6E-6050-2026-05-28-08:15-2026-05-28-09:10",
+                "CustomeKey": "6E-6050-2026-08-19-08:15-2026-08-19-09:10",
                 "FareList": [
                     {
-                        "FareId": "ET-OB-6",
-                        "FareInclusions": [],
-                        "IsRefundable": false,
-                        "AirlineRemark": null,
+                        "FareId": "TOB1",
+                        "IsRefundable": true,
+                        "AirlineRemark": " This is a Flexi Fare. Only standard seats are free. Lower cancellation. Please refer fare rules.. . 6E main.",
                         "FareType": "Flexi",
-                        "IsHoldabelWithOutSsr": true,
-                        "IsHoldabelWithSsr": true,
-                        "IsHoldabel": true,
+                        "IsHoldabelWithOutSsr": false,
+                        "IsHoldabelWithSsr": false,
+                        "IsHoldabel": false,
+                        "FareTypeColor": "yellow",
                         "SeatBaggage": [
                             [
                                 {
-                                    "NoOfSeatAvailable": 2,
+                                    "NoOfSeatAvailable": 9,
                                     "Sector": "DEL-IXC",
-                                    "CheckIn": "",
-                                    "Cabin": ""
+                                    "CheckIn": "15 Kilograms",
+                                    "Cabin": "7 KG"
                                 }
                             ]
                         ],
-                        "FareClass": "Q",
+                        "FareClass": "FL",
                         "CabinClass": "Economy",
+                        "IsUpsellAllowed": false,
                         "Fare": {
-                            "BaseFare": 3300,
-                            "Tax": 947,
+                            "BaseFare": 3080,
+                            "Tax": 936,
                             "YQTax": 0,
                             "OtherCharges": 0,
                             "Discount": 0,
-                            "PublishedPrice": 4247,
-                            "OfferedPrice": 4247,
+                            "PublishedPrice": 4016,
+                            "OfferedPrice": 4016,
                             "AgentCommission": 0,
                             "ServiceCharges": 0,
                             "TDS": 0,
@@ -632,51 +499,49 @@
                         "FareBreakdown": {
                             "ADT": {
                                 "PassengerCount": 1,
-                                "BaseFare": 3300,
-                                "Tax": 947,
+                                "BaseFare": 3080,
+                                "Tax": 936,
                                 "YQTax": 0,
                                 "ServiceCharges": 0
                             }
                         },
-                        "PublishedPrice": 4247,
-                        "OfferedPrice": 4247,
-                        "IsTransitVisaRequired": false,
-                        "IsUpsellAllowed": false,
-                        "FareTypeColor": "yellow",
-                        "FareRuleId": "6E-6050_Domestic_Q_Economy_Flexi_ETRAV_1779906600",
+                        "PublishedPrice": 4016,
+                        "OfferedPrice": 4016,
+                        "FareRuleId": "6E-6050_Domestic_FL_Economy_Flexi_TBO_1787077800",
                         "SpecialNotes": "",
-                        "Supplier": 23,
+                        "Supplier": 1,
                         "Incentive": 0
                     },
                     {
-                        "FareId": "ET-OB-7",
-                        "FareInclusions": [],
-                        "IsRefundable": false,
-                        "AirlineRemark": null,
-                        "FareType": "Super 6E",
-                        "IsHoldabelWithOutSsr": true,
-                        "IsHoldabelWithSsr": true,
-                        "IsHoldabel": true,
+                        "FareId": "TOB4",
+                        "IsRefundable": true,
+                        "AirlineRemark": "6E main.",
+                        "FareType": "UpFront",
+                        "IsHoldabelWithOutSsr": false,
+                        "IsHoldabelWithSsr": false,
+                        "IsHoldabel": false,
+                        "FareTypeColor": "yellow",
                         "SeatBaggage": [
                             [
                                 {
-                                    "NoOfSeatAvailable": 2,
+                                    "NoOfSeatAvailable": 9,
                                     "Sector": "DEL-IXC",
-                                    "CheckIn": "",
-                                    "Cabin": ""
+                                    "CheckIn": "20 Kilograms",
+                                    "Cabin": "7 KG"
                                 }
                             ]
                         ],
-                        "FareClass": "Q",
+                        "FareClass": "RO",
                         "CabinClass": "Economy",
+                        "IsUpsellAllowed": false,
                         "Fare": {
-                            "BaseFare": 5000,
-                            "Tax": 1032,
+                            "BaseFare": 4780,
+                            "Tax": 1021,
                             "YQTax": 0,
                             "OtherCharges": 0,
                             "Discount": 0,
-                            "PublishedPrice": 6032,
-                            "OfferedPrice": 6032,
+                            "PublishedPrice": 5801,
+                            "OfferedPrice": 5801,
                             "AgentCommission": 0,
                             "ServiceCharges": 0,
                             "TDS": 0,
@@ -695,37 +560,34 @@
                         "FareBreakdown": {
                             "ADT": {
                                 "PassengerCount": 1,
-                                "BaseFare": 5000,
-                                "Tax": 1032,
+                                "BaseFare": 4780,
+                                "Tax": 1021,
                                 "YQTax": 0,
                                 "ServiceCharges": 0
                             }
                         },
-                        "PublishedPrice": 6032,
-                        "OfferedPrice": 6032,
-                        "IsTransitVisaRequired": false,
-                        "IsUpsellAllowed": false,
-                        "FareTypeColor": "yellow",
-                        "FareRuleId": "6E-6050_Domestic_Q_Economy_Super 6E_ETRAV_1779906600",
+                        "PublishedPrice": 5801,
+                        "OfferedPrice": 5801,
+                        "FareRuleId": "6E-6050_Domestic_RO_Economy_UpFront_TBO_1787077800",
                         "SpecialNotes": "",
-                        "Supplier": 23,
+                        "Supplier": 1,
                         "Incentive": 0
                     }
                 ],
-                "MinPublishedPrice": 4247,
+                "MinPublishedPrice": 4016,
                 "MainSegment": [
                     {
                         "DepartureCity": "DEL",
-                        "Fare": 4247,
+                        "Fare": 4016,
                         "ArrivalCity": "IXC",
                         "DepartTime": "08:15",
-                        "DepartDate": "28 May",
+                        "DepartDate": "19 Aug",
                         "ArrivalTime": "09:10",
-                        "ArrivalDate": "28 May",
+                        "ArrivalDate": "19 Aug",
                         "IsTransitVisaRequired": false,
                         "Stops": 0,
                         "ArrivalDays": 0,
-                        "Seats": 2,
+                        "Seats": 9,
                         "Airlinecodes": [
                             "6E"
                         ],
@@ -741,9 +603,375 @@
                         "ArrivalString": "Morning"
                     }
                 ],
-                "TtsIndex": "ETRAV2",
-                "Key": "6E-6050-2026-05-28-08:15-2026-05-28-09:10",
-                "AirlineRemark": null
+                "TtsIndex": "TBO2",
+                "Key": "6E-6050-2026-08-19-08:15-2026-08-19-09:10",
+                "AirlineRemark": " This is a Flexi Fare. Only standard seats are free. Lower cancellation. Please refer fare rules.. . 6E main."
+            },
+            {
+                "Segments": [
+                    [
+                        {
+                            "TripIndicator": 1,
+                            "SegmentIndicator": 1,
+                            "Duration": 80,
+                            "TechStopPoint": [],
+                            "Craft": "321",
+                            "Airline": {
+                                "AirlineCode": "6E",
+                                "AirlineName": "Indigo",
+                                "FlightNumber": 6092,
+                                "FareClass": "QR",
+                                "OperatingCarrier": ""
+                            },
+                            "Origin": {
+                                "AirportCode": "DEL",
+                                "AirportName": "Indira Gandhi Airport",
+                                "CityCode": "DEL",
+                                "CityName": "Delhi",
+                                "CountryCode": "IN",
+                                "CountryName": "India",
+                                "Terminal": "1",
+                                "DepartTime": "2026-08-19T08:00:00"
+                            },
+                            "Destination": {
+                                "AirportCode": "IXJ",
+                                "AirportName": "Satwari",
+                                "CityCode": "IXJ",
+                                "CityName": "Jammu",
+                                "CountryCode": "IN",
+                                "CountryName": "India",
+                                "Terminal": "1",
+                                "ArrivalTime": "2026-08-19T09:20:00"
+                            },
+                            "LayoverTime": 125,
+                            "Layover": "2H :5M",
+                            "TotalDuration": 275
+                        },
+                        {
+                            "TripIndicator": 1,
+                            "SegmentIndicator": 2,
+                            "Duration": 70,
+                            "TechStopPoint": [],
+                            "Craft": "321",
+                            "Airline": {
+                                "AirlineCode": "6E",
+                                "AirlineName": "Indigo",
+                                "FlightNumber": 6020,
+                                "FareClass": "RR",
+                                "OperatingCarrier": ""
+                            },
+                            "Origin": {
+                                "AirportCode": "IXJ",
+                                "AirportName": "Satwari",
+                                "CityCode": "IXJ",
+                                "CityName": "Jammu",
+                                "CountryCode": "IN",
+                                "CountryName": "India",
+                                "Terminal": "1",
+                                "DepartTime": "2026-08-19T11:25:00"
+                            },
+                            "Destination": {
+                                "AirportCode": "IXC",
+                                "AirportName": "Chandigarh",
+                                "CityCode": "IXC",
+                                "CityName": "Chandigarh",
+                                "CountryCode": "IN",
+                                "CountryName": "India",
+                                "Terminal": "",
+                                "ArrivalTime": "2026-08-19T12:35:00"
+                            },
+                            "LayoverTime": 0,
+                            "Layover": "",
+                            "TotalDuration": 275
+                        }
+                    ]
+                ],
+                "CustomeKey": "6E-6092-2026-08-19-08:00-2026-08-19-09:206E-6020-2026-08-19-11:25-2026-08-19-12:35",
+                "FareList": [
+                    {
+                        "FareId": "TOB6",
+                        "IsRefundable": true,
+                        "AirlineRemark": "6E main.",
+                        "FareType": "Saver (Regular)",
+                        "IsHoldabelWithOutSsr": false,
+                        "IsHoldabelWithSsr": false,
+                        "IsHoldabel": false,
+                        "FareTypeColor": "yellow",
+                        "SeatBaggage": [
+                            [
+                                {
+                                    "NoOfSeatAvailable": 28,
+                                    "Sector": "DEL-IXJ",
+                                    "CheckIn": "15 Kilograms",
+                                    "Cabin": "7 KG"
+                                },
+                                {
+                                    "NoOfSeatAvailable": 28,
+                                    "Sector": "IXJ-IXC",
+                                    "CheckIn": "15 Kilograms",
+                                    "Cabin": "7 KG"
+                                }
+                            ]
+                        ],
+                        "FareClass": "QR",
+                        "CabinClass": "Economy",
+                        "IsUpsellAllowed": false,
+                        "Fare": {
+                            "BaseFare": 7144,
+                            "Tax": 1716,
+                            "YQTax": 0,
+                            "OtherCharges": 0,
+                            "Discount": 0,
+                            "PublishedPrice": 8860,
+                            "OfferedPrice": 8860,
+                            "AgentCommission": 0,
+                            "ServiceCharges": 0,
+                            "TDS": 0,
+                            "GST": {
+                                "CGSTAmount": 0,
+                                "CGSTRate": 0,
+                                "IGSTAmount": 0,
+                                "IGSTRate": 18,
+                                "SGSTAmount": 0,
+                                "SGSTRate": 0,
+                                "TaxableAmount": 0
+                            },
+                            "WebPMarkUp": 0,
+                            "WebPDiscount": 0
+                        },
+                        "FareBreakdown": {
+                            "ADT": {
+                                "PassengerCount": 1,
+                                "BaseFare": 7144,
+                                "Tax": 1716,
+                                "YQTax": 0,
+                                "ServiceCharges": 0
+                            }
+                        },
+                        "PublishedPrice": 8860,
+                        "OfferedPrice": 8860,
+                        "FareRuleId": "6E-6092,6E-6020_Domestic_QR_Economy_Saver (Regular)_TBO_1787077800",
+                        "SpecialNotes": "",
+                        "Supplier": 1,
+                        "Incentive": 0
+                    }
+                ],
+                "MinPublishedPrice": 8860,
+                "MainSegment": [
+                    {
+                        "DepartureCity": "DEL",
+                        "Fare": 8860,
+                        "ArrivalCity": "IXC",
+                        "DepartTime": "08:00",
+                        "DepartDate": "19 Aug",
+                        "ArrivalTime": "12:35",
+                        "ArrivalDate": "19 Aug",
+                        "IsTransitVisaRequired": false,
+                        "Stops": 1,
+                        "ArrivalDays": 0,
+                        "Seats": 28,
+                        "Airlinecodes": [
+                            "6E"
+                        ],
+                        "Airlinecode": "6E",
+                        "AirlineName": "Indigo",
+                        "AirlineFlightNumber": [
+                            6092,
+                            6020
+                        ],
+                        "AirlineCodeFlightNumberString": "6E-6092,6E-6020",
+                        "DurationMin": 275,
+                        "Duration": "4 h 35 m ",
+                        "DepartString": "Morning",
+                        "ArrivalString": "Afternoon"
+                    }
+                ],
+                "TtsIndex": "TBO3",
+                "Key": "6E-6092-2026-08-19-08:00-2026-08-19-09:206E-6020-2026-08-19-11:25-2026-08-19-12:35",
+                "AirlineRemark": "6E main."
+            },
+            {
+                "Segments": [
+                    [
+                        {
+                            "TripIndicator": 1,
+                            "SegmentIndicator": 1,
+                            "Duration": 85,
+                            "TechStopPoint": [],
+                            "Craft": "321",
+                            "Airline": {
+                                "AirlineCode": "6E",
+                                "AirlineName": "Indigo",
+                                "FlightNumber": 6474,
+                                "FareClass": "QR",
+                                "OperatingCarrier": ""
+                            },
+                            "Origin": {
+                                "AirportCode": "DEL",
+                                "AirportName": "Indira Gandhi Airport",
+                                "CityCode": "DEL",
+                                "CityName": "Delhi",
+                                "CountryCode": "IN",
+                                "CountryName": "India",
+                                "Terminal": "1",
+                                "DepartTime": "2026-08-19T07:05:00"
+                            },
+                            "Destination": {
+                                "AirportCode": "IXJ",
+                                "AirportName": "Satwari",
+                                "CityCode": "IXJ",
+                                "CityName": "Jammu",
+                                "CountryCode": "IN",
+                                "CountryName": "India",
+                                "Terminal": "1",
+                                "ArrivalTime": "2026-08-19T08:30:00"
+                            },
+                            "LayoverTime": 175,
+                            "Layover": "2H :55M",
+                            "TotalDuration": 330
+                        },
+                        {
+                            "TripIndicator": 1,
+                            "SegmentIndicator": 2,
+                            "Duration": 70,
+                            "TechStopPoint": [],
+                            "Craft": "321",
+                            "Airline": {
+                                "AirlineCode": "6E",
+                                "AirlineName": "Indigo",
+                                "FlightNumber": 6020,
+                                "FareClass": "RR",
+                                "OperatingCarrier": ""
+                            },
+                            "Origin": {
+                                "AirportCode": "IXJ",
+                                "AirportName": "Satwari",
+                                "CityCode": "IXJ",
+                                "CityName": "Jammu",
+                                "CountryCode": "IN",
+                                "CountryName": "India",
+                                "Terminal": "1",
+                                "DepartTime": "2026-08-19T11:25:00"
+                            },
+                            "Destination": {
+                                "AirportCode": "IXC",
+                                "AirportName": "Chandigarh",
+                                "CityCode": "IXC",
+                                "CityName": "Chandigarh",
+                                "CountryCode": "IN",
+                                "CountryName": "India",
+                                "Terminal": "",
+                                "ArrivalTime": "2026-08-19T12:35:00"
+                            },
+                            "LayoverTime": 0,
+                            "Layover": "",
+                            "TotalDuration": 330
+                        }
+                    ]
+                ],
+                "CustomeKey": "6E-6474-2026-08-19-07:05-2026-08-19-08:306E-6020-2026-08-19-11:25-2026-08-19-12:35",
+                "FareList": [
+                    {
+                        "FareId": "TOB7",
+                        "IsRefundable": true,
+                        "AirlineRemark": "6E main.",
+                        "FareType": "Saver (Regular)",
+                        "IsHoldabelWithOutSsr": false,
+                        "IsHoldabelWithSsr": false,
+                        "IsHoldabel": false,
+                        "FareTypeColor": "yellow",
+                        "SeatBaggage": [
+                            [
+                                {
+                                    "NoOfSeatAvailable": 28,
+                                    "Sector": "DEL-IXJ",
+                                    "CheckIn": "15 Kilograms",
+                                    "Cabin": "7 KG"
+                                },
+                                {
+                                    "NoOfSeatAvailable": 28,
+                                    "Sector": "IXJ-IXC",
+                                    "CheckIn": "15 Kilograms",
+                                    "Cabin": "7 KG"
+                                }
+                            ]
+                        ],
+                        "FareClass": "QR",
+                        "CabinClass": "Economy",
+                        "IsUpsellAllowed": false,
+                        "Fare": {
+                            "BaseFare": 7144,
+                            "Tax": 1716,
+                            "YQTax": 0,
+                            "OtherCharges": 0,
+                            "Discount": 0,
+                            "PublishedPrice": 8860,
+                            "OfferedPrice": 8860,
+                            "AgentCommission": 0,
+                            "ServiceCharges": 0,
+                            "TDS": 0,
+                            "GST": {
+                                "CGSTAmount": 0,
+                                "CGSTRate": 0,
+                                "IGSTAmount": 0,
+                                "IGSTRate": 18,
+                                "SGSTAmount": 0,
+                                "SGSTRate": 0,
+                                "TaxableAmount": 0
+                            },
+                            "WebPMarkUp": 0,
+                            "WebPDiscount": 0
+                        },
+                        "FareBreakdown": {
+                            "ADT": {
+                                "PassengerCount": 1,
+                                "BaseFare": 7144,
+                                "Tax": 1716,
+                                "YQTax": 0,
+                                "ServiceCharges": 0
+                            }
+                        },
+                        "PublishedPrice": 8860,
+                        "OfferedPrice": 8860,
+                        "FareRuleId": "6E-6474,6E-6020_Domestic_QR_Economy_Saver (Regular)_TBO_1787077800",
+                        "SpecialNotes": "",
+                        "Supplier": 1,
+                        "Incentive": 0
+                    }
+                ],
+                "MinPublishedPrice": 8860,
+                "MainSegment": [
+                    {
+                        "DepartureCity": "DEL",
+                        "Fare": 8860,
+                        "ArrivalCity": "IXC",
+                        "DepartTime": "07:05",
+                        "DepartDate": "19 Aug",
+                        "ArrivalTime": "12:35",
+                        "ArrivalDate": "19 Aug",
+                        "IsTransitVisaRequired": false,
+                        "Stops": 1,
+                        "ArrivalDays": 0,
+                        "Seats": 28,
+                        "Airlinecodes": [
+                            "6E"
+                        ],
+                        "Airlinecode": "6E",
+                        "AirlineName": "Indigo",
+                        "AirlineFlightNumber": [
+                            6474,
+                            6020
+                        ],
+                        "AirlineCodeFlightNumberString": "6E-6474,6E-6020",
+                        "DurationMin": 330,
+                        "Duration": "5 h 30 m ",
+                        "DepartString": "Morning",
+                        "ArrivalString": "Afternoon"
+                    }
+                ],
+                "TtsIndex": "TBO4",
+                "Key": "6E-6474-2026-08-19-07:05-2026-08-19-08:306E-6020-2026-08-19-11:25-2026-08-19-12:35",
+                "AirlineRemark": "6E main."
             }
         ]
     ]

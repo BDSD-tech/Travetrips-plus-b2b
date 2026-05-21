@@ -1533,6 +1533,7 @@ GetPhonecodeVal(event: Event): void {
       }
     });
   }
+  
   DocExpiryDate() {
     var _this = this;
     $("[adt-docexpiry-date]").datepicker({
@@ -1572,6 +1573,7 @@ GetPhonecodeVal(event: Event): void {
     //console.log(this.FlightForm.value);
 
   }
+
  onDobInput(type: any, event: any, index: number, field: any) {
  
   const input = event.target.value.replace(/\D/g, '').slice(0, 8);
