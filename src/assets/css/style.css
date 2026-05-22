@@ -14,8 +14,9 @@ ROOT VARIABLES
     --footer-second: #e6edf0;
     --primary-color: #1d48a3;
     --primary-bg-color: #f79d06;
-    --body-font: "Ubuntu Sans", sans-serif;
-    --heading-font: 'Roboto', sans-serif;
+    /* --body-font: "Ubuntu Sans", sans-serif; */
+    --body-font: "DM Sans", sans-serif;
+    /* --heading-font: 'Roboto', sans-serif; */
     --body-text-color: #000000;
     --color-dark: #004aad;
     /* EXTRA PROFESSIONAL VARIABLES */
@@ -45,7 +46,7 @@ html {
 
 body {
     font-family: var(--body-font);
-    background: var(--white);
+    background: #fbfbfb;
     color: var(--second-dark-color);
     overflow-x: hidden;
     font-size: 14px;
@@ -60,10 +61,10 @@ h3,
 h4,
 h5,
 h6 {
-    font-weight: 700;
+    font-weight: 600;
     line-height: 1.3;
     color: var(--second-dark-color);
-    font-family: var(--heading-font);
+    /* font-family: var(--heading-font); */
 }
 
 p {
@@ -131,7 +132,7 @@ BUTTONS
 SECTION
 ====================== */
 section {
-    padding: 50px 0;
+    padding: 40px 0;
 }
 
 /* ===================
@@ -177,6 +178,16 @@ RESPONSIVE
     }
 }
 
+.form-check-input:focus{
+    box-shadow: none;
+    outline: 0;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
 /*=======header================end==========*/
 /* .Travelimpression_banner {
 padding: 120px 0px;
@@ -206,7 +217,7 @@ padding: 120px 0px;
     position: relative;
 }
 
-.error-msg{
+.error-msg {
     color: rgb(220, 0, 0);
 }
 
@@ -3418,7 +3429,7 @@ BOOKING CONFIRM MODAL
 .booking-confirm-modal .confirm-title {
     font-size: 26px;
     font-weight: 700;
-    
+
     color: var(--primary-color);
     margin-bottom: 12px;
     font-family: var(--heading-font);

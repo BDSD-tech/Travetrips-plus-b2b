@@ -131,7 +131,7 @@
             <div class="flight-search-wrapper">
               <ul class="nav nav-pills flight-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation" (click)="gettype('O')">
-                  <button class="nav-link d-flex align-items-center" [ngClass]="{'active':f['Type'].value=='O'}"
+                  <button class="nav-link" [ngClass]="{'active':f['Type'].value=='O'}"
                     id="flight-tab" data-bs-toggle="tab" data-bs-target="#flight-tab-pane" type="button" role="tab"
                     aria-controls="home-tab-pane" aria-selected="true">
                     <input type="radio" class="form-check-input " [checked]="f['Type'].value == 'O'">
@@ -139,7 +139,7 @@
                   </button>
                 </li>
                 <li class="nav-item" role="presentation" (click)="gettype('R')">
-                  <button class="nav-link d-flex align-items-center" [ngClass]="{'active':f['Type'].value=='R'}"
+                  <button class="nav-link" [ngClass]="{'active':f['Type'].value=='R'}"
                     id="flight-tab" data-bs-toggle="tab" data-bs-target="#flight-tab-pane" type="button" role="tab"
                     aria-controls="profile-tab-pane" aria-selected="false">
                     <input type="radio" class="form-check-input " [checked]="f['Type'].value == 'R'">
@@ -147,7 +147,7 @@
                   </button>
                 </li>
                 <li class="nav-item" role="presentation" (click)="gettype('M')">
-                  <button class="nav-link d-flex align-items-center" [ngClass]="{'active':f['Type'].value=='M'}"
+                  <button class="nav-link" [ngClass]="{'active':f['Type'].value=='M'}"
                     id="flight-multi-tab" data-bs-toggle="tab" data-bs-target="#flight-multi-tab-pane" type="button"
                     role="tab" aria-controls="flight-multi-tab-pane" aria-selected="false">
                     <input type="radio" class="form-check-input " [checked]="f['Type'].value == 'M'">
@@ -201,6 +201,7 @@
                 <div class="flight-tab d-lg-flex">
                   <div class="d-flex form-info">
                     <div class="persent-one">
+                      <label class="custom-label">Where From?</label>
                       <span>
                         <i class="fas fa-plane-departure"></i>
                       </span>
@@ -216,6 +217,7 @@
                       </div>
                     </div>
                     <div class="persent-one">
+                      <label class="custom-label">Where To?</label>
                       <span>
                         <i class="fas fa-plane-arrival"></i>
                       </span>
@@ -231,6 +233,7 @@
                       </div>
                     </div>
                     <div class="persent-one less-per">
+                      <label class="custom-label">Departure</label>
                       <span>
                         <i class="fas fa-calendar"></i>
                       </span>
@@ -243,6 +246,7 @@
                       </div>
                     </div>
                     <div class="persent-one less-per at-returnin">
+                      <label class="custom-label">Return</label>
                       <span>
                         <i class="fas fa-calendar"></i>
                       </span>
@@ -257,6 +261,7 @@
                       </div>
                     </div>
                     <div class="persent-one persent-one_ps-4">
+                      <label class="custom-label">Travellers & Class</label>
                       <span>
                         <i class="fas fa-person"></i>
                       </span>
@@ -362,8 +367,10 @@
 
                   </div>
                   <div class="less-btn">
-                    <button type="submit" class="cst-btn" [disabled]="Flightloading || paxcountstop"> <span
-                        *ngIf="Flightloading" class="spinner-border spinner-border-sm mr-1"></span> <i class="fa-solid fa-search"></i></button>
+                    <button type="submit" class="cst-btn" [disabled]="Flightloading || paxcountstop"> 
+                      <i class="fa-solid fa-search"></i>
+                      <!-- <span *ngIf="Flightloading" class="spinner-border spinner-border-sm mr-1"></span>  -->
+                    </button>
                   </div>
                 </div>
                 <!-- <div class="makeflex mt-2">
@@ -578,13 +585,15 @@
                     </div>
 
                     <div class="less-btn" *ngIf="i==0">
-                      <button type="submit" class="cst-btn" [disabled]="Flightloading || paxcountstop"> <span
-                          *ngIf="Flightloading" class="spinner-border spinner-border-sm mr-1"></span> Search</button>
+                      <button type="submit" class="cst-btn" [disabled]="Flightloading || paxcountstop"> 
+                        <!-- <span *ngIf="Flightloading" class="spinner-border spinner-border-sm mr-1"></span>  -->
+                        Search
+                      </button>
                     </div>
 
                     <a href="javascript:void(0);" class="tts-multyclose" *ngIf="i!=0 && i!=1"
                       (click)="RemoveCity(i)">×</a>
-                    <input type="button" value="Add One More" *ngIf="i==1" class="btn tts-addmulti-btn"
+                    <input type="button" value="Add City" *ngIf="i==1" class="tts-addmulti-btn"
                       (click)="AddCity()">
                   </div>
 

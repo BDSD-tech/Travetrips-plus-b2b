@@ -2,7 +2,7 @@
     <app-modify-search></app-modify-search>
     <!---------------flight--list--------------->
     <div class="flight-list">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row gy-3" *ngIf="ErrorCode==0">
                 <!-- =========================================
                MOBILE FILTER BUTTON
@@ -231,7 +231,7 @@
                                 <div class="col-lg-6">
                                     <div class="segment-box"
                                         *ngFor="let trip of item['MainSegment']; let tripskey=index;">
-                                        <div class="row align-items-center g-3">
+                                        <div class="row g-3">
                                             <div class="col-lg-3 col-md-4 col-12">
                                                 <div class="airline-info">
                                                     <img src="{{AirlineLogoURL}}{{trip['Airlinecode']}}.png"
@@ -251,16 +251,22 @@
                                             </div>
                                             <!-- Duration -->
                                             <div class="col-lg-3 col-md-3 col-4 text-center">
-
-                                                <small>{{trip['Duration']}}</small>
-                                                <div class="flight-line"></div>
-                                                <span class="stop-badge" [ngClass]="{
-                                                    'non-stop': trip.Stops == 0,
-                                                    'has-stop': trip.Stops > 0
-                                                    }">
-                                                    {{ trip.Stops == 0 ? 'Non Stop' : trip.Stops + ' Stop(s)' }}
-                                                </span>
-
+                                                <div
+                                                    class="travel_duration_details d-flex flex-column align-items-center">
+                                                    <small>{{trip['Duration']}}</small>
+                                                    <svg width="101" height="8" viewBox="0 0 101 8" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M100.354 4.35355C100.549 4.15829 100.549 3.84171 100.354 3.64645L97.1716 0.464466C96.9763 0.269204 96.6597 0.269204 96.4645 0.464466C96.2692 0.659728 96.2692 0.976311 96.4645 1.17157L99.2929 4L96.4645 6.82843C96.2692 7.02369 96.2692 7.34027 96.4645 7.53553C96.6597 7.7308 96.9763 7.7308 97.1716 7.53553L100.354 4.35355ZM0 4.5H100V3.5H0V4.5Z"
+                                                            fill="#CCCCCC"></path>
+                                                    </svg>
+                                                    <span class="stop-badge" [ngClass]="{
+                                                        'non-stop': trip.Stops == 0,
+                                                        'has-stop': trip.Stops > 0
+                                                        }">
+                                                        {{ trip.Stops == 0 ? 'Non Stop' : trip.Stops + ' Stop(s)' }}
+                                                    </span>
+                                                </div>
                                             </div>
                                             <!-- Arrival -->
                                             <div class="col-lg-3 col-md-3 col-4 text-end">
@@ -270,54 +276,9 @@
                                                     <small>{{trip['ArrivalDate']}}</small>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-12"
-                                                *ngIf="item['MainSegment'].length-1==tripskey &&trip['ArrivalDays']!=0">
+                                            <div class="col-lg-12">
                                                 <!-- Bottom Indicators -->
-                                                <div class="flight-extra-info">
-                                                    <div
-                                                        class="d-flex flex-wrap align-items-center justify-content-between gap-3">
-                                                        <!-- Left Info -->
-                                                        <div class="d-flex flex-wrap align-items-center gap-2">
-                                                            <!-- Arrival Days -->
-                                                            <span class="info-badge arrival-badge">
-                                                                <i class="fa fa-plane"></i>
-                                                                Flight Arrives after
-                                                                {{trip['ArrivalDays']}}
-                                                                Day(s)
-                                                            </span>
-                                                            <!-- Seats Left -->
-                                                            <!-- <span class="info-badge seat-badge"
-                                       *ngIf="item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable']!=0 
-                                       && item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable']!='' 
-                                       && item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable']!=null"
-                                       id="seat_left_{{item.TtsIndex}}{{tripskey}}" [ngClass]="{
-                                       'green': item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable'] > 9,
-                                       'orange': item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable'] > 3,
-                                       'red': item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable'] <= 3
-                                       }">
-                                       
-                                       <i class="fa-solid fa-chair"></i>
-                                       
-                                       Seats Left :
-                                       {{item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable']}}
-                                       
-                                       </span> -->
-                                                            <!-- Transit Visa -->
-                                                            @if(trip['IsTransitVisaRequired']){
-                                                            <span class="info-badge visa-badge">
-                                                                <i class="fa-solid fa-passport"></i>
-                                                                Transit Visa
-                                                            </span>
-                                                            }
-                                                            <!-- Airline Remark -->
-                                                            <!-- <span class="airline-remark" *ngIf="item['AirlineRemark']">
-                                       {{item['AirlineRemark']}}
-                                       
-                                       </span> -->
-                                                        </div>
-                                                        <!-- View Details Button -->
-                                                    </div>
-                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -387,25 +348,45 @@
 
                                                         </label>
                                                         <!-- <div class="d-flex align-items-center gap-3 flex-wrap small">
-                                 <div class="ars-refunsleft ars-lastre ars-last-positionHandle">
-                                     {{farelist['CabinClass']}}
-                                     <span class="cursor-pointer" *ngIf="farelist['IsRefundable']">,Refundable</span>
-                                     <span class="cursor-pointer text-danger" *ngIf="farelist['IsRefundable']===false">, Non Refundable</span>
-                                 </div>
-                                 </div> -->
+                                                            <div class="ars-refunsleft ars-lastre ars-last-positionHandle">
+                                                                {{farelist['CabinClass']}}
+                                                                <span class="cursor-pointer" *ngIf="farelist['IsRefundable']">,Refundable</span>
+                                                                <span class="cursor-pointer text-danger" *ngIf="farelist['IsRefundable']===false">, Non Refundable</span>
+                                                            </div>
+                                                            </div> -->
                                                     </div>
-                                                    <div class="form-check share_chekbox" *ngIf="sharebuttontext!=''">
-                                                        <input class="form-check-input tts-cursor-pointer"
-                                                            name="shareinput[]" type="checkbox"
+
+                                                    <div class="share-checkbox" *ngIf="sharebuttontext != ''">
+                                                        <input type="checkbox" class="share-checkbox-input"
+                                                            name="shareinput[]"
+                                                            id="share_{{item['TtsIndex']}}_{{farelist['FareId']}}"
                                                             value="0_{{item['TtsIndex']}}_{{farelist['FareId']}}_{{APISEARCHTOKENLIST[farelist['Supplier']]}}_{{farelist['Supplier']}}_{{farelist['Fare']['PublishedPrice']}}">
+
+                                                        <label class="share-checkbox-label"
+                                                            for="share_{{item['TtsIndex']}}_{{farelist['FareId']}}">
+                                                            <i class="fa-solid fa-share-nodes share-icon"></i>
+                                                            <i class="fa-solid fa-check check-icon"></i>
+                                                        </label>
                                                     </div>
                                                     <!-- <hr class="m-0" *ngIf="item['FareList'].length!=(farelistkey+1)" /> -->
                                                 </li>
                                             </ul>
-                                            <div class="flight__dropdown__icon"
+                                            <!-- <div class="flight__dropdown__icon"
                                                 *ngIf="item['FareList'].length > fareshowlimit"
                                                 (click)="MoreFare($event,item['TtsIndex'])">
-                                                <i class="fa-solid fa-angle-down"></i>
+                                                More Fares<i class="fa-solid fa-angle-down"></i>
+                                            </div> -->
+
+                                            <div class="flight__dropdown__icon"
+                                                *ngIf="item['FareList'].length > fareshowlimit"
+                                                [class.flight__dropdown__icon--selected]="item.showMoreFare"
+                                                (click)="MoreFare($event, item, item['TtsIndex'])">
+
+                                                {{ item.showMoreFare ? 'Less Fares' : 'More Fares' }}
+
+                                                <i class="fa-solid"
+                                                    [ngClass]="item.showMoreFare ? 'fa-angle-up' : 'fa-angle-down'">
+                                                </i>
                                             </div>
                                         </div>
                                         <div class="col-sm-3 col-12">
@@ -413,8 +394,19 @@
                                                 (click)="confirmation(item['TtsIndex'])">BOOK</button>
                                             @if(selectedfare[item['TtsIndex']]['SeatBaggage']?.[0]?.[0]?.['NoOfSeatAvailable']){
                                             <div class="flight-info-item seats-left">
-                                                <span>{{selectedfare[item['TtsIndex']]['SeatBaggage']?.[0]?.[0]?.['NoOfSeatAvailable']}}
-                                                    Seat</span>
+                                                <span>
+                                                    <svg width="16px" height="18px" viewBox="0 0 28 28" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M8.85435 6.30839C7.94435 5.39839 7.94435 3.91672 8.85435 3.00672C9.76435 2.09672 11.246 2.09672 12.156 3.00672C13.066 3.91672 13.066 5.39839 12.156 6.30839C11.2343 7.23005 9.76435 7.23005 8.85435 6.30839ZM23.3327 23.4117L17.4177 17.4967H13.416V13.2034C15.0493 14.5451 17.616 15.7467 19.8327 15.7467V13.2034C17.896 13.2267 15.621 12.1884 14.3843 10.8234L12.751 9.01505C12.5293 8.74672 12.2493 8.57172 11.946 8.43172C11.6077 8.26839 11.2227 8.16339 10.826 8.16339H10.791C9.33268 8.16339 8.16602 9.33005 8.16602 10.7884V17.4967C8.16602 18.425 8.53476 19.3152 9.19114 19.9716C9.84752 20.628 10.7378 20.9967 11.666 20.9967H17.581L21.6643 25.0801"
+                                                            fill="#EB979F"></path>
+                                                        <path
+                                                            d="M6.99935 8.16406L6.99935 18.6641C6.99935 19.5923 7.3681 20.4826 8.02447 21.1389C8.68085 21.7953 9.57109 22.1641 10.4993 22.1641H17.4993V24.4974H10.4993C8.95225 24.4974 7.46852 23.8828 6.37456 22.7889C5.2806 21.6949 4.66602 20.2112 4.66602 18.6641V8.16406H6.99935Z"
+                                                            fill="#DC3545"></path>
+                                                    </svg>
+                                                    {{selectedfare[item['TtsIndex']]['SeatBaggage']?.[0]?.[0]?.['NoOfSeatAvailable']}}
+                                                    Seat
+                                                </span>
                                             </div>
                                             }
                                         </div>
@@ -422,19 +414,54 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="flight-info-bar">
-                                        <div class="flight-info-bar">
-                                            @if(selectedfare[item['TtsIndex']]['SeatBaggage']?.[0]?.[0]?.['CheckIn']){
-                                            <div class="flight-info-item">
-                                                <i class="fa-regular fa-heart"></i>
-                                                <span>{{selectedfare[item['TtsIndex']]['SeatBaggage']?.[0]?.[0]?.['CheckIn']}}</span>
+                                        <div class="flight-info-bar"
+                                            *ngFor="let trip of item['MainSegment']; let tripskey=index;">
+                                            <div class="flight-info-item"
+                                                *ngIf="item['MainSegment'].length-1==tripskey &&trip['ArrivalDays']!=0">
+                                                <div
+                                                    class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+                                                    <!-- Left Info -->
+                                                    <div class="d-flex flex-wrap align-items-center gap-2">
+                                                        <!-- Arrival Days -->
+                                                        <span class="info-badge arrival-badge">
+                                                            <i class="fa fa-plane"></i>
+                                                            Flight Arrives after
+                                                            {{trip['ArrivalDays']}}
+                                                            Day(s)
+                                                        </span>
+                                                        <!-- Seats Left -->
+                                                        <!-- <span class="info-badge seat-badge"
+                                                                    *ngIf="item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable']!=0 
+                                                                    && item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable']!='' 
+                                                                    && item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable']!=null"
+                                                                    id="seat_left_{{item.TtsIndex}}{{tripskey}}" [ngClass]="{
+                                                                    'green': item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable'] > 9,
+                                                                    'orange': item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable'] > 3,
+                                                                    'red': item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable'] <= 3
+                                                                    }">
+                                                                    
+                                                                    <i class="fa-solid fa-chair"></i>
+                                                                    
+                                                                    Seats Left :
+                                                                    {{item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable']}}
+                                                                    
+                                                                    </span> -->
+                                                        <!-- Transit Visa -->
+                                                        @if(trip['IsTransitVisaRequired']){
+                                                        <span class="info-badge visa-badge">
+                                                            <i class="fa-solid fa-passport"></i>
+                                                            Transit Visa
+                                                        </span>
+                                                        }
+                                                        <!-- Airline Remark -->
+                                                        <!-- <span class="airline-remark" *ngIf="item['AirlineRemark']">
+                                                            {{item['AirlineRemark']}}
+                                                            
+                                                            </span> -->
+                                                    </div>
+                                                    <!-- View Details Button -->
+                                                </div>
                                             </div>
-                                            }
-                                            @if(selectedfare[item['TtsIndex']]['SeatBaggage']?.[0]?.[0]?.['Cabin']){
-                                            <div class="flight-info-item">
-                                                <i class="fa-solid fa-briefcase"></i>
-                                                <span>{{selectedfare[item['TtsIndex']]['SeatBaggage']?.[0]?.[0]?.['Cabin']}}</span>
-                                            </div>
-                                            }
 
                                             <div class="flight-info-item ">
                                                 <span class="refundable"
@@ -463,10 +490,25 @@
                                             </div>
                                             }
                                         </div>
+
                                         <div class="flight-links">
+                                            @if(selectedfare[item['TtsIndex']]['SeatBaggage']?.[0]?.[0]?.['CheckIn']){
+                                            <div class="flight-info-item">
+                                                <i class="fa-solid fa-briefcase me-2"></i>
+                                                <span>{{selectedfare[item['TtsIndex']]['SeatBaggage']?.[0]?.[0]?.['CheckIn']}}</span>
+                                            </div>
+                                            }
+                                            @if(selectedfare[item['TtsIndex']]['SeatBaggage']?.[0]?.[0]?.['Cabin']){
+                                            <div class="flight-info-item">
+                                                <i class="fa-solid fa-briefcase me-2"></i>
+                                                <span>{{selectedfare[item['TtsIndex']]['SeatBaggage']?.[0]?.[0]?.['Cabin']}}</span>
+                                            </div>
+                                            }
                                             @if(selectedfare[item['TtsIndex']]['IsUpsellAllowed']){
-                                            <button type="button" class="more-fare" [disabled]="fareupsellloading"
-                                                (click)="FareUpSell(item)">More Fare</button>
+                                            <div class="flight-info-item">
+                                                <button type="button" class="more-fare" [disabled]="fareupsellloading"
+                                                    (click)="FareUpSell(item)">More Fare</button>
+                                            </div>
                                             }
                                             <!-- <button type="button" class="flight-view-btn" [ngClass]="{
                                                 'active': showFlightTab==item['TtsIndex']
@@ -482,17 +524,19 @@
                                                 </i>
                                                 
                                                 </button> -->
-                                            <button type="button" class="flight-view-btn" [ngClass]="{
+                                            <div class="flight-info-item">
+                                                <button type="button" class="flight-view-btn" [ngClass]="{
                                             'active': showFlightTab==item['TtsIndex']
                                             }" (click)="flightdetail($event,item)" data-bs-toggle="offcanvas"
-                                                attr.data-bs-target="#flightOffcanvas_{{item.TtsIndex}}">
-                                                Flight Details
-                                                <!-- <i class="fa" [ngClass]="{
+                                                    attr.data-bs-target="#flightOffcanvas_{{item.TtsIndex}}">
+                                                    Flight Details
+                                                    <!-- <i class="fa" [ngClass]="{
                                                 'fa-plus': showFlightTab!=item['TtsIndex'],
                                                 'fa-minus': showFlightTab==item['TtsIndex']
                                                 }">
                                                 </i> -->
-                                            </button>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -527,21 +571,26 @@
 
                                         <small class="trip-label">
                                             @if(GetSearchData['Type']=="O"){
-                                                One way
+                                            One way
                                             }@else if(GetSearchData['Type']=="R"){
-                                                Roundtrip
+                                            Roundtrip
                                             }
-                                             • {{GetSearchData['Adult']+GetSearchData['Child']}} Traveller, {{GetSearchData['Class']}}
+                                            • {{GetSearchData['Adult']+GetSearchData['Child']}} Traveller,
+                                            {{GetSearchData['Class']}}
                                         </small>
 
                                         <h5 class="trip-title">
 
                                             <span class="trip-route">
-                                                {{item['MainSegment'][0]['DepartureCity']}} - {{item['MainSegment'][item['MainSegment'].length-1]['ArrivalCity']}}
+                                                {{item['MainSegment'][0]['DepartureCity']}} -
+                                                {{item['MainSegment'][item['MainSegment'].length-1]['ArrivalCity']}}
                                             </span>
 
                                             <small class="trip-meta">
-                                                • {{item['MainSegment'][0]['DepartDate']}} • {{item['MainSegment'][0]['Duration']}} @if(item['MainSegment'][0]['Stops']){• {{item['MainSegment'][0]['Stops']}} Stop}
+                                                • {{item['MainSegment'][0]['DepartDate']}} •
+                                                {{item['MainSegment'][0]['Duration']}}
+                                                @if(item['MainSegment'][0]['Stops']){•
+                                                {{item['MainSegment'][0]['Stops']}} Stop}
                                             </small>
 
                                         </h5>
@@ -590,7 +639,7 @@
                                         </button>
                                     </li>
                                 </ul>
-                               
+
 
                                 <div class="offcanvas-body">
                                     <div class="tab-content h-100">
@@ -601,7 +650,8 @@
                                                 <div class="flight-summary">
                                                     <div class="airline-info">
                                                         <div class="logo-gradient">
-                                                            <img src="{{AirlineLogoURL}}/{{trip[0]['Airline']['AirlineCode']}}.png" alt="{{trip[0]['Airline']['AirlineName']}}">
+                                                            <img src="{{AirlineLogoURL}}/{{trip[0]['Airline']['AirlineCode']}}.png"
+                                                                alt="{{trip[0]['Airline']['AirlineName']}}">
                                                         </div>
                                                         <div>
                                                             <div class="airline-name">
@@ -619,11 +669,12 @@
                                                     <div class="flight-time-block">
 
                                                         <div class="flight-time">
-                                                          {{trip[0]['Origin']['AirportCode']}} - {{trip[0]['Origin']['DepartTime']|date:'HH:mm'}}
+                                                            {{trip[0]['Origin']['AirportCode']}} -
+                                                            {{trip[0]['Origin']['DepartTime']|date:'HH:mm'}}
                                                         </div>
 
                                                         <div class="flight-date">
-                                                           {{trip[0]['Origin']['DepartTime']|date:'dd MMM yyyy'}}
+                                                            {{trip[0]['Origin']['DepartTime']|date:'dd MMM yyyy'}}
                                                         </div>
 
                                                     </div>
@@ -636,11 +687,11 @@
 
                                                         <div class="flight-stop">
                                                             @if(trip[0]['Layover']){
-                                                                1 Stop
+                                                            1 Stop
                                                             }@else{
-                                                                0 Stop
+                                                            0 Stop
                                                             }
-                                                            
+
                                                         </div>
 
                                                     </div>
@@ -648,106 +699,117 @@
                                                     <div class="flight-time-block">
 
                                                         <div class="flight-time">
-                                                           {{trip[trip.length-1]['Destination']['AirportCode']}} - {{trip[trip.length-1]['Destination']['ArrivalTime']|date:'HH:mm'}}
+                                                            {{trip[trip.length-1]['Destination']['AirportCode']}} -
+                                                            {{trip[trip.length-1]['Destination']['ArrivalTime']|date:'HH:mm'}}
                                                         </div>
 
                                                         <div class="flight-date">
-                                                            {{trip[trip.length-1]['Destination']['ArrivalTime']|date:'dd MMM yyyy'}}
+                                                            {{trip[trip.length-1]['Destination']['ArrivalTime']|date:'dd
+                                                            MMM yyyy'}}
                                                         </div>
 
                                                     </div>
-
                                                 </div>
+
+
                                                 @for (seg of trip; track $index) {
-                                                <div class="timeline-grid">
-                                                    <div class="timeline-time">
-                                                        <div class="timeline-main-time">
-                                                            {{seg['Origin']['DepartTime']|date:'HH :mm'}}
+                                                <div class="flightitenarary-flights-container d-flex flex-column gap-2">
+                                                    <div class="timeline-grid">
+                                                        <div class="timeline-time">
+                                                            <div class="timeline-main-time">
+                                                                {{seg['Origin']['DepartTime']|date:'HH :mm'}}
+                                                            </div>
+                                                            <div class="timeline-date">
+                                                                {{seg['Origin']['DepartTime']|date:'dd MMM yyyy'}}
+                                                            </div>
                                                         </div>
-                                                        <div class="timeline-date">
-                                                             {{seg['Origin']['DepartTime']|date:'dd MMM yyyy'}}
+                                                        <div class="track-node">
+                                                            <div class="circle-indicator"></div>
+                                                            <div class="line-dashed"></div>
                                                         </div>
-                                                    </div>
-                                                    <div class="track-node">
-                                                        <div class="circle-indicator"></div>
-                                                        <div class="line-dashed"></div>
-                                                    </div>
-                                                    <div>
-                                                    <div class="airport-name">
-                                                        {{seg['Origin']['CityName']}} ({{seg['Origin']['AirportCode']}})
-                                                    </div>
-                                                    <div class="airport-desc">
-                                                       {{seg['Origin']['AirportName']}} @if(seg['Origin']['Terminal']){• Terminal {{seg['Origin']['Terminal']}}}
-                                                    </div>
-                                                    </div>
-
-                                                    <div class="timeline-time">
-                                                        <div class="timeline-duration">
-                                                             {{FTduration(seg['Duration'])}}
-                                                        </div>
-                                                        <div class="timeline-duration-label">
-                                                            Travel Duration
-                                                        </div>
-                                                    </div>
-                                                    <div class="track-node">
-
-                                                        <div class="plane-wrapper">
-                                                            <i class="fa-solid fa-plane"></i>
+                                                        <div>
+                                                            <div class="airport-name">
+                                                                {{seg['Origin']['CityName']}}
+                                                                ({{seg['Origin']['AirportCode']}})
+                                                            </div>
+                                                            <div class="airport-desc">
+                                                                {{seg['Origin']['AirportName']}}
+                                                                @if(seg['Origin']['Terminal']){• Terminal
+                                                                {{seg['Origin']['Terminal']}}}
+                                                            </div>
                                                         </div>
 
-                                                        <div class="line-dashed"></div>
-                                                    </div>
-                                                    <div class="segment-info">
+                                                        <div class="timeline-time">
+                                                            <div class="timeline-duration">
+                                                                {{FTduration(seg['Duration'])}}
+                                                            </div>
+                                                            <div class="timeline-duration-label">
+                                                                Travel Duration
+                                                            </div>
+                                                        </div>
+                                                        <div class="track-node">
 
-                                                        <div class="segment-airline">
-
-                                                            <div class="mini-logo">
-                                                                <img src="{{AirlineLogoURL}}/{{seg['Airline']['AirlineCode']}}.png" alt="">
+                                                            <div class="plane-wrapper">
+                                                                <i class="fa-solid fa-plane"></i>
                                                             </div>
 
-                                                            <div>
-                                                                <strong>{{seg['Airline']['AirlineName']}}</strong>
-                                                                <span class="segment-code">
-                                                                    • {{seg['Airline']['AirlineCode']}}-{{seg['Airline']['FlightNumber']}}
-                                                                </span>
+                                                            <div class="line-dashed"></div>
+                                                        </div>
+                                                        <div class="segment-info">
+
+                                                            <div class="segment-airline">
+
+                                                                <div class="mini-logo">
+                                                                    <img src="{{AirlineLogoURL}}/{{seg['Airline']['AirlineCode']}}.png"
+                                                                        alt="">
+                                                                </div>
+
+                                                                <div>
+                                                                    <strong>{{seg['Airline']['AirlineName']}}</strong>
+                                                                    <span class="segment-code">
+                                                                        •
+                                                                        {{seg['Airline']['AirlineCode']}}-{{seg['Airline']['FlightNumber']}}
+                                                                    </span>
+                                                                </div>
+
                                                             </div>
 
                                                         </div>
+                                                        <div class="timeline-time">
 
-                                                    </div>
-                                                    <div class="timeline-time">
+                                                            <div class="timeline-main-time">
+                                                                {{seg['Destination']['ArrivalTime']|date:'HH:mm'}}
+                                                            </div>
 
-                                                        <div class="timeline-main-time">
-                                                            {{seg['Destination']['ArrivalTime']|date:'HH:mm'}}
+                                                            <div class="timeline-date">
+                                                                {{seg['Destination']['ArrivalTime']|date:'dd MMM yyyy'}}
+                                                            </div>
+
                                                         </div>
+                                                        <div class="track-node">
 
-                                                        <div class="timeline-date">
-                                                            {{seg['Destination']['ArrivalTime']|date:'dd MMM yyyy'}}
+                                                            <div class="circle-indicator"></div>
+
                                                         </div>
+                                                        <div>
 
-                                                    </div>
-                                                    <div class="track-node">
+                                                            <div class="airport-name">
+                                                                {{seg['Destination']['CityName']}}
+                                                                ({{seg['Destination']['AirportCode']}})
+                                                            </div>
 
-                                                        <div class="circle-indicator"></div>
+                                                            <div class="airport-desc">
+                                                                {{seg['Destination']['AirportName']}}
+                                                                @if(seg['Destination']['Terminal']){• Terminal
+                                                                {{seg['Destination']['Terminal']}}}
+                                                            </div>
 
-                                                    </div>
-                                                    <div>
-
-                                                        <div class="airport-name">
-                                                            {{seg['Destination']['CityName']}} ({{seg['Destination']['AirportCode']}})
                                                         </div>
-
-                                                        <div class="airport-desc">
-                                                           {{seg['Destination']['AirportName']}}  @if(seg['Destination']['Terminal']){• Terminal {{seg['Destination']['Terminal']}}}
-                                                        </div>
-
                                                     </div>
                                                 </div>
                                                 @if(seg['Layover']){
-                                                <div class="layover-row mb-3">
-
+                                                <div class="layover-row">
                                                     <div></div>
-
                                                     <div class="layover-icon">
                                                         <i class="fa-regular fa-clock"></i>
                                                     </div>
@@ -755,18 +817,18 @@
                                                     <div>
 
                                                         <div class="layover-title">
-                                                            1 Stop at {{seg['Destination']['CityName']}} 
+                                                            1 Stop at {{seg['Destination']['CityName']}}
                                                         </div>
 
                                                         <div class="layover-duration">
-                                                           {{seg['Layover']}} Layover
+                                                            {{seg['Layover']}} Layover
                                                         </div>
 
                                                     </div>
 
                                                 </div>
                                                 }
-                                             }
+                                                }
                                             </div>
                                             }
                                         </div>
@@ -775,71 +837,135 @@
                                         <div class="tab-pane fade h-100" id="nav-fareInfo_{{item.TtsIndex}}"
                                             role="tabpanel" attr.aria-labelledby="nav-fareInfo_{{item.TtsIndex}}-tab"
                                             tabindex="0">
-                                            <div class="modern-card p-3" *ngIf="FlightFareDetail">
-                                                <table class="table table-bordered modern-table align-middle">
-                                                    <thead class="table-light">
-                                                        <tr>
-                                                            <th>Passenger</th>
-                                                            <th>Fare</th>
-                                                            <th>Total</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody *ngFor="let paxFare of FareBreakdown">
-                                                        <tr class="table-section-title">
-                                                            <td colspan="3">
-                                                                {{ paxFare['PaxType'] }}
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Base Fare</td>
-                                                            <td>
-                                                                ₹ {{ paxFare['BaseFare'] / paxFare['PassengerCount']
-                                                                | number:'1.0-2' }}
-                                                                x {{ paxFare['PassengerCount'] }}
-                                                            </td>
-                                                            <td>
-                                                                ₹ {{ paxFare['BaseFare'] | number:'1.0-2' }}
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Taxes</td>
-                                                            <td>
-                                                                ₹ {{ paxFare['Tax'] / paxFare['PassengerCount'] |
-                                                                number:'1.0-2' }}
-                                                                x {{ paxFare['PassengerCount'] }}
-                                                            </td>
-                                                            <td>
-                                                                ₹ {{ paxFare['Tax'] | number:'1.0-2' }}
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Service and Other Charges</td>
-                                                            <td>
-                                                                ₹ {{
-                                                                FlightFareDetail['Fare']['OtherCharges'] +
-                                                                FlightFareDetail['Fare']['ServiceCharges']
-                                                                }}
-                                                            </td>
-                                                            <td>
-                                                                ₹ {{
-                                                                FlightFareDetail['Fare']['OtherCharges'] +
-                                                                FlightFareDetail['Fare']['ServiceCharges']
-                                                                }}
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                    <tfoot>
-                                                        <tr class="grand-total-row">
-                                                            <th colspan="2">
-                                                                Grand Total
-                                                            </th>
-                                                            <th>
-                                                                ₹ {{ FlightFareDetail['Fare']['PublishedPrice'] |
-                                                                number:'1.0-2' }}
-                                                            </th>
-                                                        </tr>
-                                                    </tfoot>
-                                                </table>
+                                            <div class="scrollable-content">
+                                                <div class="modern-card" *ngIf="FlightFareDetail">
+                                                    @for (trip of item['Segments']; track $index) {
+                                                    <div class="flight-summary">
+                                                        <div class="airline-info">
+                                                            <div class="logo-gradient">
+                                                                <img src="{{AirlineLogoURL}}/{{trip[0]['Airline']['AirlineCode']}}.png"
+                                                                    alt="{{trip[0]['Airline']['AirlineName']}}">
+                                                            </div>
+                                                            <div>
+                                                                <div class="airline-name">
+                                                                    {{trip[0]['Airline']['AirlineName']}}
+                                                                </div>
+
+                                                                <div class="airline-code">
+                                                                    {{trip[0]['Airline']['AirlineCode']}}-{{trip[0]['Airline']['FlightNumber']}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="flight-time-block">
+                                                            <div class="flight-time">
+                                                                {{trip[0]['Origin']['AirportCode']}} -
+                                                                {{trip[0]['Origin']['DepartTime']|date:'HH:mm'}}
+                                                            </div>
+
+                                                            <div class="flight-date">
+                                                                {{trip[0]['Origin']['DepartTime']|date:'dd MMM yyyy'}}
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="flight-time-block">
+                                                            <div class="flight-duration">
+                                                                {{FTduration(trip[0]['TotalDuration'])}}
+                                                            </div>
+
+                                                            <div class="flight-stop">
+                                                                @if(trip[0]['Layover']){
+                                                                1 Stop
+                                                                }@else{
+                                                                0 Stop
+                                                                }
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="flight-time-block">
+                                                            <div class="flight-time">
+                                                                {{trip[trip.length-1]['Destination']['AirportCode']}} -
+                                                                {{trip[trip.length-1]['Destination']['ArrivalTime']|date:'HH:mm'}}
+                                                            </div>
+
+                                                            <div class="flight-date">
+                                                                {{trip[trip.length-1]['Destination']['ArrivalTime']|date:'dd
+                                                                MMM yyyy'}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    }
+
+                                                    <div class="p-3">
+                                                        <table class="table table-bordered modern-table align-middle ">
+                                                            <thead class="table-light">
+                                                                <tr>
+                                                                    <th>Passenger</th>
+                                                                    <th>Fare</th>
+                                                                    <th>Total</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody *ngFor="let paxFare of FareBreakdown">
+                                                                <tr class="table-section-title">
+                                                                    <td colspan="3">
+                                                                        {{ paxFare['PaxType'] }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Base Fare</td>
+                                                                    <td>
+                                                                        ₹ {{ paxFare['BaseFare'] /
+                                                                        paxFare['PassengerCount']
+                                                                        | number:'1.0-2' }}
+                                                                        x {{ paxFare['PassengerCount'] }}
+                                                                    </td>
+                                                                    <td>
+                                                                        ₹ {{ paxFare['BaseFare'] | number:'1.0-2' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Taxes</td>
+                                                                    <td>
+                                                                        ₹ {{ paxFare['Tax'] / paxFare['PassengerCount']
+                                                                        |
+                                                                        number:'1.0-2' }}
+                                                                        x {{ paxFare['PassengerCount'] }}
+                                                                    </td>
+                                                                    <td>
+                                                                        ₹ {{ paxFare['Tax'] | number:'1.0-2' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Service and Other Charges</td>
+                                                                    <td>
+                                                                        ₹ {{
+                                                                        FlightFareDetail['Fare']['OtherCharges'] +
+                                                                        FlightFareDetail['Fare']['ServiceCharges']
+                                                                        }}
+                                                                    </td>
+                                                                    <td>
+                                                                        ₹ {{
+                                                                        FlightFareDetail['Fare']['OtherCharges'] +
+                                                                        FlightFareDetail['Fare']['ServiceCharges']
+                                                                        }}
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                            <tfoot>
+                                                                <tr class="grand-total-row">
+                                                                    <th colspan="2">
+                                                                        Grand Total
+                                                                    </th>
+                                                                    <th>
+                                                                        ₹ {{ FlightFareDetail['Fare']['PublishedPrice']
+                                                                        |
+                                                                        number:'1.0-2' }}
+                                                                    </th>
+                                                                </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -847,37 +973,95 @@
                                         <div class="tab-pane fade h-100" id="nav-farerule_{{item.TtsIndex}}"
                                             role="tabpanel" attr.aria-labelledby="nav-farerule_{{item.TtsIndex}}-tab"
                                             tabindex="0">
-                                            <div class="row" *ngIf="fareRuleLoading">
-                                                <div class="col-md-12">
-                                                    <div class="text-center">
-                                                        <div class="loader mt-3 mb-3">
-                                                            <div class="lds-ellipsis">
-                                                                <div></div>
-                                                                <div></div>
-                                                                <div></div>
-                                                                <div></div>
+                                            <div class="scrollable-content">
+                                                @for (trip of item['Segments']; track $index) {
+                                                <div class="flight-summary">
+                                                    <div class="airline-info">
+                                                        <div class="logo-gradient">
+                                                            <img src="{{AirlineLogoURL}}/{{trip[0]['Airline']['AirlineCode']}}.png"
+                                                                alt="{{trip[0]['Airline']['AirlineName']}}">
+                                                        </div>
+                                                        <div>
+                                                            <div class="airline-name">
+                                                                {{trip[0]['Airline']['AirlineName']}}
+                                                            </div>
+
+                                                            <div class="airline-code">
+                                                                {{trip[0]['Airline']['AirlineCode']}}-{{trip[0]['Airline']['FlightNumber']}}
                                                             </div>
                                                         </div>
-                                                        <h6>Please Wait...</h6>
+                                                    </div>
+
+                                                    <div class="flight-time-block">
+                                                        <div class="flight-time">
+                                                            {{trip[0]['Origin']['AirportCode']}} -
+                                                            {{trip[0]['Origin']['DepartTime']|date:'HH:mm'}}
+                                                        </div>
+
+                                                        <div class="flight-date">
+                                                            {{trip[0]['Origin']['DepartTime']|date:'dd MMM yyyy'}}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="flight-time-block">
+                                                        <div class="flight-duration">
+                                                            {{FTduration(trip[0]['TotalDuration'])}}
+                                                        </div>
+
+                                                        <div class="flight-stop">
+                                                            @if(trip[0]['Layover']){
+                                                            1 Stop
+                                                            }@else{
+                                                            0 Stop
+                                                            }
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="flight-time-block">
+                                                        <div class="flight-time">
+                                                            {{trip[trip.length-1]['Destination']['AirportCode']}} -
+                                                            {{trip[trip.length-1]['Destination']['ArrivalTime']|date:'HH:mm'}}
+                                                        </div>
+
+                                                        <div class="flight-date">
+                                                            {{trip[trip.length-1]['Destination']['ArrivalTime']|date:'dd
+                                                            MMM yyyy'}}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="modern-card p-3"
-                                                *ngIf="fareRuleLoading==false && FareRuleErrorCode==0">
-                                                <div class="row"
-                                                    *ngFor="let farerule of FlightFareRule; let farerulekey=index;">
+                                                }
+
+                                                <div class="text-center" *ngIf="fareRuleLoading">
+                                                    <div class="loader mt-3 mb-3">
+                                                        <div class="lds-ellipsis">
+                                                            <div></div>
+                                                            <div></div>
+                                                            <div></div>
+                                                            <div></div>
+                                                        </div>
+                                                    </div>
+                                                    <h6>Please Wait...</h6>
+                                                </div>
+
+
+                                                <div class="modern-card p-3"
+                                                    *ngIf="fareRuleLoading==false && FareRuleErrorCode==0">
+
+                                                    <div class="row"
+                                                        *ngFor="let farerule of FlightFareRule; let farerulekey=index;">
+                                                        <div class="col-md-12">
+                                                            <button
+                                                                class="ars-activelist fare-rules-tabs">{{farerule.Origin}}-{{farerule.Destination}}</button>
+                                                        </div>
+                                                        <div class="col-md-12"
+                                                            id="fareRuleData{{item.TtsIndex+farerule.Origin+farerule.Destination+farerulekey}}"
+                                                            [innerHTML]="farerule.FareRuleDetail |safeHtml"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row" *ngIf="fareRuleLoading==false && FareRuleErrorCode!=0">
                                                     <div class="col-md-12">
-                                                        <button
-                                                            class="ars-activelist fare-rules-tabs">{{farerule.Origin}}-{{farerule.Destination}}</button>
+                                                        {{fareruleerrormessage}}
                                                     </div>
-                                                    <div class="col-md-12"
-                                                        id="fareRuleData{{item.TtsIndex+farerule.Origin+farerule.Destination+farerulekey}}"
-                                                        [innerHTML]="farerule.FareRuleDetail |safeHtml"></div>
-                                                </div>
-                                            </div>
-                                            <div class="row" *ngIf="fareRuleLoading==false && FareRuleErrorCode!=0">
-                                                <div class="col-md-12">
-                                                    {{fareruleerrormessage}}
                                                 </div>
                                             </div>
                                         </div>
@@ -886,27 +1070,86 @@
                                         <div class="tab-pane fade h-100" id="nav-baggageinfo_{{item.TtsIndex}}"
                                             role="tabpanel" attr.aria-labelledby="nav-baggageinfo_{{item.TtsIndex}}-tab"
                                             tabindex="0">
-                                            <div class="modern-card p-3">
-                                                <table class="table table-bordered modern-table align-middle">
-                                                    <thead class="table-light">
-                                                        <tr>
-                                                            <th>Sector</th>
-                                                            <th>Check-In</th>
-                                                            <th>Cabin</th>
-                                                        </tr>
-                                                    </thead>
+                                            <div class="scrollable-content">
+                                                @for (trip of item['Segments']; track $index) {
+                                                <div class="flight-summary">
+                                                    <div class="airline-info">
+                                                        <div class="logo-gradient">
+                                                            <img src="{{AirlineLogoURL}}/{{trip[0]['Airline']['AirlineCode']}}.png"
+                                                                alt="{{trip[0]['Airline']['AirlineName']}}">
+                                                        </div>
+                                                        <div>
+                                                            <div class="airline-name">
+                                                                {{trip[0]['Airline']['AirlineName']}}
+                                                            </div>
 
-                                                    <tbody>
-                                                        <ng-container *ngFor="let tripBaggageInfo of FlightBaggageInfo">
-                                                            <tr *ngFor="let BaggageInfo of tripBaggageInfo">
+                                                            <div class="airline-code">
+                                                                {{trip[0]['Airline']['AirlineCode']}}-{{trip[0]['Airline']['FlightNumber']}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                                                                <td>{{ BaggageInfo['Sector'] }}</td>
-                                                                <td>{{ BaggageInfo['CheckIn'] }}</td>
-                                                                <td>{{ BaggageInfo['Cabin'] }}</td>
+                                                    <div class="flight-time-block">
+                                                        <div class="flight-time">
+                                                            {{trip[0]['Origin']['AirportCode']}} -
+                                                            {{trip[0]['Origin']['DepartTime']|date:'HH:mm'}}
+                                                        </div>
+
+                                                        <div class="flight-date">
+                                                            {{trip[0]['Origin']['DepartTime']|date:'dd MMM yyyy'}}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="flight-time-block">
+                                                        <div class="flight-duration">
+                                                            {{FTduration(trip[0]['TotalDuration'])}}
+                                                        </div>
+
+                                                        <div class="flight-stop">
+                                                            @if(trip[0]['Layover']){
+                                                            1 Stop
+                                                            }@else{
+                                                            0 Stop
+                                                            }
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="flight-time-block">
+                                                        <div class="flight-time">
+                                                            {{trip[trip.length-1]['Destination']['AirportCode']}} -
+                                                            {{trip[trip.length-1]['Destination']['ArrivalTime']|date:'HH:mm'}}
+                                                        </div>
+
+                                                        <div class="flight-date">
+                                                            {{trip[trip.length-1]['Destination']['ArrivalTime']|date:'dd
+                                                            MMM yyyy'}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                }
+                                                <div class="modern-card p-3">
+                                                    <table class="table table-bordered modern-table align-middle">
+                                                        <thead class="table-light">
+                                                            <tr>
+                                                                <th>Sector</th>
+                                                                <th>Check-In</th>
+                                                                <th>Cabin</th>
                                                             </tr>
-                                                        </ng-container>
-                                                    </tbody>
-                                                </table>
+                                                        </thead>
+
+                                                        <tbody>
+                                                            <ng-container
+                                                                *ngFor="let tripBaggageInfo of FlightBaggageInfo">
+                                                                <tr *ngFor="let BaggageInfo of tripBaggageInfo">
+
+                                                                    <td>{{ BaggageInfo['Sector'] }}</td>
+                                                                    <td>{{ BaggageInfo['CheckIn'] }}</td>
+                                                                    <td>{{ BaggageInfo['Cabin'] }}</td>
+                                                                </tr>
+                                                            </ng-container>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
