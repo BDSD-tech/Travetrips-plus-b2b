@@ -61,6 +61,7 @@ export class LoginComponent implements OnInit {
     this.LoginForm = this.fb.group({
       emailphone: ['', [Validators.required, Validators.pattern(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})|([0-9]{10})+$/)]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]],
+      istrust:[false]
     });
 
     this.VarifyOTP = this.fb.group({
@@ -72,8 +73,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.startAutoSlide()
-    console.log(this.authenticationservice.currentUserValue);
-    
     if (this.authenticationservice.currentUserValue) {
       this.router.navigate(['/flight']);
     } 
@@ -85,6 +84,7 @@ export class LoginComponent implements OnInit {
       }
     });
     
+
   const swiperEl:any = document.getElementById('Slider-second')
   Object.assign(swiperEl, {
     slidesPerView: 1,
@@ -120,6 +120,7 @@ export class LoginComponent implements OnInit {
       clearInterval(this.interval);
     }
   }
+
   showPassword() {
     this.isVisible = !this.isVisible;
   }
@@ -135,7 +136,7 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.Loginloading = true;
-    this.authenticationservice.login(this.f['emailphone'].value, this.f['password'].value).pipe(first()).subscribe(data => {
+    this.authenticationservice.login(this.f['emailphone'].value, this.f['password'].value,this.f['istrust'].value).pipe(first()).subscribe(data => {
       this.Loginloading = false;
       if (data['Error']['ErrorCode'] == 0) {
         if (data['Result']['WithOTP'] == false) {
@@ -182,13 +183,13 @@ export class LoginComponent implements OnInit {
   }
   LoginSubmitOTP() {
     this.VerifyOTPSubmitted = true;
-    let otp = this.inputotp.join("");
-    if (otp.length == 6) {
-      this.VarifyOTP.patchValue({ 'otp': otp, 'emailphone': this.f['emailphone'].value, 'password': this.f['password'].value });
-    } else {
-      this.VarifyOTP.patchValue({ 'otp': '' });
-      return;
-    }
+    // let otp = this.inputotp.join("");
+    // if (otp.length == 6) {
+      this.VarifyOTP.patchValue({'emailphone': this.f['emailphone'].value, 'password': this.f['password'].value });
+    // } else {
+    //   this.VarifyOTP.patchValue({ 'otp': '' });
+    //   return;
+    // }
     this.OTPLoginloading = true;
     this.authenticationservice.VarifyOTP(this.fv['emailphone'].value, this.fv['password'].value, this.fv['otp'].value).subscribe((data: any) => {
       this.OTPLoginloading = false;
@@ -199,8 +200,6 @@ export class LoginComponent implements OnInit {
       }
     })
   }
-
-
 
   onPaste(event: ClipboardEvent) {
     let clipboardData = event.clipboardData?.getData('text') || '';
@@ -216,6 +215,7 @@ export class LoginComponent implements OnInit {
     }
     event.preventDefault();
   }
+
   onKeyDown(event: KeyboardEvent, index: number) {
     if (event.key === 'Backspace' && !this.inputotp[index] && index > 0) {
       this.otpInputs.toArray()[index - 1].nativeElement.focus();

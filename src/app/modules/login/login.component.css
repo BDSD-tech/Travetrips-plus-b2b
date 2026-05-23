@@ -307,6 +307,9 @@
 
     transition: var(--transition);
 }
+.input-group-custom input.otp {
+    padding: 0 25px;
+}
 
 .input-group-custom input:focus {
     background: var(--white);

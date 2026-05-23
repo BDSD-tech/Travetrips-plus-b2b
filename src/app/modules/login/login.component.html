@@ -90,7 +90,12 @@
                 <div *ngIf="f['password'].errors['maxlength']">Password can't be more than 16 characters. </div>
               </div>
             </div>
-
+    
+            <div class="form-check form-switch my-2 ms-2">
+              <input class="form-check-input" formControlName="istrust" type="checkbox" id="true-device">
+              <label class="form-check-label" for="true-device">Trusted Device </label>
+            </div>
+      
             <!-- BUTTON -->
             <button class="btn-login" type="submit" [disabled]="Loginloading">
               <span *ngIf="Loginloading" class="spinner-border spinner-border-sm me-2"></span> Login Now
@@ -116,7 +121,8 @@
           </div>
 
           <form [formGroup]="VarifyOTP" (ngSubmit)="LoginSubmitOTP()">
-            <div class="otp-wrapper mb-4">
+            <!-- <div class="otp-wrapper mb-4">
+
 
               <input type="text" id="one" maxlength="1" (keyup)="clickEvent($event,'two')"
                 (keydown)="onKeyDown($event, 0)" (paste)="onPaste($event)" (keypress)="numberOnly($event)" #otpInput
@@ -154,13 +160,22 @@
                 [ngModelOptions]="{standalone: true}">
 
 
+            </div> -->
+            <div class="d-flex justify-content-end py-2">
+              <a href="javascript:void(0)" class="text-primary" (click)="ActiveStep='CheckUser'"><i class="fa-solid fa-angle-left"></i> Back to login</a>
             </div>
-            <div *ngIf="VerifyOTPSubmitted && fv['otp'].errors" class="error-feedback">
-              <div
-                *ngIf="fv['otp'].errors['required'] || fv['otp'].errors['minlength'] || fv['otp'].errors['maxlength']">
-                Please enter valid OTP.
-              </div>
-            </div>
+            <div class="input-group-custom mb-4">
+              <!-- <i class="fa-regular auth-icons fa-envelope"></i> -->
+              <input type="text" class="otp" (keypress)="numberOnly($event)" formControlName="otp" placeholder="Enter otp."
+                autocomplete="off">
+                  <div *ngIf="VerifyOTPSubmitted && fv['otp'].errors" class="error-feedback">
+                  <div
+                        *ngIf="fv['otp'].errors['required'] || fv['otp'].errors['minlength'] || fv['otp'].errors['maxlength']">
+                        Please enter valid OTP.
+                      </div>
+                    </div>
+                </div>
+          
             <button class="btn-login" type="submit" [disabled]="OTPLoginloading">
               <span *ngIf="Loginloading" class="spinner-border spinner-border-sm me-2"></span> Verify OTP
             </button>
