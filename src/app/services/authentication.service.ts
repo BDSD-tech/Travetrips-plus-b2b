@@ -23,13 +23,13 @@ export class AuthenticationService {
         return this.currentUserSubject.value;
     }
 
-    login(emailphone: string, password: string) {
-        return this.http.post<any>(`${tts_config.APIURL}/login`, {emailphone, password })
+    login(emailphone: string, password: string,istrust:any) {
+        return this.http.post<any>(`${tts_config.APIURL}/login`, {emailphone, password,istrust })
             .pipe(map(user => {
                 if(user['Error']['ErrorCode']==0) {
                    if(user['Result']['WithOTP']==false){
                     localStorage.setItem('TTSAgent', JSON.stringify(user.Result));
-                    this.currentUserSubject.next(user.Result);
+                        this.currentUserSubject.next(user.Result);
                     }
                  }
                  return user;

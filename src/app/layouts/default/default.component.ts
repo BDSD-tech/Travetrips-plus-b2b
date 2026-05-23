@@ -100,11 +100,12 @@ export class DefaultComponent implements OnInit {
     this.AddWaterMark();
   }
 
- OpenHome() {
-  this.router.navigate(['/flight']).then(() => {
-    window.location.reload();
-  });
-}
+  OpenHome() {
+    this.router.navigate(['/flight']).then(() => {
+      window.location.reload();
+    });
+  }
+
   AddWaterMark()
   {
     let agentid =this.LoginAgentinfo['CompanyId'];

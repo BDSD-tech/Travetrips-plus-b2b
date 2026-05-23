@@ -64,16 +64,10 @@
             </div>
             <!-- CONTACT BUTTON -->
             
-            <button class="btn contact-btn">
+            <button routerLink="/pages/contact-us" class="btn contact-btn">
                Contact Us
             </button>
      
-            <!-- Dahsboard -->
-            <div class="wallet-dropdown">
-               <button class="btn wallet-btn" type="button">
-                   <i class="fa-solid fa-gauge"></i>
-               </button>
-            </div>
 
             <!-- WALLET DROPDOWN -->
             <div class="dropdown wallet-dropdown">
@@ -82,10 +76,10 @@
                </button>
                <div class="dropdown-menu dropdown-menu-end wallet-menu">
                   <div class="wallet-item">
-                     <span>Main Wallet:</span>
-                     <strong>₹0</strong>
+                     <span>Wallet Balance: </span>
+                     <strong>₹{{WalletBalance}}</strong>
                   </div>
-                  <div class="wallet-item">
+                  <!-- <div class="wallet-item">
                      <span>Eaglecrest Wallet:</span>
                      <strong>₹0</strong>
                   </div>
@@ -96,7 +90,7 @@
                   <div class="wallet-item border-0 pb-0">
                      <span>Crest Miles:</span>
                      <strong>₹0</strong>
-                  </div>
+                  </div> -->
                </div>
             </div>
             <!-- USER PROFILE -->
@@ -106,10 +100,10 @@
                   <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="User">
                   <div class="user-info text-start">
                      <span>
-                        Welcome: IN-FRDO05047
+                        Welcome: {{LoginAgentinfo['CompanyId']}}
                      </span>
                      <strong>
-                        Relationship Manager
+                       {{LoginAgentinfo['Name']}}
                      </strong>
                   </div>
                   <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
@@ -302,7 +296,7 @@
                      Pax Calendar
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item logout-item" href="javascript:void(0);">
+                  <a class="dropdown-item logout-item" (click)="logout()" href="javascript:void(0);">
                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                         class="rpfteH2dJ806mlRyY5L7">
                         <path
@@ -745,7 +739,7 @@
                {{GetWebSiteData['CopyRight']}}
             </span>
 
-            <a href="javascript:void(0);">
+            <a href="javascript:void(0);" routerLink="/pages/contact-us">
                Contact Us
             </a>
 
