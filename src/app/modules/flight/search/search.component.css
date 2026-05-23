@@ -217,14 +217,69 @@
     text-align: center;
     /* color: var(--white); */
     color: rgb(91, 91, 91);
-    font-weight: 600;
     transition: var(--transition);
-    font-size: 16px;
     background-color: transparent;
 }
 
-.share-btn:hover {
-    transform: translateY(-2px);
+.share-btn i {
+    font-size: 18px;
+}
+
+/* =========================================
+   SHARE ICON CHECKBOX
+========================================= */
+
+.share-checkbox {
+    position: absolute;
+    top: 0;
+    left: -30px;
+    display: inline-block;
+}
+
+.share-checkbox-input {
+    display: none;
+}
+
+.share-checkbox-label {
+    width: 22px;
+    height: 22px;
+    border-radius: 5px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.share-icon {
+    font-size: 10px;
+    color: #475569;
+    transition: 0.3s ease;
+}
+
+.check-icon {
+    position: absolute;
+    font-size: 10px;
+    color: #ffffff;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.share-checkbox-input:checked+.share-checkbox-label {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-color));
+    border-color: var(--primary-color);
+}
+
+.share-checkbox-input:checked+.share-checkbox-label .share-icon {
+    opacity: 0;
+}
+
+.share-checkbox-input:checked+.share-checkbox-label .check-icon {
+    opacity: 1;
 }
 
 /* .whatsapp-btn {
@@ -239,13 +294,13 @@
     background: #5c6bc0;
 } */
 
-.active-share-btn {
+/* .active-share-btn {
     background: var(--primary-color);
 }
 
 .close-share-btn {
     background: #ef5350;
-}
+} */
 
 /* =========================================================
    QUICK FILTER CARDS
@@ -330,7 +385,6 @@
     width: 100%;
     border: none;
     background: transparent;
-    font-weight: 600;
     color: var(--dark);
     transition: var(--transition);
     padding: 0;
@@ -369,17 +423,16 @@
 }
 
 .flight-card .airline-logo {
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
     border-radius: 5px;
     object-fit: contain;
 }
 
 .flight-card .airline-info h6 {
-    font-size: 15px;
-    font-weight: 700;
-    color: #111827;
+    font-size: 12px;
     margin-bottom: 2px;
+    font-weight: 600;
 }
 
 .flight-card .airline-info small {
@@ -456,24 +509,15 @@
     color: #d97706;
 }
 
-.flight-extra-info {
-    border-top: 1px dashed #dbeafe;
-    margin-top: 18px;
-    padding-top: 14px;
-}
 
 .info-badge {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 8px 14px;
-    border-radius: 12px;
+    gap: 5px;
     font-size: 12px;
-    font-weight: 600;
 }
 
 .arrival-badge {
-    background: rgba(59, 130, 246, 0.12);
     color: var(--primary-color);
 }
 
@@ -495,15 +539,14 @@
     list-style: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
 }
 
 .flight-radiolist li {
-    padding: 0px 0 5px 0;
-    transition: var(--transition);
-}
-
-.flight-radiolist li:hover {
-    color: #3b82f6;
+    position: relative;
 }
 
 .flight-radiolist .form-check {
@@ -516,8 +559,7 @@
 .flight-radiolist .form-check-label {
     width: 100%;
     cursor: pointer;
-    font-size: 16px;
-    font-weight: 700;
+    font-weight: 500;
     color: #111827;
 }
 
@@ -588,20 +630,24 @@
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 14px;
 }
 
 .flight-info-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #000;
     font-size: 12px;
+    padding-right: 8px;
+    margin-right: 8px;
+    border-right: 1px solid var(--border-color);
     font-weight: 600;
 }
 
+.flight-info-item:last-of-type {
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
 .flight-info-item i {
-    color: #60a5fa;
+    color: var(--primary-color);
 }
 
 .flight-info-item.seats-left {
@@ -617,12 +663,10 @@
 
 .refundable {
     color: #28a745;
-    font-weight: 600;
 }
 
 .non-refundable {
     color: #dc3545;
-    font-weight: 600;
 }
 
 /* =========================================================
@@ -631,12 +675,12 @@
 .flight-links {
     display: flex;
     align-items: center;
-    gap: 12px;
     flex-wrap: wrap;
 }
 
 .more-fare,
 .flight-view-btn {
+    font-size: 14px;
     border: none;
     font-weight: 700;
     transition: all 0.3s ease;
@@ -656,11 +700,6 @@
    DROPDOWN ICON
 ========================================================= */
 .flight__dropdown__icon {
-    width: 30px;
-    height: 30px;
-    margin: 0 auto;
-    border-radius: 50%;
-    background: #eff6ff;
     color: var(--primary-color);
     display: flex;
     align-items: center;
@@ -668,18 +707,14 @@
     cursor: pointer;
     transition: all 0.3s ease;
     position: absolute;
-    bottom: -14px;
+    bottom: 20px;
     z-index: 1;
 }
 
 .flight__dropdown__icon:hover {
-    background: var(--primary-color);
-    color: #fff;
+    color: var(--primary-color);
 }
 
-.flight__dropdown__icon--selected {
-    transform: rotate(180deg);
-}
 
 /* =========================================================
    TABS
@@ -903,7 +938,7 @@
 
 .custom-offcanvas {
     width: 100% !important;
-    max-width: 480px !important;
+    max-width: 550px !important;
     border-left: 1px solid var(--border-color);
     box-shadow: var(--shadow-md);
 }
@@ -936,9 +971,6 @@
     font-weight: 400;
 }
 
-/* =========================================================
-       TABS
-    ========================================================= */
 
 .custom-offcanvas .nav-tabs {
     border-bottom: 1px solid var(--border-color);
@@ -984,16 +1016,17 @@
 .custom-offcanvas .scrollable-content {
     height: 100%;
     overflow-y: auto;
-    padding: 16px;
 }
 
 .custom-offcanvas .flight-summary {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 18px;
-    margin-bottom: 24px;
-    border-bottom: 1px solid var(--border-color);
+    padding-left: 30px;
+    padding-right: 30px;
+    background: #f5f8fb;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .custom-offcanvas .flight-summary .airline-info {
@@ -1004,8 +1037,10 @@
 }
 
 .custom-offcanvas .logo-gradient {
-    width: 24px;
-    height: 24px;
+    overflow: hidden;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
     border: 1px solid var(--border-color);
     /* background: linear-gradient(45deg,
           var(--second-dark-color),
@@ -1016,9 +1051,16 @@
           20% 80%); */
 }
 
+.custom-offcanvas .logo-gradient img {
+    width: 100%;
+    height: 100%;
+}
+
 .custom-offcanvas .mini-logo {
-    width: 14px;
-    height: 14px;
+    overflow: hidden;
+    width: 20px;
+    height: 20px;
+    border-radius: var(--radius-md);
     border: 1px solid var(--border-color);
     /* background: linear-gradient(45deg,
           var(--second-dark-color),
@@ -1028,6 +1070,11 @@
           80% 100%,
           20% 80%); */
     display: inline-block;
+}
+
+.custom-offcanvas .ini-logo img {
+    width: 100%;
+    height: 100%;
 }
 
 .custom-offcanvas .airline-name {
@@ -1069,11 +1116,18 @@
     font-weight: 600;
 }
 
+.custom-offcanvas .flightitenarary-flights-container {
+    position: relative;
+    margin-top: 5px;
+    padding-top: 5px;
+    overflow: hidden;
+}
+
 .custom-offcanvas .timeline-grid {
     display: grid;
     grid-template-columns: 80px 40px 1fr;
     row-gap: 12px;
-    padding-bottom: 20px;
+    padding-left: 20px;
 }
 
 .custom-offcanvas .timeline-time {
@@ -1164,20 +1218,13 @@
 }
 
 .custom-offcanvas .layover-row {
+    margin: 20px 0;
     grid-column: 1 / -1;
-
     display: grid;
     grid-template-columns: 80px 40px 1fr;
-
     align-items: center;
-
     background: var(--second-bg-color);
-
-    margin-left: -16px;
-    margin-right: -16px;
-
     padding: 12px 20px;
-
     border-top: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
 }
@@ -1277,5 +1324,137 @@
 
 .custom-offcanvas .btn-action:hover {
     background: var(--primary-color);
-   color: var(--white);
+    color: var(--white);
+}
+
+
+
+/* =========================================
+   NO FLIGHT FOUND DESIGN
+========================================= */
+
+.noflight {
+    width: 100%;
+    padding: 50px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.no_flight-content {
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 50px 35px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+/* Background Glow */
+.no_flight-content::before {
+    content: "";
+    position: absolute;
+    top: -90px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 240px;
+    height: 240px;
+    background: rgba(29, 72, 163, 0.08);
+    border-radius: 50%;
+}
+
+/* Flight Icon */
+.flight-icons-zeroFlight {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background: linear-gradient(135deg,
+            var(--primary-color),
+            var(--color-dark));
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 12px 25px rgba(29, 72, 163, 0.25);
+}
+
+/* Text */
+.no_flight-content p {
+    margin-top: 24px;
+    margin-bottom: 0;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--dark);
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+}
+
+/* Reset Button */
+.no_flight-content .tts-button-primary {
+    min-width: 200px;
+    height: 50px;
+    margin-top: 28px !important;
+    border: none;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg,
+            var(--primary-bg-color),
+            #ffb938);
+    color: var(--white);
+    font-size: 15px;
+    font-weight: 600;
+    padding: 0 28px;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 10px 20px rgba(247, 157, 6, 0.25);
+}
+
+/* Hover */
+.no_flight-content .tts-button-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px rgba(247, 157, 6, 0.35);
+}
+
+/* Card Hover */
+.no_flight-content:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+
+    .noflight {
+        padding: 30px 15px;
+    }
+
+    .no_flight-content {
+        padding: 40px 22px;
+    }
+
+    .flight-icons-zeroFlight {
+        width: 75px;
+        height: 75px;
+        font-size: 28px;
+    }
+
+    .no_flight-content p {
+        font-size: 14px;
+    }
+
+    .no_flight-content .tts-button-primary {
+        width: 100%;
+        min-width: 100%;
+    }
 }

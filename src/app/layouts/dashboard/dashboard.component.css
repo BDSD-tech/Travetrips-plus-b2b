@@ -1,3 +1,403 @@
+/* =========================================================
+   TOP NAVBAR
+========================================================= */
+
+.top-navbar {
+    background: var(--white);
+    padding: 12px 0;
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 997;
+    transition: var(--transition);
+    border-bottom: 1px solid #f1f1f1;
+}
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.brand-logo {
+    margin-right: 20px;
+}
+
+.brand-logo img {
+    height: 42px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.main-nav {
+    margin-left: 25px;
+}
+
+.nav-item-custom {
+    position: relative;
+    padding: 9px 14px !important;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--second-dark-color) !important;
+    font-family: var(--body-font);
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-item-custom:hover {
+    color: var(--primary-color) !important;
+}
+
+.nav-item-custom.active {
+    background: var(--primary-color);
+    color: var(--white) !important;
+}
+
+/* =========================================================
+   NEW BADGE
+========================================================= */
+
+.new-tag-item {
+    padding-right: 46px !important;
+}
+
+.new-badge {
+    position: absolute;
+    top: -6px;
+    right: 6px;
+    background: var(--primary-bg-color);
+    color: var(--white);
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 50px;
+    line-height: 1.2;
+    letter-spacing: 0.3px;
+}
+
+/* =========================================================
+   RIGHT SECTION
+========================================================= */
+
+.navbar-right {
+    margin-left: auto;
+}
+
+/* =========================================================
+   SUPPORT BOX
+========================================================= */
+
+.support-box {
+    padding-right: 10px;
+}
+
+.support-box span {
+    font-size: 10px;
+    color: var(--dark);
+    line-height: 1.2;
+}
+
+.support-box strong {
+    font-size: 14px;
+    color: var(--second-dark-color);
+    font-family: var(--heading-font);
+    line-height: 1.3;
+}
+
+.support-box small {
+    font-size: 10px;
+    color: var(--dark);
+    line-height: 1.2;
+}
+
+/* =========================================================
+   CONTACT BUTTON
+========================================================= */
+
+.contact-btn {
+    background: var(--primary-color);
+    color: var(--white);
+    border-radius: 50px;
+    border: none;
+    min-width: 115px;
+    height: 40px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: var(--body-font);
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-btn:hover {
+    background: var(--color-dark);
+    color: var(--white);
+    transform: translateY(-1px);
+}
+
+/* =========================================================
+   WALLET
+========================================================= */
+
+.wallet-dropdown {
+    position: relative;
+}
+
+.wallet-btn {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border-radius: 14px;
+    background: var(--white);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    font-size: 15px;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wallet-btn:hover {
+    background: var(--second-bg-color);
+    border-color: var(--primary-color);
+}
+
+.wallet-menu {
+    width: 270px;
+    padding: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    box-shadow: var(--shadow-md);
+    margin-top: 14px !important;
+}
+
+.wallet-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 0 10px 0;
+    margin: 0 0 10px 0;
+    border-bottom: 1px solid #f1f1f1;
+    font-size: 14px;
+    color: var(--second-dark-color);
+}
+
+.wallet-item:last-child {
+    border-bottom: none;
+}
+
+.wallet-item strong {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+/* =========================================================
+   USER PROFILE
+========================================================= */
+
+.user-dropdown {
+    position: relative;
+}
+
+.dropdown-toggle-custom::after {
+    display: none !important;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    transition: var(--transition);
+}
+
+.user-profile img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(29, 72, 163, 0.15);
+}
+
+.user-info {
+    line-height: 1.2;
+}
+
+.user-info span {
+    display: block;
+    font-size: 10px;
+    color: var(--dark);
+    margin-bottom: 2px;
+}
+
+.user-info strong {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary-color);
+    font-family: var(--heading-font);
+}
+
+.dropdown-arrow {
+    font-size: 12px;
+    color: var(--dark);
+    transition: var(--transition);
+    margin-left: 2px;
+}
+
+.user-profile[aria-expanded="true"] .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+/* =========================================================
+   PROFILE DROPDOWN
+========================================================= */
+
+.profile-dropdown-menu {
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 22px;
+    box-shadow: var(--shadow-md);
+    margin-top: 16px !important;
+    animation: dropdownFade 0.25s ease;
+}
+
+.profile-dropdown-menu .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 0px 0 10px 0;
+    border-radius: 12px;
+    font-weight: 500;
+    color: #7b7b7b;
+    transition: var(--transition);
+}
+
+.profile-dropdown-menu .dropdown-item svg {
+    stroke: #858585 !important;
+    width: 20px;
+    height: 20px;
+    fill: none;
+}
+
+.profile-dropdown-menu .dropdown-item:hover {
+    background: transparent;
+    color: var(--primary-color);
+}
+
+.profile-dropdown-menu .dropdown-item:hover i {
+    color: var(--primary-color);
+}
+
+.dropdown-divider {
+    margin: 10px 0;
+    border-top: 1px solid #ececec;
+}
+
+.logout-item {
+    color: #dc3545 !important;
+}
+
+.logout-item i {
+    color: #dc3545 !important;
+}
+
+/* =========================================================
+   DROPDOWN ANIMATION
+========================================================= */
+
+@keyframes dropdownFade {
+
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1199px) {
+
+    .main-nav {
+        margin-left: 0;
+        margin-top: 18px;
+        gap: 8px;
+    }
+
+    .nav-item-custom {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .navbar-right {
+        width: 100%;
+        margin-top: 20px;
+        padding-top: 15px;
+        border-top: 1px solid #f1f1f1;
+        justify-content: flex-start;
+        gap: 14px !important;
+    }
+
+    .support-box {
+        display: none !important;
+    }
+
+    .profile-dropdown-menu,
+    .wallet-menu {
+        width: 100%;
+        min-width: 260px;
+    }
+}
+
+@media (max-width: 767px) {
+
+    .top-navbar {
+        padding: 10px 0;
+    }
+
+    .brand-logo img {
+        height: 36px;
+    }
+
+    .navbar-right {
+        flex-direction: column;
+        align-items: stretch !important;
+    }
+
+    .contact-btn {
+        width: 100%;
+    }
+
+    .wallet-btn {
+        width: 100%;
+        height: 42px;
+        border-radius: 12px;
+    }
+
+    .user-profile {
+        width: 100%;
+    }
+
+    .profile-dropdown-menu {
+        width: 100%;
+    }
+}
+
 .aside-menubar-listAll a {
     color: #333;
     text-transform: capitalize;
@@ -270,9 +670,7 @@
 }
 
 
-/*--------------------------------------------------------------
-# Sidebar
---------------------------------------------------------------*/
+/*---------------------# Sidebar---------------------*/
 .sidebar__container {
     position: fixed;
     top: 80px;
@@ -287,17 +685,17 @@
     scrollbar-color: #aab7cf transparent;
     box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1);
     background-color: #fff;
-    /* background-image: url('/img/admin-bg.jpg');
+    background-image: url('/img/admin-bg.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center center; */
+    background-position: center center;
 }
 
-/* @media (max-width: 1199px) {
+@media (max-width: 1199px) {
     .sidebar__container {
         left: -250px;
     }
-} */
+}
 
 .sidebar__container::-webkit-scrollbar {
     width: 5px;
@@ -401,7 +799,6 @@
 
 
 
-/* ================= SIDEBAR TOGGLE / CLOSE BUTTONS ================= */
 .sidebar-toggle-btn,
 .sidebar-close-btn {
     display: inline-flex;
@@ -431,7 +828,6 @@
     z-index: 1001;
 }
 
-/* ================= RESPONSIVE ================= */
 @media (max-width: 1199px) {
     .sidebar__container {
         transform: translateX(-100%);

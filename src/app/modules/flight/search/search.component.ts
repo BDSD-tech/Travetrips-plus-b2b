@@ -453,18 +453,25 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
   }
 
-  MoreFare(event: any, ttsindex: any) {
-    const icon = event.currentTarget;
-    icon.classList.toggle("flight__dropdown__icon--selected");
-    let limit = this.fareshowlimit;
-    let uldata: any = document.querySelector('.farelist_' + ttsindex);
-    for (let i = 0; i < uldata.children.length; ++i) {
-      let item = uldata.children.item(i);
-      if (i >= limit) {
-        item.classList.toggle('d-none');
-      }
+MoreFare(event: any, item: any, ttsindex: any) {
+
+  item.showMoreFare = !item.showMoreFare;
+
+  const icon = event.currentTarget;
+  icon.classList.toggle("flight__dropdown__icon--selected");
+
+  let limit = this.fareshowlimit;
+  let uldata: any = document.querySelector('.farelist_' + ttsindex);
+
+  for (let i = 0; i < uldata.children.length; ++i) {
+
+    let fareItem = uldata.children.item(i);
+
+    if (i >= limit) {
+      fareItem.classList.toggle('d-none');
     }
   }
+}
 
   flightdetail(_event: any, item: any) {
     if (_event.target.classList.contains('tts-minus')) {

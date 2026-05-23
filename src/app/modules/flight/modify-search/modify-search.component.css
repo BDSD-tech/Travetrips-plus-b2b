@@ -112,7 +112,6 @@ FLIGHT SEARCH TOP BAR
 }
 
 .flight-search-wrapper .flight-tabs .nav-link {
-  padding: 0.5rem 0.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -121,7 +120,7 @@ FLIGHT SEARCH TOP BAR
   border-radius: var(--radius-lg);
   background: #ffffff00;
   color: var(--second-dark-color);
-  font-size: 13px;
+  font-size: 12px;
   font-family: var(--body-font);
   transition: var(--transition);
 }
@@ -286,17 +285,11 @@ RESPONSIVE
   position: relative;
   flex: 1;
   min-width: 210px;
-  background: #f9fbff;
+  background: #f5f8fb;
   border-radius: var(--radius-sm);
   padding: 8px 16px 8px 45px;
   border: 1px solid #e5e7eb;
   transition: var(--transition);
-}
-
-.persent-one:hover {
-  border-color: rgba(29, 72, 163, 0.25);
-  background: var(--white);
-  box-shadow: var(--shadow-md);
 }
 
 .persent-one.less-per {
@@ -316,13 +309,23 @@ RESPONSIVE
   object-fit: contain;
 }
 
+.custom-label {
+  position: absolute;
+  top: -0.5rem;
+  left: 0.825rem;
+  z-index: 1;
+  background: #f5f8fb;
+  color: #858585;
+  font-weight: 400;
+  font-size: 12px;
+}
+
 .textboxstyle {
   width: 100%;
   border: none;
   outline: none;
   background: transparent;
   font-size: 12px;
-  font-weight: 600;
   color: var(--second-dark-color);
   font-family: var(--body-font);
 }
@@ -401,13 +404,9 @@ RESPONSIVE
   border-radius: var(--radius-sm);
   background: linear-gradient(135deg, var(--primary-color));
   color: var(--white);
-  /* box-shadow: 0 12px 25px rgba(247, 157, 6, 0.30); */
   transition: var(--transition);
 }
 
-.cst-btn:hover {
-  box-shadow: 0 16px 35px rgba(247, 157, 6, 0.40);
-}
 
 .makeflex {
   display: flex;
@@ -548,8 +547,7 @@ RESPONSIVE
   border-radius: var(--radius-sm);
   background: #f8fbff;
   color: var(--primary-color);
-  padding: 12px 20px;
-  font-weight: 600;
+  padding: 8px 16px;
   border: 1px solid rgba(29, 72, 163, 0.12);
   transition: var(--transition);
 }

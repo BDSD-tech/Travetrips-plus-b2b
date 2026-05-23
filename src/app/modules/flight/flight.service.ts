@@ -16,7 +16,7 @@ export class FlightService {
   }
 
   get_search(data: any) {
-    //return this.http.get('assets/flight-result.json');
+    return this.http.get('assets/flight-result.json');
     let url=tts_config.APIURL+'/flight/search';
     return this.http.post(url, data, {headers: { 'Content-Type': 'application/json'}});
   }
@@ -29,13 +29,13 @@ export class FlightService {
 
   fare_confimation(data : any )
   {
-    let url=tts_config.APIURL+'/flight/fareconfirmation';
+   let url=tts_config.APIURL+'/flight/fareconfirmation';
     return this.http.post(url, data, {headers: { 'Content-Type': 'application/json'}});
   }
 
     fare_up_sell(data : any )
   {
-    let url=tts_config.APIURL+'/flight/fare-up-sell';
+   let url=tts_config.APIURL+'/flight/fare-up-sell';
     return this.http.post(url, data, {headers: { 'Content-Type': 'application/json'}});
   }
   ssr_info(data : any )

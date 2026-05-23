@@ -1,7 +1,7 @@
 /* =========================================================
 HERO SECTION (CREATIVE UPGRADE)
 ========================================================= */
-.hero-section {
+/* .hero-section {
   padding: 100px 0;
   min-height: 250px;
   display: flex;
@@ -14,7 +14,7 @@ HERO SECTION (CREATIVE UPGRADE)
   isolation: isolate;
 }
 
-/* .hero-section::before {
+.hero-section::before {
 content: "";
 position: absolute;
 inset: 0;
@@ -24,7 +24,7 @@ rgba(0, 0, 0, 0.6),
 rgba(0, 0, 0, 0.75));
 backdrop-filter: blur(3px);
 z-index: 1;
-} */
+}
 .hero-section .container {
   position: relative;
   z-index: 2;
@@ -145,13 +145,14 @@ z-index: 1;
     justify-content: center;
     flex-wrap: nowrap;
   }
-}
+} */
 
 /* =========================================================
 PARENT SECTION
 ========================================================= */
 .flight_section {
   position: relative;
+  margin-top: 25px;
 }
 
 .flight_section .container {
@@ -184,8 +185,8 @@ PARENT SECTION
   font-weight: 500;
   border-radius: 10px;
   transition: all .3s ease;
-  background: #f5f7fa;
   position: relative;
+  border: 1px solid var(--border-color);
 }
 
 .flight_section .tab-link i {
@@ -195,8 +196,9 @@ PARENT SECTION
 }
 
 .flight_section .tab-link.active {
-  background: linear-gradient(135deg, var(--primary-color), var(--primary-color));
-  color: #fff;
+  background: transparent;
+  color: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 .flight_box {
@@ -204,10 +206,10 @@ PARENT SECTION
   background: var(--white);
   border: 1px solid rgba(29, 72, 163, 0.08);
   border-radius: var(--radius-lg);
-  padding: 25px;
+  padding:20px 24px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
   z-index: 2;
-  margin-top: -60px;
+  border: 1px solid var(--border-color);
 }
 
 .flight_box_title {
@@ -250,6 +252,8 @@ FLIGHT SEARCH TOP BAR
   gap: 18px;
   flex-wrap: wrap;
   padding: 0 0 18px;
+  margin: 0 0 18px;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .flight-search-wrapper .flight-tabs {
@@ -312,7 +316,7 @@ FLIGHT SEARCH TOP BAR
   font-size: 12px;
   padding: 0.5rem 0.75rem;
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   background: var(--white);
   transition: var(--transition);
 }
@@ -338,11 +342,11 @@ FLIGHT SEARCH TOP BAR
 
 .flight-search-wrapper .airline-select {
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   padding: 0.5rem 0.75rem;
   background-color: var(--white);
   color: var(--second-dark-color);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   transition: var(--transition);
 }
@@ -427,11 +431,23 @@ RESPONSIVE
   gap: 16px;
 }
 
+
+.custom-label {
+  position: absolute;
+  top: -0.5rem;
+  left: 0.825rem;
+  z-index: 1;
+  background: #fff;
+  color: #858585;
+  font-weight: 400;
+  font-size: 12px;
+}
+
 .persent-one {
   position: relative;
   flex: 1;
   min-width: 210px;
-  background: #f9fbff;
+  background: var(--white);
   border-radius: var(--radius-md);
   padding: 14px 18px 12px 45px;
   border: 1px solid #e5e7eb;
@@ -461,13 +477,28 @@ RESPONSIVE
   object-fit: contain;
 }
 
+.persent-one-top {
+  padding: 8px 12px 8px 30px;
+  font-size: 12px;
+  border-radius: var(--radius-sm);
+  min-width: fit-content;
+}
+
+.persent-one.persent-one-top span {
+  top: 8px;
+  left: 10px;
+}
+
+.persent-one.persent-one-top .textboxstyle, .persent-one.persent-one-top .textboxstyle p{
+  font-weight: normal;
+}
+
 .textboxstyle {
   width: 100%;
   border: none;
   outline: none;
   background: transparent;
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 16px;
   color: var(--second-dark-color);
   font-family: var(--body-font);
 }
@@ -537,24 +568,17 @@ RESPONSIVE
 .less-btn {
   display: flex;
   align-items: center;
+  margin-left: auto;
 }
 
 .cst-btn {
-  min-width: 170px;
+  min-width: 160px;
   height: 50px;
   border: none;
   border-radius: var(--radius-md);
-  background: linear-gradient(135deg, var(--primary-bg-color), #ffb835);
+  background: linear-gradient(135deg, var(--primary-color));
   color: var(--white);
-  font-size: 16px;
-  font-weight: 700;
-  box-shadow: 0 12px 25px rgba(247, 157, 6, 0.30);
   transition: var(--transition);
-}
-
-.cst-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 16px 35px rgba(247, 157, 6, 0.40);
 }
 
 .makeflex {
@@ -568,7 +592,7 @@ RESPONSIVE
 
 .makeflex span {
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--second-dark-color);
 }
 
@@ -579,28 +603,59 @@ RESPONSIVE
   gap: 14px;
 }
 
-.blackBorder {
-  width: 1px;
-  height: 18px;
-  background: #d1d5db;
+/* =========================
+   Custom Radio Button
+========================= */
+
+.custom-radio {
+  position: relative;
 }
 
-/* .form-check-input {
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-  border: 2px solid #d1d5db;
-} */
+.custom-radio input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
 
-.form-check-input:checked {
-  background-color: var(--primary-color);
+.custom-radio label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.5rem 0.75rem;
+  height: 2rem;
+  border: 1px solid #dbe2ea;
+  border-radius: var(--radius-lg);
+  background: var(--white);
+  cursor: pointer;
+  font-size: 12px;
+  color: #1e293b;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.custom-radio label:hover {
+  border-color: var(--primary-color);
+  background: #f8fbff;
+}
+
+.custom-radio input[type="radio"]:checked+label {
+  border-color: var(--primary-color);
+  background: #eff6ff;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.custom-radio input[type="radio"]:checked+label::before {
   border-color: var(--primary-color);
 }
 
-.form-check-label {
-  font-size: 14px;
-  color: var(--second-dark-color);
-  cursor: pointer;
+.custom-radio input[type="radio"]:checked+label::after {
+  transform: scale(1);
+}
+
+.custom-radio input[type="radio"]:focus+label {
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
 }
 
 .at-passection {
@@ -723,13 +778,13 @@ RESPONSIVE
 }
 
 .error-msg {
-    margin-top: 8px;
-    position: absolute;
-    font-size: 12px;
-    bottom: -21px;
-    left: 0;
-    color: #ef4444;
-    font-weight: 500;
+  margin-top: 8px;
+  position: absolute;
+  font-size: 12px;
+  bottom: -21px;
+  left: 0;
+  color: #ef4444;
+  font-weight: 500;
 }
 
 .at-disable {
@@ -823,7 +878,8 @@ RESPONSIVE
 .recent-search-section {
   position: relative;
   overflow: hidden;
-  padding-top: 50px;
+  padding-top: 25px;
+  padding-top: 25px;
 }
 
 .recent-search-section .recent-search-header {
@@ -834,8 +890,8 @@ RESPONSIVE
 }
 
 .recent-search-section .title {
-  font-size: 22px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 600;
   color: #0f172a;
   margin: 0;
 }
@@ -853,8 +909,8 @@ RESPONSIVE
 }
 
 .recent-search-section .recent-card {
-  min-width: 280px;
-  max-width: 280px;
+  /* min-width: 280px;
+  max-width: 280px; */
   flex-shrink: 0;
   scroll-snap-align: start;
   transition: 0.35s ease;
@@ -889,7 +945,6 @@ RESPONSIVE
   display: flex;
   align-items: center;
   gap: 14px;
-  ;
 }
 
 .recent-search-section .flight-icon {
@@ -905,8 +960,8 @@ RESPONSIVE
   align-items: center;
   gap: 10px;
 
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 600;
   color: #0f172a;
 }
 
@@ -919,11 +974,10 @@ RESPONSIVE
   display: flex;
   align-items: center;
   gap: 10px;
-
   padding-left: 36px;
-
   color: #64748b;
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .recent-search-section .dot {
@@ -933,9 +987,9 @@ RESPONSIVE
   background: #94a3b8;
 }
 
-.recent-search-section .user-icon {
-  color: #2563eb;
-}
+/* .recent-search-section .user-icon {
+  color: var(--primary-color);
+} */
 
 @media (max-width:768px) {
 

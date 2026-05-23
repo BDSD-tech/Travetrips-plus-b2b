@@ -185,6 +185,8 @@ export class FlightComponent implements OnInit {
           }
         });
         this.getRecentSearch = finalsearch;
+        console.log(this.getRecentSearch);
+        
       }
 
     }
@@ -195,7 +197,10 @@ export class FlightComponent implements OnInit {
     clearTimeout(this.timeoutId);
   }
 
-
+  gettrimValue(value:any){
+    return value.replace(/\(.*?\)/g, '').trim()
+  }
+  
 
   gettype(type: string) {
     this.SearchForm.patchValue({ Type: type });

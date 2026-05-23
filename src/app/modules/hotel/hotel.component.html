@@ -41,6 +41,7 @@
                 <div class="flight-tab d-lg-flex">
                   <div class="d-flex form-info">
                     <div class="persent-one ">
+                      <label class="custom-label">Destination</label>
                       <i class="fa-solid fa-map-marker"></i>
                       <input type="text" formControlName="Destination" class="textboxstyle autosuggeest-hotel"
                         placeholder="Destination ?" (click)="openautocomplete($event,'input')">
@@ -54,6 +55,7 @@
                     </div>
 
                     <div class="persent-one less-per">
+                      <label class="custom-label">Check In</label>
                       <i class="fa-solid fa-calendar"></i>
                       <input type="text" formControlName="CheckIn" class="textboxstyle" data-checkin-date>
                       <div *ngIf="hotelsubmitted && fh['CheckIn'].errors" class="error-msg">
@@ -62,6 +64,7 @@
                     </div>
 
                     <div class="persent-one less-per at-returnin">
+                      <label class="custom-label">Check Out</label>
                       <i class="fa-solid fa-calendar"></i>
                       <input type="text" formControlName="CheckOut" class="textboxstyle textboxstyle-bg"
                         data-checkout-date [ngClass]="{ 'is-invalid': hotelsubmitted && fh['CheckOut'].errors }">
@@ -73,6 +76,7 @@
                     </div>
 
                     <div class="persent-one persent-one_ps-4">
+                      <label class="custom-label">Rooms & Guests</label>
                       <i class="fa-solid fa-person"></i>
                       <div class="textboxstyle" id="passenger" (click)="HotelPaxDisplay()">
                         <p class="Pass"> {{Occupancy}}</p>
@@ -292,7 +296,7 @@
 
                   <div class="less-btn">
                     <button type="submit" class="btn cst-btn" [disabled]="Hotelloading"> <span *ngIf="Hotelloading"
-                        class="spinner-border spinner-border-sm mr-1"></span> Search</button>
+                        class="spinner-border spinner-border-sm mr-1"></span> Search Hotel</button>
                   </div>
                 </div>
 
