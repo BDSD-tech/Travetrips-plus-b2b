@@ -1,6 +1,6 @@
 <section class="flight-booking">
    <div class="container">
-      <div class="text-center" *ngIf="fareloading">
+      <!-- <div class="text-center" *ngIf="fareloading">
          <div class="spinner-grow text-primary me-2" role="status">
             <span class="visually-hidden">Loading...</span>
          </div>
@@ -16,9 +16,9 @@
          <div class="spinner-grow text-primary me-2" role="status">
             <span class="visually-hidden">Loading...</span>
          </div>
-      </div>
+      </div> -->
 
-      <div class="row gy-4" *ngIf="fareloading==false">
+      <div class="row gy-4">
          <div class="col-lg-12">
             <div class="booking-stepper">
                <!-- Step 1 -->
@@ -205,7 +205,7 @@
 
 
 
-
+         @if(fareloading==false){
             <form [formGroup]="FlightForm" (ngSubmit)="SubmitPax()">
                <div class="flight-booking-wrapper">
                   <div class="flight-booking-header">
@@ -1719,171 +1719,175 @@
                </div>
 
             </form>
-
+         }
          </div>
 
          <div class="col-lg-3">
             <!--new code -->
-            <div class="flight-booking-wrapper">
-               <div class="flight-booking-header">
-                  <div class="d-flex align-items-center justify-content-between">
-                     <h3 class="flight-booking-title">
-                        <span>Fare Summary</span>
-                     </h3>
-                  </div>
-               </div>
-
-               <div class="fare-details">
-
-                  <!-- Base Fare -->
-                  <div class="fare-row">
-                     <span>Base Fare</span>
-                     <span class="fare-price">
-                        ₹{{CurrentFare['BaseFare'] | number:'1.0-2'}}
-                     </span>
-                  </div>
-
-                  <!-- Taxes -->
-                  <div class="fare-row expandable">
-                     <div class="d-flex justify-content-between align-items-center w-100">
-                        <span data-bs-toggle="collapse" href="#tax-fare" aria-expanded="false"
-                           class="fare-collapse-btn">
-                           Taxes & Fees
-                           <i class="fa fa-angle-down ms-1"></i>
-                        </span>
-
-                        <span class="fare-price">
-                           ₹{{CurrentFare['Tax'] + CurrentFare['OtherCharges'] + CurrentFare['AgentMarkup'] |
-                           number:'1.0-2'}}
-
-                           <i title="Change markup" class="fa fa-edit edit-icon" (click)="showmarkup()"></i>
-                        </span>
-                     </div>
-
-                     <div class="collapse fare-dropdown" id="tax-fare">
-
-                        <div class="fare-sub-row">
-                           <span>YQ Tax</span>
-                           <span>₹{{CurrentFare['YQTax'] | number:'1.0-2'}}</span>
-                        </div>
-
-                        <div class="fare-sub-row" *ngIf="CurrentFare['AgentMarkup']!=0">
-                           <span>Markup</span>
-                           <span>₹{{CurrentFare['AgentMarkup'] | number:'1.0-2'}}</span>
-                        </div>
-
-                        <div class="fare-sub-row">
-                           <span>Other Charges</span>
-                           <span>₹{{CurrentFare['OtherCharges'] | number:'1.0-2'}}</span>
-                        </div>
-
-                     </div>
-
-                     <!-- Markup Box -->
-                     <div class="markup-wrapper" *ngIf="isshowmarkup">
-                        <!-- <label for="InputMarkup">Markup Price</label> -->
-                        <input type="number" min="0" value="0" class="form-control" id="InputMarkup"
-                           placeholder="Markup Price" [(ngModel)]="markupvalue" />
-                        <button class="markup-btn" (click)="updatemarkup()">Update</button>
-                        <div class="markup-action">
-                           <span class="markup-close" (click)="showmarkup()">×</span>
+           
+               <div class="flight-booking-wrapper">
+                   @if(fareloading==false){
+                     <div class="flight-booking-header">
+                        <div class="d-flex align-items-center justify-content-between">
+                           <h3 class="flight-booking-title">
+                              <span>Fare Summary</span>
+                           </h3>
                         </div>
                      </div>
-                  </div>
 
-                  <!-- Insurance -->
-                  @if(CurrentFare['InsurancePrice']){
-                  <div class="fare-row">
-                     <span>Insurance Price</span>
-                     <span class="fare-price">
-                        ₹{{CurrentFare['InsurancePrice'] | number:'1.0-2'}}
-                     </span>
-                  </div>
+                     <div class="fare-details">
+
+                        <!-- Base Fare -->
+                        <div class="fare-row">
+                           <span>Base Fare</span>
+                           <span class="fare-price">
+                              ₹{{CurrentFare['BaseFare'] | number:'1.0-2'}}
+                           </span>
+                        </div>
+
+                        <!-- Taxes -->
+                        <div class="fare-row expandable">
+                           <div class="d-flex justify-content-between align-items-center w-100">
+                              <span data-bs-toggle="collapse" href="#tax-fare" aria-expanded="false"
+                                 class="fare-collapse-btn">
+                                 Taxes & Fees
+                                 <i class="fa fa-angle-down ms-1"></i>
+                              </span>
+
+                              <span class="fare-price">
+                                 ₹{{CurrentFare['Tax'] + CurrentFare['OtherCharges'] + CurrentFare['AgentMarkup'] |
+                                 number:'1.0-2'}}
+
+                                 <i title="Change markup" class="fa fa-edit edit-icon" (click)="showmarkup()"></i>
+                              </span>
+                           </div>
+
+                           <div class="collapse fare-dropdown" id="tax-fare">
+
+                              <div class="fare-sub-row">
+                                 <span>YQ Tax</span>
+                                 <span>₹{{CurrentFare['YQTax'] | number:'1.0-2'}}</span>
+                              </div>
+
+                              <div class="fare-sub-row" *ngIf="CurrentFare['AgentMarkup']!=0">
+                                 <span>Markup</span>
+                                 <span>₹{{CurrentFare['AgentMarkup'] | number:'1.0-2'}}</span>
+                              </div>
+
+                              <div class="fare-sub-row">
+                                 <span>Other Charges</span>
+                                 <span>₹{{CurrentFare['OtherCharges'] | number:'1.0-2'}}</span>
+                              </div>
+
+                           </div>
+
+                           <!-- Markup Box -->
+                           <div class="markup-wrapper" *ngIf="isshowmarkup">
+                              <!-- <label for="InputMarkup">Markup Price</label> -->
+                              <input type="number" min="0" value="0" class="form-control" id="InputMarkup"
+                                 placeholder="Markup Price" [(ngModel)]="markupvalue" />
+                              <button class="markup-btn" (click)="updatemarkup()">Update</button>
+                              <div class="markup-action">
+                                 <span class="markup-close" (click)="showmarkup()">×</span>
+                              </div>
+                           </div>
+                        </div>
+
+                        <!-- Insurance -->
+                        @if(CurrentFare['InsurancePrice']){
+                        <div class="fare-row">
+                           <span>Insurance Price</span>
+                           <span class="fare-price">
+                              ₹{{CurrentFare['InsurancePrice'] | number:'1.0-2'}}
+                           </span>
+                        </div>
+                        }
+
+                        <!-- SSR -->
+                        <div class="fare-row expandable" *ngIf="CurrentFare['SSR']">
+
+                           <div class="d-flex justify-content-between align-items-center w-100">
+
+                              <span data-bs-toggle="collapse" href="#ssr-pax" aria-expanded="false" class="fare-collapse-btn">
+                                 Meal, Baggage & Seats
+                                 <i class="fa fa-angle-down ms-1"></i>
+                              </span>
+
+                              <span class="fare-price">
+                                 ₹{{CurrentFare['SSR']['Meal'] + CurrentFare['SSR']['Baggage'] + CurrentFare['SSR']['Seat'] |
+                                 number:'1.0-2'}}
+                              </span>
+
+                           </div>
+
+                           <div class="collapse fare-dropdown" id="ssr-pax">
+
+                              <div class="fare-sub-row" *ngIf="CurrentFare['SSR']['Seat']!=0">
+                                 <span>Seat</span>
+                                 <span>₹{{CurrentFare['SSR']['Seat'] | number:'1.0-2'}}</span>
+                              </div>
+
+                              <div class="fare-sub-row" *ngIf="CurrentFare['SSR']['Meal']!=0">
+                                 <span>Meal</span>
+                                 <span>₹{{CurrentFare['SSR']['Meal'] | number:'1.0-2'}}</span>
+                              </div>
+
+                              <div class="fare-sub-row" *ngIf="CurrentFare['SSR']['Baggage']!=0">
+                                 <span>Baggage</span>
+                                 <span>₹{{CurrentFare['SSR']['Baggage'] | number:'1.0-2'}}</span>
+                              </div>
+
+                           </div>
+
+                        </div>
+
+                        <!-- Gross Fare -->
+                        <div class="fare-row total-row">
+
+                           <div class="d-flex justify-content-between align-items-center w-100">
+
+                              <span data-bs-toggle="collapse" href="#net-fare" aria-expanded="false"
+                                 class="fare-collapse-btn">
+                                 Total Fare
+                                 <i class="fa fa-angle-down ms-1"></i>
+                              </span>
+
+                              <span class="fare-price total-price">
+                                 ₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat']+InsurancePrice
+                                 | number:'1.0-2'}}
+                              </span>
+
+                           </div>
+
+                           <div class="collapse fare-dropdown" id="net-fare">
+
+                              <div class="fare-sub-row">
+                                 <span>Commission</span>
+                                 <span>
+                                    -₹{{CurrentFare['AgentCommission']+CurrentFare['Discount'] | number:'1.0-2'}}
+                                 </span>
+                              </div>
+
+                              <div class="fare-sub-row">
+                                 <span>TDS</span>
+                                 <span>
+                                    +₹{{CurrentFare['TDS'] | number:'1.0-2'}}
+                                 </span>
+                              </div>
+
+                              <!-- <div class="fare-sub-row net-price">
+                                 <span>Net Price</span>
+                                 <span>
+                                    ₹{{this.CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat']
+                                    | number:'1.0-2'}}
+                                 </span>
+                              </div> -->
+                           </div>
+                        </div>
+                     </div>
                   }
-
-                  <!-- SSR -->
-                  <div class="fare-row expandable" *ngIf="CurrentFare['SSR']">
-
-                     <div class="d-flex justify-content-between align-items-center w-100">
-
-                        <span data-bs-toggle="collapse" href="#ssr-pax" aria-expanded="false" class="fare-collapse-btn">
-                           Meal, Baggage & Seats
-                           <i class="fa fa-angle-down ms-1"></i>
-                        </span>
-
-                        <span class="fare-price">
-                           ₹{{CurrentFare['SSR']['Meal'] + CurrentFare['SSR']['Baggage'] + CurrentFare['SSR']['Seat'] |
-                           number:'1.0-2'}}
-                        </span>
-
-                     </div>
-
-                     <div class="collapse fare-dropdown" id="ssr-pax">
-
-                        <div class="fare-sub-row" *ngIf="CurrentFare['SSR']['Seat']!=0">
-                           <span>Seat</span>
-                           <span>₹{{CurrentFare['SSR']['Seat'] | number:'1.0-2'}}</span>
-                        </div>
-
-                        <div class="fare-sub-row" *ngIf="CurrentFare['SSR']['Meal']!=0">
-                           <span>Meal</span>
-                           <span>₹{{CurrentFare['SSR']['Meal'] | number:'1.0-2'}}</span>
-                        </div>
-
-                        <div class="fare-sub-row" *ngIf="CurrentFare['SSR']['Baggage']!=0">
-                           <span>Baggage</span>
-                           <span>₹{{CurrentFare['SSR']['Baggage'] | number:'1.0-2'}}</span>
-                        </div>
-
-                     </div>
-
-                  </div>
-
-                  <!-- Gross Fare -->
-                  <div class="fare-row total-row">
-
-                     <div class="d-flex justify-content-between align-items-center w-100">
-
-                        <span data-bs-toggle="collapse" href="#net-fare" aria-expanded="false"
-                           class="fare-collapse-btn">
-                           Total Fare
-                           <i class="fa fa-angle-down ms-1"></i>
-                        </span>
-
-                        <span class="fare-price total-price">
-                           ₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat']+InsurancePrice
-                           | number:'1.0-2'}}
-                        </span>
-
-                     </div>
-
-                     <div class="collapse fare-dropdown" id="net-fare">
-
-                        <div class="fare-sub-row">
-                           <span>Commission</span>
-                           <span>
-                              -₹{{CurrentFare['AgentCommission']+CurrentFare['Discount'] | number:'1.0-2'}}
-                           </span>
-                        </div>
-
-                        <div class="fare-sub-row">
-                           <span>TDS</span>
-                           <span>
-                              +₹{{CurrentFare['TDS'] | number:'1.0-2'}}
-                           </span>
-                        </div>
-
-                        <!-- <div class="fare-sub-row net-price">
-                           <span>Net Price</span>
-                           <span>
-                              ₹{{this.CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat']
-                              | number:'1.0-2'}}
-                           </span>
-                        </div> -->
-                     </div>
-                  </div>
                </div>
-            </div>
+            
          </div>
       </div>
    </div>

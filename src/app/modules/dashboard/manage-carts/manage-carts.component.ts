@@ -238,7 +238,10 @@ export class ManageCartsComponent implements OnInit {
       }
     });
   }
-
+  SetStatus(status:any){
+    this.SearchForm.get('BookingStatus')?.setValue([status]);
+    this.SearchSubmit()
+  }
   applyFilter(event:any) {
     let filterValue=event.target.value;
     filterValue = filterValue.trim();

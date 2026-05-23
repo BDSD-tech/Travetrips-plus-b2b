@@ -17,14 +17,20 @@ import { CreditRequestComponent } from './credit-request/credit-request.componen
 import { CreditNotesComponent } from './credit-notes/credit-notes.component';
 import { ViewCreditNotesComponent } from './view-credit-notes/view-credit-notes.component';
 import { CreditNotesHotelComponent } from './credit-notes-hotel/credit-notes-hotel.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { BookingsComponent } from './bookings/bookings.component';
 const routes: Routes = [
+                            {
+                              path:'',
+                              component:DashboardComponent
+                            },
                             {
                               path:'booking-calendar',
                               component:BookingCalendarComponent
                             },
                             {
-                              path:'manage-carts',
-                              component:ManageCartsComponent
+                              path:'bookings',
+                              component:BookingsComponent
                             },
                             {
                               path:'manage-carts/cart-detail/:refno',
@@ -86,11 +92,11 @@ const routes: Routes = [
                               path:'user-detail/:userid',
                               component:UserDetailComponent
                             },
-                            {
-                              path: 'manage-cart-hotel',
-                              loadChildren: () => import('../dashboard/manage-cart-hotel/manage-cart-hotel.module')
-                                .then(mod => mod.ManageCartHotelModule)
-                            },
+                            // {
+                            //   path: 'manage-cart-hotel',
+                            //   loadChildren: () => import('../dashboard/manage-cart-hotel/manage-cart-hotel.module')
+                            //     .then(mod => mod.ManageCartHotelModule)
+                            // },
                             {
                               path: 'users',
                               loadChildren: () => import('./users/users.module')

@@ -1,0 +1,356 @@
+<!---------- Dashboard Home ---------->
+<section class="dashboard-section">
+    <div class="container">
+        <div class="row g-4">
+
+            <!-- LEFT -->
+            <div class="col-lg-8">
+                <div class="row g-4">
+
+                    <!-- Banner -->
+                    <div class="col-12">
+                        <div id="dashboardBanner" class="carousel slide rounded overflow-hidden shadow-sm"
+                            data-bs-ride="carousel">
+
+                            <div class="carousel-indicators">
+                                <button type="button" data-bs-target="#dashboardBanner" data-bs-slide-to="0"
+                                    class="active"></button>
+                                <button type="button" data-bs-target="#dashboardBanner" data-bs-slide-to="1"></button>
+                                <button type="button" data-bs-target="#dashboardBanner" data-bs-slide-to="2"></button>
+                            </div>
+
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600"
+                                        class="d-block w-100" alt="">
+                                </div>
+
+                                <div class="carousel-item">
+                                    <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1600"
+                                        class="d-block w-100" alt="">
+                                </div>
+
+                                <div class="carousel-item">
+                                    <img src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?q=80&w=1600"
+                                        class="d-block w-100" alt="">
+                                </div>
+                            </div>
+
+                            <button class="carousel-control-prev" type="button" data-bs-target="#dashboardBanner"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </button>
+
+                            <button class="carousel-control-next" type="button" data-bs-target="#dashboardBanner"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </button>
+
+                        </div>
+                    </div>
+
+                    <!-- Sales Report -->
+                    <div class="col-lg-6">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-body">
+
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5 class="card-title mb-0">Sales Report</h5>
+
+                                    <select class="form-select w-auto">
+                                        <option>Today</option>
+                                        <option>Yesterday</option>
+                                        <option>This Week</option>
+                                    </select>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table class="table align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>Product</th>
+                                                <th>Today</th>
+                                                <th>Yesterday</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr>
+                                                <td>Flights</td>
+                                                <td class="fw-bold text-success">₹15,000</td>
+                                                <td>₹11,500</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Hotels</td>
+                                                <td class="fw-bold text-success">₹8,400</td>
+                                                <td>₹5,200</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Bus</td>
+                                                <td class="fw-bold text-success">₹2,200</td>
+                                                <td>₹1,500</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shortcuts -->
+                    <div class="col-lg-6">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-body">
+
+                                <h5 class="card-title mb-4">Shortcuts</h5>
+
+                                <div class="row g-3 text-center">
+
+                                    <div class="col-6 col-md-4">
+                                        <div class="border rounded p-3 h-100">
+                                            <i class="fa-solid fa-ticket fs-4 mb-2"></i>
+                                            <div>Bookings</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 col-md-4">
+                                        <div class="border rounded p-3 h-100">
+                                            <i class="fa-solid fa-wallet fs-4 mb-2"></i>
+                                            <div>Ledger</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 col-md-4">
+                                        <div class="border rounded p-3 h-100">
+                                            <i class="fa-solid fa-file-invoice fs-4 mb-2"></i>
+                                            <div>Invoices</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 col-md-4">
+                                        <div class="border rounded p-3 h-100">
+                                            <i class="fa-solid fa-chart-line fs-4 mb-2"></i>
+                                            <div>Reports</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 col-md-4">
+                                        <div class="border rounded p-3 h-100">
+                                            <i class="fa-solid fa-location-dot fs-4 mb-2"></i>
+                                            <div>Check-In</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 col-md-4">
+                                        <div class="border rounded p-3 h-100">
+                                            <i class="fa-solid fa-calendar-days fs-4 mb-2"></i>
+                                            <div>Pax Calendar</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Commission Sale Report -->
+                    <div class="col-12">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5 class="card-title mb-0">Commission Sale Report</h5>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle">
+
+                                        <thead>
+                                            <tr>
+                                                <th>Ref No.</th>
+                                                <th>Product</th>
+                                                <th>Date</th>
+                                                <th>Amount</th>
+                                                <th>Balance</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr>
+                                                <td>TXN67249920</td>
+                                                <td>Wallet Topup</td>
+                                                <td>10 Feb 2026</td>
+                                                <td class="text-success">+₹5000</td>
+                                                <td>₹25,000</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>TXN05DEC25</td>
+                                                <td>Credit Note</td>
+                                                <td>05 Dec 2025</td>
+                                                <td class="text-success">+₹1200</td>
+                                                <td>₹20,000</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>TXN22NOV25</td>
+                                                <td>Flight Booking</td>
+                                                <td>22 Nov 2025</td>
+                                                <td class="text-danger">-₹8,500</td>
+                                                <td>₹18,800</td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mini Statement -->
+                    <div class="col-12">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5 class="card-title mb-0">Mini Statement</h5>
+
+                                    <button class="btn btn-primary btn-sm rounded-pill">
+                                        View All
+                                    </button>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle">
+
+                                        <thead>
+                                            <tr>
+                                                <th>Ref No.</th>
+                                                <th>Product</th>
+                                                <th>Date</th>
+                                                <th>Amount</th>
+                                                <th>Balance</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr>
+                                                <td>TXN67249920</td>
+                                                <td>Wallet Topup</td>
+                                                <td>10 Feb 2026</td>
+                                                <td class="text-success">+₹5000</td>
+                                                <td>₹25,000</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>TXN05DEC25</td>
+                                                <td>Credit Note</td>
+                                                <td>05 Dec 2025</td>
+                                                <td class="text-success">+₹1200</td>
+                                                <td>₹20,000</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>TXN22NOV25</td>
+                                                <td>Flight Booking</td>
+                                                <td>22 Nov 2025</td>
+                                                <td class="text-danger">-₹8,500</td>
+                                                <td>₹18,800</td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- RIGHT -->
+            <div class="col-lg-4">
+
+                <!-- Balance -->
+                <div class="card bg-primary text-white shadow-sm border-0">
+                    <div class="card-body">
+
+                        <div class="d-flex justify-content-between align-items-start">
+
+                            <div>
+                                <h6 class="text-white-50">Account Balance</h6>
+                                <h2 class="fw-bold">₹ 85,450</h2>
+                            </div>
+
+                            <button class="btn btn-light rounded-circle">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+
+                        </div>
+
+                        <div class="mt-4 d-flex gap-2">
+                            <button class="btn btn-light rounded-pill">
+                                View Statement
+                            </button>
+
+                            <button class="btn btn-dark rounded-pill">
+                                + Add Money
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Updates -->
+                <div class="card shadow-sm mt-4">
+                    <div class="card-body">
+
+                        <h5 class="card-title mb-4">
+                            Recently Operational Updates
+                        </h5>
+
+                        <div class="border rounded p-3 mb-3">
+                            <span class="badge bg-danger mb-2">New</span>
+
+                            <p class="mb-0">
+                                AUTO LIMIT Activated 🚀 Move funds instantly from UPI.
+                            </p>
+                        </div>
+
+                        <div class="border rounded p-3 mb-3">
+                            <span class="badge bg-danger mb-2">New</span>
+
+                            <p class="mb-0">
+                                Special RoundTrip Fares for Domestic flights are now live.
+                            </p>
+                        </div>
+
+                        <div class="border rounded p-3 mb-3">
+                            <span class="badge bg-danger mb-2">New</span>
+
+                            <p class="mb-0">
+                                Introducing Pax Calendar — manage passengers easily.
+                            </p>
+                        </div>
+
+                        <div class="border rounded p-3">
+                            <p class="mb-0">
+                                Hotels are back — smarter and faster booking experience.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+<!---------- Dashboard Home End ---------->

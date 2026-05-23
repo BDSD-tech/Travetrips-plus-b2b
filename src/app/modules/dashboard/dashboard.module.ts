@@ -24,11 +24,13 @@ import { CreditNotesComponent } from './credit-notes/credit-notes.component';
 import { ViewCreditNotesComponent } from './view-credit-notes/view-credit-notes.component';
 import { SafeHtmlModule } from "../../shared/safe-html.module";
 import { CreditNotesHotelComponent } from './credit-notes-hotel/credit-notes-hotel.component';
-
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { BookingsComponent } from './bookings/bookings.component';
+import { ManageCartHotelComponent } from './manage-cart-hotel/manage-cart-hotel.component';
 @NgModule({
   declarations: [ 
-     BookingCalendarComponent,ManageCartsComponent,CartDetailComponent, ManageAmendmentsComponent, PaymentPassbookComponent, ManageDepositRequestComponent, DepositRequestComponent, BillingInfoComponent, DownloadReportComponent, ManageMarkupComponent, UserDetailComponent,NumberToWordsPipe, ItineraryComponent
-  ,HotelComponent,CreditRequestComponent,CreditNotesComponent,ViewCreditNotesComponent,CreditNotesHotelComponent],
+     BookingsComponent,ManageCartHotelComponent,BookingCalendarComponent,ManageCartsComponent,CartDetailComponent, ManageAmendmentsComponent, PaymentPassbookComponent, ManageDepositRequestComponent, DepositRequestComponent, BillingInfoComponent, DownloadReportComponent, ManageMarkupComponent, UserDetailComponent,NumberToWordsPipe, ItineraryComponent
+  ,HotelComponent,DashboardComponent,CreditRequestComponent,CreditNotesComponent,ViewCreditNotesComponent,CreditNotesHotelComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,

@@ -1,8 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
-import { UserDetailComponent } from '../../modules/dashboard/user-detail/user-detail.component';
+import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { CommonService } from '../../services/common.service';
 
