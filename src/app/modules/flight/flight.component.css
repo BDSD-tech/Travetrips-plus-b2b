@@ -1,7 +1,7 @@
 /* =========================================================
 HERO SECTION (CREATIVE UPGRADE)
 ========================================================= */
-/* .hero-section {
+.hero-section {
   padding: 100px 0;
   min-height: 250px;
   display: flex;
@@ -14,17 +14,17 @@ HERO SECTION (CREATIVE UPGRADE)
   isolation: isolate;
 }
 
-.hero-section::before {
-content: "";
-position: absolute;
-inset: 0;
-background: linear-gradient(120deg,
-rgba(0, 0, 0, 0.85),
-rgba(0, 0, 0, 0.6),
-rgba(0, 0, 0, 0.75));
-backdrop-filter: blur(3px);
-z-index: 1;
-}
+/* .hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg,
+      rgba(0, 0, 0, 0.85),
+      rgba(0, 0, 0, 0.6),
+      rgba(0, 0, 0, 0.75));
+  z-index: 1;
+} */
+
 .hero-section .container {
   position: relative;
   z-index: 2;
@@ -145,16 +145,11 @@ z-index: 1;
     justify-content: center;
     flex-wrap: nowrap;
   }
-} */
+}
 
 /* =========================================================
 PARENT SECTION
 ========================================================= */
-.flight_section {
-  position: relative;
-  margin-top: 25px;
-}
-
 .flight_section .container {
   position: relative;
   z-index: 2;
@@ -166,7 +161,7 @@ PARENT SECTION
   align-items: center;
   justify-content: start;
   gap: 10px;
-  padding: 10px 25px;
+  padding: 15px 25px;
   overflow-x: auto;
   scrollbar-width: none;
   margin: -25px -25px 25px -25px;
@@ -206,10 +201,12 @@ PARENT SECTION
   background: var(--white);
   border: 1px solid rgba(29, 72, 163, 0.08);
   border-radius: var(--radius-lg);
-  padding:20px 24px;
+  padding: 20px 24px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
   z-index: 2;
+  margin-top: -65px;
   border: 1px solid var(--border-color);
+  margin-bottom: 25px;
 }
 
 .flight_box_title {
@@ -427,8 +424,9 @@ RESPONSIVE
 .form-info {
   width: 100%;
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 10px;
 }
 
 
@@ -489,7 +487,8 @@ RESPONSIVE
   left: 10px;
 }
 
-.persent-one.persent-one-top .textboxstyle, .persent-one.persent-one-top .textboxstyle p{
+.persent-one.persent-one-top .textboxstyle,
+.persent-one.persent-one-top .textboxstyle p {
   font-weight: normal;
 }
 
@@ -537,33 +536,37 @@ RESPONSIVE
 }
 
 .at-exchange {
-  position: absolute;
+  /* position: absolute;
   right: -26px;
   top: 50%;
-  transform: translateY(-50%);
-  width: 35px;
+  transform: translateY(-50%); */
+  /* width: 35px;
   height: 35px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--primary-color), var(--color-dark));
   border: 2px solid var(--white);
-  box-shadow: 0 8px 20px rgba(29, 72, 163, 0.25);
+  box-shadow: 0 8px 20px rgba(29, 72, 163, 0.25); */
+  position: relative;
   cursor: pointer;
+  width: 20px;
+  height: 20px;
   z-index: 5;
   transition: var(--transition);
+  color: var(--primary-color);
 }
 
-.at-exchange::before {
+/* .at-exchange::before {
   content: '⇄';
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: var(--white);
-}
+  color: var(--primary-color);
+} */
 
-.at-exchange:hover {
+/* .at-exchange:hover {
   transform: translateY(-50%) rotate(180deg);
-}
+} */
 
 .less-btn {
   display: flex;
@@ -878,8 +881,7 @@ RESPONSIVE
 .recent-search-section {
   position: relative;
   overflow: hidden;
-  padding-top: 25px;
-  padding-top: 25px;
+  padding-bottom: 20px;
 }
 
 .recent-search-section .recent-search-header {
@@ -965,17 +967,12 @@ RESPONSIVE
   color: #0f172a;
 }
 
-.recent-search-section .route-arrow {
-  color: #64748b;
-  font-size: 18px;
-}
-
 .recent-search-section .recent-bottom {
   display: flex;
   align-items: center;
   gap: 10px;
   padding-left: 36px;
-  color: #64748b;
+  color: #858585;
   font-size: 12px;
   font-weight: 500;
 }

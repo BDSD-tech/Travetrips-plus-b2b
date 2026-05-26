@@ -178,7 +178,7 @@ RESPONSIVE
     }
 }
 
-.form-check-input:focus{
+.form-check-input:focus {
     box-shadow: none;
     outline: 0;
 }
@@ -1708,7 +1708,7 @@ color: var(--black) !important;
     font-weight: 700;
 }
 
-.label-orange {
+/* .label-orange {
     background-color: #ee8249 !important;
     color: black !important;
     border-radius: 0;
@@ -1717,7 +1717,7 @@ color: var(--black) !important;
     margin-top: 3px;
     line-height: 10px;
     font-size: 10px;
-}
+} */
 
 /*======contact========*/
 .contact__wrapper {
@@ -3089,205 +3089,454 @@ color: var(--black) !important;
 }
 
 
-
-/* ================================
+/* =========================================
    AUTOCOMPLETE DROPDOWN
-================================ */
+========================================= */
+.ui-widget {
+    font-family: var(--body-font) !important;
+}
 
 .ui-autocomplete.ttsautocomplet {
     position: absolute;
-    z-index: 997;
+    z-index: 9999;
+    width: 350px;
+    max-height: 320px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0;
+    list-style: none;
     background: var(--white);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-md);
-    margin-top: 10px;
+    font-family: var(--body-font);
+    /* animation: autocompleteFade 0.2s ease; */
+}
+
+.ttsautocomplet .ui-menu-item {
+    margin: 0;
     padding: 0;
-    list-style: none;
-    max-height: 300px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    font-family: var(--body-font) !important;
 }
 
 .ttsautocomplet .ui-menu-item-wrapper {
-    display: flex;
-    justify-content: space-between;
+    display: flex !important;
     align-items: center;
-    gap: 12px;
-    padding: 14px 16px;
-    width: 100%;
-    font-size: 14px;
+    justify-content: space-between;
+
+    gap: 14px;
+
+    padding: 14px 18px;
+
+    text-decoration: none;
     cursor: pointer;
-    transition: var(--transition);
-    border-bottom: 1px solid #f1f1f1;
+
     background: transparent;
+    border: 0;
+
+    transition: background-color 0.2s ease;
 }
 
-.ttsautocomplet .ui-menu-item:last-child .ui-menu-item-wrapper {
+/* .ttsautocomplet .ui-menu-item:last-child .ui-menu-item-wrapper {
     border-bottom: none;
+} */
+
+.ttsautocomplet .ui-menu-item-wrapper:hover,
+.ttsautocomplet .ui-state-active,
+.ttsautocomplet .ui-state-focus {
+    background: var(--second-bg-color);
+    border: none !important;
+    outline: none !important;
 }
 
-.ttsautocomplet .ui-menu-item-wrapper:hover {
-    background: #f8fafc;
-}
 
 .ttsautocomplet .item-left {
     display: flex;
     flex-direction: column;
+
     flex: 1;
+    min-width: 0;
 }
+
 
 .ttsautocomplet .city-name {
-    font-size: 15px;
-    font-weight: 600;
-    color: #111827;
-    line-height: 1.3;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--body-text-color);
+
+    line-height: 1.4;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
+
 
 .ttsautocomplet .airport-name {
-    font-size: 13px;
-    color: #6b7280;
-    margin-top: 4px;
     display: flex;
     align-items: center;
+
+    gap: 6px;
+
+    margin-top: 4px;
+
+    font-size: 12px;
+    font-weight: 400;
+
+    color: var(--dark);
+
     line-height: 1.4;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.ttsautocomplet .airport-name i,
-.ttsautocomplet .city-name i {
-    margin-right: 6px;
+.ttsautocomplet .airport-name i {
     color: var(--primary-color);
-    font-size: 12px;
+    font-size: 11px;
+    flex-shrink: 0;
 }
 
 .ttsautocomplet .item-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    flex-shrink: 0;
 }
 
 .ttsautocomplet .airport-code {
-    min-width: 45px;
-    text-align: center;
-    font-size: 11px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
     font-weight: 600;
-    background: var(--primary-color);
-    padding: 5px 10px;
-    border-radius: var(--radius-sm);
-    color: var(--white);
-    letter-spacing: 0.5px;
+    background-color: #f5f8fb;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
 }
 
-/*
-.ttsautocomplet .flag {
-    width: 20px;
-    height: 15px;
-    border-radius: 2px;
-    background-repeat: no-repeat;
-    display: inline-block;
-    background-image: url(../../../webroot/img/country-flag.png);
-    position: relative;
+.ttsautocomplet .ui-menu-item-wrapper:hover .airport-code,
+.ttsautocomplet .ui-state-active .airport-code {
+    background: var(--primary-color);
+    color: var(--white);
 }
-*/
 
 .ttsautocomplet::-webkit-scrollbar {
     width: 6px;
 }
 
 .ttsautocomplet::-webkit-scrollbar-track {
-    background: #f3f4f6;
+    background: #f1f5f9;
     border-radius: 10px;
 }
 
 .ttsautocomplet::-webkit-scrollbar-thumb {
-    background-color: #c7c7c7;
+    background: #cbd5e1;
     border-radius: 10px;
 }
 
 .ttsautocomplet::-webkit-scrollbar-thumb:hover {
-    background-color: #9ca3af;
+    background: #94a3b8;
 }
 
-.ttsautocomplet .ui-state-highlight,
-.ttsautocomplet.ui-widget-content .ui-state-highlight,
-.ttsautocomplet .ui-state-active,
-.ttsautocomplet.ui-widget-content .ui-state-active,
-.ttsautocomplet .ui-state-active:hover,
-.ttsautocomplet.ui-widget-content .ui-state-active:hover {
-    border: none;
-    border-bottom: 1px solid #f0f0f0;
-    background: #f3f4f6;
-    color: #000;
-}
+@keyframes autocompleteFade {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
 
-.ttsautocomplet.ui-datepicker .ui-datepicker-header .ui-corner-all,
-.ttsautocomplet.ui-datepicker .ui-datepicker-header .ui-state-hover {
-    cursor: pointer;
-    border: 0;
-    background: none;
-    font-weight: 700;
-    top: 3px;
-}
-
-.ttsautocomplet.ui-datepicker td span,
-.ttsautocomplet.ui-datepicker td a {
-    display: block;
-    padding: 0.2em;
-    text-align: center;
-    text-decoration: none;
-}
-
-.ttsautocomplet.ui-datepicker .ui-datepicker-prev::after {
-    content: "\f100";
-    left: 5px;
-    position: absolute;
-    font-family: "FontAwesome";
-    color: var(--white);
-}
-
-.ttsautocomplet.ui-datepicker .ui-datepicker-next::after {
-    content: "\f101";
-    right: 5px;
-    position: absolute;
-    font-family: "FontAwesome";
-    color: var(--white);
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @media (max-width: 767px) {
 
     .ui-autocomplete.ttsautocomplet {
-        max-height: 250px;
-        border-radius: 10px;
+        max-height: 260px;
+        border-radius: var(--radius-md);
     }
 
     .ttsautocomplet .ui-menu-item-wrapper {
-        padding: 12px;
+        padding: 12px 14px;
+        gap: 10px;
     }
 
     .ttsautocomplet .city-name {
-        font-size: 14px;
+        font-size: 13px;
     }
 
     .ttsautocomplet .airport-name {
-        font-size: 12px;
+        font-size: 11px;
     }
 
     .ttsautocomplet .airport-code {
+        min-width: 44px;
+        height: 30px;
         font-size: 10px;
-        padding: 4px 8px;
     }
 }
 
+/* =========================================
+   REMOVE ALL FOCUS / ACTIVE / OUTLINE
+========================================= */
+
+.ttsautocomplet *,
+.ttsautocomplet *:focus,
+.ttsautocomplet *:active,
+.ttsautocomplet *:focus-visible,
+.ttsautocomplet .ui-state-active,
+.ttsautocomplet .ui-state-focus,
+.ttsautocomplet .ui-menu-item-wrapper:focus,
+.ttsautocomplet .ui-menu-item-wrapper:active,
+.ttsautocomplet .ui-menu-item-wrapper:focus-visible,
+.ttsautocomplet a,
+.ttsautocomplet a:focus,
+.ttsautocomplet a:active,
+.ttsautocomplet li,
+.ttsautocomplet li:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: none !important;
+    margin: 0;
+}
+
+.ttsautocomplet * {
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+/* =========================================
+   JQUERY UI DATEPICKER - PREMIUM STYLE
+========================================= */
+
+.ui-datepicker-multi {
+    z-index: 9999 !important;
+
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+
+    box-shadow: var(--shadow-md);
+    max-height: 320px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 16px;
+
+    font-family: var(--body-font);
+}
+
+.ui-datepicker-multi *,
+.ui-datepicker-multi *:focus,
+.ui-datepicker-multi *:active,
+.ui-datepicker-multi *:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.ui-datepicker-multi .ui-datepicker-header {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+    border: none;
+
+    padding-bottom: 14px;
+    margin-bottom: 10px;
+}
+
+.ui-datepicker-multi .ui-datepicker-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--second-dark-color);
+}
+
+.ui-datepicker-multi .ui-datepicker-prev,
+.ui-datepicker-multi .ui-datepicker-next {
+    position: absolute;
+    top: 0;
+
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s ease;
+}
+
+.ui-datepicker-multi .ui-datepicker-prev {
+    left: 0;
+}
+
+.ui-datepicker-multi .ui-datepicker-next {
+    right: 0;
+}
+
+.ui-datepicker-multi .ui-datepicker-prev:hover,
+.ui-datepicker-multi .ui-datepicker-next:hover {
+    background: var(--second-bg-color);
+}
+
+.ui-datepicker-multi .ui-icon {
+    background: none !important;
+    text-indent: 0;
+    overflow: visible;
+    font-size: 0;
+}
+
+.ui-datepicker-multi .ui-datepicker-prev::before {
+    content: "‹";
+    font-size: 22px;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.ui-datepicker-multi .ui-datepicker-next::before {
+    content: "›";
+    font-size: 22px;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.ui-datepicker-multi table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 6px;
+}
+
+.ui-datepicker-multi thead th {
+    padding-bottom: 10px;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    color: var(--dark);
+    text-transform: uppercase;
+}
+
+.ui-datepicker-multi td {
+    text-align: center;
+}
+
+.ui-datepicker-multi td a,
+.ui-datepicker-multi td span {
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: auto;
+
+    border-radius: 50%;
+
+    text-decoration: none;
+    color: var(--body-text-color);
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.ui-datepicker-multi td a:hover {
+    background: var(--second-bg-color);
+    color: var(--primary-color);
+}
+
+.ui-datepicker-multi .ui-datepicker-current-day a,
+.ui-datepicker-multi .ui-state-active,
+.ui-datepicker-multi .ui-state-highlight {
+    background: var(--primary-color) !important;
+    color: var(--white) !important;
+}
+
+.ui-datepicker-multi .ui-state-disabled span {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+
+.ui-datepicker-multi .ui-datepicker-other-month {
+    opacity: 0.2;
+}
+
+.ui-datepicker-multi.ui-datepicker-multi {
+    width: auto !important;
+}
+
+.ui-datepicker-multi .ui-datepicker-group {
+    padding: 0 0px;
+}
+
+.ui-datepicker-multi .ui-datepicker-row-break {
+    display: none;
+}
+
+.ui-datepicker-multi::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ui-datepicker-multi::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+.ui-datepicker-multi::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+.ui-datepicker-multi::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+@media (max-width: 767px) {
+
+    .ui-datepicker-multi {
+        width: 100% !important;
+        padding: 12px;
+    }
+
+    .ui-datepicker-multi .ui-datepicker-group {
+        width: 100% !important;
+        float: none !important;
+        padding: 0;
+    }
+
+    .ui-datepicker-multi table {
+        border-spacing: 4px;
+    }
+
+    .ui-datepicker-multi td a,
+    .ui-datepicker-multi td span {
+        width: 34px;
+        height: 34px;
+        font-size: 13px;
+    }
+
+    .ui-datepicker-multi .ui-datepicker-title {
+        font-size: 14px;
+    }
+}
 
 /* ===== FILTER BOX ===== */
 .al-listbtm {
     margin-bottom: 10px;
-    background: #fff;
+    /* background: #fff;
     padding: 15px;
     border: 1px solid #d0d7e3;
     background-color: #ffffff;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08); */
 }
 
 .al-prresets {
@@ -3308,7 +3557,7 @@ color: var(--black) !important;
 }
 
 .filter-loading .al-prresets {
-    height: 20px;
+    height: 30px;
     width: 100%;
     border-radius: 4px;
 

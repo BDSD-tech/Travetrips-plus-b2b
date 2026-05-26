@@ -1,356 +1,558 @@
-<!---------- Dashboard Home ---------->
-<section class="dashboard-section">
+<section class="dashboard-wrapper">
     <div class="container">
-        <div class="row g-4">
 
-            <!-- LEFT -->
+        <div class="row g-3">
+
+            <!-- LEFT SECTION -->
             <div class="col-lg-8">
-                <div class="row g-4">
 
-                    <!-- Banner -->
-                    <div class="col-12">
-                        <div id="dashboardBanner" class="carousel slide rounded overflow-hidden shadow-sm"
-                            data-bs-ride="carousel">
+                <!-- HERO BANNER -->
+                <div id="travelHeroCarousel" class="carousel slide hero-banner dashboard-card mb-3"
+                    data-bs-ride="carousel">
 
-                            <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#dashboardBanner" data-bs-slide-to="0"
-                                    class="active"></button>
-                                <button type="button" data-bs-target="#dashboardBanner" data-bs-slide-to="1"></button>
-                                <button type="button" data-bs-target="#dashboardBanner" data-bs-slide-to="2"></button>
+                    <!-- Indicators -->
+                    <div class="carousel-indicators">
+
+                        <button type="button" data-bs-target="#travelHeroCarousel" data-bs-slide-to="0" class="active">
+                        </button>
+
+                        <button type="button" data-bs-target="#travelHeroCarousel" data-bs-slide-to="1">
+                        </button>
+
+                    </div>
+
+                    <!-- Carousel Items -->
+                    <div class="carousel-inner">
+
+                        <!-- ITEM 1 -->
+                        <div class="carousel-item active">
+
+                            <div class="hero-slide">
+
+                                <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1200&auto=format&fit=crop"
+                                    alt="Flight">
+
+
                             </div>
 
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600"
-                                        class="d-block w-100" alt="">
-                                </div>
+                        </div>
 
-                                <div class="carousel-item">
-                                    <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1600"
-                                        class="d-block w-100" alt="">
-                                </div>
+                        <!-- ITEM 2 -->
+                        <div class="carousel-item">
 
-                                <div class="carousel-item">
-                                    <img src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?q=80&w=1600"
-                                        class="d-block w-100" alt="">
-                                </div>
+                            <div class="hero-slide">
+
+                                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop"
+                                    alt="Beach">
+
+
                             </div>
-
-                            <button class="carousel-control-prev" type="button" data-bs-target="#dashboardBanner"
-                                data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon"></span>
-                            </button>
-
-                            <button class="carousel-control-next" type="button" data-bs-target="#dashboardBanner"
-                                data-bs-slide="next">
-                                <span class="carousel-control-next-icon"></span>
-                            </button>
 
                         </div>
                     </div>
 
-                    <!-- Sales Report -->
+                    <!-- Controls -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#travelHeroCarousel"
+                        data-bs-slide="prev">
+
+                        <span class="carousel-control-prev-icon"></span>
+
+                    </button>
+
+                    <button class="carousel-control-next" type="button" data-bs-target="#travelHeroCarousel"
+                        data-bs-slide="next">
+
+                        <span class="carousel-control-next-icon"></span>
+
+                    </button>
+
+                </div>
+
+                <!-- SALES + SHORTCUT -->
+                <div class="row g-3">
+
+                    <!-- SALES REPORT -->
                     <div class="col-lg-6">
-                        <div class="card shadow-sm h-100">
-                            <div class="card-body">
 
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h5 class="card-title mb-0">Sales Report</h5>
+                        <div class="dashboard-card p-3 h-100">
 
-                                    <select class="form-select w-auto">
-                                        <option>Today</option>
-                                        <option>Yesterday</option>
-                                        <option>This Week</option>
-                                    </select>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                                <div class="section-title mb-0">
+                                    Sales Report
                                 </div>
 
-                                <div class="table-responsive">
-                                    <table class="table align-middle">
-                                        <thead>
-                                            <tr>
-                                                <th>Product</th>
-                                                <th>Today</th>
-                                                <th>Yesterday</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tbody>
-                                            <tr>
-                                                <td>Flights</td>
-                                                <td class="fw-bold text-success">₹15,000</td>
-                                                <td>₹11,500</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Hotels</td>
-                                                <td class="fw-bold text-success">₹8,400</td>
-                                                <td>₹5,200</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Bus</td>
-                                                <td class="fw-bold text-success">₹2,200</td>
-                                                <td>₹1,500</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <select class="form-select form-select-sm w-auto">
+                                    <option>Today</option>
+                                </select>
 
                             </div>
+
+                            <div class="custom-table">
+
+                                <table class="table align-middle">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Today</th>
+                                            <th>Yesterday</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        <tr>
+                                            <td>Flight</td>
+                                            <td>90</td>
+                                            <td>90</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Hotel</td>
+                                            <td>20</td>
+                                            <td>10</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Bus</td>
+                                            <td>10</td>
+                                            <td>10</td>
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
                         </div>
+
                     </div>
 
-                    <!-- Shortcuts -->
+                    <!-- SHORTCUTS -->
                     <div class="col-lg-6">
-                        <div class="card shadow-sm h-100">
-                            <div class="card-body">
 
-                                <h5 class="card-title mb-4">Shortcuts</h5>
+                        <div class="dashboard-card p-3 h-100">
 
-                                <div class="row g-3 text-center">
+                            <div class="section-title">
+                                Short Cuts
+                            </div>
 
-                                    <div class="col-6 col-md-4">
-                                        <div class="border rounded p-3 h-100">
-                                            <i class="fa-solid fa-ticket fs-4 mb-2"></i>
-                                            <div>Bookings</div>
-                                        </div>
-                                    </div>
+                            <div class="shortcut-grid">
 
-                                    <div class="col-6 col-md-4">
-                                        <div class="border rounded p-3 h-100">
-                                            <i class="fa-solid fa-wallet fs-4 mb-2"></i>
-                                            <div>Ledger</div>
-                                        </div>
-                                    </div>
+                                <div class="shortcut-box">
+                                    <i class="fa-regular fa-credit-card"></i>
+                                    <span>My Wallet</span>
+                                </div>
 
-                                    <div class="col-6 col-md-4">
-                                        <div class="border rounded p-3 h-100">
-                                            <i class="fa-solid fa-file-invoice fs-4 mb-2"></i>
-                                            <div>Invoices</div>
-                                        </div>
-                                    </div>
+                                <div class="shortcut-box">
+                                    <i class="fa-solid fa-book"></i>
+                                    <span>Ledger</span>
+                                </div>
 
-                                    <div class="col-6 col-md-4">
-                                        <div class="border rounded p-3 h-100">
-                                            <i class="fa-solid fa-chart-line fs-4 mb-2"></i>
-                                            <div>Reports</div>
-                                        </div>
-                                    </div>
+                                <div class="shortcut-box">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                    <span>Reports</span>
+                                </div>
 
-                                    <div class="col-6 col-md-4">
-                                        <div class="border rounded p-3 h-100">
-                                            <i class="fa-solid fa-location-dot fs-4 mb-2"></i>
-                                            <div>Check-In</div>
-                                        </div>
-                                    </div>
+                                <div class="shortcut-box">
+                                    <i class="fa-solid fa-money-bill"></i>
+                                    <span>Credit</span>
+                                </div>
 
-                                    <div class="col-6 col-md-4">
-                                        <div class="border rounded p-3 h-100">
-                                            <i class="fa-solid fa-calendar-days fs-4 mb-2"></i>
-                                            <div>Pax Calendar</div>
-                                        </div>
-                                    </div>
+                                <div class="shortcut-box">
+                                    <i class="fa-solid fa-ticket"></i>
+                                    <span>PNR</span>
+                                </div>
 
+                                <div class="shortcut-box">
+                                    <i class="fa-solid fa-user"></i>
+                                    <span>Profile</span>
                                 </div>
 
                             </div>
+
                         </div>
-                    </div>
 
-                    <!-- Commission Sale Report -->
-                    <div class="col-12">
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h5 class="card-title mb-0">Commission Sale Report</h5>
-                                </div>
-
-                                <div class="table-responsive">
-                                    <table class="table table-hover align-middle">
-
-                                        <thead>
-                                            <tr>
-                                                <th>Ref No.</th>
-                                                <th>Product</th>
-                                                <th>Date</th>
-                                                <th>Amount</th>
-                                                <th>Balance</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tbody>
-                                            <tr>
-                                                <td>TXN67249920</td>
-                                                <td>Wallet Topup</td>
-                                                <td>10 Feb 2026</td>
-                                                <td class="text-success">+₹5000</td>
-                                                <td>₹25,000</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>TXN05DEC25</td>
-                                                <td>Credit Note</td>
-                                                <td>05 Dec 2025</td>
-                                                <td class="text-success">+₹1200</td>
-                                                <td>₹20,000</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>TXN22NOV25</td>
-                                                <td>Flight Booking</td>
-                                                <td>22 Nov 2025</td>
-                                                <td class="text-danger">-₹8,500</td>
-                                                <td>₹18,800</td>
-                                            </tr>
-                                        </tbody>
-
-                                    </table>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Mini Statement -->
-                    <div class="col-12">
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h5 class="card-title mb-0">Mini Statement</h5>
-
-                                    <button class="btn btn-primary btn-sm rounded-pill">
-                                        View All
-                                    </button>
-                                </div>
-
-                                <div class="table-responsive">
-                                    <table class="table table-hover align-middle">
-
-                                        <thead>
-                                            <tr>
-                                                <th>Ref No.</th>
-                                                <th>Product</th>
-                                                <th>Date</th>
-                                                <th>Amount</th>
-                                                <th>Balance</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tbody>
-                                            <tr>
-                                                <td>TXN67249920</td>
-                                                <td>Wallet Topup</td>
-                                                <td>10 Feb 2026</td>
-                                                <td class="text-success">+₹5000</td>
-                                                <td>₹25,000</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>TXN05DEC25</td>
-                                                <td>Credit Note</td>
-                                                <td>05 Dec 2025</td>
-                                                <td class="text-success">+₹1200</td>
-                                                <td>₹20,000</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>TXN22NOV25</td>
-                                                <td>Flight Booking</td>
-                                                <td>22 Nov 2025</td>
-                                                <td class="text-danger">-₹8,500</td>
-                                                <td>₹18,800</td>
-                                            </tr>
-                                        </tbody>
-
-                                    </table>
-                                </div>
-
-                            </div>
-                        </div>
                     </div>
 
                 </div>
+
+                <!-- COMMISSION REPORT -->
+                <div class="dashboard-card p-3 mt-3">
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+
+                        <div class="section-title mb-0">
+                            Commission Sale Report
+                        </div>
+
+                        <div class="d-flex gap-2">
+
+                            <select class="form-select form-select-sm">
+                                <option>May</option>
+                            </select>
+
+                            <select class="form-select form-select-sm">
+                                <option>2024</option>
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <div class="custom-table">
+
+                        <table class="table align-middle">
+
+                            <thead>
+
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Sale Commission</th>
+                                    <th>Refund Net Commission</th>
+                                    <th>Total</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>Flight</td>
+                                    <td>₹50</td>
+                                    <td>₹0</td>
+                                    <td>₹50</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Grand Total</td>
+                                    <td>₹50</td>
+                                    <td>₹0</td>
+                                    <td>₹50</td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+                <!-- MINI STATEMENT -->
+                <div class="dashboard-card p-3 mt-3">
+
+                    <div class="section-title">
+                        Mini Statement
+                    </div>
+
+                    <div class="custom-table mini-table">
+
+                        <table class="table align-middle">
+
+                            <thead>
+
+                                <tr>
+                                    <th>Date</th>
+                                    <th>RefNo</th>
+                                    <th>Description</th>
+                                    <th>Amount</th>
+                                    <th>Type</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>12/05/24</td>
+                                    <td>TXN1001</td>
+                                    <td>Online Credit</td>
+                                    <td>₹0</td>
+                                    <td>Credit</td>
+                                </tr>
+
+                                <tr>
+                                    <td>12/05/24</td>
+                                    <td>TXN1002</td>
+                                    <td>Flight Booking</td>
+                                    <td>₹500</td>
+                                    <td>Debit</td>
+                                </tr>
+
+                                <tr>
+                                    <td>12/05/24</td>
+                                    <td>TXN1003</td>
+                                    <td>Refund</td>
+                                    <td>₹300</td>
+                                    <td>Credit</td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
             </div>
 
-            <!-- RIGHT -->
+            <!-- RIGHT SECTION -->
             <div class="col-lg-4">
 
-                <!-- Balance -->
-                <div class="card bg-primary text-white shadow-sm border-0">
-                    <div class="card-body">
+                <!-- WALLET -->
+                <div class="account-card">
 
-                        <div class="d-flex justify-content-between align-items-start">
+                    <!-- TOP -->
+                    <div class="account-top">
 
-                            <div>
-                                <h6 class="text-white-50">Account Balance</h6>
-                                <h2 class="fw-bold">₹ 85,450</h2>
+                        <!-- LEFT -->
+                        <div>
+
+                            <div class="balance-title">
+                                Account Balance
                             </div>
 
-                            <button class="btn btn-light rounded-circle">
-                                <i class="fa-solid fa-eye"></i>
-                            </button>
+                            <div class="balance-row">
+
+                                <div class="balance-amount">
+                                    ₹0
+                                </div>
+
+                                <!-- Eye Button -->
+                                <button class="balance-toggle">
+
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                                        <path
+                                            d="M15.58 12C15.58 13.98 13.98 15.58 12 15.58C10.02 15.58 8.42 13.98 8.42 12C8.42 10.02 10.02 8.42 12 8.42C13.98 8.42 15.58 10.02 15.58 12Z"
+                                            stroke="white" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+
+                                        <path
+                                            d="M12 20.27C15.53 20.27 18.82 18.19 21.11 14.59C22.01 13.18 22.01 10.81 21.11 9.4C18.82 5.8 15.53 3.72 12 3.72C8.47 3.72 5.18 5.8 2.89 9.4C1.99 10.81 1.99 13.18 2.89 14.59C5.18 18.19 8.47 20.27 12 20.27Z"
+                                            stroke="white" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+
+                                </button>
+
+                            </div>
 
                         </div>
 
-                        <div class="mt-4 d-flex gap-2">
-                            <button class="btn btn-light rounded-pill">
-                                View Statement
-                            </button>
+                        <!-- RIGHT -->
+                        <button class="wallet-dropdown">
 
-                            <button class="btn btn-dark rounded-pill">
-                                + Add Money
-                            </button>
-                        </div>
+                            <svg width="14" height="8" viewBox="0 0 14 7" fill="none">
+                                <path
+                                    d="M13.73 1.62L11.57 3.91C10.75 4.77 10.08 5.47 9.49 5.97C8.87 6.49 8.25 6.86 7.49 6.96C7.16 7.01 6.83 7.01 6.50 6.96C5.75 6.86 5.12 6.49 4.50 5.97C3.91 5.47 3.24 4.77 2.43 3.91L0.26 1.62"
+                                    stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+
+                        </button>
 
                     </div>
+
+                    <!-- BUTTONS -->
+                    <div class="account-actions">
+
+                        <button class="account-btn account-btn-outline">
+                            View Statement
+                        </button>
+
+                        <button class="account-btn account-btn-primary">
+                            + Add Money
+                        </button>
+
+                    </div>
+
                 </div>
 
-                <!-- Updates -->
-                <div class="card shadow-sm mt-4">
-                    <div class="card-body">
+                <!-- =========================
+                    OPERATIONAL UPDATES CARD
+                ========================= -->
 
-                        <h5 class="card-title mb-4">
-                            Recently Operational Updates
-                        </h5>
+                <div class="updates-card">
 
-                        <div class="border rounded p-3 mb-3">
-                            <span class="badge bg-danger mb-2">New</span>
+                    <!-- Header -->
+                    <div class="updates-header">
 
-                            <p class="mb-0">
-                                AUTO LIMIT Activated 🚀 Move funds instantly from UPI.
-                            </p>
-                        </div>
+                        <div class="updates-title-wrap">
 
-                        <div class="border rounded p-3 mb-3">
-                            <span class="badge bg-danger mb-2">New</span>
+                            <!-- Icon -->
+                            <div class="updates-icon">
 
-                            <p class="mb-0">
-                                Special RoundTrip Fares for Domestic flights are now live.
-                            </p>
-                        </div>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+                                    <line x1="12" y1="8" x2="12" y2="12" stroke="currentColor" stroke-width="2" />
+                                    <line x1="12" y1="16" x2="12.01" y2="16" stroke="currentColor" stroke-width="2" />
+                                </svg>
 
-                        <div class="border rounded p-3 mb-3">
-                            <span class="badge bg-danger mb-2">New</span>
+                            </div>
 
-                            <p class="mb-0">
-                                Introducing Pax Calendar — manage passengers easily.
-                            </p>
-                        </div>
+                            <h3 class="updates-title">
+                                Recently Operational Updates
+                            </h3>
 
-                        <div class="border rounded p-3">
-                            <p class="mb-0">
-                                Hotels are back — smarter and faster booking experience.
-                            </p>
                         </div>
 
                     </div>
+
+                    <!-- Body -->
+                    <div class="updates-body">
+
+                        <!-- ITEM -->
+                        <div class="update-item">
+
+                            <span class="update-badge">
+                                New
+                            </span>
+
+                            <div class="update-row">
+
+                                <p class="update-text">
+                                    AUTO LIMIT Activated 🚀 Move funds from your bank or UPI apps
+                                    straight into your wallet — fast, seamless, and no cost.
+                                </p>
+
+                                <button class="update-arrow">
+
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                                        <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Divider -->
+                        <div class="update-divider"></div>
+
+                        <!-- ITEM -->
+                        <div class="update-item">
+
+                            <span class="update-badge">
+                                New
+                            </span>
+
+                            <div class="update-row">
+
+                                <p class="update-text">
+                                    Special RoundTrip Fares for Domestic & Split Fares for
+                                    International are now Live!
+                                </p>
+
+                                <button class="update-arrow">
+
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                                        <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Divider -->
+                        <div class="update-divider"></div>
+
+                        <!-- ITEM -->
+                        <div class="update-item">
+
+                            <span class="update-badge">
+                                New
+                            </span>
+
+                            <div class="update-row">
+
+                                <p class="update-text">
+                                    Introducing the Pax Calendar — view all your passengers by
+                                    their flying dates at a glance!
+                                </p>
+
+                                <button class="update-arrow">
+
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                                        <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Divider -->
+                        <div class="update-divider"></div>
+
+                        <!-- ITEM -->
+                        <div class="update-item">
+
+                            <span class="update-badge">
+                                New
+                            </span>
+
+                            <div class="update-row">
+
+                                <p class="update-text">
+                                    Hotels are back — smarter, faster, and better than ever!
+                                </p>
+
+                                <button class="update-arrow">
+
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                                        <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Divider -->
+                        <div class="update-divider"></div>
+
+                        <!-- ITEM -->
+                        <div class="update-item">
+
+                            <div class="update-row">
+
+                                <p class="update-text">
+                                    Eagle Crest expands its wings in Bali, Vietnam, and Thailand.
+                                    For enquiries contact saleseaglecrestdmc.com
+                                </p>
+
+                                <button class="update-arrow">
+
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                                        <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
 
             </div>
 
         </div>
+
     </div>
 </section>
-<!---------- Dashboard Home End ---------->

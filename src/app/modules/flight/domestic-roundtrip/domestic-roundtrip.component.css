@@ -1,49 +1,8 @@
 /* =========================================================
-   ROOT VARIABLES
-========================================================= */
-:root {
-    --black: #000000;
-    --white: #ffffff;
-
-    --main-bg-color: #f6f6f6;
-    --second-bg-color: #f1f8f7;
-
-    --primary-color: #1d48a3;
-    --primary-bg-color: #f79d06;
-
-    --second-color: #1d48a3;
-    --second-dark-color: #282828;
-    --dark: #787878;
-
-    --footer-Bg-color: #e6edf0;
-    --footerTxtHeadColor: #010608;
-    --footer-second: #e6edf0;
-
-    --body-text-color: #000000;
-    --color-dark: #004aad;
-
-    --body-font: "Ubuntu Sans", sans-serif;
-    --heading-font: "Roboto", sans-serif;
-
-    /* UI */
-    --border-color: #e5e7eb;
-
-    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.08);
-
-    --radius-sm: 6px;
-    --radius-md: 12px;
-    --radius-lg: 20px;
-
-    --transition: all 0.3s ease;
-}
-
-/* =========================================================
    FLIGHT LIST SECTION
 ========================================================= */
 .flight-list {
     padding: 40px 0;
-    background: var(--main-bg-color);
 }
 
 /* =========================================================
@@ -891,7 +850,7 @@
 
     background: transparent;
 
-    color: var(--primary-bg-color);
+    color: var(--primary-color);
 
     padding: 0;
 
@@ -940,6 +899,17 @@
 .label-ORANGE {
     background: #fd7e14;
 }
+
+[class^=label-] {
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+}
+
+.label-yellow {
+    color: var(--primary-color);
+}
+
 
 /* =========================================================
    SEAT / BAGGAGE COLORS
@@ -1380,7 +1350,7 @@
     height: 3px;
     background: linear-gradient(to right,
             var(--primary-color),
-            var(--primary-bg-color));
+            var(--primary-color));
     border-radius: 30px;
     position: relative;
     margin-bottom: 8px;
@@ -1403,7 +1373,7 @@
 
 .timeline-line::after {
     right: 0;
-    background: var(--primary-bg-color);
+    background: var(--primary-color);
 }
 
 .timeline-center span {
@@ -1654,7 +1624,7 @@
     border: 0;
     outline: 0;
     background: linear-gradient(135deg,
-            var(--primary-bg-color),
+            var(--primary-color),
             #ff8400);
     color: var(--white);
     font-size: 15px;
@@ -1862,4 +1832,79 @@
 .flight-book:hover {
     transform: translateY(-2px);
     box-shadow: 0 16px 30px rgba(37, 99, 235, 0.35);
+}
+
+
+/* =========================================================
+   INFO BAR
+========================================================= */
+.flight-info-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.flight-info-item {
+    font-size: 12px;
+    padding-right: 8px;
+    margin-right: 8px;
+    border-right: 1px solid var(--border-color);
+    font-weight: 600;
+}
+
+.flight-info-item:last-of-type {
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
+.flight-info-item i {
+    color: var(--primary-color);
+}
+
+.flight-info-item.seats-left {
+    justify-content: center;
+}
+
+.seats-left span {
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+    color: #dc3545;
+}
+
+.refundable {
+    color: #28a745;
+}
+
+.non-refundable {
+    color: #dc3545;
+}
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+.flight-links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.more-fare,
+.flight-view-btn {
+    font-size: 14px;
+    border: none;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+.more-fare {
+    color: var(--primary-color);
+}
+
+.flight-view-btn {
+    color: var(--primary-color);
 }

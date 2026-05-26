@@ -339,7 +339,7 @@
 
 
 <!----------Deal---and---offer---start------->
-<section class="deal-offer-section">
+<section class="deal-offer-section d-none">
   <div class="container">
     <div class="section-title">
       <h2>Deals & Offers</h2>
@@ -383,7 +383,7 @@
 
 
 <!--------------------Start For Blog-------------------------------------->
-<section id="recent-posts" class="recent-posts sections-bg py-3" *ngIf="BlogList.length!=0">
+<section id="recent-posts" class="recent-posts sections-bg py-3 d-none" *ngIf="BlogList.length!=0">
   <div class="container">
     <div class="section-header mb-4">
       <h4>Recent Blog Posts
@@ -420,7 +420,7 @@
 <!--------------------End For Blog-------------------------------------->
 
 <!--------------------Start For Client Review-------------------------------------->
-<section class="client-review sections-bg py-3" *ngIf="TestimonialsList.length!=0">
+<section class="client-review sections-bg py-3 d-none" *ngIf="TestimonialsList.length!=0">
   <div class="container">
     <div class="section-header mb-4">
       <h4>Testimonials
