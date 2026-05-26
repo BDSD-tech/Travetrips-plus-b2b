@@ -1,14 +1,28 @@
 <div class="dashboard-wrapper-container">
-    <ol class="breadcrumb-arrow">
+    <!-- <ol class="breadcrumb-arrow">
         <li>
             <a routerLink="/dashboard/manage-carts"><i class="fa fa-home"></i></a>
         </li>
         <li><span>manage-carts</span></li>
-    </ol>
+    </ol> -->
+    <div class="status-bar">
+            <div class="status-menu">
+                <a href="javascript:void(0)" [ngClass]="{'active':SearchForm.get('BookingStatus')?.value.includes('Pending')}" (click)="SetStatus('Pending')">PENDING</a>
+                <a href="javascript:void(0)" [ngClass]="{'active':SearchForm.get('BookingStatus')?.value.includes('All')}" (click)="SetStatus('All')">MY BOOKING</a>
+                <a href="javascript:void(0)" [ngClass]="{'active':SearchForm.get('BookingStatus')?.value.includes('Confirmed')}" (click)="SetStatus('Confirmed')">CONFIRMED</a>
+                <a href="javascript:void(0)" [ngClass]="{'active':SearchForm.get('BookingStatus')?.value.includes('Cancelled')}"  (click)="SetStatus('Cancelled')">CANCELLED</a>
+                <a href="javascript:void(0)" [ngClass]="{'active':SearchForm.get('BookingStatus')?.value.includes('Hold')}" (click)="SetStatus('Hold')">HOLD BOOKING</a>
+
+            </div>
+
+            <button class="close-btn">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div> 
     <div class="animation__container">
         <div class="body_manage dash-padding dashboard__main__content">
             <div class="row">
-                <div class="col-sm-12"><h3 class="dash-borderRadius main-heading-content">Manage Cart - Air</h3></div>
+                <!-- <div class="col-sm-12"><h3 class="dash-borderRadius main-heading-content">Manage Cart - Air</h3></div> -->
                 <form [formGroup]="SearchForm" (ngSubmit)="SearchSubmit()">
                     <div class="row">
                         <div class="col">

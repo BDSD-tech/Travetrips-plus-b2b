@@ -185,8 +185,7 @@ export class FlightComponent implements OnInit {
           }
         });
         this.getRecentSearch = finalsearch;
-        console.log(this.getRecentSearch);
-        
+
       }
 
     }
