@@ -102,6 +102,10 @@ img {
     display: block;
 }
 
+.ttsnodata-fount-image{
+    width: 100%;
+    height: 100px;
+}
 /* ===================
 BUTTONS
 ====================== */
@@ -2065,11 +2069,6 @@ color: var(--black) !important;
         padding-left: 12px !important;
     }
 
-    .dashboard-wrapper-container {
-        padding: 20px !important;
-        margin-top: 0 !important;
-    }
-
     .main-header .navbar-toggler {
         position: absolute;
         top: -50px;
@@ -2124,10 +2123,10 @@ color: var(--black) !important;
     }
 }
 
-.dashboard-wrapper-container {
+/* .dashboard-wrapper-container {
     padding: 20px 20px;
     transition: all 0.3s;
-}
+} */
 
 .dashboard-wrapper-container .breadcrumb-arrow {
     height: 36px;
@@ -2233,10 +2232,8 @@ color: var(--black) !important;
 .main-heading-content {
     text-transform: uppercase;
     color: var(--second-color);
-    font-weight: normal;
-    font-size: 15px;
-    margin: 0;
-    margin-bottom: 10px;
+    font-size: 16px;
+    margin-bottom: 15px;
     position: relative;
 }
 
@@ -2278,14 +2275,14 @@ color: var(--black) !important;
 
 .dashboard-wrapper-container .body_manage form .sign_btn {
     background: var(--second-color);
+    border: none;
     font-weight: bold;
     border-radius: 30px;
     font-size: 12px;
     padding: 8px 15px 8px;
-    color: white;
+    color:var(--white);
     position: relative;
     outline: none;
-    margin-top: 10px;
     text-transform: uppercase;
     transition: all 0.3s ease-out;
 }
@@ -2417,7 +2414,7 @@ color: var(--black) !important;
     border: 1px solid #e5e5e5;
     border-radius: 6px;
     margin-top: 20px;
-    font-family: 'Rubik', sans-serif;
+    
 }
 
 .table__tableHeader-container td {
@@ -3813,4 +3810,18 @@ BOOKING CONFIRM MODAL
     .booking-confirm-modal .modal-continue-btn {
         width: 100%;
     }
+}
+
+.tts-inp-close-icon{
+    position: absolute;
+    right: 0;
+}
+
+.tts-full-width{
+    width: 100%;
+}
+
+
+.cdk-overlay-container{
+    z-index: 9999 !important;
 }

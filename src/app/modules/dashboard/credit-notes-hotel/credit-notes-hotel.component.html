@@ -3,7 +3,7 @@
         <li>
             <a routerLink="/dashboard/manage-carts"><i class="fa fa-home"></i></a>
         </li>
-        <li><span>manage-credit-notes-hotel</span></li>
+        <li><span>Manage Credit Notes Hotel</span></li>
     </ol>
     <div class="animation__container">
         <div class="body_manage dash-padding dashboard__main__content">
@@ -12,16 +12,16 @@
                     <h3 class="dash-borderRadius main-heading-content">Manage Credit Notes</h3>
                 </div>
                 <form [formGroup]="SearchForm" (ngSubmit)="SearchSubmit()">
-                    <div class="row">
-                        
-                        <div class="col-4">
+                    <div class="row gy-3">
+                    
+                        <div class="col-lg-6">
                             <mat-form-field appearance="fill" class="tts-full-width">
                                 <mat-label>From</mat-label>
                                 <input matInput placeholder="From" from-date formControlName="FromDate" readonly/>
                                 <i class="fa fa-times tts-inp-close-icon" (click)="clear('FromDate')" *ngIf="f['FromDate'].value!=''"></i>
                             </mat-form-field>
                         </div>
-                        <div class="col-4">
+                        <div class="col-lg-6">
                             <mat-form-field appearance="fill" class="tts-full-width">
                                 <mat-label>To</mat-label>
                                 <input matInput placeholder="To" to-date formControlName="ToDate" readonly/>
@@ -31,7 +31,7 @@
                         
                     </div>
                     <div class="form__buttons">
-                        <button type="submit" class="btn sign_btn" [disabled]="Searchloading">Search <i class="fa fa-search"></i></button>
+                        <button type="submit" class="sign_btn" [disabled]="Searchloading">Search <i class="fa fa-search"></i></button>
                     </div>
                 </form>
             </div>

@@ -1,15 +1,15 @@
-<div class="container">
+<div class="booking-wrapper">
 
-    <div class="booking-wrapper">
+    <!-- Top Tabs -->
+    <div class="top-tabs">
+        <button class="btn" [ngClass]="{'active-tab':activeService=='Flight'}" (click)="activeService='Flight'">
+            Flights</button>
+        <button class="btn" [ngClass]="{'active-tab':activeService=='Hotel'}"
+            (click)="activeService='Hotel'">Hotels</button>
+        <button class="btn" [ngClass]="{'active-tab':activeService=='Bus'}" (click)="activeService='Bus'">Bus</button>
+    </div>
 
-        <!-- Top Tabs -->
-        <div class="top-tabs">
-            <button class="btn" [ngClass]="{'active-tab':activeService=='Flight'}" (click)="activeService='Flight'"> Flights</button>
-            <button class="btn" [ngClass]="{'active-tab':activeService=='Hotel'}" (click)="activeService='Hotel'">Hotels</button>
-            <button class="btn" [ngClass]="{'active-tab':activeService=='Bus'}" (click)="activeService='Bus'">Bus</button>
-        </div>
-
-        <!-- <div class="status-bar">
+    <!-- <div class="status-bar">
             <div class="status-menu">
                 <a href="#">PENDING</a>
                 <a href="#" class="active">MY BOOKING</a>
@@ -23,9 +23,9 @@
             </button>
         </div> -->
 
-        @if(activeService=='Flight'){
-            <app-manage-carts></app-manage-carts>
-        }@else if(activeService=='Hotel'){
-            <app-manage-cart-hotel></app-manage-cart-hotel>
-        }
-    </div>
+    @if(activeService=='Flight'){
+    <app-manage-carts></app-manage-carts>
+    }@else if(activeService=='Hotel'){
+    <app-manage-cart-hotel></app-manage-cart-hotel>
+    }
+</div>

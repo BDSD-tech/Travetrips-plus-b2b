@@ -1,8 +1,9 @@
 .dashboard-wrapper {
-    padding: 20px;
+    padding: 24px;
 }
 
-.dashboard-card {
+.dashboard-card,
+.updates-card {
     background: var(--white);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
@@ -11,9 +12,10 @@
     overflow: hidden;
 }
 
-.dashboard-card:hover {
+.dashboard-card:hover,
+.updates-card:hover {
+    transform: translateY(-3px);
     box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
 }
 
 .hero-banner {
@@ -21,7 +23,7 @@
     height: 430px;
     border-radius: 28px;
     overflow: hidden;
-    background: #000;
+    background: var(--black);
 }
 
 .hero-banner .carousel-inner,
@@ -38,35 +40,35 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: brightness(0.8);
+    filter: brightness(0.78);
     transition: transform 7s ease;
 }
 
 .hero-banner .carousel-item.active img {
-    transform: scale(1.08);
+    transform: scale(1.06);
 }
 
-/* .hero-banner .hero-slide::before {
+.hero-banner .hero-slide::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(to right,
-            rgba(0, 0, 0, 0.55),
+    background:
+        linear-gradient(to right,
+            rgba(0, 0, 0, 0.45),
             rgba(0, 0, 0, 0.08));
     z-index: 1;
-} */
+}
 
 .hero-banner .carousel-indicators {
     margin-bottom: 20px;
     gap: 8px;
-    z-index: 10;
 }
 
 .hero-banner .carousel-indicators button {
     width: 10px;
     height: 10px;
     border: 0;
-    border-radius: 50%;
+    border-radius: 999px;
     background: var(--white);
     opacity: 0.5;
     transition: var(--transition);
@@ -74,14 +76,13 @@
 
 .hero-banner .carousel-indicators .active {
     width: 34px;
-    border-radius: 30px;
     opacity: 1;
 }
 
 .hero-banner .carousel-control-prev,
 .hero-banner .carousel-control-next {
-    width: 54px;
-    height: 54px;
+    width: 52px;
+    height: 52px;
     top: 50%;
     transform: translateY(-50%);
     border-radius: 50%;
@@ -91,23 +92,17 @@
     transition: var(--transition);
 }
 
+.hero-banner .carousel-control-prev:hover,
+.hero-banner .carousel-control-next:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
 .hero-banner .carousel-control-prev {
     left: 20px;
 }
 
 .hero-banner .carousel-control-next {
     right: 20px;
-}
-
-.hero-banner .carousel-control-prev:hover,
-.hero-banner .carousel-control-next:hover {
-    background: rgba(255, 255, 255, 0.25);
-}
-
-.hero-banner .carousel-control-prev-icon,
-.hero-banner .carousel-control-next-icon {
-    width: 18px;
-    height: 18px;
 }
 
 .section-title {
@@ -128,7 +123,7 @@
 }
 
 .custom-table thead {
-    background: #e8f1ff;
+    background: #edf4ff;
 }
 
 .custom-table th {
@@ -140,10 +135,9 @@
 }
 
 .custom-table td {
-    border-color: #edf2f7;
+    border-color: #eef2f7;
     padding: 14px 12px;
     color: var(--dark);
-    vertical-align: middle;
 }
 
 .custom-table tbody tr:hover {
@@ -167,9 +161,10 @@
 }
 
 .shortcut-box:hover {
-    transform: translateY(-3px);
+    transform: translateY(-4px);
     background: var(--second-bg-color);
     border-color: #dbeafe;
+    box-shadow: var(--shadow-sm);
 }
 
 .shortcut-box i {
@@ -200,10 +195,9 @@
     background:
         linear-gradient(135deg,
             var(--primary-color) 0%,
-            #12274d 100%);
+            var(--color-dark) 100%);
     color: var(--white);
-    box-shadow:
-        0 10px 35px rgba(0, 0, 0, 0.12);
+    box-shadow: var(--shadow-md);
 }
 
 .account-card::before {
@@ -230,15 +224,13 @@
 
 .account-top {
     display: flex;
-    align-items: flex-start;
     justify-content: space-between;
     gap: 20px;
 }
 
 .balance-title {
     font-size: 14px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.72);
+    color: rgba(255, 255, 255, 0.7);
     margin-bottom: 12px;
 }
 
@@ -249,10 +241,8 @@
 }
 
 .balance-amount {
-    font-size: 48px;
+    font-size: 40px;
     font-weight: 800;
-    line-height: 1;
-    letter-spacing: -1px;
 }
 
 .balance-toggle,
@@ -265,28 +255,26 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: var(--transition);
     cursor: pointer;
+    transition: var(--transition);
 }
 
 .balance-toggle:hover,
 .wallet-dropdown:hover {
     background: rgba(255, 255, 255, 0.22);
-    transform: translateY(-2px);
 }
 
 .account-actions {
-    margin-top: 30px;
+    margin-top: 28px;
     display: flex;
     gap: 14px;
-    flex-wrap: wrap;
 }
 
 .account-btn {
     height: 48px;
-    padding: 0 24px;
     border: 0;
     border-radius: 999px;
+    padding: 0 24px;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
@@ -295,9 +283,9 @@
 }
 
 .account-btn-outline {
+    background: rgba(255, 255, 255, 0.1);
     color: var(--white);
-    background: rgba(255, 255, 255, 0.10);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 .account-btn-outline:hover {
@@ -315,25 +303,12 @@
 
 .updates-card {
     margin-top: 20px;
-    background: var(--white);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
 }
 
 .updates-header {
-    background: #cfeaf3;
-    border-top-left-radius: var(--radius-md);
-    border-top-right-radius: var(--radius-md);
-    box-shadow: 0 2px 4px #d3d3d3;
+    background: #dff6fb;
     padding: 20px;
-}
-
-.updates-body {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .updates-title-wrap {
@@ -342,17 +317,6 @@
     gap: 12px;
 }
 
-/* .updates-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 14px;
-    background: #eef4ff;
-    color: var(--primary-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-} */
-
 .updates-title {
     margin: 0;
     font-size: 16px;
@@ -360,9 +324,16 @@
     color: var(--second-dark-color);
 }
 
+.updates-body {
+    padding: 20px;
+}
+
+.update-item {
+    padding: 10px 0;
+}
+
 .update-row {
     display: flex;
-    align-items: flex-start;
     justify-content: space-between;
     gap: 14px;
 }
@@ -378,6 +349,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    width: 64px;
     height: 24px;
     border-radius: 999px;
     background: #dcfce7;
@@ -385,18 +357,16 @@
     font-size: 11px;
     font-weight: 700;
     margin-bottom: 10px;
-    width: 64px;
 }
 
 .update-arrow {
     width: 34px;
     height: 34px;
+    flex-shrink: 0;
     border: 0;
     border-radius: 10px;
     background: #f8fafc;
-    color: var(--dark);
     transition: var(--transition);
-    flex-shrink: 0;
 }
 
 .update-arrow:hover {
@@ -407,19 +377,21 @@
 .update-divider {
     height: 1px;
     background: #edf2f7;
+    margin: 6px 0;
 }
 
 .form-select {
     border-radius: 12px;
     border: 1px solid #dbe3ee;
-    font-size: 13px;
     min-height: 40px;
+    font-size: 13px;
     box-shadow: none !important;
 }
 
 .form-select:focus {
     border-color: var(--primary-color);
 }
+
 
 @media (max-width: 991px) {
 
@@ -432,7 +404,7 @@
     }
 
     .balance-amount {
-        font-size: 40px;
+        font-size: 34px;
     }
 }
 
@@ -475,7 +447,7 @@
     }
 
     .balance-amount {
-        font-size: 34px;
+        font-size: 30px;
     }
 
     .custom-table {
@@ -486,7 +458,8 @@
         min-width: 650px;
     }
 
-    .updates-card {
-        padding: 20px;
+    .updates-header,
+    .updates-body {
+        padding: 18px;
     }
 }

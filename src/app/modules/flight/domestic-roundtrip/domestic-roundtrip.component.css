@@ -348,25 +348,17 @@
 ========================================================= */
 
 .flight-summary {
-    background: linear-gradient(135deg,
-            var(--primary-color),
-            #1e88e5);
-
-    color: var(--white);
-
-    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 16px;
+    font-weight: 700;
     margin-bottom: 18px;
-
-    border-radius: var(--radius-md);
-
-    font-size: 15px;
-    font-weight: 500;
-
-    box-shadow: var(--shadow-sm);
+    color: var(--second-dark-color);
 }
 
-.flight-summary span b {
-    font-weight: 700;
+.flight-summary span {
+    color: var(--primary-color);
 }
 
 /* =========================================================
@@ -543,25 +535,11 @@
 .share-btn {
     border: none;
     outline: none;
-
-    padding: 10px 18px;
-
-    border-radius: 8px;
-
-    font-size: 13px;
-    font-weight: 500;
-
-    cursor: pointer;
-
-    transition: var(--transition);
+    color: var(--dark);
+    background-color: transparent;
 }
 
-.share-btn:hover {
-    transform: translateY(-2px);
-}
-
-/* BUTTON COLORS */
-
+/* 
 .whatsapp-btn {
     background: #25d366;
     color: var(--white);
@@ -585,22 +563,20 @@
 .close-btn {
     background: #f1f1f1;
     color: #444;
-}
+} */
 
 /* =========================================================
    SORT BAR WRAPPER
 ========================================================= */
 
 .sortbar-wrapper {
-    background: var(--white);
-
-    border: 1px solid #ececec;
-    border-radius: var(--radius-md);
-
-    padding: 15px;
-    margin-bottom: 18px;
-
     overflow: hidden;
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: 12px 15px;
+    margin-bottom: 18px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
 }
 
 /* =========================================================
@@ -704,21 +680,15 @@
 ========================================================= */
 
 .flight-rowmain.round-trip {
-    position: relative;
-
-    background: var(--white);
-
-    border: 1px solid #ececec;
-    border-radius: 18px;
-
-    padding: 20px;
-    margin-bottom: 22px;
-
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
-
-    transition: var(--transition);
-
     overflow: hidden;
+    position: relative;
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: 18px;
+    margin-bottom: 15px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    transition: var(--transition);
 }
 
 .flight-rowmain.round-trip:hover {
@@ -739,26 +709,29 @@
 /* AIRLINE LOGO */
 
 .flight-leftresult1 img {
-    width: 34px;
-    height: 34px;
-
-    border-radius: 10px;
-
+    width: 24px;
+    height: 24px;
+    border-radius: 5px;
     object-fit: contain;
+}
 
-    background: #f8f9fa;
-    padding: 4px;
+.flight-leftresult1 li {
+    font-size: 12px;
+    margin-bottom: 2px;
+}
+
+.flight-listair li {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 /* CITY */
 
 .flight-city {
-    margin-bottom: 2px;
-
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
-
-    color: var(--second-dark-color);
+    color: #858585;
 }
 
 /* TIME */
@@ -766,7 +739,7 @@
 .flight-timefont {
     display: block;
 
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 700;
 
     color: #111;
@@ -776,11 +749,8 @@
 
 .flight-dur-timefont {
     display: block;
-
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
-
-    color: #777;
 }
 
 /* FLIGHT ID */
@@ -858,6 +828,7 @@
     font-weight: 600;
 
     transition: var(--transition);
+    text-decoration: underline;
 }
 
 .flight-viewbtn:hover {
