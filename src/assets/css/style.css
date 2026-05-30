@@ -192,6 +192,10 @@ RESPONSIVE
     border-color: var(--primary-color);
 }
 
+
+.form-control, .form-select{
+    font-size: 14px;
+}
 /*=======header================end==========*/
 /* .Travelimpression_banner {
 padding: 120px 0px;
@@ -2946,7 +2950,7 @@ color: var(--black) !important;
     line-height: 40px;
 }
 
-/*===================flight==========bottom=================*/
+/*===================flight==========bottom=================*
 .flight_list_asp-btm {
     background: var(--footer-Bg-color);
     position: sticky;
