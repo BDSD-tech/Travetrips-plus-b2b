@@ -296,7 +296,7 @@ RESPONSIVE
   min-width: 170px;
 }
 
-.persent-one span {
+.persent-one .srchicons {
   position: absolute;
   top: 10px;
   left: 18px;
@@ -312,7 +312,7 @@ RESPONSIVE
 .custom-label {
   position: absolute;
   top: -0.5rem;
-  left: 0.825rem;
+  left: 16px;
   z-index: 1;
   background: #f5f8fb;
   color: #858585;
@@ -455,211 +455,189 @@ RESPONSIVE
   cursor: pointer;
 }
 
+
+
 .at-passection {
   position: absolute;
-  top: calc(100% + 15px);
+  top: calc(100% + 0px);
   left: auto;
   right: 0;
-  width: 650px;
+  width: 100%;
   background: var(--white);
   border-radius: var(--radius-lg);
-  padding: 25px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
-  border: 1px solid #eef2f7;
+  padding: 1rem 1rem 1rem 1rem;
+  border: 1px solid #d9d9d9;
   z-index: 999;
 }
 
-.persent-one_frm h2 {
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 15px;
-  color: var(--second-color);
-  font-family: var(--heading-font);
+
+.hotel-pax-container .hotel-close-btn {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #e5e7eb;
+  border-radius: 50%;
+  background: #ffffff;
+  cursor: pointer;
+  font-size: 20px;
 }
 
-.persent-one_passenger {
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 10px;
-  color: var(--second-dark-color);
-}
-
-.persent-one_passenger small {
-  color: var(--body-text-color);
-}
-
-.at-passhalf {
+.room-list {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 10px;
-  padding: 0;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 250px;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 
-.at-passhalf_list {
-  width: 34px;
-  height: 34px;
-  border-radius: var(--radius-sm);
-  background: #f3f6ff;
+.room-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  background: #ffffff;
+}
+
+.room-card-header {
+  margin-bottom: 15px;
+}
+
+.room-card-header h5 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.guest-row {
   display: flex;
   align-items: center;
-  justify-content: center;
-  transition: var(--transition);
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.guest-row:last-child{
+  margin-bottom: 0;
+}
+
+.guest-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.guest-title {
+  font-weight: 600;
+}
+
+.guest-info small {
+  color: #777;
+}
+
+.counter-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.counter-btn {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  background: #ffffff00;
+  color: #000000;
+  font-size: 14px;
   cursor: pointer;
 }
 
-.at-passhalf_list a {
-  color: var(--second-dark-color);
-}
-
-.at-passhalf_list:hover,
-.at-passhalf_list.active {
-  background: linear-gradient(135deg, var(--primary-color), var(--color-dark));
-  box-shadow: 0 8px 16px rgba(29, 72, 163, 0.25);
-}
-
-.at-passhalf_list:hover a,
-.at-passhalf_list.active a {
-  color: var(--white);
-}
-
-.persent-one_frm_done {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 110px;
-  height: 45px;
-  background: linear-gradient(135deg, var(--primary-color), var(--color-dark));
-  color: var(--white);
-  border-radius: var(--radius-sm);
-  font-size: 14px;
-  font-weight: 600;
-  transition: var(--transition);
-}
-
-.persent-one_frm_done:hover {
-  color: var(--white);
-  transform: translateY(-2px);
-}
-
-.tts-addmulti-btn {
+.counter-input {
+  width: 28px;
   border: none;
-  border-radius: var(--radius-sm);
-  background: #f8fbff;
+  border-radius: 8px;
+  height: 28px;
   color: var(--primary-color);
-  padding: 8px 16px;
-  border: 1px solid rgba(29, 72, 163, 0.12);
-  transition: var(--transition);
+  background: var(--primary-color);
+  -webkit-background-clip: text;
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-fill-color: rgba(0, 0, 0, 0);
+  -webkit-text-fill-color: rgba(0, 0, 0, 0);
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  letter-spacing: 0%;
+  text-align: center;
 }
 
-.tts-addmulti-btn:hover {
-  background: var(--primary-bg-color);
-  color: var(--white);
+.child-age-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
 }
 
-.tts-multyclose {
-  position: absolute;
-  right: -10px;
-  top: -10px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: #ef4444;
-  color: var(--white);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.error-msg {
-  margin-top: 8px;
-  font-size: 12px;
-  color: #ef4444;
+.age-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
   font-weight: 500;
 }
 
-.at-disable {
-  opacity: 0.5;
-  pointer-events: none;
+.form-select {
+  width: 100%;
+  height: 42px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0 10px;
 }
 
-@media(max-width:1199px) {
-  .at-passection {
-    width: 100%;
-    padding: 15px;
-  }
-
-  .at-passhalf {
-    gap: 6px
-  }
-
-  .at-passhalf_list {
-    font-size: 12px;
-    width: 25px;
-    height: 25px;
-  }
+.room-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
 }
 
-@media(max-width:991px) {
-  .flight_box_title span {
-    font-size: 30px;
-  }
-
-  .flight-tab {
-    flex-direction: column;
-  }
-
-  .less-btn {
-    width: 100%;
-  }
-
-  .cst-btn {
-    width: 100%;
-  }
+.btn-add,
+.btn-remove {
+  flex: 1;
+  height: 35px;
+  border: none;
+  border-radius: 10px;
+ font-size: 13px;
+  cursor: pointer;
 }
 
-@media(max-width:767px) {
+.btn-add {
+  background: #2fa0ae;
+  color: #fff;
+}
 
-  .flight_box_title span {
-    font-size: 24px;
-  }
+.btn-remove {
+  background: #f3f4f6;
+  color: #333;
+}
 
-  .nav-tabs .nav-link {
-    padding: 10px 16px;
-    font-size: 13px;
-  }
+.btn-add:disabled,
+.btn-remove:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
 
-  .persent-one {
-    min-width: 100%;
-  }
+@media(max-width:768px) {
 
-  .at-exchange {
-    right: 50%;
-    top: auto;
-    bottom: -30px;
-    transform: translateX(50%) rotate(90deg);
-  }
-
-  .at-exchange:hover {
-    transform: translateX(50%) rotate(270deg);
-  }
-
-  .at-passection {
-    position: fixed;
-    left: 10px;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: auto;
-    max-height: 85vh;
-    overflow-y: auto;
-    z-index: 99999;
-  }
-
-  .makeflex {
+  .guest-row {
     flex-direction: column;
     align-items: flex-start;
+    gap: 10px;
+  }
+
+  .counter-wrapper {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .room-actions {
+    flex-direction: column;
   }
 }
