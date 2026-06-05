@@ -19,7 +19,10 @@
       </div> -->
 
       <div class="row gy-4">
-         <div class="col-lg-12">
+
+
+         <div class="col-lg-9">
+
             <div class="booking-stepper">
                <!-- Step 1 -->
                <div class="step completed">
@@ -29,7 +32,7 @@
                   <span class="step-text">Flight Selection</span>
                </div>
 
-               <div class="step-dots"></div>
+               <div class="step-dots">•••</div>
 
                <!-- Step 2 -->
                <div class="step active">
@@ -38,7 +41,7 @@
                </div>
 
 
-               <div class="step-dots"></div>
+               <div class="step-dots">•••</div>
 
                <!-- Step 4 -->
                <div class="step">
@@ -47,154 +50,442 @@
                </div>
 
             </div>
-         </div>
-
-         <div class="col-lg-9">
-
-
+            <!----new code start---->
             <div class="flight-booking-wrapper">
+
+               <!-- Header -->
                <div class="flight-booking-header">
-                  <div class="d-flex align-items-center justify-content-between">
-                     <h3 class="flight-booking-title">
+                  <div class="itinerary-card-title">
+
+                     <div class="header-left">
+                        <i class="fa-solid fa-plane-departure"></i>
                         <span>Flight Details</span>
-                     </h3>
+                     </div>
+
+                     <a href="javascript:void(0)" class="change-flight-btn">
+                        Change Flight
+                     </a>
+
                   </div>
                </div>
 
-               <div class="flight-booking-scroll">
-                  <div class="flight-trip-card" *ngFor="let trip of Segments; let tripkey=index;">
-                     <div class="flight-route-block" *ngFor="let subtrip of trip; let subtripkey=index;">
-                        <p class="flight-route-title">
-                           {{subtrip[0]['Origin']['CityName']}}
-                           <span class="flight-route-arrow"> →</span>
-                           {{subtrip[subtrip.length-1]['Destination']['CityName']}}
-                           <span class="flight-date-info">
-                              <span>on</span>
-                              {{subtrip[0]['Origin']['DepartTime'] | date:'E, MMM d, y'}}
-                           </span>
-                           <span class="flight-arrival-info"
-                              *ngIf="MainSegments[tripkey][subtripkey]['ArrivalDays']!=0">
-                              <i class="fa fa-info-circle"></i> Arrives after
-                              {{MainSegments[tripkey][subtripkey]['ArrivalDays']}} Day(s)
-                           </span>
+               <!-- Trip Loop -->
+               <div class="flight-segment" *ngFor="let trip of Segments; let tripkey=index">
 
-                           <span class="flight-total-duration float-end">
-                              <i class="far fa-clock"></i>
-                              {{MainSegments[tripkey][subtripkey]['Duration']}}
-                           </span>
-                        </p>
+                  <!-- Route Loop -->
+                  <div class="flight-route-block" *ngFor="let subtrip of trip; let subtripkey=index">
 
-                        <div *ngFor="let segment of subtrip; let segkey=index;">
-                           <div class="row">
-                              <div class="col-lg-3">
-                                 <ul class="flight-airline-list">
-                                    <li>
-                                       <img src="{{AirlineLogoURL}}{{segment['Airline']['AirlineCode']}}.png"
-                                          class="flight-airline-logo">
-                                    </li>
-                                    <li class="flight-airline-details">
-                                       {{segment['Airline']['AirlineName']}}
-                                       <span class="flight-airline-code">
-                                          {{segment['Airline']['AirlineCode']}}-{{segment['Airline']['FlightNumber']}}
-                                          <span class="flight-aircraft-type" *ngIf="segment['Craft']">
-                                             <i class="fa fa-plane"></i>-{{segment['Craft']}}
-                                          </span>
-                                       </span>
-                                    </li>
-                                 </ul>
+                     <!-- Segment Loop -->
+                     <div *ngFor="let segment of subtrip; let segkey=index">
+
+                        <!-- Top Header -->
+                        <div class="flight-card-header">
+
+                           <div class="route-section">
+
+                              <h4>
+                                 {{subtrip[0]['Origin']['CityName']}}
+                                 <span>→</span>
+                                 {{subtrip[subtrip.length-1]['Destination']['CityName']}}
+                              </h4>
+
+                              <div class="route-meta">
+
+                                 <span class="date-tag">
+                                    {{subtrip[0]['Origin']['DepartTime'] | date:'dd MMM EEEE'}}
+                                 </span>
+
+                                 <span class="stop-tag">
+
+                                    <ng-container
+                                       *ngIf="!segment['TechStopPoint'] || segment['TechStopPoint'].length==0">
+                                       Non Stop
+                                    </ng-container>
+
+                                    <ng-container *ngIf="segment['TechStopPoint'] && segment['TechStopPoint']['Code']">
+                                       Via {{segment['TechStopPoint']['Code']}}
+                                    </ng-container>
+
+                                 </span>
+                                 <span class="stop_duration">•</span>
+                                 <span class="duration-tag">
+                                    {{FTduration(segment['Duration'])}}
+                                 </span>
+
+                                 <span class="refund-tag" *ngIf="FareList[tripkey]['IsRefundable']">
+                                    REFUNDABLE
+                                 </span>
+
+                                 <span class="refund-tag non-refundable"
+                                    *ngIf="FareList[tripkey]['IsRefundable']!=true">
+                                    NON REFUNDABLE
+                                 </span>
+
                               </div>
 
-                              <div class="col-lg-7">
-                                 <ul class="flight-timeline-list">
-                                    <li>
-                                       {{segment['Origin']['DepartTime'] | date:'MMM d, EEE, HH:mm'}}
-                                       <span class="flight-airport-city">
-                                          {{segment['Origin']['CityName']}},
-                                          {{segment['Origin']['CountryName']}}
-                                       </span>
+                           </div>
 
-                                       <span class="flight-airport-name">
-                                          {{segment['Origin']['AirportName']}}
-                                       </span>
+                           <div class="top-right-section">
 
-                                       <span class="flight-terminal-info" *ngIf="segment['Origin']['Terminal']!=''">
-                                          Terminal {{segment['Origin']['Terminal']}}
-                                       </span>
-                                    </li>
+                              <div class="baggage-item" *ngIf="segment['CheckInBaggage']">
 
-                                    <li class="text-center">
-                                       <span *ngIf="segment['TechStopPoint'].length==0">Non-Stop</span>
-                                       <span *ngIf="segment['TechStopPoint'] && segment['TechStopPoint']['Code']">1
-                                          Stop(s)</span>
-                                       <span class="flight-route-line d-block"></span>
-                                       <img class="flight-route-image" src="assets/img/airarrow.png" />
-                                       <span *ngIf="segment['TechStopPoint'] && segment['TechStopPoint']['Code']"
-                                          class="d-block">Via:{{segment['TechStopPoint']['Code']}}</span>
-                                    </li>
+                                 <strong>
+                                    {{segment['CheckInBaggage']}}
+                                 </strong>
 
-                                    <li>
-                                       {{segment['Destination']['ArrivalTime']| date: 'MMM d, EEE, HH:mm'}}
-                                       <span class="flight-airport-city">
-                                          {{segment['Destination']['CityName']}},
-                                          {{segment['Destination']['CountryName']}}
-                                       </span>
+                                 <span>
+                                    <svg width="18" height="12px" viewBox="0 0 18 24" fill="none"
+                                       xmlns="http://www.w3.org/2000/svg">
+                                       <path
+                                          d="M7.83398 4.9987H10.1673V2.66536H7.83398V4.9987ZM9.00065 11.9987C7.52287 11.9987 6.11315 11.6923 4.77148 11.0794C3.42982 10.4665 2.11732 9.78125 0.833984 9.0237V7.33203C0.833984 6.69036 1.06265 6.14125 1.51998 5.6847C1.97732 5.22814 2.52643 4.99948 3.16732 4.9987H5.50065V1.4987C5.50065 1.16814 5.61265 0.891254 5.83665 0.668031C6.06065 0.444809 6.33754 0.332809 6.66732 0.332031H11.334C11.6645 0.332031 11.9418 0.444031 12.1658 0.668031C12.3898 0.892031 12.5014 1.16892 12.5007 1.4987V4.9987H14.834C15.4757 4.9987 16.0252 5.22736 16.4825 5.6847C16.9398 6.14203 17.1681 6.69114 17.1673 7.33203V9.0237C15.884 9.78203 14.5715 10.4676 13.2298 11.0805C11.8882 11.6934 10.4784 11.9995 9.00065 11.9987ZM3.16732 23.6654V22.4987C2.52565 22.4987 1.97654 22.2704 1.51998 21.8139C1.06343 21.3573 0.834762 20.8078 0.833984 20.1654V11.6487C1.92287 12.3098 3.04598 12.8737 4.20332 13.3404C5.36065 13.807 6.57087 14.1181 7.83398 14.2737V15.4987H10.1673V14.2737C11.4312 14.1181 12.6418 13.807 13.7992 13.3404C14.9565 12.8737 16.0792 12.3098 17.1673 11.6487V20.1654C17.1673 20.807 16.939 21.3565 16.4825 21.8139C16.0259 22.2712 15.4764 22.4995 14.834 22.4987V23.6654H12.5007V22.4987H5.50065V23.6654H3.16732Z"
+                                          fill="#9E9E9E"></path>
+                                    </svg>
+                                 </span>
 
-                                       <span class="flight-airport-name">
-                                          {{segment['Destination']['AirportName']}}
-                                       </span>
-
-                                       <span class="flight-terminal-info"
-                                          *ngIf="segment['Destination']['Terminal']!=''">
-                                          Terminal {{segment['Destination']['Terminal']}}</span>
-                                    </li>
-                                 </ul>
                               </div>
-                              <div class="col-sm-2 col-xs-12">
-                                 <p class="flight-duration-box">
-                                    {{ FTduration(segment['Duration'])}}
-                                    <span class="flight-cabin-info d-block" *ngIf="segment['CabinClass']">
-                                       {{segment['CabinClass']}},
-                                       <span *ngIf="FareList[tripkey]['IsRefundable']">Refundable</span>
-                                       <span *ngIf="FareList[tripkey]['IsRefundable']!=true">Non
-                                          Refundable</span>
-                                    </span>
+
+                              <div class="divider" *ngIf="segment['CheckInBaggage'] && segment['CabinBaggage']">
+                              </div>
+
+                              <div class="baggage-item" *ngIf="segment['CabinBaggage']">
+
+                                 <strong>
+                                    {{segment['CabinBaggage']}}
+                                 </strong>
+
+                                 <span>
+                                    <svg width="24" height="12px" viewBox="0 0 24 20" fill="none"
+                                       xmlns="http://www.w3.org/2000/svg">
+                                       <path
+                                          d="M6.75 4.3999C6.75 3.5645 7.08187 2.76331 7.67261 2.17259C8.26335 1.58186 9.06457 1.25 9.9 1.25H14.625C15.4604 1.25 16.2616 1.58186 16.8524 2.17259C17.4431 2.76331 17.775 3.5645 17.775 4.3999V5.44987H6.75V4.3999Z"
+                                          stroke="#9E9E9E" stroke-width="2.09997" stroke-linecap="round"
+                                          stroke-linejoin="round"></path>
+                                       <path
+                                          d="M1.5 10.1758L11.7454 12.7372C11.9123 12.7792 12.0877 12.7792 12.2546 12.7372L22.5 10.1758V17.0006C22.5 17.279 22.3894 17.5461 22.1925 17.743C21.9955 17.9399 21.7285 18.0505 21.45 18.0505H2.55C2.27152 18.0505 2.00445 17.9399 1.80754 17.743C1.61062 17.5461 1.5 17.279 1.5 17.0006V10.1758Z"
+                                          fill="#9E9E9E" stroke="#9E9E9E" stroke-width="2.09997" stroke-linecap="round"
+                                          stroke-linejoin="round"></path>
+                                       <path
+                                          d="M22.5 11.226V6.50114C22.5 6.22267 22.3894 5.95561 22.1925 5.7587C21.9955 5.56179 21.7285 5.45117 21.45 5.45117H2.55C2.27152 5.45117 2.00445 5.56179 1.80754 5.7587C1.61062 5.95561 1.5 6.22267 1.5 6.50114V11.226"
+                                          stroke="#9E9E9E" stroke-width="2.09997" stroke-linecap="round"
+                                          stroke-linejoin="round"></path>
+                                       <path
+                                          d="M13.3125 9.12496C13.3125 9.47305 13.1742 9.80688 12.9281 10.053C12.6819 10.2991 12.3481 10.4374 12 10.4374C11.6519 10.4374 11.3181 10.2991 11.0719 10.053C10.8258 9.80688 10.6875 9.47305 10.6875 9.12496C10.6875 8.77687 10.8258 8.44304 11.0719 8.19691C11.3181 7.95078 11.6519 7.8125 12 7.8125C12.3481 7.8125 12.6819 7.95078 12.9281 8.19691C13.1742 8.44304 13.3125 8.77687 13.3125 9.12496Z"
+                                          fill="#9E9E9E"></path>
+                                    </svg>
+                                 </span>
+
+                              </div>
+
+                              <button class="fare-rule-btn">
+                                 Fare Rules
+                              </button>
+
+                           </div>
+
+                        </div>
+
+                        <!-- Main Flight Row -->
+                        <div class="flight-main-row">
+
+                           <!-- Airline -->
+                           <div class="airline-column">
+
+                              <img src="{{AirlineLogoURL}}{{segment['Airline']['AirlineCode']}}.png"
+                                 class="flight-airline-logo">
+
+                              <div class="d-flex flex-column">
+
+                                 <h6>
+                                    {{segment['Airline']['AirlineCode']}}
+                                    {{segment['Airline']['FlightNumber']}}
+                                 </h6>
+
+                                 <p>
+                                    {{segment['Airline']['AirlineName']}}
                                  </p>
+
+                                 <p>
+                                    Class :
+                                    {{segment['CabinClass']}}
+                                 </p>
+
+                                 <p>
+                                    Fare Type :
+                                    {{FareList[tripkey]['FareType']}}
+                                 </p>
+
                               </div>
 
-                              <div class="col-sm-12">
-                                 <div class="flight-fare-badge-wrapper mt-10">
-                                    <span class="flight-fare-badge label-{{FareList[tripkey]['FareTypeColor']}}">
-                                       {{FareList[tripkey]['FareType']}}
+                           </div>
+
+                           <div class="d-flex w-100 justify-content-between align-items-center gap-3">
+                              <!-- Departure -->
+                              <div class="time-column">
+                                 <div class="d-flex align-items-center gap-2">
+                                    <h3>
+                                       {{segment['Origin']['DepartTime'] | date:'HH:mm'}}
+                                    </h3>
+                                    <div>•</div>
+                                    <span>
+                                       {{segment['Origin']['DepartTime'] | date:'dd MMM EEEE'}}
+                                    </span>
+                                 </div>
+
+
+                                 <h5>
+                                    {{segment['Origin']['CityName']}}
+                                    ({{segment['Origin']['AirportCode']}})
+                                 </h5>
+
+                                 <p>
+                                    {{segment['Origin']['AirportName']}}
+                                 </p>
+
+                                 <p *ngIf="segment['Origin']['Terminal']">
+                                    Terminal
+                                    {{segment['Origin']['Terminal']}}
+                                 </p>
+
+                              </div>
+
+                              <!-- Journey -->
+                              <div class="journey-column">
+
+                                 <span class="journey-duration">
+                                    {{FTduration(segment['Duration'])}}
+                                 </span>
+
+                                 <div class="journey-line">
+
+                                    <span class="plane-icon">
+                                       <i class="fa fa-clock"></i>
                                     </span>
 
                                  </div>
+
+                                 <small>
+
+                                    <ng-container
+                                       *ngIf="!segment['TechStopPoint'] || segment['TechStopPoint'].length==0">
+                                       Non Stop
+                                    </ng-container>
+
+                                    <ng-container *ngIf="segment['TechStopPoint'] && segment['TechStopPoint']['Code']">
+                                       Via {{segment['TechStopPoint']['Code']}}
+                                    </ng-container>
+
+                                 </small>
+
                               </div>
 
-                              <div class="col-lg-12 flight-baggage-section"
-                                 *ngIf="segment['CheckInBaggage'] || segment['CabinBaggage']">
-                                 <div>
-                                    <i class="fa fa-suitcase"></i> :
-                                    <span *ngIf="segment['CheckInBaggage']">
-                                       <span class="flight-baggage-info">
-                                          Check-in : {{segment['CheckInBaggage']}},
+                              <!-- Arrival -->
+                              <div class="time-column text-end">
+                                 <div class="d-flex align-items-center gap-2 justify-content-end">
+
+
+                                    <span>
+                                       {{segment['Destination']['ArrivalTime'] | date:'dd MMM EEEE'}}
+                                    </span>
+                                    <div>•</div>
+                                    <h3>
+                                       {{segment['Destination']['ArrivalTime'] | date:'HH:mm'}}
+                                    </h3>
+                                 </div>
+
+                                 <h5>
+                                    {{segment['Destination']['CityName']}}
+                                    ({{segment['Destination']['AirportCode']}})
+                                 </h5>
+
+                                 <p>
+                                    {{segment['Destination']['AirportName']}}
+                                 </p>
+
+                                 <p *ngIf="segment['Destination']['Terminal']">
+                                    Terminal
+                                    {{segment['Destination']['Terminal']}}
+                                 </p>
+
+                              </div>
+                           </div>
+
+                        </div>
+
+                        <!-- Layover -->
+
+                        <div class="flight-layover-wrapper" *ngIf="segment['Layover']">
+                           <div class="layover-line">
+                              <span class="layover-badge">
+                                 Connecting Flight at
+                                 <strong>
+                                    {{segment['Destination']['CityName']}}
+                                    ({{segment['Destination']['AirportCode']}})
+                                 </strong>
+                                 <span class="layover-time">
+                                    | {{segment['Layover']}} Layover
+                                 </span>
+                              </span>
+                           </div>
+                        </div>
+
+
+
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!----new code End---->
+
+            <!----old code----start-->
+            <div class="flight-booking-wrapper d-none">
+               <div class="flight-booking-header">
+                  <div class="itinerary-card-title">
+                     <div class="header-left">
+                        <svg width="24" height="18" viewBox="0 0 30 22" fill="none">
+                           <path
+                              d="M21 21.0002C21 21.2655 20.8946 21.5198 20.7071 21.7073C20.5196 21.8949 20.2652 22.0002 20 22.0002H1.99998C1.73477 22.0002 1.48041 21.8949 1.29288 21.7073C1.10534 21.5198 0.999984 21.2655 0.999984 21.0002C0.999984 20.735 1.10534 20.4807 1.29288 20.2931C1.48041 20.1056 1.73477 20.0002 1.99998 20.0002H20C20.2652 20.0002 20.5196 20.1056 20.7071 20.2931C20.8946 20.4807 21 20.735 21 21.0002Z"
+                              fill="currentColor" />
+                        </svg>
+
+                        <span>Flight Details</span>
+                     </div>
+
+                     <a href="javascript:void(0)" class="change-flight-btn">
+                        Change Flight
+                     </a>
+                  </div>
+               </div>
+
+               <div class="flight-segment" *ngFor="let trip of Segments; let tripkey=index;">
+                  <div class="flight-route-block" *ngFor="let subtrip of trip; let subtripkey=index;">
+                     <div class="flight-route-info">
+                        {{subtrip[0]['Origin']['CityName']}}
+                        <span class="flight-route-arrow"> →</span>
+                        {{subtrip[subtrip.length-1]['Destination']['CityName']}}
+                        <span class="flight-date-info">
+                           <span>on</span>
+                           {{subtrip[0]['Origin']['DepartTime'] | date:'E, MMM d, y'}}
+                        </span>
+                        <span class="flight-arrival-info" *ngIf="MainSegments[tripkey][subtripkey]['ArrivalDays']!=0">
+                           <i class="fa fa-info-circle"></i> Arrives after
+                           {{MainSegments[tripkey][subtripkey]['ArrivalDays']}} Day(s)
+                        </span>
+
+                        <span class="flight-total-duration float-end">
+                           <i class="far fa-clock"></i>
+                           {{MainSegments[tripkey][subtripkey]['Duration']}}
+                        </span>
+                     </div>
+
+                     <div *ngFor="let segment of subtrip; let segkey=index;">
+                        <div class="row">
+                           <div class="col-lg-3">
+                              <ul class="flight-airline-list">
+                                 <li>
+                                    <img src="{{AirlineLogoURL}}{{segment['Airline']['AirlineCode']}}.png"
+                                       class="flight-airline-logo">
+                                 </li>
+                                 <li class="flight-airline-details">
+                                    {{segment['Airline']['AirlineName']}}
+                                    <span class="flight-airline-code">
+                                       {{segment['Airline']['AirlineCode']}}-{{segment['Airline']['FlightNumber']}}
+                                       <span class="flight-aircraft-type" *ngIf="segment['Craft']">
+                                          <i class="fa fa-plane"></i>-{{segment['Craft']}}
                                        </span>
                                     </span>
+                                 </li>
+                              </ul>
+                           </div>
 
-                                    <span *ngIf="segment['CabinBaggage']">
-                                       <span class="flight-baggage-info">
-                                          Cabin : {{segment['CabinBaggage']}}
-                                       </span>
+                           <div class="col-lg-7">
+                              <ul class="flight-timeline-list">
+                                 <li>
+                                    {{segment['Origin']['DepartTime'] | date:'MMM d, EEE, HH:mm'}}
+                                    <span class="flight-airport-city">
+                                       {{segment['Origin']['CityName']}},
+                                       {{segment['Origin']['CountryName']}}
                                     </span>
-                                 </div>
-                              </div>
 
-                              <div class="col-lg-12 text-center" *ngIf="segment['Layover']">
-                                 <div class="flight-layover-wrapper">
-                                    <p class="flight-layover-text">
-                                       <span class="me-3">Require to change Plane</span>
-                                       <span> Layover Time - {{segment['Layover']}}</span>
-                                    </p>
-                                 </div>
+                                    <span class="flight-airport-name">
+                                       {{segment['Origin']['AirportName']}}
+                                    </span>
+
+                                    <span class="flight-terminal-info" *ngIf="segment['Origin']['Terminal']!=''">
+                                       Terminal {{segment['Origin']['Terminal']}}
+                                    </span>
+                                 </li>
+
+                                 <li class="text-center">
+                                    <span *ngIf="segment['TechStopPoint'].length==0">Non-Stop</span>
+                                    <span *ngIf="segment['TechStopPoint'] && segment['TechStopPoint']['Code']">1
+                                       Stop(s)</span>
+                                    <span class="flight-route-line d-block"></span>
+                                    <img class="flight-route-image" src="assets/img/airarrow.png" />
+                                    <span *ngIf="segment['TechStopPoint'] && segment['TechStopPoint']['Code']"
+                                       class="d-block">Via:{{segment['TechStopPoint']['Code']}}</span>
+                                 </li>
+
+                                 <li>
+                                    {{segment['Destination']['ArrivalTime']| date: 'MMM d, EEE, HH:mm'}}
+                                    <span class="flight-airport-city">
+                                       {{segment['Destination']['CityName']}},
+                                       {{segment['Destination']['CountryName']}}
+                                    </span>
+
+                                    <span class="flight-airport-name">
+                                       {{segment['Destination']['AirportName']}}
+                                    </span>
+
+                                    <span class="flight-terminal-info" *ngIf="segment['Destination']['Terminal']!=''">
+                                       Terminal {{segment['Destination']['Terminal']}}</span>
+                                 </li>
+                              </ul>
+                           </div>
+                           <div class="col-sm-2 col-xs-12">
+                              <p class="flight-duration-box">
+                                 {{ FTduration(segment['Duration'])}}
+                                 <span class="flight-cabin-info d-block" *ngIf="segment['CabinClass']">
+                                    {{segment['CabinClass']}},
+                                    <span *ngIf="FareList[tripkey]['IsRefundable']">Refundable</span>
+                                    <span *ngIf="FareList[tripkey]['IsRefundable']!=true">Non
+                                       Refundable</span>
+                                 </span>
+                              </p>
+                           </div>
+
+                           <div class="col-sm-12">
+                              <div class="flight-fare-badge-wrapper mt-10">
+                                 <span class="flight-fare-badge label-{{FareList[tripkey]['FareTypeColor']}}">
+                                    {{FareList[tripkey]['FareType']}}
+                                 </span>
+
+                              </div>
+                           </div>
+
+                           <div class="col-lg-12 flight-baggage-section"
+                              *ngIf="segment['CheckInBaggage'] || segment['CabinBaggage']">
+                              <div>
+                                 <i class="fa fa-suitcase"></i> :
+                                 <span *ngIf="segment['CheckInBaggage']">
+                                    <span class="flight-baggage-info">
+                                       Check-in : {{segment['CheckInBaggage']}},
+                                    </span>
+                                 </span>
+
+                                 <span *ngIf="segment['CabinBaggage']">
+                                    <span class="flight-baggage-info">
+                                       Cabin : {{segment['CabinBaggage']}}
+                                    </span>
+                                 </span>
+                              </div>
+                           </div>
+
+                           <div class="col-lg-12 text-center" *ngIf="segment['Layover']">
+                              <div class="flight-layover-wrapper">
+                                 <p class="flight-layover-text">
+                                    <span class="me-3">Require to change Plane</span>
+                                    <span> Layover Time - {{segment['Layover']}}</span>
+                                 </p>
                               </div>
                            </div>
                         </div>
@@ -205,46 +496,57 @@
 
 
 
-         @if(fareloading==false){
+
+            @if(fareloading==false){
             <form [formGroup]="FlightForm" (ngSubmit)="SubmitPax()">
                <div class="flight-booking-wrapper">
                   <div class="flight-booking-header">
-                     <div class="d-flex align-items-center justify-content-between">
-                        <h3 class="flight-booking-title">
+                     <div class="itinerary-card-title">
+                        <div class="header-left">
+                           <i class="fa-solid fa-user"></i>
                            <span>Passenger Details</span>
-                        </h3>
+                        </div>
                      </div>
                   </div>
-                  <div class="accordion panel-default" id="adt-pax-accordion">
-                     <!--Start Adult information -->
-                     <div class="accordion-item panel-item mb-4" formArrayName="Adult"
-                        *ngFor="let adt of fadt.controls; let a=index;">
-                        <div formGroupName="{{a}}">
-                           <button class="accordion-button panel-heading fw-bold" type="button"
-                              data-bs-toggle="collapse" attr.data-bs-target="#collapse_adt_{{a+1}}"
-                              aria-expanded="false" [ngClass]="{'collapsed':a!=0}">
-                              ADULT {{a+1}}:
-                              <span *ngIf="adt.value['FirstName']==''">(12 + yrs)</span>
-                              <span *ngIf="adt.value['FirstName']!=''">{{ adt.value['Title'] }}
-                                 {{adt.value['FirstName']}} {{adt.value['LastName']}}</span>
-                           </button>
-                           <div id="collapse_adt_{{a+1}}" class="accordion-collapse collapse"
-                              data-bs-parent="#adt-pax-accordion" [ngClass]="{'show':a==0}">
-                              <div class="accordion-body panel-body ">
-                                 <div class="gst-history-wrapper">
+                  <div class="flight-segment">
+                     <div class="flight-route-block">
+
+                        <!-----New  code Start 30-05-2026----->
+
+                        <!--Start Adult information -->
+                        <div formArrayName="Adult">
+                           <div class="passenger-card adult-passenger-wrapper" *ngFor="let adt of fadt.controls; let a=index;"
+                              [formGroupName]="a">
+                              <!-- Passenger Header -->
+                              <div class="passenger-card-header">
+                                 <h6>ADULT {{a+1}}
+                                    <span *ngIf="adt.value['FirstName']==''">(12+ yrs)</span>
+                                    <span *ngIf="adt.value['FirstName']!=''">: {{adt.value['Title']}}
+                                       {{adt.value['FirstName']}}
+                                       {{adt.value['LastName']}}
+                                    </span>
+                                 </h6>
+                              </div>
+
+                              <!-- Passenger Body -->
+                              <div class="passenger-card-body">
+                                 <div class="gst-history-wrapper mb-3">
                                     <div class="gst-input-icon"><i class="fa fa-building"></i></div>
-                                    <div role="combobox" aria-haspopup="listbox" aria-owns="react-autowhatever-1" aria-expanded="false"class="react-autosuggest__container">
-                                       <input type="text" class="react-autosuggest__input" placeholder="Select from History"
+                                    <div role="combobox" aria-haspopup="listbox" aria-owns="react-autowhatever-1"
+                                       aria-expanded="false" class="react-autosuggest__container">
+                                       <input type="text" class="react-autosuggest__input"
+                                          placeholder="Select from History"
                                           (keyup)="TravellerAutocomplete($event,'Adult',a)" [matAutocomplete]="auto" />
                                     </div>
-                                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedpax($event,'Adult',a)">
+                                    <mat-autocomplete #auto="matAutocomplete"
+                                       (optionSelected)="selectedpax($event,'Adult',a)">
                                        <mat-option *ngFor="let list of travellerlist"
                                           [value]="list['first_name']+' ' + list['last_name']">{{list['first_name']}}
                                           {{list['last_name']}}</mat-option>
                                     </mat-autocomplete>
                                  </div>
 
-                                 <div class="row mb-3">
+                                 <div class="row gy-3">
                                     <div class="col-md-3">
                                        <div class="form-floating">
                                           <select class="form-select main-select" formControlName="Title">
@@ -396,9 +698,8 @@
                                  </div>
 
 
-                                 <div class="row mb-3 gy-3" *ngIf="IsPassportMandatory">
-                                    <p class="apt-addpassport"><span>ADD PASSPORT
-                                          INFORMATION</span>
+                                 <div class="row gy-3" *ngIf="IsPassportMandatory">
+                                    <p class="apt-addpassport"><span>ADD PASSPORT INFORMATION</span>
                                     </p>
                                     <div class="col-md-3">
                                        <div class="form-floating">
@@ -494,6 +795,7 @@
                                        </div>
                                     </div>
                                  </div>
+
                                  <div class="row mb-3" *ngIf="IsFFDiv==false">
                                     <p class="apt-addpassport tts-cursor-pointer"
                                        (click)="togglebutton('ADULT_ffdetail_'+a)">
@@ -521,51 +823,47 @@
                                        </div>
                                     </div>
                                  </div>
-                                 <div class="form-check">
+
+                                 <div class="form-check mt-3">
                                     <input class="form-check-input" formControlName="SavePax" type="checkbox"
                                        id="adult-{{a}}-save" value="true" />
                                     <label class="form-check-label" for="adult-{{a}}-save">
                                        Save Passanger Details
                                     </label>
                                  </div>
-
                               </div>
                            </div>
                         </div>
-                     </div>
-                     <!--End Adult information -->
-                     <!--Start Child information -->
-                     <div class="accordion-item panel-item mb-4" formArrayName="Child"
-                        *ngFor="let chd of fchd.controls; let c=index;">
-                        <div formGroupName="{{c}}">
-                           <button class="accordion-button collapsed panel-heading h5 fw-bold" type="button"
-                              data-bs-toggle="collapse" attr.data-bs-target="#collapse_chd_{{c+1}}"
-                              aria-expanded="true">
-                              CHILD {{c+1}}:
-                              <span *ngIf="chd.value['FirstName']==''">(2+ yrs)</span>
-                              <span *ngIf="chd.value['FirstName']!=''">{{ chd.value['Title'] }}
-                                 {{chd.value['FirstName']}} {{chd.value['LastName']}}</span>
-                           </button>
-                           <div id="collapse_chd_{{c+1}}" class="accordion-collapse collapse"
-                              data-bs-parent="#adt-pax-accordion">
-                              <div class="accordion-body panel-body ">
-                                 <div class="historybox__wrapper">
-                                    <div class="historybox">
 
-                                       <div role="combobox" aria-haspopup="listbox" aria-owns="react-autowhatever-1"
-                                          aria-expanded="false" class="react-autosuggest__container">
-                                          <input type="text" class="react-autosuggest__input"
-                                             placeholder="Select from History"
-                                             (keyup)="TravellerAutocomplete($event,'Child',c)"
-                                             [matAutocomplete]="auto" />
-                                       </div>
-                                       <mat-autocomplete #auto="matAutocomplete"
-                                          (optionSelected)="selectedpax($event,'Child',c)">
-                                          <mat-option *ngFor="let list of travellerlist"
-                                             [value]="list['first_name']+' ' + list['last_name']">{{list['first_name']}}
-                                             {{list['last_name']}}</mat-option>
-                                       </mat-autocomplete>
+                        <!--Start Child information -->
+                        <div formArrayName="Child">
+                           <div class="child-passenger-wrapper passenger-card" *ngFor="let chd of fchd.controls; let c=index;" [formGroupName]="c">
+                              <!-- Passenger Header -->
+                              <div class="passenger-card-header">
+                                 <h6>CHILD {{c+1}}:
+                                    <span *ngIf="chd.value['FirstName']==''">(2+ yrs)</span>
+                                    <span *ngIf="chd.value['FirstName']!=''">: {{ chd.value['Title'] }}
+                                       {{chd.value['FirstName']}}
+                                       {{chd.value['LastName']}}
+                                    </span>
+                                 </h6>
+                              </div>
+                              <div class="passenger-card-body">
+
+                                 <div class="gst-history-wrapper mb-3">
+                                    <div class="gst-input-icon"><i class="fa fa-building"></i></div>
+                                    <div role="combobox" aria-haspopup="listbox" aria-owns="react-autowhatever-1"
+                                       aria-expanded="false" class="react-autosuggest__container">
+                                       <input type="text" class="react-autosuggest__input"
+                                          placeholder="Select from History"
+                                          (keyup)="TravellerAutocomplete($event,'Child',c)" [matAutocomplete]="auto" />
                                     </div>
+                                    <mat-autocomplete #auto="matAutocomplete"
+                                       (optionSelected)="selectedpax($event,'Child',c)">
+                                       <mat-option *ngFor="let list of travellerlist"
+                                          [value]="list['first_name']+' ' + list['last_name']">{{list['first_name']}}
+                                          {{list['last_name']}}</mat-option>
+                                    </mat-autocomplete>
                                  </div>
 
                                  <div class="row">
@@ -783,7 +1081,7 @@
                                        </div>
                                     </div>
                                  </div>
-                                 <div class="form-check">
+                                 <div class="form-check mt-3">
                                     <input class="form-check-input" formControlName="SavePax" type="checkbox"
                                        id="child-{{c}}-save" value="true" />
                                     <label class="form-check-label" for="child-{{c}}-save">
@@ -794,38 +1092,40 @@
                               </div>
                            </div>
                         </div>
-                     </div>
-                     <!--End Child information -->
-                     <!--Start Infant information -->
-                     <div class="accordion-item panel-item mb-4" formArrayName="Infant"
-                        *ngFor="let inf of finf.controls; let i=index;">
-                        <div formGroupName="{{i}}">
-                           <button class="accordion-button collapsed panel-heading h5 fw-bold" type="button"
-                              data-bs-toggle="collapse" attr.data-bs-target="#collapse_inf_{{i+1}}"
-                              aria-expanded="false">
-                              INFANT {{i+1}}:
-                              <span *ngIf="inf.value['FirstName']==''">(0 - 2 yrs)</span>
-                              <span *ngIf="inf.value['FirstName']!=''">{{ inf.value['Title'] }}
-                                 {{inf.value['FirstName']}} {{inf.value['LastName']}}</span>
-                           </button>
-                           <div id="collapse_inf_{{i+1}}" class="accordion-collapse collapse"
-                              data-bs-parent="#adt-pax-accordion">
-                              <div class="accordion-body panel-body ">
+
+                        <!--Start infant information -->
+                        <div formArrayName="Infant">
+                           <div class="passenger-card infant-passenger-wrapper" *ngFor="let inf of finf.controls; let i=index;"
+                              [formGroupName]="i">
+                              <!-- Passenger Header -->
+                              <div class="passenger-card-header">
+                                 <h6>INFANT {{i+1}}:
+                                    <span *ngIf="inf.value['FirstName']==''">(0 - 2 yrs)</span>
+                                    <span *ngIf="inf.value['FirstName']!=''">: {{ inf.value['Title'] }}
+                                       {{inf.value['FirstName']}}
+                                       {{inf.value['LastName']}}
+                                    </span>
+                                 </h6>
+                              </div>
+
+                              <div class="passenger-card-body">
 
 
-
-                                 <div role="combobox" aria-haspopup="listbox" aria-owns="react-autowhatever-1"
-                                    aria-expanded="false" class="react-autosuggest__container">
-                                    <input type="text" class="react-autosuggest__input"
-                                       placeholder="Select from History"
-                                       (keyup)="TravellerAutocomplete($event,'Infant',i)" [matAutocomplete]="auto" />
+                                 <div class="gst-history-wrapper mb-3">
+                                    <div class="gst-input-icon"><i class="fa fa-building"></i></div>
+                                    <div role="combobox" aria-haspopup="listbox" aria-owns="react-autowhatever-1"
+                                       aria-expanded="false" class="react-autosuggest__container">
+                                       <input type="text" class="react-autosuggest__input"
+                                          placeholder="Select from History"
+                                          (keyup)="TravellerAutocomplete($event,'Infant',i)" [matAutocomplete]="auto" />
+                                    </div>
+                                    <mat-autocomplete #auto="matAutocomplete"
+                                       (optionSelected)="selectedpax($event,'Infant',i)">
+                                       <mat-option *ngFor="let list of travellerlist"
+                                          [value]="list['first_name']+' ' + list['last_name']">{{list['first_name']}}
+                                          {{list['last_name']}}</mat-option>
+                                    </mat-autocomplete>
                                  </div>
-                                 <mat-autocomplete #auto="matAutocomplete"
-                                    (optionSelected)="selectedpax($event,'Infant',i)">
-                                    <mat-option *ngFor="let list of travellerlist"
-                                       [value]="list['first_name']+' ' + list['last_name']">{{list['first_name']}}
-                                       {{list['last_name']}}</mat-option>
-                                 </mat-autocomplete>
 
 
 
@@ -1044,7 +1344,7 @@
                                        </div>
                                     </div>
                                  </div>
-                                 <div class="form-check">
+                                 <div class="form-check mt-3">
                                     <input class="form-check-input" formControlName="SavePax" type="checkbox"
                                        id="infant-{{i}}-save" value="true" />
                                     <label class="form-check-label" for="infant-{{i}}-save">
@@ -1055,65 +1355,959 @@
                               </div>
                            </div>
                         </div>
+
+
+                        <!-----New  code End 30-05-2026----->
+
+                        <div class="accordion panel-default d-none" id="adt-pax-accordion">
+                           <!--Start Adult information -->
+                           <div class="accordion-item panel-item" formArrayName="Adult"
+                              *ngFor="let adt of fadt.controls; let a=index;">
+                              <div formGroupName="{{a}}">
+                                 <button class="accordion-button panel-heading fw-bold" type="button"
+                                    data-bs-toggle="collapse" attr.data-bs-target="#collapse_adt_{{a+1}}"
+                                    aria-expanded="false" [ngClass]="{'collapsed':a!=0}">
+                                    ADULT {{a+1}}:
+                                    <span *ngIf="adt.value['FirstName']==''">(12 + yrs)</span>
+                                    <span *ngIf="adt.value['FirstName']!=''">{{ adt.value['Title'] }}
+                                       {{adt.value['FirstName']}} {{adt.value['LastName']}}</span>
+                                 </button>
+                                 <div id="collapse_adt_{{a+1}}" class="accordion-collapse collapse"
+                                    data-bs-parent="#adt-pax-accordion" [ngClass]="{'show':a==0}">
+                                    <div class="accordion-body panel-body ">
+                                       <div class="gst-history-wrapper mb-3">
+                                          <div class="gst-input-icon"><i class="fa fa-building"></i></div>
+                                          <div role="combobox" aria-haspopup="listbox" aria-owns="react-autowhatever-1"
+                                             aria-expanded="false" class="react-autosuggest__container">
+                                             <input type="text" class="react-autosuggest__input"
+                                                placeholder="Select from History"
+                                                (keyup)="TravellerAutocomplete($event,'Adult',a)"
+                                                [matAutocomplete]="auto" />
+                                          </div>
+                                          <mat-autocomplete #auto="matAutocomplete"
+                                             (optionSelected)="selectedpax($event,'Adult',a)">
+                                             <mat-option *ngFor="let list of travellerlist"
+                                                [value]="list['first_name']+' ' + list['last_name']">{{list['first_name']}}
+                                                {{list['last_name']}}</mat-option>
+                                          </mat-autocomplete>
+                                       </div>
+
+                                       <div class="row mb-3">
+                                          <div class="col-md-3">
+                                             <div class="form-floating">
+                                                <select class="form-select main-select" formControlName="Title">
+                                                   <option value="" selected>Title</option>
+                                                   <option value="Mr">Mr</option>
+                                                   <option value="Mrs">Mrs</option>
+                                                   <option value="Ms">Ms</option>
+                                                </select>
+                                                <label for="floatingSelect">Title</label>
+                                             </div>
+                                             <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.Title')?.errors"
+                                                class="error-msg">
+                                                <div *ngIf="FlightForm.get('Adult.'+a+'.Title')?.errors?.['required']">
+                                                   Title is required.
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                             <div class="form-floating">
+                                                <input type="text" class="form-control main-select"
+                                                   formControlName="FirstName" placeholder="First Name*"
+                                                   oninput="this.value = this.value.toUpperCase()"
+                                                   id="Adult-{{a}}-FirstName" />
+                                                <label for="Adult-{{a}}-FirstName">First
+                                                   Name*</label>
+                                             </div>
+                                             <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.FirstName')?.errors"
+                                                class="error-msg">
+                                                <div
+                                                   *ngIf="FlightForm.get('Adult.'+a+'.FirstName')?.errors?.['required']">
+                                                   First name is required.
+                                                </div>
+                                                <div
+                                                   *ngIf="FlightForm.get('Adult.'+a+'.FirstName')?.errors?.['pattern'] || FlightForm.get('Adult.'+a+'.FirstName')?.errors?.['minlength']">
+                                                   Please enter a valid first name.
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                             <div class="form-floating">
+                                                <input type="text" class="form-control main-select"
+                                                   formControlName="LastName" placeholder="Last Name*"
+                                                   oninput="this.value = this.value.toUpperCase()"
+                                                   id="Adult-{{a}}-LastNam" />
+                                                <label for="Adult-{{a}}-LastName">Last
+                                                   Name*</label>
+                                             </div>
+                                             <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.LastName')?.errors"
+                                                class="error-msg">
+                                                <div
+                                                   *ngIf="FlightForm.get('Adult.'+a+'.LastName')?.errors?.['required']">
+                                                   Last name is required.
+                                                </div>
+                                                <div
+                                                   *ngIf="FlightForm.get('Adult.'+a+'.LastName')?.errors?.['pattern'] || FlightForm.get('Adult.'+a+'.LastName')?.errors?.['minlength']">
+                                                   Please enter a valid last name.
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-3" *ngIf="showadtdob">
+                                             <div class="form-floating">
+                                                <input type="text" class="form-control main-select"
+                                                   formControlName="DOB" placeholder="Date of Birth" attr.key="{{a}}"
+                                                   paxtype="Adult" id="Adult-{{a}}-DOB"
+                                                   (input)="onDobInput('Adult',$event, a,'DOB')" adt-dob-date />
+                                                <label for="Adult-{{a}}-DOB">Date of Birth<span
+                                                      *ngIf="FlightForm.get('Adult.'+a+'.DOB')?.errors?.['required']">*</span></label>
+                                             </div>
+                                             <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.DOB')?.errors"
+                                                class="error-msg">
+                                                <div *ngIf="FlightForm.get('Adult.'+a+'.DOB')?.errors?.['required']">
+                                                   DOB is required.
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-3" *ngIf="IsPANMandatory">
+                                             <div class="form-floating">
+                                                <input type="text" class="form-control main-select"
+                                                   formControlName="PAN" placeholder="PAN Number*"
+                                                   id="Adult-{{a}}-PAN" />
+                                                <label for="Adult-{{a}}-PAN">PAN Number*</label>
+                                             </div>
+                                             <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.PAN')?.errors"
+                                                class="error-msg">
+                                                <div *ngIf="FlightForm.get('Adult.'+a+'.PAN')?.errors?.['required']">
+                                                   PAN number is required.
+                                                </div>
+                                                <div *ngIf="FlightForm.get('Adult.'+a+'.PAN')?.errors?.['pattern']">
+                                                   Please enter a valid PAN number.
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-4" *ngIf="DocumentMendatory">
+                                             <div class="form-floating">
+                                                <input type="text" class="form-control main-select"
+                                                   formControlName="DocumentNumber" placeholder="{{DocumentTitle}}*"
+                                                   oninput="this.value = this.value.toUpperCase()"
+                                                   id="Adult-{{a}}-DocumentNumber" />
+                                                <label for="Adult-{{a}}-DocumentNumber">Document
+                                                   Number ({{DocumentTitle}})*</label>
+                                             </div>
+                                             <div
+                                                *ngIf="submitted && FlightForm.get('Adult.'+a+'.DocumentNumber')?.errors"
+                                                class="error-msg">
+                                                <div
+                                                   *ngIf="FlightForm.get('Adult.'+a+'.DocumentNumber')?.errors?.['required']">
+                                                   Last name is required.
+                                                </div>
+                                                <div
+                                                   *ngIf="FlightForm.get('Adult.'+a+'.DocumentNumber')?.errors?.['pattern'] || FlightForm.get('Adult.'+a+'.DocumentNumber')?.errors?.['minlength']">
+                                                   Please enter a valid document number.
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-4" *ngIf="DocumentIssueDate">
+                                             <div class="form-floating">
+                                                <input type="text" class="form-control main-select"
+                                                   formControlName="DocumentIssueDate" placeholder="Document Issue Date"
+                                                   adt-docissue-date attr.key="{{a}}" paxtype="Adult" attr.key="{{a}}"
+                                                   (input)="onDobInput('Adult',$event, a,'DocumentIssueDate')"
+                                                   id="Adult-{{a}}-DocumentIssueDate" />
+                                                <label for="Adult-{{a}}-DocumentIssueDate">Document
+                                                   Issue Date *<span
+                                                      *ngIf="FlightForm.get('Adult.'+a+'.DocumentIssueDate')?.errors?.['required']">*</span></label>
+                                             </div>
+                                             <div
+                                                *ngIf="submitted && FlightForm.get('Adult.'+a+'.DocumentIssueDate')?.errors"
+                                                class="error-msg">
+                                                <div
+                                                   *ngIf="FlightForm.get('Adult.'+a+'.DocumentIssueDate')?.errors?.['required']">
+                                                   document issue date is required.
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-4" *ngIf="DocumentExpiryDate">
+                                             <div class="form-floating">
+                                                <input type="text" class="form-control main-select"
+                                                   formControlName="DocumentExpireDate"
+                                                   placeholder="Document Issue Date"
+                                                   (input)="onDobInput('Adult',$event, a,'DocumentExpireDate')"
+                                                   adt-docexpiry-date attr.key="{{a}}" paxtype="Adult" attr.key="{{a}}"
+                                                   id="Adult-{{a}}-DocumentExpireDate" />
+                                                <label for="Adult-{{a}}-DocumentExpireDate">Document
+                                                   Expiry Date *<span
+                                                      *ngIf="FlightForm.get('Adult.'+a+'.DocumentExpireDate')?.errors?.['required']">*</span></label>
+                                             </div>
+                                             <div
+                                                *ngIf="submitted && FlightForm.get('Adult.'+a+'.DocumentExpireDate')?.errors"
+                                                class="error-msg">
+                                                <div
+                                                   *ngIf="FlightForm.get('Adult.'+a+'.DocumentExpireDate')?.errors?.['required']">
+                                                   document expiry date is required.
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+
+
+                                       <div class="row mb-3 gy-3" *ngIf="IsPassportMandatory">
+                                          <p class="apt-addpassport"><span>ADD PASSPORT
+                                                INFORMATION</span>
+                                          </p>
+                                          <div class="col-md-3">
+                                             <div class="form-floating">
+                                                <select class="form-select main-select" id="Adult-{{a}}-Nationality"
+                                                   formControlName="Nationality">
+                                                   <option value="">Select</option>
+                                                   <option value="IN">India</option>
+                                                   <option value="{{mcode['country_code']}}"
+                                                      *ngFor="let mcode of Dialcode;">
+                                                      {{mcode['name']}}
+                                                   </option>
+                                                </select>
+                                                <label for="Adult-{{a}}-Nationality">Nationality</label>
+                                                <div
+                                                   *ngIf="submitted && FlightForm.get('Adult.'+a+'.Nationality')?.errors"
+                                                   class="error-msg">
+                                                   <div
+                                                      *ngIf="FlightForm.get('Adult.'+a+'.Nationality')?.errors?.['required']">
+                                                      Please select nationality.
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                             <div class="form-floating">
+                                                <input type="text" class="form-control main-select"
+                                                   formControlName="PassportNo" placeholder="Passport Number"
+                                                   id="Adult-{{a}}-PassportNo" />
+                                                <label for="Adult-{{a}}-PassportNo">Passport
+                                                   Number</label>
+                                             </div>
+                                             <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.PassportNo')?.errors"
+                                                class="error-msg">
+                                                <div
+                                                   *ngIf="FlightForm.get('Adult.'+a+'.PassportNo')?.errors?.['required']">
+                                                   Passport number is required.
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                             <div class="form-floating">
+                                                <input type="text" class="form-control main-select"
+                                                   formControlName="PassportIssue" passport-issue-date
+                                                   placeholder="Issue Date" attr.key="{{a}}" paxtype="Adult"
+                                                   id="Adult-{{a}}-PassportIssue"
+                                                   (input)="onDobInput('Adult',$event, a,'PassportIssue')" />
+                                                <label for="Adult-{{a}}-PassportIssue">Issue
+                                                   Date</label>
+                                             </div>
+                                             <div
+                                                *ngIf="submitted && FlightForm.get('Adult.'+a+'.PassportIssue')?.errors"
+                                                class="error-msg">
+                                                <div
+                                                   *ngIf="FlightForm.get('Adult.'+a+'.PassportIssue')?.errors?.['required']">
+                                                   Issue date is required.
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                             <div class="form-floating">
+                                                <input type="text" class="form-control main-select"
+                                                   formControlName="PassportExpiry" passport-expiry-date
+                                                   placeholder="Expiry Date" attr.key="{{a}}" paxtype="Adult"
+                                                   id="Adult-{{a}}-PassportExpiry"
+                                                   (input)="onDobInput('Adult',$event, a,'PassportExpiry')" />
+                                                <label for="Adult-{{a}}-PassportExpiry">Expiry
+                                                   Date</label>
+                                             </div>
+                                             <div
+                                                *ngIf="submitted && FlightForm.get('Adult.'+a+'.PassportExpiry')?.errors"
+                                                class="error-msg">
+                                                <div
+                                                   *ngIf="FlightForm.get('Adult.'+a+'.PassportExpiry')?.errors?.['required']">
+                                                   Expiry date is required.
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                             <div class="form-floating">
+                                                <select class="form-select main-select"
+                                                   id="Adult-{{a}}-PassportIssueCountry"
+                                                   formControlName="PassportIssueCountry">
+                                                   <option value="">Select</option>
+                                                   <option value="IN">India</option>
+                                                   <option value="{{mcode['country_code']}}"
+                                                      *ngFor="let mcode of Dialcode;">
+                                                      {{mcode['name']}}
+                                                   </option>
+                                                </select>
+                                                <label for="Adult-{{a}}-PassportIssueCountry">Passport
+                                                   Issue Country</label>
+                                                <div
+                                                   *ngIf="submitted && FlightForm.get('Adult.'+a+'.PassportIssueCountry')?.errors"
+                                                   class="error-msg">
+                                                   <div
+                                                      *ngIf="FlightForm.get('Adult.'+a+'.PassportIssueCountry')?.errors?.['required']">
+                                                      Please select passport issue country.
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="row mb-3" *ngIf="IsFFDiv==false">
+                                          <p class="apt-addpassport tts-cursor-pointer"
+                                             (click)="togglebutton('ADULT_ffdetail_'+a)">
+                                             <span>FREQUENT FLIER NUMBER (OPTIONAL) </span> <i
+                                                class="fa fa-angle-down"></i>
+                                          </p>
+                                          <div class="tts-hidden pb-4" id="ADULT_ffdetail_{{a}}">
+                                             <div class="row">
+                                                <div class="col-sm-3">
+                                                   <div class="form-floating">
+                                                      <input type="text" id="ADULT_{{a}}_ffairline"
+                                                         class="form-control main-select bg-transparent"
+                                                         formControlName="FFAirline" placeholder="Airline" readonly />
+                                                      <label for="ADULT_{{a}}_ffairline">Airline</label>
+                                                   </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                   <div class="form-floating">
+                                                      <input type="text" id="ADULT_{{a}}_fNumber"
+                                                         class="form-control main-select bg-transparent"
+                                                         placeholder="FF Number" formControlName="FFNumber" />
+                                                      <label for="ADULT_{{a}}_fNumber">FF
+                                                         Number</label>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="form-check">
+                                          <input class="form-check-input" formControlName="SavePax" type="checkbox"
+                                             id="adult-{{a}}-save" value="true" />
+                                          <label class="form-check-label" for="adult-{{a}}-save">
+                                             Save Passanger Details
+                                          </label>
+                                       </div>
+
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!--End Adult information -->
+                           <!--Start Child information -->
+                           <div class="accordion-item panel-item mb-4" formArrayName="Child"
+                              *ngFor="let chd of fchd.controls; let c=index;">
+                              <div formGroupName="{{c}}">
+                                 <button class="accordion-button collapsed panel-heading h5 fw-bold" type="button"
+                                    data-bs-toggle="collapse" attr.data-bs-target="#collapse_chd_{{c+1}}"
+                                    aria-expanded="true">
+                                    CHILD {{c+1}}:
+                                    <span *ngIf="chd.value['FirstName']==''">(2+ yrs)</span>
+                                    <span *ngIf="chd.value['FirstName']!=''">{{ chd.value['Title'] }}
+                                       {{chd.value['FirstName']}} {{chd.value['LastName']}}</span>
+                                 </button>
+                                 <div id="collapse_chd_{{c+1}}" class="accordion-collapse collapse"
+                                    data-bs-parent="#adt-pax-accordion">
+                                    <div class="accordion-body panel-body ">
+                                       <div class="historybox__wrapper">
+                                          <div class="historybox">
+
+                                             <div role="combobox" aria-haspopup="listbox"
+                                                aria-owns="react-autowhatever-1" aria-expanded="false"
+                                                class="react-autosuggest__container">
+                                                <input type="text" class="react-autosuggest__input"
+                                                   placeholder="Select from History"
+                                                   (keyup)="TravellerAutocomplete($event,'Child',c)"
+                                                   [matAutocomplete]="auto" />
+                                             </div>
+                                             <mat-autocomplete #auto="matAutocomplete"
+                                                (optionSelected)="selectedpax($event,'Child',c)">
+                                                <mat-option *ngFor="let list of travellerlist"
+                                                   [value]="list['first_name']+' ' + list['last_name']">{{list['first_name']}}
+                                                   {{list['last_name']}}</mat-option>
+                                             </mat-autocomplete>
+                                          </div>
+                                       </div>
+
+                                       <div class="row">
+                                          <div class="col-md-3">
+                                             <div class="form-floating">
+                                                <select class="form-select main-select" formControlName="Title">
+                                                   <option value="" selected>Title</option>
+                                                   <option value="Ms">Ms</option>
+                                                   <option value="Mstr">Master</option>
+                                                </select>
+                                                <label for="floatingSelect">Title</label>
+                                             </div>
+                                             <div *ngIf="submitted && FlightForm.get('Child.'+c+'.Title')?.errors"
+                                                class="error-msg">
+                                                <div *ngIf="FlightForm.get('Child.'+c+'.Title')?.errors?.['required']">
+                                                   Title is required.
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                             <div class="form-floating">
+                                                <input type="text" class="form-control main-select"
+                                                   formControlName="FirstName" placeholder="First Name*"
+                                                   oninput="this.value = this.value.toUpperCase()"
+                                                   id="Child-{{c}}-FirstName" />
+                                                <label for="Child-{{c}}-FirstName">First
+                                                   Name*</label>
+                                             </div>
+                                             <div *ngIf="submitted && FlightForm.get('Child.'+c+'.FirstName')?.errors"
+                                                class="error-msg">
+                                                <div
+                                                   *ngIf="FlightForm.get('Child.'+c+'.FirstName')?.errors?.['required']">
+                                                   First name is required.
+                                                </div>
+                                                <div
+                                                   *ngIf="FlightForm.get('Child.'+c+'.FirstName')?.errors?.['pattern'] || FlightForm.get('Child.'+c+'.FirstName')?.errors?.['minlength']">
+                                                   Please enter a valid first name.
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                             <div class="form-floating">
+                                                <input type="text" class="form-control main-select"
+                                                   formControlName="LastName" placeholder="Last Name*"
+                                                   oninput="this.value = this.value.toUpperCase()"
+                                                   id="Child-{{c}}-LastName" />
+                                                <label for="Child-{{c}}-LastName">Last
+                                                   Name*</label>
+                                             </div>
+                                             <div *ngIf="submitted && FlightForm.get('Child.'+c+'.LastName')?.errors"
+                                                class="error-msg">
+                                                <div
+                                                   *ngIf="FlightForm.get('Child.'+c+'.LastName')?.errors?.['required']">
+                                                   Last name is required.
+                                                </div>
+                                                <div
+                                                   *ngIf="FlightForm.get('Child.'+c+'.LastName')?.errors?.['pattern'] || FlightForm.get('Child.'+c+'.LastName')?.errors?.['minlength']">
+                                                   Please enter a valid last name.
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-3" *ngIf="showchddob">
+                                             <div class="form-floating">
+                                                <input type="text" class="form-control main-select"
+                                                   formControlName="DOB" placeholder="Date of Birth*" chd-dob-date
+                                                   attr.key="{{c}}" paxtype="Child"
+                                                   (input)="onDobInput('Child',$event, c,'DOB')" id="Child-{{c}}-DOB" />
+                                                <label for="Child-{{c}}-DOB">Date of
+                                                   Birth*</label>
+                                             </div>
+                                             <div *ngIf="submitted && FlightForm.get('Child.'+c+'.DOB')?.errors"
+                                                class="error-msg">
+                                                <div *ngIf="FlightForm.get('Child.'+c+'.DOB')?.errors?.['required']">
+                                                   DOB is required.
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-3" *ngIf="IsPANMandatory">
+                                             <div class="form-floating">
+                                                <input type="text" class="form-control main-select"
+                                                   formControlName="PAN" placeholder="PAN Number*"
+                                                   id="Adult-{{c}}-PAN" />
+                                                <label for="Adult-{{c}}-PAN">PAN Number*</label>
+                                             </div>
+                                             <div *ngIf="submitted && FlightForm.get('Child.'+c+'.PAN')?.errors"
+                                                class="error-msg">
+                                                <div *ngIf="FlightForm.get('Child.'+c+'.PAN')?.errors?.['required']">
+                                                   PAN number is required.
+                                                </div>
+                                                <div *ngIf="FlightForm.get('Child.'+c+'.PAN')?.errors?.['pattern']">
+                                                   Please enter a valid PAN number.
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+
+
+                                       <div class="row mb-3 gy-3" *ngIf="IsPassportMandatory">
+                                          <p class="apt-addpassport"><span>ADD PASSPORT
+                                                INFORMATION</span>
+                                          </p>
+                                          <div class="col-md-3">
+                                             <div class="form-floating">
+                                                <select class="form-select main-select" id="Child-{{c}}-Nationality"
+                                                   formControlName="Nationality">
+                                                   <option value="">Select</option>
+                                                   <option value="IN">India</option>
+                                                   <option value="{{mcode['country_code']}}"
+                                                      *ngFor="let mcode of Dialcode;">
+                                                      {{mcode['name']}}
+                                                   </option>
+                                                </select>
+                                                <label for="Child-{{c}}-Nationality">Nationality</label>
+                                                <div
+                                                   *ngIf="submitted && FlightForm.get('Child.'+c+'.Nationality')?.errors"
+                                                   class="error-msg">
+                                                   <div
+                                                      *ngIf="FlightForm.get('Child.'+c+'.Nationality')?.errors?.['required']">
+                                                      Please select nationality.
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                             <div class="form-floating">
+                                                <input type="text" class="form-control main-select"
+                                                   formControlName="PassportNo" placeholder="Passport Number"
+                                                   id="Child-{{c}}-PassportNo" />
+                                                <label for="Child-{{c}}-PassportNo">Passport
+                                                   Number</label>
+                                             </div>
+                                             <div *ngIf="submitted && FlightForm.get('Child.'+c+'.PassportNo')?.errors"
+                                                class="error-msg">
+                                                <div
+                                                   *ngIf="FlightForm.get('Child.'+c+'.PassportNo')?.errors?.['required']">
+                                                   Passport number is required.
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                             <div class="form-floating">
+                                                <input type="text" class="form-control main-select"
+                                                   formControlName="PassportIssue" placeholder="Issue Date"
+                                                   passport-issue-date attr.key="{{c}}" paxtype="Child"
+                                                   id="Child-{{c}}-PassportIssue"
+                                                   (input)="onDobInput('Child',$event, c,'PassportIssue')" />
+                                                <label for="Child-{{c}}-PassportIssue">Issue
+                                                   Date</label>
+                                             </div>
+                                             <div
+                                                *ngIf="submitted && FlightForm.get('Child.'+c+'.PassportIssue')?.errors"
+                                                class="error-msg">
+                                                <div
+                                                   *ngIf="FlightForm.get('Child.'+c+'.PassportIssue')?.errors?.['required']">
+                                                   Issue date is required.
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                             <div class="form-floating">
+                                                <input type="text" class="form-control main-select"
+                                                   formControlName="PassportExpiry" placeholder="Expiry Date"
+                                                   passport-expiry-date attr.key="{{c}}" paxtype="Child"
+                                                   id="Child-{{c}}-PassportExpiry"
+                                                   (input)="onDobInput('Child',$event, c,'PassportExpiry')" />
+                                                <label for="Child-{{c}}-PassportExpiry">Expiry
+                                                   Date</label>
+                                             </div>
+                                             <div
+                                                *ngIf="submitted && FlightForm.get('Child.'+c+'.PassportExpiry')?.errors"
+                                                class="error-msg">
+                                                <div
+                                                   *ngIf="FlightForm.get('Child.'+c+'.PassportExpiry')?.errors?.['required']">
+                                                   Expiry date is required.
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                             <div class="form-floating">
+                                                <select class="form-select main-select"
+                                                   id="Child-{{c}}-PassportIssueCountry"
+                                                   formControlName="PassportIssueCountry">
+                                                   <option value="">Select</option>
+                                                   <option value="IN">India</option>
+                                                   <option value="{{mcode['country_code']}}"
+                                                      *ngFor="let mcode of Dialcode;">
+                                                      {{mcode['name']}}
+                                                   </option>
+                                                </select>
+                                                <label for="Child-{{c}}-PassportIssueCountry">Passport
+                                                   Issue Country</label>
+                                                <div
+                                                   *ngIf="submitted && FlightForm.get('Child.'+c+'.PassportIssueCountry')?.errors"
+                                                   class="error-msg">
+                                                   <div
+                                                      *ngIf="FlightForm.get('Child.'+c+'.PassportIssueCountry')?.errors?.['required']">
+                                                      Please select passport issue country.
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="row" *ngIf="IsFFDiv==false">
+                                          <p class="apt-addpassport tts-cursor-pointer"
+                                             (click)="togglebutton('CHILD_ffdetail_'+c)">
+                                             <span>FREQUENT FLIER NUMBER (OPTIONAL) </span> <i
+                                                class="fa fa-angle-down"></i>
+                                          </p>
+                                          <div class="tts-hidden pb-4" id="CHILD_ffdetail_{{c}}">
+                                             <div class="row">
+                                                <div class="col-sm-3">
+                                                   <div class="form-floating">
+                                                      <input type="text" id="CHILD_{{c}}_ffairline"
+                                                         class="form-control main-select bg-transparent"
+                                                         formControlName="FFAirline" placeholder="Airline" readonly />
+                                                      <label for="CHILD_{{c}}_ffairline">Airline</label>
+                                                   </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                   <div class="form-floating">
+                                                      <input type="text" id="CHILD_{{c}}_fNumber"
+                                                         class="form-control main-select bg-transparent"
+                                                         placeholder="FF Number" formControlName="FFNumber" />
+                                                      <label for="CHILD_{{c}}_fNumber">FF
+                                                         Number</label>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="form-check mt-3">
+                                          <input class="form-check-input" formControlName="SavePax" type="checkbox"
+                                             id="child-{{c}}-save" value="true" />
+                                          <label class="form-check-label" for="child-{{c}}-save">
+                                             Save Passanger Details
+                                          </label>
+                                       </div>
+
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!--End Child information -->
+                           <!--Start Infant information -->
+                           <div class="accordion-item panel-item mb-4" formArrayName="Infant"
+                              *ngFor="let inf of finf.controls; let i=index;">
+                              <div formGroupName="{{i}}">
+                                 <button class="accordion-button collapsed panel-heading h5 fw-bold" type="button"
+                                    data-bs-toggle="collapse" attr.data-bs-target="#collapse_inf_{{i+1}}"
+                                    aria-expanded="false">
+                                    INFANT {{i+1}}:
+                                    <span *ngIf="inf.value['FirstName']==''">(0 - 2 yrs)</span>
+                                    <span *ngIf="inf.value['FirstName']!=''">{{ inf.value['Title'] }}
+                                       {{inf.value['FirstName']}} {{inf.value['LastName']}}</span>
+                                 </button>
+                                 <div id="collapse_inf_{{i+1}}" class="accordion-collapse collapse"
+                                    data-bs-parent="#adt-pax-accordion">
+                                    <div class="accordion-body panel-body ">
+                                       <div role="combobox" aria-haspopup="listbox" aria-owns="react-autowhatever-1"
+                                          aria-expanded="false" class="react-autosuggest__container">
+                                          <input type="text" class="react-autosuggest__input"
+                                             placeholder="Select from History"
+                                             (keyup)="TravellerAutocomplete($event,'Infant',i)"
+                                             [matAutocomplete]="auto" />
+                                       </div>
+                                       <mat-autocomplete #auto="matAutocomplete"
+                                          (optionSelected)="selectedpax($event,'Infant',i)">
+                                          <mat-option *ngFor="let list of travellerlist"
+                                             [value]="list['first_name']+' ' + list['last_name']">{{list['first_name']}}
+                                             {{list['last_name']}}</mat-option>
+                                       </mat-autocomplete>
+
+
+
+                                       <div class="row">
+                                          <div class="col-md-3">
+                                             <div class="form-floating">
+                                                <select class="form-select main-select" formControlName="Title">
+                                                   <option value="" selected>Title</option>
+                                                   <option value="Ms">Ms</option>
+                                                   <option value="Mstr">Master</option>
+                                                </select>
+                                                <label for="floatingSelect">Title</label>
+                                             </div>
+                                             <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.Title')?.errors"
+                                                class="error-msg">
+                                                <div *ngIf="FlightForm.get('Infant.'+i+'.Title')?.errors?.['required']">
+                                                   Title is required.
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                             <div class="form-floating">
+                                                <input type="text" class="form-control main-select"
+                                                   formControlName="FirstName" placeholder="First Name*"
+                                                   oninput="this.value = this.value.toUpperCase()"
+                                                   id="Infant-{{i}}-FirstName" />
+                                                <label for="Infant-{{i}}-FirstName">First
+                                                   Name*</label>
+                                             </div>
+                                             <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.FirstName')?.errors"
+                                                class="error-msg">
+                                                <div
+                                                   *ngIf="FlightForm.get('Infant.'+i+'.FirstName')?.errors?.['required']">
+                                                   First name is required.
+                                                </div>
+                                                <div
+                                                   *ngIf="FlightForm.get('Infant.'+i+'.FirstName')?.errors?.['pattern'] || FlightForm.get('Infant.'+i+'.FirstName')?.errors?.['minlength']">
+                                                   Please enter a valid first name.
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                             <div class="form-floating">
+                                                <input type="text" class="form-control main-select"
+                                                   formControlName="LastName" placeholder="Last Name*"
+                                                   oninput="this.value = this.value.toUpperCase()" />
+                                                <label for="Infant-{{i}}-LastName">Last
+                                                   Name*</label>
+                                             </div>
+                                             <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.LastName')?.errors"
+                                                class="error-msg">
+                                                <div
+                                                   *ngIf="FlightForm.get('Infant.'+i+'.LastName')?.errors?.['required']">
+                                                   Last name is required.
+                                                </div>
+                                                <div
+                                                   *ngIf="FlightForm.get('Infant.'+i+'.LastName')?.errors?.['pattern'] || FlightForm.get('Infant.'+i+'.LastName')?.errors?.['minlength']">
+                                                   Please enter a valid last name.
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-3" *ngIf="showinfdob">
+                                             <div class="form-floating">
+                                                <input type="text" class="form-control main-select"
+                                                   formControlName="DOB" placeholder="Date of Birth" inf-dob-date
+                                                   attr.key="{{i}}" paxtype="Infant" id="Infant-{{i}}-DOB"
+                                                   (input)="onDobInput('Infant',$event, i,'DOB')" />
+                                                <label for="Infant-{{i}}-DOB">Date of
+                                                   Birth*</label>
+                                             </div>
+                                             <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.DOB')?.errors"
+                                                class="error-msg">
+                                                <div *ngIf="FlightForm.get('Infant.'+i+'.DOB')?.errors?.['required']">
+                                                   DOB is required.
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-3" *ngIf="IsPANMandatory">
+                                             <div class="form-floating">
+                                                <input type="text" class="form-control main-select"
+                                                   formControlName="PAN" placeholder="PAN Number"
+                                                   id="Infant-{{i}}-PAN" />
+                                                <label for="Infant-{{i}}-PAN">PAN
+                                                   Number*</label>
+                                             </div>
+                                             <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.PAN')?.errors"
+                                                class="error-msg">
+                                                <div *ngIf="FlightForm.get('Infant.'+i+'.PAN')?.errors?.['required']">
+                                                   PAN number is required.
+                                                </div>
+                                                <div *ngIf="FlightForm.get('Infant.'+i+'.PAN')?.errors?.['pattern']">
+                                                   Please enter a valid PAN number.
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+
+
+                                       <div class="row mb-3 gy-3" *ngIf="IsPassportMandatory">
+                                          <p class="apt-addpassport"><span>ADD PASSPORT
+                                                INFORMATION</span>
+                                          </p>
+                                          <div class="col-md-3">
+                                             <div class="form-floating">
+                                                <select class="form-select main-select" id="Infant-{{i}}-Nationality"
+                                                   formControlName="Nationality">
+                                                   <option value="">Select</option>
+                                                   <option value="IN">India</option>
+                                                   <option value="{{mcode['country_code']}}"
+                                                      *ngFor="let mcode of Dialcode;">
+                                                      {{mcode['name']}}
+                                                   </option>
+                                                </select>
+                                                <label for="Infant-{{i}}-Nationality">Nationality</label>
+                                                <div
+                                                   *ngIf="submitted && FlightForm.get('Infant.'+i+'.Nationality')?.errors"
+                                                   class="error-msg">
+                                                   <div
+                                                      *ngIf="FlightForm.get('Infant.'+i+'.Nationality')?.errors?.['required']">
+                                                      Please select nationality.
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                             <div class="form-floating">
+                                                <input type="text" class="form-control main-select"
+                                                   formControlName="PassportNo" placeholder="Passport Number"
+                                                   id="Infant-{{i}}-PassportNo" />
+                                                <label for="Infant-{{i}}-PassportNo">Passport
+                                                   Number</label>
+                                             </div>
+                                             <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.PassportNo')?.errors"
+                                                class="error-msg">
+                                                <div
+                                                   *ngIf="FlightForm.get('Infant.'+i+'.PassportNo')?.errors?.['required']">
+                                                   Passport number is required.
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                             <div class="form-floating">
+                                                <input type="text" class="form-control main-select"
+                                                   formControlName="PassportIssue" placeholder="Issue Date"
+                                                   passport-issue-date attr.key="{{i}}" paxtype="Infant"
+                                                   id="Infant-{{i}}-PassportIssue"
+                                                   (input)="onDobInput('Infant',$event, i,'PassportIssue')" />
+                                                <label for="Infant-{{i}}-PassportIssue">Issue
+                                                   Date</label>
+                                             </div>
+                                             <div
+                                                *ngIf="submitted && FlightForm.get('Infant.'+i+'.PassportIssue')?.errors"
+                                                class="error-msg">
+                                                <div
+                                                   *ngIf="FlightForm.get('Infant.'+i+'.PassportIssue')?.errors?.['required']">
+                                                   Issue date is required.
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                             <div class="form-floating">
+                                                <input type="text" class="form-control main-select"
+                                                   formControlName="PassportExpiry" placeholder="Expiry Date"
+                                                   passport-expiry-date attr.key="{{i}}" paxtype="Infant"
+                                                   id="Infant-{{i}}-PassportExpiry"
+                                                   (input)="onDobInput('Infant',$event, i,'PassportExpiry')" />
+                                                <label for="Infant-{{i}}-PassportExpiry">Expiry
+                                                   Date</label>
+                                             </div>
+                                             <div
+                                                *ngIf="submitted && FlightForm.get('Infant.'+i+'.PassportExpiry')?.errors"
+                                                class="error-msg">
+                                                <div
+                                                   *ngIf="FlightForm.get('Infant.'+i+'.PassportExpiry')?.errors?.['required']">
+                                                   Expiry date is required.
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                             <div class="form-floating">
+                                                <select class="form-select main-select"
+                                                   id="Infant-{{i}}-PassportIssueCountry"
+                                                   formControlName="PassportIssueCountry">
+                                                   <option value="">Select</option>
+                                                   <option value="IN">India</option>
+                                                   <option value="{{mcode['country_code']}}"
+                                                      *ngFor="let mcode of Dialcode;">
+                                                      {{mcode['name']}}
+                                                   </option>
+                                                </select>
+                                                <label for="Infant-{{i}}-PassportIssueCountry">Passport
+                                                   Issue Country</label>
+                                                <div
+                                                   *ngIf="submitted && FlightForm.get('Infant.'+i+'.PassportIssueCountry')?.errors"
+                                                   class="error-msg">
+                                                   <div
+                                                      *ngIf="FlightForm.get('Infant.'+i+'.PassportIssueCountry')?.errors?.['required']">
+                                                      Please select passport issue country.
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="row" *ngIf="IsFFDiv==false">
+                                          <p class="apt-addpassport tts-cursor-pointer"
+                                             (click)="togglebutton('INFANT_ffdetail_'+i)">
+                                             <span>FREQUENT FLIER NUMBER (OPTIONAL) </span> <i
+                                                class="fa fa-angle-down"></i>
+                                          </p>
+                                          <div class="tts-hidden pb-4" id="INFANT_ffdetail_{{i}}">
+                                             <div class="row">
+                                                <div class="col-sm-3">
+                                                   <div class="form-floating">
+                                                      <input type="text" id="INFANT_{{i}}_ffairline"
+                                                         class="form-control main-select bg-transparent"
+                                                         formControlName="FFAirline" placeholder="Airline" readonly />
+                                                      <label for="INFANT_{{i}}_ffairline">Airline</label>
+                                                   </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                   <div class="form-floating">
+                                                      <input type="text" id="INFANT_{{i}}_fNumber"
+                                                         class="form-control main-select bg-transparent"
+                                                         placeholder="FF Number" formControlName="FFNumber" />
+                                                      <label for="INFANT_{{i}}_fNumber">FF
+                                                         Number</label>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="form-check">
+                                          <input class="form-check-input" formControlName="SavePax" type="checkbox"
+                                             id="infant-{{i}}-save" value="true" />
+                                          <label class="form-check-label" for="infant-{{i}}-save">
+                                             Save Passanger Details
+                                          </label>
+                                       </div>
+
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!--End Infant information -->
+                        </div>
                      </div>
-                     <!--End Infant information -->
                   </div>
                </div>
-
 
                <div class="flight-booking-wrapper">
                   <div class="flight-booking-header">
-                     <div class="d-flex align-items-center justify-content-between">
-                        <h3 class="flight-booking-title">
+                     <div class="itinerary-card-title">
+                        <div class="header-left">
+                           <i class="fa-solid fa-phone"></i>
                            <span>Contact Details</span>
-                        </h3>
+                        </div>
                      </div>
                   </div>
-                  <div class="row g-3 needs-validation">
-                     <div class="col-lg-4">
-                        <div class="form-floating">
-                           <select class="form-select main-select" id="floating-countrycode"
-                              (change)="GetPhonecodeVal($event)" formControlName="ISDCode">
-                              <option value="{{mcode['phonecode']}}" *ngFor="let mcode of Dialcode;">
-                                 {{mcode['name']}}
-                                 (+{{mcode['phonecode']}})
-                              </option>
-                           </select>
-                           <label for="floating-countrycode">Country Code</label>
-                           <div *ngIf="submitted && FlightForm.get('ISDCode')?.errors" class="error-msg">
-                              <div *ngIf="FlightForm.get('ISDCode')?.errors?.['required']">
-                                 Country code is required.
+                  <div class="flight-segment">
+                     <div class="flight-route-block">
+                        <div class="row g-3 needs-validation">
+                           <div class="col-lg-4">
+                              <div class="form-floating">
+                                 <select class="form-select main-select" id="floating-countrycode"
+                                    (change)="GetPhonecodeVal($event)" formControlName="ISDCode">
+                                    <option value="{{mcode['phonecode']}}" *ngFor="let mcode of Dialcode;">
+                                       {{mcode['name']}}
+                                       (+{{mcode['phonecode']}})
+                                    </option>
+                                 </select>
+                                 <label for="floating-countrycode">Country Code</label>
+                                 <div *ngIf="submitted && FlightForm.get('ISDCode')?.errors" class="error-msg">
+                                    <div *ngIf="FlightForm.get('ISDCode')?.errors?.['required']">
+                                       Country code is required.
+                                    </div>
+                                 </div>
                               </div>
                            </div>
-                        </div>
-                     </div>
-                     <div class="col-lg-4">
-                        <div class="form-floating">
-                           <input type="phone" class="form-control main-select" id="floating-mobile"
-                              placeholder="Mobile Number *" formControlName="MobileNumber" />
-                           <label for="floating-mobile">Moblie Number *</label>
-                           <div *ngIf="submitted && FlightForm.get('MobileNumber')?.errors" class="error-msg">
-                              <div *ngIf="FlightForm.get('MobileNumber')?.errors?.['required']">
-                                 Mobile number is required.
-                              </div>
-                              <div
-                                 *ngIf="FlightForm.get('MobileNumber')?.errors?.['pattern'] || FlightForm.get('MobileNumber')?.errors?.['minlength'] || FlightForm.get('MobileNumber')?.errors?.['maxlength']">
-                                 Please enter a valid mobile number.
+                           <div class="col-lg-4">
+                              <div class="form-floating">
+                                 <input type="phone" class="form-control main-select" id="floating-mobile"
+                                    placeholder="Mobile Number *" formControlName="MobileNumber" />
+                                 <label for="floating-mobile">Moblie Number *</label>
+                                 <div *ngIf="submitted && FlightForm.get('MobileNumber')?.errors" class="error-msg">
+                                    <div *ngIf="FlightForm.get('MobileNumber')?.errors?.['required']">
+                                       Mobile number is required.
+                                    </div>
+                                    <div
+                                       *ngIf="FlightForm.get('MobileNumber')?.errors?.['pattern'] || FlightForm.get('MobileNumber')?.errors?.['minlength'] || FlightForm.get('MobileNumber')?.errors?.['maxlength']">
+                                       Please enter a valid mobile number.
+                                    </div>
+                                 </div>
                               </div>
                            </div>
-                        </div>
-                     </div>
-                     <div class="col-lg-4">
-                        <div class="form-floating">
-                           <input type="email" class="form-control main-select" id="floating-email"
-                              placeholder="Email ID *" formControlName="EmailId" />
-                           <label for="floating-email">Email ID *</label>
-                           <div *ngIf="submitted && FlightForm.get('EmailId')?.errors" class="error-msg">
-                              <div *ngIf="FlightForm.get('EmailId')?.errors?.['required']">
-                                 Email address is required.
-                              </div>
-                              <div *ngIf="FlightForm.get('EmailId')?.errors?.['email']">
-                                 Please enter a valid email.
+                           <div class="col-lg-4">
+                              <div class="form-floating">
+                                 <input type="email" class="form-control main-select" id="floating-email"
+                                    placeholder="Email ID *" formControlName="EmailId" />
+                                 <label for="floating-email">Email ID *</label>
+                                 <div *ngIf="submitted && FlightForm.get('EmailId')?.errors" class="error-msg">
+                                    <div *ngIf="FlightForm.get('EmailId')?.errors?.['required']">
+                                       Email address is required.
+                                    </div>
+                                    <div *ngIf="FlightForm.get('EmailId')?.errors?.['email']">
+                                       Please enter a valid email.
+                                    </div>
+                                 </div>
                               </div>
                            </div>
                         </div>
@@ -1121,58 +2315,55 @@
                   </div>
                </div>
 
-
                <div class="flight-booking-wrapper" *ngIf="SSRData.length!==0 || seatData.length!==0">
                   <div class="flight-booking-header">
-                     <div class="d-flex align-items-center justify-content-between">
-                        <h3 class="flight-booking-title">
-                           <span>Special Service Request (SSR)</span>
-                        </h3>
-
+                     <div class="itinerary-card-title">
+                        <div class="header-left"><i class="fa-solid fa-phone"></i><span>Special Service Request
+                              (SSR)</span></div>
                         <div class="ssr-detail-stripe">
-                           <div class="ssr-icons">
+                           <div class="ssr-icons d-flex gap-2 align-items-center">
                               <a href="javascript:void(0)" *ngIf="SSRData.length!==0" (click)="Showmeal=!Showmeal">
                                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="40"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15"
                                     viewBox="0 0 512 512">
                                     <g>
                                        <path fill="#1d48a3" d="M207.103,23.875v109.219c0,7-5.656,12.641-12.625,12.641h-3.375
-                                          c-6.969,0-12.641-5.641-12.641-12.641V23.375
-                                          c0-18-12.109-23.375-23.719-23.375s-23.719,5.375-23.719,23.375v109.719
-                                          c0,7-5.672,12.641-12.641,12.641h-3.375
-                                          c-6.969,0-12.625-5.641-12.625-12.641V23.875
-                                          c0-32.219-45.938-31.125-45.938,0.359
-                                          c0,37.703,0,104.297,0,104.297
-                                          c-0.219,57.906,13.625,72.953,36.469,91
-                                          c18.422,14.531,34.156,22.859,34.156,58.953v232.188h55.344V278.484
-                                          c0-36.094,15.734-44.422,34.156-58.953
-                                          c22.859-18.047,36.688-33.094,36.469-91
-                                          c0,0,0-66.594,0-104.297
-                                          C253.04-7.25,207.103-8.344,207.103,23.875z" />
+                                                            c-6.969,0-12.641-5.641-12.641-12.641V23.375
+                                                            c0-18-12.109-23.375-23.719-23.375s-23.719,5.375-23.719,23.375v109.719
+                                                            c0,7-5.672,12.641-12.641,12.641h-3.375
+                                                            c-6.969,0-12.625-5.641-12.625-12.641V23.875
+                                                            c0-32.219-45.938-31.125-45.938,0.359
+                                                            c0,37.703,0,104.297,0,104.297
+                                                            c-0.219,57.906,13.625,72.953,36.469,91
+                                                            c18.422,14.531,34.156,22.859,34.156,58.953v232.188h55.344V278.484
+                                                            c0-36.094,15.734-44.422,34.156-58.953
+                                                            c22.859-18.047,36.688-33.094,36.469-91
+                                                            c0,0,0-66.594,0-104.297
+                                                            C253.04-7.25,207.103-8.344,207.103,23.875z" />
                                        <path fill="#1d48a3" d="M385.228,34.75
-                                          c-11.75,32.953-45.578,110.156-47.719,178.344
-                                          c-3.313,105.844,61.547,90.188,62.703,159.531
-                                          v138.688h55.078l0.266,0.688
-                                          c0,0,0-0.281,0-0.688
-                                          c0-9.266,0-119.625,0-232.203
-                                          c0-111.359,0-224.797,0-244.359
-                                          C455.556-5.438,403.524-16.531,385.228,34.75z" />
+                                                            c-11.75,32.953-45.578,110.156-47.719,178.344
+                                                            c-3.313,105.844,61.547,90.188,62.703,159.531
+                                                            v138.688h55.078l0.266,0.688
+                                                            c0,0,0-0.281,0-0.688
+                                                            c0-9.266,0-119.625,0-232.203
+                                                            c0-111.359,0-224.797,0-244.359
+                                                            C455.556-5.438,403.524-16.531,385.228,34.75z" />
                                     </g>
                                  </svg>
                               </a>
 
                               <a href="javascript:void(0)" *ngIf="SSRData.length!==0" (click)="Showmeal=!Showmeal">
-                                 <svg fill="#1d48a3" height="40px" width="30px" version="1.1" id="Layer_1"
+                                 <svg fill="#1d48a3" height="15" width="15" version="1.1" id="Layer_1"
                                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     viewBox="0 0 512 512" xml:space="preserve">
                                     <g>
                                        <g>
                                           <path d="M389.742,77.553H329.99V30.417h15.146V0H166.865v30.417h15.146v47.135h-59.752c-19.059,0-34.566,15.506-34.566,34.566
-                                        V438.41c0,19.059,15.506,34.566,34.566,34.566h26.268V512h30.417v-39.024h154.114V512h30.417v-39.024h26.268
-                                        c19.059,0,34.566-15.506,34.566-34.566V112.119C424.308,93.058,408.802,77.553,389.742,77.553z M179.349,408.086h-30.417V229.638
-                                        h30.417V408.086z M212.426,30.417h87.146v47.135h-87.146V30.417z M240.589,408.086h-30.417V229.638h30.417V408.086z
-                                            M301.829,408.086h-30.417V229.638h30.417V408.086z M316.834,190.41H195.166v-46.294h121.669V190.41z M363.068,408.086h-30.417
-                                        V229.638h30.417V408.086z" />
+                                                          V438.41c0,19.059,15.506,34.566,34.566,34.566h26.268V512h30.417v-39.024h154.114V512h30.417v-39.024h26.268
+                                                          c19.059,0,34.566-15.506,34.566-34.566V112.119C424.308,93.058,408.802,77.553,389.742,77.553z M179.349,408.086h-30.417V229.638
+                                                          h30.417V408.086z M212.426,30.417h87.146v47.135h-87.146V30.417z M240.589,408.086h-30.417V229.638h30.417V408.086z
+                                                              M301.829,408.086h-30.417V229.638h30.417V408.086z M316.834,190.41H195.166v-46.294h121.669V190.41z M363.068,408.086h-30.417
+                                                          V229.638h30.417V408.086z" />
                                        </g>
                                     </g>
                                  </svg></a>
@@ -1239,15 +2430,10 @@
                      </div>
                   </div>
 
-
-                  <div class="meal-box" *ngIf="Showmeal && SSRData.length !== 0">
-
-
-                     <div *ngFor="let data of SSRData; let t = index">
-
+                  <div class="flight-segment meal-box" *ngIf="Showmeal && SSRData.length !== 0">
+                     <div class="flight-route-block" *ngFor="let data of SSRData; let t = index">
                         <div class="segment-card border-bottom mb-4 pb-3"
                            *ngFor="let segment of data | keyvalue : maintainOrder; let segkey = index">
-
                            <!-- Segment Heading -->
                            <div class="segment-header" *ngIf="getSegment(segment.key) as dateData">
                               <div class="d-flex align-items-center justify-content-between flex-wrap">
@@ -1401,16 +2587,9 @@
 
                         </div>
                      </div>
-
                   </div>
 
                </div>
-
-
-
-
-
-
 
                <!-- <div class="accordion panel-item mt-3 border" *ngIf="seatData.length!==0">
                            <button class="accordion-button panel-heading fw-bold collapsed"
@@ -1579,164 +2758,165 @@
                            </div>
                            </div> -->
 
-
                <div class="flight-booking-wrapper">
                   <div class="flight-booking-header" data-bs-toggle="collapse" data-bs-target="#gst-detail">
-                     <div class="d-flex align-items-center justify-content-between">
-                        <h3 class="flight-booking-title"><span>GST Number for Business Travel ({{GSTTxt}})</span></h3>
-                        <i class="fal fa-arrow-right"></i>
+                     <div class="itinerary-card-title">
+                        <div class="header-left">
+                           <i class="fa-solid fa-wallet"></i>
+                           <span>GST Number for Business Travel ({{GSTTxt}})</span>
+                        </div>
                      </div>
                   </div>
 
                   <div id="gst-detail" class="collapse" [ngClass]="{'show':isGSTShow}">
-                     <div class="accordion-body ">
-                        <div class="gst-history-wrapper">
+                     <div class="flight-segment">
+                        <div class="flight-route-block">
 
-                           <div class="gst-input-icon">
-                              <i class="fa fa-building"></i>
+                           <div class="gst-history-wrapper mb-3">
+
+                              <div class="gst-input-icon">
+                                 <i class="fa fa-building"></i>
+                              </div>
+
+                              <input type="text" class="react-autosuggest__input" placeholder="Select from GST History"
+                                 (keyup)="GSTAutocomplete($event)" [matAutocomplete]="auto" #gsteInput />
+                              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedgst($event)">
+                                 <mat-option *ngFor="let list of gstlist" [value]="list['company_name']">
+                                    <div class="gst-option">
+                                       <div class="gst-company">
+                                          {{list['company_name']}}
+                                       </div>
+                                    </div>
+                                 </mat-option>
+                              </mat-autocomplete>
+                              <button type="button" class="gst-clear-btn" (click)="cleargst()">
+                                 Clear
+                              </button>
+
                            </div>
 
-                           <input type="text" class="react-autosuggest__input" placeholder="Select from GST History"
-                              (keyup)="GSTAutocomplete($event)" [matAutocomplete]="auto" #gsteInput />
-                           <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedgst($event)">
-                              <mat-option *ngFor="let list of gstlist" [value]="list['company_name']">
-                                 <div class="gst-option">
-                                    <div class="gst-company">
-                                       {{list['company_name']}}
+                           <form [formGroup]="GSTForm">
+                              <div class="row gy-3">
+                                 <div class="col-lg-12">
+                                    To claim credit of GST charged by airlines, Please enter your company's GST number
+                                 </div>
+                                 <div class="col-md-4">
+                                    <div class="form-floating">
+                                       <input type="text" class="form-control main-select" id="floatingInput"
+                                          placeholder="Registration Number" formControlName="GSTNumber" />
+                                       <label for="floatingInput">Registration
+                                          Number</label>
+                                       <div *ngIf="Gstsubmitted && f['GSTNumber'].errors" class="error-msg">
+                                          <div *ngIf="f['GSTNumber'].errors['required']">
+                                             Registration number is required.
+                                          </div>
+                                       </div>
                                     </div>
                                  </div>
-                              </mat-option>
-                           </mat-autocomplete>
-                           <button type="button" class="gst-clear-btn" (click)="cleargst()">
-                              Clear
-                           </button>
+                                 <div class="col-md-4">
+                                    <div class="form-floating">
+                                       <input type="text" class="form-control main-select" id="floatingInput"
+                                          placeholder="Registered Company Name" formControlName="CompanyName" />
+                                       <label for="floatingInput">Registered Company
+                                          Name</label>
+                                       <div *ngIf="Gstsubmitted && f['CompanyName'].errors" class="error-msg">
+                                          <div *ngIf="f['CompanyName'].errors['required']">
+                                             Company name is required.
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-4">
+                                    <div class="form-floating">
+                                       <input type="email" class="form-control main-select" id="floatingInput"
+                                          placeholder="Registered Email" formControlName="Email" />
+                                       <label for="floatingInput">Registered Email</label>
+                                       <div *ngIf="Gstsubmitted && f['Email'].errors" class="error-msg">
+                                          <div *ngIf="f['Email'].errors['required']">Email
+                                             is
+                                             required.
+                                          </div>
+                                          <div *ngIf="f['Email'].errors['email']">Please
+                                             enter
+                                             a valid email
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-6">
+                                    <div class="form-floating">
+                                       <input type="phone" class="form-control main-select" id="floatingInput"
+                                          placeholder="Registered Phone" formControlName="PhoneNumber" />
+                                       <label for="floatingInput">Registered Phone</label>
+                                       <div *ngIf="Gstsubmitted && f['PhoneNumber'].errors" class="error-msg">
+                                          <div *ngIf="f['PhoneNumber'].errors['required']">
+                                             Phone number is required.
+                                          </div>
+                                          <div
+                                             *ngIf="f['PhoneNumber'].errors['pattern'] || f['PhoneNumber'].errors['minlength'] ||  f['PhoneNumber'].errors['maxlength']">
+                                             Please enter a valid mobile number
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-6">
+                                    <div class="form-floating">
+                                       <input type="address" class="form-control main-select" id="floatingInput"
+                                          placeholder="Registered Address" formControlName="Address" />
+                                       <label for="floatingInput">Registered
+                                          Address</label>
+                                       <div *ngIf="Gstsubmitted && f['Address'].errors" class="error-msg">
+                                          <div *ngIf="f['Address'].errors['required']">
+                                             Address
+                                             is required.
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+
+                              <div class="form-check mt-3">
+                                 <input class="form-check-input" type="checkbox" id="save-gst-detail"
+                                    formControlName="SaveGST" />
+                                 <label class="form-check-label" for="save-gst-detail">Save GST Details</label>
+                              </div>
+                           </form>
 
                         </div>
-
-                        <form [formGroup]="GSTForm">
-                           <div class="row gy-3">
-                              <div class="col-lg-12">
-                                 To claim credit of GST charged by airlines, Please enter your company's GST number
-                              </div>
-                              <div class="col-md-4">
-                                 <div class="form-floating">
-                                    <input type="text" class="form-control main-select" id="floatingInput"
-                                       placeholder="Registration Number" formControlName="GSTNumber" />
-                                    <label for="floatingInput">Registration
-                                       Number</label>
-                                    <div *ngIf="Gstsubmitted && f['GSTNumber'].errors" class="error-msg">
-                                       <div *ngIf="f['GSTNumber'].errors['required']">
-                                          Registration number is required.
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="col-md-4">
-                                 <div class="form-floating">
-                                    <input type="text" class="form-control main-select" id="floatingInput"
-                                       placeholder="Registered Company Name" formControlName="CompanyName" />
-                                    <label for="floatingInput">Registered Company
-                                       Name</label>
-                                    <div *ngIf="Gstsubmitted && f['CompanyName'].errors" class="error-msg">
-                                       <div *ngIf="f['CompanyName'].errors['required']">
-                                          Company name is required.
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="col-md-4">
-                                 <div class="form-floating">
-                                    <input type="email" class="form-control main-select" id="floatingInput"
-                                       placeholder="Registered Email" formControlName="Email" />
-                                    <label for="floatingInput">Registered Email</label>
-                                    <div *ngIf="Gstsubmitted && f['Email'].errors" class="error-msg">
-                                       <div *ngIf="f['Email'].errors['required']">Email
-                                          is
-                                          required.
-                                       </div>
-                                       <div *ngIf="f['Email'].errors['email']">Please
-                                          enter
-                                          a valid email
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="col-md-4">
-                                 <div class="form-floating">
-                                    <input type="phone" class="form-control main-select" id="floatingInput"
-                                       placeholder="Registered Phone" formControlName="PhoneNumber" />
-                                    <label for="floatingInput">Registered Phone</label>
-                                    <div *ngIf="Gstsubmitted && f['PhoneNumber'].errors" class="error-msg">
-                                       <div *ngIf="f['PhoneNumber'].errors['required']">
-                                          Phone number is required.
-                                       </div>
-                                       <div
-                                          *ngIf="f['PhoneNumber'].errors['pattern'] || f['PhoneNumber'].errors['minlength'] ||  f['PhoneNumber'].errors['maxlength']">
-                                          Please enter a valid mobile number
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="col-md-4">
-                                 <div class="form-floating">
-                                    <input type="address" class="form-control main-select" id="floatingInput"
-                                       placeholder="Registered Address" formControlName="Address" />
-                                    <label for="floatingInput">Registered
-                                       Address</label>
-                                    <div *ngIf="Gstsubmitted && f['Address'].errors" class="error-msg">
-                                       <div *ngIf="f['Address'].errors['required']">
-                                          Address
-                                          is required.
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-
-                           <div class="form-check mt-3">
-                              <input class="form-check-input" type="checkbox" id="save-gst-detail"
-                                 formControlName="SaveGST" />
-                              <label class="form-check-label" for="save-gst-detail">Save GST Details</label>
-                           </div>
-                        </form>
                      </div>
                   </div>
                </div>
 
 
                <div class="d-flex align-items-center justify-content-between">
-
                   <button type="button" id="flightdetails" class="btn asr-book" (click)="goBack()">
                      <i class="fa fa-angle-double-left me-1"></i>
                      <span>Back</span>
                   </button>
-
                   <button type="submit" id="review" class="btn asr-book">
                      <span>Proceed To Review</span>
                      <i class="fa fa-angle-double-right"></i>
                   </button>
-
                </div>
-
             </form>
-         }
+            }
          </div>
 
          <div class="col-lg-3">
-            <!--new code -->
-           
-               <div class="flight-booking-wrapper">
-                   @if(fareloading==false){
-                     <div class="flight-booking-header">
-                        <div class="d-flex align-items-center justify-content-between">
-                           <h3 class="flight-booking-title">
-                              <span>Fare Summary</span>
-                           </h3>
-                        </div>
+            <div class="flight-booking-wrapper">
+               @if(fareloading==false){
+               <div class="flight-booking-header">
+                  <div class="itinerary-card-title">
+                     <div class="header-left">
+                        <i class="fa-solid fa-coins"></i>
+                        <span>Fare Summary</span>
                      </div>
+                  </div>
+               </div>
 
+               <div class="flight-segment">
+                  <div class="flight-route-block">
                      <div class="fare-details">
-
                         <!-- Base Fare -->
                         <div class="fare-row">
                            <span>Base Fare</span>
@@ -1808,13 +2988,15 @@
 
                            <div class="d-flex justify-content-between align-items-center w-100">
 
-                              <span data-bs-toggle="collapse" href="#ssr-pax" aria-expanded="false" class="fare-collapse-btn">
+                              <span data-bs-toggle="collapse" href="#ssr-pax" aria-expanded="false"
+                                 class="fare-collapse-btn">
                                  Meal, Baggage & Seats
                                  <i class="fa fa-angle-down ms-1"></i>
                               </span>
 
                               <span class="fare-price">
-                                 ₹{{CurrentFare['SSR']['Meal'] + CurrentFare['SSR']['Baggage'] + CurrentFare['SSR']['Seat'] |
+                                 ₹{{CurrentFare['SSR']['Meal'] + CurrentFare['SSR']['Baggage'] +
+                                 CurrentFare['SSR']['Seat'] |
                                  number:'1.0-2'}}
                               </span>
 
@@ -1885,9 +3067,11 @@
                            </div>
                         </div>
                      </div>
-                  }
+                  </div>
                </div>
-            
+               }
+            </div>
+
          </div>
       </div>
    </div>
@@ -1920,7 +3104,8 @@
             </div>
 
             <div *ngFor="let segmentSeats of seatData; let jkey = index">
-               <div class="seatlayoutbox seatlayoutbox_departure" *ngFor="let Segment of segmentSeats ; let segkey = index">
+               <div class="seatlayoutbox seatlayoutbox_departure"
+                  *ngFor="let Segment of segmentSeats ; let segkey = index">
                   <div class="seat-legend-wrapper" *ngIf="seatactivetab==jkey+''+segkey">
                      <!-- Seat Status -->
                      <div class="seat-legend">
@@ -2201,8 +3386,8 @@ PRICE CONFIRMATION MODAL
 
          <div class="modal-footer" *ngIf="modaldata['type']!='FC'">
             <button type="button" class="btn btn-outline-secondary modal-back-btn" (click)="goBack()">Back</button>
-            <button type="button" class="tts-button-primary modal-continue-btn"
-               [disabled]="fareloading">Continue</button>
+            <button type="button" class="tts-button-primary modal-continue-btn" [disabled]="fareloading"
+               data-bs-dismiss="modal" aria-label="Close">Continue</button>
          </div>
          <div class="modal-footer justify-content-center" *ngIf="modaldata['type']=='FC'">
             <button type="button" class="btn btn-outline-secondary modal-back-btn" (click)="goBack()">Back</button>

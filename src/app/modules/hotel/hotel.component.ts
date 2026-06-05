@@ -277,19 +277,19 @@ export class HotelComponent implements OnInit {
           var $this = $(this);
           var top = $this.offset().top + $this.outerHeight();
           var left = $this.offset().left;
-          setTimeout(function() {
-            inst.dpDiv.css({
-                  'top': top-1,
-                  'left': left,
-                  'width':'24.1em',
-                  'overflow-x':'scroll',
-                  'height':'30em',
-                  'z-index':'9999'
-              });
-              $(".ui-datepicker-next").hide();
-              $(".ui-datepicker-prev").hide();
-              inst.dpDiv.find('.ui-state-active').css({'background':'var(--second-color)','color':'#fff'});
-          }, 1);
+          // setTimeout(function() {
+          //   inst.dpDiv.css({
+          //         'top': top-1,
+          //         'left': left,
+          //         'width':'24.1em',
+          //         'overflow-x':'scroll',
+          //         'height':'30em',
+          //         'z-index':'9999'
+          //     });
+          //     $(".ui-datepicker-next").hide();
+          //     $(".ui-datepicker-prev").hide();
+          //     inst.dpDiv.find('.ui-state-active').css({'background':'var(--second-color)','color':'#fff'});
+          // }, 1);
           /*---End Open in bottom--*/
         },
         onUpdateDatepicker: function (input:any, inst:any) {
@@ -325,20 +325,20 @@ export class HotelComponent implements OnInit {
           var cal = inst.dpDiv;
           var top = $this.offset().top + $this.outerHeight();
           var left = $this.offset().left;
-          setTimeout(function() {
-              cal.css({
-                  'top': top-1,
-                  'left': left,
-                  'width':'24.1em',
-                  'overflow-x':'scroll',
-                  'height':'30em',
-                  'z-index':'9999'
-              });
-              cal.scrollTop(0);
-              $(".ui-datepicker-next").hide();
-              $(".ui-datepicker-prev").hide();
-              inst.dpDiv.find('.ui-state-active').css({'background':'var(--second-color)','color':'#fff'});
-          }, 1);
+          // setTimeout(function() {
+          //     cal.css({
+          //         'top': top-1,
+          //         'left': left,
+          //         'width':'24.1em',
+          //         'overflow-x':'scroll',
+          //         'height':'30em',
+          //         'z-index':'9999'
+          //     });
+          //     cal.scrollTop(0);
+          //     $(".ui-datepicker-next").hide();
+          //     $(".ui-datepicker-prev").hide();
+          //     inst.dpDiv.find('.ui-state-active').css({'background':'var(--second-color)','color':'#fff'});
+          // }, 1);
          
           /*---End Open in bottom--*/
           

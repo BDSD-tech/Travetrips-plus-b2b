@@ -196,10 +196,10 @@ export class FlightComponent implements OnInit {
     clearTimeout(this.timeoutId);
   }
 
-  gettrimValue(value:any){
+  gettrimValue(value: any) {
     return value.replace(/\(.*?\)/g, '').trim()
   }
-  
+
 
   gettype(type: string) {
     this.SearchForm.patchValue({ Type: type });
@@ -423,167 +423,166 @@ export class FlightComponent implements OnInit {
                 "<i class='fa-solid fa-plane-departure'></i>" +
                 airportname +
                 ")</span>" +
-                "</div><div class='item-right'><span class='airport-code'>[" +
+                "</div><div class='item-right'><span class='airport-code'>" +
                 airportcode +
-                "]</span></div>" +
+                "</span></div>" +
                 "</a>").appendTo(ul);
           };
         }
       });
     });
-    }
-    
-    flightdepartcalendar()
-    {
-      $("[data-depart-date]").datepicker("destroy");
-      var _this = this;
-      $("[data-depart-date]").datepicker({
-          defaultDate : "",
-          dateFormat : "dd M yy",
-          minDate : 0,
-          maxDate: '+1Y',
-          changeMonth : false,
-          numberOfMonths: [1,13],
-          beforeShow : function(input:any, inst:any) {
-            /*---Start Open in bottom--*/
-            var $this = $(this);
-            var top = $this.offset().top + $this.outerHeight();
-            var left = $this.offset().left;
-            setTimeout(function() {
-              inst.dpDiv.css({
-                    'top': top-1,
-                    'left': left,
-                    'width':'24.1em',
-                    'overflow-x':'scroll',
-                    'height':'30em',
-                    'z-index':'9999'
-                });
-                $(".ui-datepicker-next").hide();
-                $(".ui-datepicker-prev").hide();
+  }
 
-                inst.dpDiv.find('.ui-state-active').css({'background':"var(--primary-color)",'color':'#fff'});
-            }, 1);
-            /*---End Open in bottom--*/
+  flightdepartcalendar() {
+    $("[data-depart-date]").datepicker("destroy");
+    var _this = this;
+    $("[data-depart-date]").datepicker({
+      defaultDate: "",
+      dateFormat: "dd M yy",
+      minDate: 0,
+      maxDate: '+1Y',
+      changeMonth: false,
+      numberOfMonths: [1, 13],
+      beforeShow: function (input: any, inst: any) {
+        /*---Start Open in bottom--*/
+        var $this = $(this);
+        var top = $this.offset().top + $this.outerHeight();
+        var left = $this.offset().left;
+        // setTimeout(function () {
+        //   inst.dpDiv.css({
+        //     'top': top - 1,
+        //     'left': left,
+        //     'width': '24.1em',
+        //     'overflow-y': 'auto',
+        //     'overflow-x': 'hidden',
+        //     'max-height': '320px',
+        //     'z-index': '9999'
+        //   });
+        //   $(".ui-datepicker-next").hide();
+        //   $(".ui-datepicker-prev").hide();
 
-            if ($(input).attr('key') != undefined) {
-              var datakey = parseInt($(input).attr('key'));
-              if (datakey != 0) {
-                  var newdatakey = datakey - 1;
-                  var previousdate =   _this.SearchForm.controls["MultiCity"].value[newdatakey]['DepartDate'];
-                  var newdate = new Date(previousdate);
-                  $(this).datepicker("option", "minDate", newdate);
-              }
-            }
-          },
-          onUpdateDatepicker: function (input:any, inst:any) {
-            $(".ui-datepicker-multi").css({'width':'24.1em'});
-            $(".ui-datepicker-next").hide();
-            $(".ui-datepicker-prev").hide();
-          },
-          onClose : function(selectedDate:any, inst:any) {
-            if ($(inst.input[0]).attr('key') === undefined) {
+        //   inst.dpDiv.find('.ui-state-active').css({ 'background': "var(--primary-color)", 'color': '#fff' });
+        // }, 1);
+        /*---End Open in bottom--*/
 
-                var date = new Date(selectedDate);
-                date.setDate(date.getDate() + 1);
-        
-                // Format the date as dd M yy
-                var options:any = { day: '2-digit', month: 'short', year: '2-digit' };
-                var formattedReturnDate = date.toLocaleDateString('en-GB', options);
-
-                _this.SearchForm.patchValue({DepartDate:selectedDate});
-                _this.SearchForm.patchValue({ReturnDate:formattedReturnDate});
-                var type = _this.SearchForm.value.Type;
-                if (type == "R") {
-                  $("[data-return-date]").datepicker("option", "minDate",
-                      selectedDate).focus().select();
-                      _this.SearchForm.patchValue({ReturnDate:formattedReturnDate});
-                }
-            } else {
-              setTimeout(() => {
-                var datakey = parseInt($(inst.input[0]).attr('key'));
-                var placeholder = $(inst.input[0]).attr('tp');
-                if (placeholder == 'DepartDate') {
-                    var newdatakey = datakey + 1;
-                    _this.SearchForm.get('MultiCity.'+datakey+'')?.patchValue({'DepartDate':selectedDate});
-
-                    $("#multi-f-destination-"+newdatakey).trigger('focus').click();
-                }
-               }, 10);
-
-            }
-      
+        if ($(input).attr('key') != undefined) {
+          var datakey = parseInt($(input).attr('key'));
+          if (datakey != 0) {
+            var newdatakey = datakey - 1;
+            var previousdate = _this.SearchForm.controls["MultiCity"].value[newdatakey]['DepartDate'];
+            var newdate = new Date(previousdate);
+            $(this).datepicker("option", "minDate", newdate);
           }
-        });
-    } 
-    
-    flightreturncalendar()
-    {
-      $("[data-return-date]").datepicker("destroy");
-      var _this = this;
-      $("[data-return-date]").datepicker({
-          defaultDate : "",
-          dateFormat : "dd M yy",
-          minDate : 0,
-          maxDate: '+1Y',
-          changeMonth : false,
-          numberOfMonths: [1,13],
-          beforeShow : function(input:any, inst:any) {
-            /*---Start Open in bottom--*/
-            var $this = $(this);
-            var cal = inst.dpDiv;
-            var top = $this.offset().top + $this.outerHeight();
-            var left = $this.offset().left;
-            // setTimeout(function() {
-            //     cal.css({
-            //         'top': top-1,
-            //         'left': left,
-            //         'width':'24.1em',
-            //         'overflow-x':'scroll',
-            //         'height':'30em',
-            //         'z-index':'9999'
-            //     });
-            //     $(".ui-datepicker-next").hide();
-            //     $(".ui-datepicker-prev").hide();
-            //     inst.dpDiv.find('.ui-state-active').css({'background':'#46a086','color':'#fff'});
-            // }, 1);
+        }
+      },
+      onUpdateDatepicker: function (input: any, inst: any) {
+        $(".ui-datepicker-multi").css({ 'width': '24.1em' });
+        $(".ui-datepicker-next").hide();
+        $(".ui-datepicker-prev").hide();
+      },
+      onClose: function (selectedDate: any, inst: any) {
+        if ($(inst.input[0]).attr('key') === undefined) {
 
-            setTimeout(function() {
-            cal.css({
-        'top': top - 1,
-        'left': left,
-        'width': '24.1em',
-        'overflow-x': 'scroll',
-        'height': '30em',
-        'z-index': '9999'
+          var date = new Date(selectedDate);
+          date.setDate(date.getDate() + 1);
+
+          // Format the date as dd M yy
+          var options: any = { day: '2-digit', month: 'short', year: '2-digit' };
+          var formattedReturnDate = date.toLocaleDateString('en-GB', options);
+
+          _this.SearchForm.patchValue({ DepartDate: selectedDate });
+          _this.SearchForm.patchValue({ ReturnDate: formattedReturnDate });
+          var type = _this.SearchForm.value.Type;
+          if (type == "R") {
+            $("[data-return-date]").datepicker("option", "minDate",
+              selectedDate).focus().select();
+            _this.SearchForm.patchValue({ ReturnDate: formattedReturnDate });
+          }
+        } else {
+          setTimeout(() => {
+            var datakey = parseInt($(inst.input[0]).attr('key'));
+            var placeholder = $(inst.input[0]).attr('tp');
+            if (placeholder == 'DepartDate') {
+              var newdatakey = datakey + 1;
+              _this.SearchForm.get('MultiCity.' + datakey + '')?.patchValue({ 'DepartDate': selectedDate });
+
+              $("#multi-f-destination-" + newdatakey).trigger('focus').click();
+            }
+          }, 10);
+
+        }
+
+      }
     });
+  }
 
-    // 🔥 RESET SCROLL POSITION
-    cal.scrollTop(0);
+  flightreturncalendar() {
+    $("[data-return-date]").datepicker("destroy");
+    var _this = this;
+    $("[data-return-date]").datepicker({
+      defaultDate: "",
+      dateFormat: "dd M yy",
+      minDate: 0,
+      maxDate: '+1Y',
+      changeMonth: false,
+      numberOfMonths: [1, 13],
+      beforeShow: function (input: any, inst: any) {
+        /*---Start Open in bottom--*/
+        var $this = $(this);
+        var cal = inst.dpDiv;
+        var top = $this.offset().top + $this.outerHeight();
+        var left = $this.offset().left;
+        // setTimeout(function() {
+        //     cal.css({
+        //         'top': top-1,
+        //         'left': left,
+        //         'width':'24.1em',
+        //         'overflow-x':'scroll',
+        //         'height':'30em',
+        //         'z-index':'9999'
+        //     });
+        //     $(".ui-datepicker-next").hide();
+        //     $(".ui-datepicker-prev").hide();
+        //     inst.dpDiv.find('.ui-state-active').css({'background':'#46a086','color':'#fff'});
+        // }, 1);
 
-    $(".ui-datepicker-next").hide();
-    $(".ui-datepicker-prev").hide();
+        // setTimeout(function () {
+        //   cal.css({
+        //     'top': top - 1,
+        //     'left': left,
+        //     'width': '24.1em',
+        //     'overflow-y': 'auto',
+        //     'overflow-x': 'hidden',
+        //     'max-height': '320px',
+        //     'z-index': '9999'
+        //   });
 
-    inst.dpDiv.find('.ui-state-active')
-        .css({'background':"var(--primary-color)",'color':'#fff'});
-}, 1);
+        //   cal.scrollTop(0);
 
-            /*---End Open in bottom--*/
-            _this.gettype('R');
-            var selectedDate = _this.SearchForm.value.DepartDate;
-            var newdate = new Date(selectedDate);
-            $(this).datepicker("option", "minDate",newdate);
-          },
-          onUpdateDatepicker: function (input:any, inst:any) {
-            $(".ui-datepicker-multi").css({'width':'24.1em'});
-            $(".ui-datepicker-next").hide();
-            $(".ui-datepicker-prev").hide();
-          },
-          onClose : function(selectedDate:any) {
-            _this.SearchForm.patchValue({ReturnDate:selectedDate});
-            $("[data-depart-date]").datepicker("option", selectedDate);
-          }
-        });
-    }
+        //   $(".ui-datepicker-next").hide();
+        //   $(".ui-datepicker-prev").hide();
+
+        //   inst.dpDiv.find('.ui-state-active')
+        //     .css({ 'background': "var(--primary-color)", 'color': '#fff' });
+        // }, 1);
+
+        /*---End Open in bottom--*/
+        _this.gettype('R');
+        var selectedDate = _this.SearchForm.value.DepartDate;
+        var newdate = new Date(selectedDate);
+        $(this).datepicker("option", "minDate", newdate);
+      },
+      onUpdateDatepicker: function (input: any, inst: any) {
+        $(".ui-datepicker-multi").css({ 'width': '24.1em' });
+        $(".ui-datepicker-next").hide();
+        $(".ui-datepicker-prev").hide();
+      },
+      onClose: function (selectedDate: any) {
+        _this.SearchForm.patchValue({ ReturnDate: selectedDate });
+        $("[data-depart-date]").datepicker("option", selectedDate);
+      }
+    });
+  }
 
 
   get f() { return this.SearchForm.controls; }

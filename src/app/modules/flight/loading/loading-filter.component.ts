@@ -15,15 +15,15 @@ import { Component, OnInit } from '@angular/core';
       </div>
   </div>
   <div class="al-listbtm filter-loading">
-      <div class="form-check">
-          <label class="form-check-label" for="reverseCheck1">
-              Show Incv
-          </label>
+      <div class="al-priceac">
+        <p class="al-prresets">
+          <span>Show Incv</span>
+        </p>
       </div>
-      <div class="form-check">
-          <label class="form-check-label" for="reverseCheck2">
-              Show Net
-          </label>
+      <div class="al-priceac">
+        <p class="al-prresets">
+          <span>Show Net</span>
+        </p>
       </div>
   </div>
   <div class="al-listbtm filter-loading">

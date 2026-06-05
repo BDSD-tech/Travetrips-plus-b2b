@@ -42,7 +42,7 @@
                   <div class="d-flex form-info">
                     <div class="persent-one ">
                       <label class="custom-label">Destination</label>
-                      <i class="fa-solid fa-map-marker"></i>
+                      <span class="srchicons"><i class="fa-solid fa-map-marker"></i></span>
                       <input type="text" formControlName="Destination" class="textboxstyle autosuggeest-hotel"
                         placeholder="Destination ?" (click)="openautocomplete($event,'input')">
                       <i class="fa fa-angle-down search-form-inp-down" *ngIf="fh['Destination'].value==''"></i>
@@ -56,7 +56,7 @@
 
                     <div class="persent-one less-per">
                       <label class="custom-label">Check In</label>
-                      <i class="fa-solid fa-calendar"></i>
+                      <span class="srchicons"><i class="fa-solid fa-calendar"></i></span>
                       <input type="text" formControlName="CheckIn" class="textboxstyle" data-checkin-date>
                       <div *ngIf="hotelsubmitted && fh['CheckIn'].errors" class="error-msg">
                         <div *ngIf="fh['CheckIn'].errors['required']">Please enter a valid check in date</div>
@@ -65,7 +65,7 @@
 
                     <div class="persent-one less-per at-returnin">
                       <label class="custom-label">Check Out</label>
-                      <i class="fa-solid fa-calendar"></i>
+                      <span class="srchicons"><i class="fa-solid fa-calendar"></i></span>
                       <input type="text" formControlName="CheckOut" class="textboxstyle textboxstyle-bg"
                         data-checkout-date [ngClass]="{ 'is-invalid': hotelsubmitted && fh['CheckOut'].errors }">
                       <div *ngIf="hotelsubmitted && fh['CheckOut'].errors" class="error-msg">
@@ -77,220 +77,92 @@
 
                     <div class="persent-one persent-one_ps-4">
                       <label class="custom-label">Rooms & Guests</label>
-                      <i class="fa-solid fa-person"></i>
+                      <span class="srchicons"><i class="fa-solid fa-person"></i></span>
                       <div class="textboxstyle" id="passenger" (click)="HotelPaxDisplay()">
                         <p class="Pass"> {{Occupancy}}</p>
                       </div>
 
+
+                      <!-----new code start---->
                       <div class="at-passection" [ngClass]="{'d-none': isHotelShow===false}">
-                        <div class="persent-one_frm">
-                          <div class="persent-one_frm_close " (click)="HotelPaxDisplay()"></div>
-                          <!-- =========================================================
-                            HOTEL ROOM & GUEST SELECTOR
-                            Modern UI Design
-                          ========================================================= -->
+                        <div class="hotel-pax-container">
+                          <!-- Close -->
+                          <button type="button" class="hotel-close-btn" (click)="HotelPaxDisplay()">×</button>
 
-                          <div class="hotel-room-wrapper">
-                            <!-- Header -->
-                            <div class="room-header">
-                              <div class="room-col">
-                                <span>Rooms</span>
-                              </div>
 
-                              <div class="guest-col">
-                                <span>Adults</span>
-                              </div>
+                          <!-- Rooms -->
+                          <div class="room-list">
 
-                              <div class="guest-col">
-                                <span>Children</span>
-                              </div>
-                            </div>
-
-                            <!-- Room Row -->
                             <div class="room-card" *ngFor="let roomrow of arrayOne(roomcount); let r = index">
 
                               <!-- Room Title -->
-                              <div class="room-title">
-                                <h5>Room {{r + 1}}</h5>
+                              <div class="room-card-header">
+                                <h5>Room {{ r + 1 }}</h5>
                               </div>
 
                               <!-- Adults -->
-                              <div class="counter-box">
+                              <div class="guest-row">
+                                <div class="guest-info">
+                                  <span class="guest-title">Adults</span>
+                                  <small>12+ Years</small>
+                                </div>
 
-                                <button type="button" class="counter-btn minus" (click)="hotelminus('a',r)">
-                                  -
-                                </button>
-
-                                <input class="counter-input" type="number" readonly min="1"
-                                  value="{{roomobject[r].Adult}}">
-
-                                <button type="button" class="counter-btn plus" (click)="hotelplus('a',r)">
-                                  +
-                                </button>
-
+                                <div class="counter-wrapper">
+                                  <button type="button" class="counter-btn" (click)="hotelminus('a',r)">-</button>
+                                  <input class="counter-input" type="number" readonly min="1" value="{{roomobject[r].Adult}}">
+                                  <button type="button" class="counter-btn" (click)="hotelplus('a',r)">+</button>
+                                </div>
                               </div>
 
                               <!-- Children -->
-                              <div class="counter-box">
+                              <div class="guest-row">
+                                <div class="guest-info">
+                                  <span class="guest-title">Children</span>
+                                  <small>1 - 12 Years</small>
+                                </div>
 
-                                <button type="button" class="counter-btn minus" (click)="hotelminus('c',r)">
-                                  -
-                                </button>
-
-                                <input class="counter-input" type="number" readonly min="0"
-                                  value="{{roomobject[r].Child}}">
-
-                                <button type="button" class="counter-btn plus" (click)="hotelplus('c',r)">
-                                  +
-                                </button>
-
+                                <div class="counter-wrapper">
+                                  <button type="button" class="counter-btn" (click)="hotelminus('c',r)">-</button>
+                                  <input class="counter-input" type="number" readonly min="0" value="{{roomobject[r].Child}}">
+                                  <button type="button" class="counter-btn" (click)="hotelplus('c',r)">+</button>
+                                </div>
                               </div>
 
-                              <!-- Child Age Section -->
-                              <div class="child-age-wrapper" *ngIf="roomobject[r].Child > 0">
+                              <!-- Child Ages -->
+                              <div class="child-age-section" *ngIf="roomobject[r].Child > 0">
 
-                                <!-- Child 1 -->
-                                <div class="age-box">
-
+                                <div class="age-field">
                                   <label>Age of Child 1</label>
-
-                                  <select class="age-select" (change)="childage($event,0,r)">
-
+                                  <select class="form-select age-select" (change)="childage($event,0,r)">
                                     <option *ngFor="let chdage of arrayOne(12); let c = index" [value]="c+1">
-
                                       {{c+1}}
-
                                     </option>
-
                                   </select>
-
                                 </div>
 
-                                <!-- Child 2 -->
-                                <div class="age-box" *ngIf="roomobject[r].Child == 2">
-
+                                <div class="age-field" *ngIf="roomobject[r].Child == 2">
                                   <label>Age of Child 2</label>
-
-                                  <select class="age-select" (change)="childage($event,1,r)">
-
-                                    <option *ngFor="let chdage of arrayOne(12); let c = index" [value]="c+1">
-
-                                      {{c+1}}
-
+                                  <select class="form-select age-select" (change)="childage($event,1,r)">
+                                    <option *ngFor="let chdage of arrayOne(12); let c=index" [value]="c+1">
+                                      {{c+1}} Years
                                     </option>
-
                                   </select>
-
                                 </div>
-
                               </div>
-
-                            </div>
-
-                            <!-- Message -->
-                            <span class="hotelpaxcount_message"></span>
-
-                            <!-- Bottom Buttons -->
-                            <div class="room-action-btns">
-
-                              <button type="button" class="remove-btn" (click)="removeroom()"
-                                [disabled]="roomcount == 1">
-
-                                Remove Room
-
-                              </button>
-
-                              <button type="button" class="add-btn" (click)="addroom()" [disabled]="roomcount == 4">
-
-                                Add Room
-
-                              </button>
-
                             </div>
 
                           </div>
-                          <!-- <div class="detail-content">
-                            <ul>
-                              <li class="row">
-                                <div class="left-block">
-                                  <span class="title">ROOMS</span>
-                                </div>
-                                <div class="right-block">
-                                  <span class="title">GUESTS</span>
-                                </div>
-                                <div class="right-block">
-                                  <span class="title">CHILD</span>
-                                </div>
-                              </li>
-                              <li class="row" *ngFor="let roomrow of arrayOne(roomcount), let r = index">
-                                <div class="left-block">
-                                  <h5>Room {{r+1}}</h5>
-                                </div>
-                                <div class="right-block">
-                                  <div class="input-group inline-group">
-                                    <div class="input-group-prepend">
-                                      <button type="button" class="btn btn-outline-secondary btn-minus"
-                                        (click)="hotelminus('a',r)">
-                                        -
-                                      </button>
-                                    </div>
-                                    <input class="form-control quantity" min="1" value="{{roomobject[r].Adult}}"
-                                      type="number" readonly>
-                                    <div class="input-group-append">
-                                      <button type="button" class="btn btn-outline-secondary btn-plus"
-                                        (click)="hotelplus('a',r)">
-                                        +
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="right-block">
-                                  <div class="input-group inline-group">
-                                    <div class="input-group-prepend">
-                                      <button type="button" class="btn btn-outline-secondary btn-minus"
-                                        (click)="hotelminus('c',r)">
-                                        -
-                                      </button>
-                                    </div>
-                                    <input class="form-control quantity" min="0" value="{{roomobject[r].Child}}"
-                                      type="number" readonly>
-                                    <div class="input-group-append">
-                                      <button type="button" class="btn btn-outline-secondary btn-plus"
-                                        (click)="hotelplus('c',r)">
-                                        +
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
 
+                          <span class="hotelpaxcount_message"></span>
 
-                                <div class="col-md-4 mt-3  offset-md-4" *ngIf="roomobject[r].Child > 0">
-                                  <p class="m-0">Age of Child 1</p>
-                                  <select class="ageselect form-select" (change)="childage($event,0,r)">
-                                    <option *ngFor="let chdage of arrayOne(12), let c = index" [value]="c+1">
-                                      {{c+1}} </option>
-                                  </select>
-                                </div>
-
-                                <div class="col-md-4 mt-3 " *ngIf="roomobject[r].Child==2">
-                                  <p class="m-0">Age of Child 2</p>
-                                  <select class="ageselect form-select" (change)="childage($event,1,r)">
-                                    <option *ngFor="let chdage of arrayOne(12), let c = index" [value]="c+1">
-                                      {{c+1}}
-                                    </option>
-                                  </select>
-                                </div>
-                              </li>
-
-                            </ul>
-                            <span class="hotelpaxcount_message mt-3"></span>
-                            <div class="add-remove-block">
-                              <button type="button" (click)="removeroom()" [disabled]="roomcount==1">Remove</button>
-                              <button type="button" (click)="addroom()" [disabled]="roomcount==4">Add</button>
-                            </div>
-                          </div> -->
+                          <!-- Actions -->
+                          <div class="room-actions">
+                            <button type="button" class="btn-remove" (click)="removeroom()" [disabled]="roomcount == 1">Remove Room</button>
+                            <button type="button" class="btn-add" (click)="addroom()" [disabled]="roomcount == 4">Add Room</button>
+                          </div>
                         </div>
                       </div>
+                      <!-----new code end------>
                     </div>
                   </div>
 
@@ -339,7 +211,7 @@
 
 
 <!----------Deal---and---offer---start------->
-<section class="deal-offer-section">
+<section class="deal-offer-section d-none">
   <div class="container">
     <div class="section-title">
       <h2>Deals & Offers</h2>
@@ -383,7 +255,7 @@
 
 
 <!--------------------Start For Blog-------------------------------------->
-<section id="recent-posts" class="recent-posts sections-bg py-3" *ngIf="BlogList.length!=0">
+<section id="recent-posts" class="recent-posts sections-bg py-3 d-none" *ngIf="BlogList.length!=0">
   <div class="container">
     <div class="section-header mb-4">
       <h4>Recent Blog Posts
@@ -420,7 +292,7 @@
 <!--------------------End For Blog-------------------------------------->
 
 <!--------------------Start For Client Review-------------------------------------->
-<section class="client-review sections-bg py-3" *ngIf="TestimonialsList.length!=0">
+<section class="client-review sections-bg py-3 d-none" *ngIf="TestimonialsList.length!=0">
   <div class="container">
     <div class="section-header mb-4">
       <h4>Testimonials

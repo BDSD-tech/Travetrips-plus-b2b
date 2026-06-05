@@ -1,0 +1,465 @@
+.dashboard-wrapper {
+    padding: 24px;
+}
+
+.dashboard-card,
+.updates-card {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    overflow: hidden;
+}
+
+.dashboard-card:hover,
+.updates-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.hero-banner {
+    position: relative;
+    height: 430px;
+    border-radius: 28px;
+    overflow: hidden;
+    background: var(--black);
+}
+
+.hero-banner .carousel-inner,
+.hero-banner .carousel-item,
+.hero-banner .hero-slide {
+    height: 100%;
+}
+
+.hero-banner .hero-slide {
+    position: relative;
+}
+
+.hero-banner .hero-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.78);
+    transition: transform 7s ease;
+}
+
+.hero-banner .carousel-item.active img {
+    transform: scale(1.06);
+}
+
+.hero-banner .hero-slide::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(to right,
+            rgba(0, 0, 0, 0.45),
+            rgba(0, 0, 0, 0.08));
+    z-index: 1;
+}
+
+.hero-banner .carousel-indicators {
+    margin-bottom: 20px;
+    gap: 8px;
+}
+
+.hero-banner .carousel-indicators button {
+    width: 10px;
+    height: 10px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--white);
+    opacity: 0.5;
+    transition: var(--transition);
+}
+
+.hero-banner .carousel-indicators .active {
+    width: 34px;
+    opacity: 1;
+}
+
+.hero-banner .carousel-control-prev,
+.hero-banner .carousel-control-next {
+    width: 52px;
+    height: 52px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(10px);
+    opacity: 1;
+    transition: var(--transition);
+}
+
+.hero-banner .carousel-control-prev:hover,
+.hero-banner .carousel-control-next:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.hero-banner .carousel-control-prev {
+    left: 20px;
+}
+
+.hero-banner .carousel-control-next {
+    right: 20px;
+}
+
+.section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--second-dark-color);
+    margin-bottom: 16px;
+}
+
+.custom-table {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.custom-table table {
+    margin-bottom: 0;
+}
+
+.custom-table thead {
+    background: #edf4ff;
+}
+
+.custom-table th {
+    border: none;
+    padding: 14px 12px;
+    font-weight: 700;
+    color: var(--second-dark-color);
+    white-space: nowrap;
+}
+
+.custom-table td {
+    border-color: #eef2f7;
+    padding: 14px 12px;
+    color: var(--dark);
+}
+
+.custom-table tbody tr:hover {
+    background: #fafcff;
+}
+
+.shortcut-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.shortcut-box {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 22px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.shortcut-box:hover {
+    transform: translateY(-4px);
+    background: var(--second-bg-color);
+    border-color: #dbeafe;
+    box-shadow: var(--shadow-sm);
+}
+
+.shortcut-box i {
+    width: 52px;
+    height: 52px;
+    margin-bottom: 12px;
+    border-radius: 16px;
+    background: #eef4ff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: var(--primary-color);
+}
+
+.shortcut-box span {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--second-dark-color);
+}
+
+.account-card {
+    position: relative;
+    overflow: hidden;
+    padding: 28px;
+    border-radius: 28px;
+    background:
+        linear-gradient(135deg,
+            var(--primary-color) 0%,
+            var(--color-dark) 100%);
+    color: var(--white);
+    box-shadow: var(--shadow-md);
+}
+
+.account-card::before {
+    content: "";
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    top: -100px;
+    right: -100px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.account-card::after {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    bottom: -70px;
+    left: -70px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.account-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.balance-title {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 12px;
+}
+
+.balance-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.balance-amount {
+    font-size: 40px;
+    font-weight: 800;
+}
+
+.balance-toggle,
+.wallet-dropdown {
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.balance-toggle:hover,
+.wallet-dropdown:hover {
+    background: rgba(255, 255, 255, 0.22);
+}
+
+.account-actions {
+    margin-top: 28px;
+    display: flex;
+    gap: 14px;
+}
+
+.account-btn {
+    height: 48px;
+    border: 0;
+    border-radius: 999px;
+    padding: 0 24px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    flex: 1;
+}
+
+.account-btn-outline {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.account-btn-outline:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.account-btn-primary {
+    background: var(--primary-bg-color);
+    color: var(--white);
+}
+
+.account-btn-primary:hover {
+    opacity: 0.9;
+}
+
+.updates-card {
+    margin-top: 20px;
+}
+
+.updates-header {
+    background: #dff6fb;
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.updates-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.updates-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--second-dark-color);
+}
+
+.updates-body {
+    padding: 20px;
+}
+
+.update-item {
+    padding: 10px 0;
+}
+
+.update-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.update-text {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--dark);
+}
+
+.update-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 24px;
+    border-radius: 999px;
+    background: #dcfce7;
+    color: #166534;
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.update-arrow {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border: 0;
+    border-radius: 10px;
+    background: #f8fafc;
+    transition: var(--transition);
+}
+
+.update-arrow:hover {
+    background: #eef4ff;
+    color: var(--primary-color);
+}
+
+.update-divider {
+    height: 1px;
+    background: #edf2f7;
+    margin: 6px 0;
+}
+
+.form-select {
+    border-radius: 12px;
+    border: 1px solid #dbe3ee;
+    min-height: 40px;
+    font-size: 13px;
+    box-shadow: none !important;
+}
+
+.form-select:focus {
+    border-color: var(--primary-color);
+}
+
+
+@media (max-width: 991px) {
+
+    .hero-banner {
+        height: 340px;
+    }
+
+    .shortcut-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .balance-amount {
+        font-size: 34px;
+    }
+}
+
+@media (max-width: 767px) {
+
+    .dashboard-wrapper {
+        padding: 14px;
+    }
+
+    .hero-banner {
+        height: 260px;
+        border-radius: 20px;
+    }
+
+    .hero-banner .carousel-control-prev,
+    .hero-banner .carousel-control-next {
+        display: none;
+    }
+
+    .shortcut-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .shortcut-box {
+        padding: 18px 10px;
+    }
+
+    .account-card {
+        padding: 22px;
+        border-radius: 22px;
+    }
+
+    .account-actions {
+        flex-direction: column;
+    }
+
+    .account-btn {
+        width: 100%;
+    }
+
+    .balance-amount {
+        font-size: 30px;
+    }
+
+    .custom-table {
+        overflow-x: auto;
+    }
+
+    .custom-table table {
+        min-width: 650px;
+    }
+
+    .updates-header,
+    .updates-body {
+        padding: 18px;
+    }
+}

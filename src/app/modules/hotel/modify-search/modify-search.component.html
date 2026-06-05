@@ -1,4 +1,4 @@
-<section class="flight-list-section sticky-top p-8" *ngIf="isModifyShow==false">
+<section class="flight-list-section sticky-top p-8 d-none" *ngIf="isModifyShow==false">
   <div class="container">
     <div class="row g-3 align-items-center">
       <div class="col-lg-10">
@@ -50,14 +50,10 @@
 </section>
 
 <!------modify-----section---start---->
-<section class="flight_section modify-section pt-3 pb-2 sticky-top" *ngIf="isModifyShow">
+<section class="flight_section">
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
-        <div class="d-flex align-items-center justify-content-end mb-2">
-          <span class="modify-cross" (click)="modifysearch()">×</span>
-        </div>
-
         <div class="flight_box">
           <form [formGroup]="HotelSearchForm" (ngSubmit)="HotelSearchData()" id="hotel-form">
             <div class="tab-content">
@@ -66,9 +62,8 @@
                 <div class="flight-tab d-lg-flex">
                   <div class="d-flex form-info">
                     <div class="persent-one">
-                      <span>
-                        <img src="assets/img/map-marker-alt.svg" alt="location.svg" class="img-fluid">
-                      </span>
+                      <label class="custom-label">Destination</label>
+                      <span class="srchicons"><i class="fa-solid fa-map-marker"></i></span>
                       <input type="text" formControlName="Destination" class="textboxstyle autosuggeest-hotel"
                         placeholder="Destination ?" (click)="openautocomplete($event,'input')">
                       <i class="fa fa-angle-down search-form-inp-down" *ngIf="fh['Destination'].value==''"></i>
@@ -81,9 +76,8 @@
                     </div>
 
                     <div class="persent-one less-per">
-                      <span>
-                        <img src="assets/img/calendar.svg" alt="calendar.svg" class="img-fluid">
-                      </span>
+                      <label class="custom-label">Check In</label>
+                      <span class="srchicons"><i class="fa-solid fa-calendar"></i></span>
                       <input type="text" formControlName="CheckIn" class="textboxstyle" appDatepicker
                         #datepicker="datepicker" (dateEventEmitter)="dateEventEmitter($event)" minDate="0" maxDate="+1Y"
                         calType="CheckIN">
@@ -93,11 +87,9 @@
                     </div>
 
                     <div class="persent-one less-per at-returnin">
-                      <span>
-                        <img src="assets/img/calendar.svg" alt="calendar.svg" class="img-fluid">
-                      </span>
-                      <input type="text" formControlName="CheckOut"
-                        class="textboxstyle border-start textboxstyle-bg w-100"
+                      <label class="custom-label">Check Out</label>
+                      <span class="srchicons"><i class="fa-solid fa-calendar"></i></span>
+                      <input type="text" formControlName="CheckOut" class="textboxstyle textboxstyle-bg w-100"
                         (dateEventEmitter)="dateEventEmitter($event)" appDatepicker #datepicker="datepicker"
                         minDate="{{fh['CheckIn'].value}}" maxDate="+1Y" calType="CheckOut"
                         [ngClass]="{ 'is-invalid': hotelsubmitted && fh['CheckOut'].errors }">
@@ -109,115 +101,100 @@
                     </div>
 
                     <div class="persent-one persent-one_ps-4">
-                      <span>
-                        <img src="assets/img/user-search.svg" alt="user.svg" class="img-fluid">
-                      </span>
-                      <div class="textboxstyle search-form-class-padding" id="passenger" (click)="HotelPaxDisplay()">
-                        Rooms and Guests
+                      <label class="custom-label">Rooms & Guests</label>
+                      <span class="srchicons"><i class="fa-solid fa-person"></i></span>
+                      <div class="textboxstyle" id="passenger" (click)="HotelPaxDisplay()">
                         <p class="Pass"> {{Occupancy}}</p>
                       </div>
 
+                      <!-----new code start---->
                       <div class="at-passection" [ngClass]="{'d-none': isHotelShow===false}">
-                        <div class="row">
-                          <div class="col-lg-12">
-                            <div class="persent-one_frm border-0">
-                              <h2 class="mt-3 ms-3">Select Rooms</h2>
-                              <div class="persent-one_frm_close" (click)="HotelPaxDisplay()"></div>
-                              <div class="row">
-                                <div class="col-lg-12">
-                                  <div class="detail-content">
-                                    <ul>
-                                      <li class="row">
-                                        <div class="left-block">
-                                          <span class="title">ROOMS</span>
-                                        </div>
-                                        <div class="right-block">
-                                          <span class="title">GUESTS</span>
-                                        </div>
-                                        <div class="right-block">
-                                          <span class="title">CHILD</span>
-                                        </div>
-                                      </li>
-                                      <li class="row" *ngFor="let roomrow of arrayOne(roomcount), let r = index">
-                                        <div class="left-block">
-                                          <h5>Room {{r+1}}</h5>
-                                        </div>
-                                        <div class="right-block">
-                                          <div class="input-group inline-group">
-                                            <div class="input-group-prepend">
-                                              <button type="button" class="btn btn-outline-secondary btn-minus"
-                                                (click)="hotelminus('a',r)">
-                                                -
-                                              </button>
-                                            </div>
-                                            <input class="form-control quantity" min="1" value="{{roomobject[r].Adult}}"
-                                              type="number" readonly>
-                                            <div class="input-group-append">
-                                              <button type="button" class="btn btn-outline-secondary btn-plus"
-                                                (click)="hotelplus('a',r)">
-                                                +
-                                              </button>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div class="right-block">
-                                          <div class="input-group inline-group">
-                                            <div class="input-group-prepend">
-                                              <button type="button" class="btn btn-outline-secondary btn-minus"
-                                                (click)="hotelminus('c',r)">
-                                                -
-                                              </button>
-                                            </div>
-                                            <input class="form-control quantity" min="0" value="{{roomobject[r].Child}}"
-                                              type="number" readonly>
-                                            <div class="input-group-append">
-                                              <button type="button" class="btn btn-outline-secondary btn-plus"
-                                                (click)="hotelplus('c',r)">
-                                                +
-                                              </button>
-                                            </div>
-                                          </div>
-                                        </div>
+                        <div class="hotel-pax-container">
+                          <!-- Close -->
+                          <button type="button" class="hotel-close-btn" (click)="HotelPaxDisplay()">×</button>
 
-                                        <div class="col-lg-4 mt-3  offset-md-4" *ngIf="roomobject[r].Child > 0">
-                                          <p class="m-0">Age of Child 1</p>
-                                          <select class="ageselect form-select" (change)="childage($event,0,r)">
-                                            <option *ngFor="let chdage of arrayOne(12), let c = index" [value]="c+1"
-                                              [selected]="roomobject[r].ChildAge[0]==c+1"> {{c+1}} </option>
-                                          </select>
-                                        </div>
 
-                                        <div class="col-lg-4 mt-3 pl-0" *ngIf="roomobject[r].Child==2">
-                                          <p class="m-0">Age of Child 2</p>
-                                          <select class="ageselect form-select" (change)="childage($event,1,r)">
-                                            <option *ngFor="let chdage of arrayOne(12), let c = index" [value]="c+1"
-                                              [selected]="roomobject[r].ChildAge[1]==c+1">
-                                              {{c+1}}
-                                            </option>
-                                          </select>
-                                        </div>
-                                      </li>
+                          <!-- Rooms -->
+                          <div class="room-list">
 
-                                    </ul>
-                                    <span class="hotelpaxcount_message mt-3"></span>
-                                    <div class="add-remove-block">
-                                      <button type="button" (click)="removeroom()"
-                                        [disabled]="roomcount==1">Remove</button>
-                                      <button type="button" (click)="addroom()" [disabled]="roomcount==4">Add</button>
-                                    </div>
-                                  </div>
+                            <div class="room-card" *ngFor="let roomrow of arrayOne(roomcount), let r = index">
+
+                              <!-- Room Title -->
+                              <div class="room-card-header">
+                                <h5>Room {{ r + 1 }}</h5>
+                              </div>
+
+                              <!-- Adults -->
+                              <div class="guest-row">
+                                <div class="guest-info">
+                                  <span class="guest-title">Adults</span>
+                                  <small>12+ Years</small>
+                                </div>
+
+                                <div class="counter-wrapper">
+                                  <button type="button" class="counter-btn" (click)="hotelminus('a',r)">-</button>
+                                  <input class="counter-input" type="number" readonly min="1" value="{{roomobject[r].Adult}}">
+                                  <button type="button" class="counter-btn" (click)="hotelplus('a',r)">+</button>
+                                </div>
+                              </div>
+
+                              <!-- Children -->
+                              <div class="guest-row">
+                                <div class="guest-info">
+                                  <span class="guest-title">Children</span>
+                                  <small>1 - 12 Years</small>
+                                </div>
+
+                                <div class="counter-wrapper">
+                                  <button type="button" class="counter-btn" (click)="hotelminus('c',r)">-</button>
+                                  <input class="counter-input" type="number" readonly min="0" value="{{roomobject[r].Child}}">
+                                  <button type="button" class="counter-btn" (click)="hotelplus('c',r)">+</button>
+                                </div>
+                              </div>
+
+                              <!-- Child Ages -->
+                              <div class="child-age-section" *ngIf="roomobject[r].Child > 0">
+
+                                <div class="age-field">
+                                  <label>Age of Child 1</label>
+                                  <select class="form-select age-select" (change)="childage($event,0,r)">
+                                    <option *ngFor="let chdage of arrayOne(12); let c = index" [value]="c+1">
+                                      {{c+1}}
+                                    </option>
+                                  </select>
+                                </div>
+
+                                <div class="age-field" *ngIf="roomobject[r].Child == 2">
+                                  <label>Age of Child 2</label>
+                                  <select class="form-select age-select" (change)="childage($event,1,r)">
+                                    <option *ngFor="let chdage of arrayOne(12); let c=index" [value]="c+1">
+                                      {{c+1}} Years
+                                    </option>
+                                  </select>
                                 </div>
                               </div>
                             </div>
+
+                          </div>
+
+                          <span class="hotelpaxcount_message"></span>
+
+                          <!-- Actions -->
+                          <div class="room-actions">
+                            <button type="button" class="btn-remove" (click)="removeroom()" [disabled]="roomcount == 1">Remove Room</button>
+                            <button type="button" class="btn-add" (click)="addroom()" [disabled]="roomcount == 4">Add Room</button>
                           </div>
                         </div>
                       </div>
+                      <!-----new code end------>
                     </div>
                   </div>
 
                   <div class="less-btn">
-                    <button type="submit" class="btn cst-btn" [disabled]="Hotelloading"> <span *ngIf="Hotelloading"
-                        class="spinner-border spinner-border-sm"></span> Search</button>
+                    <button type="submit" class="cst-btn" [disabled]="Hotelloading"> 
+                      <span *ngIf="Hotelloading" class="spinner-border spinner-border-sm"></span> 
+                      <i class="fa-solid fa-search"></i>
+                    </button>
                   </div>
                 </div>
               </div>

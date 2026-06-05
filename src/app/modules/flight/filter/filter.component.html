@@ -53,7 +53,7 @@
         </div>
 
         <div class="collapse show" id="filter-price1">
-            <div class="p-2 tts__filter-price price-range-slider">
+            <div class="tts__filter-price price-range-slider">
                <mat-slider class="w-100" [min]="minib" [max]="maxib" (change)="doFilter(1,'Price','','')">
                 <input [(ngModel)]="Filter[1]['Price']['MinPrice']" name="first" matSliderStartThumb>
                 <input [(ngModel)]="Filter[1]['Price']['MaxPrice']" [ngModelOptions]="{standalone: true}"

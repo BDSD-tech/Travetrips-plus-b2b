@@ -3,181 +3,205 @@
         <li>
             <a routerLink="/dashboard/manage-carts"><i class="fa fa-home"></i></a>
         </li>
-        <li><span>deposit-request</span></li>
+        <li><span>Deposit Request</span></li>
     </ol>
 
     <div class="animation__container">
 
         <div class="row mg_bt-20 align-items-center">
             <div class="col-md-12" *ngIf="AllBankListShow.length!=0">
-                <h3 class="dash-borderRadius main-heading-tableIcon"><i class="fa fa-table me-1"></i> <span>{{AllBankListShow.length}} rows found !</span></h3>
+                <h3 class="dash-borderRadius main-heading-tableIcon"><i class="fa fa-table me-1"></i>
+                    <span>{{AllBankListShow.length}} rows found !</span>
+                </h3>
             </div>
         </div>
         <div class="body_manage dash-padding dashboard__main__content">
-            <div class="row">
-                <div class="col-sm-12"><h3 class="dash-borderRadius main-heading-content">Bank Details</h3></div>
 
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table manage__user-table-container m-0" matSort (matSortChange)="sortData($event)">
-                            <thead class="theader table__tableHeader-container">
-                                <tr>
-                                    <td mat-sort-header="BankName">Bank Name</td>
-                                    <td mat-sort-header="AccountHolderName">Account Holder Name</td>
-                                    <td mat-sort-header="BranchName">Branch Name</td>
-                                    <td mat-sort-header="AccountNumber">Account No</td>
-                                    <td mat-sort-header="IfscCode">IFSC Code</td>
-                                    <td mat-sort-header="IfscCode">QR Code</td>
-                                </tr>
-                            </thead>
-                            <tbody class="table__body-border">
-    
-                                 <tr *ngFor="let item of AllBankListShow">
-                                
-                                    <td>{{item['BankName']}}</td>
-                                    <td>{{item['AccountHolderName']}}</td>
-                                    <td>{{item['BranchName']}}</td>
-                                    <td>{{item['AccountNumber']}}</td>
-                                    <td>{{item['IfscCode'] }}</td>
-                                    <td>
-                                        @if(item['QrCodeFile']){
-                                           <a (click)="OpenModal(item)" href="javascript:void(0)">View</a>
-                                        }
-                                    </td>
-                                </tr>
-    
-                            </tbody>
-                        </table>
+            <h3 class="dash-borderRadius main-heading-content">Bank Details</h3>
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table manage__user-table-container m-0" matSort (matSortChange)="sortData($event)">
+                        <thead class="theader table__tableHeader-container">
+                            <tr>
+                                <td mat-sort-header="BankName">Bank Name</td>
+                                <td mat-sort-header="AccountHolderName">Account Holder Name</td>
+                                <td mat-sort-header="BranchName">Branch Name</td>
+                                <td mat-sort-header="AccountNumber">Account No</td>
+                                <td mat-sort-header="IfscCode">IFSC Code</td>
+                                <td mat-sort-header="IfscCode">QR Code</td>
+                            </tr>
+                        </thead>
+                        <tbody class="table__body-border">
+
+                            <tr *ngFor="let item of AllBankListShow">
+
+                                <td>{{item['BankName']}}</td>
+                                <td>{{item['AccountHolderName']}}</td>
+                                <td>{{item['BranchName']}}</td>
+                                <td>{{item['AccountNumber']}}</td>
+                                <td>{{item['IfscCode'] }}</td>
+                                <td>
+                                    @if(item['QrCodeFile']){
+                                    <a (click)="OpenModal(item)" href="javascript:void(0)">View</a>
+                                    }
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div class="body_manage dash-padding dashboard__main__content">
+
+
+            <h3 class="dash-borderRadius main-heading-content">NEW DEPOSIT REQUEST</h3>
+
+            <form [formGroup]="DepositForm" (ngSubmit)="Submit()">
+                <div class="row gy-3">
+                    <div class="col-md-3">
+                        <mat-form-field appearance="fill" class="tts-full-width">
+                            <mat-label>Deposit Type</mat-label>
+                            <mat-select formControlName="DepositType" (selectionChange)="GetDepositType($event)">
+                                <mat-option value="Bank Transfer">Bank Transfers</mat-option>
+                                <mat-option value="Phone Payment">Phone (G-Pay/Mpay)</mat-option>
+                                <mat-option value="Cheque Deposit">Cheque Deposit</mat-option>
+                                <mat-option value="Cash in Bank">Cash in Bank</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="submitted && f['DepositType'].errors?.['required']">Please Provide
+                                Deposit Type</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="fill" class="tts-full-width">
+                            <mat-label>Payment Mode</mat-label>
+                            <mat-select formControlName="PaymentMode">
+                                <mat-option value="">Select</mat-option>
+                                <mat-option value="RTGS">RTGS</mat-option>
+                                <mat-option value="NEFT">NEFT</mat-option>
+                                <mat-option value="IMPS">IMPS</mat-option>
+
+                            </mat-select>
+                            <mat-error *ngIf="submitted && f['DepositType'].errors?.['required']">Please Provide
+                                Deposit Type</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="fill" class="tts-full-width">
+                            <mat-label>Deposit Amount</mat-label>
+                            <input matInput placeholder="Deposit Amount" formControlName="DepositAmount" />
+                            <mat-error *ngIf="submitted && f['DepositAmount'].errors?.['required']">Please provide
+                                deposit Amount</mat-error>
+                            <mat-error *ngIf="submitted && f['DepositAmount'].errors?.['pattern']">Please enter
+                                correct deposit Amount</mat-error>
+                            <mat-hint class="text-success fs_12"
+                                *ngIf="f['DepositAmount'].valid">{{f['DepositAmount'].value | numberToWords |
+                                titlecase }} Rupees</mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="fill" class="tts-full-width">
+                            <mat-label>Bank Name</mat-label>
+                            <mat-select formControlName="BankName" (selectionChange)="GetBankName($event)">
+                                <mat-option *ngFor="let list of SelectBankList;"
+                                    value="{{list['BankId']}}">{{list['BankName']}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="submitted && f['BankName'].errors?.['required']">Please provide
+                                Bank</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="fill" class="tts-full-width">
+                            <mat-label>Account Number</mat-label>
+                            <input matInput placeholder="Account Number" formControlName="AccountNumber" readonly />
+                            <mat-error *ngIf="submitted && f['AccountNumber'].errors?.['required']">Please provide
+                                Account Number</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-3">
+                        <mat-form-field appearance="fill" class="tts-full-width">
+                            <mat-label>Transaction ID</mat-label>
+                            <input matInput placeholder="Transaction ID" formControlName="TransactionID" />
+                            <mat-error *ngIf="submitted && f['TransactionID'].errors?.['required']">Please provide
+                                Transaction Id</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="fill" class="tts-full-width">
+                            <mat-label>Mobile No.</mat-label>
+                            <input matInput placeholder="Mobile No." formControlName="MobileNumber" />
+                            <mat-error *ngIf="submitted && f['MobileNumber'].errors?.['required']">Please provide
+                                Mobile No.</mat-error>
+                            <mat-error
+                                *ngIf="submitted && f['MobileNumber'].errors?.['pattern'] || f['MobileNumber'].errors?.['minlength'] || f['MobileNumber'].errors?.['maxlength']">Please
+                                enter a valid Mobile Number.</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="fill" class="tts-full-width">
+                            <mat-label>Cheque Draw on Bank</mat-label>
+                            <input matInput placeholder="Cheque Draw on Bank" formControlName="ChequeDrawOnBank" />
+                            <mat-error *ngIf="submitted && f['ChequeDrawOnBank'].errors?.['required']">Please
+                                provide Cheque Drawn on Bank</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-4">
+                        <mat-form-field appearance="fill" class="tts-full-width">
+                            <mat-label>Cheque Issue Date</mat-label>
+                            <input matInput id="chequeIssueDate" placeholder="Cheque Issue Date"
+                                formControlName="ChequeIssueDate" cheque-issue-date readonly />
+                            <mat-error *ngIf="submitted && f['ChequeIssueDate'].errors?.['required']">Please provide
+                                Cheque Issue Date</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="fill" class="tts-full-width">
+                            <mat-label>Cheque Number</mat-label>
+                            <input matInput placeholder="Cheque Number" formControlName="ChequeNumber" />
+                            <mat-error *ngIf="submitted && f['ChequeNumber'].errors?.['required']">Please provide
+                                Cheque Number</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating">
+                            <input type="file" class="form-control" id="image-upload" placeholder="Cheque Draw on Bank"
+                                accept="image/*,.pdf" (change)="selectFile($event)" />
+                            <label for="image-upload" class="image-upload-label">Image/PDF</label>
+                        </div>
                     </div>
                 </div>
+                <div class="form__buttons">
+                    <button type="submit" class="btn sign_btn">Submit <i class="fa fa-paper-plane"></i></button>
+                </div>
+            </form>
 
-            </div>
-        </div>
-
-        
-        <div class="body_manage dash-padding dashboard__main__content">
-            <div class="row">
-                <div class="col-sm-12"><h3 class="dash-borderRadius main-heading-content">NEW DEPOSIT REQUEST</h3></div>
-                <form [formGroup]="DepositForm" (ngSubmit)="Submit()">
-                    <div class="row mb-2">
-                        <div class="col-md-3">
-                            <mat-form-field appearance="fill" class="tts-full-width">
-                                <mat-label>Deposit Type</mat-label>
-                                <mat-select formControlName="DepositType" (selectionChange)="GetDepositType($event)">
-                                    <mat-option value="Bank Transfer">Bank Transfers</mat-option>
-                                    <mat-option value="Phone Payment">Phone (G-Pay/Mpay)</mat-option>
-                                    <mat-option value="Cheque Deposit">Cheque Deposit</mat-option>
-                                    <mat-option value="Cash in Bank">Cash in Bank</mat-option>
-                                </mat-select>
-                            <mat-error *ngIf="submitted && f['DepositType'].errors?.['required']">Please Provide Deposit Type</mat-error>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-3">
-                            <mat-form-field appearance="fill" class="tts-full-width">
-                                <mat-label>Payment Mode</mat-label>
-                                <mat-select formControlName="PaymentMode">
-                                    <mat-option value="">Select</mat-option>
-                                    <mat-option value="RTGS">RTGS</mat-option>
-                                    <mat-option value="NEFT">NEFT</mat-option>
-                                    <mat-option value="IMPS">IMPS</mat-option>
-                                 
-                                </mat-select>
-                            <mat-error *ngIf="submitted && f['DepositType'].errors?.['required']">Please Provide Deposit Type</mat-error>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-3">
-                            <mat-form-field appearance="fill" class="tts-full-width">
-                                <mat-label>Deposit Amount</mat-label>
-                                <input matInput placeholder="Deposit Amount" formControlName="DepositAmount"/>
-                                <mat-error *ngIf="submitted && f['DepositAmount'].errors?.['required']">Please provide deposit Amount</mat-error>
-                                <mat-error *ngIf="submitted && f['DepositAmount'].errors?.['pattern']">Please enter correct deposit Amount</mat-error>
-                                <mat-hint class="text-success fs_12" *ngIf="f['DepositAmount'].valid">{{f['DepositAmount'].value | numberToWords | titlecase }} Rupees</mat-hint>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-3">
-                            <mat-form-field appearance="fill" class="tts-full-width">
-                                <mat-label>Bank Name</mat-label>
-                                <mat-select formControlName="BankName" (selectionChange)="GetBankName($event)">
-                                    <mat-option *ngFor="let list of SelectBankList;" value="{{list['BankId']}}">{{list['BankName']}}</mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="submitted && f['BankName'].errors?.['required']">Please provide Bank</mat-error>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-3">
-                            <mat-form-field appearance="fill" class="tts-full-width">
-                                <mat-label>Account Number</mat-label>
-                                <input matInput placeholder="Account Number" formControlName="AccountNumber" readonly/>
-                                <mat-error *ngIf="submitted && f['AccountNumber'].errors?.['required']">Please provide Account Number</mat-error>
-                            </mat-form-field>
-                        </div>
-                    
-                        <div class="col-md-3">
-                            <mat-form-field appearance="fill" class="tts-full-width">
-                                <mat-label>Transaction ID</mat-label>
-                                <input matInput placeholder="Transaction ID" formControlName="TransactionID"/>
-                                <mat-error *ngIf="submitted && f['TransactionID'].errors?.['required']">Please provide Transaction Id</mat-error>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-3">
-                            <mat-form-field appearance="fill" class="tts-full-width">
-                                <mat-label>Mobile No.</mat-label>
-                                <input matInput  placeholder="Mobile No."  formControlName="MobileNumber"/>
-                                <mat-error *ngIf="submitted && f['MobileNumber'].errors?.['required']">Please provide Mobile No.</mat-error>
-                                <mat-error *ngIf="submitted && f['MobileNumber'].errors?.['pattern'] || f['MobileNumber'].errors?.['minlength'] || f['MobileNumber'].errors?.['maxlength']">Please enter a valid Mobile Number.</mat-error>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-3">
-                            <mat-form-field appearance="fill" class="tts-full-width">
-                                <mat-label>Cheque Draw on Bank</mat-label>
-                                <input matInput placeholder="Cheque Draw on Bank" formControlName="ChequeDrawOnBank"/>
-                                <mat-error *ngIf="submitted && f['ChequeDrawOnBank'].errors?.['required']">Please provide Cheque Drawn on Bank</mat-error>
-                            </mat-form-field>
-                        </div>
-                    
-                        <div class="col-md-4">
-                            <mat-form-field appearance="fill" class="tts-full-width">
-                                <mat-label>Cheque Issue Date</mat-label>
-                                <input matInput id="chequeIssueDate" placeholder="Cheque Issue Date" formControlName="ChequeIssueDate" cheque-issue-date readonly/>
-                                <mat-error *ngIf="submitted && f['ChequeIssueDate'].errors?.['required']">Please provide Cheque Issue Date</mat-error>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-4">
-                            <mat-form-field appearance="fill" class="tts-full-width">
-                                <mat-label>Cheque Number</mat-label>
-                                <input matInput  placeholder="Cheque Number" formControlName="ChequeNumber"/>
-                                <mat-error *ngIf="submitted && f['ChequeNumber'].errors?.['required']">Please provide Cheque Number</mat-error>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-floating">
-                                <input type="file" class="form-control" id="image-upload" placeholder="Cheque Draw on Bank" accept="image/*,.pdf" (change)="selectFile($event)"/>
-                                <label for="image-upload" class="image-upload-label">Image/PDF</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form__buttons">
-                        <button type="submit" class="btn sign_btn">Submit <i class="fa fa-paper-plane"></i></button>
-                    </div>
-                </form>
-            </div>
         </div>
     </div>
 </div>
 
 
-<div class="modal fade" id="QEMODAL" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addamendmentmodal" aria-hidden="true">
+<div class="modal fade" id="QEMODAL" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="addamendmentmodal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content rounded-0">
-                <div class="body_manage dash-padding dashboard__main__content mb-0">
-                    <div class="col-sm-12 mb-3">
-                        <h3 class="dash-borderRadius main-heading-content">QR Code<button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button></h3>
-                    </div>
-                    <div class="row">
-                        <div class="w-100">  
-                            <img src="{{ImageURL}}{{QRImage}}" alt="UPI QR">                           
-                        </div>
+            <div class="body_manage dash-padding dashboard__main__content mb-0">
+                <div class="col-sm-12 mb-3">
+                    <h3 class="dash-borderRadius main-heading-content">QR Code<button type="button"
+                            class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button></h3>
+                </div>
+                <div class="row">
+                    <div class="w-100">
+                        <img src="{{ImageURL}}{{QRImage}}" alt="UPI QR">
                     </div>
                 </div>
+            </div>
         </div>
     </div>
 </div>

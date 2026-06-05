@@ -10,29 +10,33 @@
             <div class="row">
                 <div class="col-sm-12 d-flex justify-content-between">
                     <h3 class="dash-borderRadius main-heading-content">Manage Credit </h3>
-                    <a class="btn btn-sm Add-button" (click)="RaiseAmendment()" href="javascript:void(0)"><i class="fa-solid fa-plus"></i> Add </a>
+                    <a class="btn btn-sm Add-button" (click)="RaiseAmendment()" href="javascript:void(0)"><i
+                            class="fa-solid fa-plus"></i> Add </a>
                 </div>
                 <form [formGroup]="SearchForm" (ngSubmit)="SearchSubmit()">
                     <div class="row">
-                        
+
                         <div class="col-4">
                             <mat-form-field appearance="fill" class="tts-full-width">
                                 <mat-label>From</mat-label>
-                                <input matInput placeholder="From" from-date formControlName="FromDate" readonly/>
-                                <i class="fa fa-times tts-inp-close-icon" (click)="clear('FromDate')" *ngIf="f['FromDate'].value!=''"></i>
+                                <input matInput placeholder="From" from-date formControlName="FromDate" readonly />
+                                <i class="fa fa-times tts-inp-close-icon" (click)="clear('FromDate')"
+                                    *ngIf="f['FromDate'].value!=''"></i>
                             </mat-form-field>
                         </div>
                         <div class="col-4">
                             <mat-form-field appearance="fill" class="tts-full-width">
                                 <mat-label>To</mat-label>
-                                <input matInput placeholder="To" to-date formControlName="ToDate" readonly/>
-                                <i class="fa fa-times tts-inp-close-icon" (click)="clear('ToDate')" *ngIf="f['ToDate'].value!=''"></i>
+                                <input matInput placeholder="To" to-date formControlName="ToDate" readonly />
+                                <i class="fa fa-times tts-inp-close-icon" (click)="clear('ToDate')"
+                                    *ngIf="f['ToDate'].value!=''"></i>
                             </mat-form-field>
                         </div>
-                        
+
                     </div>
                     <div class="form__buttons">
-                        <button type="submit" class="btn sign_btn" [disabled]="Searchloading">Search <i class="fa fa-search"></i></button>
+                        <button type="submit" class="sign_btn" [disabled]="Searchloading">Search <i
+                                class="fa fa-search"></i></button>
                     </div>
                 </form>
             </div>
@@ -46,46 +50,52 @@
             </div>
         </div>
     </div>
-   
-    
+
+
     <div class="body_manage dash-padding dashboard__main__content" *ngIf="isshowdiv">
         <div class="card-body" *ngIf="dataSource.data?.length!=0">
             <div class="row mg_bt-20 align-items-center">
                 <div class="col-md-3">
                     <h3 class="dash-borderRadius main-heading-tableIcon">
-                        <i class="fa fa-table me-1"></i> <span class="">( {{dataSource.paginator?.pageIndex}} - {{dataSource.filteredData?.length}} ) out of {{CartList.length}} results shown !</span>
+                        <i class="fa fa-table me-1"></i> <span class="">( {{dataSource.paginator?.pageIndex}} -
+                            {{dataSource.filteredData?.length}} ) out of {{CartList.length}} results shown !</span>
                     </h3>
                 </div>
                 <div class="col-md-9 allbuttons-tables">
-                     <button href="javascript:void(0)" (click)="DownloadReport()" [disabled]="reportloading" class="download-button"><i class="fa-regular fa-file-excel fs-16 text-success"></i></button>
+                    <button href="javascript:void(0)" (click)="DownloadReport()" [disabled]="reportloading"
+                        class="download-button"><i class="fa-regular fa-file-excel fs-16 text-success"></i></button>
                 </div>
             </div>
 
             <div class="tts-adm-search-bar">
-                <input type="text" class="tts-adm-search-bar__input" placeholder="Search" (keyup)="applyFilter($event)" />
+                <input type="text" class="tts-adm-search-bar__input" placeholder="Search"
+                    (keyup)="applyFilter($event)" />
                 <div class="tts-adm-search-bar__icon"><span class="tts-adm-search-bar__icon__item"></span></div>
             </div>
             <div class="table-responsive table-scrollbar">
-                <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class="table manage__user-table-container customtable_tts">
+                <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)"
+                    class="table manage__user-table-container customtable_tts">
                     <ng-container matColumnDef="created">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                           Created
+                            Created
                         </th>
                         <td mat-cell *matCellDef="let element">
                             <div class="generic-td"><span>{{element.created}}</span></div>
                         </td>
-                        
+
                     </ng-container>
 
 
                     <ng-container matColumnDef="Status">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                          Status
+                            Status
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            <div class="generic-td"><span [ngClass]="{'text-warning':element.Status=='pending','text-success':element.Status=='approved'}"> {{element.Status|titlecase}}</span></div>
+                            <div class="generic-td"><span
+                                    [ngClass]="{'text-warning':element.Status=='pending','text-success':element.Status=='approved'}">
+                                    {{element.Status|titlecase}}</span></div>
                         </td>
-                       
+
                     </ng-container>
 
                     <ng-container matColumnDef="Amount">
@@ -93,9 +103,10 @@
                             Amount
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            <div class="generic-td"><a class="tts-atag" href="javascript:void(0)" >{{element.Amount}}</a></div>
+                            <div class="generic-td"><a class="tts-atag" href="javascript:void(0)">{{element.Amount}}</a>
+                            </div>
                         </td>
-                        
+
                     </ng-container>
 
                     <ng-container matColumnDef="Remark">
@@ -105,18 +116,19 @@
                         <td mat-cell *matCellDef="let element">
                             <div class="generic-td"><span>{{element.Remark}}</span></div>
                         </td>
-                        
+
                     </ng-container>
 
-                    
+
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    
-                    <tr class="table__row__container banklist__propper-header-class" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                    
+
+                    <tr class="table__row__container banklist__propper-header-class" mat-row
+                        *matRowDef="let row; columns: displayedColumns;"></tr>
+
                 </table>
             </div>
-            
+
             <mat-paginator [pageSizeOptions]="pageSizeOptions"></mat-paginator>
         </div>
         <table class="w-100">
@@ -133,19 +145,23 @@
 </div>
 
 <!--Add Amendment Modal -->
-<div class="modal fade" id="addamendmentmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addamendmentmodal" aria-hidden="true">
+<div class="modal fade" id="addamendmentmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="addamendmentmodal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content rounded-0">
+            <div class="dashboard-wrapper-container m-0 w-100 p-0">
                 <div class="body_manage dash-padding dashboard__main__content mb-0">
                     <div class="col-sm-12 mb-3">
-                        <h3 class="dash-borderRadius main-heading-content">Credit Request <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button></h3>
+                        <h3 class="dash-borderRadius main-heading-content">Credit Request <button type="button"
+                                class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button></h3>
                     </div>
                     <form [formGroup]="AddCreditRequest" (ngSubmit)="SubmitCreditRequest()">
                         <div class="row">
                             <div class="col-12">
                                 <mat-form-field appearance="fill" class="tts-full-width">
                                     <mat-label>Amount</mat-label>
-                                    <input matInput placeholder="Enter Amount" (keypress)="numberOnly($event)" formControlName="Amount" />
+                                    <input matInput placeholder="Enter Amount" (keypress)="numberOnly($event)"
+                                        formControlName="Amount" />
                                 </mat-form-field>
                                 <div *ngIf="amendmentsubmitted && fa['Amount'].errors" class="error-msg">
                                     <div *ngIf="fa['Amount'].errors['required']">Please provide amount</div>
@@ -154,7 +170,8 @@
                             <div class="col-12">
                                 <mat-form-field appearance="fill" class="tts-full-width">
                                     <mat-label>Remark</mat-label>
-                                    <textarea matInput formControlName="Remark" rows="2" placeholder="Enter Remark"></textarea>
+                                    <textarea matInput formControlName="Remark" rows="2"
+                                        placeholder="Enter Remark"></textarea>
                                 </mat-form-field>
                                 <div *ngIf="amendmentsubmitted && fa['Remark'].errors" class="error-msg">
                                     <div *ngIf="fa['Remark'].errors['required']">Please enter remark.</div>
@@ -162,10 +179,12 @@
                             </div>
                         </div>
                         <div class="form__buttons">
-                            <button type="submit" class="btn sign_btn" [disabled]="amendmentloading">RAISE <i class="fa fa-paper-plane"></i></button>
+                            <button type="submit" class="sign_btn" [disabled]="amendmentloading">RAISE <i
+                                    class="fa fa-paper-plane"></i></button>
                         </div>
                     </form>
                 </div>
+            </div>
         </div>
     </div>
 </div>

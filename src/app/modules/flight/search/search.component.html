@@ -77,7 +77,7 @@
                   ===================================================== -->
                     <div class="filter-flights">
 
-                        <div class="d-flex align-items-center gap-3">
+                        <div class="d-flex align-items-center gap-3 flex-wrap">
                             <!-- LEFT CONTENT -->
                             <div class="flight-route-card">
                                 <!-- <div class="flight-route-icon">
@@ -414,23 +414,20 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="flight-info-bar">
-                                        <div class="flight-info-bar"
-                                            *ngFor="let trip of item['MainSegment']; let tripskey=index;">
-                                            <div class="flight-info-item"
-                                                *ngIf="item['MainSegment'].length-1==tripskey &&trip['ArrivalDays']!=0">
-                                                <div
-                                                    class="d-flex flex-wrap align-items-center justify-content-between gap-3">
-                                                    <!-- Left Info -->
+                                        <div class="flight-info-bar" *ngFor="let trip of item['MainSegment']; let tripskey=index;">
+                                            <!-- <div class="flight-info-item" *ngIf="item['MainSegment'].length-1==tripskey &&trip['ArrivalDays']!=0">
+                                                <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+                                                    
                                                     <div class="d-flex flex-wrap align-items-center gap-2">
-                                                        <!-- Arrival Days -->
+                                                       
                                                         <span class="info-badge arrival-badge">
                                                             <i class="fa fa-plane"></i>
                                                             Flight Arrives after
                                                             {{trip['ArrivalDays']}}
                                                             Day(s)
                                                         </span>
-                                                        <!-- Seats Left -->
-                                                        <!-- <span class="info-badge seat-badge"
+                                                       
+                                                        <span class="info-badge seat-badge"
                                                                     *ngIf="item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable']!=0 
                                                                     && item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable']!='' 
                                                                     && item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable']!=null"
@@ -445,23 +442,23 @@
                                                                     Seats Left :
                                                                     {{item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable']}}
                                                                     
-                                                                    </span> -->
-                                                        <!-- Transit Visa -->
+                                                                    </span>
+                                            
                                                         @if(trip['IsTransitVisaRequired']){
                                                         <span class="info-badge visa-badge">
                                                             <i class="fa-solid fa-passport"></i>
                                                             Transit Visa
                                                         </span>
                                                         }
-                                                        <!-- Airline Remark -->
-                                                        <!-- <span class="airline-remark" *ngIf="item['AirlineRemark']">
+                                                      
+                                                        <span class="airline-remark" *ngIf="item['AirlineRemark']">
                                                             {{item['AirlineRemark']}}
                                                             
-                                                            </span> -->
+                                                            </span>
                                                     </div>
-                                                    <!-- View Details Button -->
+                                                   
                                                 </div>
-                                            </div>
+                                            </div> -->
 
                                             <div class="flight-info-item ">
                                                 <span class="refundable"
