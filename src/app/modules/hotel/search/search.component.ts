@@ -268,6 +268,7 @@ export class SearchComponent implements OnInit {
       this.sortedData = data;
       return;
     }
+    
     this.obfield=sort.active;
     this.sortedData = data.sort((a:any, b:any) => {
       const isAsc = sort.direction === 'asc';
