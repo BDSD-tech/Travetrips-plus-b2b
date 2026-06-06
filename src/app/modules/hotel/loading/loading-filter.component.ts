@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-loading-filter',
   template: `
-  <div class="al-listbtm">
+  <div class="al-listbtm filter-loading">
       <div class="al-priceac">
           <p class="al-prresets">
               <span>Price</span>
@@ -14,7 +14,7 @@ import { Component, OnInit } from '@angular/core';
           </p>
       </div>
   </div>
-  <div class="al-listbtm">
+  <div class="al-listbtm filter-loading">
       <div class="al-priceac">
           <p class="al-prresets">
               <span>Hotel Name</span>
@@ -22,7 +22,7 @@ import { Component, OnInit } from '@angular/core';
           </p>
       </div>
   </div>
-  <div class="al-listbtm">
+  <div class="al-listbtm filter-loading">
       <div class="al-priceac">
           <p class="al-prresets">
               <span>Hotel Facility</span>
@@ -30,7 +30,7 @@ import { Component, OnInit } from '@angular/core';
           </p>
       </div>
   </div>
-  <div class="al-listbtm">
+  <div class="al-listbtm filter-loading">
       <div class="al-priceac">
           <p class="al-prresets">
               <span>Hotel Address List</span>
@@ -39,7 +39,7 @@ import { Component, OnInit } from '@angular/core';
       </div>
   </div>
   
-  <div class="al-listbtm">
+  <div class="al-listbtm filter-loading">
       <div class="al-priceac">
           <p class="al-prresets">
               <span>Star Rating</span>
@@ -47,7 +47,7 @@ import { Component, OnInit } from '@angular/core';
           </p>
       </div>
   </div>
-  <div class="al-listbtm">
+  <div class="al-listbtm filter-loading">
       <div class="al-priceac">
           <p class="al-prresets">
               <span>Hotel Meal Type</span>
@@ -55,7 +55,7 @@ import { Component, OnInit } from '@angular/core';
           </p>
       </div>
   </div>
-  <div class="al-listbtm">
+  <div class="al-listbtm filter-loading">
       <div class="al-priceac">
           <p class="al-prresets">
               <span>Fare Type</span>
@@ -63,7 +63,7 @@ import { Component, OnInit } from '@angular/core';
           </p>
       </div>
   </div>
-  <div class="al-listbtm">
+  <div class="al-listbtm filter-loading">
       <div class="al-priceac">
           <p class="al-prresets">
               <span>Locations</span>
