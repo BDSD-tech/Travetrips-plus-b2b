@@ -188,6 +188,20 @@
                       </div>
                       <!-----new code end------>
                     </div>
+
+                    <div class="persent-one less-per at-returnin">
+                      <label class="custom-label">Select Nationality</label>
+                      <span class="srchicons">
+                        <i class="fa-solid fa-earth-asia"></i>
+                      </span>
+
+                      <select class="textboxstyle textboxstyle-bg" formControlName="Nationality">
+                        <option value="">Select Nationality</option>
+                        @for (item of NationalityLits; track $index) {
+                          <option value="{{item['country_code']}}">{{item['name']}}</option>
+                        }
+                      </select>
+                    </div>
                   </div>
 
                   <div class="less-btn">

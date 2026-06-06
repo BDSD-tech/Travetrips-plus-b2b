@@ -104,7 +104,6 @@ export class SearchComponent implements OnInit {
         finalroomobject[key] = obj;
       }
     });
-
     let finaldata: any = {};
     finaldata['CheckInDate'] = this.hotelservice.APIDateFormat(dataval['CheckIn']);
     finaldata['CheckOutDate'] = this.hotelservice.APIDateFormat(dataval['CheckOut']);
@@ -113,7 +112,7 @@ export class SearchComponent implements OnInit {
     finaldata['DestinationCityId'] = dataval['CityID'];
     finaldata['ResultCount'] = null;
     finaldata['Currency'] = "INR";
-    finaldata['GuestNationality'] = "IN";
+    finaldata['GuestNationality'] = dataval['Nationality'];
     finaldata['NoOfRooms'] = dataval['Room'];
     finaldata['MaxRating'] = dataval['MaxRating'];
     finaldata['MinRating'] = dataval['MinRating'];

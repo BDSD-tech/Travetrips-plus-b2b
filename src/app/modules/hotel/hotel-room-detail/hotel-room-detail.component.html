@@ -1,33 +1,28 @@
-<div class="tts__flight__result__page py-3">
+<div class="hotel-room-wrapper">
     <div class="container">
-        <div class="row" *ngIf="HotelLoading">
-            <div class="col-md-12 text-center min_h60">
-                <div class="vertical-align-middle">
-                    <h5>Please Wait...</h5>
-                    <p class="mb-2">We are looking for best rates for you</p>
-                    <div class="lds-ellipsis">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                    </div>
-                </div>
+        <div class="vertical-align-middle text-center" *ngIf="HotelLoading">
+            <h5>Please Wait...</h5>
+            <p class="mb-2">We are looking for best rates for you</p>
+            <div class="lds-ellipsis">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
             </div>
         </div>
-
+        <div class="hotel-nav-wrapper">
+            <nav class="hotel-nav">
+                <button class="hotel-nav__item active">Overview</button>
+                <button class="hotel-nav__item">Rooms</button>
+                <button class="hotel-nav__item">Amenities</button>
+                <button class="hotel-nav__item">Location</button>
+            </nav>
+        </div>
         <div class="room-list" *ngIf="HotelLoading==false && HotelInfoErrorCode==0">
-            <div class="d-flex">
-                <h2 class="tts__flight__result__page_title">{{HotelInfoResult['HotelName']}}</h2>
-                <span [innerHTML]="star_rating(HotelInfoResult['StarRating'])"></span>
-            </div>
-
-            <h3 class="tts__flight__result__page_text">
-                <i class="fa fa-map-marker me-2"></i>{{HotelInfoResult['Address']}}
-            </h3>
-
-            <div class="gallery-box my-3">
-                <div class="row g-3">
-                    <div class="col-md-8">
+            <!---new code 06-06-2026--->
+            <div id="overview" class="hotel-overview">
+                <div class="hotel-overview__wrapper">
+                    <div class="hotel-overview__gallery">
                         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel"
                             *ngIf="HotelInfoResult['Images']?.length!=0 && HotelInfoResult['Images']">
                             <div class="carousel-inner">
@@ -53,303 +48,218 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
-                        <div class="row g-3 section-one">
-                            <ul class="gallery-checkin">
-                                <li class="Checkin">
-                                    <label class="openPopup"><span class="fa fa-calendar"></span> check in <span
-                                            class="fa fa-down"></span></label>
-                                    <h6>{{GetSearchData['CheckIn'] | date:'d'}} <span
-                                            class="">{{GetSearchData['CheckIn'] |
-                                            date:'MMM, y'}}</span></h6>
-                                    <p>{{GetSearchData['CheckIn'] | date:'EEEE'}}</p>
-                                </li>
-                                <li class="nights">
-                                    <h5 *ngIf="GetSearchData['Nights']<=1">{{GetSearchData['Nights']}} Night</h5>
-                                    <h5 *ngIf="GetSearchData['Nights']>1">{{GetSearchData['Nights']}} Nights</h5>
-                                </li>
-                                <li class="Checkin">
-                                    <label class="openPopup"><span class="fa fa-calendar"></span> check out <span
-                                            class="fa fa-down"></span></label>
-                                    <h6>{{GetSearchData['CheckOut'] | date:'d'}} <span
-                                            class="">{{GetSearchData['CheckOut'] |
-                                            date:'MMM, y'}}</span></h6>
-                                    <p>{{GetSearchData['CheckOut'] | date:'EEEE'}}</p>
-                                </li>
-                                <li class="roomsGuests">
-                                    <label class="">Rooms &amp; guests</label>
-                                    <h6 class="date"><span>{{GetSearchData['Occupancy']}}</span></h6>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="row g-3 section-two" *ngIf="InfoSourceval=='FixedCombination'">
-                            <div class="col-md-12">
-                                @if(sortedRooms.length!==0){
-                                <h5>{{sortedRooms[0]['RoomTypeName']}}</h5>
-                                <p class="mb-0">{{sortedRooms[0]['RoomTypeName']}}</p>
-                                }
-
-                                <!-- <a href="javascript:void(0);" class="fs-12 text-danger"
-                                                (click)="CancellationPolicy(sortedRooms[0])">Free cancellation till:
-                                                {{sortedRooms[0][0].LastCancellationDate| date:'dd-MMM-y'}} </a> -->
-                                <span class="float-end"><a href="javascript:void(0)">Check other Rooms</a></span>
-                            </div>
-                            <div class="col-md-6">
-                                <ul class="first_room_amenity">
-                                    @if(sortedRooms.length!==0){
-                                    <div
-                                        *ngFor="let inclusion of sortedRooms[0]['Rooms'][0]['RoomData'][0]['Amenity']; let a=index;">
-                                        <li class="free" *ngIf="a<3"><i class="fa fa-check text-success"></i>
-                                            {{inclusion}}</li>
+                    <!-- Hotel Details -->
+                    <div class="hotel-overview__details">
+                        <!-- Header -->
+                        <div class="hotel-overview__header">
+                            <div class="hotel-overview__title-section">
+                                <div class="hotel-overview__title-wrapper">
+                                    <h1 class="hotel-overview__title">
+                                        {{HotelInfoResult['HotelName']}}
+                                    </h1>
+                                    <div class="hotel-overview__rating"
+                                        [innerHTML]="star_rating(HotelInfoResult['StarRating'])">
                                     </div>
-                                    }
-                                </ul>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="price text-end">
-                                    <h5>₹ {{HotelRoomPriceData[0]}}</h5>
-                                    <button class="badge badge_bg" (click)="ContinueRoom(sortedRooms[0],'fixed',0)">Book
-                                        Now</button>
                                 </div>
-                            </div>
-                        </div>
 
-                    </div>
-                </div>
-            </div>
-
-            <div class="hotal-filter-card p-2 px-4">
-                <div class="row">
-                    <div class="d-flex flex-wrap">
-                        <h6 class="mb-3 me-3">Popular Filters</h6>
-                        <a href="javascript:void(0)" class="text-danger fs-12 fw-bold" (click)="ResetFilter()"> Reset
-                            Filter</a>
-                    </div>
-
-                    <div class="col-lg-12">
-                        <ul class="row">
-                            <li class="col">
-                                <mat-form-field appearance="fill" class="tts-full-width">
-                                    <mat-label>Cancellation Policy</mat-label>
-                                    <mat-select [(ngModel)]="CancellationPolicytext" (selectionChange)="Filter()">
-                                        <mat-option value="">Select</mat-option>
-                                        <mat-option value="Free Cancellation">Free Cancellation</mat-option>
-                                        <mat-option value="Non-Refundable">Non-Refundable</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </li>
-                            <li class="col">
-                                <mat-form-field appearance="fill" class="tts-full-width">
-                                    <mat-label>Meal Prefrence</mat-label>
-                                    <mat-select [(ngModel)]="MealTypetext" (selectionChange)="Filter()">
-                                        <mat-option value="">Select</mat-option>
-                                        @for (item of Result['RatePlanNamesList']; track $index) {
-                                        <mat-option [value]="item['label']">{{item['ShowValue']}}</mat-option>
-                                        }
-                                    </mat-select>
-                                </mat-form-field>
-                            </li>
-                            <li class="col">
-                                <mat-form-field appearance="fill" class="tts-full-width">
-                                    <mat-label>Search By Room Name</mat-label>
-                                    <input matInput placeholder="Enter Room Name" [matAutocomplete]="auto"
-                                        [(ngModel)]="RoomNameText" (keyup)="Search_room()" />
-                                    <mat-autocomplete #auto="matAutocomplete">
-                                        <mat-option *ngFor="let option of RoomeNameList" [value]="option"
-                                            (click)="Filter()">
-                                            {{ option }}
-                                        </mat-option>
-                                    </mat-autocomplete>
-                                </mat-form-field>
-                            </li>
-                            <li class="col">
-                                <h6>Price</h6>
-
-                                <mat-slider (input)="GetPricefilter()" class="w-100" [min]="price['min']"
-                                    [max]="price['max']">
-                                    <input [(ngModel)]="min" matSliderStartThumb>
-                                    <input [(ngModel)]="max" matSliderEndThumb>
-                                </mat-slider>
-                                <div class="d-flex justify-content-between">
-                                    <span>{{min |number:'1.0-0'}}</span>
-                                    <span>
-                                        {{max |number:'1.0-0'}}
+                                <div class="hotel-overview__location">
+                                    <i class="fas fa-map-marker"></i>
+                                    <span class="hotel-overview__location-text">
+                                        {{HotelInfoResult['Address']}}
                                     </span>
                                 </div>
+                            </div>
 
-                            </li>
+                            <button class="hotel-overview__map-button">
+                                <i class="fa-solid fa-map-marker"></i>
+                            </button>
+                        </div>
 
-                        </ul>
+                        <hr class="hotel-overview__divider">
+
+                        <!-- Checkin Checkout -->
+                        <div class="hotel-overview__stay-info">
+                            <div class="hotel-overview__stay-dates">
+                                <div class="hotel-overview__checkin">
+                                    <span>Check In</span>
+                                    <div class="hotel-overview__date">
+                                        <strong>{{GetSearchData['CheckIn'] | date:'d'}} {{GetSearchData['CheckIn'] |
+                                            date:'MMM, y'}}</strong>
+                                        {{GetSearchData['CheckIn'] | date:'EEEE'}}
+                                    </div>
+                                </div>
+
+                                <div class="hotel-overview__nights">
+                                    <span *ngIf="GetSearchData['Nights']<=1">{{GetSearchData['Nights']}} Night</span>
+                                    <span *ngIf="GetSearchData['Nights']>1">{{GetSearchData['Nights']}} Nights</span>
+                                </div>
+
+                                <div class="hotel-overview__checkout">
+                                    <span>Check Out</span>
+                                    <div class="hotel-overview__date">
+                                        <strong>{{GetSearchData['CheckOut'] | date:'d'}} {{GetSearchData['CheckOut'] |
+                                            date:'MMM, y'}} </strong>
+
+                                        {{GetSearchData['CheckOut'] | date:'EEEE'}}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hotel-overview__guests">
+                                <div>
+                                    <div class="hotel-overview__guest-label">
+                                        Rooms & guests
+                                    </div>
+                                    <div class="hotel-overview__guest-summary">
+                                        {{GetSearchData['Occupancy']}}
+                                    </div>
+                                    <div class="hotel-overview__adult-count">
+                                        {{GetSearchData['Adult']}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="hotel-overview__divider">
+
+                        <div class="search-summary" *ngIf="InfoSourceval=='FixedComfanation'">
+                            <!-- Room Section -->
+                            <div class="search-summary__room">
+
+                                <div class="search-summary__room-header">
+                                    @if(sortedRooms.length!==0){
+                                    <h5 class="search-summary__room-title">
+                                        {{sortedRooms[0]['RoomTypeName']}}
+                                    </h5>
+
+                                    <p class="search-summary__room-subtitle mb-0">
+                                        {{sortedRooms[0]['RoomTypeName']}}
+                                    </p>
+                                    }
+
+                                    <!-- <a href="javascript:void(0);" class="fs-12 text-danger"
+                                    (click)="CancellationPolicy(sortedRooms[0])">Free cancellation till:
+                                    {{sortedRooms[0][0].LastCancellationDate| date:'dd-MMM-y'}} </a> -->
+
+                                </div>
+
+                                <div class="search-summary__room-footer">
+                                    <!-- Amenities -->
+                                    <ul class="search-summary__amenities">
+
+                                        @if(sortedRooms.length!==0){
+                                        <div
+                                            *ngFor="let inclusion of sortedRooms[0]['Rooms'][0]['RoomData'][0]['Amenity']; let a=index;">
+
+                                            <li class="search-summary__amenity-item free" *ngIf="a<3">
+                                                <i class="fa fa-check text-success"></i>
+                                                {{inclusion}}
+                                            </li>
+
+                                        </div>
+                                        }
+
+                                    </ul>
+
+                                    <!-- Price -->
+                                    <div class="search-summary__price text-end">
+                                        <h5>₹ {{HotelRoomPriceData[0]}}</h5>
+
+                                        <button class="book-now" (click)="ContinueRoom(sortedRooms[0],'fixed',0)">
+                                            Book Now
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div id="hotel_room_rates" class="hotal-filter-card my-3 amenities-wrapper p-3">
-                <div class="row" *ngIf="HotelRoomLoading">
-                    <div class="col-md-12 text-center mt-3">
-                        <div class="vertical-align-middle">
-                            <h5>Please Wait...</h5>
-                            <p class="mb-2">We are fetching room details</p>
-                            <div class="lds-ellipsis">
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
+
+            <!----Hotel Room Filer------>
+            <div class="hotel-room-filter">
+
+                <div class="hotel-filter__header d-flex flex-wrap align-items-center justify-content-between">
+                    <h6 class="hotel-filter__title mb-3">Popular Filters</h6>
+
+                    <a href="javascript:void(0)" class="hotel-filter__reset" (click)="ResetFilter()">
+                        Reset Filter
+                    </a>
+                </div>
+
+                <div class="hotel-filter__body">
+                    <ul class="hotel-filter__list row g-3">
+
+                        <li class="hotel-filter__item col-lg-3 col-md-6 col-12">
+                            <mat-form-field appearance="fill" class="tts-full-width w-100">
+                                <mat-label>Cancellation Policy</mat-label>
+                                <mat-select [(ngModel)]="CancellationPolicytext" (selectionChange)="Filter()">
+                                    <mat-option value="">Select</mat-option>
+                                    <mat-option value="Free Cancellation">Free Cancellation</mat-option>
+                                    <mat-option value="Non-Refundable">Non-Refundable</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </li>
+
+                        <li class="hotel-filter__item col-lg-3 col-md-6 col-12">
+                            <mat-form-field appearance="fill" class="tts-full-width w-100">
+                                <mat-label>Meal Prefrence</mat-label>
+                                <mat-select [(ngModel)]="MealTypetext" (selectionChange)="Filter()">
+                                    <mat-option value="">Select</mat-option>
+                                    @for (item of Result['RatePlanNamesList']; track $index) {
+                                    <mat-option [value]="item['label']">{{item['ShowValue']}}</mat-option>
+                                    }
+                                </mat-select>
+                            </mat-form-field>
+                        </li>
+
+                        <li class="hotel-filter__item col-lg-3 col-md-6 col-12">
+                            <mat-form-field appearance="fill" class="tts-full-width">
+                                <mat-label>Search By Room Name</mat-label>
+                                <input matInput placeholder="Enter Room Name" [matAutocomplete]="auto"
+                                    [(ngModel)]="RoomNameText" (keyup)="Search_room()" />
+                                <mat-autocomplete #auto="matAutocomplete">
+                                    <mat-option *ngFor="let option of RoomeNameList" [value]="option"
+                                        (click)="Filter()">
+                                        {{ option }}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </li>
+
+                        <li class="hotel-filter__item col-lg-3 col-md-6 col-12">
+                            <h6 class="hotel-filter__subtitle">Price</h6>
+                            <mat-slider class="w-100" (input)="GetPricefilter()" [min]="price['min']"
+                                [max]="price['max']">
+                                <input [(ngModel)]="min" matSliderStartThumb>
+                                <input [(ngModel)]="max" matSliderEndThumb>
+                            </mat-slider>
+
+                            <div class="hotel-filter__price-range d-flex justify-content-between">
+                                <span>{{ min | number:'1.0-0' }}</span>
+                                <span>{{ max | number:'1.0-0' }}</span>
                             </div>
-                        </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!----Room List----->
+            <div id="hotel_room_rates" class="hotel-filter-card">
+                <div *ngIf="HotelRoomLoading" class="loader-wrapper">
+                    <h5>Please Wait...</h5>
+                    <p>We are fetching room details</p>
+                    <div class="lds-ellipsis">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
                     </div>
                 </div>
 
-                <!-- <div >
-
-                    <div *ngIf="InfoSourceval=='FixedCombination' && sortedRooms && sortedRooms.length>0">
-                        <div class="hotal-filter-card my-3 p-2"
-                            *ngFor="let RoomData of sortedRooms; let  key= index;">
-                            <div class="row">
-                                <div class="col-md-5" *ngFor="let Rooms of RoomData;">
-                                    <div class="position-relative">
-                                        <h5 class="m-0 fs-16">{{Rooms.RoomTypeName}}</h5>
-                                        <p class="mb-0"><a href="javascript:void(0);" class="fs-12"
-                                                (click)="RoomDescription(Rooms)">Room Information</a></p>
-                                        <span class="text-danger" *ngIf="Rooms.IsPANMandatory==true">PAN CARD APPLICABLE
-                                            ,</span>
-                                        <span class="text-danger" *ngIf="Rooms.IsPassportMandatory==true">Passport
-                                            APPLICABLE </span>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3" *ngFor="let Rooms of RoomData;">
-                                    <div class="position-relative">
-                                        <div *ngIf="Rooms['Inclusion'].length!=0">
-                                            <div class="mb-0"
-                                                *ngFor="let inclusionItem of Rooms['Inclusion'];let itemIndex=index;">
-                                                <span *ngIf="itemIndex==0">
-                                                    <i class="fa fa-check text-success"></i>
-                                                    <span> {{inclusionItem}}</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 text-end">
-                                    <div class="position-relative">
-                                        <div class="d-flex align-items-center justify-content-end">
-                                            <h5 class="me-2">₹ {{HotelRoomPriceData[key]}}</h5>
-                                            <a href="javascript:void(0);" (click)="ContinueRoom(RoomData,'fixed',key)">
-                                                <span class="badge badge_bg">
-                                                    Book Now
-                                                </span>
-                                            </a>
-                                        </div>
-                                        <div>
-                                            <a href="javascript:void(0);" class="fs-12 text-danger"
-                                                (click)="CancellationPolicy(RoomData)">
-                                                Free cancellation till: {{RoomData[0].LastCancellationDate|
-                                                date:'dd-MMM-y'}}
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div *ngIf="InfoSourceval=='OpenCombination'">
-                        <div class="hotal-filter-card my-3 p-2"
-                            *ngFor="let RoomData of sortedRooms; let  key= index;">
-                            <div class="row">
-                                <div class="col-md-5" *ngFor="let Rooms of RoomData;">
-                                    <div class="position-relative">
-                                        <h5 class="m-0 fs-16">{{Rooms.RoomTypeName}}</h5>
-                                        <p class="mb-0"><a href="javascript:void(0);" class="fs-12"
-                                                (click)="RoomDescription(Rooms)">Room Information</a></p>
-                                        <span class="text-danger" *ngIf="Rooms.IsPANMandatory==true">PAN CARD APPLICABLE
-                                            ,</span>
-                                        <span class="text-danger" *ngIf="Rooms.IsPassportMandatory==true">Passport
-                                            APPLICABLE </span>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3" *ngFor="let Rooms of RoomData;">
-                                    <div class="position-relative">
-                                        <div *ngIf="Rooms['Inclusion'].length!=0">
-                                            <div class="mb-0"
-                                                *ngFor="let inclusionItem of Rooms['Inclusion'];let itemIndex=index;">
-                                                <span *ngIf="itemIndex==0">
-                                                    <i class="fa fa-check text-success"></i>
-                                                    <span> {{inclusionItem}}</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 text-end">
-                                    <div class="position-relative">
-                                        <div class="d-flex align-items-center justify-content-end">
-                                            <h5 class="me-2">₹ {{HotelRoomPriceData[key]}}</h5>
-                                            <a href="javascript:void(0);" (click)="ContinueRoom(RoomData,'fixed',key)">
-                                                <span class="badge badge_bg">
-                                                    Book Now
-                                                </span>
-                                            </a>
-                                        </div>
-                                        <div>
-                                            <a href="javascript:void(0);" class="fs-12 text-danger"
-                                                (click)="CancellationPolicy(RoomData)">
-                                                Free cancellation till: {{RoomData[0].LastCancellationDate|
-                                                date:'dd-MMM-y'}}
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <div class="modal fade" id="AboutRomms" data-bs-backdrop="static" data-bs-keyboard="false"
-                        tabindex="-1" aria-hidden="true">
-                        <div class="modal-dialog modal-lg modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title m0">Room Information</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <h5>Description</h5>
-                                            <p [innerHTML]="AboutRooms['RoomDescription']"></p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <h5>Amenities</h5>
-                                            <ul class="amenities-hotel-list row">
-                                                <li class="col-lg-3" *ngFor="let item of AboutRooms['Amenity']">{{item}}
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <h5>Cancellation Policy</h5>
-                                            <p>{{AboutRooms['CancellationPolicy']}}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>-->
-
-                <div class="modal fade" id="CancellationPolicyModal" tabindex="-1" aria-hidden="true">
+                <div class="modal fade" id="CancellationPolicyModal" tafandex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -396,13 +306,515 @@
                     </div>
                 </div>
 
+                <div *ngIf="HotelRoomLoading==false && HotelRoomErrorCode==0">
+                    <h4 class="room-count">{{sortedRooms.length}} Room Types</h4>
+                    <ul class="room-types-list">
+
+                        @for (item of sortedRooms; track $index) {
+
+                        <li class="room-item">
+
+                            <!-- Room Image & Name -->
+                            <div class="room-header">
+                                <img [src]="item['Rooms'][0]['Image']" onError="this.src='assets/img/no-hotel.png';"
+                                    alt="Room Image" />
+                                <h5>{{item['RoomTypeName']}}</h5>
+                            </div>
+
+                            <!-- Room Options -->
+                            <div class="room-options">
+                                @for (room of item['Rooms']; track $index) {
+                                <div class="room-plan">
+                                    <div class="room-info">
+                                        <h5>{{room['RoomType']}}</h5>
+                                        <ul>
+                                            <li><strong>Meal Type:</strong> {{Replace(room['MealType'],'_')}}</li>
+                                            <li><strong>Refundable:</strong> {{room['IsRefundable']}}</li>
+                                            <li><a href="javascript:void(0)"
+                                                    (click)="CancellationPolicy(room['RoomData'][0])">Cancellation
+                                                    Policy</a></li>
+                                            @if (room['RoomData'][0]['LastCancellationDate']) {
+                                            <li class="free-cancel">
+                                                <i class="fas fa-check me-2"></i> Free Cancellation before
+                                                {{formatCustomDate(room['RoomData'][0]['LastCancellationDate'])|date
+                                                :'dd MMM yyyy'}}
+                                            </li>
+                                            }
+                                        </ul>
+                                    </div>
+
+                                    <div class="room-booking">
+                                        <div class="price">₹ {{room['Price']}} <small
+                                                class="d-block">{{room['RoomData'].length}} ROOM(S)</small></div>
+
+                                        <button (click)="ContinueRoom(room,'fixed',$index)">Book Now</button>
+                                    </div>
+                                </div>
+                                }
+                            </div>
+                        </li>
+                        }
+                    </ul>
+                    @if(sortedRooms.length==0){
+                    <div class="no-result">
+                        <p>No result found for this criteria.</p>
+                    </div>
+                    }
+                </div>
+            </div>
+
+            <!----Amenities----->
+            <div class="hotel-amenities-card" id="hotel_amenities">
+                <!-- Hotel Amenities -->
+                <div *ngIf="HotelInfoResult['HotelAmenities'] && HotelInfoResult['HotelAmenities'].length!=0">
+                    <div class="section-title">
+                        <h4>Amenities & Information</h4>
+                        <span>{{HotelInfoResult['HotelAmenities'].length}} Amenities</span>
+                    </div>
+
+                    <div class="amenities-grid">
+                        <div class="amenity-item" *ngFor="let hotelAmenities of HotelInfoResult['HotelAmenities']">
+                            <div class="amenity-icon">
+                                <img *ngIf="hotelAmenities['Icon']!==''" src="{{hotelAmenities['Icon']}}"
+                                    onError="this.src='assets/img/no-photo.png';" alt="{{hotelAmenities['Name']}}" />
+                            </div>
+                            <span class="amenity-name">
+                                {{hotelAmenities['Name']}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hotel Facilities -->
+                <div class="facilities-section" *ngIf="HotelInfoResult['HotelFacilities'].length!=0">
+                    <div class="section-header">
+                        <h4>Facilities</h4>
+                    </div>
+                    <ul class="facility-list" [innerHTML]="HotelFacilities(HotelInfoResult['HotelFacilities'])">
+                    </ul>
+                </div>
+            </div>
+
+            <!-- About Hotel -->
+            <div class="hotel-section"
+                *ngIf="HotelInfoResult['Description']!=null && HotelInfoResult['Description']!=''">
+                <div class="section-title">
+                    <h4>About The Hotel</h4>
+                </div>
+
+                <div class="section-content">
+                    <p id="about_hotel" [innerHTML]="HotelInfoResult['Description']"></p>
+                </div>
+            </div>
+
+            <!-- Hotel Policy -->
+            <div class="hotel-section"
+                *ngIf="HotelInfoResult['HotelPolicy']!=null && HotelInfoResult['HotelPolicy']!=''">
+                <div class="section-title">
+                    <h4>Hotel Policy</h4>
+                </div>
+
+                <div class="section-content">
+                    <p id="hotel_policy" [innerHTML]="HotelInfoResult['HotelPolicy']"></p>
+                </div>
+            </div>
+
+            <!-- Nearby Attractions -->
+            <div class="hotel-section" id="hotel_attractions"
+                *ngIf="HotelInfoResult['Attractions']!=null && HotelInfoResult['Attractions'].length!=0">
+                <div class="section-title">
+                    <h4>Nearby Attractions</h4>
+                </div>
+
+                <div class="section-content">
+                    <ul class="attraction-list" [innerHTML]="HotelAttractions(HotelInfoResult['Attractions'])"></ul>
+                </div>
+            </div>
+
+            <!-- Map -->
+            <div class="hotel-section" id="hotel_map"
+                *ngIf="HotelInfoResult['Latitude']!=null && HotelInfoResult['Longitude']!=null">
+                <div class="section-title">
+                    <h4>Location Map</h4>
+                </div>
+                <div class="map-wrapper">
+                    <div #mapRef class="hotel-map"></div>
+                </div>
+            </div>
+            <!---new code End 06-06-2026--->
+
+
+            <div class="d-flex">
+                <h2 class="tts__flight__result__page_title">{{HotelInfoResult['HotelName']}}</h2>
+                <span [innerHTML]="star_rating(HotelInfoResult['StarRating'])"></span>
+            </div>
+            <h3 class="tts__flight__result__page_text">
+                <i class="fa fa-map-marker me-2"></i>{{HotelInfoResult['Address']}}
+            </h3>
+            <div class="gallery-box my-3">
+                <div class="row g-3">
+                    <div class="col-md-8">
+                        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel"
+                            *ngIf="HotelInfoResult['Images']?.length!=0 && HotelInfoResult['Images']">
+                            <div class="carousel-inner">
+                                <div class="carousel-item" *ngFor="let item of HotelInfoResult['Images']; let i=index"
+                                    [ngClass]="{'active':i==0}">
+                                    <img [src]="item" class="d-block w-100" [alt]="HotelInfoResult['HotelName']">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button"
+                                data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                        <div *ngIf="HotelInfoResult['Images']?.length==0">
+                            <img src="assets/img/no-hotel.png" class="img-fluid rounded"
+                                style=" width: 100%; object-fit: cover; height: 400px;" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row g-3 section-one">
+                            <ul class="gallery-checkin">
+                                <li class="Checkin">
+                                    <label class="openPopup"><span class="fa fa-calendar"></span> check in <span
+                                            class="fa fa-down"></span></label>
+                                    <h6>{{GetSearchData['CheckIn'] | date:'d'}} <span
+                                            class="">{{GetSearchData['CheckIn'] | date:'MMM, y'}}</span>
+                                    </h6>
+                                    <p>{{GetSearchData['CheckIn'] | date:'EEEE'}}</p>
+                                </li>
+                                <li class="nights">
+                                    <h5 *ngIf="GetSearchData['Nights']<=1">{{GetSearchData['Nights']}} Night</h5>
+                                    <h5 *ngIf="GetSearchData['Nights']>1">{{GetSearchData['Nights']}} Nights</h5>
+                                </li>
+                                <li class="Checkin">
+                                    <label class="openPopup"><span class="fa fa-calendar"></span> check out <span
+                                            class="fa fa-down"></span></label>
+                                    <h6>{{GetSearchData['CheckOut'] | date:'d'}} <span
+                                            class="">{{GetSearchData['CheckOut'] | date:'MMM, y'}}</span></h6>
+                                    <p>{{GetSearchData['CheckOut'] | date:'EEEE'}}</p>
+                                </li>
+                                <li class="roomsGuests">
+                                    <label class="">Rooms &amp; guests</label>
+                                    <h6 class="date"><span>{{GetSearchData['Occupancy']}}</span></h6>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="row g-3 section-two" *ngIf="InfoSourceval=='FixedComfanation'">
+                            <div class="col-md-12">
+                                @if(sortedRooms.length!==0){
+                                <h5>{{sortedRooms[0]['RoomTypeName']}}</h5>
+                                <p class="mb-0">{{sortedRooms[0]['RoomTypeName']}}</p>
+                                }
+                                <!-- <a href="javascript:void(0);" class="fs-12 text-danger"
+                                (click)="CancellationPolicy(sortedRooms[0])">Free cancellation till:
+                                {{sortedRooms[0][0].LastCancellationDate| date:'dd-MMM-y'}} </a> -->
+                                <span class="float-end"><a href="javascript:void(0)">Check other Rooms</a></span>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="first_room_amenity">
+                                    @if(sortedRooms.length!==0){
+                                    <div
+                                        *ngFor="let inclusion of sortedRooms[0]['Rooms'][0]['RoomData'][0]['Amenity']; let a=index;">
+                                        <li class="free" *ngIf="a<3"><i class="fa fa-check text-success"></i>
+                                            {{inclusion}}
+                                        </li>
+                                    </div>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="price text-end">
+                                    <h5>₹ {{HotelRoomPriceData[0]}}</h5>
+                                    <button class="badge badge_bg" (click)="ContinueRoom(sortedRooms[0],'fixed',0)">Book
+                                        Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hotal-filter-card p-2 px-4">
+                <div class="row">
+                    <div class="d-flex flex-wrap">
+                        <h6 class="mb-3 me-3">Popular Filters</h6>
+                        <a href="javascript:void(0)" class="text-danger fs-12 fw-bold" (click)="ResetFilter()"> Reset
+                            Filter</a>
+                    </div>
+                    <div class="col-lg-12">
+                        <ul class="row">
+                            <li class="col">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Cancellation Policy</mat-label>
+                                    <mat-select [(ngModel)]="CancellationPolicytext" (selectionChange)="Filter()">
+                                        <mat-option value="">Select</mat-option>
+                                        <mat-option value="Free Cancellation">Free Cancellation</mat-option>
+                                        <mat-option value="Non-Refundable">Non-Refundable</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </li>
+                            <li class="col">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Meal Prefrence</mat-label>
+                                    <mat-select [(ngModel)]="MealTypetext" (selectionChange)="Filter()">
+                                        <mat-option value="">Select</mat-option>
+                                        @for (item of Result['RatePlanNamesList']; track $index) {
+                                        <mat-option [value]="item['label']">{{item['ShowValue']}}</mat-option>
+                                        }
+                                    </mat-select>
+                                </mat-form-field>
+                            </li>
+                            <li class="col">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Search By Room Name</mat-label>
+                                    <input matInput placeholder="Enter Room Name" [matAutocomplete]="auto"
+                                        [(ngModel)]="RoomNameText" (keyup)="Search_room()" />
+                                    <mat-autocomplete #auto="matAutocomplete">
+                                        <mat-option *ngFor="let option of RoomeNameList" [value]="option"
+                                            (click)="Filter()">
+                                            {{ option }}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </li>
+                            <li class="col">
+                                <h6>Price</h6>
+                                <mat-slider (input)="GetPricefilter()" class="w-100" [min]="price['min']"
+                                    [max]="price['max']">
+                                    <input [(ngModel)]="min" matSliderStartThumb>
+                                    <input [(ngModel)]="max" matSliderEndThumb>
+                                </mat-slider>
+                                <div class="d-flex justify-content-between">
+                                    <span>{{min |number:'1.0-0'}}</span>
+                                    <span>
+                                        {{max |number:'1.0-0'}}
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="hotel_room_rates" class="hotal-filter-card my-3 amenities-wrapper p-3">
+                <div class="row" *ngIf="HotelRoomLoading">
+                    <div class="col-md-12 text-center mt-3">
+                        <div class="vertical-align-middle">
+                            <h5>Please Wait...</h5>
+                            <p class="mb-2">We are fetching room details</p>
+                            <div class="lds-ellipsis">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div >
+                        <div *ngIf="InfoSourceval=='FixedComfanation' && sortedRooms && sortedRooms.length>0">
+                            <div class="hotal-filter-card my-3 p-2"
+                                *ngFor="let RoomData of sortedRooms; let  key= index;">
+                                <div class="row">
+                                    <div class="col-md-5" *ngFor="let Rooms of RoomData;">
+                                        <div class="position-relative">
+                                            <h5 class="m-0 fs-16">{{Rooms.RoomTypeName}}</h5>
+                                            <p class="mb-0"><a href="javascript:void(0);" class="fs-12"
+                                                    (click)="RoomDescription(Rooms)">Room Information</a></p>
+                                            <span class="text-danger" *ngIf="Rooms.IsPANMandatory==true">PAN CARD APPLICABLE
+                                                ,</span>
+                                            <span class="text-danger" *ngIf="Rooms.IsPassportMandatory==true">Passport
+                                                APPLICABLE </span>
+                                        </div>
+                                    </div>
+                        
+                                    <div class="col-md-3" *ngFor="let Rooms of RoomData;">
+                                        <div class="position-relative">
+                                            <div *ngIf="Rooms['Inclusion'].length!=0">
+                                                <div class="mb-0"
+                                                    *ngFor="let inclusionItem of Rooms['Inclusion'];let itemIndex=index;">
+                                                    <span *ngIf="itemIndex==0">
+                                                        <i class="fa fa-check text-success"></i>
+                                                        <span> {{inclusionItem}}</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                        
+                                    <div class="col-md-4 text-end">
+                                        <div class="position-relative">
+                                            <div class="d-flex align-items-center justify-content-end">
+                                                <h5 class="me-2">₹ {{HotelRoomPriceData[key]}}</h5>
+                                                <a href="javascript:void(0);" (click)="ContinueRoom(RoomData,'fixed',key)">
+                                                    <span class="badge badge_bg">
+                                                        Book Now
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <a href="javascript:void(0);" class="fs-12 text-danger"
+                                                    (click)="CancellationPolicy(RoomData)">
+                                                    Free cancellation till: {{RoomData[0].LastCancellationDate|
+                                                    date:'dd-MMM-y'}}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                        <div *ngIf="InfoSourceval=='OpenComfanation'">
+                            <div class="hotal-filter-card my-3 p-2"
+                                *ngFor="let RoomData of sortedRooms; let  key= index;">
+                                <div class="row">
+                                    <div class="col-md-5" *ngFor="let Rooms of RoomData;">
+                                        <div class="position-relative">
+                                            <h5 class="m-0 fs-16">{{Rooms.RoomTypeName}}</h5>
+                                            <p class="mb-0"><a href="javascript:void(0);" class="fs-12"
+                                                    (click)="RoomDescription(Rooms)">Room Information</a></p>
+                                            <span class="text-danger" *ngIf="Rooms.IsPANMandatory==true">PAN CARD APPLICABLE
+                                                ,</span>
+                                            <span class="text-danger" *ngIf="Rooms.IsPassportMandatory==true">Passport
+                                                APPLICABLE </span>
+                                        </div>
+                                    </div>
+                        
+                                    <div class="col-md-3" *ngFor="let Rooms of RoomData;">
+                                        <div class="position-relative">
+                                            <div *ngIf="Rooms['Inclusion'].length!=0">
+                                                <div class="mb-0"
+                                                    *ngFor="let inclusionItem of Rooms['Inclusion'];let itemIndex=index;">
+                                                    <span *ngIf="itemIndex==0">
+                                                        <i class="fa fa-check text-success"></i>
+                                                        <span> {{inclusionItem}}</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                        
+                                    <div class="col-md-4 text-end">
+                                        <div class="position-relative">
+                                            <div class="d-flex align-items-center justify-content-end">
+                                                <h5 class="me-2">₹ {{HotelRoomPriceData[key]}}</h5>
+                                                <a href="javascript:void(0);" (click)="ContinueRoom(RoomData,'fixed',key)">
+                                                    <span class="badge badge_bg">
+                                                        Book Now
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <a href="javascript:void(0);" class="fs-12 text-danger"
+                                                    (click)="CancellationPolicy(RoomData)">
+                                                    Free cancellation till: {{RoomData[0].LastCancellationDate|
+                                                    date:'dd-MMM-y'}}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                        
+                        <div class="modal fade" id="AboutRomms" data-bs-backdrop="static" data-bs-keyboard="false"
+                            tafandex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title m0">Room Information</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <h5>Description</h5>
+                                                <p [innerHTML]="AboutRooms['RoomDescription']"></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <h5>Amenities</h5>
+                                                <ul class="amenities-hotel-list row">
+                                                    <li class="col-lg-3" *ngFor="let item of AboutRooms['Amenity']">{{item}}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                        
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <h5>Cancellation Policy</h5>
+                                                <p>{{AboutRooms['CancellationPolicy']}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
+                <div class="modal fade" id="CancellationPolicyModal" tafandex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title m0">Cancellation Policy</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Cancelled on or After</th>
+                                            <th scope="col">Cancelled on or Before</th>
+                                            <th scope="col">Cancelled on or Charges</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of CancellationPolicyData['CancellationPolicies']">
+                                            <td>{{formatCustomDate(item['FromDate'])| date:'dd MMM yyyy' }}</td>
+                                            <td>{{formatCustomDate(item['ToDate'])| date:'dd MMM yyyy' }}</td>
+                                            <td>
+                                                <span *ngIf="item['ChargeType']=='1'">Rs. {{item['Charge']}}</span>
+                                                <span *ngIf="item['ChargeType']=='2'">{{item['Charge']}}%</span>
+                                                <span *ngIf="item['ChargeType']=='3'">{{item['Charge']}} Night(s)
+                                                    charge</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                No Show will attract full cancellation charge unless otherwise
+                                                specified.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                Early check out will attract full cancellation charge unless
+                                                otherwise specified.Show Room Description
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- </div>  -->
                 <div class="" *ngIf="HotelRoomLoading==false && HotelRoomErrorCode==0">
                     <h4 class="mb-3">{{sortedRooms.length}} Room Types</h4>
                     <ul class="room-types-list">
                         @for (item of sortedRooms; track $index) {
                         <li class="room-types-item">
-
                             <div class="row g-0">
                                 <div class="col-md-4">
                                     <div class="carousel-container">
@@ -411,17 +823,15 @@
                                         <!-- <a href="#" class="text-primary fw-bold d-block mt-2 small">10 PHOTOS →</a> -->
                                         <h5 class="room-title">{{item['RoomTypeName']}}</h5>
                                         <!--<ul class="feature-list list-unstyled">
-                                    <li><i class="fas fa-bed me-1"></i> 1 King Bed</li>
-                                    <li><i class="fas fa-bath me-1"></i> 1 Bathroom</li>
-                                    <li><i class="fas fa-ruler-combined me-1"></i> 301 sq.ft (28 sq.mt)</li>
-    
-                                    </ul>-->
+                                            <li><i class="fas fa-bed me-1"></i> 1 King Bed</li>
+                                            <li><i class="fas fa-bath me-1"></i> 1 Bathroom</li>
+                                            <li><i class="fas fa-ruler-comfaned me-1"></i> 301 sq.ft (28 sq.mt)</li>
+                                            
+                                            </ul>-->
                                         <!-- <a href="javascript:void(0)" class="fw-semibold text-decoration-underline d-block mt-2">More Details</a> -->
                                     </div>
                                 </div>
-
                                 <div class="col-md-8 bg-white">
-
                                     @for (room of item['Rooms']; track $index) {
                                     <div class="p-3 rooms_type">
                                         <div class="row align-items-center">
@@ -429,16 +839,19 @@
                                                 <h5 class="mb-2">{{room['RoomType']}}</h5>
                                                 <ul class="feature-list list-unstyled mb-2 small">
                                                     <li> <strong class="me-2">Meal Type:</strong>
-                                                        {{Replace(room['MealType'],'_')}}</li>
+                                                        {{Replace(room['MealType'],'_')}}
+                                                    </li>
                                                     <li> <strong class="me-2"> Refundable Type:</strong>
-                                                        {{room['IsRefundable']}}</li>
+                                                        {{room['IsRefundable']}}
+                                                    </li>
                                                     <li> <a href="javascript:void(0)" class="fw-bold"
                                                             (click)="CancellationPolicy(room['RoomData'][0])">Cancellation
-                                                            Policy</a></li>
+                                                            Policy</a>
+                                                    </li>
                                                     <!-- <li><i class="fas fa-star me-2"></i> Signature Activities & Experiences</li>
-                                            <li><i class="fas fa-utensils me-2"></i> Breakfast included</li>
-                                            <li><i class="fas fa-drumstick-bite me-2"></i> Dinner included</li>
-                                            <li><i class="fas fa-plate-wheat me-2"></i> Half Board</li> -->
+                                    <li><i class="fas fa-utensils me-2"></i> Breakfast included</li>
+                                    <li><i class="fas fa-drumstick-fate me-2"></i> Dinner included</li>
+                                    <li><i class="fas fa-plate-wheat me-2"></i> Half Board</li> -->
                                                     @if (room['RoomData'][0]['LastCancellationDate']) {
                                                     <li class="mt-2 text-green">
                                                         <i class="fas fa-check me-2"></i> Free Cancellation before
@@ -448,7 +861,8 @@
                                                     }
                                                 </ul>
                                             </div>
-                                            <div class="col-lg-5 text-lg-end d-flex align-items-end justify-content-between flex-lg-column">
+                                            <div
+                                                class="col-lg-5 text-lg-end d-flex align-items-end justify-content-between flex-lg-column">
                                                 <div class="price-box">₹ {{room['Price']}}</div>
                                                 <!-- <div class="text-muted small">+₹4,350 Taxes &amp; Fees per night</div> -->
                                                 <button type="button" class="badge badge_bg mt-2"
@@ -461,13 +875,11 @@
                                     }
                                 </div>
                             </div>
-
                         </li>
                         }
                         @if(sortedRooms.length==0){
                         <div class="p-3 text-center">
                             <p>No result found in this criteria.</p>
-
                         </div>
                         }
                     </ul>
@@ -500,12 +912,11 @@
                                 <ul class="amenities-hotel-list row"
                                     [innerHTML]="HotelFacilities(HotelInfoResult['HotelFacilities'])"></ul>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
             </div>
+
 
             <div class="hotal-filter-card my-3 amenities-wrapper p-3">
                 <div *ngIf="HotelInfoResult['Description']!=null && HotelInfoResult['Description']!=''">
@@ -549,11 +960,10 @@
             <img src="assets/img/no-hotel-found.png" />
             <h5 class="mt-4">{{HotelInfoErrorMessage}}</h5>
             <p class="mb-2">Sorry,No hotel Room found for your selected date. Please change your dates / search
-                criteria.</p>
+                criteria.
+            </p>
             <a href="javascript:void(0);" [routerLink]="['/hotel']" class="btn btn-outline-danger">PICK ANOTHER DATE</a>
         </div>
     </div>
 </div>
-
-
 <app-count-down display="on"></app-count-down>
