@@ -17,7 +17,7 @@ import { BookingConfirmationComponent } from './booking-confirmation/booking-con
 import { MaterialModuleModule } from '../../shared/material-module.module';
 import { SafeHtmlModule } from '../../shared/safe-html.module';
 import { DirectivesModule } from '../../directives/directives.module';
-import { CountDownComponent } from '../modal/count-down/count-down.component';
+import { CountDownModule } from '../modal/count-down/count-down.module';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,6 @@ import { CountDownComponent } from '../modal/count-down/count-down.component';
     PrintInvoiceComponent,
     BookingConfirmationComponent,
     PrintTicketComponent,
-    CountDownComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +41,8 @@ import { CountDownComponent } from '../modal/count-down/count-down.component';
     ReactiveFormsModule,
     MaterialModuleModule,
     SafeHtmlModule,
-    DirectivesModule
+    DirectivesModule,
+    CountDownModule
   ]
 })
 export class BusModule { }
