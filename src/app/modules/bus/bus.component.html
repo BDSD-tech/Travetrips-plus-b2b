@@ -1,10 +1,30 @@
 <!----------search--form---width----banner------------>
+<section  class="hero-section"></section>
 <section class="flight_section">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="flight_box">
-                    <h1 class="flight_box_title"><span>Book Bus and explore the world with us.</span></h1>
+                     <ul class="search-tabs">
+                        <li>
+                        <a href="javascript:void(0)" routerLink="/flight" class="tab-link ">
+                            <i class="fas fa-plane-departure"></i>
+                            <span>Flight</span>
+                        </a>
+                        </li>
+                        <li>
+                        <a href="javascript:void(0)" routerLink="/hotel" class="tab-link ">
+                            <i class="fas fa-building"></i>
+                            <span>Hotel</span>
+                        </a>
+                        </li>
+                        <li>
+                        <a href="javascript:void(0)" routerLink="/bus" class="tab-link active">
+                            <i class="fas fa-building"></i>
+                            <span>Bus</span>
+                        </a>
+                        </li>
+                    </ul>
                     <form [formGroup]="BusSearchForm" (ngSubmit)="SearchData()" id="bus-form">
                        <div class="tab-content">
                             <div class="flight-tab row col-md-12">
@@ -29,9 +49,7 @@
                                 </div>
                                 </div>
                                 <div class="persent-one less-per witdh-20">
-                                     <span>
-                                    <img src="assets/img/calendar.svg" alt="calendar.svg" class="img-fluid">
-                                    </span>
+                                    <span class="srchicons"><i class="fa-solid fa-calendar"></i></span>
                                     <input type="text" appDatepicker #datepicker="datepicker" class="textboxstyle cal-depart-date w-100" formControlName="DepartDate" (dateEventEmitter)="dateEventEmitter($event)" placeholder="Depart Date" minDate="0" maxDate="+1Y" calType="O" readonly>
                                     <div *ngIf="submitted && f['DepartDate'].errors" class="error-msg">
                                     <div *ngIf="f['DepartDate'].errors['required']">Please enter a valid departure date</div>
