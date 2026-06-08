@@ -109,7 +109,8 @@
 
                                 <div class="counter-wrapper">
                                   <button type="button" class="counter-btn" (click)="hotelminus('a',r)">-</button>
-                                  <input class="counter-input" type="number" readonly min="1" value="{{roomobject[r].Adult}}">
+                                  <input class="counter-input" type="number" readonly min="1"
+                                    value="{{roomobject[r].Adult}}">
                                   <button type="button" class="counter-btn" (click)="hotelplus('a',r)">+</button>
                                 </div>
                               </div>
@@ -123,7 +124,8 @@
 
                                 <div class="counter-wrapper">
                                   <button type="button" class="counter-btn" (click)="hotelminus('c',r)">-</button>
-                                  <input class="counter-input" type="number" readonly min="0" value="{{roomobject[r].Child}}">
+                                  <input class="counter-input" type="number" readonly min="0"
+                                    value="{{roomobject[r].Child}}">
                                   <button type="button" class="counter-btn" (click)="hotelplus('c',r)">+</button>
                                 </div>
                               </div>
@@ -157,21 +159,39 @@
 
                           <!-- Actions -->
                           <div class="room-actions">
-                            <button type="button" class="btn-remove" (click)="removeroom()" [disabled]="roomcount == 1">Remove Room</button>
-                            <button type="button" class="btn-add" (click)="addroom()" [disabled]="roomcount == 4">Add Room</button>
+                            <button type="button" class="btn-remove" (click)="removeroom()"
+                              [disabled]="roomcount == 1">Remove Room</button>
+                            <button type="button" class="btn-add" (click)="addroom()" [disabled]="roomcount == 4">Add
+                              Room</button>
                           </div>
                         </div>
                       </div>
                       <!-----new code end------>
                     </div>
+
+                    <div class="persent-one less-per at-returnin">
+                      <label class="custom-label">Select Nationality</label>
+                      <span class="srchicons">
+                        <i class="fa-solid fa-earth-asia"></i>
+                      </span>
+
+                      <select class="textboxstyle textboxstyle-bg" formControlName="Nationality">
+                        <option value="">Select Nationality</option>
+                        @for (item of NationalityLits; track $index) {
+                          <option value="{{item['country_code']}}">{{item['name']}}</option>
+                        }
+                      </select>
+                    </div>
                   </div>
 
+
+                </div>
+                <div class="makeflex">
                   <div class="less-btn">
-                    <button type="submit" class="btn cst-btn" [disabled]="Hotelloading"> <span *ngIf="Hotelloading"
-                        class="spinner-border spinner-border-sm mr-1"></span> Search Hotel</button>
+                    <button type="submit" class="cst-btn" [disabled]="Hotelloading"> <span *ngIf="Hotelloading"
+                        class="spinner-border spinner-border-sm"></span> Search Hotel</button>
                   </div>
                 </div>
-
                 <!--<div class="flight-tab row col-md-12">
                                 <div class="makeflex">
                                   <span>More Options:</span>
@@ -205,9 +225,53 @@
         </div>
       </div>
     </div>
+
+    <!------Recente Search----->
+    <div class="recent-search-section">
+      <div class="recent-search-header">
+        <div>
+          <h3 class="title">Recent Searches</h3>
+        </div>
+      </div>
+      <div class="recent-search-grid">
+        <div class="recent-card"><!---->
+          <div class="at-viewlastbg">
+            <div class="recent-top">
+              <div class="flight-icon"><i class="fas fa-bed"></i></div>
+              <div class="route-text"> Singapore</div>
+            </div>
+            <div class="recent-bottom"><span class="date-text"> 18 Jun 2026 </span><span class="dot"></span><span
+                class="passenger-count"> 1 </span><i class="fa fa-user user-icon"></i></div>
+          </div><!---->
+        </div>
+        <div class="recent-card"><!---->
+          <div class="at-viewlastbg">
+            <div class="recent-top">
+              <div class="flight-icon"><i class="fas fa-bed"></i></div>
+              <div class="route-text"> Singapore</div>
+            </div>
+            <div class="recent-bottom"><span class="date-text"> 12 Jun 2026 </span><span class="dot"></span><span
+                class="passenger-count"> 1 </span><i class="fa fa-user user-icon"></i></div>
+          </div><!---->
+        </div>
+        <div class="recent-card"><!---->
+          <div class="at-viewlastbg">
+            <div class="recent-top">
+              <div class="flight-icon"><i class="fas fa-bed"></i></div>
+              <div class="route-text"> Singapore</div>
+            </div>
+            <div class="recent-bottom"><span class="date-text"> 19 Jun 2026 </span><span class="dot"></span><span
+                class="passenger-count"> 1 </span><i class="fa fa-user user-icon"></i></div>
+          </div><!---->
+        </div><!---->
+      </div>
+    </div>
   </div>
 </div>
 <!----------End search--form---width----banner------------>
+
+
+
 
 
 <!----------Deal---and---offer---start------->
@@ -250,11 +314,7 @@
 
   </div>
 </section>
-<!----------Deal---and---offer----end-------->
-
-
-
-<!--------------------Start For Blog-------------------------------------->
+<!-------------Start For Blog------------->
 <section id="recent-posts" class="recent-posts sections-bg py-3 d-none" *ngIf="BlogList.length!=0">
   <div class="container">
     <div class="section-header mb-4">
@@ -289,9 +349,8 @@
     </div>
   </div>
 </section>
-<!--------------------End For Blog-------------------------------------->
 
-<!--------------------Start For Client Review-------------------------------------->
+<!---------Start For Client Review------------------>
 <section class="client-review sections-bg py-3 d-none" *ngIf="TestimonialsList.length!=0">
   <div class="container">
     <div class="section-header mb-4">
@@ -314,4 +373,4 @@
     </div>
   </div>
 </section>
-<!--------------------End For Client Review-------------------------------------->
+<!---------End For Client Review------------------->

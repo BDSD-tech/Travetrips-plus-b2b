@@ -102,10 +102,11 @@ img {
     display: block;
 }
 
-.ttsnodata-fount-image{
+.ttsnodata-fount-image {
     width: 100%;
     height: 100px;
 }
+
 /* ===================
 BUTTONS
 ====================== */
@@ -193,9 +194,11 @@ RESPONSIVE
 }
 
 
-.form-control, .form-select{
+.form-control,
+.form-select {
     font-size: 14px;
 }
+
 /*=======header================end==========*/
 /* .Travelimpression_banner {
 padding: 120px 0px;
@@ -2284,7 +2287,7 @@ color: var(--black) !important;
     border-radius: 30px;
     font-size: 12px;
     padding: 8px 15px 8px;
-    color:var(--white);
+    color: var(--white);
     position: relative;
     outline: none;
     text-transform: uppercase;
@@ -2418,7 +2421,7 @@ color: var(--black) !important;
     border: 1px solid #e5e5e5;
     border-radius: 6px;
     margin-top: 20px;
-    
+
 }
 
 .table__tableHeader-container td {
@@ -3816,16 +3819,45 @@ BOOKING CONFIRM MODAL
     }
 }
 
-.tts-inp-close-icon{
+.tts-inp-close-icon {
     position: absolute;
     right: 0;
 }
 
-.tts-full-width{
+.tts-full-width {
     width: 100%;
 }
 
 
-.cdk-overlay-container{
+.cdk-overlay-container {
     z-index: 9999 !important;
+}
+
+
+/* ==========================
+   Hotel Room Facilities
+========================== */
+
+.facility-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 12px;
+    padding: 0;
+    margin: 0;
+}
+
+.facility-list .facility-list__li {
+    list-style: none;
+    padding: 0px 0px 0px 20px;
+    position: relative;
+    font-size: 12px;
+}
+
+.facility-list li.facility-list__li::before {
+    content: "✓";
+    color: #16a34a;
+    font-weight: bold;
+    margin-right: 8px;
+    position: absolute;
+    left: 0;
 }

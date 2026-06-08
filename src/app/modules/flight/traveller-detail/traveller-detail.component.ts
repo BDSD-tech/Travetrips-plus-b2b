@@ -1140,6 +1140,7 @@ GetPhonecodeVal(event: Event): void {
   }
 
   goBack() {
+    this.formModal.hide()
     this.location.back();
   }
 

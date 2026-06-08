@@ -155,7 +155,7 @@ export class HotelRoomDetailComponent implements OnInit {
           let a= value.split(',');
           if(a){
             a.forEach(function(v:any, k:any) {
-              Facilities+='<li class="col-lg-3 py-2"><i class="fa-solid fa-circle-check me-2 text-success"></i>'+ v +'</li>';
+              Facilities+='<li class="facility-list__li">'+ v +'</li>';
             });
           }
         });
