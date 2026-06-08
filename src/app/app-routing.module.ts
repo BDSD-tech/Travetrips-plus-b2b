@@ -43,8 +43,8 @@ const routes: Routes = [
                                     .then(mod => mod.HotelModule)
                                 },
                                 {
-                                  path: 'car',
-                                  loadComponent: () => import('./modules/car/car.component').then(m => m.CarComponent)
+                                  path: 'bus',
+                                  loadChildren: () => import('./modules/bus/bus.module').then(m => m.BusModule)
                                 },
                                 {
                                   path: 'visa',

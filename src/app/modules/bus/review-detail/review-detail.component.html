@@ -1,0 +1,446 @@
+<section class="flight-details">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3 col-6 booking-top-btn">
+                <div class="apt-common apt-firstep apt-active">
+                    <span class="graycolor"><span>FIRST STEP</span></span>
+                    <h4 class="apt-flightiti tts-cursor-pointer" (click)="goBack()"><span>Bus Itinerary</span></h4>
+                </div>
+            </div>
+            <div class="col-sm-3 col-6 booking-top-btn">
+                <div class="apt-common apt-second apt-black">
+                    <span class="graycolor"><span>SECOND STEP</span></span>
+                    <h4 class="apt-flightiti"><span>Passenger Details</span></h4>
+                </div>
+            </div>
+            <div class="col-sm-3 col-6 booking-top-btn">
+                <div class="apt-common apt-third">
+                    <span class="graycolor"><span>THIRD STEP</span></span>
+                    <h4 class="apt-flightiti"><span>Review</span></h4>
+                </div>
+            </div>
+            <div class="col-sm-3 col-6 booking-top-btn">
+                <div class="apt-common apt-forth">
+                    <span class="graycolor"><span>FINISH STEP</span></span>
+                    <h4 class="apt-flightiti"><span>Payments</span></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="flight-booking">
+    <div class="container">
+        <div class="row d-flex">
+            <div class="booking-main">
+
+                <div class="d-flex align-items-center justify-content-between">
+                    <h3 class="apt-heading">
+                        <span>Bus Details</span>
+                    </h3>
+                    <div class="d-flex align-items-center">
+                        <div class="iterinery-pageback" (click)="goBack()"><i class="fa fa-angle-double-left"></i> Back to Search</div>
+                    </div>
+                </div>
+
+                <div class="scrollable wrapper-mainclass">
+
+                    <div class="apt-btmborder">
+                        <div class="tts-trip">
+                            <p class="apt-firstpr">
+                                {{GetSearchData['Origin']}}
+                                <span class="apt-arrowpr"> →</span>
+                                {{GetSearchData['Destination']}}
+                                <span class="float-end"> {{SelectedBusSeat['SeatNumber'].length}} Seats Selected</span>
+                            </p>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5>
+                                        <span class="float-start">{{SelectedBus['TravelName']}} </span>
+                                        <span class="float-end"> {{SelectedBusSeat['SeatNumber']}}</span>
+                                    </h5>
+                                    <div class="clearfix"></div>
+                                    <p>
+                                        <span class="float-start">{{SelectedBus['BusType']}}  </span>
+                                        <span class="float-end"><a href="javascript:void(0);" (click)="toggle()"> {{showpolicytext}}</a></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row justify-content-around">
+                                <div class="col-8 mt-3">
+                                    <ul class="apt-namelist">
+                                        <li>
+                                            {{GetSearchData['DepartDate'] | date:'MMM d, EEE'}} {{SelectedBus['DepartureTime']}} 
+                                            <span class="apt-airplace at-fontweight graycolor">
+                                                {{GetSearchData['Origin']}} - {{SelectedBusSeat['BoardingPointsDetails']['CityPointName']}}
+                                            </span>
+                                        </li>
+                                        <li class="text-center">
+                                            <span class="fs-12">{{SelectedBus['Duration']}}  </span>
+                                            <span class="flight-arrow-itinenry-page d-block"></span>
+                                            <img class="media__right-arrow-image" src="assets/img/airarrow.png" />
+                                        </li>
+                                        <li>
+                                            {{ArrivalDate | date:'MMM d, EEE'}} {{SelectedBus['ArrivalTime']}}  
+                                            <span class="apt-airplace at-fontweight graycolor">
+                                                {{GetSearchData['Destination']}} - {{SelectedBusSeat['DroppingPointsDetails']['CityPointName']}}
+                                            </span>
+                                        
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2" *ngIf="showpolicy">
+                        <div class="tts__flight__wrapper__box">
+                            <div class="p-2">
+                                <h6>Cancellation Policy</h6>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr class="bg-light">
+                                            <th width="80%">Cancellation Time</th>
+                                            <th width="20%">Cancellation Charges</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr  *ngFor="let cancellation of SelectedBus['CancellationPolicies']">
+                                            <td class="">{{ cancellation.PolicyString}}</td>
+                                            <td>
+                                                <div *ngIf="cancellation.CancellationChargeType==2">{{ cancellation.CancellationCharge}}%</div>
+
+                                                <div *ngIf="cancellation.CancellationChargeType!=2">₹ {{cancellation.CancellationCharge}}</div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                   
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            
+                <div class="d-flex align-items-center justify-content-between mt-3">
+                    <h3 class="apt-heading">
+                        <span>Passenger Details</span>
+                    </h3>
+                </div>
+
+                <form [formGroup]="BusForm" (ngSubmit)="SubmitPax()">
+                    <div class="scrollable wrapper-mainclass">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="accordion panel-default" id="adt-pax-accordion">
+                                    <!--Start Pax information -->
+                                    <div class="accordion-item panel-item mb-4" formArrayName="PaxDetails" *ngFor="let pax of fpax?.['controls']; let a=index;">
+                                        <div formGroupName={{a}}>
+                                            <button class="accordion-button panel-heading" type="button" data-bs-toggle="collapse" attr.data-bs-target="#collapse_adt_{{a+1}}" aria-expanded="false" [ngClass]="{'collapsed':a!=0}">
+                                                Traveller {{a+1}} 
+            
+                                                <span> &nbsp; | Seat {{this.SelectedBusSeat['SeatNumber'][a]}}</span>
+
+                                                <span *ngIf="pax.value['FirstName']!=''">&nbsp; : {{ pax.value['Title'] }} {{pax.value['FirstName']}} {{pax.value['LastName']}}</span>
+
+                                            </button>
+                                            <div id="collapse_adt_{{a+1}}" class="accordion-collapse collapse" data-bs-parent="#adt-pax-accordion" [ngClass]="{'show':a==0}">
+                                                <div class="accordion-body panel-body p-0">
+                                                    <div class="paxlist-box">
+                                                        <div class="row">
+                                                            <div class="col-md-2">
+                                                                <div class="form-floating">
+                                                                    <select class="form-select main-select" formControlName="Title">
+                                                                        <option value="" selected>Title</option>
+                                                                        <option value="Mr">Mr</option>
+                                                                        <option value="Mrs">Mrs</option>
+                                                                        <option value="Ms">Ms</option>
+                                                                    </select>
+                                                                    <label for="floatingSelect">Title</label>
+                                                                </div>
+
+                                                                <div *ngIf="submitted && BusForm.get('PaxDetails.'+a+'.Title')?.errors" class="error-msg">
+                                                                    <div *ngIf="BusForm.get('PaxDetails.'+a+'.Title')?.errors?.['required']">Title is required.</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+
+                                                                <div class="form-floating">
+                                                                <input type="text" class="form-control main-select" formControlName="FirstName" placeholder="First Name*" oninput="this.value = this.value.toUpperCase()" id="pax-{{a}}-FirstName" />
+                                                                <label for="pax-{{a}}-FirstName">First Name*</label>
+                                                                 </div>
+
+                                                                <div *ngIf="submitted && BusForm.get('PaxDetails.'+a+'.FirstName')?.errors" class="error-msg">
+                                                                    <div *ngIf="BusForm.get('PaxDetails.'+a+'.FirstName')?.errors?.['required']">First name is required.</div>
+                                                                    <div *ngIf="BusForm.get('PaxDetails.'+a+'.FirstName')?.errors?.['pattern'] || BusForm.get('PaxDetails.'+a+'.FirstName')?.errors?.['minlength']">
+                                                                        Please enter a valid first name.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-floating">
+                                                                <input type="text" class="form-control main-select" formControlName="LastName" placeholder="Last Name*" oninput="this.value = this.value.toUpperCase()" id="pax-{{a}}-LastName"/>
+
+                                                                <label for="pax-{{a}}-LastName">Last Name*</label>
+                                                            </div>
+
+                                                                <div *ngIf="submitted && BusForm.get('PaxDetails.'+a+'.LastName')?.errors" class="error-msg">
+                                                                    <div *ngIf="BusForm.get('PaxDetails.'+a+'.LastName')?.errors?.['required']">Last name is required.</div>
+                                                                    <div *ngIf="BusForm.get('PaxDetails.'+a+'.LastName')?.errors?.['pattern'] || BusForm.get('PaxDetails.'+a+'.LastName')?.errors?.['minlength']">
+                                                                        Please enter a valid last name.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-floating">
+                                                                <input type="text" class="form-control main-select" formControlName="Age" placeholder="Age*" id="pax-{{a}}-age"/>
+
+                                                                <label for="pax-{{a}}-age">Age*</label>
+                                                                </div>
+
+                                                                <div *ngIf="submitted && BusForm.get('PaxDetails.'+a+'.Age')?.errors" class="error-msg">
+                                                                    <div *ngIf="BusForm.get('PaxDetails.'+a+'.Age')?.errors?.['required']">Age is required.</div>
+                                                                    <div *ngIf="BusForm.get('PaxDetails.'+a+'.Age')?.errors?.['pattern'] || BusForm.get('PaxDetails.'+a+'.Age')?.errors?.['minlength']">
+                                                                        Please enter a valid age.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-2">
+                                                                <div class="form-floating">
+                                                                    <select class="form-select main-select" id="pax-{{a}}-idtype" formControlName="IdType">
+                                                                        <option value="">ID Type</option>
+                                                                        <option value="AadhaarCard">Aadhaar Card</option>
+                                                                        <option value="PANCard">PAN Card</option>
+                                                                        <option value="VoterIdCard">Voter Id Card</option>
+                                                                        <option value="DrivingLicence">Driving Licence</option>
+                                                                    </select>
+
+                                                                    <label for="pax-{{a}}-idtype">IdType </label>
+                                                                </div>
+
+                                                                <div *ngIf="submitted && BusForm.get('PaxDetails.'+a+'.IdType')?.errors" class="error-msg">
+                                                                    <div *ngIf="BusForm.get('PaxDetails.'+a+'.IdType')?.errors?.['required']">IdType is required.</div>
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div class="col-md-2">
+                                                                <div class="form-floating">
+                                                                    <input type="text" class="form-control main-select" formControlName="IdNumber" placeholder="ID Number" oninput="this.value = this.value.toUpperCase()" id="pax-{{a}}-IdNumber"/>
+
+                                                                    <label for="pax-{{a}}-IdNumber">ID Number</label>
+                                                                 </div>
+
+                                                                <div *ngIf="submitted && BusForm.get('PaxDetails.'+a+'.IdNumber')?.errors" class="error-msg">
+                                                                    <div *ngIf="BusForm.get('PaxDetails.'+a+'.IdNumber')?.errors?.['required']">IdNumber is required.</div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                   </div>
+                                    <!--End Pax information -->
+
+                                </div>
+
+                                <div class="panel-item border">
+                                    <button class="accordion-button collapsed panel-heading" type="button">
+                                        Contact Details
+                                    </button>
+                                    <div id="collapseFour" class="accordion-collapse collapse show" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body p-0">
+                                            <div class="paxlist-box">
+                                                <div class="row g-3 needs-validation">
+                                                    <div class="col-md-3">
+                                                        <div class="form-floating">
+                                                            <select class="form-select main-select" id="floating-countrycode" formControlName="ISDCode">
+                                                                <option value="{{mcode['phonecode']}}" *ngFor="let mcode of Dialcode;">{{mcode['name']}} (+{{mcode['phonecode']}})</option>
+
+                                                            </select>
+                                                            <label for="floating-countrycode">Country Code</label>
+
+                                                            <div *ngIf="submitted && BusForm.get('ISDCode')?.errors" class="error-msg">
+                                                                <div *ngIf="BusForm.get('ISDCode')?.errors?.['required']">Country code is required.</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-floating">
+                                                            <input type="phone" class="form-control main-select" id="floating-mobile" placeholder="Mobile Number *" formControlName="MobileNumber" />
+                                                            <label for="floating-mobile">Moblie Number *</label>
+
+                                                            <div *ngIf="submitted && BusForm.get('MobileNumber')?.errors" class="error-msg">
+                                                                <div *ngIf="BusForm.get('MobileNumber')?.errors?.['required']">Mobile number is required.</div>
+
+                                                                <div
+                                                                    *ngIf="BusForm.get('MobileNumber')?.errors?.['pattern'] || BusForm.get('MobileNumber')?.errors?.['minlength'] || BusForm.get('MobileNumber')?.errors?.['maxlength']"
+                                                                >
+                                                                    Please enter a valid mobile number.
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-floating">
+                                                            <input type="email" class="form-control main-select" id="floating-email" placeholder="Email ID *" formControlName="EmailId" />
+                                                            <label for="floating-email">Email ID *</label>
+
+                                                            <div *ngIf="submitted && BusForm.get('EmailId')?.errors" class="error-msg">
+                                                                <div *ngIf="BusForm.get('EmailId')?.errors?.['required']">Email address is required.</div>
+                                                                <div *ngIf="BusForm.get('EmailId')?.errors?.['email']">Please enter a valid email.</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion panel-item mt-3 border">
+                                    <button class="accordion-button panel-heading" type="button" data-bs-toggle="collapse" data-bs-target="#gst-detail">
+                                        GST Number for Business Travel ({{GSTTxt}})
+                                    </button>
+                                    <div id="gst-detail" class="accordion-collapse collapse show">
+                                        <div class="accordion-body p-0">
+                                            <!--<div class="historybox__wrapper">
+                                            <div class="row">
+                                                 <div class="col-md-3">
+                                                   <div class="historybox">
+                                                    <label class="historybox__label"></label>
+                                                    <div role="combobox" class="react-autosuggest__container">
+                                                        <input type="text" class="react-autosuggest__input" placeholder="Select from History" (keyup)="GSTAutocomplete($event)"  [matAutocomplete]="auto"  #gsteInput/>
+                                                    </div>
+
+                                                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedgst($event)">
+                                                        <mat-option *ngFor="let list of gstlist" [value]="list['company_name']"> {{list['company_name']}}</mat-option>
+                                                    </mat-autocomplete>
+
+                                                     </div>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <span class="gst-clear" (click)="cleargst()">Clear</span>
+                                                </div>
+                                            </div>
+
+                                            </div>-->
+                                            <form [formGroup]="GSTForm">
+                                            <div class="paxlist-box">
+                                                <p class="mb-0">To claim credit of GST charged by airlines, Please enter your company's GST number</p>
+                                               
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <div class="form-floating mb-3">
+                                                                <input type="text" class="form-control main-select" id="floatingInput" placeholder="Registration Number" formControlName="GSTNumber" />
+                                                                <label for="floatingInput">Registration Number</label>
+
+                                                                <div *ngIf="Gstsubmitted && f['GSTNumber'].errors" class="error-msg">
+                                                                    <div *ngIf="f['GSTNumber'].errors['required']">Registration number is required.</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-floating mb-3">
+                                                                <input type="text" class="form-control main-select" id="floatingInput" placeholder="Registered Company Name" formControlName="CompanyName" />
+                                                                <label for="floatingInput">Registered Company Name</label>
+
+                                                                <div *ngIf="Gstsubmitted && f['CompanyName'].errors" class="error-msg">
+                                                                    <div *ngIf="f['CompanyName'].errors['required']">Company name is required.</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-floating mb-3">
+                                                                <input type="email" class="form-control main-select" id="floatingInput" placeholder="Registered Email" formControlName="Email" />
+                                                                <label for="floatingInput">Registered Email</label>
+                                                                <div *ngIf="Gstsubmitted && f['Email'].errors" class="error-msg">
+                                                                    <div *ngIf="f['Email'].errors['required']">Email is required.</div>
+                                                                    <div *ngIf="f['Email'].errors['email']">Please enter a valid email</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-floating mb-3">
+                                                                <input type="phone" class="form-control main-select" id="floatingInput" placeholder="Registered Phone" formControlName="PhoneNumber" />
+                                                                <label for="floatingInput">Registered Phone</label>
+
+                                                                <div *ngIf="Gstsubmitted && f['PhoneNumber'].errors" class="error-msg">
+                                                                    <div *ngIf="f['PhoneNumber'].errors['required']">Phone number is required.</div>
+                                                                    <div *ngIf="f['PhoneNumber'].errors['pattern'] || f['PhoneNumber'].errors['minlength'] ||  f['PhoneNumber'].errors['maxlength']">Please enter a valid mobile number</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-floating mb-3">
+                                                                <input type="address" class="form-control main-select" id="floatingInput" placeholder="Registered Address" formControlName="Address" />
+                                                                <label for="floatingInput">Registered Address</label>
+                                                                <div *ngIf="Gstsubmitted && f['Address'].errors" class="error-msg">
+                                                                    <div *ngIf="f['Address'].errors['required']">Address is required.</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                
+                                            </div>
+                                            <!--<div class="saveDetails_wrapper labelDetails">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="save-gst-detail" formControlName="SaveGST" />
+                                                    <label class="form-check-label" for="save-gst-detail">
+                                                        Save GST Details
+                                                    </label>
+                                                </div>
+                                            </div>-->
+                                          </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pt-20 desktop-bookback">
+                            <div class="col-sm-6 col-4">
+                                <button type="button" id="flightdetails" class="btn asr-book" (click)="goBack()"><i class="fa fa-angle-double-left me-1"></i> <span>Back</span></button>
+                            </div>
+                            <div class="col-md-6 col-sm-8 col-xs-9 col-8 text-end confirming--button-price">
+                                <button type="submit" id="review" class="btn asr-book" [disabled]="loadingreview"> <span *ngIf="loadingreview" class="spinner-border spinner-border-sm mr-1"></span> <span>Proceed To Review</span> &nbsp; <i class="fa fa-angle-double-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="booking-rightside">
+                <span class="graycolor"><span>FARE SUMMARY</span></span>
+                <div>
+                    <div class="btm-border bold-font-bf"><span>Base fare</span> <span class="float-end">₹{{CurrentFare['BasePrice'] | number:'1.0-2'}}</span></div>
+                    <div class="btm-border bold-font">
+                        <span data-bs-toggle="collapse" href="#tax-fare" aria-expanded="false"> Taxes and fees <i class="fa fa-angle-down mrg-left"></i></span>
+                        <span class="float-end">₹{{CurrentFare['Tax'] +CurrentFare['OtherCharges']+CurrentFare['ServiceCharges']+CurrentFare['AgentMarkup'] | number:'1.0-2'}}</span>
+                        <div class="tax-dropdown airline-gst-print collapse" id="tax-fare">
+                            <div *ngIf="CurrentFare['AgentMarkup']!=0"><span>Markup</span><span class="float-end">₹{{CurrentFare['AgentMarkup'] | number:'1.0-2'}}</span></div>
+
+                            <div *ngIf="CurrentFare['OtherCharges']!=0"><span>Other Charges</span><span class="float-end">₹{{CurrentFare['OtherCharges'] | number:'1.0-2'}}</span></div>
+
+                            <div *ngIf="CurrentFare['ServiceCharges']!=0"><span>Service Charges</span><span class="float-end">₹{{CurrentFare['OtherCharges'] | number:'1.0-2'}}</span></div>
+
+                        </div>
+
+                        
+                    </div>
+
+                    <div class="bold-font btm-border">
+                        <span data-bs-toggle="collapse" href="#net-fare" aria-expanded="false">Amount to Pay</span>
+                        <span class="float-end">₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup'] | number:'1.0-2'}}</span>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<app-count-down display="on" redirecturl="/bus"></app-count-down>

@@ -1,0 +1,21 @@
+
+
+.seat {
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin: 0px 5px;
+    position: relative;
+}
+.seat-footer-baar{
+  text-align: center;
+  border-top: 1px solid #ccc;
+  padding: 10px;
+}
+.div-scroll{
+    overflow-x: auto;
+    height: 400px;
+}
+.min-h400{
+    min-height: 400px;
+}
