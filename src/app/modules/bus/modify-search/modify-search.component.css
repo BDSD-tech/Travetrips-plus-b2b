@@ -1,0 +1,138 @@
+.p-8{
+    padding: 8px;
+}
+.exchange-main {
+    position: relative;
+    width: 20px;
+    display: inline-block;
+    height: 2px;
+    background: #999;
+}
+.exchange-main::after {
+    position: absolute;
+    content: '';
+    height: 10px;
+    width: 2px;
+    background: #999;
+    right: 2px; 
+    transform: rotate(130deg);
+    top: -7px;
+}
+.exchange-maintwo {
+    position: relative;
+    width: 20px;
+    display: grid;
+    height: 2px;
+    background: #999;
+    margin-top: -2px;
+}
+.exchange-maintwo::before {
+    position: absolute;
+    content: '';
+    height: 10px;
+    width: 2px;
+    background: #999;
+    left: 2px;
+    transform: rotate(130deg);
+    top: -1px;
+}
+
+.tts-plane-icon {
+    font-size: 20px;
+    color: #999;
+}
+
+.modify-cross{
+    font-size: 24px;
+    color: white;
+    float: right;
+    cursor: pointer;
+}
+
+
+
+
+.at-exchange{
+    cursor: pointer;
+}
+
+.paxcount_message {
+    color:#dc3545;
+    font-size: 12px;
+    position: unset !important;
+}
+
+.at-disable {
+    background: #f6eeee !important;
+    border-radius: 0 !important;
+}
+
+.search-form-inp-close{
+    font-size: 20px;
+    position: absolute;
+    right: 18px;
+    top: 20px;
+    cursor: pointer;
+    z-index: 1;
+}
+.search-form-inp-down{
+    font-size: 20px;
+    position: absolute;
+    right: 30px;
+    top: 20px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.tts-multyclose {
+    font-size: 25px;
+    font-weight: normal;
+    margin-left: 30px;
+    color: #fff;
+}
+
+.tts-addmulti-btn{
+    background: transparent;
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 0%;
+    position: relative;
+    top: 0px;
+    padding: 20px;
+    height: 60px;
+    border-radius: 3px;
+    border: 1px solid var(--white);
+    margin-left: 15px;
+}
+
+.flight-list-section .modify_list li{
+    margin-right: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+    
+    
+}
+.tts-hdcontent{
+    max-width: 97%;
+    font-weight: normal;
+    float: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.witdh-39{
+    width: 39% !important;
+}
+.witdh-29{
+    width: 20% !important;
+}
+
+.flight_section .flight_box .tab-content .persent-one .at-exchange::after {
+    left: 453px!important;
+}
+.ps-18{
+    padding-left: 18px !important;
+}

@@ -1,0 +1,173 @@
+<div class="title">
+  {{GetSearchData['Origin']}} to {{GetSearchData['Destination']}}  , {{GetSearchData['DepartDate']}}  | {{SelectedBusData['BusType']}} | {{SelectedBusData['DepartureTime']}}  - {{SelectedBusData['ArrivalTime']}} 
+</div>
+<div class="container" *ngIf="ErrorCode==0 && seatloading==false">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="seat-tab" data-bs-toggle="tab" data-bs-target="#seat" type="button" role="tab" aria-controls="seat" aria-selected="true">Select Seat</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="policy-tab" data-bs-toggle="tab" data-bs-target="#policy" type="button" role="tab" aria-controls="policy" aria-selected="false">Canc. Policy</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="bdpoint-tab" data-bs-toggle="tab" data-bs-target="#bdpoint" type="button" role="tab" aria-controls="bdpoint" aria-selected="false">Boarding Point</button>
+      </li>
+    </ul>
+    <div class="tab-content p-3 div-scroll" id="myTabContent">
+      <div class="tab-pane fade show active" id="seat" role="tabpanel" aria-labelledby="seat-tab">
+        <div class="row">
+          <div class="col-8">
+              <div [innerHTML]="Response['HTMLLayout'] | safeHtml"></div>  
+          </div>
+          <div class="col-4">
+              <div class="show-seat">
+                <samp class="seat seat-available"></samp>
+                <span>Available</span>
+              </div>
+              <div class="show-seat">
+                <samp class="seat seat-ladies"></samp>
+                <span>Reserved for ladies</span>
+              </div>
+              <div class="show-seat">
+                <samp class="seat seat-selected"></samp>
+                <span>Selected</span>
+              </div>
+              <div class="show-seat">
+                <samp class="seat seat-booked"></samp>
+                <span>Booked</span>
+              </div>
+          </div>
+        </div>
+
+        <div class="row pt-3">
+          <div class="col-md-5">
+            <p>Seat(s) : {{showseatlabel}}
+              <span *ngIf="SeatErrorMSG" class="text-danger d-block">{{SeatErrorMSG}}</span>
+            </p>   
+            <p>Amount  : {{totalprice}}</p>   
+          </div>
+            <div class="col-md-7">
+
+              <div class="row g-3 mb-2 align-items-center">
+                <div class="col-5">
+                  <label for="Pickup" class="col-form-label">Select Pickup Point</label>
+                </div>
+                <div class="col-7">
+                  <select class="form-control fs-12" (change)="SelectPickDropPoint('Pickup',$event)" id="Pickup">
+                    <option value="">Select</option>
+                    <option *ngFor="let item of Response['BoardingPointsDetails']" value="{{item['CityPointIndex']}}">{{item['CityPointLocation']}} - {{getTime(item['CityPointTime'])}}</option>
+                  </select>
+                  <span *ngIf="PickupPointErrorMSG" class="text-danger">{{PickupPointErrorMSG}}</span>
+                </div>
+              </div>
+              <div class="row g-3 align-items-center">
+                <div class="col-5">
+                  <label for="Drop" class="col-form-label">Select Dropping Point</label>
+                </div>
+                <div class="col-7">
+                  <select class="form-control fs-12" (change)="SelectPickDropPoint('Drop',$event)" id="Drop">
+                    <option value="">Select</option>
+                    <option *ngFor="let item of Response['DroppingPointsDetails']" value="{{item['CityPointIndex']}}">{{item['CityPointLocation']}} - {{getTime(item['CityPointTime'])}}</option>
+                  </select>
+                  <span *ngIf="DropPointErrorMSG" class="text-danger">{{DropPointErrorMSG}}</span>
+                </div>
+              </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="policy" role="tabpanel" aria-labelledby="policy-tab">
+
+        <table class="table table-bordered">
+          <thead>
+              <tr class="bg-light">
+                  <th width="70%">Cancellation Time</th>
+                  <th width="30%">Cancellation Charges</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr  *ngFor="let cancellation of SelectedBusData['CancellationPolicies']">
+                  <td class="">{{ cancellation.PolicyString}}</td>
+                  <td>
+                      <div *ngIf="cancellation.CancellationChargeType==2">{{ cancellation.CancellationCharge}}%</div>
+
+                      <div *ngIf="cancellation.CancellationChargeType!=2">₹ {{cancellation.CancellationCharge}}</div>
+                  </td>
+              </tr>
+          </tbody>
+         
+      </table>
+
+      </div>
+      <div class="tab-pane fade" id="bdpoint" role="tabpanel" aria-labelledby="bdpoint-tab">
+
+        <table  class="table table-bordered">
+          <tbody>
+              <tr class="bg-light">
+                  <th>Boarding Point</th>
+                  <th>LandMark</th>
+                  <th>Address</th>
+                  <th>Time</th>
+              </tr>
+              <tr *ngFor="let item of Response['BoardingPointsDetails']">
+                  <td>{{item['CityPointName']}}</td>
+                  <td>{{item['CityPointLandmark']}}</td>
+                  <td>{{item['CityPointAddress']}}</td>
+                  <td>{{getTime(item['CityPointTime'])}}</td>
+              </tr>
+          </tbody>
+        </table>
+
+        <table  class="table table-bordered">
+          <tbody>
+              <tr class="bg-light">
+                  <th>Dropping Point</th>
+                  <th>LandMark</th>
+                  <th>Address</th>
+                  <th>Time</th>
+              </tr>
+              <tr *ngFor="let item of Response['DroppingPointsDetails']">
+                  <td>{{item['CityPointName']}}</td>
+                  <td>{{item['CityPointLandmark']}}</td>
+                  <td>{{item['CityPointAddress']}}</td>
+                  <td>{{getTime(item['CityPointTime'])}}</td>
+              </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+    </div>
+
+    <div class="row seat-footer-baar">
+      <div class="col-12">
+        <button type="button" class="btn btn-outline-secondary btn-sm me-3" (click)="CloseButton()">Close</button>
+        <button type="button" class="btn btn-outline-success btn-sm" (click)="Continue()">Continue</button>
+      </div>
+    </div>
+</div>
+
+<div class="container" *ngIf="ErrorCode!=0 && seatloading==false">
+  <div class="row">
+    <div class="col-12">
+      <div class="text-center">
+        <h5>{{ErrorMessage}}</h5>
+        <p class="fs-14">Sorry, There were no seat found for this date combination. We suggest you modify your search and try again.</p>
+        <a (click)="CloseButton()">Go Back</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="seatloading==true">
+  <div class="row min-h400">
+    <div class="col-12">
+      <div class="text-center">
+        <div class="lds-ellipsis">
+          <div></div><div></div><div></div><div></div>
+       </div>
+      </div>
+    </div>
+  </div>
+</div>
+

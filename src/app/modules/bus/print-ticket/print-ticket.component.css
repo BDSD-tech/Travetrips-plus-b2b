@@ -1,0 +1,25 @@
+.print_back {
+    border: 1px solid #ff7b39;
+    color: #ff7b39;
+    background: #fff;
+    text-shadow: none;
+    padding: 5px 2px;
+    border-radius: 3px;
+    display: block;
+    width: 101px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    transition: all 0.4s;
+    margin: 10px 0;
+}
+.back-topbar{
+    background: #bbbdc0;
+    padding: 5px;
+    width: 100%;
+    margin: auto;
+}
+.back-topbar div {
+    width: 850px;
+    margin: auto;
+    display: flex;
+}

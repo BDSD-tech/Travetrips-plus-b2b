@@ -1,0 +1,26 @@
+.apt-active::before {
+    color: #fff !important;
+    background: #4aa301 !important;
+    content: "\F00C" !important;
+}
+.apt-active .apt-flightiti {
+    color: #4aa301;
+}
+.apt-active::after {
+    background: #4aa301 !important;
+}
+
+.apt-black::before {
+    background-color: #333 !important;
+    color: #fff !important;
+}
+
+.gst-clear{
+    font-size: 14px;
+    border: 2px solid #eee;
+    cursor: pointer;
+    color: var(--second-color);
+    float: right;
+    padding: 10px;
+    margin-top: 10px;
+}
