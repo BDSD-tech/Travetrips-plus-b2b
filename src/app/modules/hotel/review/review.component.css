@@ -94,6 +94,7 @@ BOOKING STEPPER
 /* Header */
 .hotel-page .header-bar {
     padding: 18px 20px;
+    background: var(--second-bg-color);
     border-bottom: 1px solid var(--border-color);
     display: flex;
     justify-content: space-between;
@@ -279,4 +280,102 @@ BOOKING STEPPER
     margin-right: 8px;
     position: absolute;
     left: 0;
+}
+
+
+.asr-book {
+    position: sticky;
+    top: 100px;
+    width: 100%;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: 1px solid var(--primary-color);
+}
+
+
+/* Fare Rows */
+.fare-summary-card__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f1f1;
+    font-size: 13px;
+    color: #555;
+}
+
+.fare-summary-card__row strong {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111;
+}
+
+.fare-summary-card__row--expandable span:first-child {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.fare-summary-card__row--expandable span:first-child:hover {
+    color: var(--primary-color);
+}
+
+.fare-summary-card__edit {
+    margin-left: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    color: #6c757d;
+}
+
+.fare-summary-card__edit:hover {
+    color: var(--primary-color);
+}
+
+.fare-summary-card__breakdown {
+    background: #fafafa;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    padding: 10px 14px;
+}
+
+.fare-summary-card__breakdown-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 0;
+    font-size: 13px;
+    color: #666;
+}
+
+.fare-summary-card__breakdown-row:not(:last-child) {
+    border-bottom: 1px dashed #e5e5e5;
+}
+
+.fare-summary-card__markup {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px 0;
+}
+
+.fare-summary-card__markup .btn {
+    margin-right: 8px;
+}
+
+.fare-summary-card__row--total {
+    border-bottom: 0;
+    padding-bottom: 0;
+
+}
+
+.fare-summary-card__row--total span {
+    font-size: 16px;
+    font-weight: 700;
+    color: #222;
+}
+
+.fare-summary-card__row--total strong {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--primary-color);
 }

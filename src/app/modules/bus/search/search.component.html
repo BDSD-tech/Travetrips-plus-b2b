@@ -1,156 +1,241 @@
 <main class="inner-main-section" role="main">
     <app-modify-search></app-modify-search>
     <!---------------bus--list--------------->
-    <section class="flight-list">
+    <section class="Bus-list-wrapper">
         <div class="container">
             <div class="row" *ngIf="ErrorCode==0">
-                <div class="col-md-2 flight-leftbgcolor tts-flight-left">
-                    <app-loading-filter *ngIf="resultloading"></app-loading-filter> 
-                    
-                    <app-filter *ngIf="resultloading==false" [result]="Response" [filter]="FilterResponse"  (messageEvent)="receiveMessage($event)" (fareEvent)="receiveFare($event)" [clearfilter]="clearfilter"></app-filter>
-                    
+                <div class="col-md-3 flight-leftbgcolor tts-flight-left">
+                    <app-loading-filter *ngIf="resultloading"></app-loading-filter>
+                    <app-filter *ngIf="resultloading==false" [result]="Response" [filter]="FilterResponse"
+                        (messageEvent)="receiveMessage($event)" (fareEvent)="receiveFare($event)"
+                        [clearfilter]="clearfilter"></app-filter>
                 </div>
-                <div class="col-md-10 mt-2 tts-flight-right" matSort (matSortChange)="sortData($event)">
+                <div class="col-md-9" matSort (matSortChange)="sortData($event)">
                     <app-loading *ngIf="resultloading"></app-loading>
 
-                    <div class="pt-2" *ngIf="resultloading==false">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="flight-segmentcolor mb-0">
-                                    Found <span><b>{{resultcount}} Buses</b></span> from {{GetSearchData['Origin']}} to {{GetSearchData['Destination']}}
-                               </div>
-                                
-                            </div>
-                            <div class="col-sm-6 text-end">
-                                <!--<i class="fa fa-share-alt"> </i> &nbsp;Share By : &nbsp;
-                                <button class="sendetails-button-green" *ngIf="sharebuttontext==''" (click)="Shareby('Whatsapp')"><i class="fab fa-whatsapp"></i> Whatsapp</button>
-                                <button class="sendetails-button-ornage" *ngIf="sharebuttontext==''" (click)="Shareby('Email')"><i class="fa fa-envelope"></i> Email</button>
-                                <button class="sendetails-button-brown" *ngIf="sharebuttontext==''" (click)="Shareby('View')"><i class="fa fa-eye"></i> View</button>
-                                <button class="sendetails-button-brown" *ngIf="sharebuttontext!=''" (click)="SendData()">{{sharebuttontext}}</button>
-                                <button class="sendetails-button-brown text-dark" (click)="Shareby('Close')" *ngIf="sharebuttontext!=''">
-                                        <i class="fa fa-close"></i>
-                                </button>-->
+                    <div class="row align-items-center bus-result-header" *ngIf="!resultloading">
+                        <!-- Result Count -->
+                        <div class="col-lg-6 col-md-7 col-sm-12 mb-2 mb-md-0">
+                            <div class="bus-result-info">
+                                <span class="bus-result-label">Found</span>
+                                <span class="bus-result-count">{{ resultcount }}</span>
+                                <span class="bus-result-label">
+                                    Buses from
+                                    <strong>{{ GetSearchData['Origin'] }}</strong>
+                                    to
+                                    <strong>{{ GetSearchData['Destination'] }}</strong>
+                                </span>
                             </div>
                         </div>
+
+                        <!-- Actions -->
+                        <!-- <div class="col-lg-6 col-md-5 col-sm-12 text-md-end">
+                            <div class="bus-result-actions">
+
+                                <button class="btn btn-success btn-sm me-2" *ngIf="sharebuttontext==''"
+                                    (click)="Shareby('Whatsapp')">
+                                    <i class="fab fa-whatsapp me-1"></i>
+                                    WhatsApp
+                                </button>
+
+                                <button class="btn btn-warning btn-sm me-2" *ngIf="sharebuttontext==''"
+                                    (click)="Shareby('Email')">
+                                    <i class="fa fa-envelope me-1"></i>
+                                    Email
+                                </button>
+
+                                <button class="btn btn-primary btn-sm" *ngIf="sharebuttontext==''"
+                                    (click)="Shareby('View')">
+                                    <i class="fa fa-eye me-1"></i>
+                                    View
+                                </button>
+
+                                <button class="btn btn-primary btn-sm" *ngIf="sharebuttontext!=''" (click)="SendData()">
+                                    {{ sharebuttontext }}
+                                </button>
+
+                                <button class="btn btn-light btn-sm ms-2" *ngIf="sharebuttontext!=''"
+                                    (click)="Shareby('Close')">
+                                    <i class="fa fa-times"></i>
+                                </button>
+
+                            </div>
+                        </div> -->
                     </div>
 
-                    <div class="tts-main-right" *ngIf="resultloading==false">
-                        <div class="flight-listbtrow">
-                            <div class="flight-listbt">
-                                <div class="row m-0">
-                                    <div class="col-sm-4 sort__duration"><button class="flight-btnforfilter" [ngClass]="{'flight-activefilter':obfield=='duration'}"  mat-sort-header="duration"><span class="d-md-block d-none">Sort By : </span>Duration</button></div>
-                                    <div class="col-sm-2 sort__departure no-padding"><button class="flight-btnforfilter" [ngClass]="{'flight-activefilter':obfield=='departtime'}" mat-sort-header="departtime">Departure</button></div>
-                                    <div class="col-sm-2 sort__arrival no-padding ps-5 ms-4"><button class="flight-btnforfilter" [ngClass]="{'flight-activefilter':obfield=='arrivaltime'}" mat-sort-header="arrivaltime">Arrival</button></div>
-                                    <div class="col-sm-3 sort__price ps-3 ms-4"><button class="flight-btnforfilter" [ngClass]="{'flight-activefilter':obfield=='totalfare'}" mat-sort-header="totalfare">Price</button></div>
-                                    
+                    <div class="bus-search-results" *ngIf="resultloading==false">
+                        <!-- Sort Header -->
+                        <div class="bus-sort-header">
+                            <div class="row align-items-center">
+                                <div class="col-md-3">Sort BY</div>
+                                <div class="col-md-2">
+                                    <button class="sort-btn" [ngClass]="{'flight-activefilter':obfield=='duration'}"
+                                        mat-sort-header="duration">
+                                        Duration
+                                    </button>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <button class="sort-btn" [ngClass]="{'flight-activefilter':obfield=='departtime'}"
+                                        mat-sort-header="departtime">
+                                        Departure
+                                    </button>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <button class="sort-btn" [ngClass]="{'flight-activefilter':obfield=='arrivaltime'}"
+                                        mat-sort-header="arrivaltime">
+                                        Arrival
+                                    </button>
+                                </div>
+
+                                <div class="col-md-3 text-end">
+                                    <button class="sort-btn" [ngClass]="{'flight-activefilter':obfield=='totalfare'}"
+                                        mat-sort-header="totalfare">
+                                        Price
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                    <div class="flight-rowmain" *ngFor="let item of sortedData.slice(0, resultlimit)">
-                        <div class="row">
 
-                            <div class="tts__flight__details__box">
-                                <div class="row align-items-center">
-                                    <div class="col-12 col-md-8 pr-0">
-                                        <div class="row align-items-center pt-1 pb-2">
-                                            <div class="col-12 col-md-5 text-left">
-                                                <div class="">
-                                                    <span class="d-block">{{item['TravelName']}}</span>
-                                                    <span class="d-block tts-text-ellpsis" title="{{item['BusType']}}">{{item['BusType']}}</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-2 text-end">
-                                                <span class="d-block">{{item['DepartureTime']}}</span>
-                                            </div>
-                                            <div class="col-12 col-md-3">
-                                                <div class="position-relative text-center">
-                                                    <span>{{item['Duration']}}</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-2 text-left">
-                                                <div class="position-relative d-block">
-                                                    <span class="d-block">{{item['ArrivalTime']}}</span>
-                                                    <span class="arrival_date text-danger" *ngIf="item['ArrivalDate']">{{item['ArrivalDate']}}</span>
-                                                </div>
-                                            </div>
+
+                        <div class="bus-card" *ngFor="let item of sortedData.slice(0, resultlimit)">
+                            <div class="row align-items-center">
+                                <!-- Operator -->
+                                <div class="col-lg-3 col-md-4">
+                                    <h6 class="bus-name mb-1">{{item['TravelName']}}</h6>
+                                    <div class="bus-type" title="{{item['BusType']}}">{{item['BusType']}}</div>
+                                </div>
+
+                                <!-- Departure -->
+                                <div class="col-lg-2 col-md-2 col-4 text-center">
+                                    <div class="time">
+                                        {{item['DepartureTime']}}
+                                    </div>
+                                    <small>Departure</small>
+                                </div>
+
+                                <!-- Duration -->
+                                <div class="col-lg-2 col-md-2 col-4 text-center">
+                                    <div class="duration">
+                                        {{item['Duration']}}
+                                    </div>
+                                </div>
+
+                                <!-- Arrival -->
+                                <div class="col-lg-2 col-md-2 col-4 text-center">
+                                    <div class="time">
+                                        {{item['ArrivalTime']}}
+                                    </div>
+
+                                    <small class="text-danger" *ngIf="item['ArrivalDate']">
+                                        {{item['ArrivalDate']}}
+                                    </small>
+                                </div>
+
+                                <!-- Fare -->
+
+                                <!-- Button -->
+                                <div class="col-lg-3 col-md-1 text-end">
+                                    <div class="mb-2">
+                                        <div class="price">
+                                            ₹ {{item['BusPrice']['PublishedPrice'] | number:'1.0-2'}}
                                         </div>
+
+                                        <small *ngIf="showincentivefare">
+                                            INC ₹{{item['BusPrice']['PublishedPrice']-item['BusPrice']['OfferedPrice'] |
+                                            number:'1.0-2'}}
+                                        </small>
+
+                                        <small *ngIf="shownetfare">
+                                            NET ₹{{item['BusPrice']['OfferedPrice'] | number:'1.0-2'}}
+                                        </small>
                                     </div>
-                                    <div class="col-12 col-md-2 text-center">
-                                        <span class="tts__flight__price">₹ {{item['BusPrice']['PublishedPrice'] | number:'1.0-2'}}</span>
-                                        <span class="graycolor fs-10" *ngIf="showincentivefare"> | INC ₹{{item['BusPrice']['PublishedPrice']-item['BusPrice']['OfferedPrice'] | number:'1.0-2'}} </span>
-                                        <span class="graycolor fs-10" *ngIf="shownetfare"> | NET ₹{{item['BusPrice']['OfferedPrice'] | number:'1.0-2'}} </span>
-                                    </div>
-                                    <div class="col-12 col-md-2">
-                                        <div class="tts__book__btn d-flex">
-                                            <div class="form-check share_chekbox me-2" *ngIf="sharebuttontext!=''">
-                                                <input class="form-check-input tts-cursor-pointer" name="shareinput[]"  type="checkbox" value="{{item['ResultIndex']}}_{{SearchTokenId}}_{{item['BusPrice']['PublishedPrice']}}">
-                                            </div>
-                                            <button type="button" class="btn flight-book"  (click)="SelectSeats(item)">Select Seats</button>
-                                            
+
+                                    <div class="d-flex justify-content-end align-items-center">
+                                        <div class="form-check me-2" *ngIf="sharebuttontext!=''">
+                                            <input class="form-check-input" type="checkbox" name="shareinput[]"
+                                                value="{{item['ResultIndex']}}_{{SearchTokenId}}_{{item['BusPrice']['PublishedPrice']}}">
                                         </div>
+
+                                        <button class="btn btn-danger" (click)="SelectSeats(item)">
+                                            Select Seats
+                                        </button>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="pt-2 px-2 border-top">
-                                            <div class="row d-flex align-items-center justify-content-between">
-                                                <div class="col-lg-6 col-12">
-                                                    <div class="d-block">
-                                                        
-                                                        <span *ngIf="item['AvailableSeats']"><i class="tts-icon seat-icon"></i>{{item['AvailableSeats']}} Seat Left </span>
+                                </div>
 
-                                                        <span  *ngIf="item['LiveTrackingAvailable']"> <img src="data:image/webp;base64,UklGRuoBAABXRUJQVlA4WAoAAAAQAAAAKwAAKwAAQUxQSMcAAAABv8GwbSTFwUvm4Jk/IqJIBTUjAeIkjZn0XNU1G/3vjb9lmnNUNY4A17ZtK8kW7MQWu7tr//+v0WzzMaL/aty2jcwpvaakj8APZkDH2B0LkKmRA8jUySFUvkLM1oxc2RkIpCc3ejzmecRlHRjg0kE8lTMDPWzEYe4Z4lpEDGOGWiK6xCk8zxIisxjBCBEk7a5jygg2XUc1JFvG1H5dpIWP6IiP9iFtD4h7S9uz0M4CtDPmSPUW5Lqfg4j0//gSyd7ZhE65gf8GAFZQOCD8AAAAsAYAnQEqLAAsAD6RQJpJpaOiISOM+LASCWkADOBHgC1e/txnzLa/iv5TBf12VvLqanLPvuN+os9DyZ+mHeAA/vv0/5zRN9lC5/840vSh3scD+O82U7636tMo75MncGRoIe3ueJ9aDjRR9yopWJEI09dW8lYP7oQf8lB63wzU/pN89606ENj1K/KF5SR99m1zO/KWKRNMWjdOi6U2H+QcmOxR0UPksxzABEOa5LfFn2XPfoHTQE0rTKCPcFoEwH6YtcImu4eOXGUfNU9ECkU1GuAiI1WbElsEZYqnTsx+yM8C9UETPemunlPQbtdoPY6JXNpP4r51okyBwAAA" width="18px" height="18px"> Live Tracking</span>
-                                                    
-                                                    </div>
+                                <!-- Footer -->
+                                <div class="bus-card-footer">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-6 col-6">
+                                            <span *ngIf="item['AvailableSeats']" class="seat-left">
+                                                {{item['AvailableSeats']}} Seats Left
+                                            </span>
 
-                                                   
-                                                </div>
-                                                <div class="col-lg-6 col-12 text-end">
-                                                    <a href="javascript:void(0);" (click)="busdetail($event,item)" [ngClass]="{'tts-plus':showBusTab!=item['ResultIndex'],'tts-minus':showBusTab==item['ResultIndex']}"><i class="fa" [ngClass]="{'fa-plus tts-plus':showBusTab!=item['ResultIndex'],'fa-minus tts-minus':showBusTab==item['ResultIndex']}"></i> Cancellation Policy</a>
-                                                </div>
-                                            </div>
+                                            <span *ngIf="item['LiveTrackingAvailable']">
+                                                <img src="data:image/webp;base64,UklGRuoBAABXRUJQVlA4WAoAAAAQAAAAKwAAKwAAQUxQSMcAAAABv8GwbSTFwUvm4Jk/IqJIBTUjAeIkjZn0XNU1G/3vjb9lmnNUNY4A17ZtK8kW7MQWu7tr//+v0WzzMaL/aty2jcwpvaakj8APZkDH2B0LkKmRA8jUySFUvkLM1oxc2RkIpCc3ejzmecRlHRjg0kE8lTMDPWzEYe4Z4lpEDGOGWiK6xCk8zxIisxjBCBEk7a5jygg2XUc1JFvG1H5dpIWP6IiP9iFtD4h7S9uz0M4CtDPmSPUW5Lqfg4j0//gSyd7ZhE65gf8GAFZQOCD8AAAAsAYAnQEqLAAsAD6RQJpJpaOiISOM+LASCWkADOBHgC1e/txnzLa/iv5TBf12VvLqanLPvuN+os9DyZ+mHeAA/vv0/5zRN9lC5/840vSh3scD+O82U7636tMo75MncGRoIe3ueJ9aDjRR9yopWJEI09dW8lYP7oQf8lB63wzU/pN89606ENj1K/KF5SR99m1zO/KWKRNMWjdOi6U2H+QcmOxR0UPksxzABEOa5LfFn2XPfoHTQE0rTKCPcFoEwH6YtcImu4eOXGUfNU9ECkU1GuAiI1WbElsEZYqnTsx+yM8C9UETPemunlPQbtdoPY6JXNpP4r51okyBwAAA"
+                                                    class="live-track ms-3"> Live Tracking
+                                            </span>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <div class="pt-2" *ngIf="showBusTab==item['ResultIndex']">
-                                            <div class="tts__flight__wrapper__box">
-                                                <div class="p-2">
-                                                    <h5 class="px-2">
-                                                        {{GetSearchData['Origin']}} -  {{GetSearchData['Destination']}}   {{GetSearchData['DepartDate']}} 
-                                                    </h5>
-                                                    <table class="table table-bordered">
-                                                        <thead>
-                                                            <tr class="bg-light">
-                                                                <th width="80%">Cancellation Time</th>
-                                                                <th width="20%">Cancellation Charges</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr  *ngFor="let cancellation of item['CancellationPolicies']">
-                                                                <td class="">{{ cancellation.PolicyString}}</td>
-                                                                <td>
-                                                                    <div *ngIf="cancellation.CancellationChargeType==2">{{ cancellation.CancellationCharge}}%</div>
 
-                                                                    <div *ngIf="cancellation.CancellationChargeType!=2">₹ {{cancellation.CancellationCharge}}</div>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                       
-                                                    </table>
-                                                </div>
-                                            </div>
+                                        <div class="col-md-6 col-6 text-end">
+
+
+                                            <a href="javascript:void(0);" (click)="busdetail($event,item)"
+                                                [ngClass]="{'tts-plus':showBusTab!=item['ResultIndex'],'tts-minus':showBusTab==item['ResultIndex']}"><i
+                                                    class="fa"
+                                                    [ngClass]="{'fa-plus tts-plus':showBusTab!=item['ResultIndex'],'fa-minus tts-minus':showBusTab==item['ResultIndex']}"></i>
+                                                Cancellation Policy</a>
+
                                         </div>
                                     </div>
                                 </div>
+
+
+                                <!-- Cancellation Policy -->
+                                <div class="policy-box" *ngIf="showBusTab==item['ResultIndex']">
+                                    <h6>
+                                        {{GetSearchData['Origin']}} -
+                                        {{GetSearchData['Destination']}}
+                                        {{GetSearchData['DepartDate']}}
+                                    </h6>
+
+                                    <table class="table table-bordered mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Cancellation Time</th>
+                                                <th>Cancellation Charges</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr *ngFor="let cancellation of item['CancellationPolicies']">
+                                                <td>{{ cancellation.PolicyString }}</td>
+                                                <td>
+
+                                                    <span *ngIf="cancellation.CancellationChargeType==2">
+                                                        {{ cancellation.CancellationCharge }}%
+                                                    </span>
+
+                                                    <span *ngIf="cancellation.CancellationChargeType!=2">
+                                                        ₹ {{ cancellation.CancellationCharge }}
+                                                    </span>
+
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                            
                         </div>
                     </div>
-                </div>
 
                     <div class="row nobuses">
-                        <div class="no_bus-content">
+                        <div class="col-12 no_bus-content">
                             <i class="fa fa-bus flight-icons-zeroFlight mb-4"></i>
                             <p>No bus found that matches your filter criteria.Reset your filter </p>
-                            <button type="submit" class="tts-button-primary mt-3" (click)="resetfilterdata()">Reset All Filter</button>
+                            <button type="submit" class="tts-button-primary mt-3" (click)="resetfilterdata()">Reset All
+                                Filter</button>
                         </div>
                     </div>
 
@@ -160,7 +245,8 @@
                 <div class="col-md-12 text-center p-5">
                     <img src="assets/img/no-flight-found.png" width="30%;" />
                     <h5>{{ErrorMessage}}</h5>
-                    <p>Sorry, There were no buses found for this route and date combination. We suggest you modify your search and try again.</p>
+                    <p>Sorry, There were no buses found for this route and date combination. We suggest you modify your
+                        search and try again.</p>
                     <a routerLink="/bus" class="btn flight-book" style="width: 15%;">GO TO HOME</a>
                 </div>
             </div>
@@ -170,49 +256,54 @@
 </main>
 
 
- <!--Share View Detail Modal -->
- <div class="modal fade" id="formmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="formmodal" aria-hidden="true">
+<!--Share View Detail Modal -->
+<div class="modal fade" id="formmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="formmodal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content rounded-0">
-        <div class="modal-header">
-          <h5 class="modal-title" id="formmodal">View Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content rounded-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="formmodal">View Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="content" [innerHTML]="shareviewdetail"></div>
+            </div>
         </div>
-        <div class="modal-body">
-            <div class="content" [innerHTML]="shareviewdetail"></div>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
-   <!--Share email Detail Modal -->
-   <div class="modal fade" id="formmodal-email" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="formmodal" aria-hidden="true">
+<!--Share email Detail Modal -->
+<div class="modal fade" id="formmodal-email" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="formmodal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content rounded-0">
-        <div class="modal-header">
-          <h5 class="modal-title" id="formmodal">Flights Quotation</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            
-            <div class="mb-3">
-                <label for="email-ids" class="form-label">Email Id</label>
-                <input type="email" class="form-control" id="email-ids" [(ngModel)]="shareemaillist" aria-describedby="emailHelp">
-                <div id="emailHelp" class="form-text">you can add multiple email with comma separated.</div>
+        <div class="modal-content rounded-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="formmodal">Flights Quotation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="modal-body">
 
-            <div class="row mb-3">
-                <div class="col-6">
-                    <button type="button" class="tts-button-primary" (click)="sendemail('with-price')" [disabled]="sharebuttonloding">With Price</button>
+                <div class="mb-3">
+                    <label for="email-ids" class="form-label">Email Id</label>
+                    <input type="email" class="form-control" id="email-ids" [(ngModel)]="shareemaillist"
+                        aria-describedby="emailHelp">
+                    <div id="emailHelp" class="form-text">you can add multiple email with comma separated.</div>
                 </div>
-                <div class="col-6 text-end">
-                    <button type="button" class="tts-button-primary" (click)="sendemail('without-price')" [disabled]="sharebuttonloding">Without Price</button>
+
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <button type="button" class="tts-button-primary" (click)="sendemail('with-price')"
+                            [disabled]="sharebuttonloding">With Price</button>
+                    </div>
+                    <div class="col-6 text-end">
+                        <button type="button" class="tts-button-primary" (click)="sendemail('without-price')"
+                            [disabled]="sharebuttonloding">Without Price</button>
+                    </div>
                 </div>
+
             </div>
-
         </div>
-      </div>
     </div>
-  </div>
+</div>
 
-  <app-count-down display="off" redirecturl="/bus"></app-count-down>
+<app-count-down display="off" redirecturl="/bus"></app-count-down>

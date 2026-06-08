@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-loading-filter',
   template: `
-  <div class="al-listbtm">
+  <div class="al-listbtm filter-loading">
       <div class="al-priceac">
           <p class="al-prresets">
               <span>Price</span>
@@ -14,7 +14,7 @@ import { Component, OnInit } from '@angular/core';
           </p>
       </div>
   </div>
-  <div class="al-listbtm">
+  <div class="al-listbtm filter-loading">
       <div class="al-priceac">
           <p class="al-prresets">
               <span>Travel Operators</span>
@@ -22,7 +22,7 @@ import { Component, OnInit } from '@angular/core';
           </p>
       </div>
   </div>
-  <div class="al-listbtm">
+  <div class="al-listbtm filter-loading">
       <div class="al-priceac">
           <p class="al-prresets">
               <span>Bus Type</span>
@@ -30,7 +30,7 @@ import { Component, OnInit } from '@angular/core';
           </p>
       </div>
   </div>
-  <div class="al-listbtm">
+  <div class="al-listbtm filter-loading">
       <div class="al-priceac">
           <p class="al-prresets">
               <span>Departure Time</span>
@@ -38,7 +38,7 @@ import { Component, OnInit } from '@angular/core';
           </p>
       </div>
   </div>
-  <div class="al-listbtm">
+  <div class="al-listbtm filter-loading">
       <div class="al-priceac">
           <p class="al-prresets">
               <span>Arrival Time</span>
