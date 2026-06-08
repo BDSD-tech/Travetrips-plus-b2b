@@ -1,16 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { BusRoutingModule } from './bus-routing.module';
 import { BusComponent } from './bus.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { CountDownModule } from '../modal/count-down/count-down.module';
 import { SearchComponent } from './search/search.component';
 import { ModifySearchComponent } from './modify-search/modify-search.component';
 import { LoadingFilterComponent } from './loading/loading-filter.component';
 import { LoadingComponent } from './loading/loading.component';
-
 import { ReviewDetailComponent } from './review-detail/review-detail.component';
 import { FilterComponent } from './filter/filter.component';
 import { SeatLayoutComponent } from './seat-layout/seat-layout.component';

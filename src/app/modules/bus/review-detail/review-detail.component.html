@@ -135,7 +135,7 @@
                             <div class="col-md-12">
                                 <div class="accordion panel-default" id="adt-pax-accordion">
                                     <!--Start Pax information -->
-                                    <div class="accordion-item panel-item mb-4" formArrayName="PaxDetails" *ngFor="let pax of fpax?.['controls']; let a=index;">
+                                    <div class="accordion-item panel-item mb-4" formArrayName="PaxDetails" *ngFor="let pax of fpax.controls; let a=index;">
                                         <div formGroupName={{a}}>
                                             <button class="accordion-button panel-heading" type="button" data-bs-toggle="collapse" attr.data-bs-target="#collapse_adt_{{a+1}}" aria-expanded="false" [ngClass]="{'collapsed':a!=0}">
                                                 Traveller {{a+1}} 
