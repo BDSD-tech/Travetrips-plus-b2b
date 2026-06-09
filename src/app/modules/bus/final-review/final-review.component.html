@@ -1,208 +1,228 @@
-<section class="flight-details">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-3 col-6 booking-top-btn">
-                <div class="apt-common apt-firstep apt-active">
-                    <span class="graycolor"><span>FIRST STEP</span></span>
-                    <h4 class="apt-flightiti"><span>Bus Itinerary</span></h4>
-                </div>
+<div class="modal fade show" id="ReviewModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Review Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="col-sm-3 col-6 booking-top-btn">
-                <div class="apt-common apt-second apt-active">
-                    <span class="graycolor"><span>SECOND STEP</span></span>
-                    <h4 class="apt-flightiti"><span>Passenger Details</span></h4>
-                </div>
-            </div>
-            <div class="col-sm-3 col-6 booking-top-btn">
-                <div class="apt-common apt-third apt-black">
-                    <span class="graycolor"><span>THIRD STEP</span></span>
-                    <h4 class="apt-flightiti"><span>Review</span></h4>
-                </div>
-            </div>
-            <div class="col-sm-3 col-6 booking-top-btn">
-                <div class="apt-common apt-forth">
-                    <span class="graycolor"><span>FINISH STEP</span></span>
-                    <h4 class="apt-flightiti"><span>Payments</span></h4>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+
+            <div class="modal-body">
+
+                <section class="flight-booking">
+                    <div class="container">
+                        <div class="row d-flex">
+                            <div class="booking-main">
+
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h3 class="apt-heading">
+                                        <span>Bus Details</span>
+                                    </h3>
+                                    <div class="d-flex align-items-center">
+                                        <div class="iterinery-pageback" (click)="goBack()"><i
+                                                class="fa fa-angle-double-left"></i> Back to Search</div>
+                                    </div>
+                                </div>
+
+                                <div class="scrollable wrapper-mainclass">
+
+                                    <div class="apt-btmborder">
+                                        <div class="tts-trip">
+                                            <p class="apt-firstpr">
+                                                {{GetSearchData['Origin']}}
+                                                <span class="apt-arrowpr"> →</span>
+                                                {{GetSearchData['Destination']}}
+                                                <span class="float-end"> {{SelectedBusSeat['SeatNumber'].length}} Seats
+                                                    Selected</span>
+                                            </p>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <h5>
+                                                        <span class="float-start">{{SelectedBus['TravelName']}} </span>
+                                                        <span class="float-end">
+                                                            {{SelectedBusSeat['SeatNumber']}}</span>
+                                                    </h5>
+                                                    <div class="clearfix"></div>
+                                                    <p>
+                                                        <span class="float-start">{{SelectedBus['BusType']}} </span>
+                                                        <span class="float-end"><a href="javascript:void(0);"
+                                                                (click)="toggle()"> {{showpolicytext}}</a></span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="row justify-content-around">
+                                                <div class="col-8 mt-3">
+                                                    <ul class="apt-namelist">
+                                                        <li>
+                                                            {{GetSearchData['DepartDate'] | date:'MMM d, EEE'}}
+                                                            {{SelectedBus['DepartureTime']}}
+                                                            <span class="apt-airplace at-fontweight graycolor">
+                                                                {{GetSearchData['Origin']}} -
+                                                                {{SelectedBusSeat['BoardingPointsDetails']['CityPointName']}}
+                                                            </span>
+                                                        </li>
+                                                        <li class="text-center">
+                                                            <span class="fs-12">{{SelectedBus['Duration']}} </span>
+                                                            <span class="flight-arrow-itinenry-page d-block"></span>
+                                                            <img class="media__right-arrow-image"
+                                                                src="assets/img/airarrow.png" />
+                                                        </li>
+                                                        <li>
+                                                            {{ArrivalDate | date:'MMM d, EEE'}}
+                                                            {{SelectedBus['ArrivalTime']}}
+                                                            <span class="apt-airplace at-fontweight graycolor">
+                                                                {{GetSearchData['Destination']}} -
+                                                                {{SelectedBusSeat['DroppingPointsDetails']['CityPointName']}}
+                                                            </span>
+
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="pt-2" *ngIf="showpolicy">
+                                        <div class="tts__flight__wrapper__box">
+                                            <div class="p-2">
+                                                <h6>Cancellation Policy</h6>
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr class="bg-light">
+                                                            <th width="80%">Cancellation Time</th>
+                                                            <th width="20%">Cancellation Charges</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr
+                                                            *ngFor="let cancellation of SelectedBus['CancellationPolicies']">
+                                                            <td class="">{{ cancellation.PolicyString}}</td>
+                                                            <td>
+                                                                <div *ngIf="cancellation.CancellationChargeType==2">{{
+                                                                    cancellation.CancellationCharge}}%</div>
+
+                                                                <div *ngIf="cancellation.CancellationChargeType!=2">₹
+                                                                    {{cancellation.CancellationCharge}}</div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
 
 
-<section class="flight-booking">
-    <div class="container">
-        <div class="row d-flex">
-            <div class="booking-main">
+                                    <div class="row">
 
-                <div class="d-flex align-items-center justify-content-between">
-                    <h3 class="apt-heading">
-                        <span>Bus Details</span>
-                    </h3>
-                    <div class="d-flex align-items-center">
-                        <div class="iterinery-pageback" (click)="goBack()"><i class="fa fa-angle-double-left"></i> Back to Search</div>
-                    </div>
-                </div>
+                                        <div class="col-md-12">
+                                            <h3 class="apt-heading"> <span>Passenger Details</span></h3>
+                                            <ul class="passenger_list_ul pt-3 pb-3">
+                                                <li class="graycolor">Sr.</li>
+                                                <li class="graycolor">Name &amp; Documnet</li>
+                                                <li class="graycolor">Age </li>
+                                                <li class="graycolor">Seat</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <ul class="passenger_list_ul d-flex align-items-center justify-content-between pt-3 pb-3 border-bottom"
+                                                *ngFor="let pax of Paxinfo['paxdata']; let paxkey=index;">
 
-                <div class="scrollable wrapper-mainclass">
+                                                <li>
+                                                    <div class="art-tdfirst graycolor counter"></div>
+                                                </li>
+                                                <li>
+                                                    <div class="art-tdsecond">
+                                                        <span class="pax-detailsAll">{{pax['Title']}}
+                                                            {{pax['FirstName']}} {{pax['LastName']}} </span>
 
-                    <div class="apt-btmborder">
-                        <div class="tts-trip">
-                            <p class="apt-firstpr">
-                                {{GetSearchData['Origin']}}
-                                <span class="apt-arrowpr"> →</span>
-                                {{GetSearchData['Destination']}}
-                                <span class="float-end"> {{SelectedBusSeat['SeatNumber'].length}} Seats Selected</span>
-                            </p>
+                                                        <span class="pax-passportSize" *ngIf="pax['IdNumber']">ID Number
+                                                            :{{pax['IdNumber']}} ID :{{pax['IdType']}} </span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="art-tdthird"> <span class="art-spnlist"> {{pax['Age']}}
+                                                        </span></div>
+                                                </li>
+                                                <li>
+                                                    <div class="art-tdfour">{{Paxinfo['SeatNumber']?.[paxkey]}}</div>
+                                                </li>
+                                            </ul>
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h5>
-                                        <span class="float-start">{{SelectedBus['TravelName']}} </span>
-                                        <span class="float-end"> {{SelectedBusSeat['SeatNumber']}}</span>
-                                    </h5>
-                                    <div class="clearfix"></div>
-                                    <p>
-                                        <span class="float-start">{{SelectedBus['BusType']}}  </span>
-                                        <span class="float-end"><a href="javascript:void(0);" (click)="toggle()"> {{showpolicytext}}</a></span>
-                                    </p>
+                                        </div>
+                                        <div class="col-md-12 mt-3">
+                                            <h3 class="apt-heading"> <span>Contact Details</span></h3>
+                                            <ul class="pt-3 pb-3">
+                                                <li>email :<span></span>{{Paxinfo['EmailId']}}</li>
+                                                <li>mobile :<span>{{Paxinfo['MobileNumber']}}</span></li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                    <div class="row pt-20 desktop-bookback ">
+                                        <div class="col-sm-6 col-4">
+                                            <button type="button" id="srch" class="btn asr-book" (click)="goBack()"><i
+                                                    class="fa fa-angle-double-left me-1"></i> <span>Back</span></button>
+                                        </div>
+                                        <div class="col-md-6 col-sm-8 col-xs-9 col-8 text-end confirming--button-price">
+                                            <button type="button" id="reviews" class="btn asr-book"
+                                                (click)="ProceedToPay()"><span>Proceed To Pay</span> &nbsp; <i
+                                                    class="fa fa-angle-double-right"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                            <div class="booking-rightside">
+                                <span class="graycolor"><span>FARE SUMMARY</span></span>
+                                <div>
+                                    <div class="btm-border bold-font-bf"><span>Base fare</span> <span
+                                            class="float-end">₹{{CurrentFare['BasePrice'] | number:'1.0-2'}}</span>
+                                    </div>
+                                    <div class="btm-border bold-font">
+                                        <span data-bs-toggle="collapse" href="#tax-fare" aria-expanded="false"> Taxes
+                                            and fees <i class="fa fa-angle-down mrg-left"></i></span>
+                                        <span class="float-end">₹{{CurrentFare['Tax']
+                                            +CurrentFare['OtherCharges']+CurrentFare['ServiceCharges']+CurrentFare['AgentMarkup']
+                                            | number:'1.0-2'}}</span>
+                                        <div class="tax-dropdown airline-gst-print collapse" id="tax-fare">
+                                            <div *ngIf="CurrentFare['AgentMarkup']!=0"><span>Markup</span><span
+                                                    class="float-end">₹{{CurrentFare['AgentMarkup'] |
+                                                    number:'1.0-2'}}</span></div>
+
+                                            <div *ngIf="CurrentFare['OtherCharges']!=0"><span>Other Charges</span><span
+                                                    class="float-end">₹{{CurrentFare['OtherCharges'] |
+                                                    number:'1.0-2'}}</span></div>
+
+                                            <div *ngIf="CurrentFare['ServiceCharges']!=0"><span>Service
+                                                    Charges</span><span class="float-end">₹{{CurrentFare['OtherCharges']
+                                                    | number:'1.0-2'}}</span></div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="bold-font btm-border">
+                                        <span data-bs-toggle="collapse" href="#net-fare" aria-expanded="false">Amount to
+                                            Pay</span>
+                                        <span
+                                            class="float-end">₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']
+                                            | number:'1.0-2'}}</span>
+
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row justify-content-around">
-                                <div class="col-8 mt-3">
-                                    <ul class="apt-namelist">
-                                        <li>
-                                            {{GetSearchData['DepartDate'] | date:'MMM d, EEE'}} {{SelectedBus['DepartureTime']}} 
-                                            <span class="apt-airplace at-fontweight graycolor">
-                                                {{GetSearchData['Origin']}} - {{SelectedBusSeat['BoardingPointsDetails']['CityPointName']}}
-                                            </span>
-                                        </li>
-                                        <li class="text-center">
-                                            <span class="fs-12">{{SelectedBus['Duration']}}  </span>
-                                            <span class="flight-arrow-itinenry-page d-block"></span>
-                                            <img class="media__right-arrow-image" src="assets/img/airarrow.png" />
-                                        </li>
-                                        <li>
-                                            {{ArrivalDate | date:'MMM d, EEE'}} {{SelectedBus['ArrivalTime']}}  
-                                            <span class="apt-airplace at-fontweight graycolor">
-                                                {{GetSearchData['Destination']}} - {{SelectedBusSeat['DroppingPointsDetails']['CityPointName']}}
-                                            </span>
-                                        
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
                     </div>
+                </section>
 
-                    <div class="pt-2" *ngIf="showpolicy">
-                        <div class="tts__flight__wrapper__box">
-                            <div class="p-2">
-                                <h6>Cancellation Policy</h6>
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr class="bg-light">
-                                            <th width="80%">Cancellation Time</th>
-                                            <th width="20%">Cancellation Charges</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr  *ngFor="let cancellation of SelectedBus['CancellationPolicies']">
-                                            <td class="">{{ cancellation.PolicyString}}</td>
-                                            <td>
-                                                <div *ngIf="cancellation.CancellationChargeType==2">{{ cancellation.CancellationCharge}}%</div>
-
-                                                <div *ngIf="cancellation.CancellationChargeType!=2">₹ {{cancellation.CancellationCharge}}</div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                   
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-
-                        <div class="col-md-12">
-                            <h3 class="apt-heading">  <span>Passenger Details</span></h3>
-                            <ul class="passenger_list_ul pt-3 pb-3">
-                                <li class="graycolor">Sr.</li>
-                                <li class="graycolor">Name &amp; Documnet</li>
-                                <li class="graycolor">Age </li><li class="graycolor">Seat</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-12">
-                            <ul class="passenger_list_ul d-flex align-items-center justify-content-between pt-3 pb-3 border-bottom" *ngFor="let pax of Paxinfo['paxdata']; let paxkey=index;">
-
-                                <li><div class="art-tdfirst graycolor counter"></div></li>
-                                 <li>
-                                    <div class="art-tdsecond">
-                                        <span class="pax-detailsAll">{{pax['Title']}} {{pax['FirstName']}} {{pax['LastName']}} </span> 
-
-                                        <span class="pax-passportSize" *ngIf="pax['IdNumber']">ID Number :{{pax['IdNumber']}}  ID :{{pax['IdType']}}  </span> 
-                                     </div>
-                                </li>
-                                <li>
-                                     <div class="art-tdthird"> <span class="art-spnlist"> {{pax['Age']}}  </span></div>
-                                </li>
-                                <li>
-                                 <div class="art-tdfour">{{Paxinfo['SeatNumber']?.[paxkey]}}</div>
-                                </li>
-                            </ul>
-                         
-                        </div>
-                        <div class="col-md-12 mt-3">
-                            <h3 class="apt-heading">  <span>Contact Details</span></h3>
-                            <ul class="pt-3 pb-3">
-                                <li>email :<span></span>{{Paxinfo['EmailId']}}</li>
-                                <li>mobile :<span>{{Paxinfo['MobileNumber']}}</span></li>
-                            </ul>
-                        </div>
-                       
-                    </div>
-                    <div class="row pt-20 desktop-bookback ">
-                            <div class="col-sm-6 col-4">
-                                <button type="button" id="srch" class="btn asr-book" (click)="goBack()"><i class="fa fa-angle-double-left me-1"></i> <span>Back</span></button>
-                            </div>
-                            <div class="col-md-6 col-sm-8 col-xs-9 col-8 text-end confirming--button-price">
-                                <button type="button" id="reviews" class="btn asr-book" (click)="ProceedToPay()"><span>Proceed To Pay</span> &nbsp;  <i class="fa fa-angle-double-right"></i>
-                                </button>
-                            </div>
-                    </div>
-
-                </div>
-
-            
+                <app-count-down display="on" redirecturl="/bus"></app-count-down>
             </div>
-            <div class="booking-rightside">
-                <span class="graycolor"><span>FARE SUMMARY</span></span>
-                <div>
-                    <div class="btm-border bold-font-bf"><span>Base fare</span> <span class="float-end">₹{{CurrentFare['BasePrice'] | number:'1.0-2'}}</span></div>
-                    <div class="btm-border bold-font">
-                        <span data-bs-toggle="collapse" href="#tax-fare" aria-expanded="false"> Taxes and fees <i class="fa fa-angle-down mrg-left"></i></span>
-                        <span class="float-end">₹{{CurrentFare['Tax'] +CurrentFare['OtherCharges']+CurrentFare['ServiceCharges']+CurrentFare['AgentMarkup'] | number:'1.0-2'}}</span>
-                        <div class="tax-dropdown airline-gst-print collapse" id="tax-fare">
-                            <div *ngIf="CurrentFare['AgentMarkup']!=0"><span>Markup</span><span class="float-end">₹{{CurrentFare['AgentMarkup'] | number:'1.0-2'}}</span></div>
 
-                            <div *ngIf="CurrentFare['OtherCharges']!=0"><span>Other Charges</span><span class="float-end">₹{{CurrentFare['OtherCharges'] | number:'1.0-2'}}</span></div>
-
-                            <div *ngIf="CurrentFare['ServiceCharges']!=0"><span>Service Charges</span><span class="float-end">₹{{CurrentFare['OtherCharges'] | number:'1.0-2'}}</span></div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="bold-font btm-border">
-                        <span data-bs-toggle="collapse" href="#net-fare" aria-expanded="false">Amount to Pay</span>
-                        <span class="float-end">₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup'] | number:'1.0-2'}}</span>
-                       
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
-</section>
-
-<app-count-down display="on" redirecturl="/bus"></app-count-down>
+</div>

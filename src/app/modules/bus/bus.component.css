@@ -172,6 +172,7 @@ PARENT SECTION
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  gap: 10px;
   justify-content: center;
   padding: 8px 16px;
   text-decoration: none;
@@ -186,7 +187,6 @@ PARENT SECTION
 
 .flight_section .tab-link i {
   font-size: 18px;
-  margin-right: 10px;
   transition: transform .3s ease;
 }
 
@@ -964,12 +964,8 @@ RESPONSIVE
     max-width: 240px;
   }
 
-  .recent-search-section .title {
-    font-size: 22px;
-  }
-
   .recent-search-section .route-text {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 

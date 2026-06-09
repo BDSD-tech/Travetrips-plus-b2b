@@ -1,41 +1,350 @@
-<div class="title">
-  {{GetSearchData['Origin']}} to {{GetSearchData['Destination']}}  , {{GetSearchData['DepartDate']}}  | {{SelectedBusData['BusType']}} | {{SelectedBusData['DepartureTime']}}  - {{SelectedBusData['ArrivalTime']}} 
+<!-------new Code 09-06-2026----->
+<div class="bus-seat-layout">
+  <!-- Journey Header -->
+  <div class="journey-header">
+    <h5>
+      {{GetSearchData['Origin']}} →
+      {{GetSearchData['Destination']}}
+    </h5>
+
+    <div class="journey-meta">
+      <span>{{GetSearchData['DepartDate']}}</span>
+      <span>{{SelectedBusData['BusType']}}</span>
+      <span>{{SelectedBusData['DepartureTime']}} - {{SelectedBusData['ArrivalTime']}}</span>
+    </div>
+  </div>
+
+  <div *ngIf="ErrorCode==0 && seatloading==false">
+
+    <!-- Tabs -->
+    <ul class="nav nav-pills seat-tabs">
+      <li class="nav-item">
+        <button class="nav-link active" id="seat-tab" data-bs-toggle="tab" data-bs-target="#seat">
+          Select Seat
+        </button>
+      </li>
+
+      <li class="nav-item">
+        <button class="nav-link" id="policy-tab" data-bs-toggle="tab" data-bs-target="#policy">
+          Cancellation Policy
+        </button>
+      </li>
+
+      <li class="nav-item">
+        <button class="nav-link" id="bdpoint-tab" data-bs-toggle="tab" data-bs-target="#bdpoint">
+          Boarding Points
+        </button>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <!-- Seat Layout -->
+      <div class="tab-pane fade show active" id="seat">
+        <div class="row g-3">
+
+          <!-- Seat Layout -->
+          <div class="col-lg-8 col-7">
+            <div class="seat-layout-card">
+              <div [innerHTML]="Response['HTMLLayout'] | safeHtml"></div>
+            </div>
+          </div>
+
+          <!-- Seat Legend -->
+          <div class="col-lg-4 col-4">
+            <div class="seat-info-card">
+
+              <h6>Seat Status</h6>
+
+              <div class="seat-status-item">
+                <span class="seat seat-available"></span>
+                Available
+              </div>
+
+              <div class="seat-status-item">
+                <span class="seat seat-ladies"></span>
+                Reserved for Ladies
+              </div>
+
+              <div class="seat-status-item">
+                <span class="seat seat-selected"></span>
+                Selected
+              </div>
+
+              <div class="seat-status-item">
+                <span class="seat seat-booked"></span>
+                Booked
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Booking Summary -->
+        <div class="booking-summary mt-4">
+
+          <div class="row gy-3">
+
+            <div class="col-md-4">
+
+              <div class="summary-box">
+                <h6>Booking Summary</h6>
+
+                <p>
+                  <strong>Seat(s):</strong>
+                  {{showseatlabel}}
+                </p>
+
+                <p>
+                  <strong>Amount:</strong>
+                  ₹{{totalprice}}
+                </p>
+
+                <span *ngIf="SeatErrorMSG" class="text-danger">
+                  {{SeatErrorMSG}}
+                </span>
+              </div>
+
+            </div>
+
+            <div class="col-md-8">
+
+              <div class="row g-3">
+
+                <!-- Pickup -->
+                <div class="col-md-6">
+
+                  <label class="form-label">
+                    Pickup Point
+                  </label>
+
+                  <select class="form-select" id="Pickup" (change)="SelectPickDropPoint('Pickup',$event)">
+                    <option value="">Select Pickup Point</option>
+                    <option *ngFor="let item of Response['BoardingPointsDetails']" value="{{item['CityPointIndex']}}">
+                      {{item['CityPointLocation']}} - {{getTime(item['CityPointTime'])}}
+                    </option>
+                  </select>
+
+                  <small *ngIf="PickupPointErrorMSG" class="text-danger">{{PickupPointErrorMSG}}</small>
+                </div>
+
+                <!-- Drop -->
+                <div class="col-md-6">
+                  <label class="form-label">Dropping Point</label>
+                  <select class="form-select" id="Drop" (change)="SelectPickDropPoint('Drop',$event)">
+                    <option value="">Select Dropping Point</option>
+
+                    <option *ngFor="let item of Response['DroppingPointsDetails']" value="{{item['CityPointIndex']}}">
+                      {{item['CityPointLocation']}}
+                      -
+                      {{getTime(item['CityPointTime'])}}
+
+                    </option>
+
+                  </select>
+
+                  <small *ngIf="DropPointErrorMSG" class="text-danger">
+                    {{DropPointErrorMSG}}
+                  </small>
+                
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Cancellation Policy -->
+      <div class="tab-pane fade" id="policy">
+
+        <div class="table-responsive">
+
+          <table class="table table-hover">
+
+            <thead>
+              <tr>
+                <th>Cancellation Time</th>
+                <th>Charges</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              <tr *ngFor="let cancellation of SelectedBusData['CancellationPolicies']">
+
+                <td>
+                  {{cancellation.PolicyString}}
+                </td>
+
+                <td>
+
+                  <span *ngIf="cancellation.CancellationChargeType==2">
+                    {{cancellation.CancellationCharge}}%
+                  </span>
+
+                  <span *ngIf="cancellation.CancellationChargeType!=2">
+                    ₹{{cancellation.CancellationCharge}}
+                  </span>
+
+                </td>
+
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Boarding & Dropping -->
+      <div class="tab-pane fade" id="bdpoint">
+
+        <div class="table-responsive mb-4">
+
+          <h6>Boarding Points</h6>
+
+          <table class="table table-bordered">
+
+            <thead>
+              <tr>
+                <th>Point</th>
+                <th>Landmark</th>
+                <th>Address</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              <tr *ngFor="let item of Response['BoardingPointsDetails']">
+
+                <td>{{item['CityPointName']}}</td>
+                <td>{{item['CityPointLandmark']}}</td>
+                <td>{{item['CityPointAddress']}}</td>
+                <td>{{getTime(item['CityPointTime'])}}</td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+        <div class="table-responsive">
+
+          <h6>Dropping Points</h6>
+
+          <table class="table table-bordered">
+
+            <thead>
+              <tr>
+                <th>Dropping Point</th>
+                <th>Location</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+
+
+            <tbody>
+
+              <tr *ngFor="let item of Response['DroppingPointsDetails']">
+
+                <td>{{item['CityPointName']}}</td>
+                <td>{{item['CityPointLocation']}}</td>
+                <td>{{getTime(item['CityPointTime'])}}</td>
+
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="seat-footer">
+
+      <button type="button" class="btn btn-outline-secondary" (click)="CloseButton()">
+        Close
+      </button>
+
+      <button type="button" class="btn btn-primary" (click)="Continue()">
+        Continue
+      </button>
+    </div>
+  </div>
 </div>
-<div class="container" *ngIf="ErrorCode==0 && seatloading==false">
+
+<div class="seat-state-card error-state" *ngIf="ErrorCode!=0 && seatloading==false">
+  <div class="state-icon">
+    <i class="fa fa-exclamation-circle"></i>
+  </div>
+
+  <h4>{{ ErrorMessage }}</h4>
+  <p> Sorry, no seats are available for the selected journey. Please modify your search criteria and try again. </p>
+  <button type="button" class="btn btn-primary" (click)="CloseButton()">Go Back</button>
+</div>
+
+
+<div class="seat-state-card loading-state" *ngIf="seatloading==true">
+  <div class="lds-ellipsis">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <h5 class="mt-4">Loading Seat Layout</h5>
+  <p>Please wait while we fetch the latest seat availability.</p>
+</div>
+<!-------new Code 09-06-2026 End----->
+
+
+<div class="d-none">
+  <div class="title">
+    {{GetSearchData['Origin']}} to {{GetSearchData['Destination']}} , {{GetSearchData['DepartDate']}} |
+    {{SelectedBusData['BusType']}} | {{SelectedBusData['DepartureTime']}} - {{SelectedBusData['ArrivalTime']}}
+  </div>
+  <div class="container" *ngIf="ErrorCode==0 && seatloading==false">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="seat-tab" data-bs-toggle="tab" data-bs-target="#seat" type="button" role="tab" aria-controls="seat" aria-selected="true">Select Seat</button>
+        <button class="nav-link active" id="seat-tab" data-bs-toggle="tab" data-bs-target="#seat" type="button"
+          role="tab" aria-controls="seat" aria-selected="true">Select Seat</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="policy-tab" data-bs-toggle="tab" data-bs-target="#policy" type="button" role="tab" aria-controls="policy" aria-selected="false">Canc. Policy</button>
+        <button class="nav-link" id="policy-tab" data-bs-toggle="tab" data-bs-target="#policy" type="button" role="tab"
+          aria-controls="policy" aria-selected="false">Canc. Policy</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="bdpoint-tab" data-bs-toggle="tab" data-bs-target="#bdpoint" type="button" role="tab" aria-controls="bdpoint" aria-selected="false">Boarding Point</button>
+        <button class="nav-link" id="bdpoint-tab" data-bs-toggle="tab" data-bs-target="#bdpoint" type="button"
+          role="tab" aria-controls="bdpoint" aria-selected="false">Boarding Point</button>
       </li>
     </ul>
     <div class="tab-content p-3 div-scroll" id="myTabContent">
       <div class="tab-pane fade show active" id="seat" role="tabpanel" aria-labelledby="seat-tab">
         <div class="row">
           <div class="col-8">
-              <div [innerHTML]="Response['HTMLLayout'] | safeHtml"></div>  
+            <div [innerHTML]="Response['HTMLLayout'] | safeHtml"></div>
           </div>
           <div class="col-4">
-              <div class="show-seat">
-                <samp class="seat seat-available"></samp>
-                <span>Available</span>
-              </div>
-              <div class="show-seat">
-                <samp class="seat seat-ladies"></samp>
-                <span>Reserved for ladies</span>
-              </div>
-              <div class="show-seat">
-                <samp class="seat seat-selected"></samp>
-                <span>Selected</span>
-              </div>
-              <div class="show-seat">
-                <samp class="seat seat-booked"></samp>
-                <span>Booked</span>
-              </div>
+            <div class="show-seat">
+              <samp class="seat seat-available"></samp>
+              <span>Available</span>
+            </div>
+            <div class="show-seat">
+              <samp class="seat seat-ladies"></samp>
+              <span>Reserved for ladies</span>
+            </div>
+            <div class="show-seat">
+              <samp class="seat seat-selected"></samp>
+              <span>Selected</span>
+            </div>
+            <div class="show-seat">
+              <samp class="seat seat-booked"></samp>
+              <span>Booked</span>
+            </div>
           </div>
         </div>
 
@@ -43,35 +352,37 @@
           <div class="col-md-5">
             <p>Seat(s) : {{showseatlabel}}
               <span *ngIf="SeatErrorMSG" class="text-danger d-block">{{SeatErrorMSG}}</span>
-            </p>   
-            <p>Amount  : {{totalprice}}</p>   
+            </p>
+            <p>Amount : {{totalprice}}</p>
           </div>
-            <div class="col-md-7">
+          <div class="col-md-7">
 
-              <div class="row g-3 mb-2 align-items-center">
-                <div class="col-5">
-                  <label for="Pickup" class="col-form-label">Select Pickup Point</label>
-                </div>
-                <div class="col-7">
-                  <select class="form-control fs-12" (change)="SelectPickDropPoint('Pickup',$event)" id="Pickup">
-                    <option value="">Select</option>
-                    <option *ngFor="let item of Response['BoardingPointsDetails']" value="{{item['CityPointIndex']}}">{{item['CityPointLocation']}} - {{getTime(item['CityPointTime'])}}</option>
-                  </select>
-                  <span *ngIf="PickupPointErrorMSG" class="text-danger">{{PickupPointErrorMSG}}</span>
-                </div>
+            <div class="row g-3 mb-2 align-items-center">
+              <div class="col-5">
+                <label for="Pickup" class="col-form-label">Select Pickup Point</label>
               </div>
-              <div class="row g-3 align-items-center">
-                <div class="col-5">
-                  <label for="Drop" class="col-form-label">Select Dropping Point</label>
-                </div>
-                <div class="col-7">
-                  <select class="form-control fs-12" (change)="SelectPickDropPoint('Drop',$event)" id="Drop">
-                    <option value="">Select</option>
-                    <option *ngFor="let item of Response['DroppingPointsDetails']" value="{{item['CityPointIndex']}}">{{item['CityPointLocation']}} - {{getTime(item['CityPointTime'])}}</option>
-                  </select>
-                  <span *ngIf="DropPointErrorMSG" class="text-danger">{{DropPointErrorMSG}}</span>
-                </div>
+              <div class="col-7">
+                <select class="form-control fs-12" (change)="SelectPickDropPoint('Pickup',$event)" id="Pickup">
+                  <option value="">Select</option>
+                  <option *ngFor="let item of Response['BoardingPointsDetails']" value="{{item['CityPointIndex']}}">
+                    {{item['CityPointLocation']}} - {{getTime(item['CityPointTime'])}}</option>
+                </select>
+                <span *ngIf="PickupPointErrorMSG" class="text-danger">{{PickupPointErrorMSG}}</span>
               </div>
+            </div>
+            <div class="row g-3 align-items-center">
+              <div class="col-5">
+                <label for="Drop" class="col-form-label">Select Dropping Point</label>
+              </div>
+              <div class="col-7">
+                <select class="form-control fs-12" (change)="SelectPickDropPoint('Drop',$event)" id="Drop">
+                  <option value="">Select</option>
+                  <option *ngFor="let item of Response['DroppingPointsDetails']" value="{{item['CityPointIndex']}}">
+                    {{item['CityPointLocation']}} - {{getTime(item['CityPointTime'])}}</option>
+                </select>
+                <span *ngIf="DropPointErrorMSG" class="text-danger">{{DropPointErrorMSG}}</span>
+              </div>
+            </div>
 
           </div>
         </div>
@@ -80,58 +391,58 @@
 
         <table class="table table-bordered">
           <thead>
-              <tr class="bg-light">
-                  <th width="70%">Cancellation Time</th>
-                  <th width="30%">Cancellation Charges</th>
-              </tr>
+            <tr class="bg-light">
+              <th width="70%">Cancellation Time</th>
+              <th width="30%">Cancellation Charges</th>
+            </tr>
           </thead>
           <tbody>
-              <tr  *ngFor="let cancellation of SelectedBusData['CancellationPolicies']">
-                  <td class="">{{ cancellation.PolicyString}}</td>
-                  <td>
-                      <div *ngIf="cancellation.CancellationChargeType==2">{{ cancellation.CancellationCharge}}%</div>
+            <tr *ngFor="let cancellation of SelectedBusData['CancellationPolicies']">
+              <td class="">{{ cancellation.PolicyString}}</td>
+              <td>
+                <div *ngIf="cancellation.CancellationChargeType==2">{{ cancellation.CancellationCharge}}%</div>
 
-                      <div *ngIf="cancellation.CancellationChargeType!=2">₹ {{cancellation.CancellationCharge}}</div>
-                  </td>
-              </tr>
+                <div *ngIf="cancellation.CancellationChargeType!=2">₹ {{cancellation.CancellationCharge}}</div>
+              </td>
+            </tr>
           </tbody>
-         
-      </table>
+
+        </table>
 
       </div>
       <div class="tab-pane fade" id="bdpoint" role="tabpanel" aria-labelledby="bdpoint-tab">
 
-        <table  class="table table-bordered">
+        <table class="table table-bordered">
           <tbody>
-              <tr class="bg-light">
-                  <th>Boarding Point</th>
-                  <th>LandMark</th>
-                  <th>Address</th>
-                  <th>Time</th>
-              </tr>
-              <tr *ngFor="let item of Response['BoardingPointsDetails']">
-                  <td>{{item['CityPointName']}}</td>
-                  <td>{{item['CityPointLandmark']}}</td>
-                  <td>{{item['CityPointAddress']}}</td>
-                  <td>{{getTime(item['CityPointTime'])}}</td>
-              </tr>
+            <tr class="bg-light">
+              <th>Boarding Point</th>
+              <th>LandMark</th>
+              <th>Address</th>
+              <th>Time</th>
+            </tr>
+            <tr *ngFor="let item of Response['BoardingPointsDetails']">
+              <td>{{item['CityPointName']}}</td>
+              <td>{{item['CityPointLandmark']}}</td>
+              <td>{{item['CityPointAddress']}}</td>
+              <td>{{getTime(item['CityPointTime'])}}</td>
+            </tr>
           </tbody>
         </table>
 
-        <table  class="table table-bordered">
+        <table class="table table-bordered">
           <tbody>
-              <tr class="bg-light">
-                  <th>Dropping Point</th>
-                  <th>LandMark</th>
-                  <th>Address</th>
-                  <th>Time</th>
-              </tr>
-              <tr *ngFor="let item of Response['DroppingPointsDetails']">
-                  <td>{{item['CityPointName']}}</td>
-                  <td>{{item['CityPointLandmark']}}</td>
-                  <td>{{item['CityPointAddress']}}</td>
-                  <td>{{getTime(item['CityPointTime'])}}</td>
-              </tr>
+            <tr class="bg-light">
+              <th>Dropping Point</th>
+              <th>LandMark</th>
+              <th>Address</th>
+              <th>Time</th>
+            </tr>
+            <tr *ngFor="let item of Response['DroppingPointsDetails']">
+              <td>{{item['CityPointName']}}</td>
+              <td>{{item['CityPointLandmark']}}</td>
+              <td>{{item['CityPointAddress']}}</td>
+              <td>{{getTime(item['CityPointTime'])}}</td>
+            </tr>
           </tbody>
         </table>
 
@@ -145,29 +456,34 @@
         <button type="button" class="btn btn-outline-success btn-sm" (click)="Continue()">Continue</button>
       </div>
     </div>
-</div>
+  </div>
 
-<div class="container" *ngIf="ErrorCode!=0 && seatloading==false">
-  <div class="row">
-    <div class="col-12">
-      <div class="text-center">
-        <h5>{{ErrorMessage}}</h5>
-        <p class="fs-14">Sorry, There were no seat found for this date combination. We suggest you modify your search and try again.</p>
-        <a (click)="CloseButton()">Go Back</a>
+  <div class="container" *ngIf="ErrorCode!=0 && seatloading==false">
+    <div class="row">
+      <div class="col-12">
+        <div class="text-center">
+          <h5>{{ErrorMessage}}</h5>
+          <p class="fs-14">Sorry, There were no seat found for this date combination. We suggest you modify your search
+            and try again.</p>
+          <a (click)="CloseButton()">Go Back</a>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="container" *ngIf="seatloading==true">
-  <div class="row min-h400">
-    <div class="col-12">
-      <div class="text-center">
-        <div class="lds-ellipsis">
-          <div></div><div></div><div></div><div></div>
-       </div>
+  <div class="container" *ngIf="seatloading==true">
+    <div class="row min-h400">
+      <div class="col-12">
+        <div class="text-center">
+          <div class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
+</div>

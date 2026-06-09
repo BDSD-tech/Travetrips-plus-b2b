@@ -73,7 +73,7 @@
                   </button>
                 </li>
               </ul>
-              <div class="d-flex align-item-center gap-3">
+              <div class="d-flex align-item-center gap-3 flex-wrap">
                 <div class="nonstop-check">
                   <input type="checkbox" formControlName="Nonstop" id="direct_flight">
                   <label for="direct_flight">Non-Stop</label>
@@ -299,7 +299,7 @@
                         <i class="fa fa-angle-down search-form-inp-down" *ngIf="MForm.value['Origin']==''"></i>
                         <i class="fa fa-times search-form-inp-down" (click)="Cleardata('Origin',i)"
                           *ngIf="MForm.value['Origin']!=''"></i>
-                        <div class="at-exchange"></div>
+
                         <div *ngIf="submitted && SearchForm.get('MultiCity.'+i+'.Origin')?.errors" class="error-msg">
                           <div *ngIf="SearchForm.get('MultiCity.'+i+'.Origin')?.errors?.['required']">Please enter a
                             valid
@@ -307,6 +307,8 @@
                           </div>
                         </div>
                       </div>
+
+                    
                       <div class="persent-one">
                         <label class="custom-label">Where To?</label>
                         <span><i class="fas fa-plane-arrival"></i></span>

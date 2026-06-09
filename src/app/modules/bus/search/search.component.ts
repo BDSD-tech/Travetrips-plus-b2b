@@ -184,7 +184,6 @@ export class SearchComponent implements OnInit {
              };
   
     const dialogRef =this.dialog.open(SeatLayoutComponent,{
-      width: '700px',
       data:{searchdata:this.GetSearchData,request:data,selectedbus:item},
       panelClass: 'my-seat-layout'
     });

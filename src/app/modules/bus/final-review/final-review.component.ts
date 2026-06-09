@@ -5,6 +5,7 @@ import { BusService } from '../bus.service';
 import { Location } from '@angular/common';
 import { AuthenticationService } from '../../../services/authentication.service';
 
+declare var bootstrap: any;
 @Component({
   selector: 'app-final-review',
   templateUrl: './final-review.component.html',
@@ -129,5 +130,12 @@ export class FinalReviewComponent implements OnInit {
     };
     this.router.navigate(['payment'],navigationExtras);
   }
+
+    openModal() {
+    const modalElement = document.getElementById('ReviewModal')!;
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
+  }
+
 
 }

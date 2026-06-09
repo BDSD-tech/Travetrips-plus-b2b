@@ -303,3 +303,119 @@
         margin: 10px 0;
     }
 }
+
+
+
+/*=========================
+    NO BUS FOUND
+=========================*/
+
+.no-bus-card {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+
+    padding: 50px 30px;
+    margin: 30px 0;
+
+    text-align: center;
+}
+
+.no-bus-icon {
+    width: 90px;
+    height: 90px;
+
+    margin: 0 auto 20px;
+
+    border-radius: 50%;
+
+    background: var(--second-bg-color);
+    color: var(--primary-color);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.no-bus-icon i {
+    font-size: 40px;
+}
+
+.no-bus-title {
+    margin-bottom: 12px;
+
+    font-size: 24px;
+    font-weight: 700;
+
+    color: var(--second-dark-color);
+}
+
+.no-bus-message {
+    max-width: 500px;
+    margin: 0 auto 25px;
+
+    color: var(--dark);
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.no-bus-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    border: none;
+    border-radius: var(--radius-sm);
+
+    background: var(--primary-bg-color);
+    color: var(--white);
+
+    padding: 12px 24px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.no-bus-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.no-bus-btn i {
+    font-size: 14px;
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+
+    .no-bus-card {
+        padding: 35px 20px;
+    }
+
+    .no-bus-icon {
+        width: 70px;
+        height: 70px;
+    }
+
+    .no-bus-icon i {
+        font-size: 30px;
+    }
+
+    .no-bus-title {
+        font-size: 20px;
+    }
+
+    .no-bus-message {
+        font-size: 14px;
+    }
+
+    .no-bus-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
