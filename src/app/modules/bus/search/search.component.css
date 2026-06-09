@@ -1,37 +1,305 @@
-.nobuses {
-    box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
-    padding: 25px 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin: 0px;
-    display: none;
-}
-.no_bus-content {
-    text-align: center;
-}
-.no_bus-content p {
-    color: #333;
-    margin: 0;
-    line-height: 1.3;
+.bus-result-header {
+    margin-bottom: 15px;
 }
 
-.fs-10{
-    font-size: 10px;
+.bus-result-info {
+    font-size: 15px;
+    color: #555;
 }
-.tts__flight__price{
-    font-size: 16px;
+
+.bus-result-count {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0 4px;
 }
-.arrival_date{
-    line-height: 10px;
+
+.bus-result-label strong {
+    color: var(--primary-color);
+}
+
+.bus-result-actions .btn {
+    min-width: 95px;
+}
+
+
+
+
+/* ==========================
+   Bus Search Results
+========================== */
+
+.bus-search-results {
+    width: 100%;
+}
+
+/* ==========================
+   Sort Header
+========================== */
+
+.bus-sort-header {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 12px 20px;
+    margin-bottom: 15px;
+    box-shadow: var(--shadow-sm);
+}
+
+.sort-btn {
+    width: 100%;
+    background: transparent;
+    border: none;
+    font-weight: 600;
+    color: var(--dark);
+    transition: var(--transition);
+}
+
+.sort-btn:hover {
+    color: var(--primary-color);
+}
+
+.flight-activefilter {
+    color: var(--primary-color) !important;
+    position: relative;
+}
+
+.flight-activefilter::after {
+    content: "";
     position: absolute;
-    font-size: 12px;
+    left: 0;
+    bottom: -12px;
+    width: 100%;
+    height: 3px;
+    border-radius: 20px;
+    background: var(--primary-color);
 }
 
-.tts-text-ellpsis{
-    text-overflow: ellipsis;
+/* ==========================
+   Bus Card
+========================== */
+
+.bus-card {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 18px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.bus-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+/* ==========================
+   Bus Name
+========================== */
+
+.bus-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--second-dark-color);
+    margin-bottom: 4px;
+}
+
+.bus-type {
+    font-size: 13px;
+    color: var(--dark);
     white-space: nowrap;
-    word-break: break-all;
     overflow: hidden;
+    text-overflow: ellipsis;
 }
 
+/* ==========================
+   Time
+========================== */
+
+.time {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--body-text-color);
+}
+
+.duration {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+/* ==========================
+   Price
+========================== */
+
+.price {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--primary-color);
+    line-height: 1.2;
+}
+
+.price+small,
+.price~small {
+    display: block;
+    color: var(--dark);
+    font-size: 11px;
+    margin-top: 3px;
+}
+
+/* ==========================
+   Select Seats Button
+========================== */
+
+.btn-danger,
+.flight-book {
+    background: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    color: var(--white);
+    border-radius: var(--radius-sm);
+    padding: 10px 18px;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.btn-danger:hover,
+.flight-book:hover {
+    opacity: .9;
+    transform: translateY(-1px);
+}
+
+/* ==========================
+   Footer
+========================== */
+
+.bus-card-footer {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+}
+
+.seat-left {
+    color: #198754;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.live-track {
+    color: var(--primary-color);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.live-track img {
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+}
+
+/* ==========================
+   Cancellation Link
+========================== */
+
+.bus-card-footer a {
+    color: var(--primary-color);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.bus-card-footer a:hover {
+    color: var(--primary-bg-color);
+}
+
+/* ==========================
+   Policy Box
+========================== */
+
+.policy-box {
+    margin-top: 15px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 15px;
+}
+
+.policy-box h6 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--second-dark-color);
+    margin-bottom: 12px;
+}
+
+.policy-box .table {
+    margin-bottom: 0;
+}
+
+.policy-box thead th {
+    background: var(--second-bg-color);
+    color: var(--primary-color);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.policy-box tbody td {
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+/* ==========================
+   Checkbox
+========================== */
+
+.form-check-input {
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* ==========================
+   Responsive
+========================== */
+
+@media (max-width: 991px) {
+
+    .time {
+        font-size: 18px;
+    }
+
+    .price {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 767px) {
+
+    .bus-sort-header {
+        display: none;
+    }
+
+    .bus-card {
+        padding: 15px;
+    }
+
+    .bus-card .row>div {
+        text-align: center !important;
+        margin-bottom: 12px;
+    }
+
+    .bus-card-footer .row>div {
+        text-align: center !important;
+        margin-bottom: 10px;
+    }
+
+    .flight-book,
+    .btn-danger {
+        width: 100%;
+    }
+
+    .price {
+        margin: 10px 0;
+    }
+}

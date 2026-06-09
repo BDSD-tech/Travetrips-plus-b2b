@@ -1,145 +1,226 @@
-<!----------search--form---width----banner------------>
-<section  class="hero-section"></section>
-<section class="flight_section">
+<section class="hero-section">
+    <!-- <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-12 hero-content">
+        <h1>
+          Manage Your <span>Bookings</span> Smarter
+        </h1>
+        <p>
+          Flight, Hotel, and Bus bookings all in one dashboard.
+          Track wallet balance, manage trips, and control everything easily.
+        </p>
+      </div>
+    </div>
+  </div> -->
+</section>
+
+<div class="flight_section">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="flight_box">
-                     <ul class="search-tabs">
+                    <ul class="search-tabs">
                         <li>
-                        <a href="javascript:void(0)" routerLink="/flight" class="tab-link ">
-                            <i class="fas fa-plane-departure"></i>
-                            <span>Flight</span>
-                        </a>
+                            <a href="javascript:void(0)" routerLink="/flight" class="tab-link ">
+                                <i class="fas fa-plane-departure"></i>
+                                <span>Flight</span>
+                            </a>
                         </li>
                         <li>
-                        <a href="javascript:void(0)" routerLink="/hotel" class="tab-link ">
-                            <i class="fas fa-building"></i>
-                            <span>Hotel</span>
-                        </a>
+                            <a href="javascript:void(0)" routerLink="/hotel" class="tab-link ">
+                                <i class="fas fa-building"></i>
+                                <span>Hotel</span>
+                            </a>
                         </li>
                         <li>
-                        <a href="javascript:void(0)" routerLink="/bus" class="tab-link active">
-                            <i class="fas fa-building"></i>
-                            <span>Bus</span>
-                        </a>
+                            <a href="javascript:void(0)" routerLink="/bus" class="tab-link active">
+                                <i class="fas fa-bus"></i>
+                                <span>Bus</span>
+                            </a>
                         </li>
                     </ul>
                     <form [formGroup]="BusSearchForm" (ngSubmit)="SearchData()" id="bus-form">
-                       <div class="tab-content">
-                            <div class="flight-tab row col-md-12">
-                                <div class="persent-one witdh-36">
-                                    <input type="text" formControlName="Origin" class="textboxstyle busautosuggeest ps-18" placeholder="Enter Source" (click)="openautocomplete($event,'input')">
+                        <div class="flight-tab d-lg-flex">
+                            <div class="d-flex form-info">
+                                <div class="persent-one">
+                                    <label class="custom-label">Origin</label>
+                                    <span class="srchicons"><i class="fa-solid fa-map-marker"></i></span>
+                                    <input type="text" formControlName="Origin"
+                                        class="textboxstyle busautosuggeest ps-18" placeholder="Enter Source"
+                                        (click)="openautocomplete($event,'input')">
                                     <i class="fa fa-angle-down search-form-inp-down" *ngIf="f['Origin'].value==''"></i>
-                                    <i class="fa fa-times search-form-inp-down"  (click)="Cleardata('Origin')" *ngIf="f['Origin'].value!=''"></i>
+                                    <i class="fa fa-times search-form-inp-down" (click)="Cleardata('Origin')"
+                                        *ngIf="f['Origin'].value!=''"></i>
                                     <span class="at-exchange" (click)="swapecity()"></span>
                                     <div *ngIf="submitted && f['Origin'].errors" class="error-msg">
-                                    <div *ngIf="f['Origin'].errors['required']">Please enter a valid Source
+                                        <div *ngIf="f['Origin'].errors['required']">Please enter a valid Source
+                                        </div>
                                     </div>
                                 </div>
-                                </div>
-                                <div class="persent-one witdh-36">
-                                    <input type="text" formControlName="Destination" class="textboxstyle busautosuggeest ps-18" placeholder="Enter Destination" (click)="openautocomplete($event,'input')">
-                                    <i class="fa fa-angle-down search-form-inp-down" *ngIf="f['Destination'].value==''"></i>
-                                    <i class="fa fa-times search-form-inp-down"  (click)="Cleardata('Destination')" *ngIf="f['Destination'].value!=''"></i>
+                                <div class="persent-one">
+                                    <label class="custom-label">Destination</label>
+                                    <span class="srchicons"><i class="fa-solid fa-map-marker"></i></span>
+                                    <input type="text" formControlName="Destination"
+                                        class="textboxstyle busautosuggeest ps-18" placeholder="Enter Destination"
+                                        (click)="openautocomplete($event,'input')">
+                                    <i class="fa fa-angle-down search-form-inp-down"
+                                        *ngIf="f['Destination'].value==''"></i>
+                                    <i class="fa fa-times search-form-inp-down" (click)="Cleardata('Destination')"
+                                        *ngIf="f['Destination'].value!=''"></i>
                                     <div *ngIf="submitted && f['Destination'].errors" class="error-msg">
-                                    <div *ngIf="f['Destination'].errors['required']">Please enter a valid Destination
+                                        <div *ngIf="f['Destination'].errors['required']">Please enter a valid
+                                            Destination
+                                        </div>
+                                        <div *ngIf="f['Destination'].errors['notmatching']">Source and Destination
+                                            cannot be same</div>
                                     </div>
-                                    <div *ngIf="f['Destination'].errors['notmatching']">Source and Destination cannot be same</div>
-                                </div>
                                 </div>
                                 <div class="persent-one less-per witdh-20">
                                     <span class="srchicons"><i class="fa-solid fa-calendar"></i></span>
-                                    <input type="text" appDatepicker #datepicker="datepicker" class="textboxstyle cal-depart-date w-100" formControlName="DepartDate" (dateEventEmitter)="dateEventEmitter($event)" placeholder="Depart Date" minDate="0" maxDate="+1Y" calType="O" readonly>
+                                    <label class="custom-label">Depart Date</label>
+                                    <input type="text" appDatepicker #datepicker="datepicker"
+                                        class="textboxstyle cal-depart-date w-100" formControlName="DepartDate"
+                                        (dateEventEmitter)="dateEventEmitter($event)" placeholder="Depart Date"
+                                        minDate="0" maxDate="+1Y" calType="O" readonly>
                                     <div *ngIf="submitted && f['DepartDate'].errors" class="error-msg">
-                                    <div *ngIf="f['DepartDate'].errors['required']">Please enter a valid departure date</div>
+                                        <div *ngIf="f['DepartDate'].errors['required']">Please enter a valid departure
+                                            date</div>
+                                    </div>
                                 </div>
-                                </div>
-                                <div class="persent-one less-btn">
-                                    <button type="submit" class="btn cst-btn" [disabled]="Busloading"> <span *ngIf="Busloading" class="spinner-border spinner-border-sm mr-1"></span> Search</button>
-                                 </div>
+
+                            </div>
+                            <div class="less-btn">
+                                <button type="submit" class="btn cst-btn" [disabled]="Busloading"> <span
+                                        *ngIf="Busloading" class="spinner-border spinner-border-sm"></span>
+                                    Search</button>
                             </div>
                         </div>
-
-
                     </form>
-                    
-                    
+                </div>
+            </div>
+        </div>
+        <!------Recente Search----->
+        <div class="recent-search-section">
+            <div class="recent-search-header">
+                <div>
+                    <h3 class="title">Recent Searches</h3>
+                </div>
+            </div>
+            <div class="recent-search-grid">
+                <div class="recent-card"><!---->
+                    <div class="at-viewlastbg">
+                        <div class="recent-top">
+                            <div class="flight-icon"><i class="fas fa-bus"></i></div>
+                            <div class="route-text"> Banglore <i class="fa fa-arrow-right route-arrow"></i> Hyderabad
+                            </div>
+                        </div>
+                        <div class="recent-bottom"><span class="date-text"> 18 Jun 2026 </span><span
+                                class="dot"></span><span class="passenger-count"> 1 </span><i
+                                class="fa fa-user user-icon"></i></div>
+                    </div><!---->
+                </div>
+                <div class="recent-card"><!---->
+                    <div class="at-viewlastbg">
+                        <div class="recent-top">
+                            <div class="flight-icon"><i class="fas fa-bus"></i></div>
+                            <div class="route-text"> Banglore <i class="fa fa-arrow-right route-arrow"></i> Hyderabad
+                            </div>
+                        </div>
+                        <div class="recent-bottom"><span class="date-text"> 18 Jun 2026 </span><span
+                                class="dot"></span><span class="passenger-count"> 1 </span><i
+                                class="fa fa-user user-icon"></i></div>
+                    </div><!---->
+                </div>
+                <div class="recent-card"><!---->
+                    <div class="at-viewlastbg">
+                        <div class="recent-top">
+                            <div class="flight-icon"><i class="fas fa-bus"></i></div>
+                            <div class="route-text"> Banglore <i class="fa fa-arrow-right route-arrow"></i> Hyderabad
+                            </div>
+                        </div>
+                        <div class="recent-bottom"><span class="date-text"> 18 Jun 2026 </span><span
+                                class="dot"></span><span class="passenger-count"> 1 </span><i
+                                class="fa fa-user user-icon"></i></div>
+                    </div><!---->
                 </div>
             </div>
         </div>
     </div>
-  </section>  
-  <!----------search--form---width----banner------end------>
+</div>
+<!----------search--form---width----banner------end------>
 
 
 
-<!----------Deal---and---offer---start------->
+<!----------Deal---and---offer---start-------
 <section class="deal-offer-section">
     <div class="container">
-          <div class="row">
-              <div class="col-md-12">
-                  <h3>Deals and Offers <span class="ast-alloffers">ALL OFFERS
-                    <img src="assets/img/down.svg" alt="down.svg" class="img-fluid">
-                  </span> </h3>
-              </div>
-          </div>
-      </div>
-      <div class="container">
-          <div class="row">
-              <div class="col-md-12">
-                  <div class="text-center" *ngIf="offerloading===true">
-                      <div class="lds-ellipsis">
-                        <div></div><div></div><div></div><div></div>
-                      </div>
-                  </div>
-                  <div class="row" *ngIf="offerloading===false">
-                      <div class="col-md-3" *ngFor="let item of Offer">
-                          <div class="card">
-                              <div class="photo">
-                                  <img [src]="item['Image']" class="card-img-top" alt="{{item['Title']}}">
-                              </div>
-                              <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Deals and Offers <span class="ast-alloffers">ALL OFFERS
+                        <img src="assets/img/down.svg" alt="down.svg" class="img-fluid">
+                    </span> </h3>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-center" *ngIf="offerloading===true">
+                    <div class="lds-ellipsis">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="offerloading===false">
+                    <div class="col-md-3" *ngFor="let item of Offer">
+                        <div class="card">
+                            <div class="photo">
+                                <img [src]="item['Image']" class="card-img-top" alt="{{item['Title']}}">
+                            </div>
+                            <div class="card-body">
                                 <h5 class="card-title">
                                     {{item['Title']}}
                                 </h5>
                                 <p class="card-text">
-                                  {{item['Description']}}
+                                    {{item['Description']}}
                                 </p>
-                              </div>
                             </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </section>
-  <!----------Deal---and---offer----end-------->
-  
-  
-  <!--------------------Start For Blog-------------------------------------->
-  <section id="recent-posts" class="recent-posts sections-bg py-3" *ngIf="BlogList.length!=0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!----------Deal---and---offer----end-------->
+
+
+<!--------------------Start For Blog--------------------------------------
+<section id="recent-posts" class="recent-posts sections-bg py-3" *ngIf="BlogList.length!=0">
     <div class="container">
         <div class="section-header mb-4">
             <h4>Recent Blog Posts
-              <span class="float-end"><a routerLink="/blog" class="fs-12">View All</a> </span> 
+                <span class="float-end"><a routerLink="/blog" class="fs-12">View All</a> </span>
             </h4>
         </div>
         <div class="row gy-4">
             <div class="col-md-3" *ngFor="let item of BlogList">
                 <article>
                     <div class="post-img">
-                        <img [src]="item['Image']" alt="{{item['Title']}}" class="img-fluid"/>
+                        <img [src]="item['Image']" alt="{{item['Title']}}" class="img-fluid" />
                     </div>
                     <h2 class="title">
-                      <a routerLink="/blog/detail/{{item['Slug']}}" title="{{item['Title']}}">
-                      {{item['Title'].length>28?(item['Title']|slice:0:28) +'...':item['Title']}}
-                       </a>
-                   </h2>
+                        <a routerLink="/blog/detail/{{item['Slug']}}" title="{{item['Title']}}">
+                            {{item['Title'].length>28?(item['Title']|slice:0:28) +'...':item['Title']}}
+                        </a>
+                    </h2>
                     <div class="d-flex align-items-center mb-2">
                         <div class="post-meta">
                             <p class="post-date">
-                                <span><i class="fa fa-calendar"></i> {{item['Created']}}</span> <span class="post-author-img ms-2"> <i class="fa fa-user"></i> {{item['PostedBy']}}</span>
+                                <span><i class="fa fa-calendar"></i> {{item['Created']}}</span> <span
+                                    class="post-author-img ms-2"> <i class="fa fa-user"></i> {{item['PostedBy']}}</span>
                             </p>
                         </div>
                     </div>
@@ -151,28 +232,4 @@
         </div>
     </div>
 </section>
-   <!--------------------End For Blog-------------------------------------->
-
-   <!--------------------Start For Client Review-------------------------------------->
-  <section class="client-review sections-bg py-3" *ngIf="TestimonialsList.length!=0">
-    <div class="container">
-        <div class="section-header mb-4">
-            <h4>Testimonials
-              <span class="float-end"><a routerLink="/testimonials" class="fs-12">View All</a> </span> 
-            </h4>
-            <p>We place huge value on strong relationships and have seen the benefit they bring to our business. Customer feedback is vital in helping us to get it right.</p>
-        </div>
-        <div class="row gy-4">
-          <div class="col-md-3" *ngFor="let item of TestimonialsList.slice(0, 4)">
-            <div class="testimonial">
-              <img [src]="item['Image']" class="img-fluid" alt="{{item['Name']}}">
-              <h5>{{item['Name']}}</h5>
-              <div class="testimonial-content">
-                <p>{{item['Description']}}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
-</section>
-<!--------------------End For Client Review-------------------------------------->
+<!--------------------End For Blog-------------------------------------->

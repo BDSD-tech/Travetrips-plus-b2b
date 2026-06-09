@@ -62,7 +62,7 @@
                         <span>Flight Details</span>
                      </div>
 
-                     <a href="javascript:void(0)" class="change-flight-btn">
+                     <a href="javascript:void(0)" class="change-flight-btn" (click)="goBack()">
                         Change Flight
                      </a>
 
@@ -498,7 +498,7 @@
 
 
             @if(fareloading==false){
-            <form [formGroup]="FlightForm" (ngSubmit)="SubmitPax()">
+            <form [formGroup]="FlightForm">
                <div class="flight-booking-wrapper">
                   <div class="flight-booking-header">
                      <div class="itinerary-card-title">
@@ -515,8 +515,8 @@
 
                         <!--Start Adult information -->
                         <div formArrayName="Adult">
-                           <div class="passenger-card adult-passenger-wrapper" *ngFor="let adt of fadt.controls; let a=index;"
-                              [formGroupName]="a">
+                           <div class="passenger-card adult-passenger-wrapper"
+                              *ngFor="let adt of fadt.controls; let a=index;" [formGroupName]="a">
                               <!-- Passenger Header -->
                               <div class="passenger-card-header">
                                  <h6>ADULT {{a+1}}
@@ -548,14 +548,15 @@
 
                                  <div class="row gy-3">
                                     <div class="col-md-3">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="floatingSelect">Title</label>
                                           <select class="form-select main-select" formControlName="Title">
                                              <option value="" selected>Title</option>
                                              <option value="Mr">Mr</option>
                                              <option value="Mrs">Mrs</option>
                                              <option value="Ms">Ms</option>
                                           </select>
-                                          <label for="floatingSelect">Title</label>
+
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.Title')?.errors"
                                           class="error-msg">
@@ -565,13 +566,14 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Adult-{{a}}-FirstName">First
+                                             Name*</label>
                                           <input type="text" class="form-control main-select"
                                              formControlName="FirstName" placeholder="First Name*"
                                              oninput="this.value = this.value.toUpperCase()"
                                              id="Adult-{{a}}-FirstName" />
-                                          <label for="Adult-{{a}}-FirstName">First
-                                             Name*</label>
+
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.FirstName')?.errors"
                                           class="error-msg">
@@ -585,12 +587,13 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Adult-{{a}}-LastName">Last
+                                             Name*</label>
                                           <input type="text" class="form-control main-select" formControlName="LastName"
                                              placeholder="Last Name*" oninput="this.value = this.value.toUpperCase()"
                                              id="Adult-{{a}}-LastNam" />
-                                          <label for="Adult-{{a}}-LastName">Last
-                                             Name*</label>
+
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.LastName')?.errors"
                                           class="error-msg">
@@ -604,13 +607,14 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3" *ngIf="showadtdob">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Adult-{{a}}-DOB">Date of Birth<span
+                                                *ngIf="FlightForm.get('Adult.'+a+'.DOB')?.errors?.['required']">*</span></label>
                                           <input type="text" class="form-control main-select" formControlName="DOB"
                                              placeholder="Date of Birth" attr.key="{{a}}" paxtype="Adult"
                                              id="Adult-{{a}}-DOB" (input)="onDobInput('Adult',$event, a,'DOB')"
                                              adt-dob-date />
-                                          <label for="Adult-{{a}}-DOB">Date of Birth<span
-                                                *ngIf="FlightForm.get('Adult.'+a+'.DOB')?.errors?.['required']">*</span></label>
+
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.DOB')?.errors"
                                           class="error-msg">
@@ -620,10 +624,11 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3" *ngIf="IsPANMandatory">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Adult-{{a}}-PAN">PAN Number*</label>
                                           <input type="text" class="form-control main-select" formControlName="PAN"
                                              placeholder="PAN Number*" id="Adult-{{a}}-PAN" />
-                                          <label for="Adult-{{a}}-PAN">PAN Number*</label>
+
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.PAN')?.errors"
                                           class="error-msg">
@@ -636,13 +641,14 @@
                                        </div>
                                     </div>
                                     <div class="col-md-4" *ngIf="DocumentMendatory">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Adult-{{a}}-DocumentNumber">Document
+                                             Number ({{DocumentTitle}})*</label>
                                           <input type="text" class="form-control main-select"
                                              formControlName="DocumentNumber" placeholder="{{DocumentTitle}}*"
                                              oninput="this.value = this.value.toUpperCase()"
                                              id="Adult-{{a}}-DocumentNumber" />
-                                          <label for="Adult-{{a}}-DocumentNumber">Document
-                                             Number ({{DocumentTitle}})*</label>
+
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.DocumentNumber')?.errors"
                                           class="error-msg">
@@ -657,15 +663,16 @@
                                        </div>
                                     </div>
                                     <div class="col-md-4" *ngIf="DocumentIssueDate">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Adult-{{a}}-DocumentIssueDate">Document
+                                             Issue Date *<span
+                                                *ngIf="FlightForm.get('Adult.'+a+'.DocumentIssueDate')?.errors?.['required']">*</span></label>
                                           <input type="text" class="form-control main-select"
                                              formControlName="DocumentIssueDate" placeholder="Document Issue Date"
                                              adt-docissue-date attr.key="{{a}}" paxtype="Adult" attr.key="{{a}}"
                                              (input)="onDobInput('Adult',$event, a,'DocumentIssueDate')"
                                              id="Adult-{{a}}-DocumentIssueDate" />
-                                          <label for="Adult-{{a}}-DocumentIssueDate">Document
-                                             Issue Date *<span
-                                                *ngIf="FlightForm.get('Adult.'+a+'.DocumentIssueDate')?.errors?.['required']">*</span></label>
+
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.DocumentIssueDate')?.errors"
                                           class="error-msg">
@@ -676,15 +683,16 @@
                                        </div>
                                     </div>
                                     <div class="col-md-4" *ngIf="DocumentExpiryDate">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Adult-{{a}}-DocumentExpireDate">Document
+                                             Expiry Date *<span
+                                                *ngIf="FlightForm.get('Adult.'+a+'.DocumentExpireDate')?.errors?.['required']">*</span></label>
                                           <input type="text" class="form-control main-select"
                                              formControlName="DocumentExpireDate" placeholder="Document Issue Date"
                                              (input)="onDobInput('Adult',$event, a,'DocumentExpireDate')"
                                              adt-docexpiry-date attr.key="{{a}}" paxtype="Adult" attr.key="{{a}}"
                                              id="Adult-{{a}}-DocumentExpireDate" />
-                                          <label for="Adult-{{a}}-DocumentExpireDate">Document
-                                             Expiry Date *<span
-                                                *ngIf="FlightForm.get('Adult.'+a+'.DocumentExpireDate')?.errors?.['required']">*</span></label>
+
                                        </div>
                                        <div
                                           *ngIf="submitted && FlightForm.get('Adult.'+a+'.DocumentExpireDate')?.errors"
@@ -702,7 +710,8 @@
                                     <p class="apt-addpassport"><span>ADD PASSPORT INFORMATION</span>
                                     </p>
                                     <div class="col-md-3">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Adult-{{a}}-Nationality">Nationality</label>
                                           <select class="form-select main-select" id="Adult-{{a}}-Nationality"
                                              formControlName="Nationality">
                                              <option value="">Select</option>
@@ -711,7 +720,7 @@
                                                 {{mcode['name']}}
                                              </option>
                                           </select>
-                                          <label for="Adult-{{a}}-Nationality">Nationality</label>
+
                                           <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.Nationality')?.errors"
                                              class="error-msg">
                                              <div
@@ -722,12 +731,13 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Adult-{{a}}-PassportNo">Passport
+                                             Number</label>
                                           <input type="text" class="form-control main-select"
                                              formControlName="PassportNo" placeholder="Passport Number"
                                              id="Adult-{{a}}-PassportNo" />
-                                          <label for="Adult-{{a}}-PassportNo">Passport
-                                             Number</label>
+
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.PassportNo')?.errors"
                                           class="error-msg">
@@ -737,14 +747,15 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Adult-{{a}}-PassportIssue">Issue
+                                             Date</label>
                                           <input type="text" class="form-control main-select"
                                              formControlName="PassportIssue" passport-issue-date
                                              placeholder="Issue Date" attr.key="{{a}}" paxtype="Adult"
                                              id="Adult-{{a}}-PassportIssue"
                                              (input)="onDobInput('Adult',$event, a,'PassportIssue')" />
-                                          <label for="Adult-{{a}}-PassportIssue">Issue
-                                             Date</label>
+
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.PassportIssue')?.errors"
                                           class="error-msg">
@@ -755,14 +766,15 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Adult-{{a}}-PassportExpiry">Expiry
+                                             Date</label>
                                           <input type="text" class="form-control main-select"
                                              formControlName="PassportExpiry" passport-expiry-date
                                              placeholder="Expiry Date" attr.key="{{a}}" paxtype="Adult"
                                              id="Adult-{{a}}-PassportExpiry"
                                              (input)="onDobInput('Adult',$event, a,'PassportExpiry')" />
-                                          <label for="Adult-{{a}}-PassportExpiry">Expiry
-                                             Date</label>
+
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.PassportExpiry')?.errors"
                                           class="error-msg">
@@ -773,7 +785,9 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Adult-{{a}}-PassportIssueCountry">Passport
+                                             Issue Country</label>
                                           <select class="form-select main-select" id="Adult-{{a}}-PassportIssueCountry"
                                              formControlName="PassportIssueCountry">
                                              <option value="">Select</option>
@@ -782,8 +796,7 @@
                                                 {{mcode['name']}}
                                              </option>
                                           </select>
-                                          <label for="Adult-{{a}}-PassportIssueCountry">Passport
-                                             Issue Country</label>
+
                                           <div
                                              *ngIf="submitted && FlightForm.get('Adult.'+a+'.PassportIssueCountry')?.errors"
                                              class="error-msg">
@@ -804,20 +817,22 @@
                                     <div class="tts-hidden pb-4" id="ADULT_ffdetail_{{a}}">
                                        <div class="row">
                                           <div class="col-sm-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
+                                                <label class="form-label" for="ADULT_{{a}}_ffairline">Airline</label>
                                                 <input type="text" id="ADULT_{{a}}_ffairline"
                                                    class="form-control main-select bg-transparent"
                                                    formControlName="FFAirline" placeholder="Airline" readonly />
-                                                <label for="ADULT_{{a}}_ffairline">Airline</label>
+
                                              </div>
                                           </div>
                                           <div class="col-sm-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
+                                                <label class="form-label" for="ADULT_{{a}}_fNumber">FF
+                                                   Number</label>
                                                 <input type="text" id="ADULT_{{a}}_fNumber"
                                                    class="form-control main-select bg-transparent"
                                                    placeholder="FF Number" formControlName="FFNumber" />
-                                                <label for="ADULT_{{a}}_fNumber">FF
-                                                   Number</label>
+
                                              </div>
                                           </div>
                                        </div>
@@ -837,7 +852,8 @@
 
                         <!--Start Child information -->
                         <div formArrayName="Child">
-                           <div class="child-passenger-wrapper passenger-card" *ngFor="let chd of fchd.controls; let c=index;" [formGroupName]="c">
+                           <div class="child-passenger-wrapper passenger-card"
+                              *ngFor="let chd of fchd.controls; let c=index;" [formGroupName]="c">
                               <!-- Passenger Header -->
                               <div class="passenger-card-header">
                                  <h6>CHILD {{c+1}}:
@@ -868,13 +884,14 @@
 
                                  <div class="row">
                                     <div class="col-md-3">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="floatingSelect">Title</label>
                                           <select class="form-select main-select" formControlName="Title">
                                              <option value="" selected>Title</option>
                                              <option value="Ms">Ms</option>
                                              <option value="Mstr">Master</option>
                                           </select>
-                                          <label for="floatingSelect">Title</label>
+
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Child.'+c+'.Title')?.errors"
                                           class="error-msg">
@@ -884,13 +901,14 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Child-{{c}}-FirstName">First
+                                             Name*</label>
                                           <input type="text" class="form-control main-select"
                                              formControlName="FirstName" placeholder="First Name*"
                                              oninput="this.value = this.value.toUpperCase()"
                                              id="Child-{{c}}-FirstName" />
-                                          <label for="Child-{{c}}-FirstName">First
-                                             Name*</label>
+
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Child.'+c+'.FirstName')?.errors"
                                           class="error-msg">
@@ -904,12 +922,13 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Child-{{c}}-LastName">Last
+                                             Name*</label>
                                           <input type="text" class="form-control main-select" formControlName="LastName"
                                              placeholder="Last Name*" oninput="this.value = this.value.toUpperCase()"
                                              id="Child-{{c}}-LastName" />
-                                          <label for="Child-{{c}}-LastName">Last
-                                             Name*</label>
+
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Child.'+c+'.LastName')?.errors"
                                           class="error-msg">
@@ -923,12 +942,13 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3" *ngIf="showchddob">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Child-{{c}}-DOB">Date of
+                                             Birth*</label>
                                           <input type="text" class="form-control main-select" formControlName="DOB"
                                              placeholder="Date of Birth*" chd-dob-date attr.key="{{c}}" paxtype="Child"
                                              (input)="onDobInput('Child',$event, c,'DOB')" id="Child-{{c}}-DOB" />
-                                          <label for="Child-{{c}}-DOB">Date of
-                                             Birth*</label>
+
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Child.'+c+'.DOB')?.errors"
                                           class="error-msg">
@@ -938,10 +958,11 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3" *ngIf="IsPANMandatory">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Adult-{{c}}-PAN">PAN Number*</label>
                                           <input type="text" class="form-control main-select" formControlName="PAN"
                                              placeholder="PAN Number*" id="Adult-{{c}}-PAN" />
-                                          <label for="Adult-{{c}}-PAN">PAN Number*</label>
+
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Child.'+c+'.PAN')?.errors"
                                           class="error-msg">
@@ -961,7 +982,8 @@
                                           INFORMATION</span>
                                     </p>
                                     <div class="col-md-3">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Child-{{c}}-Nationality">Nationality</label>
                                           <select class="form-select main-select" id="Child-{{c}}-Nationality"
                                              formControlName="Nationality">
                                              <option value="">Select</option>
@@ -970,7 +992,7 @@
                                                 {{mcode['name']}}
                                              </option>
                                           </select>
-                                          <label for="Child-{{c}}-Nationality">Nationality</label>
+
                                           <div *ngIf="submitted && FlightForm.get('Child.'+c+'.Nationality')?.errors"
                                              class="error-msg">
                                              <div
@@ -981,12 +1003,13 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Child-{{c}}-PassportNo">Passport
+                                             Number</label>
                                           <input type="text" class="form-control main-select"
                                              formControlName="PassportNo" placeholder="Passport Number"
                                              id="Child-{{c}}-PassportNo" />
-                                          <label for="Child-{{c}}-PassportNo">Passport
-                                             Number</label>
+
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Child.'+c+'.PassportNo')?.errors"
                                           class="error-msg">
@@ -996,14 +1019,15 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Child-{{c}}-PassportIssue">Issue
+                                             Date</label>
                                           <input type="text" class="form-control main-select"
                                              formControlName="PassportIssue" placeholder="Issue Date"
                                              passport-issue-date attr.key="{{c}}" paxtype="Child"
                                              id="Child-{{c}}-PassportIssue"
                                              (input)="onDobInput('Child',$event, c,'PassportIssue')" />
-                                          <label for="Child-{{c}}-PassportIssue">Issue
-                                             Date</label>
+
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Child.'+c+'.PassportIssue')?.errors"
                                           class="error-msg">
@@ -1014,14 +1038,15 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Child-{{c}}-PassportExpiry">Expiry
+                                             Date</label>
                                           <input type="text" class="form-control main-select"
                                              formControlName="PassportExpiry" placeholder="Expiry Date"
                                              passport-expiry-date attr.key="{{c}}" paxtype="Child"
                                              id="Child-{{c}}-PassportExpiry"
                                              (input)="onDobInput('Child',$event, c,'PassportExpiry')" />
-                                          <label for="Child-{{c}}-PassportExpiry">Expiry
-                                             Date</label>
+
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Child.'+c+'.PassportExpiry')?.errors"
                                           class="error-msg">
@@ -1032,7 +1057,9 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Child-{{c}}-PassportIssueCountry">Passport
+                                             Issue Country</label>
                                           <select class="form-select main-select" id="Child-{{c}}-PassportIssueCountry"
                                              formControlName="PassportIssueCountry">
                                              <option value="">Select</option>
@@ -1041,8 +1068,7 @@
                                                 {{mcode['name']}}
                                              </option>
                                           </select>
-                                          <label for="Child-{{c}}-PassportIssueCountry">Passport
-                                             Issue Country</label>
+
                                           <div
                                              *ngIf="submitted && FlightForm.get('Child.'+c+'.PassportIssueCountry')?.errors"
                                              class="error-msg">
@@ -1062,20 +1088,22 @@
                                     <div class="tts-hidden pb-4" id="CHILD_ffdetail_{{c}}">
                                        <div class="row">
                                           <div class="col-sm-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
+                                                <label class="form-label" for="CHILD_{{c}}_ffairline">Airline</label>
                                                 <input type="text" id="CHILD_{{c}}_ffairline"
                                                    class="form-control main-select bg-transparent"
                                                    formControlName="FFAirline" placeholder="Airline" readonly />
-                                                <label for="CHILD_{{c}}_ffairline">Airline</label>
+
                                              </div>
                                           </div>
                                           <div class="col-sm-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
+                                                <label class="form-label" for="CHILD_{{c}}_fNumber">FF
+                                                   Number</label>
                                                 <input type="text" id="CHILD_{{c}}_fNumber"
                                                    class="form-control main-select bg-transparent"
                                                    placeholder="FF Number" formControlName="FFNumber" />
-                                                <label for="CHILD_{{c}}_fNumber">FF
-                                                   Number</label>
+
                                              </div>
                                           </div>
                                        </div>
@@ -1095,8 +1123,8 @@
 
                         <!--Start infant information -->
                         <div formArrayName="Infant">
-                           <div class="passenger-card infant-passenger-wrapper" *ngFor="let inf of finf.controls; let i=index;"
-                              [formGroupName]="i">
+                           <div class="passenger-card infant-passenger-wrapper"
+                              *ngFor="let inf of finf.controls; let i=index;" [formGroupName]="i">
                               <!-- Passenger Header -->
                               <div class="passenger-card-header">
                                  <h6>INFANT {{i+1}}:
@@ -1131,13 +1159,14 @@
 
                                  <div class="row">
                                     <div class="col-md-3">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="floatingSelect">Title</label>
                                           <select class="form-select main-select" formControlName="Title">
                                              <option value="" selected>Title</option>
                                              <option value="Ms">Ms</option>
                                              <option value="Mstr">Master</option>
                                           </select>
-                                          <label for="floatingSelect">Title</label>
+
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.Title')?.errors"
                                           class="error-msg">
@@ -1147,13 +1176,14 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Infant-{{i}}-FirstName">First
+                                             Name*</label>
                                           <input type="text" class="form-control main-select"
                                              formControlName="FirstName" placeholder="First Name*"
                                              oninput="this.value = this.value.toUpperCase()"
                                              id="Infant-{{i}}-FirstName" />
-                                          <label for="Infant-{{i}}-FirstName">First
-                                             Name*</label>
+
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.FirstName')?.errors"
                                           class="error-msg">
@@ -1167,11 +1197,12 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Infant-{{i}}-LastName">Last
+                                             Name*</label>
                                           <input type="text" class="form-control main-select" formControlName="LastName"
                                              placeholder="Last Name*" oninput="this.value = this.value.toUpperCase()" />
-                                          <label for="Infant-{{i}}-LastName">Last
-                                             Name*</label>
+
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.LastName')?.errors"
                                           class="error-msg">
@@ -1185,12 +1216,13 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3" *ngIf="showinfdob">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Infant-{{i}}-DOB">Date of
+                                             Birth*</label>
                                           <input type="text" class="form-control main-select" formControlName="DOB"
                                              placeholder="Date of Birth" inf-dob-date attr.key="{{i}}" paxtype="Infant"
                                              id="Infant-{{i}}-DOB" (input)="onDobInput('Infant',$event, i,'DOB')" />
-                                          <label for="Infant-{{i}}-DOB">Date of
-                                             Birth*</label>
+
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.DOB')?.errors"
                                           class="error-msg">
@@ -1200,11 +1232,12 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3" *ngIf="IsPANMandatory">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Infant-{{i}}-PAN">PAN
+                                             Number*</label>
                                           <input type="text" class="form-control main-select" formControlName="PAN"
                                              placeholder="PAN Number" id="Infant-{{i}}-PAN" />
-                                          <label for="Infant-{{i}}-PAN">PAN
-                                             Number*</label>
+
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.PAN')?.errors"
                                           class="error-msg">
@@ -1224,7 +1257,8 @@
                                           INFORMATION</span>
                                     </p>
                                     <div class="col-md-3">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Infant-{{i}}-Nationality">Nationality</label>
                                           <select class="form-select main-select" id="Infant-{{i}}-Nationality"
                                              formControlName="Nationality">
                                              <option value="">Select</option>
@@ -1233,7 +1267,7 @@
                                                 {{mcode['name']}}
                                              </option>
                                           </select>
-                                          <label for="Infant-{{i}}-Nationality">Nationality</label>
+
                                           <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.Nationality')?.errors"
                                              class="error-msg">
                                              <div
@@ -1244,12 +1278,13 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Infant-{{i}}-PassportNo">Passport
+                                             Number</label>
                                           <input type="text" class="form-control main-select"
                                              formControlName="PassportNo" placeholder="Passport Number"
                                              id="Infant-{{i}}-PassportNo" />
-                                          <label for="Infant-{{i}}-PassportNo">Passport
-                                             Number</label>
+
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.PassportNo')?.errors"
                                           class="error-msg">
@@ -1259,14 +1294,15 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Infant-{{i}}-PassportIssue">Issue
+                                             Date</label>
                                           <input type="text" class="form-control main-select"
                                              formControlName="PassportIssue" placeholder="Issue Date"
                                              passport-issue-date attr.key="{{i}}" paxtype="Infant"
                                              id="Infant-{{i}}-PassportIssue"
                                              (input)="onDobInput('Infant',$event, i,'PassportIssue')" />
-                                          <label for="Infant-{{i}}-PassportIssue">Issue
-                                             Date</label>
+
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.PassportIssue')?.errors"
                                           class="error-msg">
@@ -1277,14 +1313,15 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Infant-{{i}}-PassportExpiry">Expiry
+                                             Date</label>
                                           <input type="text" class="form-control main-select"
                                              formControlName="PassportExpiry" placeholder="Expiry Date"
                                              passport-expiry-date attr.key="{{i}}" paxtype="Infant"
                                              id="Infant-{{i}}-PassportExpiry"
                                              (input)="onDobInput('Infant',$event, i,'PassportExpiry')" />
-                                          <label for="Infant-{{i}}-PassportExpiry">Expiry
-                                             Date</label>
+
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.PassportExpiry')?.errors"
                                           class="error-msg">
@@ -1295,7 +1332,9 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3">
-                                       <div class="form-floating">
+                                       <div class="form-group">
+                                          <label class="form-label" for="Infant-{{i}}-PassportIssueCountry">Passport
+                                             Issue Country</label>
                                           <select class="form-select main-select" id="Infant-{{i}}-PassportIssueCountry"
                                              formControlName="PassportIssueCountry">
                                              <option value="">Select</option>
@@ -1304,8 +1343,7 @@
                                                 {{mcode['name']}}
                                              </option>
                                           </select>
-                                          <label for="Infant-{{i}}-PassportIssueCountry">Passport
-                                             Issue Country</label>
+
                                           <div
                                              *ngIf="submitted && FlightForm.get('Infant.'+i+'.PassportIssueCountry')?.errors"
                                              class="error-msg">
@@ -1325,20 +1363,22 @@
                                     <div class="tts-hidden pb-4" id="INFANT_ffdetail_{{i}}">
                                        <div class="row">
                                           <div class="col-sm-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
+                                                <label class="form-label" for="INFANT_{{i}}_ffairline">Airline</label>
                                                 <input type="text" id="INFANT_{{i}}_ffairline"
                                                    class="form-control main-select bg-transparent"
                                                    formControlName="FFAirline" placeholder="Airline" readonly />
-                                                <label for="INFANT_{{i}}_ffairline">Airline</label>
+
                                              </div>
                                           </div>
                                           <div class="col-sm-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
+                                                <label class="form-label" for="INFANT_{{i}}_fNumber">FF
+                                                   Number</label>
                                                 <input type="text" id="INFANT_{{i}}_fNumber"
                                                    class="form-control main-select bg-transparent"
                                                    placeholder="FF Number" formControlName="FFNumber" />
-                                                <label for="INFANT_{{i}}_fNumber">FF
-                                                   Number</label>
+
                                              </div>
                                           </div>
                                        </div>
@@ -1394,7 +1434,7 @@
 
                                        <div class="row mb-3">
                                           <div class="col-md-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <select class="form-select main-select" formControlName="Title">
                                                    <option value="" selected>Title</option>
                                                    <option value="Mr">Mr</option>
@@ -1411,7 +1451,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <input type="text" class="form-control main-select"
                                                    formControlName="FirstName" placeholder="First Name*"
                                                    oninput="this.value = this.value.toUpperCase()"
@@ -1432,7 +1472,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <input type="text" class="form-control main-select"
                                                    formControlName="LastName" placeholder="Last Name*"
                                                    oninput="this.value = this.value.toUpperCase()"
@@ -1453,7 +1493,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-3" *ngIf="showadtdob">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <input type="text" class="form-control main-select"
                                                    formControlName="DOB" placeholder="Date of Birth" attr.key="{{a}}"
                                                    paxtype="Adult" id="Adult-{{a}}-DOB"
@@ -1469,7 +1509,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-3" *ngIf="IsPANMandatory">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <input type="text" class="form-control main-select"
                                                    formControlName="PAN" placeholder="PAN Number*"
                                                    id="Adult-{{a}}-PAN" />
@@ -1486,7 +1526,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-4" *ngIf="DocumentMendatory">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <input type="text" class="form-control main-select"
                                                    formControlName="DocumentNumber" placeholder="{{DocumentTitle}}*"
                                                    oninput="this.value = this.value.toUpperCase()"
@@ -1508,7 +1548,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-4" *ngIf="DocumentIssueDate">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <input type="text" class="form-control main-select"
                                                    formControlName="DocumentIssueDate" placeholder="Document Issue Date"
                                                    adt-docissue-date attr.key="{{a}}" paxtype="Adult" attr.key="{{a}}"
@@ -1528,7 +1568,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-4" *ngIf="DocumentExpiryDate">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <input type="text" class="form-control main-select"
                                                    formControlName="DocumentExpireDate"
                                                    placeholder="Document Issue Date"
@@ -1556,7 +1596,7 @@
                                                 INFORMATION</span>
                                           </p>
                                           <div class="col-md-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <select class="form-select main-select" id="Adult-{{a}}-Nationality"
                                                    formControlName="Nationality">
                                                    <option value="">Select</option>
@@ -1578,7 +1618,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <input type="text" class="form-control main-select"
                                                    formControlName="PassportNo" placeholder="Passport Number"
                                                    id="Adult-{{a}}-PassportNo" />
@@ -1594,7 +1634,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <input type="text" class="form-control main-select"
                                                    formControlName="PassportIssue" passport-issue-date
                                                    placeholder="Issue Date" attr.key="{{a}}" paxtype="Adult"
@@ -1613,7 +1653,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <input type="text" class="form-control main-select"
                                                    formControlName="PassportExpiry" passport-expiry-date
                                                    placeholder="Expiry Date" attr.key="{{a}}" paxtype="Adult"
@@ -1632,7 +1672,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <select class="form-select main-select"
                                                    id="Adult-{{a}}-PassportIssueCountry"
                                                    formControlName="PassportIssueCountry">
@@ -1665,7 +1705,7 @@
                                           <div class="tts-hidden pb-4" id="ADULT_ffdetail_{{a}}">
                                              <div class="row">
                                                 <div class="col-sm-3">
-                                                   <div class="form-floating">
+                                                   <div class="form-group">
                                                       <input type="text" id="ADULT_{{a}}_ffairline"
                                                          class="form-control main-select bg-transparent"
                                                          formControlName="FFAirline" placeholder="Airline" readonly />
@@ -1673,7 +1713,7 @@
                                                    </div>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                   <div class="form-floating">
+                                                   <div class="form-group">
                                                       <input type="text" id="ADULT_{{a}}_fNumber"
                                                          class="form-control main-select bg-transparent"
                                                          placeholder="FF Number" formControlName="FFNumber" />
@@ -1734,7 +1774,7 @@
 
                                        <div class="row">
                                           <div class="col-md-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <select class="form-select main-select" formControlName="Title">
                                                    <option value="" selected>Title</option>
                                                    <option value="Ms">Ms</option>
@@ -1750,7 +1790,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <input type="text" class="form-control main-select"
                                                    formControlName="FirstName" placeholder="First Name*"
                                                    oninput="this.value = this.value.toUpperCase()"
@@ -1771,7 +1811,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <input type="text" class="form-control main-select"
                                                    formControlName="LastName" placeholder="Last Name*"
                                                    oninput="this.value = this.value.toUpperCase()"
@@ -1792,7 +1832,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-3" *ngIf="showchddob">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <input type="text" class="form-control main-select"
                                                    formControlName="DOB" placeholder="Date of Birth*" chd-dob-date
                                                    attr.key="{{c}}" paxtype="Child"
@@ -1808,7 +1848,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-3" *ngIf="IsPANMandatory">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <input type="text" class="form-control main-select"
                                                    formControlName="PAN" placeholder="PAN Number*"
                                                    id="Adult-{{c}}-PAN" />
@@ -1832,7 +1872,7 @@
                                                 INFORMATION</span>
                                           </p>
                                           <div class="col-md-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <select class="form-select main-select" id="Child-{{c}}-Nationality"
                                                    formControlName="Nationality">
                                                    <option value="">Select</option>
@@ -1854,7 +1894,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <input type="text" class="form-control main-select"
                                                    formControlName="PassportNo" placeholder="Passport Number"
                                                    id="Child-{{c}}-PassportNo" />
@@ -1870,7 +1910,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <input type="text" class="form-control main-select"
                                                    formControlName="PassportIssue" placeholder="Issue Date"
                                                    passport-issue-date attr.key="{{c}}" paxtype="Child"
@@ -1889,7 +1929,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <input type="text" class="form-control main-select"
                                                    formControlName="PassportExpiry" placeholder="Expiry Date"
                                                    passport-expiry-date attr.key="{{c}}" paxtype="Child"
@@ -1908,7 +1948,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <select class="form-select main-select"
                                                    id="Child-{{c}}-PassportIssueCountry"
                                                    formControlName="PassportIssueCountry">
@@ -1941,7 +1981,7 @@
                                           <div class="tts-hidden pb-4" id="CHILD_ffdetail_{{c}}">
                                              <div class="row">
                                                 <div class="col-sm-3">
-                                                   <div class="form-floating">
+                                                   <div class="form-group">
                                                       <input type="text" id="CHILD_{{c}}_ffairline"
                                                          class="form-control main-select bg-transparent"
                                                          formControlName="FFAirline" placeholder="Airline" readonly />
@@ -1949,7 +1989,7 @@
                                                    </div>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                   <div class="form-floating">
+                                                   <div class="form-group">
                                                       <input type="text" id="CHILD_{{c}}_fNumber"
                                                          class="form-control main-select bg-transparent"
                                                          placeholder="FF Number" formControlName="FFNumber" />
@@ -2006,7 +2046,7 @@
 
                                        <div class="row">
                                           <div class="col-md-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <select class="form-select main-select" formControlName="Title">
                                                    <option value="" selected>Title</option>
                                                    <option value="Ms">Ms</option>
@@ -2022,7 +2062,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <input type="text" class="form-control main-select"
                                                    formControlName="FirstName" placeholder="First Name*"
                                                    oninput="this.value = this.value.toUpperCase()"
@@ -2043,7 +2083,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <input type="text" class="form-control main-select"
                                                    formControlName="LastName" placeholder="Last Name*"
                                                    oninput="this.value = this.value.toUpperCase()" />
@@ -2063,7 +2103,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-3" *ngIf="showinfdob">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <input type="text" class="form-control main-select"
                                                    formControlName="DOB" placeholder="Date of Birth" inf-dob-date
                                                    attr.key="{{i}}" paxtype="Infant" id="Infant-{{i}}-DOB"
@@ -2079,7 +2119,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-3" *ngIf="IsPANMandatory">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <input type="text" class="form-control main-select"
                                                    formControlName="PAN" placeholder="PAN Number"
                                                    id="Infant-{{i}}-PAN" />
@@ -2104,7 +2144,7 @@
                                                 INFORMATION</span>
                                           </p>
                                           <div class="col-md-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <select class="form-select main-select" id="Infant-{{i}}-Nationality"
                                                    formControlName="Nationality">
                                                    <option value="">Select</option>
@@ -2126,7 +2166,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <input type="text" class="form-control main-select"
                                                    formControlName="PassportNo" placeholder="Passport Number"
                                                    id="Infant-{{i}}-PassportNo" />
@@ -2142,7 +2182,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <input type="text" class="form-control main-select"
                                                    formControlName="PassportIssue" placeholder="Issue Date"
                                                    passport-issue-date attr.key="{{i}}" paxtype="Infant"
@@ -2161,7 +2201,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <input type="text" class="form-control main-select"
                                                    formControlName="PassportExpiry" placeholder="Expiry Date"
                                                    passport-expiry-date attr.key="{{i}}" paxtype="Infant"
@@ -2180,7 +2220,7 @@
                                              </div>
                                           </div>
                                           <div class="col-md-3">
-                                             <div class="form-floating">
+                                             <div class="form-group">
                                                 <select class="form-select main-select"
                                                    id="Infant-{{i}}-PassportIssueCountry"
                                                    formControlName="PassportIssueCountry">
@@ -2213,7 +2253,7 @@
                                           <div class="tts-hidden pb-4" id="INFANT_ffdetail_{{i}}">
                                              <div class="row">
                                                 <div class="col-sm-3">
-                                                   <div class="form-floating">
+                                                   <div class="form-group">
                                                       <input type="text" id="INFANT_{{i}}_ffairline"
                                                          class="form-control main-select bg-transparent"
                                                          formControlName="FFAirline" placeholder="Airline" readonly />
@@ -2221,7 +2261,7 @@
                                                    </div>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                   <div class="form-floating">
+                                                   <div class="form-group">
                                                       <input type="text" id="INFANT_{{i}}_fNumber"
                                                          class="form-control main-select bg-transparent"
                                                          placeholder="FF Number" formControlName="FFNumber" />
@@ -2263,7 +2303,8 @@
                      <div class="flight-route-block">
                         <div class="row g-3 needs-validation">
                            <div class="col-lg-4">
-                              <div class="form-floating">
+                              <div class="form-group">
+                                 <label class="form-label" for="floating-countrycode">Country Code</label>
                                  <select class="form-select main-select" id="floating-countrycode"
                                     (change)="GetPhonecodeVal($event)" formControlName="ISDCode">
                                     <option value="{{mcode['phonecode']}}" *ngFor="let mcode of Dialcode;">
@@ -2271,7 +2312,7 @@
                                        (+{{mcode['phonecode']}})
                                     </option>
                                  </select>
-                                 <label for="floating-countrycode">Country Code</label>
+
                                  <div *ngIf="submitted && FlightForm.get('ISDCode')?.errors" class="error-msg">
                                     <div *ngIf="FlightForm.get('ISDCode')?.errors?.['required']">
                                        Country code is required.
@@ -2280,10 +2321,11 @@
                               </div>
                            </div>
                            <div class="col-lg-4">
-                              <div class="form-floating">
+                              <div class="form-group">
+                                 <label class="form-label" for="floating-mobile">Moblie Number *</label>
                                  <input type="phone" class="form-control main-select" id="floating-mobile"
                                     placeholder="Mobile Number *" formControlName="MobileNumber" />
-                                 <label for="floating-mobile">Moblie Number *</label>
+
                                  <div *ngIf="submitted && FlightForm.get('MobileNumber')?.errors" class="error-msg">
                                     <div *ngIf="FlightForm.get('MobileNumber')?.errors?.['required']">
                                        Mobile number is required.
@@ -2296,10 +2338,11 @@
                               </div>
                            </div>
                            <div class="col-lg-4">
-                              <div class="form-floating">
+                              <div class="form-group">
+                                 <label class="form-label" for="floating-email">Email ID *</label>
                                  <input type="email" class="form-control main-select" id="floating-email"
                                     placeholder="Email ID *" formControlName="EmailId" />
-                                 <label for="floating-email">Email ID *</label>
+
                                  <div *ngIf="submitted && FlightForm.get('EmailId')?.errors" class="error-msg">
                                     <div *ngIf="FlightForm.get('EmailId')?.errors?.['required']">
                                        Email address is required.
@@ -2369,10 +2412,10 @@
                                  </svg></a>
 
                               <a href="javascript:void(0)" *ngIf="seatData.length!==0" data-bs-toggle="modal"
-                                 data-bs-target="#seat-selectmodal"><svg width="40px" height="40px"
-                                    viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"
-                                    xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
-                                    class="iconify iconify--noto" preserveAspectRatio="xMidYMid meet">
+                                 data-bs-target="#seat-selectmodal"><svg height="15" width="15" viewBox="0 0 128 128"
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    aria-hidden="true" role="img" class="iconify iconify--noto"
+                                    preserveAspectRatio="xMidYMid meet">
                                     <path
                                        d="M40.2 98.48c.19.86.11 3.21.11 4.45c0 1.24.1 8.77.1 8.77s-6.67-1.24-8.68-1.24c-2 0-4.85 1.25-5.05 3.62c-.19 2.19 1.14 2.76 2.86 3.24c1.72.48 30.7 6.1 32.13 6.39s4.21-.11 4.58-2.48c.2-1.33-.57-3.37-3.34-4.77c-2.25-1.14-11.44-3.24-11.44-3.24l-.1-13.25l-11.17-1.49z"
                                        fill="#858585"></path>
@@ -2465,7 +2508,7 @@
 
                                  <!-- Baggage -->
                                  <div class="col-lg-5">
-                                    <div class="form-floating mb-3">
+                                    <div class="form-group mb-3">
 
                                        <select class="form-select main-select"
                                           (change)="SelectSSr('Adult',Ai,segment.key,'Baggage',$event,t)"
@@ -2492,7 +2535,7 @@
 
                                  <!-- Meals -->
                                  <div class="col-lg-5">
-                                    <div class="form-floating mb-3">
+                                    <div class="form-group mb-3">
 
                                        <select class="form-select main-select"
                                           (change)="SelectSSr('Adult',Ai,segment.key,'Meal',$event,t)">
@@ -2532,7 +2575,7 @@
 
                                  <!-- Baggage -->
                                  <div class="col-lg-5">
-                                    <div class="form-floating mb-3">
+                                    <div class="form-group mb-3">
 
                                        <select class="form-select main-select"
                                           (change)="SelectSSr('Child',Ci,segment.key,'Baggage',$event,t)"
@@ -2560,7 +2603,7 @@
 
                                  <!-- Meals -->
                                  <div class="col-lg-5">
-                                    <div class="form-floating mb-3">
+                                    <div class="form-group mb-3">
 
                                        <select class="form-select main-select"
                                           (change)="SelectSSr('Child',Ci,segment.key,'Meal',$event,t)">
@@ -2801,11 +2844,12 @@
                                     To claim credit of GST charged by airlines, Please enter your company's GST number
                                  </div>
                                  <div class="col-md-4">
-                                    <div class="form-floating">
+                                    <div class="form-group">
+                                       <label class="form-label" for="floatingInput">Registration
+                                          Number</label>
                                        <input type="text" class="form-control main-select" id="floatingInput"
                                           placeholder="Registration Number" formControlName="GSTNumber" />
-                                       <label for="floatingInput">Registration
-                                          Number</label>
+
                                        <div *ngIf="Gstsubmitted && f['GSTNumber'].errors" class="error-msg">
                                           <div *ngIf="f['GSTNumber'].errors['required']">
                                              Registration number is required.
@@ -2814,11 +2858,12 @@
                                     </div>
                                  </div>
                                  <div class="col-md-4">
-                                    <div class="form-floating">
+                                    <div class="form-group">
+                                       <label class="form-label" for="floatingInput">Registered Company
+                                          Name</label>
                                        <input type="text" class="form-control main-select" id="floatingInput"
                                           placeholder="Registered Company Name" formControlName="CompanyName" />
-                                       <label for="floatingInput">Registered Company
-                                          Name</label>
+
                                        <div *ngIf="Gstsubmitted && f['CompanyName'].errors" class="error-msg">
                                           <div *ngIf="f['CompanyName'].errors['required']">
                                              Company name is required.
@@ -2827,10 +2872,11 @@
                                     </div>
                                  </div>
                                  <div class="col-md-4">
-                                    <div class="form-floating">
+                                    <div class="form-group">
+                                       <label class="form-label" for="floatingInput">Registered Email</label>
                                        <input type="email" class="form-control main-select" id="floatingInput"
                                           placeholder="Registered Email" formControlName="Email" />
-                                       <label for="floatingInput">Registered Email</label>
+
                                        <div *ngIf="Gstsubmitted && f['Email'].errors" class="error-msg">
                                           <div *ngIf="f['Email'].errors['required']">Email
                                              is
@@ -2844,10 +2890,11 @@
                                     </div>
                                  </div>
                                  <div class="col-md-6">
-                                    <div class="form-floating">
+                                    <div class="form-group">
+                                       <label class="form-label" for="floatingInput">Registered Phone</label>
                                        <input type="phone" class="form-control main-select" id="floatingInput"
                                           placeholder="Registered Phone" formControlName="PhoneNumber" />
-                                       <label for="floatingInput">Registered Phone</label>
+
                                        <div *ngIf="Gstsubmitted && f['PhoneNumber'].errors" class="error-msg">
                                           <div *ngIf="f['PhoneNumber'].errors['required']">
                                              Phone number is required.
@@ -2860,11 +2907,12 @@
                                     </div>
                                  </div>
                                  <div class="col-md-6">
-                                    <div class="form-floating">
+                                    <div class="form-group">
+                                       <label class="form-label" for="floatingInput">Registered
+                                          Address</label>
                                        <input type="address" class="form-control main-select" id="floatingInput"
                                           placeholder="Registered Address" formControlName="Address" />
-                                       <label for="floatingInput">Registered
-                                          Address</label>
+
                                        <div *ngIf="Gstsubmitted && f['Address'].errors" class="error-msg">
                                           <div *ngIf="f['Address'].errors['required']">
                                              Address
@@ -2887,17 +2935,6 @@
                   </div>
                </div>
 
-
-               <div class="d-flex align-items-center justify-content-between">
-                  <button type="button" id="flightdetails" class="btn asr-book" (click)="goBack()">
-                     <i class="fa fa-angle-double-left me-1"></i>
-                     <span>Back</span>
-                  </button>
-                  <button type="submit" id="review" class="btn asr-book">
-                     <span>Proceed To Review</span>
-                     <i class="fa fa-angle-double-right"></i>
-                  </button>
-               </div>
             </form>
             }
          </div>
@@ -3071,6 +3108,11 @@
                </div>
                }
             </div>
+
+            <button type="button" id="review" class="btn asr-book" (click)="SubmitPax()">
+               <span>Proceed To Review</span>
+               <i class="fa fa-angle-double-right"></i>
+            </button>
 
          </div>
       </div>

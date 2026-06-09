@@ -593,6 +593,9 @@ BOOKING STEPPER
 
 
 .asr-book{
+    position: sticky;
+    top: 100px;
+    width: 100%;
     background-color: var(--primary-color);
     color: var(--white);
     border: 1px solid var(--primary-color);

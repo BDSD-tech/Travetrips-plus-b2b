@@ -1,97 +1,70 @@
-<section class="flight-list-section sticky-top p-8" *ngIf="isModifyShow==false">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-10">
-                <div class="row" *ngIf="GetSearchData['Type']!='M'">
-                    <div class="col-md-4">
-                       
-                        <ul class="modify_list">
-                            <li>
-                               <h2>Source <span class="d-block">{{GetSearchData['Origin']}}</span></h2>
-                             </li>
-                             <li>
-                                <i class="fa fa-bus tts-plane-icon"></i>
-                             </li>
-                             <li>
-                                 <h2>Destination <span class="d-block">{{GetSearchData['Destination']}}</span></h2>
-                             </li>
-                         </ul>
-                    </div>
-                    <div class="col-md-2 col-4">
-                        <ul class="modify_list">
-                           <li>
-                              <h2>Departure Date<span class="d-block text-white">{{GetSearchData['DepartDate'] | date:'E, d MMM yyyy' }}</span></h2>
-                            </li>
-                        </ul>
-                    </div>
-                   
-                </div>
-            </div>
-            <div class="col-md-2">
-                 <ul class="modify_list1">
-                    <li>
-                        <button type="button" class="btn btn-link modify_btn" (click)="modifysearch()">Modify search
-                           <i class="fa fa-chevron-down ms-2"></i>
-                        </button>                            
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-
 <!------modify-----section---start---->
-<section class="flight_section modify-section pt-3 pb-2 sticky-top" *ngIf="isModifyShow">
+<section class="flight_section">
     <div class="container">
         <div class="row">
-              <div class="col-md-12">
-                 <span class="modify-cross" (click)="modifysearch()">×</span>
-                  <div class="flight_box pt-2">
-                     
-                    <form [formGroup]="BusSearchForm" (ngSubmit)="SearchData()" id="bus-form">
-                        <div class="tab-content">
-                             <div class="flight-tab row col-md-12">
-                                 <div class="persent-one witdh-39">
-                                     <input type="text" formControlName="Origin" class="textboxstyle busautosuggeest ps-18" placeholder="Enter Source" (click)="openautocomplete($event,'input')">
-                                     <i class="fa fa-angle-down search-form-inp-down" *ngIf="f['Origin'].value==''"></i>
-                                     <i class="fa fa-times search-form-inp-down"  (click)="Cleardata('Origin')" *ngIf="f['Origin'].value!=''"></i>
-                                     <span class="at-exchange" (click)="swapecity()"></span>
-                                     <div *ngIf="submitted && f['Origin'].errors" class="error-msg">
-                                     <div *ngIf="f['Origin'].errors['required']">Please enter a valid Source
-                                     </div>
-                                 </div>
-                                 </div>
-                                 <div class="persent-one witdh-39">
-                                     <input type="text" formControlName="Destination" class="textboxstyle busautosuggeest ps-18" placeholder="Enter Destination" (click)="openautocomplete($event,'input')">
-                                     <i class="fa fa-angle-down search-form-inp-down" *ngIf="f['Destination'].value==''"></i>
-                                     <i class="fa fa-times search-form-inp-down"  (click)="Cleardata('Destination')" *ngIf="f['Destination'].value!=''"></i>
-                                     <div *ngIf="submitted && f['Destination'].errors" class="error-msg">
-                                     <div *ngIf="f['Destination'].errors['required']">Please enter a valid Destination
-                                     </div>
-                                     <div *ngIf="f['Destination'].errors['notmatching']">Source and Destination cannot be same</div>
-                                 </div>
-                                 </div>
-                                 <div class="persent-one less-per witdh-29">
-                                      <span>
-                                     <img src="assets/img/calendar.svg" alt="calendar.svg" class="img-fluid">
-                                     </span>
-                                     <input type="text" appDatepicker #datepicker="datepicker" class="textboxstyle cal-depart-date w-100" formControlName="DepartDate" (dateEventEmitter)="dateEventEmitter($event)" placeholder="Depart Date" minDate="0" maxDate="+1Y" calType="O" readonly>
-                                     <div *ngIf="submitted && f['DepartDate'].errors" class="error-msg">
-                                     <div *ngIf="f['DepartDate'].errors['required']">Please enter a valid departure date</div>
-                                 </div>
-                                 </div>
-                                 <div class="persent-one less-btn">
-                                     <button type="submit" class="btn cst-btn" [disabled]="Busloading"> <span *ngIf="Busloading" class="spinner-border spinner-border-sm mr-1"></span> Search</button>
-                                  </div>
-                             </div>
-                         </div>
- 
- 
-                     </form>
-                     
-                  </div>
-              </div>
-          </div>
+            <div class="col-md-12">
+                <form [formGroup]="BusSearchForm" (ngSubmit)="SearchData()" id="bus-form">
+                    <div class="flight-tab d-lg-flex">
+                        <div class="d-flex form-info">
+                            <div class="persent-one">
+                                <label class="custom-label">Origin</label>
+                                <span>
+                                    <i class="fas fa-map-marker"></i>
+                                </span>
+                                <input type="text" formControlName="Origin" class="textboxstyle busautosuggeest"
+                                    placeholder="Enter Source" (click)="openautocomplete($event,'input')">
+                                <i class="fa fa-angle-down search-form-inp-down" *ngIf="f['Origin'].value==''"></i>
+                                <i class="fa fa-times search-form-inp-down" (click)="Cleardata('Origin')"
+                                    *ngIf="f['Origin'].value!=''"></i>
+                                <div class="at-exchange" (click)="swapecity()"></div>
+                                <div *ngIf="submitted && f['Origin'].errors" class="error-msg">
+                                    <div *ngIf="f['Origin'].errors['required']">Please enter a valid Source
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="persent-one">
+                                <label class="custom-label">Destination</label>
+                                <span>
+                                    <i class="fas fa-map-marker"></i>
+                                </span>
+                                <input type="text" formControlName="Destination" class="textboxstyle busautosuggeest"
+                                    placeholder="Enter Destination" (click)="openautocomplete($event,'input')">
+                                <i class="fa fa-angle-down search-form-inp-down" *ngIf="f['Destination'].value==''"></i>
+                                <i class="fa fa-times search-form-inp-down" (click)="Cleardata('Destination')"
+                                    *ngIf="f['Destination'].value!=''"></i>
+                                <div *ngIf="submitted && f['Destination'].errors" class="error-msg">
+                                    <div *ngIf="f['Destination'].errors['required']">Please enter a valid
+                                        Destination
+                                    </div>
+                                    <div *ngIf="f['Destination'].errors['notmatching']">Source and Destination
+                                        cannot be same</div>
+                                </div>
+                            </div>
+                            <div class="persent-one">
+                                <label class="custom-label">Destination</label>
+                                <span>
+                                    <i class="fas fa-calendar"></i>
+                                </span>
+                                <input type="text" appDatepicker #datepicker="datepicker"
+                                    class="textboxstyle cal-depart-date w-100" formControlName="DepartDate"
+                                    (dateEventEmitter)="dateEventEmitter($event)" placeholder="Depart Date" minDate="0"
+                                    maxDate="+1Y" calType="O" readonly>
+                                <div *ngIf="submitted && f['DepartDate'].errors" class="error-msg">
+                                    <div *ngIf="f['DepartDate'].errors['required']">Please enter a valid departure
+                                        date</div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="less-btn">
+                            <button type="submit" class="cst-btn" [disabled]="Busloading"> <span *ngIf="Busloading"
+                                    class="spinner-border spinner-border-sm mr-1"></span>
+                                 <i class="fa-solid fa-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </section>
 <!------modify-----section----end----->
