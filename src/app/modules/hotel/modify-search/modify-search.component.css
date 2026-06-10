@@ -267,7 +267,6 @@ RESPONSIVE
 }
 
 .flight-tab {
-  display: flex;
   align-items: center;
   gap: 18px;
   position: relative;
@@ -390,11 +389,6 @@ RESPONSIVE
 
 .at-exchange:hover {
   transform: translateY(-50%) rotate(180deg);
-}
-
-.less-btn {
-  display: flex;
-  align-items: center;
 }
 
 .cst-btn {
@@ -572,7 +566,7 @@ RESPONSIVE
 
 .child-age-section {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(70px, 2fr));
   gap: 15px;
   margin-top: 15px;
 }
@@ -580,7 +574,7 @@ RESPONSIVE
 .age-field label {
   display: block;
   margin-bottom: 6px;
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 500;
 }
 
@@ -590,6 +584,7 @@ RESPONSIVE
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 0 10px;
+  font-size: 12px;
 }
 
 .room-actions {
@@ -624,6 +619,17 @@ RESPONSIVE
   cursor: not-allowed;
 }
 
+@media(max-width:992px) {
+  .less-btn {
+    margin-top: 10px;
+}
+
+.cst-btn{
+  width: 100%;
+}
+
+}
+
 @media(max-width:768px) {
 
   .guest-row {
@@ -640,4 +646,13 @@ RESPONSIVE
   .room-actions {
     flex-direction: column;
   }
+
+
+
+}
+
+
+.filter-btn{
+  background-color: var(--primary-color);
+  color: var(--white);
 }

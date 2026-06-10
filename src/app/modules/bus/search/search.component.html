@@ -1,19 +1,29 @@
 <main class="inner-main-section" role="main">
     <app-modify-search></app-modify-search>
     <!---------------bus--list--------------->
-    <section class="Bus-list-wrapper">
+    <div class="Bus-list-wrapper">
         <div class="container">
-            <div class="row" *ngIf="ErrorCode==0">
-                <div class="col-md-3 flight-leftbgcolor tts-flight-left">
-                    <app-loading-filter *ngIf="resultloading"></app-loading-filter>
-                    <app-filter *ngIf="resultloading==false" [result]="Response" [filter]="FilterResponse"
+            <div class="row gy-3" *ngIf="ErrorCode==0">
+                 <div class="col-lg-12">
+                    <div class="btn-group w-100 justify-content-end d-lg-none" role="group">
+                        <button class="btn btn-light filter-btn flex-grow-1" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#mobileFilter" aria-expanded="false" aria-controls="mobileFilter">
+                            <i class="icon icon-filter"></i> Filters
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-3 collapse d-lg-block" id="mobileFilter">
+                    <div class="flight-leftbgcolor tts-flight-left">
+                        <app-loading-filter *ngIf="resultloading"></app-loading-filter>
+                       <app-filter *ngIf="resultloading==false" [result]="Response" [filter]="FilterResponse"
                         (messageEvent)="receiveMessage($event)" (fareEvent)="receiveFare($event)"
                         [clearfilter]="clearfilter"></app-filter>
+                    </div>
                 </div>
                 <div class="col-md-9" matSort (matSortChange)="sortData($event)">
                     <app-loading *ngIf="resultloading"></app-loading>
 
-                    <div class="row align-items-center bus-result-header" *ngIf="!resultloading">
+                    <div class="row gy-3 align-items-center bus-result-header" *ngIf="!resultloading">
                         <!-- Result Count -->
                         <div class="col-lg-6 col-md-7 col-sm-12 mb-2 mb-md-0">
                             <div class="bus-result-info">
@@ -195,38 +205,40 @@
 
 
                                 <!-- Cancellation Policy -->
-                                <div class="policy-box" *ngIf="showBusTab==item['ResultIndex']">
-                                    <h6>
-                                        {{GetSearchData['Origin']}} -
-                                        {{GetSearchData['Destination']}}
-                                        {{GetSearchData['DepartDate']}}
-                                    </h6>
+                                <div class="col-lg-12" *ngIf="showBusTab==item['ResultIndex']">
+                                    <div class="policy-box">
+                                        <h6>
+                                            {{GetSearchData['Origin']}} -
+                                            {{GetSearchData['Destination']}}
+                                            {{GetSearchData['DepartDate']}}
+                                        </h6>
 
-                                    <table class="table table-bordered mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th>Cancellation Time</th>
-                                                <th>Cancellation Charges</th>
-                                            </tr>
-                                        </thead>
+                                        <table class="table table-bordered mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Cancellation Time</th>
+                                                    <th>Cancellation Charges</th>
+                                                </tr>
+                                            </thead>
 
-                                        <tbody>
-                                            <tr *ngFor="let cancellation of item['CancellationPolicies']">
-                                                <td>{{ cancellation.PolicyString }}</td>
-                                                <td>
+                                            <tbody>
+                                                <tr *ngFor="let cancellation of item['CancellationPolicies']">
+                                                    <td>{{ cancellation.PolicyString }}</td>
+                                                    <td>
 
-                                                    <span *ngIf="cancellation.CancellationChargeType==2">
-                                                        {{ cancellation.CancellationCharge }}%
-                                                    </span>
+                                                        <span *ngIf="cancellation.CancellationChargeType==2">
+                                                            {{ cancellation.CancellationCharge }}%
+                                                        </span>
 
-                                                    <span *ngIf="cancellation.CancellationChargeType!=2">
-                                                        ₹ {{ cancellation.CancellationCharge }}
-                                                    </span>
+                                                        <span *ngIf="cancellation.CancellationChargeType!=2">
+                                                            ₹ {{ cancellation.CancellationCharge }}
+                                                        </span>
 
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -265,7 +277,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
     <!---------------bus--list-----end---------->
 </main>
 

@@ -403,17 +403,14 @@ export class HotelComponent implements OnInit {
             var label = item.label;
             return $("<li>")
               .data("ui-autocomplete-item", item)
-              .append(
-                "<div>"
-                + "<div class='tts-autosuggest-li'>"
-                + "<div class='location-dot'>"
-                + "<i class='fa-solid fa-location-dot'></i>"
-                + "</div>"
-                + "<b class='label'>"
-                + label
-                + "</b>"
-                + "</div>"
-                + "</div>").appendTo(ul);
+               .append(
+                  "<a href='javascript:void(0)' class='autocomplete-link justify-content-start'>" +
+                      
+                          "<i class='fa fa-map-marker-alt location-icon'></i>" +
+                          "<span class='city-name'>" + label + "</span>" +
+                      
+                  "</a>"
+              ).appendTo(ul);
           };
         }
       });
