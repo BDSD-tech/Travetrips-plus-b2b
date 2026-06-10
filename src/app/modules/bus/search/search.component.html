@@ -102,13 +102,13 @@
                         <div class="bus-card" *ngFor="let item of sortedData.slice(0, resultlimit)">
                             <div class="row align-items-center">
                                 <!-- Operator -->
-                                <div class="col-lg-3 col-md-4">
+                                <div class="col-lg-3 col-md-12">
                                     <h6 class="bus-name mb-1">{{item['TravelName']}}</h6>
                                     <div class="bus-type" title="{{item['BusType']}}">{{item['BusType']}}</div>
                                 </div>
 
                                 <!-- Departure -->
-                                <div class="col-lg-2 col-md-2 col-4 text-center">
+                                <div class="col-lg-2 col-md-3 col-4 text-center">
                                     <div class="time">
                                         {{item['DepartureTime']}}
                                     </div>
@@ -116,14 +116,14 @@
                                 </div>
 
                                 <!-- Duration -->
-                                <div class="col-lg-2 col-md-2 col-4 text-center">
+                                <div class="col-lg-2 col-md-3 col-4 text-center">
                                     <div class="duration">
                                         {{item['Duration']}}
                                     </div>
                                 </div>
 
                                 <!-- Arrival -->
-                                <div class="col-lg-2 col-md-2 col-4 text-center">
+                                <div class="col-lg-2 col-md-3 col-4 text-center">
                                     <div class="time">
                                         {{item['ArrivalTime']}}
                                     </div>
@@ -136,7 +136,7 @@
                                 <!-- Fare -->
 
                                 <!-- Button -->
-                                <div class="col-lg-3 col-md-1 text-end">
+                                <div class="col-lg-3 col-md-3 text-end">
                                     <div class="mb-2">
                                         <div class="price">
                                             ₹ {{item['BusPrice']['PublishedPrice'] | number:'1.0-2'}}
@@ -159,34 +159,36 @@
                                         </div>
 
                                         <button class="btn btn-danger" (click)="SelectSeats(item)">
-                                            Select Seats
+                                            Book Now
                                         </button>
                                     </div>
                                 </div>
 
                                 <!-- Footer -->
-                                <div class="bus-card-footer">
-                                    <div class="row align-items-center">
-                                        <div class="col-md-6 col-6">
-                                            <span *ngIf="item['AvailableSeats']" class="seat-left">
-                                                {{item['AvailableSeats']}} Seats Left
-                                            </span>
+                                <div class="col-lg-12">
+                                    <div class="bus-card-footer">
+                                        <div class="row align-items-center">
+                                            <div class="col-md-6 col-6">
+                                                <span *ngIf="item['AvailableSeats']" class="seat-left">
+                                                    {{item['AvailableSeats']}} Seats Left
+                                                </span>
 
-                                            <span *ngIf="item['LiveTrackingAvailable']">
-                                                <img src="data:image/webp;base64,UklGRuoBAABXRUJQVlA4WAoAAAAQAAAAKwAAKwAAQUxQSMcAAAABv8GwbSTFwUvm4Jk/IqJIBTUjAeIkjZn0XNU1G/3vjb9lmnNUNY4A17ZtK8kW7MQWu7tr//+v0WzzMaL/aty2jcwpvaakj8APZkDH2B0LkKmRA8jUySFUvkLM1oxc2RkIpCc3ejzmecRlHRjg0kE8lTMDPWzEYe4Z4lpEDGOGWiK6xCk8zxIisxjBCBEk7a5jygg2XUc1JFvG1H5dpIWP6IiP9iFtD4h7S9uz0M4CtDPmSPUW5Lqfg4j0//gSyd7ZhE65gf8GAFZQOCD8AAAAsAYAnQEqLAAsAD6RQJpJpaOiISOM+LASCWkADOBHgC1e/txnzLa/iv5TBf12VvLqanLPvuN+os9DyZ+mHeAA/vv0/5zRN9lC5/840vSh3scD+O82U7636tMo75MncGRoIe3ueJ9aDjRR9yopWJEI09dW8lYP7oQf8lB63wzU/pN89606ENj1K/KF5SR99m1zO/KWKRNMWjdOi6U2H+QcmOxR0UPksxzABEOa5LfFn2XPfoHTQE0rTKCPcFoEwH6YtcImu4eOXGUfNU9ECkU1GuAiI1WbElsEZYqnTsx+yM8C9UETPemunlPQbtdoPY6JXNpP4r51okyBwAAA"
-                                                    class="live-track ms-3"> Live Tracking
-                                            </span>
-                                        </div>
+                                                <span *ngIf="item['LiveTrackingAvailable']">
+                                                    <img src="data:image/webp;base64,UklGRuoBAABXRUJQVlA4WAoAAAAQAAAAKwAAKwAAQUxQSMcAAAABv8GwbSTFwUvm4Jk/IqJIBTUjAeIkjZn0XNU1G/3vjb9lmnNUNY4A17ZtK8kW7MQWu7tr//+v0WzzMaL/aty2jcwpvaakj8APZkDH2B0LkKmRA8jUySFUvkLM1oxc2RkIpCc3ejzmecRlHRjg0kE8lTMDPWzEYe4Z4lpEDGOGWiK6xCk8zxIisxjBCBEk7a5jygg2XUc1JFvG1H5dpIWP6IiP9iFtD4h7S9uz0M4CtDPmSPUW5Lqfg4j0//gSyd7ZhE65gf8GAFZQOCD8AAAAsAYAnQEqLAAsAD6RQJpJpaOiISOM+LASCWkADOBHgC1e/txnzLa/iv5TBf12VvLqanLPvuN+os9DyZ+mHeAA/vv0/5zRN9lC5/840vSh3scD+O82U7636tMo75MncGRoIe3ueJ9aDjRR9yopWJEI09dW8lYP7oQf8lB63wzU/pN89606ENj1K/KF5SR99m1zO/KWKRNMWjdOi6U2H+QcmOxR0UPksxzABEOa5LfFn2XPfoHTQE0rTKCPcFoEwH6YtcImu4eOXGUfNU9ECkU1GuAiI1WbElsEZYqnTsx+yM8C9UETPemunlPQbtdoPY6JXNpP4r51okyBwAAA"
+                                                        class="live-track ms-3"> Live Tracking
+                                                </span>
+                                            </div>
 
-                                        <div class="col-md-6 col-6 text-end">
+                                            <div class="col-md-6 col-6 text-end">
 
 
-                                            <a href="javascript:void(0);" (click)="busdetail($event,item)"
-                                                [ngClass]="{'tts-plus':showBusTab!=item['ResultIndex'],'tts-minus':showBusTab==item['ResultIndex']}"><i
-                                                    class="fa"
-                                                    [ngClass]="{'fa-plus tts-plus':showBusTab!=item['ResultIndex'],'fa-minus tts-minus':showBusTab==item['ResultIndex']}"></i>
-                                                Cancellation Policy</a>
+                                                <a href="javascript:void(0);" (click)="busdetail($event,item)"
+                                                    [ngClass]="{'tts-plus':showBusTab!=item['ResultIndex'],'tts-minus':showBusTab==item['ResultIndex']}"><i
+                                                        class="fa"
+                                                        [ngClass]="{'fa-plus tts-plus':showBusTab!=item['ResultIndex'],'fa-minus tts-minus':showBusTab==item['ResultIndex']}"></i>
+                                                    Cancellation Policy</a>
 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -229,18 +231,30 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="row nobuses">
-                        <div class="col-12 no_bus-content">
-                            <i class="fa fa-bus flight-icons-zeroFlight mb-4"></i>
-                            <p>No bus found that matches your filter criteria.Reset your filter </p>
-                            <button type="submit" class="tts-button-primary mt-3" (click)="resetfilterdata()">Reset All
-                                Filter</button>
+                    @if( resultloading==false && sortedData.length==0){
+                    <div class="no-bus-card">
+                        <div class="no-bus-icon">
+                            <i class="fa fa-bus"></i>
                         </div>
-                    </div>
 
+                        <h4 class="no-bus-title">
+                            No Buses Found
+                        </h4>
+
+                        <p class="no-bus-message">
+                            We couldn't find any buses matching your selected filters.
+                            Try adjusting your filters or reset them to view all available buses.
+                        </p>
+
+                        <button type="button" class="no-bus-btn" (click)="resetfilterdata()">
+                            <i class="fa fa-refresh"></i>
+                            Reset All Filters
+                        </button>
+                    </div>
+                    }
                 </div>
             </div>
+
             <div class="row" *ngIf="ErrorCode!=0">
                 <div class="col-md-12 text-center p-5">
                     <img src="assets/img/no-flight-found.png" width="30%;" />

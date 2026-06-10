@@ -1,21 +1,428 @@
+/* ==========================
+   Journey Header
+========================== */
 
+.journey-header {
+    border-bottom: 1px solid var(--border-color);
+    padding: 20px;
+}
+
+.journey-header h5 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--second-dark-color);
+}
+
+.journey-meta {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.journey-meta span {
+    background: var(--second-bg-color);
+    color: var(--primary-color);
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* ==========================
+   Tabs
+========================== */
+
+.seat-tabs {
+    margin-bottom: 20px;
+    gap: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.seat-tabs .nav-item {
+    flex: 1;
+}
+
+.seat-tabs .nav-link {
+    padding: 10px 20px;
+    width: 100%;
+    border-bottom: 1px solid transparent;
+    border-radius: 0px;
+    background: transparent;
+    color: var(--dark);
+    font-size: 14px;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.seat-tabs .nav-link:hover {
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--primary-color);
+}
+
+.seat-tabs .nav-link.active {
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--primary-color);
+}
+
+/* ==========================
+   Cards
+========================== */
+
+.seat-info-card,
+.summary-box {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+}
+
+.seat-layout-card {
+    max-height: 350px;
+    overflow: auto;
+}
+
+.seat-info-card h6,
+.summary-box h6 {
+    color: var(--second-dark-color);
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+/* ==========================
+   Seat Legend
+========================== */
+
+.seat-status-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    font-size: 14px;
+    color: var(--body-text-color);
+}
 
 .seat {
-    width: 20px;
-    height: 20px;
-    float: left;
-    margin: 0px 5px;
+    width: 24px;
+    height: 24px;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+}
+
+.seat-available {
+    background: #eff6ff;
+    border: 2px solid var(--primary-color);
+}
+
+.seat-ladies {
+    background: #ffe6ec;
+    border: 2px solid #ff4f7a;
+}
+
+.seat-selected {
+    background: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.seat-booked {
+    background: #d9d9d9;
+    border: 2px solid #bdbdbd;
+}
+
+/* ==========================
+   Booking Summary
+========================== */
+
+.booking-summary {
+    margin-top: 24px;
+}
+
+.summary-box p {
+    margin-bottom: 10px;
+    color: var(--body-text-color);
+}
+
+.summary-box strong {
+    color: var(--second-dark-color);
+}
+
+.summary-box {
+    border-left: 4px solid var(--primary-bg-color);
+}
+
+/* ==========================
+   Form Elements
+========================== */
+
+.form-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--second-dark-color);
+}
+
+.form-select {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    height: 42px;
+    transition: var(--transition);
+}
+
+.form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.15rem rgba(29, 72, 163, 0.15);
+}
+
+/* ==========================
+   Tables
+========================== */
+
+.table-responsive {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+.table-responsive h6 {
+    padding: 12px 15px;
+    margin: 0;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table thead th {
+    background: var(--second-bg-color);
+    color: var(--second-dark-color);
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.table td,
+.table th {
+    padding: 12px 15px;
+    vertical-align: middle;
+}
+
+.table tbody tr:hover {
+    background: #fafafa;
+}
+
+
+/* ==========================
+   Footer Buttons
+========================== */
+
+.seat-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+    padding: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.seat-footer .btn {
+    min-width: 120px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+}
+
+.seat-footer .btn-primary {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.seat-footer .btn-primary:hover {
+    background: var(--color-dark);
+    border-color: var(--color-dark);
+}
+
+/* ==========================
+   Scrollbar
+========================== */
+
+.tab-content {
+    padding: 20px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.tab-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.tab-content::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+
+/* ==========================
+   Error Text
+========================== */
+
+.text-danger {
+    font-size: 13px;
+    margin-top: 5px;
+    display: block;
+}
+
+/* ==========================
+   Responsive
+========================== */
+
+@media (max-width: 991px) {
+
+    .journey-header h5 {
+        font-size: 18px;
+    }
+
+    .seat-layout-card {
+        max-height: auto;
+    }
+
+    .seat-footer {
+        justify-content: center;
+    }
+
+    .tab-content {
+        max-height: 400px;
+    }
+}
+
+@media (max-width: 767px) {
+    .seat-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+
+    .seat-tabs .nav-link {
+        white-space: nowrap;
+    }
+
+    .seat-footer .btn {
+        width: 100%;
+    }
+
+    .tab-content {
+        max-height: 350px;
+    }
+}
+
+
+
+
+.seat-state-card {
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 30px;
+}
+
+.error-state .state-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: #fff3f3;
+    color: #dc3545;
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.error-state h4 {
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.error-state p {
+    max-width: 500px;
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+.loading-state h5 {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.loading-state p {
+    color: #6c757d;
+}
+
+/* Loader */
+.lds-ellipsis {
+    display: inline-block;
     position: relative;
+    width: 80px;
+    height: 20px;
 }
-.seat-footer-baar{
-  text-align: center;
-  border-top: 1px solid #ccc;
-  padding: 10px;
+
+.lds-ellipsis div {
+    position: absolute;
+    top: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
-.div-scroll{
-    overflow-x: auto;
-    height: 400px;
+
+.lds-ellipsis div:nth-child(1) {
+    left: 8px;
+    animation: lds1 0.6s infinite;
 }
-.min-h400{
-    min-height: 400px;
+
+.lds-ellipsis div:nth-child(2) {
+    left: 8px;
+    animation: lds2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(3) {
+    left: 32px;
+    animation: lds2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(4) {
+    left: 56px;
+    animation: lds3 0.6s infinite;
+}
+
+@keyframes lds1 {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes lds3 {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(0);
+    }
+}
+
+@keyframes lds2 {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(24px, 0);
+    }
 }

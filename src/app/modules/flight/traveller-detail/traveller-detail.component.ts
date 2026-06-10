@@ -230,7 +230,7 @@ GetPhonecodeVal(event: Event): void {
       });
       this.MainSegments=mainsegments;
       this.Segments=Segment;  
-      console.log(this.Segments);
+ 
       
       this.FareList=farelist;
       this.oldprice=oldprice;

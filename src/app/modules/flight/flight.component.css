@@ -171,6 +171,7 @@ PARENT SECTION
 .flight_section .tab-link {
   display: flex;
   flex-wrap: wrap;
+  gap: 10px;
   align-items: center;
   justify-content: center;
   padding: 8px 16px;
@@ -186,7 +187,6 @@ PARENT SECTION
 
 .flight_section .tab-link i {
   font-size: 18px;
-  margin-right: 10px;
   transition: transform .3s ease;
 }
 
@@ -392,10 +392,12 @@ RESPONSIVE
   .flight-search-wrapper .flight-tabs .nav-link {
     width: 100%;
     flex: 100%;
-    font-size: 12px;
+    font-size: 11px;
     padding: 5px 10px;
     gap: 5px;
   }
+
+
 
   .flight-search-wrapper .search-options {
     flex-direction: column;
@@ -849,10 +851,17 @@ RESPONSIVE
   }
 
   .at-exchange {
-    right: 50%;
-    top: auto;
+    position: absolute;
+    left: 50%;
+    top: 24%;
     bottom: -30px;
-    transform: translateX(50%) rotate(90deg);
+    transform: translate(-50%, -50%) rotate(90deg);
+    border: 1px solid #dedede;
+    width: 32px;
+    height: 32px;
+    background: #fff;
+    text-align: center;
+    border-radius: 50%;
   }
 
   .at-exchange:hover {
@@ -874,6 +883,14 @@ RESPONSIVE
   .makeflex {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .search_filters {
+    gap: 10px;
+  }
+
+  .custom-radio label {
+    font-size: 11px;
   }
 }
 
