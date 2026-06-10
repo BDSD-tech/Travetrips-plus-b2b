@@ -50,7 +50,7 @@
 
           <div *ngIf="paymentloading==false">
             <div class="d-flex align-items-start flight-booking_payments">
-              <div class=" nav flex-column nav-pills me-3 payment_bg" id="v-pills-tab" role="tablist"
+              <div class=" nav flex-column nav-pills payment_bg" id="v-pills-tab" role="tablist"
                 aria-orientation="vertical">
                 <button class="nav-link" *ngFor="let item of PaymentOption; let key=index;"
                   id="v-pills-{{item['mode']}}-tab" data-bs-toggle="pill"
@@ -155,7 +155,7 @@
               </div>
             </div>
 
-            <button type="button" class="btn asr-book" (click)="goBack()"><i class="fa fa-angle-double-left "></i>
+            <button type="button" class="asr-book" (click)="goBack()"><i class="fa fa-angle-double-left "></i>
               <span>Back</span></button>
           </div>
 
