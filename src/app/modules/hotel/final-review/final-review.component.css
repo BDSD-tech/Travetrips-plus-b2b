@@ -1,55 +1,424 @@
-.apt-active::before {
-    color: #fff !important;
-    background: #4aa301 !important;
-    content: "\F00C" !important;
-}
-.apt-active .apt-flightiti {
-    color: #4aa301;
-}
-.apt-active::after {
-    background: #4aa301 !important;
+/* =========================
+   REVIEW MODAL
+========================= */
+
+.review-modal {
+    border: 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    background: var(--white);
+    font-family: var(--body-font);
 }
 
-.apt-black::before {
-    background-color: #333 !important;
-    color: #fff !important;
+.review-modal .modal-header {
+    border-bottom: 1px solid var(--border-color);
+    background: var(--white);
 }
 
-.flight-details{
-    counter-reset: my-sec-counter;
-}
-.counter::before{
-    counter-increment: my-sec-counter;
-    content: counter(my-sec-counter) ". ";
+.review-modal .modal-header h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--second-dark-color);
 }
 
-.pax-detailsAll {
+.review-modal .modal-header small {
+    color: var(--dark);
+}
+
+.review-modal .modal-body {
+    background: var(--main-bg-color);
+    max-height: calc(100vh - 300px);
+    overflow-y: auto;
+}
+
+
+/* =========================
+   HOTEL HERO
+========================= */
+
+.hotel-hero {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    margin-bottom: 25px;
+    box-shadow: var(--shadow-sm);
+}
+
+.hero-image {
     width: 100%;
-    display: inherit;
+    height: 280px;
+    object-fit: cover;
+    display: block;
 }
-.pax-passportSize {
-    font-size: 11px;
-    color: #848f91;
-    display: inline-block;
-    line-height: 16px;
+
+.hero-content {
+    position: absolute;
+    inset: 0;
+    padding: 30px;
+    display: flex;
+    align-items: flex-end;
+    background: linear-gradient(to top,
+            rgba(0, 0, 0, 0.75),
+            rgba(0, 0, 0, 0.2),
+            transparent);
 }
-.flight-booking .booking-main .passenger_list_ul li{
-    width: 25%;
-    line-height: 15px;
+
+.hero-content h4 {
+    margin-bottom: 8px;
+    color: var(--white);
+    font-size: 28px;
+    font-weight: 700;
 }
-.flight-booking .booking-main .passenger_list_ul li:first-child{
-    width: 5%;
+
+.hero-content p {
+    margin: 0;
+    color: rgba(255, 255, 255, .9);
 }
-.flight-booking .booking-main .passenger_list_ul li:nth-child(2){
-    width: 70%;
+
+.hero-content span {
+    color: var(--primary-bg-color);
 }
-.flight-booking .booking-main .passenger_list_ul li:nth-child(3){
-    width: 25%;
+
+
+/* =========================
+   STAY SUMMARY
+========================= */
+
+.stay-card {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: var(--white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
 }
-.img-hotel{
-    height: 100px;
+
+.stay-item span {
+    color: var(--dark);
+    font-size: 13px;
 }
-.flight-booking .booking-main .apt-heading {
-    margin-top: 0;
-    font-size: 17px;
+
+.stay-item h6 {
+    margin: 0px 0 0px;
+    color: var(--second-dark-color);
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.stay-item small {
+    color: var(--dark);
+}
+
+.stay-center {
+    text-align: center;
+}
+
+.stay-center span {
+    width: 32px;
+    height: 32px;
+
+    margin: auto;
+
+    border-radius: 50%;
+
+    background: var(--primary-color);
+    color: var(--white);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 700;
+}
+
+.stay-center small {
+    margin-top: 8px;
+    display: block;
+    color: var(--dark);
+}
+
+
+/* =========================
+   SECTION TITLE
+========================= */
+
+.section-title {
+    margin-bottom: 15px;
+    color: var(--second-dark-color);
+    font-weight: 700;
+}
+
+
+/* =========================
+   ROOM CARD
+========================= */
+
+.room-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px;
+    margin-bottom: 15px;
+
+    background: var(--white);
+
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+
+    transition: var(--transition);
+}
+
+.room-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.room-card h6 {
+    margin-bottom: 6px;
+    color: var(--second-dark-color);
+    font-weight: 600;
+}
+
+.room-card small {
+    color: var(--dark);
+}
+
+
+/* =========================
+   PASSENGERS
+========================= */
+
+.passenger-card {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    padding: 15px;
+    margin-bottom: 15px;
+
+    background: var(--white);
+
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+
+    transition: var(--transition);
+}
+
+.passenger-card:hover {
+    transform: translateY(-2px);
+}
+
+.passenger-index {
+    width: 32px;
+    height: 32px;
+
+    border-radius: 50%;
+
+    background: var(--primary-color);
+    color: var(--white);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 700;
+}
+
+.passenger-card h6 {
+    margin-bottom: 5px;
+    color: var(--second-dark-color);
+    font-size: 16px;
+}
+
+.passenger-card small {
+    display: block;
+    color: var(--dark);
+}
+
+.room-badge {
+    margin-left: auto;
+
+    padding: 6px 14px;
+
+    border-radius: 30px;
+
+    background: var(--second-bg-color);
+    color: var(--primary-color);
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* =========================
+   CONTACT CARD
+========================= */
+
+.contact-card {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 15px;
+    margin-top: 15px;
+
+    background: var(--white);
+
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.contact-card span {
+    color: var(--dark);
+    font-size: 13px;
+}
+
+.contact-card h6 {
+    margin-top: 6px;
+    margin-bottom: 0;
+    color: var(--second-dark-color);
+    font-weight: 600;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.review-modal .modal-footer {
+    padding: 15px;
+
+    border-top: 1px solid var(--border-color);
+
+    background: var(--white);
+}
+
+.fare-summary span {
+    display: block;
+    color: var(--dark);
+}
+
+.fare-summary h4 {
+    margin: 0;
+
+    color: var(--primary-color);
+
+    font-size: 22px;
+    font-weight: 700;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.review-modal .btn-primary {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+
+    border-radius: var(--radius-sm);
+
+    padding: 12px 26px;
+
+    font-weight: 600;
+
+    transition: var(--transition);
+}
+
+.review-modal .btn-primary:hover {
+    background: var(--color-dark);
+    border-color: var(--color-dark);
+}
+
+.review-modal .btn-light {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+
+    border-radius: var(--radius-sm);
+
+    padding: 12px 24px;
+    font-weight: 600;
+}
+
+.review-modal .btn-outline-primary {
+    border-radius: var(--radius-sm);
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.review-modal .btn-outline-primary:hover {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+.review-modal .modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.review-modal .modal-body::-webkit-scrollbar-thumb {
+    background: #c7c7c7;
+    border-radius: 10px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 767px) {
+
+    .review-modal .modal-body {
+        padding: 20px;
+    }
+
+    .hero-image {
+        height: 220px;
+    }
+
+    .hero-content {
+        padding: 20px;
+    }
+
+    .hero-content h4 {
+        font-size: 22px;
+    }
+
+    .stay-card {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .room-card,
+    .contact-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .passenger-card {
+        flex-wrap: wrap;
+    }
+
+    .room-badge {
+        margin-left: 0;
+    }
+
+    .review-modal .modal-footer {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .review-modal .modal-footer .btn,
+    .fare-summary {
+        width: 100%;
+        text-align: center;
+    }
 }

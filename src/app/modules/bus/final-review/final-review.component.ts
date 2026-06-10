@@ -4,8 +4,9 @@ import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { BusService } from '../bus.service';
 import { Location } from '@angular/common';
 import { AuthenticationService } from '../../../services/authentication.service';
+import { Input } from '@angular/core';
 
-declare var bootstrap: any;
+declare var bootstrap:any;
 @Component({
   selector: 'app-final-review',
   templateUrl: './final-review.component.html',
@@ -13,6 +14,7 @@ declare var bootstrap: any;
 })
 export class FinalReviewComponent implements OnInit {
 
+  @Input() params:any=[];
   GetSearchData:any=[];
   SelectedBus:any=[];
   SelectedBusSeat:any=[];
@@ -32,13 +34,13 @@ export class FinalReviewComponent implements OnInit {
 
   constructor(private location: Location,private busService:BusService,private authenticationservice: AuthenticationService,private router: Router,private route: ActivatedRoute) {
 
-    this.route.queryParams.subscribe(params => {
-      if(params) {
-          this.param=params;
-      } else {
-          this.router.navigate(['/bus']);
-       }
-    });
+    // this.route.queryParams.subscribe(params => {
+    //   if(params) {
+    //       this.param=params;
+    //   } else {
+    //       this.router.navigate(['/bus']);
+    //    }
+    // });
 
     if (sessionStorage.getItem('BusSearch')) {
       let bussearch:any=sessionStorage.getItem('BusSearch');
@@ -83,6 +85,7 @@ export class FinalReviewComponent implements OnInit {
    }
 
   ngOnInit(): void {
+     this.param=this.params;
   }
 
 
@@ -119,6 +122,7 @@ export class FinalReviewComponent implements OnInit {
 
   ProceedToPay()
   {
+    this.closeModal();
     let selectobj:any={
       'response':this.SelectedBusSeat,
       'fare':this.CurrentFare,
@@ -131,11 +135,14 @@ export class FinalReviewComponent implements OnInit {
     this.router.navigate(['payment'],navigationExtras);
   }
 
-    openModal() {
+
+  closeModal() {
+    // this.showReviewpage = false;
     const modalElement = document.getElementById('ReviewModal')!;
-    const modal = new bootstrap.Modal(modalElement);
-    modal.show();
+    const modal = bootstrap.Modal.getInstance(modalElement);
+    modal?.hide();
   }
+
 
 
 }

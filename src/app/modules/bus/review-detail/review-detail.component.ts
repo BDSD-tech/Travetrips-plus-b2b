@@ -7,7 +7,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { CommonService } from '../../../services/common.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { AlertService } from '../../../services/alert.service';
-
+declare var bootstrap:any
 @Component({
   selector: 'app-review-detail',
   templateUrl: './review-detail.component.html',
@@ -50,6 +50,8 @@ export class ReviewDetailComponent implements OnInit {
   loadingreview=false;
   
   @ViewChild('gsteInput') gsteInput!: ElementRef<HTMLInputElement>;
+
+  showReviewpage=false;
   
   constructor(private fb: FormBuilder,private location: Location,private commonservice: CommonService,private busService:BusService,private authenticationservice: AuthenticationService,private router: Router,private route: ActivatedRoute,private alertservice:AlertService) { 
 
@@ -339,18 +341,28 @@ export class ReviewDetailComponent implements OnInit {
     this.busService.BlockSeat(request).subscribe(rs=>{
       let resp:any=rs;
       this.loadingreview=false;
+     
+      
       if(resp['Error']['ErrorCode']==0)
       {
         sessionStorage.setItem('TSFPAX',JSON.stringify(data));
         const navigationExtras: NavigationExtras = {
           queryParams:this.param
         };
-        this.router.navigate(['bus/review'],navigationExtras);
-
+       this.showReviewpage = true;
+        setTimeout(() => {
+            this.openModal()
+        }, 100);
       } else {
           this.alertservice.error(resp['Error']['ErrorMessage']);
       }
     });
 
+  }
+  
+    openModal() {
+    const modalElement = document.getElementById('ReviewModal')!;
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
   }
 }

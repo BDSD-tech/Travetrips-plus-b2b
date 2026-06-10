@@ -1099,3 +1099,8 @@
     </div>
 </section>
 <app-count-down display="on" redirecturl="/bus"></app-count-down>
+
+
+@if (showReviewpage) {
+<app-final-review [params]="param"></app-final-review>
+}

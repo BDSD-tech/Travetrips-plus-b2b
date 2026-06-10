@@ -18,16 +18,17 @@ BOOKING STEPPER
     justify-content: space-between;
     gap: 14px;
     margin-bottom: 24px;
-    padding: 24px;
+    padding: 10px;
     background: var(--white);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
     border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-md);
     position: relative;
     overflow: hidden;
+    width: fit-content;
 }
 
-.booking-stepper::before {
+/* .booking-stepper::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -35,7 +36,7 @@ BOOKING STEPPER
             rgba(29, 72, 163, 0.04),
             transparent);
     pointer-events: none;
-}
+} */
 
 .booking-stepper .step {
     display: flex;
@@ -46,8 +47,8 @@ BOOKING STEPPER
 }
 
 .booking-stepper .step-icon {
-    width: 42px;
-    height: 42px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
     border: 2px solid #d1d5db;
     background: var(--white);
@@ -55,14 +56,13 @@ BOOKING STEPPER
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 15px;
+    font-size: 8px;
     font-weight: 700;
     transition: var(--transition);
 }
 
 .booking-stepper .step-text {
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 14px;
     color: var(--dark);
     white-space: nowrap;
 }
@@ -88,16 +88,6 @@ BOOKING STEPPER
     color: var(--primary-color);
 }
 
-.booking-stepper .step-dots {
-    flex: 1;
-    min-width: 40px;
-    height: 4px;
-    border-radius: 30px;
-    background: linear-gradient(to right,
-            #c7d7f6,
-            var(--primary-color));
-}
-
 /* =========================================================
 MAIN BOOKING SECTION
 ========================================================= */
@@ -110,24 +100,24 @@ MAIN BOOKING SECTION
     box-shadow: var(--shadow-md);
 }
 
-.apt-heading {
+.booking-main .apt-heading {
     margin-bottom: 0;
-    font-size: 24px;
+    font-size: 16px;
     font-weight: 700;
     font-family: var(--heading-font);
     color: var(--second-dark-color);
 }
 
-.apt-heading span {
+.booking-main .apt-heading span {
     position: relative;
     padding-left: 14px;
 }
 
-.apt-heading span::before {
+.booking-main .apt-heading span::before {
     content: "";
     position: absolute;
     left: 0;
-    top: 4px;
+    top: 0px;
     width: 5px;
     height: 24px;
     border-radius: 30px;
@@ -155,7 +145,6 @@ PAYMENT TABS
     border: 1px solid var(--border-color);
     background: var(--white);
     color: var(--second-dark-color);
-    font-size: 15px;
     font-weight: 600;
     text-align: left;
     border-radius: var(--radius-md);
@@ -347,14 +336,16 @@ BUTTONS
 }
 
 .asr-book {
-    background: var(--primary-bg-color);
+    background: var(--primary-color);
     border: 1px solid var(--border-color);
     color: var(--white);
     margin-top: 20px;
 }
 
 .asr-book:hover {
-    background: #f3f4f6;
+    background: var(--primary-color);
+    border: 1px solid var(--border-color);
+    color: var(--white);
 }
 
 /* =========================================================
@@ -372,7 +363,7 @@ FARE SUMMARY
 }
 
 .booking-rightside h4 {
-    font-size: 22px;
+    font-size: 16px;
     font-weight: 700;
     font-family: var(--heading-font);
     margin-bottom: 24px;
@@ -397,10 +388,8 @@ FARE SUMMARY
 
 .bold-font,
 .bold-font-bf {
-    padding: 16px 0;
+    padding: 12px 0;
     border-bottom: 1px dashed #dbe3ee;
-    font-size: 15px;
-    font-weight: 600;
     color: var(--second-dark-color);
 }
 
