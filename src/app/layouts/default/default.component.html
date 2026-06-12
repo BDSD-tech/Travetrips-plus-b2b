@@ -63,11 +63,18 @@
                </small>
             </div>
             <!-- CONTACT BUTTON -->
-            
+
             <button routerLink="/pages/contact-us" class="btn contact-btn">
                Contact Us
             </button>
-     
+
+            <!-- Dahsboard -->
+            <div class="wallet-dropdown">
+               <a routerLink="/dashboard" class="btn wallet-btn" type="button">
+                  <i class="fa-solid fa-gauge"></i>
+               </a>
+            </div>
+
 
             <!-- WALLET DROPDOWN -->
             <div class="dropdown wallet-dropdown">
@@ -103,14 +110,15 @@
                         Welcome: {{LoginAgentinfo['CompanyId']}}
                      </span>
                      <strong>
-                       {{LoginAgentinfo['Name']}}
+                        {{LoginAgentinfo['Name']}}
                      </strong>
                   </div>
                   <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
                </button>
                <!-- DROPDOWN MENU -->
                <div class="dropdown-menu dropdown-menu-end profile-dropdown-menu">
-                  <a class="dropdown-item" routerLink="/dashboard/user-detail/{{LoginAgentinfo['CompanyId']}}" href="javascript:void(0);">
+                  <a class="dropdown-item" routerLink="/dashboard/user-detail/{{LoginAgentinfo['CompanyId']}}"
+                     href="javascript:void(0);">
                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
                         class="rpfteH2dJ806mlRyY5L7">
                         <path
@@ -129,7 +137,7 @@
                      </svg>
                      My Profile
                   </a>
-                  
+
                   <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/bookings">
                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
                         class="rpfteH2dJ806mlRyY5L7">
@@ -181,7 +189,7 @@
                      </svg>
                      Account Statement
                   </a>
-                  <a class="dropdown-item" href="javascript:void(0);" >
+                  <a class="dropdown-item" href="javascript:void(0);">
                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                         class="rpfteH2dJ806mlRyY5L7">
                         <path

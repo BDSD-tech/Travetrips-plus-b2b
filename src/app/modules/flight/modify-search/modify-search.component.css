@@ -342,9 +342,12 @@ RESPONSIVE
 
 .Pass {
   margin: 4px 0 0;
-  font-size: 13px;
-  color: var(--body-text-color);
-  font-weight: 500;
+    font-size: 13px;
+    color: var(--body-text-color);
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .search-form-inp-down,

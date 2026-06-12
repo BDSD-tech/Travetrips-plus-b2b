@@ -322,14 +322,16 @@
                         <input type="checkbox" [(ngModel)]="item.isChecked" (click)="doFilter(0,'Airline',$event,item)">
 
 
-                        <div class="airline-name">
+                        <div>
+                            <div class="airline-name">
                             {{item.label}}
                         </div>
 
-                        <small>
+                        <small class="text-danger">
                             {{item.count}} Flights
                         </small>
 
+                        </div>
 
 
                     </div>
@@ -370,14 +372,15 @@
 
                         <input type="checkbox" [(ngModel)]="item.isChecked" (click)="doFilter(1,'Airline',$event,item)">
 
+                        <div>
+                            <div class="airline-name">
+                                {{item.label}}
+                            </div>
 
-                        <div class="airline-name">
-                            {{item.label}}
+                            <small class="text-danger">
+                                {{item.count}} Flights
+                            </small>
                         </div>
-
-                        <small>
-                            {{item.count}} Flights
-                        </small>
 
 
 

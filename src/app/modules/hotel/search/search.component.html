@@ -210,14 +210,17 @@
                                         <div>
                                             <span class="starting-text">Starting From</span>
                                             <h3>₹ {{item['Price']['PublishedPrice'] | number:'1.0-2'}}</h3>
-                                        </div>
-                                        <div class="fare-info">
-                                            <span *ngIf="showincentivefare">INC ₹ {{item['Price']['PublishedPrice'] -
-                                                item['Price']['OfferedPrice'] | number:'1.0-2'}}</span>
-                                            <span *ngIf="shownetfare">NET ₹ {{item['Price']['OfferedPrice'] |
-                                                number:'1.0-2'}}
-                                            </span>
-                                        </div>
+                                       
+                                            <div class="fare-info">
+                                                <span *ngIf="showincentivefare">INC ₹ {{item['Price']['PublishedPrice'] -
+                                                    item['Price']['OfferedPrice'] | number:'1.0-2'}} </span>
+                                                  <span *ngIf="showincentivefare && shownetfare"> | </span>
+
+                                                <span *ngIf="shownetfare">NET ₹ {{item['Price']['OfferedPrice'] |
+                                                    number:'1.0-2'}}
+                                                </span>
+                                            </div>
+                                         </div>
                                         <button class="btn btn-primary select-room-btn"
                                             (click)="selecthotel(item)">Select Room</button>
                                     </div>

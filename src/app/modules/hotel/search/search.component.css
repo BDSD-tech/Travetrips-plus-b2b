@@ -297,7 +297,7 @@
 
 .fare-info {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: 4px;
     font-size: 13px;
     color: var(--dark);
@@ -357,7 +357,6 @@
     }
 
     .sort-btn {
-        flex: 1;
         text-align: center;
     }
 
