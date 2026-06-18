@@ -11,7 +11,7 @@ import { Title } from '@angular/platform-browser';
 })
 export class LandingPageComponent {
 
-GetWebSiteData:any=[]
+  GetWebSiteData:any=[]
 
   constructor(private serviceTitle:Title,private commonservice:CommonService,private authenticationservice:AuthenticationService,private router:Router){
     if (this.authenticationservice.currentUserValue) {

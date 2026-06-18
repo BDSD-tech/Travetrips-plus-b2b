@@ -1,10 +1,30 @@
 <div class="dashboard-wrapper-container">
-    <ol class="breadcrumb-arrow">
-        <li>
-            <a routerLink="/dashboard/manage-carts"><i class="fa fa-home"></i></a>
-        </li>
-        <li><span>manage-carts</span></li>
-    </ol>
+     <div class="status-bar">
+        <div class="status-menu">
+            <a href="javascript:void(0)"
+                [ngClass]="{'active':SearchForm.get('BookingStatus')?.value.includes('Pending')}"
+                (click)="SetStatus('Pending')">PENDING</a>
+
+            <a href="javascript:void(0)" [ngClass]="{'active':SearchForm.get('BookingStatus')?.value.includes('All')}"
+                (click)="SetStatus('All')">MY BOOKING</a>
+
+            <a href="javascript:void(0)"
+                [ngClass]="{'active':SearchForm.get('BookingStatus')?.value.includes('Confirmed')}"
+                (click)="SetStatus('Confirmed')">CONFIRMED</a>
+
+            <a href="javascript:void(0)"
+                [ngClass]="{'active':SearchForm.get('BookingStatus')?.value.includes('Cancelled')}"
+                (click)="SetStatus('Cancelled')">CANCELLED</a>
+
+            <a href="javascript:void(0)" [ngClass]="{'active':SearchForm.get('BookingStatus')?.value.includes('Hold')}"
+                (click)="SetStatus('Hold')">HOLD BOOKING</a>
+
+        </div>
+
+        <!-- <button class="close-btn">
+            <i class="fa fa-x-lg"></i>
+        </button> -->
+    </div>
 
     <div class="animation__container">
         <div class="body_manage dash-padding dashboard__main__content">
@@ -39,7 +59,7 @@
                                 <i class="fa fa-times tts-inp-close-icon" (click)="clear('ToDate')" *ngIf="f['ToDate'].value!=''"></i>
                             </mat-form-field>
                         </div>
-                        <div class="col">
+                        <!-- <div class="col">
 
                             <mat-form-field appearance="fill" class="tts-full-width">
                                 <mat-label>Booking Status</mat-label>
@@ -55,7 +75,7 @@
                                 </mat-select>
                                 <mat-error *ngIf="f['BookingStatus'].errors?.['required']">Please select booking status</mat-error>
                             </mat-form-field>
-                        </div>
+                        </div> -->
 
                         
                     </div>
@@ -153,10 +173,10 @@
                         <i class="fa fa-table me-1"></i> <span class="">( {{dataSource.paginator?.pageIndex}} - {{dataSource.filteredData?.length}} ) out of {{CartList.length}} results shown !</span>
                     </h3>
                 </div>
-                <div class="col-md-9 allbuttons-tables">
+                <!-- <div class="col-md-9 allbuttons-tables">
                     <button href="javascript:void(0)" (click)="DownloadReport()" [disabled]="reportloading" class="download-button me-3"><i class="fa-regular fa-file-excel fs-16 text-success"></i></button>
                      <button href="javascript:void(0)" (click)="DownloadPDF()" [disabled]="reportloading" class="download-button"><i class="fa-regular fa-file-pdf text-danger"></i></button>
-                </div>
+                </div> -->
             </div>
 
             <div class="tts-adm-search-bar">
@@ -200,7 +220,7 @@
                             Booking Id
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            <div class="generic-td"><a class="tts-atag" routerLink="/dashboard/manage-cart-hotel/cart-detail/{{element.BookingRefNumber}}" target="_blank">{{element.BookingRefNumber}}</a></div>
+                            <div class="generic-td"><a class="tts-atag" routerLink="/dashboard/hotel-booking-details/{{element.BookingRefNumber}}" target="_blank">{{element.BookingRefNumber}}</a></div>
                         </td>
                         <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>

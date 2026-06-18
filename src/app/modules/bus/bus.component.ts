@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavigationExtras, Router } from '@angular/router';
-
 import { BusService } from './bus.service';
 import Validation from '../../utils/validation';
 import { tts_config } from '../../../environments/tts_config';
@@ -27,6 +26,7 @@ export class BusComponent implements OnInit {
 
   BlogList:any=[];
   TestimonialsList:any=[];
+  BusRecentSearch:any=[];
   
   constructor(public fb: FormBuilder,private router: Router,private busservice:BusService,private commonservice:CommonService) {
 
@@ -46,9 +46,8 @@ export class BusComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    sessionStorage.clear();
+    sessionStorage.removeItem('BusSearch');
     this.busautocomplete();
-
     this.commonservice.GetWebSiteData().subscribe(data => {
       this.GetWebSiteData =data;
     });
@@ -60,6 +59,13 @@ export class BusComponent implements OnInit {
       this.Notifications=data;
     });
 
+
+      if(sessionStorage.getItem('BusRecentSearch')){
+        let recentdata:any=sessionStorage.getItem('BusRecentSearch');
+        this.BusRecentSearch=JSON.parse(recentdata);
+        console.log(this.BusRecentSearch);
+        
+      }
     // this.commonservice.GetBlogList().subscribe(data => {
     //   this.BlogList=data;
     // });
@@ -184,9 +190,52 @@ export class BusComponent implements OnInit {
                         'dep':data['DepartDate'].replaceAll(' ', '-'),
                      };
 
+
+    // Start :: Recent search data start from here 
+    let isvaluesame:any=[];
+    let d:any=sessionStorage.getItem('BusRecentSearch')            
+    let recentData=JSON.parse(d);
+
+    if(recentData){
+       if(recentData.length<6)
+           {
+             recentData.forEach((element:any) => {
+               isvaluesame.push(this.JsonCompare(element,this.BusSearchForm.value));
+             });
+             if (Object.values(isvaluesame).indexOf(true) > -1) {
+             } else {
+               recentData.push(this.BusSearchForm.value);
+              sessionStorage.setItem('BusRecentSearch',JSON.stringify(recentData));
+             }
+           } else {
+             recentData.unshift(this.BusSearchForm.value);
+             recentData.pop();
+             sessionStorage.setItem('BusRecentSearch',JSON.stringify(recentData));
+           }
+    }else{
+      this.BusRecentSearch.push(this.BusSearchForm.value);
+      sessionStorage.setItem('BusRecentSearch',JSON.stringify(this.BusRecentSearch))
+    }
+    // End :: Recent search data start from here 
+
+
     const navigationExtras: NavigationExtras = {
       queryParams:searchstring
     };
     this.router.navigate(['bus/search'], navigationExtras);
+  }
+
+  RecentSearch(val:any){
+    if(val){
+      this.BusSearchForm.setValue(val);
+      this.SearchData()
+    }
+  }
+
+   JsonCompare(obj1:any, obj2:any)
+  {
+    var keys1 = Object.keys(obj1);
+    var keys2 = Object.keys(obj2);
+    return keys1.length === keys2.length && Object.keys(obj1).every(key=>obj1[key]==obj2[key]);
   }
 }

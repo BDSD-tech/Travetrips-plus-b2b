@@ -12,15 +12,15 @@
         </div>
         <div class="hotel-nav-wrapper">
             <nav class="hotel-nav">
-                <button class="hotel-nav__item active">Overview</button>
-                <button class="hotel-nav__item">Rooms</button>
-                <button class="hotel-nav__item">Amenities</button>
-                <button class="hotel-nav__item">Location</button>
+                <button class="hotel-nav__item" (click)="scrollToLetter('Overview')" [ngClass]="{'active':Selecttab=='Overview'}">Overview</button>
+                <button class="hotel-nav__item" (click)="scrollToLetter('Rooms')" [ngClass]="{'active':Selecttab=='Rooms'}">Rooms</button>
+                <button class="hotel-nav__item" (click)="scrollToLetter('Amenities')" [ngClass]="{'active':Selecttab=='Amenities'}">Amenities</button>
+                <button class="hotel-nav__item" (click)="scrollToLetter('Location')" [ngClass]="{'active':Selecttab=='Location'}">Location</button>
             </nav>
         </div>
-        <div class="room-list" *ngIf="HotelLoading==false && HotelInfoErrorCode==0">
+        <div  class="room-list" *ngIf="HotelLoading==false && HotelInfoErrorCode==0">
             <!---new code 06-06-2026--->
-            <div id="overview" class="hotel-overview">
+            <div id="Overview" class="hotel-overview">
                 <div class="hotel-overview__wrapper">
                     <div class="hotel-overview__gallery">
                         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel"
@@ -247,7 +247,7 @@
             </div>
 
             <!----Room List----->
-            <div id="hotel_room_rates" class="hotel-filter-card">
+            <div id="Rooms" class="hotel-filter-card">
                 <div *ngIf="HotelRoomLoading" class="loader-wrapper">
                     <h5>Please Wait...</h5>
                     <p>We are fetching room details</p>
@@ -364,7 +364,7 @@
             </div>
 
             <!----Amenities----->
-            <div class="hotel-amenities-card" id="hotel_amenities">
+            <div class="hotel-amenities-card" id="Amenities">
                 <!-- Hotel Amenities -->
                 <div *ngIf="HotelInfoResult['HotelAmenities'] && HotelInfoResult['HotelAmenities'].length!=0">
                     <div class="section-title">
@@ -432,7 +432,7 @@
             </div>
 
             <!-- Map -->
-            <div class="hotel-section" id="hotel_map"
+            <div class="hotel-section" id="Location"
                 *ngIf="HotelInfoResult['Latitude']!=null && HotelInfoResult['Longitude']!=null">
                 <div class="section-title">
                     <h4>Location Map</h4>

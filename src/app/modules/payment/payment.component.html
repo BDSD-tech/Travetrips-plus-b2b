@@ -186,7 +186,7 @@
             <div class="btm-border bold-font-bf"><span>Insurance Price</span> <span
                 class="float-end">₹{{CurrentFare['InsurancePrice'] | number:'1.0-2'}}</span></div>
             }
-            <div class="btm-border bold-font" *ngIf="CurrentFare['SSR']">
+            <div class="btm-border bold-font" *ngIf="CurrentFare['SSR'] && Service=='Flight'">
               <span data-bs-toggle="collapse" href="#ssr-pax" aria-expanded="false"> Meal, Baggage & Seats <i
                   class="fa fa-angle-down mrg-left"></i></span>
               <span class="float-end">₹{{CurrentFare['SSR']['Meal'] + CurrentFare['SSR']['Baggage']+
@@ -205,16 +205,15 @@
             <div class="bold-font ">
               <span data-bs-toggle="collapse" href="#net-fare" aria-expanded="false">Gross Fare <i
                   class="fa fa-angle-down mrg-left"></i></span>
-              @if(Service=='Hotel'){
-              <span
-                class="float-end">₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']|number:'1.0-2'}}</span>
-              }@else{
-
-              <span
+              @if(Service=='Flight'){
+                <span
                 class="float-end">₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']+CurrentFare['SSR']['Meal']
                 + CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Seat'] +CurrentFare['InsurancePrice']|
                 number:'1.0-2'}}</span>
-
+             
+              }@else{
+              <span
+                class="float-end">₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']|number:'1.0-2'}}</span>
               }
               <div class="tax-dropdown airline-gst-print collapse" id="net-fare">
                 <div><span>Commission</span><span

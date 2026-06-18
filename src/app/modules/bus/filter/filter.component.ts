@@ -24,6 +24,8 @@ export class FilterComponent implements OnInit {
 
   bustypelist:any=[];
   bustravellist:any=[];
+  min:any=0;
+  max:any=0;
 
   constructor() { 
 
@@ -33,7 +35,9 @@ export class FilterComponent implements OnInit {
   ngOnInit(): void {
     this.bustypelist=this.Filter['BusType'];
     this.bustravellist=this.Filter['TravelName'];
-    this.pricefilter();
+      this.min=this.Filter?.['Price']?.['min']
+    this.max=this.Filter?.['Price']?.['max']
+    
   }
 
   ngOnChanges() {
@@ -100,10 +104,10 @@ export class FilterComponent implements OnInit {
       }
     }
 
-    let min = $.trim($(".left-price").val());
-    let max = $.trim($(".right-price").val());
-    min = parseFloat($.trim(min.replace(",", "")));
-    max = parseFloat($.trim(max.replace(",", "")));
+    let min = this.Filter['Price']['min'];
+    let max = this.Filter['Price']['max'];
+    // min = parseFloat($.trim(min.replace(",", "")));
+    // max = parseFloat($.trim(max.replace(",", "")));
 
     let FilterData:any=[];
     FilterData=this.Filter;

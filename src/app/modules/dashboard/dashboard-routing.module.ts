@@ -1,102 +1,96 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BillingInfoComponent } from './billing-info/billing-info.component';
-import { BookingCalendarComponent } from './booking-calendar/booking-calendar.component';
-import { DepositRequestComponent } from './deposit-request/deposit-request.component';
-import { DownloadReportComponent } from './download-report/download-report.component';
-import { ItineraryComponent } from './manage-amendments/itinerary/itinerary.component';
-import { ManageAmendmentsComponent } from './manage-amendments/manage-amendments.component';
-import { ManageCartsComponent } from './manage-carts/manage-carts.component';
-import { CartDetailComponent } from './manage-carts/manage-carts/cart-detail/cart-detail.component';
-import { ManageDepositRequestComponent } from './manage-deposit-request/manage-deposit-request.component';
-import { ManageMarkupComponent } from './manage-markup/manage-markup.component';
-import { PaymentPassbookComponent } from './payment-passbook/payment-passbook.component';
-import { UserDetailComponent } from './user-detail/user-detail.component';
-import { HotelComponent } from './manage-markup/hotel/hotel.component';
-import { CreditRequestComponent } from './credit-request/credit-request.component';
-import { CreditNotesComponent } from './credit-notes/credit-notes.component';
-import { ViewCreditNotesComponent } from './view-credit-notes/view-credit-notes.component';
-import { CreditNotesHotelComponent } from './credit-notes-hotel/credit-notes-hotel.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { BookingsComponent } from './bookings/bookings.component';
+
 const routes: Routes = [
-                            {
-                              path:'',
-                              component:DashboardComponent
-                            },
+                            
                             {
                               path:'booking-calendar',
-                              component:BookingCalendarComponent
+                              loadComponent: () => import('../dashboard/booking-calendar/booking-calendar.component')
+                                .then(mod => mod.BookingCalendarComponent)
                             },
                             {
                               path:'bookings',
-                              component:BookingsComponent
+                              loadComponent: () => import('../dashboard/bookings/bookings.component')
+                                .then(mod => mod.BookingsComponent)
+                            },
+                            {
+                              path:'amendments',
+                              loadComponent: () => import('../dashboard/amendments/amendments.component')
+                                .then(mod => mod.AmendmentsComponent)
                             },
                             {
                               path:'manage-carts/cart-detail/:refno',
-                              component:CartDetailComponent
+                              loadComponent: () => import('../dashboard/manage-carts/manage-carts/cart-detail/cart-detail.component')
+                                .then(mod => mod.CartDetailComponent)
                             },
                             {
                               path:'manage-amendments',
-                              component:ManageAmendmentsComponent
+                              loadComponent: () => import('../dashboard/manage-amendments/manage-amendments.component')
+                                .then(mod => mod.ManageAmendmentsComponent)
                             },
                             {
                               path:'amendments/itinerary',
-                              component:ItineraryComponent
+                              loadComponent: () => import('../dashboard/manage-amendments/itinerary/itinerary.component')
+                                .then(mod => mod.ItineraryComponent)
                             },
                             {
                               path:'payment-passbook',
-                              component:PaymentPassbookComponent
+                              loadComponent: () => import('../dashboard/payment-passbook/payment-passbook.component')
+                                .then(mod => mod.PaymentPassbookComponent)
                             },
                             {
                               path:'manage-deposit-request',
-                              component:ManageDepositRequestComponent
+                              loadComponent: () => import('../dashboard/manage-deposit-request/manage-deposit-request.component')
+                                .then(mod => mod.ManageDepositRequestComponent)
+                              
                             },
                             {
                               path:'deposit-request',
-                              component:DepositRequestComponent
+                              loadComponent: () => import('../dashboard/deposit-request/deposit-request.component')
+                                .then(mod => mod.DepositRequestComponent)
                             },
                             {
                               path:'credit-request',
-                              component:CreditRequestComponent
+                              loadComponent: () => import('../dashboard/credit-request/credit-request.component')
+                                .then(mod => mod.CreditRequestComponent)
                             },
                             {
                               path:'flight-credit-notes',
-                              component:CreditNotesComponent
+                              loadComponent: () => import('../dashboard/credit-notes/credit-notes.component')
+                                .then(mod => mod.CreditNotesComponent)
                             },
                             {
                               path:'hotel-credit-notes',
-                              component:CreditNotesHotelComponent
+                              loadComponent: () => import('../dashboard/credit-notes-hotel/credit-notes-hotel.component')
+                                .then(mod => mod.CreditNotesHotelComponent)
                             },
                             {
                               path:'billing-info',
-                              component:BillingInfoComponent
+                              loadComponent: () => import('../dashboard/billing-info/billing-info.component')
+                                .then(mod => mod.BillingInfoComponent)
                             },
                             {
                               path:'download-report',
-                              component:DownloadReportComponent
+                              loadComponent: () => import('../dashboard/download-report/download-report.component')
+                                .then(mod => mod.DownloadReportComponent)
+                             
                             },
                             {
-                              path:'manage-markup',
-                              component:ManageMarkupComponent
-                            },
-                            {
-                              path:'manage-markup-hotel',
-                              component:HotelComponent
+                              path:'markup',
+                              loadComponent: () => import('../dashboard/markup/markup.component')
+                                .then(mod => mod.MarkupComponent)
+                              
                             },
                             {
                               path:'view-credit-notes',
-                              component:ViewCreditNotesComponent
+                               loadComponent: () => import('../dashboard/view-credit-notes/view-credit-notes.component')
+                                .then(mod => mod.ViewCreditNotesComponent)
                             },
                             {
                               path:'user-detail/:userid',
-                              component:UserDetailComponent
+                               loadComponent: () => import('../dashboard/user-detail/user-detail.component')
+                                .then(mod => mod.UserDetailComponent)
                             },
-                            // {
-                            //   path: 'manage-cart-hotel',
-                            //   loadChildren: () => import('../dashboard/manage-cart-hotel/manage-cart-hotel.module')
-                            //     .then(mod => mod.ManageCartHotelModule)
-                            // },
                             {
                               path: 'users',
                               loadChildren: () => import('./users/users.module')
@@ -107,6 +101,17 @@ const routes: Routes = [
                               loadChildren: () => import('../dashboard/manage-amendments-hotel/manage-amendments-hotel.module')
                                 .then(mod => mod.ManageAmendmentsHotelModule)
                             },
+                            {
+                              path: 'hotel-booking-details/:refno',
+                              loadComponent: () => import('../dashboard/manage-cart-hotel/cart-detail/cart-detail.component')
+                                .then(mod => mod.CartDetailHotelComponent)
+                            },
+                            {
+                              path: 'bus-booking-detail/:id',
+                              loadComponent: () => import('../dashboard/bus/booking-detail/booking-detail.component')
+                                .then(mod => mod.BookingDetailComponent)
+                            },
+                            
 
 ];
 

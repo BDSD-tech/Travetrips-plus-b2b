@@ -454,7 +454,7 @@ export class ModifySearchComponent implements OnInit {
 
 
      sessionStorage.setItem('FlightSearch',JSON.stringify(this.ModifySearchForm.value));
- 
+     this.Flightloading=false;
       /* --- Start Recent Search ---- */
       let isvaluesame:any=[];
       if (localStorage.getItem('FlightRecentSearch')) {
@@ -634,10 +634,9 @@ export class ModifySearchComponent implements OnInit {
     }
     if(dateobj.calType=='M')
     {
-      console.log(dateobj);
+     
       let datakey=parseInt(dateobj.key);
-      this.ModifySearchForm.get('MultiCity.'+datakey+'')?.patchValue({'DepartDate':dateobj.Date});
-      console.log(this.ModifySearchForm.value);
+      this.ModifySearchForm.get('MultiCity.'+datakey+'')?.patchValue({'DepartDate':dateobj.Date})
     }
   }
 

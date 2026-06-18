@@ -5,6 +5,7 @@ import { HotelService } from './hotel.service';
 import Validation from '../../utils/validation';
 import { tts_config } from '../../../environments/tts_config';
 import { CommonService } from '../../services/common.service';
+import { __values } from 'tslib';
 declare var $: any;
 
 @Component({
@@ -35,6 +36,10 @@ export class HotelComponent implements OnInit {
   BlogList:any=[];
   TestimonialsList:any=[];
 
+
+  getRecentSearch:any=[]
+
+  hotelrecent:any=[]
   constructor(public fb: FormBuilder,private router: Router,private hotelservice:HotelService,private commonservice:CommonService) {
     for(var i = 0; i<4; i++)
       {
@@ -69,7 +74,8 @@ export class HotelComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    sessionStorage.clear();
+    sessionStorage.removeItem('HotelSearch');
+    sessionStorage.removeItem('time');
     this.HotelCheckInDate();
     this.HotelCheckOutDate();
     this.hotelautocomplete();
@@ -100,6 +106,23 @@ export class HotelComponent implements OnInit {
           this.NationalityLits=resp['Result'];
       }
     });
+    if(sessionStorage.getItem('HotelRecentSearch')){
+    let recentdata:any=sessionStorage.getItem('HotelRecentSearch');
+    let val:any=JSON.parse(recentdata);
+    if(val)
+      {
+        let finalsearch:any=[];
+        let currentdate=this.hotelservice.DateToTimestamp(this.hotelservice.AddDayDefaultDate(new Date(),0));
+          val.forEach((element:any) => {
+             let deptime=this.hotelservice.DateToTimestamp(element['CheckIn']);
+              if(currentdate <= deptime)
+              {
+                finalsearch.push(element);
+              }
+          });
+          this.getRecentSearch=finalsearch;
+      } 
+    }
 
   }
 
@@ -134,11 +157,56 @@ export class HotelComponent implements OnInit {
       let isdomestic =  false;
       this.HotelSearchForm.patchValue({'Isdomestic':isdomestic});
     }
+
+
+      /* --- Start Recent Search ---- */
+     let isvaluesame:any=[];
+    //  this.storageservice.getObject('HotelRecentSearch').then((val:any) => {
+   
+      let recentdata:any=sessionStorage.getItem('HotelRecentSearch');
+      let val:any=JSON.parse(recentdata);
+        if(val)
+         {
+           if(val.length<6)
+           {
+             val.forEach((element:any) => {
+               isvaluesame.push(this.JsonCompare(element,this.HotelSearchForm.value));
+             });
+             if (Object.values(isvaluesame).indexOf(true) > -1) {
+             } else {
+               val.push(this.HotelSearchForm.value);
+              sessionStorage.setItem('HotelRecentSearch',JSON.stringify(val));
+             }
+           } else {
+             val.unshift(this.HotelSearchForm.value);
+             val.pop();
+             sessionStorage.setItem('HotelRecentSearch',JSON.stringify(val));
+           }
+         } else { 
+           this.hotelrecent.push(this.HotelSearchForm.value);
+           sessionStorage.setItem('HotelRecentSearch',JSON.stringify(this.hotelrecent));
+         }
+
+
+    //  });
+    /* --- End Recent Search ---- */
+
+  
+
+
     const navigationExtras: NavigationExtras = {
       queryParams:request
     };
     sessionStorage.setItem('HotelSearch',JSON.stringify(this.HotelSearchForm.value));
     this.router.navigate(['hotel/search'],navigationExtras);
+  }
+
+
+  JsonCompare(obj1:any, obj2:any)
+  {
+    var keys1 = Object.keys(obj1);
+    var keys2 = Object.keys(obj2);
+    return keys1.length === keys2.length && Object.keys(obj1).every(key=>obj1[key]==obj2[key]);
   }
   HotelPaxDisplay()
   {
@@ -425,5 +493,15 @@ export class HotelComponent implements OnInit {
         this.HotelSearchForm.patchValue({ Destination:'',CityID:''});
       }
     }
+
+
+    recentsearch(val:any)
+  {
+    if(val) { 
+      this.HotelSearchForm.patchValue(val);
+      this.HotelSearchData();
+    }
+   
+  }
 
 }

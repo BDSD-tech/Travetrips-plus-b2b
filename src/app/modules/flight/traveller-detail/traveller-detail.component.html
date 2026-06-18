@@ -1,339 +1,372 @@
 <section class="flight-booking">
    <div class="container">
-      <!-- <div class="text-center" *ngIf="fareloading">
-         <div class="spinner-grow text-primary me-2" role="status">
-            <span class="visually-hidden">Loading...</span>
-         </div>
-         <div class="spinner-grow text-primary me-2" role="status">
-            <span class="visually-hidden">Loading...</span>
-         </div>
-         <div class="spinner-grow text-primary me-2" role="status">
-            <span class="visually-hidden">Loading...</span>
-         </div>
-         <div class="spinner-grow text-primary me-2" role="status">
-            <span class="visually-hidden">Loading...</span>
-         </div>
-         <div class="spinner-grow text-primary me-2" role="status">
-            <span class="visually-hidden">Loading...</span>
-         </div>
-      </div> -->
 
+      <div>
+         <div class="booking-stepper">
+            <!-- Step 1 -->
+            <div class="step completed">
+               <div class="step-icon">
+                  <i class="fa fa-check"></i>
+               </div>
+               <span class="step-text">Flight Selection</span>
+            </div>
+
+            <div class="step-dots">•••</div>
+
+            <!-- Step 2 -->
+            <div class="step active">
+               <div class="step-icon">2</div>
+               <span class="step-text">Review</span>
+            </div>
+
+
+            <div class="step-dots">•••</div>
+
+            <!-- Step 4 -->
+            <div class="step">
+               <div class="step-icon">3</div>
+               <span class="step-text">Payment</span>
+            </div>
+
+         </div>
+      </div>
       <div class="row gy-4">
-
-
          <div class="col-lg-9">
-
-            <div class="booking-stepper">
-               <!-- Step 1 -->
-               <div class="step completed">
-                  <div class="step-icon">
-                     <i class="fa fa-check"></i>
-                  </div>
-                  <span class="step-text">Flight Selection</span>
-               </div>
-
-               <div class="step-dots">•••</div>
-
-               <!-- Step 2 -->
-               <div class="step active">
-                  <div class="step-icon">2</div>
-                  <span class="step-text">Review</span>
-               </div>
-
-
-               <div class="step-dots">•••</div>
-
-               <!-- Step 4 -->
-               <div class="step">
-                  <div class="step-icon">3</div>
-                  <span class="step-text">Payment</span>
-               </div>
-
-            </div>
             <!----new code start---->
-            <div class="flight-booking-wrapper">
+            <div *ngFor="let trip of Segments; let tripkey=index">
+               <div class="flight-booking-wrapper" *ngFor="let subtrip of trip; let subtripkey=index">
 
-               <!-- Header -->
-               <div class="flight-booking-header">
-                  <div class="itinerary-card-title">
+                  <div class="flight-booking-header">
+                     <div class="itinerary-card-title">
 
-                     <div class="header-left">
-                        <i class="fa-solid fa-plane-departure"></i>
-                        <span>Flight Details</span>
+                        <div class="header-left">
+                           <i class="fa-solid fa-plane-departure"></i>
+                           <span>Flight Details</span>
+                        </div>
+
+                        <a href="javascript:void(0)" class="change-flight-btn" (click)="goBack()">
+                           Change Flight
+                        </a>
+
                      </div>
-
-                     <a href="javascript:void(0)" class="change-flight-btn" (click)="goBack()">
-                        Change Flight
-                     </a>
-
                   </div>
-               </div>
 
-               <!-- Trip Loop -->
-               <div class="flight-segment" *ngFor="let trip of Segments; let tripkey=index">
+                  <!-- Trip Loop -->
+                  <div class="flight-segment position-relative">
+                     @if(IsDomestic=='false' &&trip.length==2){
+                     @if(subtripkey==0){
+                     <span class="trip-type-stripe">ONGOING</span>
+                     }@else{
+                     <span class="trip-type-stripe">RETURN</span>
+                     }
+                     }
+                     @if(IsDomestic=='true' &&Segments.length==2){
+                     @if(tripkey==0){
+                     <span class="trip-type-stripe">ONGOING</span>
+                     }@else{
+                     <span class="trip-type-stripe">RETURN</span>
+                     }
+                     }
 
-                  <!-- Route Loop -->
-                  <div class="flight-route-block" *ngFor="let subtrip of trip; let subtripkey=index">
+                     <!-- Route Loop -->
+                     <div class="flight-route-block">
 
-                     <!-- Segment Loop -->
-                     <div *ngFor="let segment of subtrip; let segkey=index">
+                        <!-- Segment Loop -->
+                        <div *ngFor="let segment of subtrip; let segkey=index">
 
-                        <!-- Top Header -->
-                        <div class="flight-card-header">
+                           <!-- Top Header -->
+                           <div class="flight-card-header">
 
-                           <div class="route-section">
+                              <div class="route-section">
 
-                              <h4>
-                                 {{subtrip[0]['Origin']['CityName']}}
-                                 <span>→</span>
-                                 {{subtrip[subtrip.length-1]['Destination']['CityName']}}
-                              </h4>
+                                 <h4>
+                                    {{subtrip[0]['Origin']['CityName']}}
+                                    <span>→</span>
+                                    {{subtrip[subtrip.length-1]['Destination']['CityName']}}
+                                 </h4>
 
-                              <div class="route-meta">
+                                 <div class="route-meta">
 
-                                 <span class="date-tag">
-                                    {{subtrip[0]['Origin']['DepartTime'] | date:'dd MMM EEEE'}}
-                                 </span>
-
-                                 <span class="stop-tag">
-
-                                    <ng-container
-                                       *ngIf="!segment['TechStopPoint'] || segment['TechStopPoint'].length==0">
-                                       Non Stop
-                                    </ng-container>
-
-                                    <ng-container *ngIf="segment['TechStopPoint'] && segment['TechStopPoint']['Code']">
-                                       Via {{segment['TechStopPoint']['Code']}}
-                                    </ng-container>
-
-                                 </span>
-                                 <span class="stop_duration">•</span>
-                                 <span class="duration-tag">
-                                    {{FTduration(segment['Duration'])}}
-                                 </span>
-
-                                 <span class="refund-tag" *ngIf="FareList[tripkey]['IsRefundable']">
-                                    REFUNDABLE
-                                 </span>
-
-                                 <span class="refund-tag non-refundable"
-                                    *ngIf="FareList[tripkey]['IsRefundable']!=true">
-                                    NON REFUNDABLE
-                                 </span>
-
-                              </div>
-
-                           </div>
-
-                           <div class="top-right-section">
-
-                              <div class="baggage-item" *ngIf="segment['CheckInBaggage']">
-
-                                 <strong>
-                                    {{segment['CheckInBaggage']}}
-                                 </strong>
-
-                                 <span>
-                                    <svg width="18" height="12px" viewBox="0 0 18 24" fill="none"
-                                       xmlns="http://www.w3.org/2000/svg">
-                                       <path
-                                          d="M7.83398 4.9987H10.1673V2.66536H7.83398V4.9987ZM9.00065 11.9987C7.52287 11.9987 6.11315 11.6923 4.77148 11.0794C3.42982 10.4665 2.11732 9.78125 0.833984 9.0237V7.33203C0.833984 6.69036 1.06265 6.14125 1.51998 5.6847C1.97732 5.22814 2.52643 4.99948 3.16732 4.9987H5.50065V1.4987C5.50065 1.16814 5.61265 0.891254 5.83665 0.668031C6.06065 0.444809 6.33754 0.332809 6.66732 0.332031H11.334C11.6645 0.332031 11.9418 0.444031 12.1658 0.668031C12.3898 0.892031 12.5014 1.16892 12.5007 1.4987V4.9987H14.834C15.4757 4.9987 16.0252 5.22736 16.4825 5.6847C16.9398 6.14203 17.1681 6.69114 17.1673 7.33203V9.0237C15.884 9.78203 14.5715 10.4676 13.2298 11.0805C11.8882 11.6934 10.4784 11.9995 9.00065 11.9987ZM3.16732 23.6654V22.4987C2.52565 22.4987 1.97654 22.2704 1.51998 21.8139C1.06343 21.3573 0.834762 20.8078 0.833984 20.1654V11.6487C1.92287 12.3098 3.04598 12.8737 4.20332 13.3404C5.36065 13.807 6.57087 14.1181 7.83398 14.2737V15.4987H10.1673V14.2737C11.4312 14.1181 12.6418 13.807 13.7992 13.3404C14.9565 12.8737 16.0792 12.3098 17.1673 11.6487V20.1654C17.1673 20.807 16.939 21.3565 16.4825 21.8139C16.0259 22.2712 15.4764 22.4995 14.834 22.4987V23.6654H12.5007V22.4987H5.50065V23.6654H3.16732Z"
-                                          fill="#9E9E9E"></path>
-                                    </svg>
-                                 </span>
-
-                              </div>
-
-                              <div class="divider" *ngIf="segment['CheckInBaggage'] && segment['CabinBaggage']">
-                              </div>
-
-                              <div class="baggage-item" *ngIf="segment['CabinBaggage']">
-
-                                 <strong>
-                                    {{segment['CabinBaggage']}}
-                                 </strong>
-
-                                 <span>
-                                    <svg width="24" height="12px" viewBox="0 0 24 20" fill="none"
-                                       xmlns="http://www.w3.org/2000/svg">
-                                       <path
-                                          d="M6.75 4.3999C6.75 3.5645 7.08187 2.76331 7.67261 2.17259C8.26335 1.58186 9.06457 1.25 9.9 1.25H14.625C15.4604 1.25 16.2616 1.58186 16.8524 2.17259C17.4431 2.76331 17.775 3.5645 17.775 4.3999V5.44987H6.75V4.3999Z"
-                                          stroke="#9E9E9E" stroke-width="2.09997" stroke-linecap="round"
-                                          stroke-linejoin="round"></path>
-                                       <path
-                                          d="M1.5 10.1758L11.7454 12.7372C11.9123 12.7792 12.0877 12.7792 12.2546 12.7372L22.5 10.1758V17.0006C22.5 17.279 22.3894 17.5461 22.1925 17.743C21.9955 17.9399 21.7285 18.0505 21.45 18.0505H2.55C2.27152 18.0505 2.00445 17.9399 1.80754 17.743C1.61062 17.5461 1.5 17.279 1.5 17.0006V10.1758Z"
-                                          fill="#9E9E9E" stroke="#9E9E9E" stroke-width="2.09997" stroke-linecap="round"
-                                          stroke-linejoin="round"></path>
-                                       <path
-                                          d="M22.5 11.226V6.50114C22.5 6.22267 22.3894 5.95561 22.1925 5.7587C21.9955 5.56179 21.7285 5.45117 21.45 5.45117H2.55C2.27152 5.45117 2.00445 5.56179 1.80754 5.7587C1.61062 5.95561 1.5 6.22267 1.5 6.50114V11.226"
-                                          stroke="#9E9E9E" stroke-width="2.09997" stroke-linecap="round"
-                                          stroke-linejoin="round"></path>
-                                       <path
-                                          d="M13.3125 9.12496C13.3125 9.47305 13.1742 9.80688 12.9281 10.053C12.6819 10.2991 12.3481 10.4374 12 10.4374C11.6519 10.4374 11.3181 10.2991 11.0719 10.053C10.8258 9.80688 10.6875 9.47305 10.6875 9.12496C10.6875 8.77687 10.8258 8.44304 11.0719 8.19691C11.3181 7.95078 11.6519 7.8125 12 7.8125C12.3481 7.8125 12.6819 7.95078 12.9281 8.19691C13.1742 8.44304 13.3125 8.77687 13.3125 9.12496Z"
-                                          fill="#9E9E9E"></path>
-                                    </svg>
-                                 </span>
-
-                              </div>
-
-                              <button class="fare-rule-btn">
-                                 Fare Rules
-                              </button>
-
-                           </div>
-
-                        </div>
-
-                        <!-- Main Flight Row -->
-                        <div class="flight-main-row">
-
-                           <!-- Airline -->
-                           <div class="airline-column">
-
-                              <img src="{{AirlineLogoURL}}{{segment['Airline']['AirlineCode']}}.png"
-                                 class="flight-airline-logo">
-
-                              <div class="d-flex flex-column">
-
-                                 <h6>
-                                    {{segment['Airline']['AirlineCode']}}
-                                    {{segment['Airline']['FlightNumber']}}
-                                 </h6>
-
-                                 <p>
-                                    {{segment['Airline']['AirlineName']}}
-                                 </p>
-
-                                 <p>
-                                    Class :
-                                    {{segment['CabinClass']}}
-                                 </p>
-
-                                 <p>
-                                    Fare Type :
-                                    {{FareList[tripkey]['FareType']}}
-                                 </p>
-
-                              </div>
-
-                           </div>
-
-                           <div class="d-flex w-100 justify-content-between align-items-center gap-3">
-                              <!-- Departure -->
-                              <div class="time-column">
-                                 <div class="d-flex align-items-center gap-2">
-                                    <h3>
-                                       {{segment['Origin']['DepartTime'] | date:'HH:mm'}}
-                                    </h3>
-                                    <div>•</div>
-                                    <span>
-                                       {{segment['Origin']['DepartTime'] | date:'dd MMM EEEE'}}
+                                    <span class="date-tag">
+                                       {{subtrip[0]['Origin']['DepartTime'] | date:'dd MMM EEEE'}}
                                     </span>
-                                 </div>
 
+                                    <span class="stop-tag">
 
-                                 <h5>
-                                    {{segment['Origin']['CityName']}}
-                                    ({{segment['Origin']['AirportCode']}})
-                                 </h5>
+                                       <ng-container
+                                          *ngIf="!segment['TechStopPoint'] || segment['TechStopPoint'].length==0">
+                                          Non Stop
+                                       </ng-container>
 
-                                 <p>
-                                    {{segment['Origin']['AirportName']}}
-                                 </p>
+                                       <ng-container
+                                          *ngIf="segment['TechStopPoint'] && segment['TechStopPoint']['Code']">
+                                          Via {{segment['TechStopPoint']['Code']}}
+                                       </ng-container>
 
-                                 <p *ngIf="segment['Origin']['Terminal']">
-                                    Terminal
-                                    {{segment['Origin']['Terminal']}}
-                                 </p>
+                                    </span>
+                                    <span class="stop_duration">•</span>
+                                    <span class="duration-tag">
+                                       {{FTduration(segment['Duration'])}}
+                                    </span>
 
-                              </div>
+                                    <span class="refund-tag" *ngIf="FareList[tripkey]['IsRefundable']">
+                                       REFUNDABLE
+                                    </span>
 
-                              <!-- Journey -->
-                              <div class="journey-column">
-
-                                 <span class="journey-duration">
-                                    {{FTduration(segment['Duration'])}}
-                                 </span>
-
-                                 <div class="journey-line">
-
-                                    <span class="plane-icon">
-                                       <i class="fa fa-clock"></i>
+                                    <span class="refund-tag non-refundable"
+                                       *ngIf="FareList[tripkey]['IsRefundable']!=true">
+                                       NON REFUNDABLE
                                     </span>
 
                                  </div>
 
-                                 <small>
-
-                                    <ng-container
-                                       *ngIf="!segment['TechStopPoint'] || segment['TechStopPoint'].length==0">
-                                       Non Stop
-                                    </ng-container>
-
-                                    <ng-container *ngIf="segment['TechStopPoint'] && segment['TechStopPoint']['Code']">
-                                       Via {{segment['TechStopPoint']['Code']}}
-                                    </ng-container>
-
-                                 </small>
-
                               </div>
 
-                              <!-- Arrival -->
-                              <div class="time-column text-end">
-                                 <div class="d-flex align-items-center gap-2 justify-content-end">
+                              <div class="top-right-section">
 
+                                 <div class="baggage-item" *ngIf="segment['CheckInBaggage']">
+
+                                    <strong>
+                                       {{segment['CheckInBaggage']}}
+                                    </strong>
 
                                     <span>
-                                       {{segment['Destination']['ArrivalTime'] | date:'dd MMM EEEE'}}
+                                       <svg width="18" height="12px" viewBox="0 0 18 24" fill="none"
+                                          xmlns="http://www.w3.org/2000/svg">
+                                          <path
+                                             d="M7.83398 4.9987H10.1673V2.66536H7.83398V4.9987ZM9.00065 11.9987C7.52287 11.9987 6.11315 11.6923 4.77148 11.0794C3.42982 10.4665 2.11732 9.78125 0.833984 9.0237V7.33203C0.833984 6.69036 1.06265 6.14125 1.51998 5.6847C1.97732 5.22814 2.52643 4.99948 3.16732 4.9987H5.50065V1.4987C5.50065 1.16814 5.61265 0.891254 5.83665 0.668031C6.06065 0.444809 6.33754 0.332809 6.66732 0.332031H11.334C11.6645 0.332031 11.9418 0.444031 12.1658 0.668031C12.3898 0.892031 12.5014 1.16892 12.5007 1.4987V4.9987H14.834C15.4757 4.9987 16.0252 5.22736 16.4825 5.6847C16.9398 6.14203 17.1681 6.69114 17.1673 7.33203V9.0237C15.884 9.78203 14.5715 10.4676 13.2298 11.0805C11.8882 11.6934 10.4784 11.9995 9.00065 11.9987ZM3.16732 23.6654V22.4987C2.52565 22.4987 1.97654 22.2704 1.51998 21.8139C1.06343 21.3573 0.834762 20.8078 0.833984 20.1654V11.6487C1.92287 12.3098 3.04598 12.8737 4.20332 13.3404C5.36065 13.807 6.57087 14.1181 7.83398 14.2737V15.4987H10.1673V14.2737C11.4312 14.1181 12.6418 13.807 13.7992 13.3404C14.9565 12.8737 16.0792 12.3098 17.1673 11.6487V20.1654C17.1673 20.807 16.939 21.3565 16.4825 21.8139C16.0259 22.2712 15.4764 22.4995 14.834 22.4987V23.6654H12.5007V22.4987H5.50065V23.6654H3.16732Z"
+                                             fill="#9E9E9E"></path>
+                                       </svg>
                                     </span>
-                                    <div>•</div>
-                                    <h3>
-                                       {{segment['Destination']['ArrivalTime'] | date:'HH:mm'}}
-                                    </h3>
+
                                  </div>
 
-                                 <h5>
-                                    {{segment['Destination']['CityName']}}
-                                    ({{segment['Destination']['AirportCode']}})
-                                 </h5>
+                                 <div class="divider" *ngIf="segment['CheckInBaggage'] && segment['CabinBaggage']">
+                                 </div>
 
-                                 <p>
-                                    {{segment['Destination']['AirportName']}}
-                                 </p>
+                                 <div class="baggage-item" *ngIf="segment['CabinBaggage']">
 
-                                 <p *ngIf="segment['Destination']['Terminal']">
-                                    Terminal
-                                    {{segment['Destination']['Terminal']}}
-                                 </p>
+                                    <strong>
+                                       {{segment['CabinBaggage']}}
+                                    </strong>
 
+                                    <span>
+                                       <svg width="24" height="12px" viewBox="0 0 24 20" fill="none"
+                                          xmlns="http://www.w3.org/2000/svg">
+                                          <path
+                                             d="M6.75 4.3999C6.75 3.5645 7.08187 2.76331 7.67261 2.17259C8.26335 1.58186 9.06457 1.25 9.9 1.25H14.625C15.4604 1.25 16.2616 1.58186 16.8524 2.17259C17.4431 2.76331 17.775 3.5645 17.775 4.3999V5.44987H6.75V4.3999Z"
+                                             stroke="#9E9E9E" stroke-width="2.09997" stroke-linecap="round"
+                                             stroke-linejoin="round"></path>
+                                          <path
+                                             d="M1.5 10.1758L11.7454 12.7372C11.9123 12.7792 12.0877 12.7792 12.2546 12.7372L22.5 10.1758V17.0006C22.5 17.279 22.3894 17.5461 22.1925 17.743C21.9955 17.9399 21.7285 18.0505 21.45 18.0505H2.55C2.27152 18.0505 2.00445 17.9399 1.80754 17.743C1.61062 17.5461 1.5 17.279 1.5 17.0006V10.1758Z"
+                                             fill="#9E9E9E" stroke="#9E9E9E" stroke-width="2.09997"
+                                             stroke-linecap="round" stroke-linejoin="round"></path>
+                                          <path
+                                             d="M22.5 11.226V6.50114C22.5 6.22267 22.3894 5.95561 22.1925 5.7587C21.9955 5.56179 21.7285 5.45117 21.45 5.45117H2.55C2.27152 5.45117 2.00445 5.56179 1.80754 5.7587C1.61062 5.95561 1.5 6.22267 1.5 6.50114V11.226"
+                                             stroke="#9E9E9E" stroke-width="2.09997" stroke-linecap="round"
+                                             stroke-linejoin="round"></path>
+                                          <path
+                                             d="M13.3125 9.12496C13.3125 9.47305 13.1742 9.80688 12.9281 10.053C12.6819 10.2991 12.3481 10.4374 12 10.4374C11.6519 10.4374 11.3181 10.2991 11.0719 10.053C10.8258 9.80688 10.6875 9.47305 10.6875 9.12496C10.6875 8.77687 10.8258 8.44304 11.0719 8.19691C11.3181 7.95078 11.6519 7.8125 12 7.8125C12.3481 7.8125 12.6819 7.95078 12.9281 8.19691C13.1742 8.44304 13.3125 8.77687 13.3125 9.12496Z"
+                                             fill="#9E9E9E"></path>
+                                       </svg>
+                                    </span>
+
+                                 </div>
+                                 @if(segkey==0){
+                                 <button class="fare-rule-btn" (click)="faretogglebutton($event,tripkey)">Fare Rules <i
+                                       class="ttsfare{{tripkey}} fa fa-plus"></i>
+                                 </button>
+                                 }
+                              </div>
+
+                           </div>
+
+                           <!-- Main Flight Row -->
+                           <div class="flight-main-row">
+
+                              <!-- Airline -->
+                              <div class="airline-column">
+
+                                 <img src="{{AirlineLogoURL}}{{segment['Airline']['AirlineCode']}}.png"
+                                    class="flight-airline-logo">
+
+                                 <div class="d-flex flex-column">
+
+                                    <h6>
+                                       {{segment['Airline']['AirlineCode']}}
+                                       {{segment['Airline']['FlightNumber']}}
+                                    </h6>
+
+                                    <p>
+                                       {{segment['Airline']['AirlineName']}}
+                                    </p>
+
+                                    <p>
+                                       Class :
+                                       {{segment['CabinClass']}}
+                                    </p>
+
+                                    <p>
+                                       Fare Type :
+                                       {{FareList[tripkey]['FareType']}}
+                                    </p>
+
+                                 </div>
+
+                              </div>
+
+                              <div class="d-flex w-100 justify-content-between align-items-center gap-3">
+                                 <!-- Departure -->
+                                 <div class="time-column">
+                                    <div class="d-flex align-items-center gap-2">
+                                       <h3>
+                                          {{segment['Origin']['DepartTime'] | date:'HH:mm'}}
+                                       </h3>
+                                       <div>•</div>
+                                       <span>
+                                          {{segment['Origin']['DepartTime'] | date:'dd MMM EEEE'}}
+                                       </span>
+                                    </div>
+
+
+                                    <h5>
+                                       {{segment['Origin']['CityName']}}
+                                       ({{segment['Origin']['AirportCode']}})
+                                    </h5>
+
+                                    <p>
+                                       {{segment['Origin']['AirportName']}}
+                                    </p>
+
+                                    <p *ngIf="segment['Origin']['Terminal']">
+                                       Terminal
+                                       {{segment['Origin']['Terminal']}}
+                                    </p>
+
+                                 </div>
+
+                                 <!-- Journey -->
+                                 <div class="journey-column">
+
+                                    <span class="journey-duration">
+                                       {{FTduration(segment['Duration'])}}
+                                    </span>
+
+                                    <div class="journey-line">
+
+                                       <span class="plane-icon">
+                                          <i class="fa fa-clock"></i>
+                                       </span>
+
+                                    </div>
+
+                                    <small>
+
+                                       <ng-container
+                                          *ngIf="!segment['TechStopPoint'] || segment['TechStopPoint'].length==0">
+                                          Non Stop
+                                       </ng-container>
+
+                                       <ng-container
+                                          *ngIf="segment['TechStopPoint'] && segment['TechStopPoint']['Code']">
+                                          Via {{segment['TechStopPoint']['Code']}}
+                                       </ng-container>
+
+                                    </small>
+
+                                 </div>
+
+                                 <!-- Arrival -->
+                                 <div class="time-column text-end">
+                                    <div class="d-flex align-items-center gap-2 justify-content-end">
+
+
+                                       <span>
+                                          {{segment['Destination']['ArrivalTime'] | date:'dd MMM EEEE'}}
+                                       </span>
+                                       <div>•</div>
+                                       <h3>
+                                          {{segment['Destination']['ArrivalTime'] | date:'HH:mm'}}
+                                       </h3>
+                                    </div>
+
+                                    <h5>
+                                       {{segment['Destination']['CityName']}}
+                                       ({{segment['Destination']['AirportCode']}})
+                                    </h5>
+
+                                    <p>
+                                       {{segment['Destination']['AirportName']}}
+                                    </p>
+
+                                    <p *ngIf="segment['Destination']['Terminal']">
+                                       Terminal
+                                       {{segment['Destination']['Terminal']}}
+                                    </p>
+
+                                 </div>
+                              </div>
+
+                           </div>
+
+                           <!-- Layover -->
+
+                           <div class="flight-layover-wrapper" *ngIf="segment['Layover']">
+                              <div class="layover-line">
+                                 <span class="layover-badge">
+                                    Connecting Flight at
+                                    <strong>
+                                       {{segment['Destination']['CityName']}}
+                                       ({{segment['Destination']['AirportCode']}})
+                                    </strong>
+                                    <span class="layover-time">
+                                       | {{segment['Layover']}} Layover
+                                    </span>
+                                 </span>
                               </div>
                            </div>
 
+
+
                         </div>
-
-                        <!-- Layover -->
-
-                        <div class="flight-layover-wrapper" *ngIf="segment['Layover']">
-                           <div class="layover-line">
-                              <span class="layover-badge">
-                                 Connecting Flight at
-                                 <strong>
-                                    {{segment['Destination']['CityName']}}
-                                    ({{segment['Destination']['AirportCode']}})
-                                 </strong>
-                                 <span class="layover-time">
-                                    | {{segment['Layover']}} Layover
-                                 </span>
-                              </span>
-                           </div>
-                        </div>
-
-
-
                      </div>
+
                   </div>
                </div>
             </div>
+            @if(fareloading){
+            <div class="flight-row-card mb-3">
+               <div class="skel-row-top">
+                  <span class="sk" style="width:140px; height:15px;"></span>
+
+                  <div class="skel-right-group">
+                     <div class="skel-baggage">
+                        <span class="sk" style="width:38px; height:13px;"></span>
+                        <span class="sk sk-box"></span>
+                     </div>
+
+                     <div class="skel-vdivider"></div>
+                     <div class="skel-baggage">
+                        <span class="sk" style="width:38px; height:13px;"></span>
+                        <span class="sk sk-box"></span>
+                     </div>
+
+                     <div class="skel-vdivider"></div>
+                     <span class="sk sk-pill" style="width:90px; height:30px;"></span>
+                  </div>
+
+               </div>
+               <div class="skel-row-bottom">
+                  <span class="sk" style="width:115px; height:13px;"></span>
+                  <span class="sk sk-dot"></span>
+                  <span class="sk" style="width:65px; height:13px;"></span>
+                  <span class="sk sk-dot"></span>
+                  <span class="sk" style="width:50px; height:13px;"></span>
+                  <span class="sk sk-pill" style="width:100px; height:26px;"></span>
+               </div>
+
+            </div>
+            }
             <!----new code End---->
 
             <!----old code----start-->
@@ -506,6 +539,7 @@
                            <i class="fa-solid fa-user"></i>
                            <span>Passenger Details</span>
                         </div>
+                        <a href="javascript:void(0)" class="text-primary fw-semibold"> Name Format</a>
                      </div>
                   </div>
                   <div class="flight-segment">
@@ -2940,179 +2974,294 @@
          </div>
 
          <div class="col-lg-3">
-            <div class="flight-booking-wrapper">
+           
                @if(fareloading==false){
-               <div class="flight-booking-header">
-                  <div class="itinerary-card-title">
-                     <div class="header-left">
-                        <i class="fa-solid fa-coins"></i>
-                        <span>Fare Summary</span>
+               <div class="flight-booking-wrapper">
+                  <div class="flight-booking-header">
+                     <div class="itinerary-card-title">
+                        <div class="header-left">
+                           <i class="fa-solid fa-coins"></i>
+                           <span>Fare Summary</span>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="flight-segment">
+                     <div class="flight-route-block">
+                        <div class="fare-details">
+                           <!-- Base Fare -->
+                           <div class="btm-border bold-font-bf" data-bs-toggle="collapse" href="#farebrakdown"
+                              aria-expanded="false"><span>Base fare <i class="fa fa-angle-down mrg-left"></i></span>
+                              <span class="float-end">₹{{CurrentFare['BaseFare'] | number:'1.0-2'}}</span>
+
+                              <div class="tax-dropdown airline-gst-print collapse" id="farebrakdown">
+                                 <div class="border-top">
+                                    <p class="text-bold d-flex justify-content-between border-top">
+                                       <span><strong>Adult</strong></span>
+                                       <span><strong>Pax :{{FareBrekdown['Adult']['PaxCount']}}</strong></span>
+                                    </p>
+                                    <div><span>Base Fare</span><span class="float-end">₹{{FareBrekdown['Adult']['BaseFare']
+                                          |
+                                          number:'1.0-2'}}</span></div>
+                                    <div *ngIf="FareBrekdown['Adult']['Tax'] !=0"><span>Tax</span><span
+                                          class="float-end">₹{{FareBrekdown['Adult']['Tax'] | number:'1.0-2'}}</span>
+                                    </div>
+                                    <div><span>Service Charges</span><span
+                                          class="float-end">₹{{FareBrekdown['Adult']['ServiceCharge'] |
+                                          number:'1.0-2'}}</span></div>
+                                 </div>
+                                 @if(FareBrekdown['Child']['BaseFare']!==0){
+                                 <div class="border-top">
+                                    <p class="text-bold d-flex justify-content-between border-top">
+                                       <span><strong>Child</strong></span>
+                                       <span><strong>Pax :{{FareBrekdown['Child']['PaxCount']}}</strong></span>
+                                    </p>
+                                    <div><span>Base Fare</span><span class="float-end">₹{{FareBrekdown['Child']['BaseFare']
+                                          |
+                                          number:'1.0-2'}}</span></div>
+                                    <div *ngIf="FareBrekdown['Child']['Tax'] !=0"><span>Tax</span><span
+                                          class="float-end">₹{{FareBrekdown['Child']['Tax'] | number:'1.0-2'}}</span>
+                                    </div>
+                                    <div><span>Service Charges</span><span
+                                          class="float-end">₹{{FareBrekdown['Child']['ServiceCharge'] |
+                                          number:'1.0-2'}}</span></div>
+                                 </div>
+                                 }
+                                 @if(FareBrekdown['Infant']['BaseFare']!==0){
+                                 <div class="border-top">
+                                    <p class="text-bold d-flex justify-content-between border-top">
+                                       <span><strong>Infant</strong></span>
+                                       <span><strong>Pax :{{FareBrekdown['Infant']['PaxCount']}}</strong></span>
+                                    </p>
+                                    <div><span>Base Fare</span><span
+                                          class="float-end">₹{{FareBrekdown['Infant']['BaseFare'] |
+                                          number:'1.0-2'}}</span></div>
+                                    <div *ngIf="FareBrekdown['Infant']['Tax'] !=0"><span>Tax</span><span
+                                          class="float-end">₹{{FareBrekdown['Infant']['Tax'] | number:'1.0-2'}}</span>
+                                    </div>
+                                    <div><span>Service Charges</span><span
+                                          class="float-end">₹{{FareBrekdown['Infant']['ServiceCharge'] |
+                                          number:'1.0-2'}}</span></div>
+                                 </div>
+                                 }
+                              </div>
+
+                           </div>
+                           <!-- <div class="fare-row">
+                              <span>Base Fare</span>
+                              <span class="fare-price">
+                                 ₹{{CurrentFare['BaseFare'] | number:'1.0-2'}}
+                              </span>
+                           </div> -->
+
+                           <!-- Taxes -->
+                           <div class="fare-row expandable">
+                              <div class="d-flex justify-content-between align-items-center w-100">
+                                 <span data-bs-toggle="collapse" href="#tax-fare" aria-expanded="false"
+                                    class="fare-collapse-btn">
+                                    Taxes & Fees
+                                    <i class="fa fa-angle-down ms-1"></i>
+                                 </span>
+
+                                 <span class="fare-price">
+                                    ₹{{CurrentFare['Tax'] + CurrentFare['OtherCharges'] + CurrentFare['AgentMarkup'] |
+                                    number:'1.0-2'}}
+
+                                    <i title="Change markup" class="fa fa-edit edit-icon" (click)="showmarkup()"></i>
+                                 </span>
+                              </div>
+
+                              <div class="collapse fare-dropdown" id="tax-fare">
+
+                                 <div class="fare-sub-row">
+                                    <span>YQ Tax</span>
+                                    <span>₹{{CurrentFare['YQTax'] | number:'1.0-2'}}</span>
+                                 </div>
+
+                                 <div class="fare-sub-row" *ngIf="CurrentFare['AgentMarkup']!=0">
+                                    <span>Markup</span>
+                                    <span>₹{{CurrentFare['AgentMarkup'] | number:'1.0-2'}}</span>
+                                 </div>
+
+                                 <div class="fare-sub-row">
+                                    <span>Other Charges</span>
+                                    <span>₹{{CurrentFare['OtherCharges'] | number:'1.0-2'}}</span>
+                                 </div>
+
+                              </div>
+
+                              <!-- Markup Box -->
+                              <div class="markup-wrapper" *ngIf="isshowmarkup">
+                                 <!-- <label for="InputMarkup">Markup Price</label> -->
+                                 <input type="number" min="0" value="0" class="form-control" id="InputMarkup"
+                                    placeholder="Markup Price" [(ngModel)]="markupvalue" />
+                                 <button class="markup-btn" (click)="updatemarkup()">Update</button>
+                                 <div class="markup-action">
+                                    <span class="markup-close" (click)="showmarkup()">×</span>
+                                 </div>
+                              </div>
+                           </div>
+
+                           <!-- Insurance -->
+                           @if(CurrentFare['InsurancePrice']){
+                           <div class="fare-row">
+                              <span>Insurance Price</span>
+                              <span class="fare-price">
+                                 ₹{{CurrentFare['InsurancePrice'] | number:'1.0-2'}}
+                              </span>
+                           </div>
+                           }
+
+                           <!-- SSR -->
+                           <div class="fare-row expandable" *ngIf="CurrentFare['SSR']">
+
+                              <div class="d-flex justify-content-between align-items-center w-100">
+
+                                 <span data-bs-toggle="collapse" href="#ssr-pax" aria-expanded="false"
+                                    class="fare-collapse-btn">
+                                    Meal, Baggage & Seats
+                                    <i class="fa fa-angle-down ms-1"></i>
+                                 </span>
+
+                                 <span class="fare-price">
+                                    ₹{{CurrentFare['SSR']['Meal'] + CurrentFare['SSR']['Baggage'] +
+                                    CurrentFare['SSR']['Seat'] |
+                                    number:'1.0-2'}}
+                                 </span>
+
+                              </div>
+
+                              <div class="collapse fare-dropdown" id="ssr-pax">
+
+                                 <div class="fare-sub-row" *ngIf="CurrentFare['SSR']['Seat']!=0">
+                                    <span>Seat</span>
+                                    <span>₹{{CurrentFare['SSR']['Seat'] | number:'1.0-2'}}</span>
+                                 </div>
+
+                                 <div class="fare-sub-row" *ngIf="CurrentFare['SSR']['Meal']!=0">
+                                    <span>Meal</span>
+                                    <span>₹{{CurrentFare['SSR']['Meal'] | number:'1.0-2'}}</span>
+                                 </div>
+
+                                 <div class="fare-sub-row" *ngIf="CurrentFare['SSR']['Baggage']!=0">
+                                    <span>Baggage</span>
+                                    <span>₹{{CurrentFare['SSR']['Baggage'] | number:'1.0-2'}}</span>
+                                 </div>
+
+                              </div>
+
+                           </div>
+
+                           <!-- Gross Fare -->
+                           <div class="fare-row total-row">
+
+                              <div class="d-flex justify-content-between align-items-center w-100">
+
+                                 <span data-bs-toggle="collapse" href="#net-fare" aria-expanded="false"
+                                    class="fare-collapse-btn">
+                                    Total Fare
+                                    <i class="fa fa-angle-down ms-1"></i>
+                                 </span>
+
+                                 <span class="fare-price total-price">
+                                    ₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat']+InsurancePrice
+                                    | number:'1.0-2'}}
+                                 </span>
+
+                              </div>
+
+                              <div class="collapse fare-dropdown" id="net-fare">
+
+                                 <div class="fare-sub-row">
+                                    <span>Commission</span>
+                                    <span>
+                                       -₹{{CurrentFare['AgentCommission']+CurrentFare['Discount'] | number:'1.0-2'}}
+                                    </span>
+                                 </div>
+
+                                 <div class="fare-sub-row">
+                                    <span>TDS</span>
+                                    <span>
+                                       +₹{{CurrentFare['TDS'] | number:'1.0-2'}}
+                                    </span>
+                                 </div>
+
+                                 <!-- <div class="fare-sub-row net-price">
+                                    <span>Net Price</span>
+                                    <span>
+                                       ₹{{this.CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat']
+                                       | number:'1.0-2'}}
+                                    </span>
+                                 </div> -->
+                              </div>
+                           </div>
+                        </div>
                      </div>
                   </div>
                </div>
+               }@else{
+               <div class="fare-summary-card">
+                  <div class="skel-header">
+                     <span class="sk sk-circle" style="width:28px; height:28px;"></span>
+                     <span class="sk" style="width:130px; height:16px;"></span>
+                  </div>
 
-               <div class="flight-segment">
-                  <div class="flight-route-block">
-                     <div class="fare-details">
-                        <!-- Base Fare -->
-                        <div class="fare-row">
-                           <span>Base Fare</span>
-                           <span class="fare-price">
-                              ₹{{CurrentFare['BaseFare'] | number:'1.0-2'}}
-                           </span>
-                        </div>
+                  <div class="skel-row">
+                     <span class="sk" style="width:80px; height:13px;"></span>
+                     <span class="sk" style="width:72px; height:13px;"></span>
+                  </div>
 
-                        <!-- Taxes -->
-                        <div class="fare-row expandable">
-                           <div class="d-flex justify-content-between align-items-center w-100">
-                              <span data-bs-toggle="collapse" href="#tax-fare" aria-expanded="false"
-                                 class="fare-collapse-btn">
-                                 Taxes & Fees
-                                 <i class="fa fa-angle-down ms-1"></i>
-                              </span>
+                  <div class="skel-divider"></div>
 
-                              <span class="fare-price">
-                                 ₹{{CurrentFare['Tax'] + CurrentFare['OtherCharges'] + CurrentFare['AgentMarkup'] |
-                                 number:'1.0-2'}}
-
-                                 <i title="Change markup" class="fa fa-edit edit-icon" (click)="showmarkup()"></i>
-                              </span>
-                           </div>
-
-                           <div class="collapse fare-dropdown" id="tax-fare">
-
-                              <div class="fare-sub-row">
-                                 <span>YQ Tax</span>
-                                 <span>₹{{CurrentFare['YQTax'] | number:'1.0-2'}}</span>
-                              </div>
-
-                              <div class="fare-sub-row" *ngIf="CurrentFare['AgentMarkup']!=0">
-                                 <span>Markup</span>
-                                 <span>₹{{CurrentFare['AgentMarkup'] | number:'1.0-2'}}</span>
-                              </div>
-
-                              <div class="fare-sub-row">
-                                 <span>Other Charges</span>
-                                 <span>₹{{CurrentFare['OtherCharges'] | number:'1.0-2'}}</span>
-                              </div>
-
-                           </div>
-
-                           <!-- Markup Box -->
-                           <div class="markup-wrapper" *ngIf="isshowmarkup">
-                              <!-- <label for="InputMarkup">Markup Price</label> -->
-                              <input type="number" min="0" value="0" class="form-control" id="InputMarkup"
-                                 placeholder="Markup Price" [(ngModel)]="markupvalue" />
-                              <button class="markup-btn" (click)="updatemarkup()">Update</button>
-                              <div class="markup-action">
-                                 <span class="markup-close" (click)="showmarkup()">×</span>
-                              </div>
-                           </div>
-                        </div>
-
-                        <!-- Insurance -->
-                        @if(CurrentFare['InsurancePrice']){
-                        <div class="fare-row">
-                           <span>Insurance Price</span>
-                           <span class="fare-price">
-                              ₹{{CurrentFare['InsurancePrice'] | number:'1.0-2'}}
-                           </span>
-                        </div>
-                        }
-
-                        <!-- SSR -->
-                        <div class="fare-row expandable" *ngIf="CurrentFare['SSR']">
-
-                           <div class="d-flex justify-content-between align-items-center w-100">
-
-                              <span data-bs-toggle="collapse" href="#ssr-pax" aria-expanded="false"
-                                 class="fare-collapse-btn">
-                                 Meal, Baggage & Seats
-                                 <i class="fa fa-angle-down ms-1"></i>
-                              </span>
-
-                              <span class="fare-price">
-                                 ₹{{CurrentFare['SSR']['Meal'] + CurrentFare['SSR']['Baggage'] +
-                                 CurrentFare['SSR']['Seat'] |
-                                 number:'1.0-2'}}
-                              </span>
-
-                           </div>
-
-                           <div class="collapse fare-dropdown" id="ssr-pax">
-
-                              <div class="fare-sub-row" *ngIf="CurrentFare['SSR']['Seat']!=0">
-                                 <span>Seat</span>
-                                 <span>₹{{CurrentFare['SSR']['Seat'] | number:'1.0-2'}}</span>
-                              </div>
-
-                              <div class="fare-sub-row" *ngIf="CurrentFare['SSR']['Meal']!=0">
-                                 <span>Meal</span>
-                                 <span>₹{{CurrentFare['SSR']['Meal'] | number:'1.0-2'}}</span>
-                              </div>
-
-                              <div class="fare-sub-row" *ngIf="CurrentFare['SSR']['Baggage']!=0">
-                                 <span>Baggage</span>
-                                 <span>₹{{CurrentFare['SSR']['Baggage'] | number:'1.0-2'}}</span>
-                              </div>
-
-                           </div>
-
-                        </div>
-
-                        <!-- Gross Fare -->
-                        <div class="fare-row total-row">
-
-                           <div class="d-flex justify-content-between align-items-center w-100">
-
-                              <span data-bs-toggle="collapse" href="#net-fare" aria-expanded="false"
-                                 class="fare-collapse-btn">
-                                 Total Fare
-                                 <i class="fa fa-angle-down ms-1"></i>
-                              </span>
-
-                              <span class="fare-price total-price">
-                                 ₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat']+InsurancePrice
-                                 | number:'1.0-2'}}
-                              </span>
-
-                           </div>
-
-                           <div class="collapse fare-dropdown" id="net-fare">
-
-                              <div class="fare-sub-row">
-                                 <span>Commission</span>
-                                 <span>
-                                    -₹{{CurrentFare['AgentCommission']+CurrentFare['Discount'] | number:'1.0-2'}}
-                                 </span>
-                              </div>
-
-                              <div class="fare-sub-row">
-                                 <span>TDS</span>
-                                 <span>
-                                    +₹{{CurrentFare['TDS'] | number:'1.0-2'}}
-                                 </span>
-                              </div>
-
-                              <!-- <div class="fare-sub-row net-price">
-                                 <span>Net Price</span>
-                                 <span>
-                                    ₹{{this.CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat']
-                                    | number:'1.0-2'}}
-                                 </span>
-                              </div> -->
-                           </div>
-                        </div>
+                  <div class="skel-row">
+                     <div class="skel-left">
+                        <span class="sk" style="width:98px; height:13px;"></span>
+                        <span class="sk sk-sm-box"></span>
                      </div>
+                     <div class="skel-right">
+                        <span class="sk" style="width:62px; height:13px;"></span>
+                        <span class="sk sk-sm-box"></span>
+                     </div>
+                  </div>
+
+                  <div class="skel-divider"></div>
+
+                  <div class="skel-row">
+                     <div class="skel-left">
+                        <span class="sk" style="width:148px; height:13px;"></span>
+                        <span class="sk sk-sm-box"></span>
+                     </div>
+                     <span class="sk" style="width:28px; height:13px;"></span>
+                  </div>
+
+                  <div class="skel-divider"></div>
+
+                  <div class="skel-row skel-total">
+                     <div class="skel-left">
+                        <span class="sk" style="width:88px; height:15px;"></span>
+                        <span class="sk sk-sm-box"></span>
+                     </div>
+                     <span class="sk" style="width:82px; height:18px; border-radius:5px;"></span>
+                  </div>
+
+               </div>
+               <div class="fare-summary-card mt-3">
+                   <div class="skel-row skel-total">
+                     <div class="skel-left">
+                        <span class="sk" style="width:88px; height:15px;"></span>
+                        <span class="sk sk-sm-box"></span>
+                     </div>
+                     <span class="sk" style="width:82px; height:18px; border-radius:5px;"></span>
                   </div>
                </div>
                }
-            </div>
-
-            <button type="button" id="review" class="btn asr-book" (click)="SubmitPax()">
-               <span>Proceed To Review</span>
-               <i class="fa fa-angle-double-right"></i>
-            </button>
+            
+            @if(fareloading==false){
+               <button type="button" id="review" class="btn asr-book" (click)="SubmitPax()">
+                  <span>Proceed To Review</span>
+                  <i class="fa fa-angle-double-right"></i>
+               </button>
+            }
 
          </div>
       </div>
@@ -3441,3 +3590,64 @@ PRICE CONFIRMATION MODAL
 @if (showReviewpage) {
 <app-review [params]="param"></app-review>
 }
+
+
+
+
+<div class="modal fade" id="fare-rule-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Fare Rule</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+            <div class="pt-3 mt-2">
+               <div class="row" *ngIf="fareRuleLoading">
+                  <div class="col-md-12">
+                     <div class="text-center">
+                        <div class="loader mt-3 mb-3">
+                           <div class="lds-ellipsis">
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                           </div>
+                        </div>
+                        <h6>Please Wait...</h6>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="tts-farerule-content" *ngIf="fareRuleLoading==false && FareRuleErrorCode==0">
+                  <div class="row" *ngFor="let farerule of FlightFareRule; let farerulekey=index;">
+                     <div class="col-md-12">
+                        <button
+                           class="ars-activelist fare-rules-tabs">{{farerule.Origin}}-{{farerule.Destination}}</button>
+                     </div>
+                     <div class="col-md-12" [innerHTML]="farerule.FareRuleDetail |safeHtml">
+                     </div>
+                  </div>
+               </div>
+               <div class="tts-farerule-content" *ngIf="fareRuleLoading==false && FareRuleErrorCode!=0">
+                  <div class="row">
+                     <div class="col-md-12">
+                        {{FareRuleErrorMessage}}
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+      </div>
+   </div>
+</div>
+
+
+
+
+
+<!-- fare rule  -->

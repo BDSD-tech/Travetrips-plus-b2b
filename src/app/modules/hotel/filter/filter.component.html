@@ -51,18 +51,37 @@
             <input type="search" class="form-control" placeholder="Search Hotel By Name"
                 (input)="search_hotel($event,'HotelName')" (paste)="search_hotel($event,'HotelName')"
                 [(ngModel)]="InputHotelNametxt">
-            <!-- @if(InputHotelNametxt!==''){
-            <a class="close-icon-filter" href="javascript:void(0)" (click)="clearFilterByCat('HotelName')">
-                <i class="fa-solid fa-xmark"></i>
-            </a>
-            } -->
-
             <div class="hotel-search-dropdown" *ngIf="HotelNameList.length!=0">
                 <ul class="list-group">
                     <li *ngFor="let item of HotelNameList; let i = index"
                         class="list-group-item hotel-item d-flex align-items-center"
                         (click)="select_hotelname(item,'HotelName')">
                         <i class="fa fa-building me-2"></i>
+                        <span class="hotel-name text-truncate">{{ item }}</span>
+                        <i class="fa fa-arrow-right ms-auto"></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="filter-card">
+        <div class="filter-card-header">
+            <span>Search By Pincode</span>
+            <a href="javascript:void(0)" (click)="clearFilterByCat('PinCode')">Clear</a>
+            <i class="fa fa-minus" data-bs-toggle="collapse" href="#filter-pincode"></i>
+        </div>
+        <div class="collapse show " id="filter-pincode">
+            <input type="search" class="form-control" placeholder="Search Hotel By Pincode"
+                (input)="search_hotel($event,'PinCode')" (paste)="search_hotel($event,'PinCode')"
+                [(ngModel)]="InputPincodetxt">
+            <div class="hotel-search-dropdown" *ngIf="PicodeList.length!=0">
+                <ul class="list-group">
+                    <li *ngFor="let item of PicodeList; let i = index"
+                        class="list-group-item hotel-item d-flex align-items-center"
+                        (click)="select_hotelname(item,'PinCode')">
+                       
+                         <i class="fa-solid fa-crosshairs me-2"></i>
                         <span class="hotel-name text-truncate">{{ item }}</span>
                         <i class="fa fa-arrow-right ms-auto"></i>
                     </li>
@@ -175,6 +194,20 @@
             <div class="form-check" *ngFor="let item of Filter['FareType']; let i=index;">
                 <input type="checkbox" [id]="item['label']" value="{{item['label']}}" [(ngModel)]="item['isChecked']"
                     class="al-checkfield form-check-input" (click)="doFilter('FareType',$event,item);">
+                <label class="form-check-label" [for]="item['label']">{{item['ShowValue']}}</label>
+            </div>
+        </div>
+    </div>
+    <div class="filter-card">
+        <div class="filter-card-header">
+            <span>Property Type</span>
+            <a href="javascript:void(0)" (click)="clearFilterByCat('PropertyType')">Clear</a>
+            <i class="fa fa-minus" data-bs-toggle="collapse" href="#filter-PropertyType"></i>
+        </div>
+        <div class="collapse show" id="filter-PropertyType">
+            <div class="form-check" *ngFor="let item of Filter['PropertyType']; let i=index;">
+                <input type="checkbox" [id]="item['label']" value="{{item['label']}}" [(ngModel)]="item['isChecked']"
+                    class="al-checkfield form-check-input" (click)="doFilter('PropertyType',$event,item);">
                 <label class="form-check-label" [for]="item['label']">{{item['ShowValue']}}</label>
             </div>
         </div>

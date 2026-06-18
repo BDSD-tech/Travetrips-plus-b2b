@@ -336,8 +336,24 @@
                                                     class="fa fa-angle-double-left me-1"></i> <span>Back</span></button>
                                         </div>
                                         <div class="col-md-6 col-sm-8 col-xs-9 col-8 text-end confirming--button-price">
+                                            @if(HoldableWithoutSSR){
+
+                                                @if(ISSSRHave){
+                                                    @if(HoldableWithSSR){
+                                                        <button type="button" [disabled]="bookingloading" id="reviews" class="btn asr-book me-3"
+                                                            (click)="ProceedToPay('Hold')"><span> 
+                                                               @if(bookingloading){ <span class="spinner-border spinner-border-sm"></span> } Hold</span> 
+                                                        </button>   
+                                                    }
+                                                }@else{
+                                                    <button type="button" id="reviews" class="btn asr-book me-3"
+                                                        (click)="ProceedToPay('Hold')"><span>Hold</span> 
+                                                    </button>
+                                                }
+                                            }
+
                                             <button type="button" id="reviews" class="btn asr-book"
-                                                (click)="ProceedToPay()"><span>Proceed To Pay</span> &nbsp; <i
+                                                (click)="ProceedToPay('Pay')"><span>Proceed To Pay</span> &nbsp; <i
                                                     class="fa fa-angle-double-right"></i>
                                             </button>
                                         </div>

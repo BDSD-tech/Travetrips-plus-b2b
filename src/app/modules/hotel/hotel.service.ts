@@ -17,6 +17,11 @@ export class HotelService {
     return myDate;
   }
 
+   DateToTimestamp(date:any)
+  {
+     return new Date(date).getTime();
+  }
+  
   HotelResult(data:any)
   {
     //return this.http.get('./assets/hotel_result.json');

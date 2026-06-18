@@ -13,13 +13,23 @@
         </div>
 
         <div class="collapse show" id="filter-price">
-            <div class="tts__filter-price price-range-slider">
+            <div class="tts__filter-price price-range-slider px-3">
+                <mat-slider [min]="min" [max]="max" class="w-100" (change)="doFilter('','','')">
+                    <input [(ngModel)]="Filter['Price']['min']" name="first" matSliderStartThumb>
+                    <input [(ngModel)]="Filter['Price']['max']" [ngModelOptions]="{standalone: true}" matSliderEndThumb>
+                </mat-slider>
+                <div class="d-flex justify-content-between">
+                    <span>₹ {{ Filter['Price']['min'] |number:'1.0-0' }}</span>
+                    <span>₹ {{ Filter['Price']['max'] |number:'1.0-0' }}</span>
+                </div>
+            </div>
+            <!-- <div class="tts__filter-price price-range-slider">
                 <div class="price-range price-filter"></div>
                 <div class="tts-price-range">
                     <input type="text" class="left-price" readonly />
                     <input type="text" class="right-price text-end" readonly />
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 

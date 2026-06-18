@@ -17,7 +17,7 @@ declare var bootstrap:any;
 export class HotelRoomDetailComponent implements OnInit {
 
   @ViewChild('mapRef') mapElement: ElementRef | undefined;
-
+  Selecttab:any='Overview';
   Requestparams :any = [];
   HotelInfoErrorCode : string|undefined|0;
   HotelInfoErrorMessage :string|undefined;
@@ -100,6 +100,23 @@ export class HotelRoomDetailComponent implements OnInit {
   return new Date(isoDate);
 }
 
+
+
+ scrollToLetter(letter: string): void {
+    this.Selecttab = letter;
+
+    const element = document.getElementById(letter);
+
+    if (element) {
+      const offset = 200; 
+      const y = element.getBoundingClientRect().top + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: y,
+        behavior: 'smooth'
+      });
+    }
+  }
   GetHotelInfo(Request:any)
   {
     this.Hotelservice.HotelInfo(Request).subscribe(res=>{

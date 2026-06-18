@@ -51,9 +51,18 @@ const routes: Routes = [
                                   loadComponent: () => import('./modules/visa/visa.component').then(m => m.VisaComponent)
                                 },
                                 {
+                                  path: 'dashboard',
+                                  loadComponent: () => import('./modules/dashboard/dashboard/dashboard.component').then(m => m.DashboardComponent)
+                                },
+                                {
                                   path: 'payment',
                                   loadChildren: () => import('./modules/payment/payment.module')
                                     .then(mod => mod.PaymentModule)
+                                },
+                                {
+                                  path: 'dashboard/payment',
+                                  loadComponent: () => import('../app/modules/dashboard/payment-page/payment-page.component')
+                                    .then(mod => mod.PaymentPageComponent)
                                 },
                                 {
                                   path: 'payment-response',

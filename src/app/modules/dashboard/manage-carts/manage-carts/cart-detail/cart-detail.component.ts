@@ -5,7 +5,7 @@ import { AlertService } from '../../../../../services/alert.service';
 import { AuthenticationService } from '../../../../../services/authentication.service';
 import { tts_config } from '../../../../../../environments/tts_config';
 import { DashboardService } from '../../../dashboard.service';
-
+import { CommonService } from '../../../../../services/common.service';
 declare var window: any;
 declare var $:any;
 
@@ -50,7 +50,15 @@ export class CartDetailComponent implements OnInit {
   AirlineLogoURL:any=tts_config['BASEURL']+'uploads/airline-images/';
   NotesImage:any=tts_config['BASEURL']+'uploads/savenotes/';
   
-  constructor(private router: Router,private route: ActivatedRoute,private alertservice:AlertService,private dashboardservice:DashboardService,private fb: FormBuilder,private authenticationservice: AuthenticationService) { 
+
+  BookingReachModal:any
+
+  BookingReachForm:any=FormGroup;
+  Reachsubmitted=false;
+
+  Submitloading=false;
+  CurrentFare:any={}
+  constructor(private commonService:CommonService,private router: Router,private route: ActivatedRoute,private alertservice:AlertService,private dashboardservice:DashboardService,private fb: FormBuilder,private authenticationservice: AuthenticationService) { 
 
     if(this.route.snapshot.params['refno']) {
       this.refno = this.route.snapshot.params['refno'];
@@ -63,6 +71,10 @@ export class CartDetailComponent implements OnInit {
                                             BookingID: ['',[Validators.required]],
                                             AmendmentType: ['',[Validators.required]]
                                         });  
+     this.BookingReachForm=this.fb.group({
+                                            Token: ['',[Validators.required]],
+                                            Remark: ['',[Validators.required]]
+                                        });  
 
      this.AddNotesForm=this.fb.group({
                                             BookingID: ['',[Validators.required]],
@@ -73,7 +85,7 @@ export class CartDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    sessionStorage.removeItem('FareDetails');
     this.AddAmendmentModal = new window.bootstrap.Modal(
       document.getElementById('addamendmentmodal')
     );
@@ -86,6 +98,9 @@ export class CartDetailComponent implements OnInit {
     this.AddNotesModal = new window.bootstrap.Modal(
       document.getElementById('addnotesmodal')
     );
+    this.BookingReachModal = new window.bootstrap.Modal(
+      document.getElementById('booking-reach-modal')
+    );
     
 
     this.authenticationservice.currentUser.subscribe(data => {
@@ -96,7 +111,7 @@ export class CartDetailComponent implements OnInit {
     });
   }
 
-
+  get reach(){return this.BookingReachForm.controls}
   GetDetail(refno:any)
   {
       this.dashboardservice.FlightDetail(refno).subscribe(data=>{
@@ -105,8 +120,7 @@ export class CartDetailComponent implements OnInit {
           if(resp['Error']['ErrorCode']==0)
           {
             this.BookingDetail=resp['Result'];
-            console.log(this.BookingDetail['travelersInfo']);
-            
+            this.CreateFB(this.BookingDetail['travelersInfo']);
             this.AmendmentList=resp['Result']['amendmentList'];
             this.NoteList=resp['Result']['BookingNotes'];
             this.PaymentInfo=resp['Result']['paymentInfo'];
@@ -128,6 +142,48 @@ export class CartDetailComponent implements OnInit {
           }
       });
   }
+
+  CreateFB(data:any){
+    let agentmarkup=0; let basefare=0; let tax=0; let offerprice=0;let publishprice=0;let commission=0;let discount=0;let SeatCharges=0;
+    let mealcharge=0;let baggagecharge=0;let gst=0;let othercharge=0;let servicecharge=0;let tds=0;let yq=0;let webpmarkup=0;
+    data.forEach((pax:any) => {
+      basefare+= pax.fare.BaseFare
+      tax+= pax.fare.Tax
+      offerprice+= pax.fare.OfferedPrice
+      publishprice+= pax.fare.PublishedPrice
+      commission+= pax.fare.AgentCommission
+      discount+= pax.fare.Discount
+      SeatCharges+= pax.fare.SeatCharges
+      mealcharge+= pax.fare.MealCharges
+      baggagecharge+= pax.fare.BaggageCharges
+      gst+= pax.fare.GSTAmount
+      othercharge+= pax.fare.OtherCharges
+      servicecharge+= pax.fare.ServiceCharges
+      tds+= pax.fare.TDS
+      yq+= pax.fare.YQTax
+      webpmarkup+= pax.fare.WebPMarkUp
+      agentmarkup+=pax.fare.WebPMarkUp
+    });
+    this.CurrentFare={
+      'BaseFare':basefare,
+      'InsurancePrice':0,
+      'AgentMarkup':agentmarkup,
+      'Tax':tax,
+      'OfferedPrice':offerprice,
+      'PublishedPrice':publishprice,
+      'AgentCommission':commission,
+      'Discount':discount,
+      'SeatCharges':SeatCharges,
+      'MealCharges':mealcharge,
+      'BaggageCharges':baggagecharge,
+      'GSTAmount':gst,
+      'OtherCharges':othercharge,
+      'ServiceCharges':servicecharge,
+      'TDS':tds,
+      'YQTax':yq,
+      'webpmarkup':webpmarkup,
+    }
+  } 
   SpacePartialcanceled(data:any){
     return data.replace(/([a-z])([A-Z])/g, '$1 $2');
   }
@@ -169,6 +225,48 @@ export class CartDetailComponent implements OnInit {
     };
     
     this.router.navigate(['dashboard/amendments/itinerary'],navigationExtras);
+  }
+
+  GeneratePayment(){
+      let data:any={
+        "service":'Flight',
+        "token":this.BookingDetail['Token'],
+        "SearchTokenId":this.BookingDetail['tts_search_token'],
+        "ResultIndex":this.BookingDetail['resultIndex']
+      }
+      sessionStorage.setItem('FareDetails',this.commonService.encrypt(this.CurrentFare))
+
+      const navigationExtras: NavigationExtras = {
+        queryParams:data
+      };
+      this.router.navigate(['/dashboard/payment'],navigationExtras);
+  }
+
+
+  OpenModal(){
+    this.BookingReachForm.patchValue({
+      Token:this.BookingDetail['Token']
+    })
+    this.BookingReachModal.show();
+  }
+
+  SubmitReach(){
+    this.Reachsubmitted=true;
+    if(this.BookingReachForm.invalid){
+      return;
+    }
+
+    this.Submitloading=true;
+    this.dashboardservice.ReachFlight(this.BookingReachForm.value).subscribe((resp:any)=>{
+      this.Submitloading=false;
+      if(resp['Error']['ErrorCode']==0){
+        this.BookingReachModal.hide();
+        this.GetDetail(this.refno);
+        this.alertservice.success(resp['Error']['ErrorMessage']);
+      }else{  
+          this.alertservice.error(resp['Error']['ErrorMessage']);
+      }
+    })
   }
 
   AddNotes(BookingID:any)

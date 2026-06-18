@@ -642,192 +642,189 @@
                                     <div class="tab-content h-100">
                                         <div class="tab-pane fade h-100 active show"
                                             id="nav-flightDeatil_{{item.TtsIndex}}" role="tabpanel">
-                                            @for (trip of item['Segments']; track $index) {
-                                            <div class="scrollable-content">
-                                                <div class="flight-summary">
-                                                    <div class="airline-info">
-                                                        <div class="logo-gradient">
-                                                            <img src="{{AirlineLogoURL}}/{{trip[0]['Airline']['AirlineCode']}}.png"
-                                                                alt="{{trip[0]['Airline']['AirlineName']}}">
-                                                        </div>
-                                                        <div>
-                                                            <div class="airline-name">
-                                                                {{trip[0]['Airline']['AirlineName']}}
+                                            <div class="scrollable-content">  
+                                                @for(trip of item['Segments']; track $index) {
+                                                    <div class="flight-summary" [ngClass]="{'mt-3':$index>0}">
+                                                        <div class="airline-info">
+                                                            <div class="logo-gradient">
+                                                                <img src="{{AirlineLogoURL}}/{{trip[0]['Airline']['AirlineCode']}}.png"
+                                                                    alt="{{trip[0]['Airline']['AirlineName']}}">
+                                                            </div>
+                                                            <div>
+                                                                <div class="airline-name">
+                                                                    {{trip[0]['Airline']['AirlineName']}}
+                                                                </div>
+
+                                                                <div class="airline-code">
+                                                                    {{trip[0]['Airline']['AirlineCode']}}-{{trip[0]['Airline']['FlightNumber']}}
+                                                                </div>
+
                                                             </div>
 
-                                                            <div class="airline-code">
-                                                                {{trip[0]['Airline']['AirlineCode']}}-{{trip[0]['Airline']['FlightNumber']}}
+                                                        </div>
+
+                                                        <div class="flight-time-block">
+
+                                                            <div class="flight-time">
+                                                                {{trip[0]['Origin']['AirportCode']}} -
+                                                                {{trip[0]['Origin']['DepartTime']|date:'HH:mm'}}
+                                                            </div>
+
+                                                            <div class="flight-date">
+                                                                {{trip[0]['Origin']['DepartTime']|date:'dd MMM yyyy'}}
                                                             </div>
 
                                                         </div>
 
+                                                        <div class="flight-time-block">
+
+                                                            <div class="flight-duration">
+                                                                {{FTduration(trip[0]['TotalDuration'])}}
+                                                            </div>
+
+                                                            <div class="flight-stop">
+                                                                @if(trip[0]['Layover']){
+                                                                1 Stop
+                                                                }@else{
+                                                                0 Stop
+                                                                }
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="flight-time-block">
+
+                                                            <div class="flight-time">
+                                                                {{trip[trip.length-1]['Destination']['AirportCode']}} -
+                                                                {{trip[trip.length-1]['Destination']['ArrivalTime']|date:'HH:mm'}}
+                                                            </div>
+
+                                                            <div class="flight-date">
+                                                                {{trip[trip.length-1]['Destination']['ArrivalTime']|date:'dd MMM yyyy'}}
+                                                            </div>
+
+                                                        </div>
                                                     </div>
+                                                    @for (seg of trip; track $index) {  
+                                                        <div class="flightitenarary-flights-container d-flex flex-column gap-2">
+                                                            <div class="timeline-grid">
+                                                                <div class="timeline-time">
+                                                                    <div class="timeline-main-time">
+                                                                    {{seg['Origin']['DepartTime']|date:'HH :mm'}}
+                                                                    </div>
+                                                                    <div class="timeline-date">
+                                                                        {{seg['Origin']['DepartTime']|date:'dd MMM yyyy'}}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="track-node">
+                                                                    <div class="circle-indicator"></div>
+                                                                    <div class="line-dashed"></div>
+                                                                </div>
+                                                                <div>
+                                                                    <div class="airport-name">
+                                                                        {{seg['Origin']['CityName']}}
+                                                                        ({{seg['Origin']['AirportCode']}})
+                                                                    </div>
+                                                                    <div class="airport-desc">
+                                                                        {{seg['Origin']['AirportName']}}
+                                                                        @if(seg['Origin']['Terminal']){• Terminal
+                                                                        {{seg['Origin']['Terminal']}}}
+                                                                    </div>
+                                                                </div>
 
-                                                    <div class="flight-time-block">
+                                                                <div class="timeline-time">
+                                                                    <div class="timeline-duration">
+                                                                        {{FTduration(seg['Duration'])}}
+                                                                    </div>
+                                                                    <div class="timeline-duration-label">
+                                                                        Travel Duration
+                                                                    </div>
+                                                                </div>
+                                                                <div class="track-node">
 
-                                                        <div class="flight-time">
-                                                            {{trip[0]['Origin']['AirportCode']}} -
-                                                            {{trip[0]['Origin']['DepartTime']|date:'HH:mm'}}
-                                                        </div>
+                                                                    <div class="plane-wrapper">
+                                                                        <i class="fa-solid fa-plane"></i>
+                                                                    </div>
 
-                                                        <div class="flight-date">
-                                                            {{trip[0]['Origin']['DepartTime']|date:'dd MMM yyyy'}}
-                                                        </div>
+                                                                    <div class="line-dashed"></div>
+                                                                </div>
+                                                                <div class="segment-info">
 
-                                                    </div>
+                                                                    <div class="segment-airline">
 
-                                                    <div class="flight-time-block">
+                                                                        <div class="mini-logo">
+                                                                            <img src="{{AirlineLogoURL}}/{{seg['Airline']['AirlineCode']}}.png"
+                                                                                alt="">
+                                                                        </div>
 
-                                                        <div class="flight-duration">
-                                                            {{FTduration(trip[0]['TotalDuration'])}}
-                                                        </div>
+                                                                        <div>
+                                                                            <strong>{{seg['Airline']['AirlineName']}}</strong>
+                                                                            <span class="segment-code">
+                                                                                •
+                                                                                {{seg['Airline']['AirlineCode']}}-{{seg['Airline']['FlightNumber']}}
+                                                                            </span>
+                                                                        </div>
 
-                                                        <div class="flight-stop">
-                                                            @if(trip[0]['Layover']){
-                                                            1 Stop
-                                                            }@else{
-                                                            0 Stop
-                                                            }
+                                                                    </div>
 
-                                                        </div>
+                                                                </div>
+                                                                <div class="timeline-time">
 
-                                                    </div>
+                                                                    <div class="timeline-main-time">
+                                                                        {{seg['Destination']['ArrivalTime']|date:'HH:mm'}}
+                                                                    </div>
 
-                                                    <div class="flight-time-block">
+                                                                    <div class="timeline-date">
+                                                                        {{seg['Destination']['ArrivalTime']|date:'dd MMM yyyy'}}
+                                                                    </div>
 
-                                                        <div class="flight-time">
-                                                            {{trip[trip.length-1]['Destination']['AirportCode']}} -
-                                                            {{trip[trip.length-1]['Destination']['ArrivalTime']|date:'HH:mm'}}
-                                                        </div>
+                                                                </div>
+                                                                <div class="track-node">
 
-                                                        <div class="flight-date">
-                                                            {{trip[trip.length-1]['Destination']['ArrivalTime']|date:'dd
-                                                            MMM yyyy'}}
-                                                        </div>
+                                                                    <div class="circle-indicator"></div>
 
-                                                    </div>
-                                                </div>
+                                                                </div>
+                                                                <div>
 
+                                                                    <div class="airport-name">
+                                                                        {{seg['Destination']['CityName']}}
+                                                                        ({{seg['Destination']['AirportCode']}})
+                                                                    </div>
 
-                                                @for (seg of trip; track $index) {
-                                                <div class="flightitenarary-flights-container d-flex flex-column gap-2">
-                                                    <div class="timeline-grid">
-                                                        <div class="timeline-time">
-                                                            <div class="timeline-main-time">
-                                                                {{seg['Origin']['DepartTime']|date:'HH :mm'}}
+                                                                    <div class="airport-desc">
+                                                                        {{seg['Destination']['AirportName']}}
+                                                                        @if(seg['Destination']['Terminal']){• Terminal
+                                                                        {{seg['Destination']['Terminal']}}}
+                                                                    </div>
+
+                                                                </div>
                                                             </div>
-                                                            <div class="timeline-date">
-                                                                {{seg['Origin']['DepartTime']|date:'dd MMM yyyy'}}
-                                                            </div>
                                                         </div>
-                                                        <div class="track-node">
-                                                            <div class="circle-indicator"></div>
-                                                            <div class="line-dashed"></div>
-                                                        </div>
-                                                        <div>
-                                                            <div class="airport-name">
-                                                                {{seg['Origin']['CityName']}}
-                                                                ({{seg['Origin']['AirportCode']}})
-                                                            </div>
-                                                            <div class="airport-desc">
-                                                                {{seg['Origin']['AirportName']}}
-                                                                @if(seg['Origin']['Terminal']){• Terminal
-                                                                {{seg['Origin']['Terminal']}}}
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="timeline-time">
-                                                            <div class="timeline-duration">
-                                                                {{FTduration(seg['Duration'])}}
-                                                            </div>
-                                                            <div class="timeline-duration-label">
-                                                                Travel Duration
-                                                            </div>
-                                                        </div>
-                                                        <div class="track-node">
-
-                                                            <div class="plane-wrapper">
-                                                                <i class="fa-solid fa-plane"></i>
-                                                            </div>
-
-                                                            <div class="line-dashed"></div>
-                                                        </div>
-                                                        <div class="segment-info">
-
-                                                            <div class="segment-airline">
-
-                                                                <div class="mini-logo">
-                                                                    <img src="{{AirlineLogoURL}}/{{seg['Airline']['AirlineCode']}}.png"
-                                                                        alt="">
+                                                            @if(seg['Layover']){
+                                                            <div class="layover-row">
+                                                                <div></div>
+                                                                <div class="layover-icon">
+                                                                    <i class="fa-regular fa-clock"></i>
                                                                 </div>
 
                                                                 <div>
-                                                                    <strong>{{seg['Airline']['AirlineName']}}</strong>
-                                                                    <span class="segment-code">
-                                                                        •
-                                                                        {{seg['Airline']['AirlineCode']}}-{{seg['Airline']['FlightNumber']}}
-                                                                    </span>
+
+                                                                    <div class="layover-title">
+                                                                        1 Stop at {{seg['Destination']['CityName']}}
+                                                                    </div>
+
+                                                                    <div class="layover-duration">
+                                                                        {{seg['Layover']}} Layover
+                                                                    </div>
+
                                                                 </div>
 
                                                             </div>
-
-                                                        </div>
-                                                        <div class="timeline-time">
-
-                                                            <div class="timeline-main-time">
-                                                                {{seg['Destination']['ArrivalTime']|date:'HH:mm'}}
-                                                            </div>
-
-                                                            <div class="timeline-date">
-                                                                {{seg['Destination']['ArrivalTime']|date:'dd MMM yyyy'}}
-                                                            </div>
-
-                                                        </div>
-                                                        <div class="track-node">
-
-                                                            <div class="circle-indicator"></div>
-
-                                                        </div>
-                                                        <div>
-
-                                                            <div class="airport-name">
-                                                                {{seg['Destination']['CityName']}}
-                                                                ({{seg['Destination']['AirportCode']}})
-                                                            </div>
-
-                                                            <div class="airport-desc">
-                                                                {{seg['Destination']['AirportName']}}
-                                                                @if(seg['Destination']['Terminal']){• Terminal
-                                                                {{seg['Destination']['Terminal']}}}
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                @if(seg['Layover']){
-                                                <div class="layover-row">
-                                                    <div></div>
-                                                    <div class="layover-icon">
-                                                        <i class="fa-regular fa-clock"></i>
-                                                    </div>
-
-                                                    <div>
-
-                                                        <div class="layover-title">
-                                                            1 Stop at {{seg['Destination']['CityName']}}
-                                                        </div>
-
-                                                        <div class="layover-duration">
-                                                            {{seg['Layover']}} Layover
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-                                                }
+                                                            }
+                                                    } 
                                                 }
                                             </div>
-                                            }
                                         </div>
 
                                         <!-- FARE Info -->
@@ -1508,7 +1505,7 @@
                         <div class="no_flight-content">
                             <i class="fa fa-plane flight-icons-zeroFlight mb-4"></i>
                             <p>No flight found that matches your filter criteria.Reset your filter </p>
-                            <button type="submit" class="tts-button-primary mt-3" (click)="resetfilterdata()">Reset
+                            <button type="submit" class="btn btn-primary mt-3" (click)="resetfilterdata()">Reset
                                 All
                                 Filter</button>
                         </div>
@@ -1598,7 +1595,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-6">
-                        <button type="button" class="tts-button-primary" (click)="sendemail('with-price')"
+                        <button type="button" class="btn btn-primary" (click)="sendemail('with-price')"
                             [disabled]="sharebuttonloding">
                             @if(sharebuttonloding){
                             <span class="spinner-border spinner-border-sm"></span>
@@ -1606,7 +1603,7 @@
                             With Price</button>
                     </div>
                     <div class="col-6 text-end">
-                        <button type="button" class="tts-button-primary" (click)="sendemail('without-price')"
+                        <button type="button" class="btn btn-primary" (click)="sendemail('without-price')"
                             [disabled]="sharebuttonloding">
                             @if(sharebuttonloding){
                             <span class="spinner-border spinner-border-sm"></span>
