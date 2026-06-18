@@ -814,13 +814,15 @@ export class FlightComponent implements OnInit {
   }
 
   GetPreferredAirline(e: any) {
-    if (e.target.checked) {
+    // console.log(e);
+    
+    // if (e.target.checked) {
       this.preferredairlinedata.push(e.target.value);
-    } else {
-      let index = this.preferredairlinedata.indexOf(e.target.value);
-      if (index > -1) {
-        this.preferredairlinedata.splice(index, 1);
-      }
-    }
+    // } else {
+    //   let index = this.preferredairlinedata.indexOf(e.target.value);
+    //   if (index > -1) {
+    //     this.preferredairlinedata.splice(index, 1);
+    //   }
+    // }
   }
 }

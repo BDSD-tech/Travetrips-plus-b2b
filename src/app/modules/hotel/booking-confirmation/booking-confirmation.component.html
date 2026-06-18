@@ -22,9 +22,9 @@
                 
                 <div class="travelimp__thanku--statuscontent">
                     Booking<span class="travelimp__thanku--statussize mb-0" [ngClass]="{'text-danger':Response['booking_status']!='Confirmed'}">{{Response['booking_status']}}</span>
-                    <p class="travelimp__thanku--bookingIdShow mb-0"><a class="travelimp__thanku--redirectid" routerLink="/dashboard/manage-carts/cart-detail/{{Response['booking_ref_number']}}" *ngIf="Response['booking_ref_number']">Booking Ref. No. - {{Response['booking_ref_number']}}</a></p>
-                    <p class="travelimp__thanku--bookingIdShow mb-0" *ngIf="Response['confirmation_no']!=''">Confirmation No. : {{Response['confirmation_no']}}</p>
-                    <p class="travelimp__thanku--bookingIdShow mb-0" *ngIf="Response['last_cancellation_date']!='' && Response['booking_status']!='Failed'">Last Cancellation Date : {{Response['last_cancellation_date']}}</p>
+                    <p class="travelimp__thanku--bookingIdShow text-white mb-0"><a class="travelimp__thanku--redirectid" routerLink="/dashboard/manage-carts/cart-detail/{{Response['booking_ref_number']}}" *ngIf="Response['booking_ref_number']">Booking Ref. No. - {{Response['booking_ref_number']}}</a></p>
+                    <p class="travelimp__thanku--bookingIdShow text-white mb-0" *ngIf="Response['confirmation_no']!=''">Confirmation No. : {{Response['confirmation_no']}}</p>
+                    <p class="travelimp__thanku--bookingIdShow text-white mb-0" *ngIf="Response['last_cancellation_date']!='' && Response['booking_status']!='Failed'">Last Cancellation Date : {{Response['last_cancellation_date']}}</p>
                 </div>
             </div>
         </div>
@@ -260,7 +260,7 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-12 text-center">
-                            <button type="submit" class="tts-button-primary" [disabled]="Emailloading"><span *ngIf="Emailloading" class="spinner-border spinner-border-sm mr-1"></span> Submit</button>
+                            <button type="submit" class="btn btn-primary" [disabled]="Emailloading"><span *ngIf="Emailloading" class="spinner-border spinner-border-sm mr-1"></span> Submit</button>
                         </div>
                     </div>
                 </form>
@@ -294,7 +294,7 @@
 
                 <div class="row mb-3">
                     <div class="col-12 text-center">
-                        <button type="submit" class="tts-button-primary" [disabled]="Mobileloading"> <span *ngIf="Mobileloading" class="spinner-border spinner-border-sm mr-1"></span> Submit</button>
+                        <button type="submit" class="btn btn-primary" [disabled]="Mobileloading"> <span *ngIf="Mobileloading" class="spinner-border spinner-border-sm mr-1"></span> Submit</button>
                     </div>
                 </div>
               </form>
@@ -322,7 +322,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-12 text-center">
-                        <button type="button" class="tts-button-primary" data-bs-dismiss="modal" (click)="ViewTicketInvoice('Voucher')">Submit</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="ViewTicketInvoice('Voucher')">Submit</button>
                     </div>
                 </div>
             </div>

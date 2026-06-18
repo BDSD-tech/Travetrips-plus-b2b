@@ -16,7 +16,7 @@ declare var bootstrap:any;
   templateUrl: './cart-detail.component.html',
   styleUrls: ['../../manage-carts/manage-carts/cart-detail/cart-detail.component.css']
 })
-export class CartDetailComponent implements OnInit {
+export class CartDetailHotelComponent  implements OnInit {
 
   loading=true;
   BookingDetail:any=[];
@@ -57,7 +57,6 @@ export class CartDetailComponent implements OnInit {
       this.refno = this.route.snapshot.params['refno'];
       this.GetDetail(this.refno);
     } else {
-      this.router.navigate(['dashboard/manage-cart-hotel']);
      }  
 
      this.AddAmendmentForm=this.fb.group({

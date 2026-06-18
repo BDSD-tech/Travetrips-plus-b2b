@@ -2216,7 +2216,7 @@ color: var(--black) !important;
 }
 
 .dash-padding {
-    padding: 20px;
+    padding: 10px;
 }
 
 .body_manage {
@@ -2245,13 +2245,13 @@ color: var(--black) !important;
 }
 
 .main-heading-content::before {
-    content: '';
+   content: "";
     width: 3px;
     height: 30px;
     background: var(--second-color);
     position: absolute;
     display: block;
-    left: -21px;
+    left: -10px;
     top: -5px;
 }
 
@@ -4024,6 +4024,21 @@ BOOKING CONFIRM MODAL
     transform: translateY(-2px);
     box-shadow: var(--shadow-sm);
 }
+.vseat {
+    width: 22px;
+    height: 40px;
+    background: #eff6ff;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    border-radius: var(--radius-sm);
+}
+
+.vseat:hover {
+    background: var(--primary-color);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
 
 .bseat,
 .bvseat {
@@ -4044,6 +4059,11 @@ BOOKING CONFIRM MODAL
 }
 
 .snseat {
+    background: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: var(--white) !important;
+}
+.svseat {
     background: var(--primary-color) !important;
     border-color: var(--primary-color) !important;
     color: var(--white) !important;
@@ -4167,4 +4187,49 @@ BOOKING CONFIRM MODAL
     left: 10px;
     position: absolute;
     top: -5px
+}
+
+
+/* Status Bar */
+.status-bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border:1px solid #d8d8d8;
+    border-radius:10px;
+    padding:6px 12px;
+    margin-bottom:18px;
+    background:#fff;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.status-menu{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.status-menu a{
+    text-decoration:none;
+    color:#444;
+    font-size:11px;
+    padding:8px 12px;
+    border-radius:8px;
+}
+
+.status-menu a.active{
+    background:var(--primary-color);
+    color:#fff;
+    font-weight:600;
+}
+
+.close-btn{
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 6px;
+    background: var(--primary-color);
+    color: #fff;
+    font-size: 16px;
 }

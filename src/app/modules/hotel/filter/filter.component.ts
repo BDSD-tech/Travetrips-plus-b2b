@@ -25,14 +25,19 @@ export class FilterComponent implements OnInit {
   HotelNameList:any=[];
   HotelFacilitiesList:any=[];
   HotelAddressList:any=[];
+  PicodeList:any=[];
 
   InputHotelNametxt:any='';
   HotelFacilityText:any='';
   HotelAddressText:any='';
 
+  InputPincodetxt:any='';
+
+
   SelectedHotelName='';
   SelectedHotelFacility='';
   SelectedHotelAddress='';
+  SelectedHotelPinCode='';
   
   min:any=0;
   max:any=0;
@@ -98,6 +103,12 @@ export class FilterComponent implements OnInit {
       this.SelectedHotelName='';
       this.HotelNameList=[];
     }
+    if(type=='PinCode')
+    {
+      this.InputPincodetxt='';
+      this.SelectedHotelPinCode='';
+      this.PicodeList=[];
+    }
     if(type=='HotelFacilitiesList')
     {
       this.HotelFacilityText='';
@@ -113,6 +124,10 @@ export class FilterComponent implements OnInit {
     if(type=='StarRating')
     {
       this.resetfilter(this.Filter['StarRatingType']);
+    }
+    if(type=='PropertyType')
+    {
+      this.resetfilter(this.Filter['PropertyType']);
     }
     if(type=='HotelMealType')
     {
@@ -154,6 +169,11 @@ export class FilterComponent implements OnInit {
       {
         hotelname=item;
       }
+      let pincode='';
+      if(type=='PinCode')
+      {
+        pincode=item;
+      }
       let hotelfacility=''
       if(type=='HotelFacilitiesList')
       {
@@ -176,8 +196,12 @@ export class FilterComponent implements OnInit {
       let HotelMealType = this.checkedfilter(FilterData['HotelMealType'],'label');
       let LocationType = this.checkedfilter(FilterData['LocationType'],'label');
       let FareType = this.checkedfilter(FilterData['FareType'],'label');
-     
-
+      let PropertyType = this.checkedfilter(FilterData['PropertyType'],'label');
+      
+      if(PropertyType.length !== 0) 
+      {
+          filters['PropertyType'] = PropertyType;
+      }
       if(FareType.length !== 0) 
       {
           filters['FareType'] = FareType;
@@ -197,6 +221,10 @@ export class FilterComponent implements OnInit {
       if(this.SelectedHotelName!='')
       {
         filters['HotelName'] = this.SelectedHotelName;
+      }
+      if(this.SelectedHotelPinCode!='')
+      {
+        filters['PinCode'] = this.SelectedHotelPinCode;
       }
       if(this.SelectedHotelFacility!='')
       {
@@ -312,6 +340,21 @@ export class FilterComponent implements OnInit {
     } else {
       this.HotelAddressList=[];
     }
+
+
+    if(this.InputPincodetxt)
+    {
+       const searchText = (this.InputPincodetxt || '').toLowerCase().trim();
+        let data = this.Filter[searchType].filter((val: any) =>
+          val?.toString().toLowerCase().includes(searchText)
+        );
+      if(searchType=='PinCode')
+      {
+        this.PicodeList=  data;
+      }
+    } else {
+      this.PicodeList=[];
+    }
   }
 
   select_hotelname(item:any,type:any)
@@ -334,6 +377,12 @@ export class FilterComponent implements OnInit {
       this.HotelAddressList=[];
       this.SelectedHotelAddress=item;
       this.doFilter('HotelAddressList',null,item)
+    }
+    if(type=='PinCode'){
+      this.InputPincodetxt=item;
+      this.PicodeList=[];
+      this.SelectedHotelPinCode=item;
+      this.doFilter('PinCode',null,item)
     }
     
   }
@@ -362,6 +411,7 @@ export class FilterComponent implements OnInit {
 function multiFilter(array:any, filters:any) {
   var filterKeys = Object.keys(filters);
   let response:any=[];
+
   array.filter((item:any) => {
       if(filterKeys.includes("HotelFacilities")){
         if(item['HotelFacilities'].every((value:any) => filters['HotelFacilities'].includes(value))){
@@ -398,67 +448,3 @@ function multiFilter(array:any, filters:any) {
   });
   return response;
 }
-// function multiFilter(array: any[], filters: any) {
-//   const filterKeys = Object.keys(filters);
-//   const response: any[] = [];
-
-//   array.forEach((item) => {
-//     let include = true;
-
-//     // HotelFacilities filter
-//     if (filterKeys.includes("HotelFacilities")) {
-//       if (
-//         !item.HotelFacilities ||
-//         !filters.HotelFacilities.every((facility: any) =>
-//           item.HotelFacilities.includes(facility)
-//         )
-//       ) {
-//         include = false;
-//       }
-//     }
-
-//     // FareType filter
-//     if (include && filterKeys.includes("FareType")) {
-//       if (filters.FareType.includes("Free Cancellation")) {
-//         if (item.IsRefundable !== true) include = false;
-//       }
-//       if (filters.FareType.includes("Non-Refundable")) {
-//         if (item.IsRefundable !== false) include = false;
-//       }
-//     }
-
-//     // MealType filter
-//     if (include && filterKeys.includes("MealType")) {
-//       if (
-//         !item.MealType ||
-//         !filters.MealType.every((meal: any) => item.MealType.includes(meal))
-//       ) {
-//         include = false;
-//       }
-//     }
-
-//     // Generic filters for other keys
-//     if (include) {
-//       for (const key of filterKeys) {
-//         if (
-//           !["HotelFacilities", "FareType", "MealType"].includes(key) &&
-//           filters[key] &&
-//           filters[key].length &&
-//           !filters[key].includes(item[key])
-//         ) {
-//           include = false;
-//           break;
-//         }
-//       }
-//     }
-
-//     // Add item only if it passes all filters
-//     if (include) {
-//       response.push(item);
-//     }
-//   });
-
-//   return response;
-// }
-
-

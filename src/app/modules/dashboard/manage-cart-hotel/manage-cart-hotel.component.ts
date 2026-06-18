@@ -186,7 +186,10 @@ export class ManageCartHotelComponent implements OnInit {
   }
 
   get f() { return this.SearchForm.controls; }
-
+  SetStatus(status:any){
+    this.SearchForm.get('BookingStatus')?.setValue([status]);
+    this.SearchSubmit()
+  }
   SearchSubmit()
   {
     this.Searchsubmitted = true;

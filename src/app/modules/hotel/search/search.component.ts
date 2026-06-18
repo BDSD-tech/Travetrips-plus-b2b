@@ -66,6 +66,8 @@ export class SearchComponent implements OnInit {
     sessionStorage.removeItem('time');
     this.GetResult(this.GetSearchData);
     this.windowscroll();
+
+   
   }
 
   
@@ -133,7 +135,9 @@ export class SearchComponent implements OnInit {
         this.sortedData = this.Response.slice();
         this.FilterResponse['Price'] =  response['Price'];
         this.FilterResponse['LocationType'] =  response['LocationType'];
+        this.FilterResponse['PropertyType'] =  response['PropertyType'];
         this.FilterResponse['HotelName'] =  response['HotelName'];
+        this.FilterResponse['PinCode'] =  this.GetPincodes(response['Result']);
         this.FilterResponse['StarRatingType'] =  response['StarRatingType'];
         this.FilterResponse['HotelFacilitiesList'] =  response['HotelFacilitiesList'];
         this.FilterResponse['HotelMealType'] =  response['HotelMealType'];
@@ -144,6 +148,11 @@ export class SearchComponent implements OnInit {
     });
   }
 
+  GetPincodes(hotels:any){
+    const uniquePinCodes:any  = [...new Set(hotels.map((hotel:any) => hotel.PinCode))];
+
+    return uniquePinCodes;
+  }
   selecthotel(item:any) {
     window.open('hotel/hotel-detail?stoken='+this.SearchTokenId+'&hcode='+item['HotelCode']+'&rindex='+item['ResultIndex']+'', '_blank');
   }

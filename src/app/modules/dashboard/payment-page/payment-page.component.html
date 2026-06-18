@@ -1,0 +1,263 @@
+<section class="flight-booking">
+  <div class="container">
+
+    <div class="row ">
+      <div class="col-lg-12">
+        <div class="booking-stepper">
+          <!-- Step 1 -->
+          <div class="step completed">
+            <div class="step-icon">
+              <i class="fa fa-check"></i>
+            </div>
+            <span class="step-text">Flight Selection</span>
+          </div>
+
+          <div class="step-dots"></div>
+
+          <!-- Step 2 -->
+          <div class="step ">
+            <div class="step-icon">2</div>
+            <span class="step-text">Review</span>
+          </div>
+
+
+          <div class="step-dots"></div>
+
+          <!-- Step 4 -->
+          <div class="step active">
+            <div class="step-icon">3</div>
+            <span class="step-text">Payment</span>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-lg-9">
+        <div class="booking-main">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <h4 class="apt-heading ">
+              <span>Payments</span>
+            </h4>
+          </div>
+
+          <div class="text-center mt-5" *ngIf="paymentloading">
+            <div class="lds-ellipsis">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+
+          <div *ngIf="paymentloading==false">
+            <div class="d-flex align-items-start flight-booking_payments">
+              <div class=" nav flex-column nav-pills payment_bg" id="v-pills-tab" role="tablist"
+                aria-orientation="vertical">
+                <button class="nav-link" *ngFor="let item of PaymentOption; let key=index;"
+                  id="v-pills-{{item['mode']}}-tab" data-bs-toggle="pill"
+                  attr.data-bs-target="#v-pills-{{item['mode']}}" type="button" role="tab"
+                  attr.aria-controls="v-pills-{{item['mode']}}" aria-selected="true" [ngClass]="{'active':key==0}"
+                  (click)="selectmode(item['mode'])">
+                  {{item['Label']}}
+                </button>
+              </div>
+              <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade" *ngFor="let item of PaymentOption; let key=index;"
+                  id="v-pills-{{item['mode']}}" role="tabpanel" attr.aria-labelledby="v-pills-{{item['mode']}}-tab"
+                  tabindex="{{key}}" [ngClass]="{'active show':key==0}">
+
+                  <div class="wallet-case" *ngIf="item['mode']=='wallet'">
+                    <p class="card-headingbg"> <i class="fa fa-credit-card"></i>
+                      By placing this order, you agree to our <a routerLink="/pages/terms-and-conditions"
+                        target="_blank"> Terms
+                      </a> Of Use and <a routerLink="/pages/privacy-policy" target="_blank">Privacy Policy </a>
+                    </p>
+                    <button type="button" class="btn add_money-btn" *ngIf="WalletBalance >= item['totalprice']"
+                      (click)="PayNow()" [disabled]="paylnowloading"> <span *ngIf="paylnowloading"
+                        class="spinner-border spinner-border-sm mr-1"></span> Pay Now <span>₹{{item['totalprice'] |
+                        number:'1.2-2'}}</span></button>
+                    <p class="text-danger" *ngIf="WalletBalance < item['totalprice']">Agency wallet balance low.</p>
+                  </div>
+
+                  <div class="wallet-case" *ngIf="item['mode']=='creditLine'">
+
+                    <div class="panel panel-default mb-3">
+                      <div class="panel-heading">Credit Line</div>
+                      <div class="panel-body creditbox">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <p class="mb-0">Balance</p>
+                            <p class="mb-0" *ngIf="item['CreditLimitBalance']">₹{{item['CreditLimitBalance'] |
+                              number:'1.0-2'}}</p>
+                          </div>
+                          <div class="col-md-6">
+                            <p class="mb-0">Limit</p>
+                            <p class="mb-0" *ngIf="item['RemainingCreditLimit']">₹{{item['RemainingCreditLimit'] |
+                              number:'1.0-2'}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <p class="card-headingbg"> <i class="fa fa-credit-card"></i>
+                      By placing this order, you agree to our <a routerLink="/pages/terms-and-conditions"
+                        target="_blank"> Terms
+                      </a> Of Use and <a routerLink="/pages/privacy-policy" target="_blank">Privacy Policy </a>
+                    </p>
+
+                    <p *ngFor="let credittext of item['CreditLimitInfo']" class="mb-0">{{credittext}}</p>
+
+                    <button type="button" class="btn add_money-btn" (click)="PayNow()" [disabled]="paylnowloading">
+                      <span *ngIf="paylnowloading" class="spinner-border spinner-border-sm mr-1"></span> Pay Now
+                      <span>₹{{item['totalprice'] | number:'1.2-2'}}</span></button>
+
+                  </div>
+                  <div class="no-wallet-case" *ngIf="item['mode']!='wallet'&&item['mode']!='creditLine'">
+
+
+                    <div class="subTypeWrapper text-center" *ngIf="item">
+                      <div class="subTypeWrapper__box" *ngFor="let subitem of item['SubModes']; let submodkey=index;">
+                        <div class="paySelect">
+                          <input type="radio" id="paymentgetway_{{item['mode']}}_{{submodkey}}" class="paySelect__input"
+                            name="selectmodegetway" (click)="selectpaymentgetway(subitem,item)" />
+                          <label for="paymentgetway_{{item['mode']}}_{{submodkey}}" class="paySelect__label">
+                            <img src="//static.technogramsolutions.com/img/ccAvenue.png" class="paySelect__img"
+                              alt="{{subitem['Gateway']}}" *ngIf="subitem['Gateway']=='CCAVENUE'" />
+                            <img src="assets/img/razorpay-logo.svg" class="paySelect__img" alt="{{subitem['Gateway']}}"
+                              *ngIf="subitem['Gateway']=='Razorpay'" />
+                            <img src="assets/img/CashfreeLogo.png" class="paySelect__img" alt="{{subitem['Gateway']}}"
+                              *ngIf="subitem['Gateway']=='CASHFREE'" />
+                            <img src="assets/img/phonepay.png" class="paySelect__img" alt="{{subitem['Gateway']}}"
+                              *ngIf="subitem['Gateway']=='PHONEPE'" />
+                          </label>
+                        </div>
+                        <p class="subTypeWrapper__text">{{subitem['Gateway']| uppercase}}</p>
+                      </div>
+                    </div>
+
+                    <p class="card-headingbg" *ngIf="item['mode']!='wallet'&&item['mode']!='creditLine'"> <i
+                        class="fa fa-credit-card"></i>
+                      Please note: You may be redirected to bank page to complete your transaction. By making this
+                      booking, you agree to our <a routerLink="/pages/terms-and-conditions" target="_blank"> Terms
+                      </a> of Use and <a routerLink="/pages/privacy-policy" target="_blank">Privacy Policy </a>.
+                    </p>
+                    <p class="mb-0" *ngIf="item['SubModes']">Payment Fee : {{conveniencefee | number:'1.0-2'}}</p>
+
+
+                    <button type="button" class="btn add_money-btn" (click)="PayNow()"
+                      [disabled]="paylnowloading || !Gateway">
+                      <span *ngIf="paylnowloading" class="spinner-border spinner-border-sm mr-1"></span> Pay Now
+                      <span>₹{{item['totalprice']+conveniencefee | number:'1.2-2'}}</span></button>
+                  </div>
+
+
+
+                </div>
+              </div>
+            </div>
+
+            <button type="button" class="asr-book" (click)="goBack()"><i class="fa fa-angle-double-left "></i>
+              <span>Back</span></button>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="booking-rightside">
+          <h4><span>Fare Summary</span></h4>
+          <div>
+            <div class="btm-border bold-font-bf"><span>Base fare</span> <span
+                class="float-end">₹{{CurrentFare['BaseFare'] | number:'1.0-2'}}</span></div>
+            <div class="btm-border bold-font">
+              <span data-bs-toggle="collapse" href="#tax-fare" aria-expanded="false"> Taxes and fees <i
+                  class="fa fa-angle-down mrg-left"></i></span>
+              <span class="float-end">₹{{CurrentFare['Tax'] + CurrentFare['OtherCharges'] + CurrentFare['AgentMarkup'] |
+                number:'1.0-2'}}</span>
+              <div class="tax-dropdown airline-gst-print collapse" id="tax-fare">
+                <div><span>YQ</span><span class="float-end">₹{{CurrentFare['YQTax'] | number:'1.0-2'}}</span></div>
+                <div *ngIf="CurrentFare['AgentMarkup']!=0"><span>Markup</span><span
+                    class="float-end">₹{{CurrentFare['AgentMarkup'] | number:'1.0-2'}}</span></div>
+                <div><span>Other Charges</span><span class="float-end">₹{{CurrentFare['OtherCharges'] |
+                    number:'1.0-2'}}</span></div>
+                <div *ngIf="conveniencefee!=0"><span>Payment Fee</span><span class="float-end">₹{{conveniencefee |
+                    number:'1.0-2'}}</span></div>
+              </div>
+            </div>
+            @if(CurrentFare['InsurancePrice']){
+            <div class="btm-border bold-font-bf"><span>Insurance Price</span> <span
+                class="float-end">₹{{CurrentFare['InsurancePrice'] | number:'1.0-2'}}</span></div>
+            }
+            <div class="btm-border bold-font" *ngIf="CurrentFare['SSR'] && Service=='Flight'">
+              <span data-bs-toggle="collapse" href="#ssr-pax" aria-expanded="false"> Meal, Baggage & Seats <i
+                  class="fa fa-angle-down mrg-left"></i></span>
+              <span class="float-end">₹{{CurrentFare['MealCharges'] + CurrentFare['BaggageCharges']+
+                CurrentFare['SeatCharges']}}</span>
+              <div class="tax-dropdown airline-gst-print collapse" id="ssr-pax">
+                <div *ngIf="CurrentFare['MealCharges']!=0"><span>Seat</span><span
+                    class="float-end">₹{{CurrentFare['SeatCharges']|
+                    number:'1.0-2'}}</span></div>
+                <div *ngIf="CurrentFare['MealCharges']!=0"><span>Meal</span><span
+                    class="float-end">₹{{CurrentFare['MealCharges'] |
+                    number:'1.0-2'}}</span></div>
+                <div *ngIf="CurrentFare['BaggageCharges']!=0"><span>Baggage</span><span
+                    class="float-end">₹{{CurrentFare['BaggageCharges'] | number:'1.0-2'}}</span></div>
+              </div>
+            </div>
+            <div class="bold-font ">
+              <span data-bs-toggle="collapse" href="#net-fare" aria-expanded="false">Gross Fare <i
+                  class="fa fa-angle-down mrg-left"></i></span>
+              @if(Service=='Flight'){
+                <span
+                class="float-end">₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']+CurrentFare['MealCharges']
+                + CurrentFare['BaggageCharges']+CurrentFare['SeatCharges'] +CurrentFare['InsurancePrice']|
+                number:'1.0-2'}}</span>
+             
+              }@else{
+              <span
+                class="float-end">₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']|number:'1.0-2'}}</span>
+              }
+              <div class="tax-dropdown airline-gst-print collapse" id="net-fare">
+                <div><span>Commission</span><span
+                    class="float-end">-₹{{CurrentFare['AgentCommission']+CurrentFare['Discount'] |
+                    number:'1.0-2'}}</span></div>
+                <div><span>TDS</span><span class="float-end">+₹{{CurrentFare['TDS'] | number:'1.0-2'}}</span></div>
+                @if(Service=='Flight'){
+                <div><span>Net Price</span><span
+                    class="float-end">₹{{CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['BaggageCharges']+CurrentFare['MealCharges']+CurrentFare['SeatCharges']
+                    |
+                    number:'1.0-2'}}</span></div>
+                }@else{
+                <div><span>Net Price</span><span class="float-end">₹{{CurrentFare['OfferedPrice']+CurrentFare['TDS']|
+                    number:'1.0-2'}}</span></div>
+                }
+              </div>
+            </div>
+            <!-- <div class="btm-border py-2"><span>Net Fare</span><span class="float-end">₹{{this.CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['BaggageCharges']+CurrentFare['MealCharges']+CurrentFare['SeatCharges'] |
+                                        number:'1.0-2'}}</span></div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Confirm Modal -->
+<div class="modal" id="confirmmodel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-0">
+      <div class="text-center p-3 border-bottom">
+        <h6 class="modal-title text-success">CONFIRM TRANSACTION</h6>
+      </div>
+      <div class="modal-body text-center">
+        <p class="fs-12">You have choosen to make the following payment.Please confirm to proceed.</p>
+        <h5>₹{{confirmtotalfare | number:'1.0-2'}}</h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Back</button>
+        <button type="button" class="tts-button-primary" [disabled]="payfinalloading" (click)="PayNow('confirm')"><span
+            *ngIf="payfinalloading" class="spinner-border spinner-border-sm mr-1"></span> Continue</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Confirm Modal -->

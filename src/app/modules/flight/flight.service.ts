@@ -72,6 +72,8 @@ export class FlightService {
         services='flight'
     }else if(service=='Hotel'){
        services='hotel'
+    }else if(service=='Bus'){
+       services='bus'
     }
     let url=tts_config.APIURL+'/'+services+'/validate-travellers';
     return this.http.post(url, data, {headers: { 'Content-Type': 'application/json'}});

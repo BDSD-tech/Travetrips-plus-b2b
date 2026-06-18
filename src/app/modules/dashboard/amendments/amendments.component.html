@@ -1,0 +1,20 @@
+<div class="booking-wrapper">
+    <div class="top-tabs">
+
+        <button class="btn" [ngClass]="{'active-tab':activeService=='Flight'}" 
+        (click)="activeService='Flight'"> Flights</button>
+
+        <button class="btn" [ngClass]="{'active-tab':activeService=='Hotel'}"
+            (click)="activeService='Hotel'">Hotels</button>
+
+        <button class="btn" [ngClass]="{'active-tab':activeService=='Bus'}" 
+        (click)="activeService='Bus'">Bus</button>
+
+    </div>
+    
+    @if(activeService=='Flight'){
+        <app-manage-amendments></app-manage-amendments>
+    }@else if(activeService=='Hotel'){
+    <app-manage-amendments-hotel></app-manage-amendments-hotel>
+    }
+</div>

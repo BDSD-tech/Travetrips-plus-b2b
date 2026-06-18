@@ -27,10 +27,17 @@ import { CreditNotesHotelComponent } from './credit-notes-hotel/credit-notes-hot
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BookingsComponent } from './bookings/bookings.component';
 import { ManageCartHotelComponent } from './manage-cart-hotel/manage-cart-hotel.component';
+import { MarkupComponent } from './markup/markup.component';
+import { AmendmentsComponent } from './amendments/amendments.component';
+import { ManageAmendmentsHotelComponent } from './manage-amendments-hotel/manage-amendments-hotel.component';
+import { BookingListComponent } from './bus/booking-list/booking-list.component';
+import { BookingDetailComponent } from './bus/booking-detail/booking-detail.component';
+import { CartDetailHotelComponent} from '../dashboard/manage-cart-hotel/cart-detail/cart-detail.component';
+
 @NgModule({
   declarations: [ 
      BookingsComponent,ManageCartHotelComponent,BookingCalendarComponent,ManageCartsComponent,CartDetailComponent, ManageAmendmentsComponent, PaymentPassbookComponent, ManageDepositRequestComponent, DepositRequestComponent, BillingInfoComponent, DownloadReportComponent, ManageMarkupComponent, UserDetailComponent,NumberToWordsPipe, ItineraryComponent
-  ,HotelComponent,DashboardComponent,CreditRequestComponent,CreditNotesComponent,ViewCreditNotesComponent,CreditNotesHotelComponent],
+  ,HotelComponent,CartDetailHotelComponent,BookingDetailComponent,BookingListComponent,DashboardComponent,ManageAmendmentsHotelComponent,CreditRequestComponent,CreditNotesComponent,MarkupComponent,ViewCreditNotesComponent,CreditNotesHotelComponent,AmendmentsComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,

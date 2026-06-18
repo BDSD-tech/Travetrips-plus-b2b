@@ -49,7 +49,7 @@
                         </div>
 
 
-                        <div class="listingCard">
+                        <!-- <div class="listingCard">
                             <div class="imageContainer" id="imageContainer-Mzk2NTgzOT">
                                 <div class="imageWrapper">
                                     <img src="https://i.travelapi.com/lodging/1000000/20000/19100/19078/w3836h2557x4y4-d1499c44_z.jpg"
@@ -145,93 +145,125 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
+                    </div>
 
-
-                        <!-- Hotel List -->
-                        <div class="hotel-list">
-                            <div class="hotel-card" *ngFor="let item of sortedData">
-                                <!-- Hotel Image -->
-                                <div class="hotel-image-section">
-                                    <img src="{{item['HotelPicture']}}" onError="this.src='assets/img/no-hotel.png';"
-                                        alt="{{item['HotelPicture']}}" />
-                                    <span class="promotion-badge"
-                                        *ngIf="item.HotelPromotion">{{item.HotelPromotion}}</span>
+                    <!----old code Start---->
+                    <div class="flight-rowmain" *ngFor="let item of sortedData">
+                        <div class="listingCard mb-2">
+                            <div class="imageContainer" id="imageContainer-Mzk2NTgzOT">
+                                <div class="imageWrapper">
+                                    <img [src]="item['HotelPicture']"
+                                        [alt]="item['HotelName']" class="image">
                                 </div>
-
-                                <!-- Hotel Details -->
-                                <div class="hotel-details-section">
-                                    <div class="hotel-name-row">
-                                        <h5>{{(item['HotelName'].length > 60) ? (item['HotelName'] |
-                                            slice:0:60)+'..':(item['HotelName'])}}</h5>
-                                        <span class="hotel-stars" [innerHTML]="star_rating(item['StarRating'])"></span>
-                                    </div>
-
-                                    <!-- Address -->
-                                    <div class="hotel-location">
-                                        <span><i class="fa fa-map-marker-alt me-1"></i>{{ item.HotelAddress }}</span>
-                                        <a *ngIf="item['Latitude'] && item['Longitude']" href="javascript:void(0)"
-                                            (click)="ShowMap(item)" class="map-link">
-                                            <img src="assets/img/map-icon.svg" alt="">
-                                            View Map
-                                        </a>
-                                    </div>
-
-                                    <!-- Reviews -->
-                                    <div class="hotel-review" *ngIf="item.HotelReviewUrl || item.HotelReviewRatings">
-                                        <a *ngIf="item['HotelReviewUrl'] && item['HotelReviewUrl']!=''"
-                                            href="{{item['HotelReviewUrl']}}">
-                                            Review {{item['HotelReviewUrl']}}
-                                        </a>
-                                        <a *ngIf="item['HotelReviewUrl'] && item['HotelReviewUrl']==''"
-                                            href="javascript:void(0)">
-                                            Review Rating {{item['HotelReviewRatings']}}
-                                        </a>
-                                    </div>
-
-                                    <!-- Amenities -->
-                                    <ul class="hotel-amenities"
-                                        *ngIf="item['HotelAmenities'] && item['HotelAmenities']>0">
-                                        <li *ngFor="let hotelAmenities Of item['HotelAmenities'].slice(0,5)">
-                                            <img *ngif="hotelAmenities.Icon!==''" src="{{hotelAmenities['Icon']}}"
-                                                onError="this.src='assets/img/no-photo.png';" />
-                                            {{hotelAmenities['Name']}}
-                                        </li>
-                                    </ul>
-
-
-                                    <!-- Description -->
-                                    <p class="hotel-description">
-                                        {{item['HotelDescription'].length>170?(item['HotelDescription']|slice:0:170)+'...':item['HotelDescription']}}
-                                    </p>
-
-                                    <!-- Price Section -->
-                                    <div class="hotel-price-section">
-                                        <div>
-                                            <span class="starting-text">Starting From</span>
-                                            <h3>₹ {{item['Price']['PublishedPrice'] | number:'1.0-2'}}</h3>
+                                <span class="availabilityBadge"></span>
+                            </div>
+                            <div class="detailsContainer">
+                                <div class="header">
+                                    <h3 class="hotelName">{{item['HotelName']}}</h3>
+                                    <div class="rating"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg" class="image">
+                                            <defs>
+                                                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                    <stop offset="0%" stop-color="var(--start-color)"></stop>
+                                                    <stop offset="100%" stop-color="var(--end-color)"></stop>
+                                                </linearGradient>
+                                            </defs>
+                                            <path
+                                                d="M14.656 7.14887L11.8372 9.60887L12.6816 13.2714C12.7263 13.4628 12.7135 13.6632 12.6449 13.8475C12.5764 14.0317 12.455 14.1917 12.296 14.3073C12.137 14.423 11.9474 14.4892 11.751 14.4977C11.5546 14.5062 11.36 14.4566 11.1916 14.3551L7.99722 12.4176L4.80972 14.3551C4.64133 14.4566 4.44675 14.5062 4.25033 14.4977C4.0539 14.4892 3.86434 14.423 3.70534 14.3073C3.54634 14.1917 3.42496 14.0317 3.35638 13.8475C3.28779 13.6632 3.27504 13.4628 3.31972 13.2714L4.16285 9.61262L1.34347 7.14887C1.19435 7.02026 1.08652 6.85048 1.03351 6.66084C0.980489 6.47119 0.984646 6.27011 1.04545 6.08281C1.10626 5.89552 1.22101 5.73034 1.37532 5.608C1.52963 5.48567 1.71662 5.41161 1.91285 5.39512L5.6291 5.07324L7.07972 1.61324C7.15547 1.43169 7.28325 1.27661 7.44696 1.16753C7.61067 1.05845 7.803 1.00024 7.99972 1.00024C8.19644 1.00024 8.38877 1.05845 8.55248 1.16753C8.71619 1.27661 8.84397 1.43169 8.91972 1.61324L10.3747 5.07324L14.0897 5.39512C14.2859 5.41161 14.4729 5.48567 14.6272 5.608C14.7816 5.73034 14.8963 5.89552 14.9571 6.08281C15.0179 6.27011 15.0221 6.47119 14.9691 6.66084C14.916 6.85048 14.8082 7.02026 14.6591 7.14887H14.656Z"
+                                                fill="url(#gradient)"></path>
+                                        </svg><span class="ratingValue">{{item['StarRating']}}</span>
+                                        @if(item['HotelReviewRatings']){
+                                            <span class="ratingText withBorder">{{item['HotelReviewRatings']}} Ratings</span>
+                                        }
+                                        </div>
+                                </div>
+                                <div class="location"><img
+                                        src="https://hotels-fe.codemagen.com/static/media/location.58ebf042.svg"
+                                        alt="location" class="image">
+                                    <p>{{item['HotelAddress']}}</p>
+                                </div>
+                                @if(item['HotelDescription']){
+                                <div class="distanceInfo">
+                                    <div class="distanceItem"><span class="distanceText"> {{item['HotelDescription'].length>170?(item['HotelDescription']|slice:0:170)
+                                                    +'...':item['HotelDescription']}}</span></div>
+                                    <!-- <div class="distanceItem"><span class="distanceText">0.3 Km from 313Somerset</span>
+                                        <div class="distanceShowMore"><span class="showMoreText">+16 more</span></div>
+                                    </div> -->
+                                </div>
+                                }
+                                <div class="perks-outer-container">
+                                    <div class="perks-list">
                                        
-                                            <div class="fare-info">
-                                                <span *ngIf="showincentivefare">INC ₹ {{item['Price']['PublishedPrice'] -
-                                                    item['Price']['OfferedPrice'] | number:'1.0-2'}} </span>
-                                                  <span *ngIf="showincentivefare && shownetfare"> | </span>
-
-                                                <span *ngIf="shownetfare">NET ₹ {{item['Price']['OfferedPrice'] |
-                                                    number:'1.0-2'}}
-                                                </span>
+                                        @if(item['IsRefundable'].includes(true)){     
+                                        <div class="perks-item"><img
+                                                src="https://hotels-fe.codemagen.com/static/media/cancel_round_green.302e510f.svg"
+                                                alt="Cancellation" class="image"><span>Free Cancellation</span></div>
+                                                }   
+                                    </div>
+                                    <div class="pricing">
+                                        <div class="priceDetails">
+                                            <div class="currentPriceContainer">
+                                                <div>
+                                                    <span class="graycolor fs-10" *ngIf="showincentivefare"> INC
+                                                        ₹{{item['Price']['PublishedPrice']-item['Price']['OfferedPrice']
+                                                        | number:'1.0-2'}} </span>
+                                                    <span class="graycolor fs-10" *ngIf="shownetfare"> | NET
+                                                        ₹{{item['Price']['OfferedPrice'] | number:'1.0-2'}} </span>
+                                                    <p class="currentPrice">₹{{item['Price']['PublishedPrice']}}</p>
+                                                      
+                                                </div>
                                             </div>
-                                         </div>
-                                        <button class="btn btn-primary select-room-btn"
-                                            (click)="selecthotel(item)">Select Room</button>
+                                            <p class="roomGuestInfo">{{GetSearchData['Occupancy']}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="amenities">
+                                    <div class="amenitiescontainer"><span class="title">Facilities</span>
+                                        <div class="amenities-list">
+                                            @if(item['HotelFacilities'][0]){
+                                            <div class="amenity"><span class="">{{item['HotelFacilities'][0]}}</span></div>
+                                            }
+                                            @if(item['HotelFacilities'][1]){
+                                            <div class="amenity"><span class="">{{item['HotelFacilities'][1]}}</span></div>
+                                            }
+                                            @if(item['HotelFacilities'][2]){
+                                            <div class="amenity"><span class="">{{item['HotelFacilities'][2]}}</span></div>
+                                            }
+                                           
+
+                                            <div class="amenity"><span><svg width="20" height="20" viewBox="0 0 20 20"
+                                                        fill="none" xmlns="http://www.w3.org/2000/svg" class="image">
+                                                        <defs>
+                                                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%"
+                                                                y2="100%">
+                                                                <stop offset="0%" stop-color="var(--start-color)">
+                                                                </stop>
+                                                                <stop offset="100%" stop-color="var(--end-color)">
+                                                                </stop>
+                                                            </linearGradient>
+                                                        </defs>
+                                                        <path
+                                                            d="M9.30069 16.1V4H11.3821V16.1H9.30069ZM4 11.0213V9.05092H16.6828V11.0213H4Z"
+                                                            fill="url(#gradient)"></path>
+                                                    </svg>{{item['HotelFacilities'].length-3}} More</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="hold-book-container">
+                                        <div class="hold-available-perk">
+                                                @if(item['IsHoldable']){
+                                                        <img src="https://hotels-fe.codemagen.com/static/media/block-lock.1fa4dc65.svg"
+                                                        alt="Hold Available" class="image">
+                                                          <span >Hold Available</span>
+                                                }
+                                                
+                                            </div>
+                                        <button type="button" class="bookNow"  (click)="selecthotel(item)"><span>Book Now</span></button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!----old code Start---->
-                    <div class="flight-rowmain d-none" *ngFor="let item of sortedData">
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-md-12">
                                 <div class="hotel_box">
                                     <div class="row d-flex align-items-center">
@@ -302,7 +334,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <!----old code End---->
 

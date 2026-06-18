@@ -3,6 +3,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { tts_config } from '../../environments/tts_config';
 import { BehaviorSubject } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
+import * as CryptoJS from 'crypto-js';
+
+const secretKey = '52345678941834567870723486789012';
 
 @Injectable({
   providedIn: 'root'
@@ -173,4 +176,21 @@ export class CommonService {
       }
 }
 
+
+
+  encrypt(data: any): string {
+    const jsonString = JSON.stringify(data);
+    return CryptoJS.AES.encrypt(jsonString, secretKey).toString();
+  }
+
+  decrypt<T>(encryptedText: string): T | null {
+    try {
+      const bytes = CryptoJS.AES.decrypt(encryptedText,secretKey);
+      const decryptedString = bytes.toString(CryptoJS.enc.Utf8);
+      return JSON.parse(decryptedString) as T;
+    } catch (e) {
+      console.error('Decryption failed:', e);
+      return null;
+    }
+  }
 }

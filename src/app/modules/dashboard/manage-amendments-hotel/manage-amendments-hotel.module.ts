@@ -11,7 +11,6 @@ import { SafeHtmlModule } from '../../../shared/safe-html.module';
 
 @NgModule({
   declarations: [
-    ManageAmendmentsHotelComponent,
     ItineraryComponent
   ],
   imports: [

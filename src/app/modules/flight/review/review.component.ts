@@ -18,8 +18,8 @@ declare var bootstrap: any;
 
 
 export class ReviewComponent implements OnInit {
-[x: string]: any;
-
+  [x: string]: any;
+  ISSSRHave:any=false;
   @Input() params:any=[];
 
   SessionTime:any;
@@ -40,9 +40,14 @@ export class ReviewComponent implements OnInit {
   AirlineLogoURL:any=tts_config['BASEURL']+'uploads/airline-images/';
 
  
+  HoldableWithoutSSR:any=false;
+  HoldableWithSSR:any=false;
 
-  
 
+  SaveData:any
+
+
+  bookingloading=false;
   constructor(private flightService: FlightService,private router: Router,private route: ActivatedRoute,private commonservice: CommonService,private fb: FormBuilder,private authenticationservice: AuthenticationService,private location: Location,private alertservice:AlertService) { 
 
     // this.route.queryParams.subscribe(params => {
@@ -70,10 +75,27 @@ export class ReviewComponent implements OnInit {
       this.SessionTime=JSON.parse(time);
     }
 
+    if(sessionStorage.getItem('TSFPAX')){
+      let data:any =sessionStorage.getItem('TSFPAX');
+      this.SaveData=JSON.parse(data);
+      
+    }
+    
     if (sessionStorage.getItem('TSFP')) {
       let TSFP:any=sessionStorage.getItem('TSFP');
       let resp=JSON.parse(TSFP);
       this.Response=resp['response']['Result'];
+     
+
+      this.HoldableWithoutSSR = this.Response.every(
+        (item:any) => item.IsHoldabelWithOutSsr === true
+      );
+
+      this.HoldableWithSSR = this.Response.every(
+        (item:any) => item.IsHoldabelWithSsr === true
+      );
+
+
       this.CurrentFare=resp['fare'];
       if (sessionStorage.getItem('TAGM')) {
         let markup:any=sessionStorage.getItem('TAGM');
@@ -101,12 +123,28 @@ export class ReviewComponent implements OnInit {
       let TSFPAX:any=sessionStorage.getItem('TSFPAX');
       let resp=JSON.parse(TSFPAX);
       this.Paxinfo=resp;
-      
+      this.ISSSRHave=this.checkAncillarySelected(this.Paxinfo)
     } else {
       this.router.navigate(['flight']);
     }
 
   }
+
+  checkAncillarySelected(data: any) {
+    const passengers = [
+        ...(data.paxdata?.Adult || []),
+        ...(data.paxdata?.Child || [])
+        ];
+
+        const hasAncillary = passengers.some(
+        pax =>
+          Array.isArray(pax.Baggage) && pax.Baggage.length > 0 ||
+          Array.isArray(pax.Meal) && pax.Meal.length > 0 ||
+          Array.isArray(pax.Seat) && pax.Seat.length > 0
+        );
+
+        return hasAncillary;
+    }
 
   objectKeys(obj: any) {
     return Object.keys(obj);
@@ -141,17 +179,39 @@ export class ReviewComponent implements OnInit {
     return  rhours + "h  "+ rminutes + "m";
   }
 
-  ProceedToPay()
+  ProceedToPay(type:any)
   {
-    this.closeModal();
-    let data:any={
-      "service":'Flight',
-      "params":this.param
+  
+    if(type=='Hold'){
+      this.SaveData['BookingType']='Hold';
+      this.SaveData['Markup']=this.markupvalue;
+      this.SaveData['TotalPrice']=Number(this.CurrentFare['OfferedPrice'])+Number(this.CurrentFare['TDS'])+Number(this.CurrentFare['AgentMarkup'])+Number(this.CurrentFare['SSR']['Meal'])
+                                            + Number(this.CurrentFare['SSR']['Baggage'])+Number(this.CurrentFare['SSR']['Seat']);
+      this.bookingloading=true;
+      this.flightService.SavePaxdata(this.SaveData,'Flight').subscribe(resp => {
+        let data:any=resp;
+        this.bookingloading=false;
+        if(data['Error']['ErrorCode']==0)
+        {
+          this.closeModal();
+          window.location.href=data['Result']['url'];
+        } else {
+          this.alertservice.error(data['Error']['ErrorMessage']);
+        }   
+      });
+    }else{
+        this.closeModal();
+        let data:any={
+        "service":'Flight',
+        "params":this.param
+      }
+      const navigationExtras: NavigationExtras = {
+        queryParams:data
+      };
+      this.router.navigate(['payment'],navigationExtras);
     }
-    const navigationExtras: NavigationExtras = {
-      queryParams:data
-    };
-    this.router.navigate(['payment'],navigationExtras);
+    
+    
   }
 
 closeModal() {

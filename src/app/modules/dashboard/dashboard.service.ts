@@ -19,6 +19,18 @@ export class DashboardService {
      return this.http.get(configUrl,{ params: params});
 
   }
+  public MakeBookingPayment(data:any)
+  {
+    let service:any;
+
+    if(data['Service']=='Flight'){
+        service='flight'
+    }else if(data['Service']=='Hotel'){
+      service='hotel'
+    }
+    let configUrl =  tts_config.APIURL +'/'+service+'/issue-ticket';
+    return this.http.post(configUrl, data);
+  }
   public UpdateDetail(data:any)
   {
     let configUrl =  tts_config.APIURL +'/agent/update-details';
@@ -81,6 +93,11 @@ export class DashboardService {
     let configUrl =  tts_config.APIURL +'/agent/add-hotel-markup';
     return this.http.post(configUrl,data);
   }
+  public ReachFlight(data:any)
+  {
+    let configUrl =  tts_config.APIURL +'/flight/release-pnr';
+    return this.http.post(configUrl,data);
+  }
   public EditMarkup(data:any)
   {
     let configUrl =  tts_config.APIURL +'/agent/update-markup';
@@ -128,6 +145,16 @@ export class DashboardService {
   public FlightDetail(id:any)
   {
     let configUrl =  tts_config.APIURL +'/flight/flight-details/'+id;
+    return this.http.get(configUrl);
+  }
+  public BusBookingList(data:any)
+  {
+    let configUrl =  tts_config.APIURL +'/bus/bus-booking-list';
+    return this.http.post(configUrl,data);
+  }
+  public BusBookingDetail(id:any)
+  {
+    let configUrl =  tts_config.APIURL +'/bus/details/'+id;
     return this.http.get(configUrl);
   }
 

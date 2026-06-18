@@ -97,11 +97,10 @@ export class SearchComponent implements OnInit, OnDestroy {
   searchtockenFareupselll: any
   selectedfare: any = {}
   constructor(private flightService: FlightService, private router: Router, private route: ActivatedRoute, private serviceTitle: Title, private commonservice: CommonService, private authenticationservice: AuthenticationService, private alertservice: AlertService) {
-
+    
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
-
     this.routeSubscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         // Trick the Router into believing it's last link wasn't previously loaded

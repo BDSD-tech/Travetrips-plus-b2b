@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { CommonService } from '../../services/common.service';
 import { AlertService } from '../../services/alert.service';
@@ -58,6 +58,7 @@ export class PaymentComponent implements OnInit {
     this.route.queryParams.subscribe((resp:any)=>{
       this.Service=resp['service'];
     })
+
     if(this.Service=='Flight'){
           if (sessionStorage.getItem('TSFP')) {
                 let TSFP:any=sessionStorage.getItem('TSFP');
@@ -106,6 +107,28 @@ export class PaymentComponent implements OnInit {
                 this.SaveData['FB']=this.CurrentFare
               } else {
                 this.router.navigate(['hotel']);
+              }
+    }
+    if(this.Service=='Bus'){
+        if (sessionStorage.getItem('TSFP')) {
+                let TSFP:any=sessionStorage.getItem('TSFP');
+                let resp=JSON.parse(TSFP);
+                this.CurrentFare=resp['fare'];
+                let req:any={"ResultIndex":resp['response']['SelectedBusData']['ResultIndex'],'SearchTokenId':resp['param']['stoken']}
+                this.Getpaymentmethod(req);
+                this.totalfare=this.CurrentFare['OfferedPrice']+this.CurrentFare['TDS']
+                this.CurrentFare['BaseFare']=resp['fare']['BasePrice'];
+               
+        }
+          if (sessionStorage.getItem('TSFPAX')) {
+                let TSFP:any=sessionStorage.getItem('TSFPAX');
+                let resp=JSON.parse(TSFP);
+                // this.Getpaymentmethod(resp);
+                this.SaveData=resp;
+                this.SaveData['FB']=this.CurrentFare;
+                
+              } else {
+                // this.router.navigate(['hotel']);
               }
     }
    
@@ -185,6 +208,7 @@ export class PaymentComponent implements OnInit {
       this.SaveData['Markup']=this.markupvalue;
       this.SaveData['TotalPrice']=this.totalfare;
       this.SaveData['PaymentFee']=this.conveniencefee;
+      this.SaveData['BookingType']='Booking';
         this.flightService.SavePaxdata(this.SaveData,this.Service).subscribe(resp => {
         let data:any=resp;
         this.payfinalloading=false;

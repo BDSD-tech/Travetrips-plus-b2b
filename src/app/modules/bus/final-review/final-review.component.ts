@@ -128,9 +128,14 @@ export class FinalReviewComponent implements OnInit {
       'fare':this.CurrentFare,
       'param':this.param
     }
+    let req:any={
+      "params":this.param,
+      'service':'Bus'
+    }
     sessionStorage.setItem('TSFP',JSON.stringify(selectobj));
+    sessionStorage.setItem('Save',JSON.stringify(selectobj));
     const navigationExtras: NavigationExtras = {
-      queryParams:this.param
+      queryParams:req
     };
     this.router.navigate(['payment'],navigationExtras);
   }

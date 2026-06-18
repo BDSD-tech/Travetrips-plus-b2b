@@ -1,0 +1,551 @@
+<div class="dashboard-wrapper-container">
+    <ol class="breadcrumb-arrow d-md-block d-none">
+        <li>
+            <a href="/dashboard/manage-carts" class="text-white"><i class="fa fa-home"></i></a>
+        </li>
+        <li><a href="/dashboard/manage-carts">Manage-carts</a></li>
+        <li><span>Cart-detail</span></li>
+        <li><span>{{BookingDetail['booking_ref_number']}}</span></li>
+    </ol>
+
+    <div class="text-center" *ngIf="loading">
+        <div class="spinner-border tts-admin-loader" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <div class="main_container" *ngIf="loading==false">
+        <div class="info_main">
+            <div class="cart_info">
+                <div class="cart_acordian" id="cart_info_main" (click)="togglediv('cart_info')">
+                    <h3 class="acordian_heading">Cart Information : {{BookingDetail['booking_ref_number']}}</h3>
+                    <div class="cart_details_action" *ngIf="BookingDetail['booking_status']!='Processing' && BookingDetail['booking_status']!='Failed'">
+                        <div class="cssCircle addsign">
+                            <a href="javascript:void(0)" (click)="OpenModal()">
+                                <i class="fa fa-print me-1"></i> <span class="cssCircle-plusdesign">Reach Hold</span>
+                            </a>
+                        </div>
+                        <div class="cssCircle addsign">
+                            <a [routerLink]="['/flight/ticket']" [queryParams]="{BookingId: BookingDetail['id'],SearchTokenId:BookingDetail['tts_search_token'],HtmlType:'Ticket',UserType:'WebPartner',ViewService:'View',WithPrice:'1',WithAgencyDetail:'1',TicketInvoiceJourney:TicketInvoiceJourney,ViewSize:''}">
+                                <i class="fa fa-print me-1"></i> <span class="cssCircle-plusdesign">Print Ticket</span>
+                            </a>
+                        </div>
+                        <div class="cssCircle addsign">
+                            <a [routerLink]="['/flight/ticket']" [queryParams]="{BookingId: BookingDetail['id'],SearchTokenId:BookingDetail['tts_search_token'],HtmlType:'AgencyInvoice',UserType:'WebPartner',ViewService:'View',WithPrice:'1',WithAgencyDetail:'1',TicketInvoiceJourney:TicketInvoiceJourney,ViewSize:''}"><i class="fa fa-print me-1"></i> <span class="cssCircle-plusdesign">Invoice</span></a>
+                        </div>
+                        <div class="cssCircle addsign">
+                            <a [routerLink]="['/flight/confirmation']" [queryParams]="{token: BookingDetail['Token']}"><i class="fa fa-eye me-1"></i> <span class="cssCircle-plusdesign">More Option </span></a>
+                        </div>
+                    </div>
+                    <div class="cssCircle minusSign"><i class="fa fa-angle-up"></i></div>
+                </div>
+                <div class="cart-details-borderline" id="cart_info">
+                    <div class="row">
+                        <div class="col-md-4 col-xs-6 col-6">
+                            <div class="cart_info-field">
+                                <p class="cart_info-field--title">
+                                    Booking Id :<span class="cart_info-field--detail"><span> &nbsp;{{BookingDetail['booking_ref_number']}}</span></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xs-6 col-6">
+                            <div class="cart_info-field">
+                                <p class="cart_info-field--title">
+                                    Amount :<span class="cart_info-field--detail"><span> &nbsp;₹&nbsp; {{BookingDetail['total_price'] | number:'1.0-2'}}</span></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xs-6 col-6">
+                            <div class="cart_info-field">
+                                <p class="cart_info-field--title">
+                                    Status :
+                                    <span *ngIf="BookingDetail.booking_status!=='PartialCancelled'" [ngClass]="{'text-success':BookingDetail.booking_status=='Confirmed'}"><span> &nbsp;{{BookingDetail['booking_status']}}</span></span>
+                                    <span *ngIf="BookingDetail.booking_status=='PartialCancelled'" [ngClass]="{'text-success':BookingDetail.booking_status=='PartialCancelled'}"><span> &nbsp;{{SpacePartialcanceled(BookingDetail['booking_status'])}}</span></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xs-6 col-6">
+                            <div class="cart_info-field">
+                                <p class="cart_info-field--title">
+                                    Order Type :<span class="cart_info-field--detail"><span> &nbsp;Air</span></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xs-6 col-6">
+                            <div class="cart_info-field">
+                                <p class="cart_info-field--title">
+                                    Channel Type :<span class="cart_info-field--detail"><span> &nbsp;{{BookingDetail['booking_channel']}}</span></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xs-6 col-6">
+                            <div class="cart_info-field">
+                                <p class="cart_info-field--title">
+                                    CreatedOn :<span class="cart_info-field--detail"><span> &nbsp;{{BookingDetail['created']}}</span></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xs-6 col-6" *ngIf="PaymentInfo.length!=0">
+                            <div class="cart_info-field">
+                                <p class="cart_info-field--title">
+                                    Invoice Id :<span class="cart_info-field--detail"><span> &nbsp;{{PaymentInfo[0]['acc_ref_number']}}</span></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xs-6 col-6" *ngIf="BookingDetail['BookingDateTime']">
+                            <div class="cart_info-field">
+                                <p class="cart_info-field--title">
+                                    Booking Date :<span class="cart_info-field--detail"><span> &nbsp;{{BookingDetail['BookingDateTime']}}</span></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xs-6 col-6">
+                            <div class="cart_info-field"><a [routerLink]="['/flight/confirmation']" [queryParams]="{token: BookingDetail['Token']}">Booking Summary</a></div>
+                        </div>
+                        <div class="col-md-4 col-xs-6 col-6">
+                            <div class="cart_info-field">
+                                <p class="cart_info-field--title">
+                                    Booking User :
+                                    <span class="cart_info-field--detail">
+                                        <span> &nbsp;<a routerLink="/dashboard/user-detail/{{LoginAgentinfo['CompanyId']}}" class=""> {{LoginAgentinfo['CompanyName']}} ({{LoginAgentinfo['CompanyId']}})</a></span>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xs-6 col-6">
+                            <div class="cart_info-field">
+                                <p class="cart_info-field--title">
+                                    Booking Staff :
+                                    <span class="cart_info-field--detail">
+                                        <span> &nbsp;<a href="javascript:void(0)"  class=""> {{BookingDetail['staff_name']}}</a></span>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if(NoteList && NoteList.length!==0){
+            <div class="cart_info cart_notes">
+                <div class="cart_acordian" id="notes_info_main" (click)="togglediv('notes_info')">
+                    <h3 class="acordian_heading">
+                        Notes
+                        <span class="ball__mainwrapper">
+                            <span class="ball__border info_length-green"><span class="numbering-section">{{NoteList.length}}</span></span>
+                        </span>
+                    </h3>
+                    <div class="cssCircle addsign"><span class="cssCircle-plusdesign" (click)="AddNotes(BookingDetail['booking_ref_number'])">+ Add Notes</span></div>
+                    <div class="cssCircle minusSign">
+                        <span><i class="fa fa-angle-up"></i></span>
+                    </div>
+                </div>
+                <div id="notes_info">
+                    <div class="cart-details-borderline notes_container mb-2" *ngFor="let list of NoteList; let key=index;">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3 amend_list">
+                                <div class="cart_info-field">
+                                    <p class="cart_info-field--title">Generation Time : <span class="cart_info-field--detail">{{list['created']}}</span></p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 amend_list">
+                                <div class="cart_info-field">
+                                    <p class="cart_info-field--title">Note Type : <span class="cart_info-field--detail">{{list['notes_type']}}</span></p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6 amend_list">
+                                <div class="cart_info-field">
+                                    <p class="cart_info-field--title">Message : <span class="cart_info-field--detail">{{list['comment']}}</span></p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6 amend_list">
+                                <div class="cart_info-field">
+                                    <a target="_blank" href="{{NotesImage}}{{list['image']}}"> Image</a>
+                                    <!-- <p class="cart_info-field--title">Message : <span class="cart_info-field--detail">{{list['comment']}}</span></p> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            </div>
+        }
+        @if(AmendmentList && AmendmentList.length!==0){
+        <div class="row cart_info cart_amend">
+            <div class="cart_acordian p-0" id="amendments_info_main" (click)="togglediv('amendments_info')">
+                <h3 class="acordian_heading">
+                    Cart Amendments
+                    <span class="ball__mainwrapper">
+                        <span class="ball__border info_length-green"><span class="numbering-section">{{AmendmentList.length}}</span></span>
+                    </span>
+                </h3>
+                <div class="cssCircle addsign"><span class="cssCircle-plusdesign" (click)="RaiseAmendment(BookingDetail['booking_ref_number'])">+ Raise Amendments</span></div>
+                <div class="cssCircle minusSign">
+                    <span><i class="fa fa-angle-up"></i></span>
+                </div>
+            </div>
+            <div id="amendments_info">
+            <div class="amend" *ngFor="let amdlist of AmendmentList; let key=index;">
+            <div class="col-md-12">
+                <div class="row cart_amend-details" [ngClass]="{'amend-highlight':amdlist['amendment_status']!='requested'}">
+                    <div class="col-md-3 col-sm-3 amend_list">
+                        <div class="cart_info-field">
+                            <p class="cart_info-field--title">Generation Time : <span class="cart_info-field--detail">{{amdlist['created']}}</span></p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 amend_list">
+                        <div class="cart_info-field">
+                            <p class="cart_info-field--title">Amendment Id : <span class="cart_info-field--detail">{{amdlist['amendment_ref_number']}}</span></p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 amend_list" *ngIf="amdlist['assign_user']">
+                        <p class="cart_info-field--title">Assigned User : <span class="cart_info-field--detail">{{amdlist['assign_user']}}</span></p>
+                    </div>
+                    <div class="col-md-3 col-sm-3 amend_list" *ngIf="amdlist['staff_name']">
+                        <p class="cart_info-field--title">Raised By : <span class="cart_info-field--detail">{{amdlist['staff_name']}}</span></p>
+                    </div>
+                    <div class="col-md-3 col-sm-3 amend_list">
+                        <div class="cart_info-field">
+                            <p class="cart_info-field--title">Status : <span class="cart_info-field--detail">{{amdlist['amendment_status']|titlecase}}</span></p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 amend_list">
+                        <div class="cart_info-field">
+                            <p class="cart_info-field--title">Remarks : <span class="cart_info-field--detail">{{amdlist['remark_from_web_partner']}}</span></p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 amend_list">
+                        <div class="cart_info-field">
+                            <p class="cart_info-field--title">Type : <span class="cart_info-field--detail">{{amdlist['amendment_type']|titlecase}}</span></p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 amend_list" *ngIf="amdlist['remark_abort_from_web_partner']">
+                        <div class="cart_info-field">
+                            <p class="cart_info-field--title">Abort Reason : <span class="cart_info-field--detail">{{amdlist['remark_abort_from_web_partner']}}</span></p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 amend_list" *ngIf="amdlist['amendment_status']=='requested'">
+                        <span  data-toggle="tooltip" title="ABORT" (click)="AbortAmendments(amdlist['amendment_ref_number'])"><i class="fa fa-remove abort-icon info-fa-icon"></i></span>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+         }
+        <div class="cart__info__container">
+            <div class="cart_info cart_amend-passenger">
+                <div class="cart_acordian" id="booking_info_main" (click)="togglediv('booking_info')">
+                    <h3 class="acordian_heading">Booking Details</h3>
+                    <div class="cssCircle minusSign">
+                        <span><i class="fa fa-angle-up"></i></span>
+                    </div>
+                </div>
+                <div class="cart_segment" id="booking_info">
+                      <div class="amend_details-passengers">
+                        <div class="main-j">
+                            <div class="segment_details">
+                                <div class="segment_details-content mb-3">
+                                    <p class="mb-0 mt-3"><strong>Bus Name : </strong> {{BookingDetail['bus_name']}}</p>
+                                    <p class="mb-3 "><strong>Bus Type : </strong> {{BookingDetail['bus_type']}}</p>
+                                    <div class="segment_body">
+                                        <div class="segment_body-airlogo">
+                                            <p class="margin-zero mob_elipsis">Origin City
+                                            <span class="airline-code">{{BookingDetail['origin_city']}}</span>
+                                           
+                                            <span class="airline-code">{{GetParse(BookingDetail['boarding_points'])['CityPointLandmark']}}</span>
+                                            <span class="airline-code">{{GetParse(BookingDetail['boarding_points'])['CityPointLocation']}}</span>
+                                        </p>
+                                        
+                                        </div>
+                                        <div class="segment_body-airlogo">
+                                            <p class="margin-zero mob_elipsis">Destination City
+                                            <span class="airline-code">{{BookingDetail['destination_city']}}</span>
+                                                <span class="airline-code">{{GetParse(BookingDetail['dropping_points'])['CityPointLocation']}}</span>
+                                            <span class="airline-code">{{GetParse(BookingDetail['dropping_points'])['CityPointName']}}</span>
+                                            </p>
+                                        </div>
+                                        <div class="segment_body-flight-info">
+                                            <p class="margin-zero mob_elipsis">Departure Time</p>
+                                            <p class="margin-zero mob_elipsis">{{BookingDetail['departure_time'] | date:'EEE d MMM HH:mm'}}</p>
+                                        </div>
+                                        <!-- <div class="segment_body-flight-stop">
+                                                <span class="via-city-codes">{{BookingDetail['no_of_nights']}} Nights </span>                                        
+                                        </div> -->
+                                        <div class="segment_body-flight-info">
+                                            <p class="margin-zero mob_elipsis">Arrival Time</p>
+                                            <p class="margin-zero mob_elipsis">{{BookingDetail['arrival_time'] | date:'EEE d MMM  HH:mm'}}</p>
+                                        </div>
+                                    </div>
+                                    
+                                  
+
+                                    
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row cart_info cart_amend">
+            <div class="cart_acordian" id="payment_info_main" (click)="togglediv('payment_info')">
+                <h3 class="acordian_heading">
+                    Payment Process
+                    <span class="ball__mainwrapper">
+                        <span class="ball__border info_length-green"><span class="numbering-section">{{PaymentInfo.length}}</span></span>
+                    </span>
+                </h3>
+                <div class="cssCircle minusSign">
+                    <span><i class="fa fa-angle-up"></i></span>
+                </div>
+            </div>
+            <div class="container-fluid" id="payment_info" *ngIf="PaymentInfo.length!=0">
+                <div class="row">
+                    <div class="">
+                        <div class="">
+                            <div class="listComponent__wrapper-box table-responsive">
+                                <table class="table credit-card__container-content-details">
+                                    <thead class="credit_info--header-container">
+                                        <tr>
+                                            <td>Created On</td>
+                                            <td>Medium</td>
+                                            <td>Booking Id</td>
+                                            <td>Credit</td>
+                                            <td>Debit</td>
+                                            <td>Available Balance</td>
+                                            <!-- <td>Remark</td> -->
+                                            <td>Payment Fee</td>
+                                            <td>Markup</td>
+                                            <td>TDS</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table__body-list-font">
+                                        <tr *ngFor="let payment of PaymentInfo; let key=index">
+                                            <td title="{{payment['created']}}" class="ellipses">{{payment['created']}}</td>
+                                            <td title="{{payment['payment_mode']}}" class="ellipses">{{payment['payment_mode']}}</td>
+                                            <td class="ellipses">
+                                                <a href="javascript:void(0);"><span class="link_container-link">{{BookingDetail['booking_ref_number']}}</span></a>
+                                            </td>
+                                            <td>₹{{payment['credit'] | number:'1.2-2'}}</td>
+                                            <td>₹{{payment['debit'] | number:'1.2-2'}}</td>
+                                            <td>₹{{payment['balance'] | number:'1.2-2'}}</td>
+                                           
+                                            <!-- <td title="{{payment['remark']}}" class="ellipses">{{payment['remark']}}</td> -->
+                                            <td><span *ngIf="payment['ConvenienceFee']!=0"> ₹{{payment['ConvenienceFee'] | number:'1.2-2'}} </span></td>
+                                            <td><span *ngIf="payment['MarkUp']!=0"> ₹{{payment['MarkUp'] | number:'1.2-2'}} </span></td>
+                                            <td><span *ngIf="payment['TDS']!=0">₹{{payment['TDS'] | number:'1.2-2'}} </span></td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="table__row__container banklist__propper-header-class">
+                                            <td class="generic-td"><strong> Total</strong></td>
+                                            <td class="generic-td"><strong> </strong></td>
+                                            <td class="generic-td"><strong> </strong></td>
+                                            <td class="generic-td"><strong> </strong></td>
+                                            <td class="generic-td"><strong> ₹{{getTotalDebit() | number:'1.2-2'}}</strong></td>
+                                            <td class="generic-td"><strong> </strong></td>
+                                            <td class="generic-td"><strong> </strong></td>
+                                            <td class="generic-td"><strong> </strong></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="info_main">
+            <div class="cart_info">
+                <div class="cart_acordian" id="user_info_main" (click)="togglediv('user_info')">
+                    <h3 class="acordian_heading">User Information :</h3>
+                    <div class="cssCircle minusSign"><i class="fa fa-angle-up"></i></div>
+                </div>
+                <div class="cart-details-borderline" id="user_info">
+                    <div class="row">
+                        <div class="col-md-4 col-xs-6 col-8">
+                            <div class="cart_info-field">
+                                <p class="cart_info-field--title">
+                                    Contact's Email:<span class="cart_info-field--detail"><span> {{BookingDetail['TravellerInfo'][0]['email_id']}}</span></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xs-6 col-4">
+                            <div class="cart_info-field">
+                                <p class="cart_info-field--title">
+                                    Pax contact:<span class="cart_info-field--detail"><span> {{BookingDetail['TravellerInfo'][0]['mobile_number']}}</span></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Add Amendment Modal -->
+<div class="modal fade" id="addamendmentmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addamendmentmodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-0">
+                <div class="body_manage dash-padding dashboard__main__content mb-0">
+                    <div class="col-sm-12 mb-3">
+                        <h3 class="dash-borderRadius main-heading-content">AMENDMENTS <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button></h3>
+                    </div>
+                    <form [formGroup]="AddAmendmentForm" (ngSubmit)="SubmitAmendment()">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Booking Id</mat-label>
+                                    <input matInput placeholder="Value" formControlName="BookingID" [readonly]="true" />
+                                </mat-form-field>
+                                <div *ngIf="amendmentsubmitted && fa['BookingID'].errors" class="error-msg">
+                                    <div *ngIf="fa['BookingID'].errors['required']">Please provide value</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Amendment Type</mat-label>
+                                    <mat-select formControlName="AmendmentType">
+                                        <mat-option value="cancellation">Cancellation</mat-option>
+                                        <mat-option value="reissue">Re-Issue</mat-option>
+                                        <mat-option value="void">Void</mat-option>
+                                         <mat-option value="correction">Correction</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <div *ngIf="amendmentsubmitted && fa['AmendmentType'].errors" class="error-msg">
+                                    <div *ngIf="fa['AmendmentType'].errors['required']">Please select amendment type</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form__buttons">
+                            <button type="submit" class="btn sign_btn" [disabled]="amendmentloading">RAISE <i class="fa fa-paper-plane"></i></button>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Add Notes Modal -->
+<div class="modal fade" id="addnotesmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addnotesmodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-0">
+                <div class="body_manage dash-padding dashboard__main__content mb-0">
+                    <div class="col-sm-12 mb-3">
+                        <h3 class="dash-borderRadius main-heading-content">ADD NOTE <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button></h3>
+                    </div>
+                    <form [formGroup]="AddNotesForm" (ngSubmit)="SubmitNotes()">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Select note type</mat-label>
+                                    <mat-select formControlName="NoteType">
+                                        <mat-option value="general">General</mat-option>
+                                        <mat-option value="fare-jump">Fare Jump</mat-option>
+                                        <mat-option value="booking-failed">Booking Failed</mat-option>
+                                        <mat-option value="sms-failure">SMS Failure</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <div *ngIf="notesubmitted && fn['NoteType'].errors" class="error-msg">
+                                    <div *ngIf="fn['NoteType'].errors['required']">Please select amendment type</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Note message</mat-label>
+                                    <textarea matInput placeholder="Note message ..." formControlName="Message"></textarea>
+                                </mat-form-field>
+                                <div *ngIf="notesubmitted && fn['Message'].errors" class="error-msg">
+                                    <div *ngIf="fn['Message'].errors['required']">Please provide value</div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <label class="form-label">Image</label>
+                                <input type="file" (change)="selectFile($event)" class="form-control-file mt-2 mb-2">
+                                <img *ngIf="Notespreview!==''" [src]="Notespreview" style="width: 150px; height: 100px;" class="preview img-thumbnail" />
+                            </div>
+                            <div class="col-md-12">
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" formControlName="ShowToAll"  id="showtoall">
+                                    <label class="form-check-label" for="showtoall">
+                                        Show To All
+                                    </label>
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="form__buttons">
+                            <button type="submit" class="btn sign_btn" [disabled]="notesloading">Submit</button>
+                        </div>
+                    </form>
+                </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="booking-reach-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addnotesmodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-0">
+                <div class="body_manage dash-padding dashboard__main__content mb-0">
+                    <div class="col-sm-12 mb-3">
+                        <h3 class="dash-borderRadius main-heading-content">BOOKING REACH <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button></h3>
+                    </div>
+                    <form [formGroup]="BookingReachForm" (ngSubmit)="SubmitReach()">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Token</mat-label>
+                                    <input matInput placeholder="Token ..." formControlName="Token" readonly>
+                                </mat-form-field>
+                                <div *ngIf="Reachsubmitted && reach['Token'].errors" class="error-msg">
+                                    <div *ngIf="reach['Token'].errors['required']">Please Enter Token.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Remark</mat-label>
+                                    <textarea matInput placeholder="Remark ..." formControlName="Remark"></textarea>
+                                </mat-form-field>
+                                <div *ngIf="Reachsubmitted && reach['Remark'].errors" class="error-msg">
+                                    <div *ngIf="reach['Remark'].errors['required']">Please Enter Remark.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form__buttons">
+                            <button type="submit" class="btn sign_btn" [disabled]="Submitloading">Submit</button>
+                        </div>
+                    </form>
+                </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Abort Modal -->
+<div class="modal fade" id="tts-abort-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content p-3">
+            <div class="icon text-center">
+                <img src="assets/img/information.svg" width="80" height="80">
+           </div>
+            <h5 class="text-center mt-2">Are you sure to Abort?</h5>
+
+            <div class="row mt-2 p-2">
+                <textarea class="reason-note" rows="2" placeholder="Add Reason" [(ngModel)]="AmendmentReasonNote" #ctrl="ngModel" maxlength=""></textarea>
+            </div>
+            <div class="row mt-2">
+                <div class="col-sm-6 text-end">
+                    <button class="btn sign_btn cancel-btn-generic" data-bs-dismiss="modal" aria-label="Close">Cancel <i class="fa fa-times"></i></button>
+                </div>
+                <div class="col-sm-6">
+                     <button class="btn sign_btn" (click)="SubmitAbortAmendments()" [disabled]="abortloading">Confirm</button>
+                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+

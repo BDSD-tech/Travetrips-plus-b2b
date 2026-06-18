@@ -19,6 +19,18 @@
                 <div class="cart_acordian" id="cart_info_main" (click)="togglediv('cart_info')">
                     <h3 class="acordian_heading">Cart Information : {{BookingDetail['booking_ref_number']}}</h3>
                     <div class="cart_details_action" *ngIf="BookingDetail['booking_status']!='Processing' && BookingDetail['booking_status']!='Failed'">
+                        @if(BookingDetail['booking_type']=='Hold'){
+                        <div class="cssCircle addsign">
+                            <a href="javascript:void(0)" (click)="GeneratePayment()">
+                              <i class="fa-solid fa-ticket me-2"></i> <span class="cssCircle-plusdesign">Generate Ticket</span>
+                            </a>
+                        </div>
+                        <div class="cssCircle addsign">
+                            <a href="javascript:void(0)" (click)="OpenModal()">
+                                <i class="fa-solid fa-paper-plane me-2"></i> <span class="cssCircle-plusdesign">Release Hold</span>
+                            </a>
+                        </div>
+                        }
                         <div class="cssCircle addsign">
                             <a [routerLink]="['/flight/ticket']" [queryParams]="{BookingId: BookingDetail['id'],SearchTokenId:BookingDetail['tts_search_token'],HtmlType:'Ticket',UserType:'WebPartner',ViewService:'View',WithPrice:'1',WithAgencyDetail:'1',TicketInvoiceJourney:TicketInvoiceJourney,ViewSize:''}">
                                 <i class="fa fa-print me-1"></i> <span class="cssCircle-plusdesign">Print Ticket</span>
@@ -715,6 +727,44 @@
                         </div>
                         <div class="form__buttons">
                             <button type="submit" class="btn sign_btn" [disabled]="notesloading">Submit</button>
+                        </div>
+                    </form>
+                </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="booking-reach-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addnotesmodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-0">
+                <div class="body_manage dash-padding dashboard__main__content mb-0">
+                    <div class="col-sm-12 mb-3">
+                        <h3 class="dash-borderRadius main-heading-content">RELEASE HOLD<button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button></h3>
+                    </div>
+                    <form [formGroup]="BookingReachForm" (ngSubmit)="SubmitReach()">
+                        <div class="row">
+                            <div class="col-md-12 d-none">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Token</mat-label>
+                                    <input matInput placeholder="Token ..." formControlName="Token" readonly>
+                                </mat-form-field>
+                                <div *ngIf="Reachsubmitted && reach['Token'].errors" class="error-msg">
+                                    <div *ngIf="reach['Token'].errors['required']">Please Enter Token.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Remark</mat-label>
+                                    <textarea matInput placeholder="Remark ..." formControlName="Remark"></textarea>
+                                </mat-form-field>
+                                <div *ngIf="Reachsubmitted && reach['Remark'].errors" class="error-msg">
+                                    <div *ngIf="reach['Remark'].errors['required']">Please Enter Remark.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form__buttons">
+                            <button type="submit" class="btn sign_btn" [disabled]="Submitloading">Submit</button>
                         </div>
                     </form>
                 </div>

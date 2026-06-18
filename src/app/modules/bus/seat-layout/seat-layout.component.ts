@@ -4,7 +4,6 @@ import { BusService } from '../bus.service';
 
 import { NavigationExtras, Router } from '@angular/router';
 import { AlertService } from '../../../services/alert.service';
-import { SafeHtmlModule } from "../../../shared/safe-html.module";
 
 @Component({
   selector: 'app-seat-layout',

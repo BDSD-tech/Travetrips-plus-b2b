@@ -141,6 +141,14 @@ export class TravellerDetailComponent implements OnInit {
   showReviewpage=false;
 
   Showmeal=false;
+
+
+  fareRuleLoading=false;
+  FlightFareRule:any=[];
+  FareRuleErrorCode:any;
+  FareRuleErrorMessage:any;
+
+  FareRuleModal:any
   constructor(private flightService: FlightService, private router: Router, private route: ActivatedRoute, private commonservice: CommonService, private fb: FormBuilder, private authenticationservice: AuthenticationService, private location: Location, private alertservice: AlertService) {
     this.route.queryParams.subscribe(params => {
       if (params) {
@@ -209,6 +217,7 @@ GetPhonecodeVal(event: Event): void {
     
     this.inSUranceDetailmodal = new bootstrap.Modal(document.getElementById('insurancedetailmodal'));
     this.TermConditionModal = new bootstrap.Modal(document.getElementById('term&condition'));
+    this.FareRuleModal = new bootstrap.Modal(document.getElementById('fare-rule-modal'));
 
     if (sessionStorage.getItem('time')) {
       let time: any = sessionStorage.getItem('time');
@@ -491,6 +500,7 @@ GetPhonecodeVal(event: Event): void {
     
     this.ssr_Request=data
     this.flightService.fare_confimation(data).subscribe(data => {
+      
       this.isconfimation=true;
       let response:any=data;
       this.AllResponse=data;
@@ -542,21 +552,21 @@ GetPhonecodeVal(event: Event): void {
           SGSTRate+=value['Fare']['GST']['SGSTRate'];
           TaxableAmount+=value['Fare']['GST']['TaxableAmount'];
           if(value['FareBreakdown']['ADT']){
-            adltpaxcount+=value['FareBreakdown']['ADT']['PassengerCount']
+            adltpaxcount=value['FareBreakdown']['ADT']['PassengerCount']
             adltbasefare+=value['FareBreakdown']['ADT']['BaseFare']
             adlttax+=value['FareBreakdown']['ADT']['Tax']
             adltyqtax+=value['FareBreakdown']['ADT']['YQTax']
             adltservicecharge+=value['FareBreakdown']['ADT']['ServiceCharges']
           }
           if(value['FareBreakdown']['CHD']){
-            childpaxcount+=value['FareBreakdown']['CHD']['PassengerCount']
+            childpaxcount=value['FareBreakdown']['CHD']['PassengerCount']
             childbasefare+=value['FareBreakdown']['CHD']['BaseFare']
             childtax+=value['FareBreakdown']['CHD']['Tax']
             childyqtax+=value['FareBreakdown']['CHD']['YQTax']
             childservicecharge+=value['FareBreakdown']['CHD']['ServiceCharges']
           }
           if(value['FareBreakdown']['INF']){
-            infpaxcount+=value['FareBreakdown']['INF']['PassengerCount']
+            infpaxcount=value['FareBreakdown']['INF']['PassengerCount']
             infbasefare+=value['FareBreakdown']['INF']['BaseFare']
             inftax+=value['FareBreakdown']['INF']['Tax']
             infyqtax+=value['FareBreakdown']['INF']['YQTax']
@@ -806,7 +816,7 @@ GetPhonecodeVal(event: Event): void {
   get_ssr(){
     let req=this.ssr_Request
     this.flightService.ssr_info(req).subscribe((ssrresp:any)=>{
-      this.fareloading = false;
+    this.fareloading = false;
       setTimeout(() => {
         this.PassportIssueDate();
         this.DocExpiryDate();
@@ -2129,5 +2139,56 @@ GetPhonecodeVal(event: Event): void {
     modal.show();
   }
 
-  
+    faretogglebutton(event:any,tripkey:any)
+  {
+    // $("#fare-rule-"+tripkey).toggle('d-none');
+    // let isexpanded=event.target.getAttribute('data-expanded');
+    // if(isexpanded=='false')
+    // {
+    //   $(".ttsfare"+tripkey).removeClass('fa-minus');
+    //   $(".ttsfare"+tripkey).addClass('fa-plus');
+    //   event.target.setAttribute('data-expanded','true');
+      
+    // } else {
+    //   $(".ttsfare"+tripkey).addClass('fa-minus');
+    //   $(".ttsfare"+tripkey).removeClass('fa-plus');
+    //   event.target.setAttribute('data-expanded','false');
+       this.FareRule(tripkey);
+    // }
+  }
+  FareRule(trip:any)
+  {
+   this.FareRuleModal.show();
+    this.fareRuleLoading=true;
+    let data:any;
+    if(trip==0)
+    {
+      data = {
+          'UserIp'        : this.UserIp,
+          'SearchTokenId' : this.param['stoken'],
+          'ResultIndex'   : this.param['fareid'],
+          'FareRuleId'   : this.FareList[0]['FareRuleId'],
+        };
+    } else if(trip==1)
+    {
+       data = {
+        'UserIp'        : this.UserIp,
+        'SearchTokenId' : this.param['ibstoken'],
+        'ResultIndex'   : this.param['ibfareid'],
+        'FareRuleId'   : this.FareList[1]['FareRuleId'],
+      };
+    }
+    this.flightService.fare_rule(data).subscribe((resp:any) => {
+      this.fareRuleLoading=false;
+      let response:any=resp;
+      if(response['Error']['ErrorCode']==0){
+        
+        this.FlightFareRule=response['Result'];
+        this.FareRuleErrorCode=response['Error']['ErrorCode'];
+        this.FareRuleErrorMessage=response['Error']['ErrorMessage'];
+      }else{
+        this.alertservice.error(response['Error']['ErrorMessage'])
+      }
+    });    
+  }
 }

@@ -23,7 +23,10 @@ export class ModifySearchComponent implements OnInit {
   isHotelShow = false;
   GetSearchData: any = [];
   NationalityLits: any = [];
-  isModifyShow = false
+  isModifyShow = false;
+
+
+  hotelrecent:any=[];
   constructor(private fb: FormBuilder, private router: Router, private hotelservice: HotelService, private commonservice: CommonService) {
     if (sessionStorage.getItem('HotelSearch')) {
       let hotelSearchdata: any = sessionStorage.getItem('HotelSearch');
@@ -77,6 +80,8 @@ export class ModifySearchComponent implements OnInit {
 
 
 
+
+
     this.Hotelloading = true;
     let night = this.hotelservice.Calculatedatediff(this.HotelSearchForm.get('CheckIn')?.value, this.HotelSearchForm.get('CheckOut')?.value);
     this.HotelSearchForm.patchValue({ Nights: night });
@@ -102,15 +107,51 @@ export class ModifySearchComponent implements OnInit {
       let isdomestic = false;
       this.HotelSearchForm.patchValue({ 'Isdomestic': isdomestic });
     }
+
+     /* --- Start Recent Search ---- */
+     let isvaluesame:any=[];
+      let recentdata:any=sessionStorage.getItem('HotelRecentSearch');
+      let val:any=JSON.parse(recentdata);
+        if(val)
+         {
+           if(val.length<6)
+           {
+             val.forEach((element:any) => {
+               isvaluesame.push(this.JsonCompare(element,this.HotelSearchForm.value));
+             });
+             if (Object.values(isvaluesame).indexOf(true) > -1) {
+             } else {
+               val.push(this.HotelSearchForm.value);
+              sessionStorage.setItem('HotelRecentSearch',JSON.stringify(val));
+             }
+           } else {
+             val.unshift(this.HotelSearchForm.value);
+             val.pop();
+             sessionStorage.setItem('HotelRecentSearch',JSON.stringify(val));
+           }
+         } else { 
+           this.hotelrecent.push(this.HotelSearchForm.value);
+           sessionStorage.setItem('HotelRecentSearch',JSON.stringify(this.hotelrecent));
+         }
+    /* --- End Recent Search ---- */
+
+
     const navigationExtras: NavigationExtras = {
       queryParams: request
     };
     sessionStorage.setItem('HotelSearch', JSON.stringify(this.HotelSearchForm.value));
     this.router.navigate(['hotel/search'], navigationExtras);
-
-
-    console.log(this.fh);
   }
+
+
+  JsonCompare(obj1:any, obj2:any)
+  {
+    var keys1 = Object.keys(obj1);
+    var keys2 = Object.keys(obj2);
+    return keys1.length === keys2.length && Object.keys(obj1).every(key=>obj1[key]==obj2[key]);
+  }
+
+
 
   HotelPaxDisplay() {
     this.isHotelShow = !this.isHotelShow;

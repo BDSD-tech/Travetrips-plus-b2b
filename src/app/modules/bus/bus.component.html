@@ -1,17 +1,5 @@
 <section class="hero-section">
-    <!-- <div class="container">
-    <div class="row align-items-center">
-      <div class="col-lg-12 hero-content">
-        <h1>
-          Manage Your <span>Bookings</span> Smarter
-        </h1>
-        <p>
-          Flight, Hotel, and Bus bookings all in one dashboard.
-          Track wallet balance, manage trips, and control everything easily.
-        </p>
-      </div>
-    </div>
-  </div> -->
+   
 </section>
 
 <div class="flight_section">
@@ -109,42 +97,18 @@
                 </div>
             </div>
             <div class="recent-search-grid">
-                <div class="recent-card"><!---->
-                    <div class="at-viewlastbg">
-                        <div class="recent-top">
-                            <div class="flight-icon"><i class="fas fa-bus"></i></div>
-                            <div class="route-text"> Banglore <i class="fa fa-arrow-right route-arrow"></i> Hyderabad
+                @for (item of BusRecentSearch; track $index) {
+                    <div class="recent-card" (click)="RecentSearch(item)">
+                        <div class="at-viewlastbg">
+                            <div class="recent-top">
+                                <div class="flight-icon"><i class="fas fa-bus"></i></div>
+                                <div class="route-text"> {{item['Origin']}} <i class="fa fa-arrow-right route-arrow"></i> {{item['Destination']}}
+                                </div>
                             </div>
+                            <div class="recent-bottom"><span class="date-text"> {{item['DepartDate'] |date:'dd MMM yyyy'}} </span></div>
                         </div>
-                        <div class="recent-bottom"><span class="date-text"> 18 Jun 2026 </span><span
-                                class="dot"></span><span class="passenger-count"> 1 </span><i
-                                class="fa fa-user user-icon"></i></div>
-                    </div><!---->
-                </div>
-                <div class="recent-card"><!---->
-                    <div class="at-viewlastbg">
-                        <div class="recent-top">
-                            <div class="flight-icon"><i class="fas fa-bus"></i></div>
-                            <div class="route-text"> Banglore <i class="fa fa-arrow-right route-arrow"></i> Hyderabad
-                            </div>
-                        </div>
-                        <div class="recent-bottom"><span class="date-text"> 18 Jun 2026 </span><span
-                                class="dot"></span><span class="passenger-count"> 1 </span><i
-                                class="fa fa-user user-icon"></i></div>
-                    </div><!---->
-                </div>
-                <div class="recent-card"><!---->
-                    <div class="at-viewlastbg">
-                        <div class="recent-top">
-                            <div class="flight-icon"><i class="fas fa-bus"></i></div>
-                            <div class="route-text"> Banglore <i class="fa fa-arrow-right route-arrow"></i> Hyderabad
-                            </div>
-                        </div>
-                        <div class="recent-bottom"><span class="date-text"> 18 Jun 2026 </span><span
-                                class="dot"></span><span class="passenger-count"> 1 </span><i
-                                class="fa fa-user user-icon"></i></div>
-                    </div><!---->
-                </div>
+                    </div>
+                }
             </div>
         </div>
     </div>
