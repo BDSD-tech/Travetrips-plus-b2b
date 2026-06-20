@@ -2111,3 +2111,11 @@
         width: 100%;
     }
 }
+
+.price-box-and-holdable{
+    display: flex;
+    flex-direction: column;
+}
+.price-box-and-holdable .holdable{
+  color: var(--primary-bg-color);
+}

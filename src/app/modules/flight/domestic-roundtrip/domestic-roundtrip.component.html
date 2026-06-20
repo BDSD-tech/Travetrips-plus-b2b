@@ -1775,9 +1775,17 @@
                     <!-- RIGHT SIDE -->
                     <div class="booking-section">
 
-                        <h3 class="total-price">
+                        <div class="price-box-and-holdable">
+                            <h3 class="total-price">
                             ₹{{selectedfareob['fare']+selectedfareib['fare'] | number:'1.0-2'}}
-                        </h3>
+                            </h3>
+                            @if(HoldableWithSSR){
+                            <span class="text-light">Holdable With SSR: <span class="holdable">Yes</span></span>
+                            }
+                             @if(HoldableWithoutSSR){
+                            <span class="text-light">Holdable Without SSR : <span class="holdable">Yes</span></span>
+                             }
+                        </div>
 
                         <button type="button" class="btn round_trip_book" (click)="confirmation()">
 

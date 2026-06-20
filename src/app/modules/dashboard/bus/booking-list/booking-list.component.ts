@@ -290,12 +290,12 @@ export class BookingListComponent {
         return;
       }
   
-      this.AddAmendmentModal.hide();
-      const navigationExtras: NavigationExtras = {
-        queryParams:{'bookingid':this.AddAmendmentForm.get('BookingID')?.value,'amendment-type':this.AddAmendmentForm.get('AmendmentType')?.value}
-      };
+      // this.AddAmendmentModal.hide();
+      // const navigationExtras: NavigationExtras = {
+      //   queryParams:{'bookingid':this.AddAmendmentForm.get('BookingID')?.value,'amendment-type':this.AddAmendmentForm.get('AmendmentType')?.value}
+      // };
       
-      this.router.navigate(['dashboard/amendments/itinerary'],navigationExtras);
+      // this.router.navigate(['dashboard/amendments/itinerary'],navigationExtras);
     }
   
     remove(item: any): void {

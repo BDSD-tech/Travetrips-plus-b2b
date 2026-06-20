@@ -145,7 +145,7 @@ export class HotelComponent implements OnInit {
     request['DestinationCityId'] =  this.fh['CityID'].value;
     request['GuestNationality'] =  this.fh['Nationality'].value;
     request['NoOfRooms'] =  this.fh['Room'].value;
-    request['RoomGuests'] =  this.fh['RoomGuests'].value;
+    request['RoomGuests'] =  JSON.stringify(this.fh['RoomGuests'].value);
     request['MaxRating'] =  this.fh['MaxRating'].value;
     request['MinRating'] =  this.fh['MinRating'].value;
     let CountryCode  =  this.HotelSearchForm.get('CountryCode')?.value;

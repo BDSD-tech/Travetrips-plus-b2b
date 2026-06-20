@@ -63,8 +63,6 @@ export class BusComponent implements OnInit {
       if(sessionStorage.getItem('BusRecentSearch')){
         let recentdata:any=sessionStorage.getItem('BusRecentSearch');
         this.BusRecentSearch=JSON.parse(recentdata);
-        console.log(this.BusRecentSearch);
-        
       }
     // this.commonservice.GetBlogList().subscribe(data => {
     //   this.BlogList=data;

@@ -32,17 +32,13 @@ export class UserDetailComponent implements OnInit {
   companyId:any
   submitloading:any=false;
   Usersubmitted:any=false;
-  
-  ActiveStep:any
   constructor(private dashboardservice:DashboardService, private commonservice:CommonService,private fb: FormBuilder,private alertservice:AlertService, private authenticationservice:AuthenticationService,private route: ActivatedRoute, private router: Router) { 
    this.authenticationservice.currentUser.subscribe((data:any)=>{
         this.companyId='/dashboard/user-detail/'+data['CompanyId'];
     
    })
    
-    router.events.subscribe((url:any) => {
-      this.ActiveStep=url.routerEvent.url;
-    });
+    
   }
   
 
@@ -88,8 +84,6 @@ export class UserDetailComponent implements OnInit {
       if(data['Error']['ErrorCode']==0)
       {
         this.AgentDetail=data['Result'];
-       console.log( this.AgentDetail);
-       
       //  console.log(this.companyId);
        
         setTimeout(() => {

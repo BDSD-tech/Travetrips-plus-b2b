@@ -11,7 +11,14 @@ TOP NAVBAR
     transition: var(--transition);
     border-bottom: 1px solid #f1f1f1;
 }
+.ml-12{
+      margin-left: 12px;
+}
 
+.icon-title {
+    font-size: 12px;
+    font-weight: 600;
+}
 /* =========================================================
 LOGO
 ========================================================= */

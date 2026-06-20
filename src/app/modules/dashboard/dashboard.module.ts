@@ -33,6 +33,7 @@ import { ManageAmendmentsHotelComponent } from './manage-amendments-hotel/manage
 import { BookingListComponent } from './bus/booking-list/booking-list.component';
 import { BookingDetailComponent } from './bus/booking-detail/booking-detail.component';
 import { CartDetailHotelComponent} from '../dashboard/manage-cart-hotel/cart-detail/cart-detail.component';
+import { MatTooltip } from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [ 
@@ -45,7 +46,8 @@ import { CartDetailHotelComponent} from '../dashboard/manage-cart-hotel/cart-det
     ReactiveFormsModule,
     MaterialModuleModule,
     CdkTableModule,
-    SafeHtmlModule
+    SafeHtmlModule,
+    MatTooltip
 ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 
