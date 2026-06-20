@@ -1,19 +1,62 @@
-<section class="terms-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="terms-content">
-                        <div class=" mb-5">
-                            <h4 class="terms-content-heading text-center fw-semibold mb-5">About Us</h4>
-                            <h5 class="terms-content-heading fw-semibold">Welcome to Vinayak Travels
-                            </h5>
-                            
-                            <p>
-                              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit, atque cum. Accusamus cumque nesciunt sapiente enim! Quis, quaerat. Quo suscipit ipsa architecto quia enim omnis vitae eaque voluptatibus praesentium ea. Animi corrupti repellendus facere fugit non eos vel exercitationem, cum ratione mollitia. Voluptatum, quam error obcaecati id qui sint cumque minus veritatis hic possimus, corrupti aliquam culpa nisi assumenda inventore? Ex aspernatur sint culpa omnis nostrum delectus optio asperiores quidem, eos animi blanditiis numquam architecto repellendus atque quibusdam illo facilis non ratione, tenetur, ullam officia! Id officiis dicta laborum sapiente eaque praesentium at iusto, blanditiis commodi eius, deleniti dolores eveniet placeat quam sint expedita debitis, odit provident unde nesciunt! Quam ratione omnis est explicabo repellat ipsam ullam laborum consectetur expedita nesciunt. Consequuntur, natus dolor nulla nisi non atque, sunt ducimus culpa est aut, quasi repellat autem inventore eius libero accusamus doloremque. Officiis consequatur, repellendus perferendis laudantium culpa nam voluptas fugit esse nulla aliquid tempora, consectetur fuga voluptatum necessitatibus atque temporibus incidunt in aliquam. Aperiam, cumque. Voluptate voluptatibus facere dolorem esse nisi laudantium nesciunt necessitatibus ipsum dolorum placeat. Autem temporibus eveniet, provident corrupti obcaecati eius magni unde, perferendis debitis assumenda rem sapiente dolorem consequuntur praesentium sint molestiae eum voluptatum et ipsam optio doloribus quaerat alias dolore. Molestiae iste, nobis deserunt eius mollitia impedit voluptates alias animi voluptatibus, eveniet dicta. Cupiditate error harum, facilis assumenda sint quibusdam, iusto debitis libero laboriosam fuga fugit perferendis. Suscipit, blanditiis mollitia aliquid et quidem ullam, quibusdam eligendi quae iste necessitatibus at officiis a quo harum perferendis porro fuga saepe cumque! Voluptatem vel accusamus ullam rem, magni voluptate repudiandae quod eaque tempora a reprehenderit. Minima temporibus, distinctio consectetur possimus magnam aspernatur minus, neque quidem dignissimos et, eos accusantium natus iusto commodi eveniet quo dicta quaerat mollitia voluptates. Natus dolor accusantium nemo eligendi voluptatem eveniet aperiam suscipit. Quaerat aliquam quo explicabo deserunt, incidunt iusto, enim assumenda sed magni quisquam ipsum, similique molestias excepturi ad sit voluptatem omnis! Sequi, impedit! Labore eligendi voluptates, molestiae sapiente odit illo pariatur impedit modi delectus iusto suscipit adipisci fugit corrupti iure voluptas repellat aliquid quo id blanditiis repellendus maiores animi voluptatem quod? Culpa cumque corporis saepe, atque fugit ipsum dolorum labore neque, dicta harum error perferendis praesentium animi esse? Nulla suscipit libero aspernatur. Temporibus dignissimos eligendi ducimus, numquam odit rerum minima et deleniti assumenda tempora. Dolores explicabo labore sunt temporibus sed modi ipsam, asperiores et ipsa facere nisi tenetur! Exercitationem qui voluptatem illo quod non quo id modi repudiandae inventore quae, architecto suscipit, necessitatibus nihil assumenda illum in, nobis libero. Rem provident praesentium eos, officia accusantium voluptates delectus odio voluptas quod maxime adipisci deserunt nostrum sit nesciunt corrupti odit blanditiis doloribus repellat consequuntur laborum ducimus qui non ipsum! Totam, quaerat? Pariatur dolores nemo id totam placeat eius vitae impedit saepe autem ipsum deserunt suscipit, perspiciatis odit repellendus illo libero accusamus excepturi nam sapiente! Pariatur cupiditate placeat laboriosam ratione autem magni sequi dolores incidunt voluptatum ab molestias quo cumque adipisci omnis maxime consequuntur labore voluptas facere corporis fugit, enim soluta est officia! Nemo id iure, blanditiis officia ab saepe fugiat numquam dignissimos laboriosam similique obcaecati necessitatibus aliquid laudantium consequatur doloribus dicta voluptate? Dolores iure magni facere a ea? Magni odit ipsa voluptatem, voluptate quis neque inventore, fugit alias quae eveniet qui aliquid iure cupiditate. Tenetur omnis fugit quam totam, nesciunt, fuga obcaecati praesentium unde, amet ipsam error dolores quaerat iste molestias odio adipisci modi voluptate consequatur voluptatum. Iste dolorum magni voluptate mollitia, accusamus atque provident vero modi neque temporibus praesentium quis, quisquam veritatis similique sint, ipsa eum commodi autem. Eius dolorem nam culpa ut corrupti tempore, minima nisi animi, autem, similique itaque sapiente ab.
-                            </p>
+<header class="main-header">
+    <nav class="navbar navbar-expand-lg navbar-light main-navbar">
+        <div class="container">
+            <!-- LOGO -->
+            <a class="navbar-brand logo-link" routerLink="/">
+                <img [src]="GetWebSiteData?.Logo" alt="TravelTrip Logo" class="logo-img img-fluid" />
+            </a>
+
+            <!-- MOBILE TOGGLE -->
+            <button class="navbar-toggler mobile-toggle" type="button"
+                data-bs-toggle="collapse" data-bs-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- RIGHT SIDE -->
+            <div class="collapse navbar-collapse" id="mainMenu">
+                <div class="header-actions">
+                    <!-- SUPPORT INFO -->
+                    <div class="support-info">
+                        <i class="fa-solid fa-headset"></i>
+                        <div>
+                            <p>24/7 Support</p>
+                            <h5 class="support-number">+91 8800114161</h5>
                         </div>
-                      
-                        
+                    </div>
+
+                    <!-- AUTH BUTTONS -->
+                    <a class="login-btn" routerLink="/login">Login</a>
+                    <a class="register-btn" routerLink="/register">Register</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<section class="breadcrum__text-page">
+    <div class="container">
+        <div class="breadcrum__text">
+            <a routerLink="/" class="breadcrum__text--link">
+                <i class="fa fa-home"></i> Home
+            </a>
+            <i class="fa fa-angle-double-right mx-2"></i>
+            <span>About Us</span>
+        </div>
+    </div>
+</section>
+
+<section class="about-section">
+    <div class="container">
+        <div *ngFor="let item of details" class="about-card">
+            <!-- Main Title -->
+            <h3 class="about-heading-main">{{ item.Title }}</h3>
+            <!-- Main Description -->
+            <p class="about-text" *ngIf="item.Description">{{ item.Description }}</p>
+            <!-- Sub Items -->
+            <div *ngIf="item.Subitem?.length">
+                <div *ngFor="let sub of item.Subitem" class="sub-box">
+                    <h5 class="about-heading">{{ sub.SubTitle }}</h5>
+                    <p class="about-text">{{ sub.SubDec }}</p>
                 </div>
             </div>
         </div>

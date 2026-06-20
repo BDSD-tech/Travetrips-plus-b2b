@@ -1,132 +1,37 @@
-<!-- =========================
-     HEADER WRAPPER
-========================= -->
-<div class="main-header-wrapper">
-    <!-- TOP BAR -->
-    <div class="topbar">
+<header class="main-header">
+    <nav class="navbar navbar-expand-lg navbar-light main-navbar">
         <div class="container">
-            <div class="topbar-wrapper">
-
-                <!-- LEFT -->
-                <div class="topbar-left">
-                    <i class="fa-solid fa-headset"></i>
-                    <span>24/7 Support : +91 8800114161</span>
-                </div>
-
-                <!-- RIGHT -->
-                <div class="topbar-right">
-
-                    <!-- LOGIN DROPDOWN -->
-                    <!-- <div class="dropdown">
-                        <button class="btn login-btn dropdown-toggle" data-bs-toggle="dropdown">
-                            Login
-                        </button>
-
-                        <ul class="dropdown-menu dropdown-menu-end shadow border-0">
-                            <li>
-                                <a class="dropdown-item" routerLink="/login">
-                                    Agent Login
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" href="javascript:void(0)">
-                                    Distributor Login
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" href="javascript:void(0)">
-                                    Corporate Login
-                                </a>
-                            </li>
-                        </ul>
-                    </div> -->
-
-                    <a class="login-btn" routerLink="/login">
-                        LogIn
-                    </a>
-                    <a class="register-btn" routerLink="/register">
-                        Register Now
-                    </a>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- MAIN NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-light main-navbar sticky-top">
-        <div class="container">
-
             <!-- LOGO -->
-            <a class="navbar-brand" href="javascript:void(0);">
-                <div class="logo-box">
-
-                    <!-- LOGO IMAGE -->
-                    <div class="logo-img">
-                        <img src="{{GetWebSiteData['Logo']}}" alt="TravelTrip Logo">
-                    </div>
-
-                </div>
+            <a class="navbar-brand logo-link" routerLink="/">
+                <img [src]="GetWebSiteData?.Logo" alt="TravelTrip Logo" class="logo-img img-fluid" />
             </a>
 
             <!-- MOBILE TOGGLE -->
-            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
-                data-bs-target="#mainMenu">
-
+            <button class="navbar-toggler mobile-toggle" type="button"
+                data-bs-toggle="collapse" data-bs-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- MENU -->
+            <!-- RIGHT SIDE -->
             <div class="collapse navbar-collapse" id="mainMenu">
+                <div class="header-actions">
+                    <!-- SUPPORT INFO -->
+                    <div class="support-info">
+                        <i class="fa-solid fa-headset"></i>
+                        <div>
+                            <p>24/7 Support</p>
+                            <h5 class="support-number">+91 8800114161</h5>
+                        </div>
+                    </div>
 
-                <ul class="navbar-nav mx-auto gap-lg-4 text-center">
-
-                    <li class="nav-item">
-                        <a class="nav-link active" href="javascript:void(0)">
-                            Home
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)">
-                            Flights
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)">
-                            Hotels
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)">
-                            Bus
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="/pages/contact-us">
-                            Contact
-                        </a>
-                    </li>
-
-                </ul>
-
-                <!-- RIGHT BUTTON -->
-                <div class="d-flex justify-content-center mt-4 mt-lg-0">
-                    <a href="javascript:void(0)" class="quote-btn">
-                        Get Quote
-                    </a>
+                    <!-- AUTH BUTTONS -->
+                    <a class="login-btn" routerLink="/login">Login</a>
+                    <a class="register-btn" routerLink="/register">Register</a>
                 </div>
-
             </div>
         </div>
     </nav>
-</div>
-
+</header>
 
 
 <section class="welcome-section">
@@ -144,9 +49,9 @@
 
                 <div class="welcome-content">
 
-                    <span class="welcome-tag">
+                    <!-- <span class="welcome-tag">
                         About TravelTripPlus
-                    </span>
+                    </span> -->
 
                     <h2 class="welcome-title">
                         Welcome To
@@ -209,14 +114,12 @@
                     <!-- BUTTONS -->
                     <div class="welcome-btns">
 
-                        <a href="javascript:void(0)"
-                            class="welcome-btn primary-btn">
+                        <a href="javascript:void(0)" class="welcome-btn primary-btn">
 
                             Know More
                         </a>
 
-                        <a href="javascript:void(0)"
-                            class="welcome-btn secondary-btn">
+                        <a href="javascript:void(0)" class="welcome-btn secondary-btn">
 
                             Contact Now
                         </a>
@@ -232,8 +135,7 @@
                 <div class="welcome-image-wrapper">
 
                     <!-- MAIN IMAGE -->
-                    <img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=900&q=80"
-                        alt="Travel"
+                    <img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=900&q=80" alt="Travel"
                         class="welcome-main-img">
 
                     <!-- FLOATING CARD -->
@@ -310,7 +212,7 @@
                                 Book Now
                             </a>
 
-                            <a href="javascript:void(0)" class="hero-btn secondary-btn">
+                            <a href="javascript:void(0)" routerLink="/login" class="hero-btn secondary-btn">
                                 Explore Tours
                             </a>
 
@@ -329,7 +231,7 @@
                 <div class="hero-overlay"></div>
 
                 <div class="container">
-                    <div class="carousel-caption custom-caption">
+                    <div class="custom-caption">
 
                         <span class="hero-badge">
                             Best Flight Deals
@@ -347,15 +249,15 @@
 
                         <div class="hero-btn-group">
 
-                            <a href="javascript:void(0)" class="hero-btn primary-btn">
+                            <a href="javascript:void(0)" routerLink="/login" class="hero-btn primary-btn">
                                 Search Flights
                             </a>
 
-                            <a href="javascript:void(0)" class="hero-btn secondary-btn">
+                            <a href="javascript:void(0)" routerLink="/login" class="hero-btn secondary-btn">
                                 View Offers
                             </a>
 
-                        </div>
+                        </div> 
 
                     </div>
                 </div>
@@ -370,7 +272,7 @@
                 <div class="hero-overlay"></div>
 
                 <div class="container">
-                    <div class="carousel-caption custom-caption">
+                    <div class="custom-caption">
 
                         <span class="hero-badge">
                             Luxury Holidays
@@ -388,11 +290,11 @@
 
                         <div class="hero-btn-group">
 
-                            <a href="javascript:void(0)" class="hero-btn primary-btn">
+                            <a href="javascript:void(0)" routerLink="/login" class="hero-btn primary-btn">
                                 Start Journey
                             </a>
 
-                            <a href="javascript:void(0)" class="hero-btn secondary-btn">
+                            <a href="javascript:void(0)" routerLink="/login" class="hero-btn secondary-btn">
                                 Holiday Plans
                             </a>
 
@@ -626,18 +528,12 @@ SERVICES SECTION
             <!-- ARROWS -->
             <div class="services-nav">
 
-                <button class="svc-arrow"
-                    type="button"
-                    data-bs-target="#svcCarousel"
-                    data-bs-slide="prev">
+                <button class="svc-arrow" type="button" data-bs-target="#svcCarousel" data-bs-slide="prev">
 
                     <i class="fa-solid fa-arrow-left"></i>
                 </button>
 
-                <button class="svc-arrow"
-                    type="button"
-                    data-bs-target="#svcCarousel"
-                    data-bs-slide="next">
+                <button class="svc-arrow" type="button" data-bs-target="#svcCarousel" data-bs-slide="next">
 
                     <i class="fa-solid fa-arrow-right"></i>
                 </button>
@@ -647,9 +543,7 @@ SERVICES SECTION
         </div>
 
         <!-- CAROUSEL -->
-        <div id="svcCarousel"
-            class="carousel slide"
-            data-bs-ride="carousel">
+        <div id="svcCarousel" class="carousel slide" data-bs-ride="carousel">
 
             <div class="carousel-inner">
 
@@ -694,8 +588,7 @@ SERVICES SECTION
                                         and instant confirmations.
                                     </p>
 
-                                    <a href="javascript:void(0)"
-                                        class="service-link">
+                                    <a href="javascript:void(0)" class="service-link">
 
                                         Explore More
                                         <i class="fa-solid fa-arrow-right"></i>
@@ -742,8 +635,7 @@ SERVICES SECTION
                                         affordable travel options.
                                     </p>
 
-                                    <a href="javascript:void(0)"
-                                        class="service-link">
+                                    <a href="javascript:void(0)" class="service-link">
 
                                         Explore More
                                         <i class="fa-solid fa-arrow-right"></i>
@@ -790,8 +682,7 @@ SERVICES SECTION
                                         and hassle-free booking.
                                     </p>
 
-                                    <a href="javascript:void(0)"
-                                        class="service-link">
+                                    <a href="javascript:void(0)" class="service-link">
 
                                         Explore More
                                         <i class="fa-solid fa-arrow-right"></i>
@@ -849,8 +740,7 @@ SERVICES SECTION
                                         for unforgettable memories.
                                     </p>
 
-                                    <a href="javascript:void(0)"
-                                        class="service-link">
+                                    <a href="javascript:void(0)" class="service-link">
 
                                         Explore More
                                         <i class="fa-solid fa-arrow-right"></i>
@@ -897,8 +787,7 @@ SERVICES SECTION
                                         travel experiences.
                                     </p>
 
-                                    <a href="javascript:void(0)"
-                                        class="service-link">
+                                    <a href="javascript:void(0)" class="service-link">
 
                                         Explore More
                                         <i class="fa-solid fa-arrow-right"></i>
@@ -945,8 +834,7 @@ SERVICES SECTION
                                         premium corporate support.
                                     </p>
 
-                                    <a href="javascript:void(0)"
-                                        class="service-link">
+                                    <a href="javascript:void(0)" class="service-link">
 
                                         Explore More
                                         <i class="fa-solid fa-arrow-right"></i>
@@ -1002,9 +890,7 @@ TESTIMONIAL SECTION
         </div>
 
         <!-- TESTIMONIAL CAROUSEL -->
-        <div id="testimonialCarousel"
-            class="carousel slide testimonial-carousel"
-            data-bs-ride="carousel">
+        <div id="testimonialCarousel" class="carousel slide testimonial-carousel" data-bs-ride="carousel">
 
             <div class="carousel-inner">
 
@@ -1025,8 +911,7 @@ TESTIMONIAL SECTION
 
                             <div class="client-image">
 
-                                <img src="https://i.pravatar.cc/120?img=12"
-                                    alt="Ashish Kumar">
+                                <img src="https://i.pravatar.cc/120?img=12" alt="Ashish Kumar">
 
                             </div>
 
@@ -1085,8 +970,7 @@ TESTIMONIAL SECTION
 
                             <div class="client-image">
 
-                                <img src="https://i.pravatar.cc/120?img=33"
-                                    alt="Pardeep Chandra">
+                                <img src="https://i.pravatar.cc/120?img=33" alt="Pardeep Chandra">
 
                             </div>
 
@@ -1144,8 +1028,7 @@ TESTIMONIAL SECTION
 
                             <div class="client-image">
 
-                                <img src="https://i.pravatar.cc/120?img=25"
-                                    alt="Rahul Verma">
+                                <img src="https://i.pravatar.cc/120?img=25" alt="Rahul Verma">
 
                             </div>
 
@@ -1189,9 +1072,7 @@ TESTIMONIAL SECTION
             </div>
 
             <!-- NAVIGATION -->
-            <button class="carousel-control-prev testi-control"
-                type="button"
-                data-bs-target="#testimonialCarousel"
+            <button class="carousel-control-prev testi-control" type="button" data-bs-target="#testimonialCarousel"
                 data-bs-slide="prev">
 
                 <span class="testi-arrow">
@@ -1200,9 +1081,7 @@ TESTIMONIAL SECTION
 
             </button>
 
-            <button class="carousel-control-next testi-control"
-                type="button"
-                data-bs-target="#testimonialCarousel"
+            <button class="carousel-control-next testi-control" type="button" data-bs-target="#testimonialCarousel"
                 data-bs-slide="next">
 
                 <span class="testi-arrow">
@@ -1214,18 +1093,12 @@ TESTIMONIAL SECTION
             <!-- INDICATORS -->
             <div class="carousel-indicators custom-indicators">
 
-                <button type="button"
-                    data-bs-target="#testimonialCarousel"
-                    data-bs-slide-to="0"
+                <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="0"
                     class="active"></button>
 
-                <button type="button"
-                    data-bs-target="#testimonialCarousel"
-                    data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="1"></button>
 
-                <button type="button"
-                    data-bs-target="#testimonialCarousel"
-                    data-bs-slide-to="2"></button>
+                <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="2"></button>
 
             </div>
 
@@ -1258,11 +1131,9 @@ FOOTER
                     <div class="footer-widget">
 
                         <!-- LOGO -->
-                        <a href="javascript:void(0)"
-                            class="footer-logo">
+                        <a href="javascript:void(0)" class="footer-logo">
 
-                            <img src="https://cdn-icons-png.flaticon.com/512/201/201623.png"
-                                alt="TravelTripPlus">
+                            <img src="https://cdn-icons-png.flaticon.com/512/201/201623.png" alt="TravelTripPlus">
 
                             <div class="footer-logo-text">
 
@@ -1288,8 +1159,7 @@ FOOTER
                         <!-- SOCIAL -->
                         <div class="footer-social">
 
-                            <a href="https://www.facebook.com/TravelTripPlusHolidays/"
-                                target="_blank">
+                            <a href="https://www.facebook.com/TravelTripPlusHolidays/" target="_blank">
 
                                 <i class="fab fa-facebook-f"></i>
 
@@ -1301,8 +1171,7 @@ FOOTER
 
                             </a>
 
-                            <a href="https://www.instagram.com/traveltripplus24"
-                                target="_blank">
+                            <a href="https://www.instagram.com/traveltripplus24" target="_blank">
 
                                 <i class="fab fa-instagram"></i>
 
@@ -1486,8 +1355,7 @@ FOOTER
                         <!-- IATA -->
                         <div class="iata-box">
 
-                            <img src="https://www.traveltripplus.com/images/IATA.jpg"
-                                alt="IATA">
+                            <img src="https://www.traveltripplus.com/images/IATA.jpg" alt="IATA">
 
                         </div>
 
