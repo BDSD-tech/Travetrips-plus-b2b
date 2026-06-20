@@ -59,8 +59,6 @@ export class SeatLayoutComponent implements OnInit {
       if(response['Error']['ErrorCode']==0) {
        this.SearchTokenId=response['SearchTokenId'];
        this.Response = response['Result'];
-       console.log(this.Response);
-       
 
        setTimeout(() => {
 

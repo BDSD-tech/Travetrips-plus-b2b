@@ -100,6 +100,11 @@ export class DomesticRoundtripComponent implements OnInit {
   IBMinPrice:any=0;
   IBMinDuration:any='';
  
+
+  HoldableWithoutSSR =false
+  HoldableWithSSR = false
+
+
   constructor(private flightService: FlightService,private router: Router, private route: ActivatedRoute,private serviceTitle: Title,private commonservice: CommonService,private authenticationservice: AuthenticationService,private alertservice:AlertService) {
 
 
@@ -334,17 +339,19 @@ export class DomesticRoundtripComponent implements OnInit {
                {
  
                 this.selectedfareob={'TTSIndex':this.sortedData[0][0]['TtsIndex'],'fareindex':this.sortedData[0][0]['FareList'][0]['FareId'],'segment':this.sortedData[0][0]['MainSegment'][0],'fare':this.sortedData[0][0]['FareList'][0]['Fare']['PublishedPrice']};
+                this.FlightFareDetail[0]=this.sortedData[0][0]['FareList'][0]
                 this.radiochecked[0]=this.sortedData[0][0]['FareList'][0]['FareId'];
                }
  
                if(this.sortedData[1][0])
                {
                  this.selectedfareib={'TTSIndex':this.sortedData[1][0]['TtsIndex'],'fareindex':this.sortedData[1][0]['FareList'][0]['FareId'],'segment':this.sortedData[1][0]['MainSegment'][0],'fare':this.sortedData[1][0]['FareList'][0]['Fare']['PublishedPrice']};
+                 this.FlightFareDetail[1]=this.sortedData[1][0]['FareList'][0]
                  this.radiochecked[1]=this.sortedData[1][0]['FareList'][0]['FareId'];
                }
                
-      
-               
+               this.CHeckHodalble(this.FlightFareDetail)
+              
               } else {
                 this.ErrorCode = 1;
                 this.ErrorMessage = response['Error']['ErrorMessage'];
@@ -361,6 +368,17 @@ export class DomesticRoundtripComponent implements OnInit {
 
    
 
+  }
+
+
+  CHeckHodalble(data:any){
+    this.HoldableWithoutSSR = data.every(
+        (fare:any) => fare.IsHoldabelWithOutSsr === true
+      );
+    this.HoldableWithSSR = data.every(
+        (fare:any) => fare.IsHoldabelWithSsr === true
+      );
+      
   }
 
   receiveMessage($event:any) {
@@ -499,6 +517,7 @@ export class DomesticRoundtripComponent implements OnInit {
             return item.FareId == selindex;
       })[0];
       this.FlightFareDetail[jkey] = farelistobj;
+      this.CHeckHodalble(this.FlightFareDetail)
       this.FlightBaggageInfo[jkey] = farelistobj['SeatBaggage'];
 
       

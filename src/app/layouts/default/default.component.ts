@@ -82,7 +82,8 @@ export class DefaultComponent implements OnInit {
       }
     });
    
-    this.commonservice.GetWalletBalance().subscribe(data => {
+    this.commonservice.GetWalletBalance().subscribe((data:any) => {
+      if(data && data.length!==0){
       this.WalletBalance =data['Balance'];
       this.WalletCreditLimit=data['CreditLimit'];
       this.WalletDueAmount=data['DueAmount'];
@@ -94,6 +95,7 @@ export class DefaultComponent implements OnInit {
         this.dyclass='only2';
        }else{
         this.dyclass=''
+       }
        }
     });
 

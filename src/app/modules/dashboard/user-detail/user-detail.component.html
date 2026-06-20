@@ -6,7 +6,7 @@
         <li><span>user-detail</span></li>
     </ol>
     <form [formGroup]="AgentForm" (ngSubmit)="SubmitData()">
-    <div *ngIf="ActiveStep=='/dashboard/user-detail/UserDetail' || ActiveStep==companyId">
+    <div >
         <div class="body_manage dash-padding dashboard__main__content">
             <div class="row">
                 <div class="col-sm-12"><h3 class="dash-borderRadius main-heading-content">USER DETAILS</h3></div>
@@ -60,7 +60,7 @@
         </div>
     </div>
 
-    <div class="body_manage dash-padding dashboard__main__content" *ngIf="ActiveStep=='/dashboard/user-detail/PanDetails'">
+    <div class="body_manage dash-padding dashboard__main__content" >
         <div class="row">
             <div class="col-sm-12"><h3 class="dash-borderRadius main-heading-content">PAN DETAILS</h3></div>
             <div class="row">
@@ -80,7 +80,7 @@
         </div>
     </div>
 
-    <div class="body_manage dash-padding dashboard__main__content" *ngIf="ActiveStep=='/dashboard/user-detail/GstDetail'">
+    <div class="body_manage dash-padding dashboard__main__content" >
         <div class="row">
             <div class="col-sm-12"><h3 class="dash-borderRadius main-heading-content">GST DETAILS</h3></div>
             <div class="row">
@@ -128,7 +128,7 @@
         </div>
     </div>
 
-    <div class="body_manage dash-padding dashboard__main__content" *ngIf="ActiveStep=='/dashboard/user-detail/Address'">
+    <div class="body_manage dash-padding dashboard__main__content" >
         <div class="row">
             <div class="col-sm-12"><h3 class="dash-borderRadius main-heading-content">ADDRESS DETAILS</h3></div>
             <div class="row">

@@ -489,7 +489,6 @@ export class ModifySearchComponent implements OnInit {
  
      let data=[]; let searchstring:any;
      data=this.ModifySearchForm.value;
-    
      if(this.ModifySearchForm.value.Type!='M') {
       searchstring={
                         'from':data['OriginCode'],
@@ -501,6 +500,10 @@ export class ModifySearchComponent implements OnInit {
                         'Isdomestic':data['Isdomestic'],
                         'Class':data['Class'],
                         'tripType':data['Type'],
+                        "ailines":data['PreferredAirline'],
+                        'faretype':data['ResultFareType'],
+                        'stop':data['Nonstop']
+
                       };
       } else {
          searchstring={
@@ -513,6 +516,9 @@ export class ModifySearchComponent implements OnInit {
                           'Isdomestic':data['Isdomestic'],
                           'Class':data['Class'],
                           'tripType':data['Type'],
+                          "ailines":data['PreferredAirline'],
+                          'faretype':data['ResultFareType'],
+                          'stop':data['Nonstop']
                         };
       }
       if(this.ModifySearchForm.value.Type=='R') {

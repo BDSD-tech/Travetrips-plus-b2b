@@ -12,6 +12,10 @@
     transition: 0.3s ease;
     cursor: default;
 }
+.icon-title{
+    font-size: 12px;
+    font-weight: 600;
+}
 
 /* .tts_agentUserId::before {
     content: "";
@@ -181,6 +185,7 @@
     width: 42px;
     height: 42px;
     padding: 0;
+  
     border-radius: 14px;
     background: var(--white);
     border: 1px solid var(--primary-color);
@@ -191,7 +196,9 @@
     align-items: center;
     justify-content: center;
 }
-
+.ml-12{
+      margin-left: 12px;
+}
 .wallet-btn:hover {
     background: var(--second-bg-color);
     border-color: var(--primary-color);

@@ -200,7 +200,7 @@
     box-shadow: var(--shadow-md);
 }
 
-.account-card::before {
+/* .account-card::before {
     content: "";
     position: absolute;
     width: 240px;
@@ -220,7 +220,7 @@
     left: -70px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.04);
-}
+} */
 
 .account-top {
     display: flex;
@@ -241,7 +241,7 @@
 }
 
 .balance-amount {
-    font-size: 40px;
+    font-size: 30px;
     font-weight: 800;
 }
 
@@ -349,8 +349,9 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 64px;
+    /* width: 64px; */
     height: 24px;
+    padding:0 10px;
     border-radius: 999px;
     background: #dcfce7;
     color: #166534;
@@ -462,4 +463,232 @@
     .updates-body {
         padding: 18px;
     }
+}
+
+
+/* Skeleton loading css  */
+
+@keyframes shimmer {
+  0%   { background-position: -800px 0; }
+  100% { background-position:  800px 0; }
+}
+
+
+.sk {
+  display: block;
+  border-radius: 4px;
+  background-color: #e8e8e8;
+  background-image: linear-gradient(
+    90deg,
+    #e8e8e8 0px,
+    #f4f4f4 150px,
+    #e8e8e8 300px
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.6s infinite linear;
+}
+
+.sk-circle { border-radius: 20%; }
+.sk-pill   { border-radius: 20px; }
+
+
+.dashboard-skeleton {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 16px;
+  padding: 16px;
+  background: #f4f6fb;
+  min-height: 100vh;
+}
+
+.ds-left  { display: flex; flex-direction: column; gap: 16px; }
+.ds-right { display: flex; flex-direction: column; gap: 16px; }
+
+
+.sk-banner {
+  height: 300px;
+  border-radius: 14px;
+  background: #e0e2e6;
+  position: relative;
+  overflow: hidden;
+
+  > .sk {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .sk-arr {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    background: rgba(220, 220, 220, 0.6);
+    background-image: none;
+    animation: none;
+
+    &.sk-arr-l { left: 14px; }
+    &.sk-arr-r { right: 14px; }
+  }
+
+  .sk-dots {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 7px;
+  }
+
+  .sk-dot {
+    height: 7px;
+    width: 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.35);
+    background-image: none;
+    animation: none;
+
+    &.active { width: 24px; background: rgba(255, 255, 255, 0.6); }
+  }
+}
+
+
+.ds-row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+
+.sk-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 0.5px solid #e8e8e8;
+  overflow: hidden;
+}
+
+
+.sk-sales {
+  padding: 18px 20px;
+
+  .sk-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+
+  .sk-table-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    padding: 10px 0;
+    border-bottom: 0.5px solid #f0f0f0;
+    margin-bottom: 8px;
+  }
+
+  .sk-table-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    padding: 9px 0;
+    border-bottom: 0.5px solid #f9f9f9;
+  }
+}
+
+
+.sk-shortcuts {
+  padding: 18px 16px;
+
+  .sk-card-header { margin-bottom: 16px; }
+
+  .sk-shortcuts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .sk-shortcut-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 8px;
+    border-radius: 8px;
+    border: 0.5px solid #f0f0f0;
+  }
+}
+
+
+.sk-wallet {
+  background: #1a3a6e;
+  border-radius: 12px;
+  padding: 20px;
+
+  .sk-wallet-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .sk-wallet-line,
+  .sk-wallet-circle,
+  .sk-wallet-amount,
+  .sk-wallet-btn {
+    background-color: #2a4f8a;
+    background-image: linear-gradient(
+      90deg,
+      #2a4f8a 0px,
+      #3460a0 150px,
+      #2a4f8a 300px
+    );
+    background-size: 800px 100%;
+    animation: shimmer 1.6s infinite linear;
+  }
+
+  .sk-wallet-line   { height: 12px; width: 110px; border-radius: 4px; }
+  .sk-wallet-circle { width: 28px; height: 28px; border-radius: 50%; }
+  .sk-wallet-amount { height: 36px; width: 90px; border-radius: 4px; display: block; margin-bottom: 20px; }
+
+  .sk-wallet-btns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .sk-wallet-btn {
+    height: 38px;
+    border-radius: 20px;
+    display: block;
+  }
+}
+
+
+.sk-updates {
+  .sk-updates-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px;
+    border-bottom: 0.5px solid #f0f0f0;
+    background: #f7fbf9;
+  }
+
+  .sk-update-item {
+    padding: 14px 18px;
+    border-bottom: 0.5px solid #f0f0f0;
+
+    &:last-child { border-bottom: none; }
+  }
+}
+
+@media (max-width: 900px) {
+  .dashboard-skeleton {
+    grid-template-columns: 1fr;
+  }
+  .ds-row2 {
+    grid-template-columns: 1fr;
+  }
 }

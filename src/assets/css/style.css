@@ -4100,7 +4100,18 @@ BOOKING CONFIRM MODAL
     flex-wrap: wrap;
     margin-bottom: 15px;
 }
-
+.tts-offline-notification{
+    color: #fff;
+    text-align: center;
+    background-color: rgb(190, 17, 17);
+    padding: 10px 0px;
+}
+.tts-online-notification{
+    color: #fff;
+    text-align: center;
+    background-color: rgb(3, 184, 24);
+    padding: 10px 0px;
+}
 .seat-legend-item {
     display: flex;
     align-items: center;

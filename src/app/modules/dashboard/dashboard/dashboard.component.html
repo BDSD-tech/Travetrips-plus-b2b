@@ -1,177 +1,364 @@
 <section class="dashboard-wrapper">
     <div class="container">
+        @if(Loading){
 
-        <div class="row g-3">
-
-            <!-- LEFT SECTION -->
-            <div class="col-lg-8">
-
-                <!-- HERO BANNER -->
-                <div id="travelHeroCarousel" class="carousel slide hero-banner dashboard-card mb-3"
-                    data-bs-ride="carousel">
-
-                    <!-- Indicators -->
-                    <div class="carousel-indicators">
-
-                        <button type="button" data-bs-target="#travelHeroCarousel" data-bs-slide-to="0" class="active">
-                        </button>
-
-                        <button type="button" data-bs-target="#travelHeroCarousel" data-bs-slide-to="1">
-                        </button>
-
+                <div class="dashboard-skeleton">
+                <div class="ds-left">
+                    <div class="sk-banner">
+                    <span class="sk"></span>
+                    <span class="sk sk-circle sk-arr sk-arr-l"></span>
+                    <span class="sk sk-circle sk-arr sk-arr-r"></span>
+                    <div class="sk-dots">
+                        <span class="sk-dot active"></span>
+                        <span class="sk-dot"></span>
+                    </div>
                     </div>
 
-                    <!-- Carousel Items -->
-                    <div class="carousel-inner">
-
-                        <!-- ITEM 1 -->
-                        <div class="carousel-item active">
-
-                            <div class="hero-slide">
-
-                                <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1200&auto=format&fit=crop"
-                                    alt="Flight">
-
-
-                            </div>
-
+                    
+                    <div class="ds-row2">
+                    <div class="sk-card sk-sales">
+                        <div class="sk-card-header">
+                        <span class="sk" style="width:110px; height:15px;"></span>
+                        <span class="sk sk-pill" style="width:80px; height:28px;"></span>
                         </div>
-
-                        <!-- ITEM 2 -->
-                        <div class="carousel-item">
-
-                            <div class="hero-slide">
-
-                                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop"
-                                    alt="Beach">
-
-
-                            </div>
-
+                        <div class="sk-table-head">
+                        <span class="sk" style="height:12px; width:55px;"></span>
+                        <span class="sk" style="height:12px; width:40px;"></span>
+                        <span class="sk" style="height:12px; width:70px;"></span>
+                        </div>
+                        <div class="sk-table-row" *ngFor="let r of [1,2,3]">
+                        <span class="sk" style="height:12px; width:40px;"></span>
+                        <span class="sk" style="height:12px; width:28px;"></span>
+                        <span class="sk" style="height:12px; width:28px;"></span>
                         </div>
                     </div>
 
-                    <!-- Controls -->
-                    <button class="carousel-control-prev" type="button" data-bs-target="#travelHeroCarousel"
-                        data-bs-slide="prev">
+                    <div class="sk-card sk-shortcuts">
+                        <div class="sk-card-header">
+                        <span class="sk" style="width:90px; height:15px;"></span>
+                        </div>
+                        <div class="sk-shortcuts-grid">
+                        <div class="sk-shortcut-item" *ngFor="let i of [1,2,3,4,5,6]">
+                            <span class="sk sk-circle" style="width:40px; height:40px;"></span>
+                            <span class="sk" style="width:52px; height:11px;"></span>
+                        </div>
+                        </div>
+                    </div>
 
-                        <span class="carousel-control-prev-icon"></span>
-
-                    </button>
-
-                    <button class="carousel-control-next" type="button" data-bs-target="#travelHeroCarousel"
-                        data-bs-slide="next">
-
-                        <span class="carousel-control-next-icon"></span>
-
-                    </button>
-
+                    </div>
                 </div>
 
-                <!-- SALES + SHORTCUT -->
-                <div class="row g-3">
+                <div class="ds-right">
 
-                    <!-- SALES REPORT -->
-                    <div class="col-lg-6">
+                    <div class="sk-wallet">
+                    <div class="sk-wallet-top">
+                        <span class="sk-wallet-line"></span>
+                        <span class="sk-wallet-circle"></span>
+                    </div>
+                    <span class="sk-wallet-amount"></span>
+                    <div class="sk-wallet-btns">
+                        <span class="sk-wallet-btn"></span>
+                        <span class="sk-wallet-btn"></span>
+                    </div>
+                    </div>
 
-                        <div class="dashboard-card p-3 h-100">
+                    <div class="sk-card sk-updates">
 
-                            <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="sk-updates-header">
+                        <span class="sk sk-circle" style="width:16px; height:16px; flex-shrink:0;"></span>
+                        <span class="sk" style="width:180px; height:14px;"></span>
+                    </div>
 
-                                <div class="section-title mb-0">
-                                    Sales Report
+                    <div class="sk-update-item" *ngFor="let u of [1,2,3,4]; let last = last" [style.opacity]="last ? '0.5' : '1'">
+                        <span class="sk sk-pill" style="width:40px; height:20px; margin-bottom:8px;"></span>
+                        <span class="sk" style="height:12px; width:100%; margin-bottom:5px;"></span>
+                        <span class="sk" style="height:12px; width:85%; margin-bottom:5px;"></span>
+                        <span class="sk" style="height:12px; width:55%;"></span>
+                    </div>
+
+                    </div>
+                </div>
+                </div>
+        }@else{
+            <div class="row g-3">
+
+                <div class="col-lg-8">
+
+                    <div id="travelHeroCarousel" class="carousel slide hero-banner dashboard-card mb-3"
+                        data-bs-ride="carousel">
+
+                        <div class="carousel-indicators">
+                            @for (item of Response['OfferList']; track $index) {
+                                <button type="button" data-bs-target="#travelHeroCarousel" attr.data-bs-slide-to="{{$index}}" [ngClass]="{'active':$index==0}">
+                                </button>
+                            }
+                            <!-- <button type="button" data-bs-target="#travelHeroCarousel" data-bs-slide-to="1">
+                            </button> -->
+
+                        </div>
+
+                        <!-- Carousel Items -->
+                        <div class="carousel-inner">
+
+                            @for (item of Response['OfferList']; track $index) {
+                            <div class="carousel-item" [ngClass]="{'active':$index==0}">
+
+                                <div class="hero-slide">
+                                    <a [href]="item['url']" target="_blank">
+                                    <img [src]="item['image']" alt="Flight">
+                                    </a>
                                 </div>
 
-                                <select class="form-select form-select-sm w-auto">
-                                    <option>Today</option>
+                            </div>
+                            }
+                        </div>
+
+
+                            <button class="carousel-control-prev" type="button" data-bs-target="#travelHeroCarousel"
+                                data-bs-slide="prev">
+
+                                <span class="carousel-control-prev-icon"></span>
+
+                            </button>
+                     
+                        <button class="carousel-control-next" type="button" data-bs-target="#travelHeroCarousel"
+                            data-bs-slide="next">
+
+                            <span class="carousel-control-next-icon"></span>
+
+                        </button>
+
+                    </div>
+
+                    <!-- SALES + SHORTCUT -->
+                    <div class="row g-3">
+
+                        <div class="col-lg-6">
+
+                            <div class="dashboard-card p-3 h-100">
+
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+
+                                    <div class="section-title mb-0">
+                                        Sales Report
+                                    </div>
+
+                                    <p class="fw-semibold">
+                                        Today
+                                    </p>
+
+                                </div>
+
+                                <div class="custom-table">
+
+                                    <table class="table align-middle">
+
+                                        <thead>
+                                            <tr>
+                                                <th>Product</th>
+                                                <th>Today</th>
+                                                <th>Yesterday</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+
+                                            <tr>
+                                                <td>Flight</td>
+                                                <td>{{Response['TodayFlightBooking']}}</td>
+                                                <td>{{Response['YesterdayFlightBooking']}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Hotel</td>
+                                                <td>{{Response['TodayHotelbooking']}}</td>
+                                                <td>{{Response['YesterdayHotelBooking']}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Bus</td>
+                                                <td>{{Response['TodayBusBooking']}}</td>
+                                                <td>{{Response['YesterdayBusBooking']}}</td>
+                                            </tr>
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- SHORTCUTS -->
+                        <div class="col-lg-6">
+
+                            <div class="dashboard-card p-3 h-100">
+
+                                <div class="section-title">
+                                    Short Cuts
+                                </div>
+
+                                <div class="shortcut-grid">
+
+                                    <div class="shortcut-box" routerLink="/flight">
+                                       <i class="fa-solid fa-plane-departure"></i>
+                                        <span>Flight</span>
+                                    </div>
+
+                                    <div class="shortcut-box" routerLink="/hotel">
+                                       <i class="fa-solid fa-hotel"></i>
+                                        <span>Hotel</span>
+                                    </div>
+
+                                    <div class="shortcut-box" routerLink="/bus">
+                                      <i class="fa-solid fa-bus-simple"></i>
+                                        <span>Bus</span>
+                                    </div>
+                                    <!-- <div class="shortcut-box">
+                                        <i class="fa-regular fa-credit-card"></i>
+                                        <span>My Wallet</span>
+                                    </div> -->
+
+                                    <div class="shortcut-box" routerLink="/dashboard/payment-passbook">
+                                        <i class="fa-solid fa-book"></i>
+                                        <span>Ledger</span>
+                                    </div>
+
+                                    <div class="shortcut-box" >
+                                        <i class="fa-solid fa-chart-line"></i>
+                                        <span>Reports</span>
+                                    </div>
+
+                                    <!-- <div class="shortcut-box">
+                                        <i class="fa-solid fa-money-bill"></i>
+                                        <span>Credit</span>
+                                    </div> -->
+
+                                    <!-- <div class="shortcut-box">
+                                        <i class="fa-solid fa-ticket"></i>
+                                        <span>PNR</span>
+                                    </div> -->
+
+                                    <div class="shortcut-box" routerLink="/dashboard/user-detail/{{LoginAgentinfo['CompanyId']}}">
+                                        <i class="fa-solid fa-user"></i>
+                                        <span>Profile</span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                  
+                    <div class="dashboard-card p-3 mt-3">
+
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+
+                            <div class="section-title mb-0">
+                                Commission Sale Report
+                            </div>
+
+                            <div class="d-flex gap-2">
+
+                                <select class="form-select form-select-sm">
+                                    <option>May</option>
+                                </select>
+
+                                <select class="form-select form-select-sm">
+                                    <option>2024</option>
                                 </select>
 
                             </div>
 
-                            <div class="custom-table">
+                        </div>
 
-                                <table class="table align-middle">
+                        <div class="custom-table">
 
-                                    <thead>
-                                        <tr>
-                                            <th>Product</th>
-                                            <th>Today</th>
-                                            <th>Yesterday</th>
-                                        </tr>
-                                    </thead>
+                            <table class="table align-middle">
 
-                                    <tbody>
+                                <thead>
 
-                                        <tr>
-                                            <td>Flight</td>
-                                            <td>90</td>
-                                            <td>90</td>
-                                        </tr>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Sale Commission</th>
+                                        <th>Refund Net Commission</th>
+                                        <th>Total</th>
+                                    </tr>
 
-                                        <tr>
-                                            <td>Hotel</td>
-                                            <td>20</td>
-                                            <td>10</td>
-                                        </tr>
+                                </thead>
 
-                                        <tr>
-                                            <td>Bus</td>
-                                            <td>10</td>
-                                            <td>10</td>
-                                        </tr>
+                                <tbody>
 
-                                    </tbody>
+                                    <tr>
+                                        <td>Flight</td>
+                                        <td>₹50</td>
+                                        <td>₹0</td>
+                                        <td>₹50</td>
+                                    </tr>
 
-                                </table>
+                                    <tr>
+                                        <td>Grand Total</td>
+                                        <td>₹50</td>
+                                        <td>₹0</td>
+                                        <td>₹50</td>
+                                    </tr>
 
-                            </div>
+                                </tbody>
+
+                            </table>
 
                         </div>
 
                     </div>
 
-                    <!-- SHORTCUTS -->
-                    <div class="col-lg-6">
+                  
+                    <div class="dashboard-card p-3 mt-3">
 
-                        <div class="dashboard-card p-3 h-100">
+                        <div class="section-title">
+                            Mini Statement
+                        </div>
 
-                            <div class="section-title">
-                                Short Cuts
-                            </div>
+                        <div class="custom-table mini-table">
 
-                            <div class="shortcut-grid">
+                            <table class="table align-middle">
 
-                                <div class="shortcut-box">
-                                    <i class="fa-regular fa-credit-card"></i>
-                                    <span>My Wallet</span>
-                                </div>
+                                <thead>
 
-                                <div class="shortcut-box">
-                                    <i class="fa-solid fa-book"></i>
-                                    <span>Ledger</span>
-                                </div>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>RefNo</th>
+                                        <th>Description</th>
+                                        <th>Amount</th>
+                                        <th>Type</th>
+                                    </tr>
 
-                                <div class="shortcut-box">
-                                    <i class="fa-solid fa-chart-line"></i>
-                                    <span>Reports</span>
-                                </div>
+                                </thead>
 
-                                <div class="shortcut-box">
-                                    <i class="fa-solid fa-money-bill"></i>
-                                    <span>Credit</span>
-                                </div>
+                                <tbody>
+                                    @for (item of Response['MiniStatement']; track $index) {
+                                    <tr>
+                                        <td>{{item['created']|date:'dd MMM yyyy'}}</td>
+                                        <td>{{item['acc_ref_number']}}</td>
+                                        <td>{{item['remark']}}, </td>
+                                        <td>
+                                            @if(item['transaction_type']=='debit'){
+                                                <span class="text-danger">₹ {{item['debit'] | number :'1.2-2'}}</span>
+                                            }@else{
+                                                <span class="text-success">₹ {{item['credit'] | number :'1.2.2'}}</span>
+                                            }
+                                            
+                                        </td>
+                                        <td>{{item['transaction_type']|titlecase}}</td>
+                                    </tr>
+                                    }
+                                </tbody>
 
-                                <div class="shortcut-box">
-                                    <i class="fa-solid fa-ticket"></i>
-                                    <span>PNR</span>
-                                </div>
-
-                                <div class="shortcut-box">
-                                    <i class="fa-solid fa-user"></i>
-                                    <span>Profile</span>
-                                </div>
-
-                            </div>
+                            </table>
 
                         </div>
 
@@ -179,383 +366,149 @@
 
                 </div>
 
-                <!-- COMMISSION REPORT -->
-                <div class="dashboard-card p-3 mt-3">
+            
+                <div class="col-lg-4">
 
-                    <div class="d-flex justify-content-between align-items-center mb-3">
+                    <!-- WALLET -->
+                    <div class="account-card">
 
-                        <div class="section-title mb-0">
-                            Commission Sale Report
-                        </div>
+                        <!-- TOP -->
+                        <div class="account-top">
 
-                        <div class="d-flex gap-2">
+                            <!-- LEFT -->
+                            <div>
 
-                            <select class="form-select form-select-sm">
-                                <option>May</option>
-                            </select>
-
-                            <select class="form-select form-select-sm">
-                                <option>2024</option>
-                            </select>
-
-                        </div>
-
-                    </div>
-
-                    <div class="custom-table">
-
-                        <table class="table align-middle">
-
-                            <thead>
-
-                                <tr>
-                                    <th>Product</th>
-                                    <th>Sale Commission</th>
-                                    <th>Refund Net Commission</th>
-                                    <th>Total</th>
-                                </tr>
-
-                            </thead>
-
-                            <tbody>
-
-                                <tr>
-                                    <td>Flight</td>
-                                    <td>₹50</td>
-                                    <td>₹0</td>
-                                    <td>₹50</td>
-                                </tr>
-
-                                <tr>
-                                    <td>Grand Total</td>
-                                    <td>₹50</td>
-                                    <td>₹0</td>
-                                    <td>₹50</td>
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                </div>
-
-                <!-- MINI STATEMENT -->
-                <div class="dashboard-card p-3 mt-3">
-
-                    <div class="section-title">
-                        Mini Statement
-                    </div>
-
-                    <div class="custom-table mini-table">
-
-                        <table class="table align-middle">
-
-                            <thead>
-
-                                <tr>
-                                    <th>Date</th>
-                                    <th>RefNo</th>
-                                    <th>Description</th>
-                                    <th>Amount</th>
-                                    <th>Type</th>
-                                </tr>
-
-                            </thead>
-
-                            <tbody>
-
-                                <tr>
-                                    <td>12/05/24</td>
-                                    <td>TXN1001</td>
-                                    <td>Online Credit</td>
-                                    <td>₹0</td>
-                                    <td>Credit</td>
-                                </tr>
-
-                                <tr>
-                                    <td>12/05/24</td>
-                                    <td>TXN1002</td>
-                                    <td>Flight Booking</td>
-                                    <td>₹500</td>
-                                    <td>Debit</td>
-                                </tr>
-
-                                <tr>
-                                    <td>12/05/24</td>
-                                    <td>TXN1003</td>
-                                    <td>Refund</td>
-                                    <td>₹300</td>
-                                    <td>Credit</td>
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- RIGHT SECTION -->
-            <div class="col-lg-4">
-
-                <!-- WALLET -->
-                <div class="account-card">
-
-                    <!-- TOP -->
-                    <div class="account-top">
-
-                        <!-- LEFT -->
-                        <div>
-
-                            <div class="balance-title">
-                                Account Balance
-                            </div>
-
-                            <div class="balance-row">
-
-                                <div class="balance-amount">
-                                    ₹0
+                                <div class="balance-title">
+                                    Account Balance
                                 </div>
 
-                                <!-- Eye Button -->
-                                <button class="balance-toggle">
+                                <div class="balance-row">
 
-                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                                        <path
-                                            d="M15.58 12C15.58 13.98 13.98 15.58 12 15.58C10.02 15.58 8.42 13.98 8.42 12C8.42 10.02 10.02 8.42 12 8.42C13.98 8.42 15.58 10.02 15.58 12Z"
-                                            stroke="white" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round" />
+                                    <div class="balance-amount">
+                                        @if(showbalance){ <span>₹ {{BalanceData['Balance']|number:'1.2-2'}}</span> }@else {₹  *******}
+                                        
+                                    </div>
 
-                                        <path
-                                            d="M12 20.27C15.53 20.27 18.82 18.19 21.11 14.59C22.01 13.18 22.01 10.81 21.11 9.4C18.82 5.8 15.53 3.72 12 3.72C8.47 3.72 5.18 5.8 2.89 9.4C1.99 10.81 1.99 13.18 2.89 14.59C5.18 18.19 8.47 20.27 12 20.27Z"
-                                            stroke="white" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                    </svg>
+                                    <!-- Eye Button -->
+                                    <a class="balance-toggle" (click)="showbalance=!showbalance">
+                                        @if(showbalance){
+                                            <i class="fa-solid fa-eye-slash"  style="color: rgb(255, 255, 255);"></i>
+                                        }@else{
+                                            <i class="fa-solid fa-eye" style="color: rgb(255, 255, 255);"></i>
+                                        }
 
-                                </button>
+                                    </a>
+
+                                </div>
 
                             </div>
 
+                            <!-- RIGHT -->
+                             <div>
+                                <!-- <div class="wallet-dropdown-wrapper dropdown mb-2" >
+
+                                    <button class="wallet-dropdown" id="dropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
+
+                                        <svg width="14" height="8" viewBox="0 0 14 7" fill="none">
+                                            <path
+                                                d="M13.73 1.62L11.57 3.91C10.75 4.77 10.08 5.47 9.49 5.97C8.87 6.49 8.25 6.86 7.49 6.96C7.16 7.01 6.83 7.01 6.50 6.96C5.75 6.86 5.12 6.49 4.50 5.97C3.91 5.47 3.24 4.77 2.43 3.91L0.26 1.62"
+                                                stroke="white" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                        </svg>
+
+                                    </button>
+
+                                  
+                                    <div class="dropdown-menu" id="dropdownMenu">
+                                        <a href="javascript:void(0)" class="dropdown-item">Cash Wallet : {{BalanceData['DepositBalance']|number:'1.2-2'}}</a>
+                                        <a href="javascript:void(0)" class="dropdown-item">Credit Wallet : {{BalanceData['CreditLimit']|number:'1.2-2'}}</a>
+                                        <a href="javascript:void(0)" class="dropdown-item">Credit Expiry : {{BalanceData['CreditLimit']|date:'dd MMM yyyy'}}</a>
+                                        <a href="javascript:void(0)" class="dropdown-item">Due Amount : {{BalanceData['DueAmount'] |number:'1.2-2'}}</a>
+                                    </div>
+
+                                </div> -->
+                                <a  class="wallet-dropdown pointer" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Refresh Balance." (click)="RefreshBalance()" href="javascript:void(0)"><i class="fa-solid fa-arrows-rotate"  style="color: rgb(255, 255, 255);"></i></a>
+                            </div>
                         </div>
 
-                        <!-- RIGHT -->
-                        <div class="wallet-dropdown-wrapper dropdown" >
+                        <!-- BUTTONS -->
+                        <div class="account-actions">
 
-                            <button class="wallet-dropdown" id="dropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
-
-                                <svg width="14" height="8" viewBox="0 0 14 7" fill="none">
-                                    <path
-                                        d="M13.73 1.62L11.57 3.91C10.75 4.77 10.08 5.47 9.49 5.97C8.87 6.49 8.25 6.86 7.49 6.96C7.16 7.01 6.83 7.01 6.50 6.96C5.75 6.86 5.12 6.49 4.50 5.97C3.91 5.47 3.24 4.77 2.43 3.91L0.26 1.62"
-                                        stroke="white" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
-
+                            <button class="account-btn account-btn-outline" routerLink="/dashboard/payment-passbook">
+                                View Statement
                             </button>
 
-                            <!-- Dropdown Menu -->
-                            <div class="dropdown-menu" id="dropdownMenu">
-                                <a href="#" class="dropdown-item">Main Wallet</a>
-                                <a href="#" class="dropdown-item">Eaglecrest Wallet</a>
-                                <a href="#" class="dropdown-item">Flight Rewards</a>
-                                <a href="#" class="dropdown-item">Crest Miles</a>
-                            </div>
+                            <button class="account-btn account-btn-primary" routerLink="/dashboard/online-recharge">
+                                + Add Money
+                            </button>
 
                         </div>
 
                     </div>
 
-                    <!-- BUTTONS -->
-                    <div class="account-actions">
+                    <!-- =========================
+                        OPERATIONAL UPDATES CARD
+                    ========================= -->
 
-                        <button class="account-btn account-btn-outline">
-                            View Statement
-                        </button>
+                    <div class="updates-card">
 
-                        <button class="account-btn account-btn-primary">
-                            + Add Money
-                        </button>
+                        <!-- Header -->
+                        <div class="updates-header">
 
-                    </div>
+                            <div class="updates-title-wrap">
 
-                </div>
+                                <!-- Icon -->
+                                <div class="updates-icon">
 
-                <!-- =========================
-                    OPERATIONAL UPDATES CARD
-                ========================= -->
-
-                <div class="updates-card">
-
-                    <!-- Header -->
-                    <div class="updates-header">
-
-                        <div class="updates-title-wrap">
-
-                            <!-- Icon -->
-                            <div class="updates-icon">
-
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
-                                    <line x1="12" y1="8" x2="12" y2="12" stroke="currentColor" stroke-width="2" />
-                                    <line x1="12" y1="16" x2="12.01" y2="16" stroke="currentColor" stroke-width="2" />
-                                </svg>
-
-                            </div>
-
-                            <h3 class="updates-title">
-                                Recently Operational Updates
-                            </h3>
-
-                        </div>
-
-                    </div>
-
-                    <!-- Body -->
-                    <div class="updates-body">
-
-                        <!-- ITEM -->
-                        <div class="update-item">
-
-                            <span class="update-badge">
-                                New
-                            </span>
-
-                            <div class="update-row">
-
-                                <p class="update-text">
-                                    AUTO LIMIT Activated 🚀 Move funds from your bank or UPI apps
-                                    straight into your wallet — fast, seamless, and no cost.
-                                </p>
-
-                                <button class="update-arrow">
-
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                                        <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+                                        <line x1="12" y1="8" x2="12" y2="12" stroke="currentColor" stroke-width="2" />
+                                        <line x1="12" y1="16" x2="12.01" y2="16" stroke="currentColor" stroke-width="2" />
                                     </svg>
 
-                                </button>
+                                </div>
+
+                                <h3 class="updates-title">
+                                    Recently Operational Updates
+                                </h3>
 
                             </div>
 
                         </div>
 
-                        <!-- Divider -->
-                        <div class="update-divider"></div>
+                        <!-- Body -->
+                        <div class="updates-body">
 
-                        <!-- ITEM -->
-                        <div class="update-item">
+                            @for (item of Response['Notification']; track $index) {
+                                @if(item['status']=='active'){
+                                    <div class="update-item">
+                                       
+                                        <span class="update-badge">
+                                            {{item['notification_category']}}
+                                        </span>
+                                        
+                                        <div class="update-row">
+                                            <div>
+                                                <h6>{{item['title']}}</h6>
+                                            <p class="update-text">
+                                                {{item['description']}}
+                                            </p>
+                                            </div>
+                                            @if(item['url']){
+                                                <a [href]="item['url']" target="_blank" class="update-arrow">
+                                                    <i class="fa-solid fa-chevron-right"></i>
+                                                </a>
+                                            }
+                                        </div>
 
-                            <span class="update-badge">
-                                New
-                            </span>
-
-                            <div class="update-row">
-
-                                <p class="update-text">
-                                    Special RoundTrip Fares for Domestic & Split Fares for
-                                    International are now Live!
-                                </p>
-
-                                <button class="update-arrow">
-
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                                        <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                        <!-- Divider -->
-                        <div class="update-divider"></div>
-
-                        <!-- ITEM -->
-                        <div class="update-item">
-
-                            <span class="update-badge">
-                                New
-                            </span>
-
-                            <div class="update-row">
-
-                                <p class="update-text">
-                                    Introducing the Pax Calendar — view all your passengers by
-                                    their flying dates at a glance!
-                                </p>
-
-                                <button class="update-arrow">
-
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                                        <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                        <!-- Divider -->
-                        <div class="update-divider"></div>
-
-                        <!-- ITEM -->
-                        <div class="update-item">
-
-                            <span class="update-badge">
-                                New
-                            </span>
-
-                            <div class="update-row">
-
-                                <p class="update-text">
-                                    Hotels are back — smarter, faster, and better than ever!
-                                </p>
-
-                                <button class="update-arrow">
-
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                                        <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                        <!-- Divider -->
-                        <div class="update-divider"></div>
-
-                        <!-- ITEM -->
-                        <div class="update-item">
-
-                            <div class="update-row">
-
-                                <p class="update-text">
-                                    Eagle Crest expands its wings in Bali, Vietnam, and Thailand.
-                                    For enquiries contact saleseaglecrestdmc.com
-                                </p>
-
-                                <button class="update-arrow">
-
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                                        <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-
-                                </button>
-
-                            </div>
+                                    </div>
+                                }
+                            @if($index<=Response['Notification'].length-2){
+                                <div class="update-divider"></div>
+                            }
+                            
+                            }
+                            
 
                         </div>
 
@@ -564,8 +517,7 @@
                 </div>
 
             </div>
-
-        </div>
+        }
 
     </div>
 </section>

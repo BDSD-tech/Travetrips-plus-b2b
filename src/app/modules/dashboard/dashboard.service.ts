@@ -37,6 +37,12 @@ export class DashboardService {
     return this.http.post(configUrl, data);
   }
   
+  public DashboardDetails()
+  {
+    let req:any={}
+    let configUrl =  tts_config.APIURL +'/dashboard';
+    return this.http.post(configUrl,req);
+  }
   public BookingCalendar(data:any)
   {
     let configUrl =  tts_config.APIURL +'/flight/flight-booking-calendar';

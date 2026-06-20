@@ -5,52 +5,16 @@
       <a class="navbar-brand brand-logo" routerLink="/">
          <img [src]="LogoURL" alt="eTrav Logo">
       </a>
-      <!-- Mobile Toggle -->
+     
       <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
          data-bs-target="#mainNavbar">
          <i class="fa-solid fa-bars"></i>
       </button>
-      <!-- Navbar Content -->
+     
       <div class="collapse navbar-collapse" id="mainNavbar">
-         <!-- LEFT NAVIGATION -->
-         <!-- <ul class="navbar-nav align-items-xl-center main-nav me-auto">
-            <li class="nav-item">
-               <a href="javascript:void(0);" routerLink="/" routerLinkActive="active"
-                  [routerLinkActiveOptions]="{ exact: true }" class="nav-link nav-item-custom">
-                  Flights
-               </a>
-            </li>
-            <li class="nav-item">
-               <a href="javascript:void(0);" routerLink="/hotels" routerLinkActive="active"
-                  class="nav-link nav-item-custom">
-                  Hotels
-               </a>
-            </li>
-            <li class="nav-item">
-               <a href="javascript:void(0);" routerLink="/bus" routerLinkActive="active"
-                  class="nav-link nav-item-custom">
-                  Bus
-               </a>
-            </li>
-            <li class="nav-item">
-               <a href="javascript:void(0);" routerLink="/dmc" routerLinkActive="active"
-                  class="nav-link nav-item-custom">
-                  DMC
-               </a>
-            </li>
-            <li class="nav-item position-relative">
-               <a href="javascript:void(0);" routerLink="/ecd-hotels" routerLinkActive="active"
-                  class="nav-link nav-item-custom new-tag-item">
-                  ECD Hotels
-                  <span class="new-badge">
-                     NEW
-                  </span>
-               </a>
-            </li>
-         </ul> -->
-         <!-- RIGHT SECTION -->
+         
          <div class="navbar-right d-flex align-items-center flex-wrap gap-3">
-            <!-- SUPPORT -->
+           
             <div class="support-box d-none d-xl-flex flex-column">
                <span>
                   24X7 Support
@@ -62,42 +26,58 @@
                   {{GetWebSiteData['SupportEmail']}}
                </small>
             </div>
-            <!-- CONTACT BUTTON -->
+           
 
             <button routerLink="/pages/contact-us" class="btn contact-btn">
                Contact Us
             </button>
-
-            <!-- Dahsboard -->
-            <div class="wallet-dropdown">
-               <a routerLink="/dashboard" class="btn wallet-btn" type="button">
+ 
+            <div class="wallet-dropdown ">
+               <a routerLink="/dashboard" class="btn wallet-btn ml-12" type="button">
                   <i class="fa-solid fa-gauge"></i>
                </a>
+               <a class="icon-title" href="javascript:void(0)">Dashboard</a>
             </div>
+            
 
 
-            <!-- WALLET DROPDOWN -->
-            <div class="dropdown wallet-dropdown">
-               <button class="btn wallet-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="dropdown wallet-dropdown text-center">
+                  <button class="btn wallet-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="fa-solid fa-wallet"></i>
                </button>
+               <a class="icon-title" href="javascript:void(0)">Wallet</a>
+              
                <div class="dropdown-menu dropdown-menu-end wallet-menu">
                   <div class="wallet-item">
-                     <span>Wallet Balance: </span>
-                     <strong>₹{{WalletBalance}}</strong>
+                     <span>Available  Balance: </span>
+                     <strong>₹{{WalletBalance | number:'1.2-2'}}</strong>
                   </div>
-                  <!-- <div class="wallet-item">
-                     <span>Eaglecrest Wallet:</span>
-                     <strong>₹0</strong>
-                  </div>
+
                   <div class="wallet-item">
-                     <span>Flight Rewards:</span>
-                     <strong>₹0</strong>
+                     <span>Cash Wallet : </span>
+                     <strong>₹{{WalletDepositBalance | number:'1.2-2'}}</strong>
                   </div>
-                  <div class="wallet-item border-0 pb-0">
-                     <span>Crest Miles:</span>
-                     <strong>₹0</strong>
-                  </div> -->
+
+                  @if(WalletCreditStatus){
+                     <div class="wallet-item">
+                        <span>Credit Wallet:</span>
+                        <strong>₹{{WalletCreditLimit| number:'1.2-2'}}</strong>
+                     </div>
+                    
+                      @if(WalletCreditExpireDate){
+                        <div class="wallet-item">
+                           <span>Credit Expire:</span>
+                           <strong class="text-danger">{{ WalletCreditExpireDate }}</strong>
+                        </div>
+                        }
+                        @if(WalletDueAmount !== 0){
+                        <div class="wallet-item">
+                           <span>Dues:</span>
+                           <strong class="text-danger">₹{{ WalletDueAmount | number:'1.2-2' }}</strong>
+                        </div>
+                     }
+                  }
+               
                </div>
             </div>
             <!-- USER PROFILE -->
@@ -116,9 +96,8 @@
                   <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
                </button>
                <!-- DROPDOWN MENU -->
-               <div class="dropdown-menu dropdown-menu-end profile-dropdown-menu">
-                  <a class="dropdown-item" routerLink="/dashboard/user-detail/{{LoginAgentinfo['CompanyId']}}"
-                     href="javascript:void(0);">
+            <div class="dropdown-menu dropdown-menu-end profile-dropdown-menu">
+                  <a class="dropdown-item" routerLink="/dashboard/user-detail/{{LoginAgentinfo['CompanyId']}}" href="javascript:void(0);">
                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
                         class="rpfteH2dJ806mlRyY5L7">
                         <path
@@ -137,7 +116,13 @@
                      </svg>
                      My Profile
                   </a>
-
+                @if(LoginAgentinfo['PrimaryUser']=='1'){
+               
+                    <a  class="dropdown-item"  routerLink="/dashboard/users">
+                        <i class="fas fa-users-cog"></i> Manage Users
+                    </a>
+               
+                }
                   <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/bookings">
                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
                         class="rpfteH2dJ806mlRyY5L7">
@@ -149,6 +134,11 @@
                      </svg>
                      My Bookings
                   </a>
+                  <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/amendments">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 640 640"><path fill="rgb(156, 156, 156)" d="M216 64C229.3 64 240 74.7 240 88L240 128L400 128L400 88C400 74.7 410.7 64 424 64C437.3 64 448 74.7 448 88L448 128L480 128C515.3 128 544 156.7 544 192L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 192C96 156.7 124.7 128 160 128L192 128L192 88C192 74.7 202.7 64 216 64zM216 176L160 176C151.2 176 144 183.2 144 192L144 480C144 488.8 151.2 496 160 496L480 496C488.8 496 496 488.8 496 480L496 192C496 183.2 488.8 176 480 176L216 176zM387.9 268.1C397.3 277.5 397.3 292.7 387.9 302L354 335.9L387.9 369.8C397.3 379.2 397.3 394.4 387.9 403.7C378.5 413 363.3 413.1 354 403.7L320.1 369.8L286.2 403.7C276.8 413.1 261.6 413.1 252.3 403.7C243 394.3 242.9 379.1 252.3 369.8L286.2 335.9L252.3 302C242.9 292.6 242.9 277.4 252.3 268.1C261.7 258.8 276.9 258.7 286.2 268.1L320.1 302L354 268.1C363.4 258.7 378.6 258.7 387.9 268.1z"/></svg>
+                                    My Amendments
+                  </a>
+
                   <a class="dropdown-item" routerLink="/dashboard/deposit-request" href="javascript:void(0);">
                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                         class="rpfteH2dJ806mlRyY5L7">
@@ -189,7 +179,7 @@
                      </svg>
                      Account Statement
                   </a>
-                  <a class="dropdown-item" href="javascript:void(0);">
+                  <a class="dropdown-item" href="javascript:void(0);" >
                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                         class="rpfteH2dJ806mlRyY5L7">
                         <path
@@ -301,7 +291,17 @@
                            d="M21.5 10H3.5M16.5 2V6M8.5 2V6M8.3 22H16.7C18.3802 22 19.2202 22 19.862 21.673C20.4265 21.3854 20.8854 20.9265 21.173 20.362C21.5 19.7202 21.5 18.8802 21.5 17.2V8.8C21.5 7.11984 21.5 6.27976 21.173 5.63803C20.8854 5.07354 20.4265 4.6146 19.862 4.32698C19.2202 4 18.3802 4 16.7 4H8.3C6.61984 4 5.77976 4 5.13803 4.32698C4.57354 4.6146 4.1146 5.07354 3.82698 5.63803C3.5 6.27976 3.5 7.11984 3.5 8.8V17.2C3.5 18.8802 3.5 19.7202 3.82698 20.362C4.1146 20.9265 4.57354 21.3854 5.13803 21.673C5.77976 22 6.61984 22 8.3 22Z"
                            stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                      </svg>
-                     Pax Calendar
+                     Booking Calendar
+                  </a>
+                  <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/manage-deposit-request">
+                     <i class="fa-solid fa-hand-holding-dollar" style="color: rgb(156, 156, 156);"></i> Manage Deposit Requests
+                  </a>
+                  
+                  <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/credit-request">
+                     <i class="fa-solid fa-code-pull-request" style="color: rgb(156, 156, 156);"></i>  Credit Requests
+                  </a>
+                  <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/download-report">
+                    <i class="fa-solid fa-file-arrow-down" style="color: rgb(156, 156, 156);"></i>   Download Reports
                   </a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item logout-item" (click)="logout()" href="javascript:void(0);">
