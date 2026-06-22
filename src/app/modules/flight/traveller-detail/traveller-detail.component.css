@@ -344,7 +344,13 @@ BOOKING STEPPER
 .journey-line::after {
     right: 0;
 } */
-
+ .fare-details{
+    position: sticky;
+    top: 15%;
+}
+.timer-section{
+    margin-bottom:24px
+}
 .plane-icon {
     position: absolute;
     left: 50%;
@@ -1435,4 +1441,9 @@ BOOKING STEPPER
     padding: 0px 20px;
     border-radius: 0 0 10px 0;
 
+}
+.ssr-list{
+    padding:5px 10px;
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
 }

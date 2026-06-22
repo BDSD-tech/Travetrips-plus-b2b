@@ -49,6 +49,7 @@ export class ItineraryComponent implements OnInit {
           if(resp['Error']['ErrorCode']==0)
           {
             this.BookingDetail=resp['Result'];
+            console.log(this.BookingDetail);
             
             let AmendmentPaxID:any=[];
             this.BookingDetail['amendmentList'].forEach((element:any) => {
@@ -106,9 +107,11 @@ export class ItineraryComponent implements OnInit {
           this.submitloading=false;
           if(resp['Error']['ErrorCode']==0)
           { 
-            this.GetBookingDetail();
+            //this.GetBookingDetail();
+            this.router.navigate(['dashboard/manage-carts/cart-detail/',this.BookingDetail['booking_ref_number']]);
             this.PaxID=[];
             this.Remark='';
+            
             this.alertservice.success(resp['Error']['ErrorMessage']);
           } else {
             this.alertservice.error(resp['Error']['ErrorMessage']);

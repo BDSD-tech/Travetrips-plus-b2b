@@ -1,5 +1,5 @@
 .flight-list {
-    padding: 40px 0;
+    padding: 25px 0;
 }
 
 .flight-filter-sidebar{
@@ -637,9 +637,11 @@
 }
 
 .flight-info-item {
-    font-size: 12px;
-    padding-right: 8px;
-    margin-right: 8px;
+    display: flex;
+    align-items: center;
+   font-size: 12px;
+    padding-right: 5px;
+    margin-right: 5px;
     border-right: 1px solid var(--border-color);
     font-weight: 600;
 }
@@ -660,7 +662,6 @@
 
 .seats-left span {
     display: block;
-    margin-top: 10px;
     text-align: center;
     color: #dc3545;
 }
@@ -689,7 +690,7 @@
     font-weight: 700;
     transition: all 0.3s ease;
     background-color: transparent;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .more-fare {
@@ -1462,4 +1463,18 @@
         width: 100%;
         min-width: 100%;
     }
+}
+
+.border-right{
+    padding-right: 4px;
+    border-right: 1px solid rgb(150, 150, 150);
+}
+.holdable-icon{
+    background-color: var(--primary-color);
+    padding: 2px 5px;
+    border-radius: 36%;
+    font-size: 12px;
+    margin-left: 7px;
+    color: #fff;
+    font-weight: 700;
 }

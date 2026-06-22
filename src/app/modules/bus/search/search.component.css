@@ -46,6 +46,11 @@
     box-shadow: var(--shadow-sm);
 }
 
+.flight-leftbgcolor{
+    position: sticky;
+    top:100px;
+}
+
 .sort-btn {
     width: 100%;
     background: transparent;

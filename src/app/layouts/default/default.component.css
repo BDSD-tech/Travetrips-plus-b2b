@@ -16,7 +16,12 @@
     font-size: 12px;
     font-weight: 600;
 }
-
+.headset-icon{
+    background-color: var(--primary-color);
+    color: #fff;
+    border-radius: 50%;
+    padding: 8px 10px;
+}
 /* .tts_agentUserId::before {
     content: "";
     width: 8px;

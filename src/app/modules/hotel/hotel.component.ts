@@ -23,7 +23,7 @@ export class HotelComponent implements OnInit {
   HotelSearchForm: FormGroup;
   roomobject:any=[];
   roomcount=1;
-  Occupancy='1 Room 1 Guest';
+  Occupancy='1 Room 2 Guest';
   Hotelloading=false;
   hotelsubmitted = false;
   isHotelShow = false;
@@ -44,7 +44,7 @@ export class HotelComponent implements OnInit {
     for(var i = 0; i<4; i++)
       {
         let roomObject={
-                            'Adult':1,
+                            'Adult':2,
                             'Child':0,
                             'ChildAge':[1,1]
                           };
@@ -220,7 +220,7 @@ export class HotelComponent implements OnInit {
     if(this.roomcount < 4)
     {
         $(".hotelpaxcount_message").removeClass("shake").html("");
-        this.roomobject[this.roomcount]['Adult']=1;
+        this.roomobject[this.roomcount]['Adult']=2;
         this.roomobject[this.roomcount]['Child']=0;
         this.roomcount++;
         this.hoteltotalpaxcount();
@@ -232,7 +232,7 @@ export class HotelComponent implements OnInit {
   {
       $(".hotelpaxcount_message").removeClass("shake").html("");
       this.roomcount--;
-      this.roomobject[this.roomcount]['Adult']=1;
+      this.roomobject[this.roomcount]['Adult']=2;
       this.roomobject[this.roomcount]['Child']=0;
       this.hoteltotalpaxcount();
   }

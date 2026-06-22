@@ -76,6 +76,12 @@ const routes: Routes = [
                              
                             },
                             {
+                              path:'bank-details',
+                              loadComponent: () => import('../dashboard/bank-details/bank-details.component')
+                                .then(mod => mod.BankDetailsComponent)
+                             
+                            },
+                            {
                               path:'markup',
                               loadComponent: () => import('../dashboard/markup/markup.component')
                                 .then(mod => mod.MarkupComponent)
