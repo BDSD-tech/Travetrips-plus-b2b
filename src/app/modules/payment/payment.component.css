@@ -7,7 +7,9 @@ PAYMENT PAGE UI
     background: var(--main-bg-color);
     font-family: var(--body-font);
 }
-
+.timer-section{
+    margin-bottom:24px
+}
 /* =========================================================
 BOOKING STEPPER
 ========================================================= */
@@ -359,6 +361,7 @@ FARE SUMMARY
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow-md);
     position: sticky;
+    height: auto;
     top: 20px;
 }
 
@@ -382,6 +385,7 @@ FARE SUMMARY
     top: 4px;
     width: 5px;
     height: 24px;
+    
     border-radius: 30px;
     background: var(--primary-color);
 }

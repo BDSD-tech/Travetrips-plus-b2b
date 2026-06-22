@@ -140,7 +140,7 @@ export class TravellerDetailComponent implements OnInit {
 
   showReviewpage=false;
 
-  Showmeal=false;
+  Showmeal:any='';
 
 
   fareRuleLoading=false;
@@ -652,6 +652,15 @@ GetPhonecodeVal(event: Event): void {
 
     
     
+  }
+
+
+  ShowSSR(type:any){
+    if(this.Showmeal==type){
+      this.Showmeal='';
+    }else{
+       this.Showmeal=type;
+    }
   }
   AddRequiredFields(){
       let obpanrequired: boolean =false;

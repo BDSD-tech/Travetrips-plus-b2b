@@ -658,9 +658,17 @@ MoreFare(event: any, item: any, ttsindex: any) {
         'fareid': farelistobj['FareId'],
       };
       const navigationExtras: NavigationExtras = {
-        queryParams: data
+        queryParams: data,
+        
       };
-      this.router.navigate(['flight/traveller'], navigationExtras);
+      const url = this.router.serializeUrl(
+        this.router.createUrlTree(['/flight/traveller'], {
+          queryParams: navigationExtras.queryParams
+        })
+      );
+
+        window.open(url, '_blank');
+      //this.router.navigate(['flight/traveller'], navigationExtras);
     }
 
   }

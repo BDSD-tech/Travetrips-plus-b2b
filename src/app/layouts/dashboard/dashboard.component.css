@@ -14,7 +14,12 @@ TOP NAVBAR
 .ml-12{
       margin-left: 12px;
 }
-
+.headset-icon{
+    background-color: var(--primary-color);
+    color: #fff;
+    border-radius: 50%;
+    padding: 8px 10px;
+}
 .icon-title {
     font-size: 12px;
     font-weight: 600;

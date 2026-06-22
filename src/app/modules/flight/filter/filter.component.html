@@ -76,9 +76,9 @@
 
         <div class="filter-card-body">
 
-            <div class="fare-switch-wrap">
+            <div class="fare-switch-wrap d-flex">
 
-                <div class="form-check">
+                <div class="form-check me-3">
                     <input class="form-check-input" type="checkbox" id="showincvfare" [(ngModel)]="showincentivefare"
                         (ngModelChange)="showfares('incv',showincentivefare)">
 
@@ -101,55 +101,6 @@
         </div>
 
     </div>
-
-    <!-- FARE TYPE -->
-    <div class="filter-card" *ngIf="Filter[0]">
-
-        <div class="filter-card-header">
-            <span>Fare Type</span>
-        </div>
-
-        <div class="filter-card-body">
-
-            <div class="form-check form-switch" *ngFor="let item of Filter[0]['FareType']; let i=index">
-
-                <input class="form-check-input" type="checkbox" id="fareType{{i}}" [(ngModel)]="item.isChecked"
-                    (click)="doFilter(0,'FareType',$event,item)">
-
-                <label class="form-check-label" for="fareType{{i}}">
-                    {{item.label}}
-                </label>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- RETURN FARE TYPE -->
-    <div class="filter-card" *ngIf="Filter[1] && GetSearchData['Isdomestic']=='true'">
-
-        <div class="filter-card-header">
-            <span>Fare Type Return</span>
-        </div>
-
-        <div class="filter-card-body">
-
-            <div class="form-check form-switch" *ngFor="let item of Filter[1]['FareType']; let i=index">
-
-                <input class="form-check-input" type="checkbox" id="returnFareType{{i}}" [(ngModel)]="item.isChecked"
-                    (click)="doFilter(1,'FareType',$event,item)">
-
-                <label class="form-check-label" for="returnFareType{{i}}">
-                    {{item.label}}
-                </label>
-
-            </div>
-
-        </div>
-
-    </div>
-
     <!-- STOPS -->
     <div class="filter-card">
 
@@ -200,6 +151,55 @@
         </div>
 
     </div>
+    <!-- FARE TYPE -->
+    <div class="filter-card" *ngIf="Filter[0]">
+
+        <div class="filter-card-header">
+            <span>Fare Type</span>
+        </div>
+
+        <div class="filter-card-body">
+
+            <div class="form-check form-switch" *ngFor="let item of Filter[0]['FareType']; let i=index">
+
+                <input class="form-check-input" type="checkbox" id="fareType{{i}}" [(ngModel)]="item.isChecked"
+                    (click)="doFilter(0,'FareType',$event,item)">
+
+                <label class="form-check-label" for="fareType{{i}}">
+                    {{item.label}}
+                </label>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- RETURN FARE TYPE -->
+    <div class="filter-card" *ngIf="Filter[1] && GetSearchData['Isdomestic']=='true'">
+
+        <div class="filter-card-header">
+            <span>Fare Type Return</span>
+        </div>
+
+        <div class="filter-card-body">
+
+            <div class="form-check form-switch" *ngFor="let item of Filter[1]['FareType']; let i=index">
+
+                <input class="form-check-input" type="checkbox" id="returnFareType{{i}}" [(ngModel)]="item.isChecked"
+                    (click)="doFilter(1,'FareType',$event,item)">
+
+                <label class="form-check-label" for="returnFareType{{i}}">
+                    {{item.label}}
+                </label>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    
 
     <!-- DEPARTURE -->
     <div class="filter-card">
