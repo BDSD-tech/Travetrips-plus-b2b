@@ -339,12 +339,11 @@
                     <!----old code End---->
 
 
-                    <div class=" nohotels">
+                    <div class="nohotels" *ngif="sortedData.length==0" >
                         <div class="no_hotel-content">
-                            <i class="fa fa-hotel mb-4"></i>
+                            <i class="fa fa-hotel"></i>
                             <p>No hotel found that matches your filter criteria.Reset your filter</p>
-                            <button type="submit" class="tts-button-primary mt-3" (click)="resetfilterdata()">Reset All
-                                Filter</button>
+                            <button type="submit" class="tts-button-primary" (click)="resetfilterdata()">Reset All Filter</button>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 .main_container {
     clear: both;
 }
+
 .info_main {
     background: #EEEEEE;
     height: 100%;
@@ -20,6 +21,7 @@
     width: 100%;
     padding: 6px;
 }
+
 .cart_acordian {
     display: flex;
     justify-content: space-between;
@@ -28,6 +30,7 @@
     margin-bottom: 10px;
     cursor: pointer;
 }
+
 .cart_acordian h3 {
     margin: 0;
     padding: 0;
@@ -35,6 +38,7 @@
     font-weight: 500;
     padding-left: 10px;
 }
+
 .acordian_heading {
     font-size: 16px;
     color: var(--primary-color);
@@ -43,6 +47,7 @@
     width: 65%;
     margin: 0;
 }
+
 .cart_details_action {
     width: 100%;
     text-align: right;
@@ -50,13 +55,17 @@
 }
 
 .cart_details_action .cssCircle.addsign {
-    border-color: #555555;
     font-weight: 500;
     font-size: 12px;
     display: inline-block;
-    margin-right: 5px;
+    margin-right: 10px;
+    padding-right: 10px;
+    border-right: 1px solid #dedede;
 }
-.cssCircle.minusSign, .cssCircle.plussSign, .collapsable.collapsable {
+
+.cssCircle.minusSign,
+.cssCircle.plussSign,
+.collapsable.collapsable {
     line-height: 30px;
     width: 30px;
     height: 30px;
@@ -64,7 +73,9 @@
     border-radius: 50%;
     text-align: center;
     color: #333;
+    flex-shrink: 0;
 }
+
 .cssCircle {
     padding: 0px;
     background: transparent;
@@ -79,11 +90,13 @@
     font-weight: 600;
     font-size: 18px;
 }
+
 .cart-details-borderline {
     border: 1px solid #e5e5e5;
     padding: 15px;
     border-radius: 6px;
 }
+
 .cart_info-field {
     display: flex;
     display: -webkit-flex;
@@ -91,22 +104,27 @@
     flex-wrap: wrap;
     padding: 2px 0;
 }
+
 .cart_info-field--title {
     color: #9c9c9c;
     margin-bottom: 5px;
 }
+
 .cart_info-field--detail {
     color: #242424;
 }
+
 a {
     color: var(--primary-color);
 }
+
 .cssCircle-plusdesign {
     color: #555555;
     font-weight: 400;
 }
+
 .cssCircle.addsign {
-    border-color:#555555;
+    border-color: #555555;
     font-weight: 500;
     font-size: 12px;
 }
@@ -119,9 +137,11 @@ a {
 .ball__mainwrapper {
     position: relative;
 }
+
 .info_length-green {
     background: #036403;
 }
+
 .ball__border {
     position: relative;
     border-radius: 50%;
@@ -158,6 +178,7 @@ a {
     margin-right: 0;
     transition: 0.25s ease all;
 }
+
 .cart_amend-details:hover {
     transform: scale(1.02);
     transition: 0.25s ease all;
@@ -167,15 +188,18 @@ a {
     width: 100%;
     float: right;
 }
+
 .cart_amend-passenger .amend_details-passengers {
     box-shadow: none;
     margin-left: -6px;
     margin-right: -6px;
 }
+
 .segment_details-content {
     padding: 0 15px;
     background: #fff;
 }
+
 .segment_body {
     display: flex;
     display: -webkit-flex;
@@ -191,6 +215,7 @@ a {
     border-radius: 6px;
     margin-bottom: 5px;
 }
+
 .segment_body .segment_body-airlogo {
     display: flex;
     display: -webkit-flex;
@@ -201,13 +226,16 @@ a {
     width: 20%;
     text-align: center;
 }
+
 .airline-logo {
     margin-right: 8px;
     width: 28px;
 }
+
 .margin-zero {
     margin: 0;
 }
+
 .segment_body .airline-code {
     display: block;
     font-size: 12px;
@@ -215,19 +243,23 @@ a {
     color: #4e4949;
     margin: 0;
 }
+
 .segment_body .segment_body-flight-info {
     width: 33%;
     text-align: center;
 }
+
 .segment_body-flight-stop {
     width: 8%;
     text-align: center;
 }
+
 .segment_body-flight-stop .arrow_right-sm {
     width: 100%;
     margin: 0;
     background: #ccc;
 }
+
 .arrow_right-sm {
     height: 2px;
     width: 3%;
@@ -235,9 +267,11 @@ a {
     margin: 0 10px;
     position: relative;
 }
+
 .segment_body-flight-stop .arrow_right-sm:before {
     background: #ccc;
 }
+
 .arrow_right-sm:before {
     content: '';
     position: absolute;
@@ -248,9 +282,11 @@ a {
     right: 3px;
     transform: rotate(135deg);
 }
+
 .segment_body-flight-stop .arrow_right-sm:after {
     background: #ccc;
 }
+
 .arrow_right-sm:after {
     content: '';
     position: absolute;
@@ -261,9 +297,11 @@ a {
     right: 3px;
     transform: rotate(45deg);
 }
+
 .cart_amend-passenger .amend_details-passengers--list {
     margin-bottom: 10px;
 }
+
 .amend_details-passengers--list {
     background: #fff;
     box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
@@ -272,15 +310,18 @@ a {
     padding: 10px;
     border-radius: 6px;
 }
+
 .amend_fare-expand {
     margin: 10px 0;
 }
+
 .amend_fare-expand {
     margin: 10px 0;
     border: 1px solid #e5e5e5;
     border-radius: 5px;
     padding: 5px 0;
 }
+
 .amend_passenger_details {
     background: #f2f1f1;
     border-radius: 6px;
@@ -288,23 +329,29 @@ a {
     width: 100%;
     padding: 5px;
 }
+
 .amend_passenger_details .bold {
     font-weight: 500;
 }
+
 .person-name {
     color: var(--primary-color);
     text-transform: capitalize;
     margin: 0 0 10px;
 }
+
 .amend_passenger_details .sm_font {
     font-size: 11px;
 }
+
 .pull-left {
-    float: left!important;
+    float: left !important;
 }
+
 .pull-right {
-    float: right!important;
+    float: right !important;
 }
+
 .hoverInfo_content {
     display: none;
     position: absolute;
@@ -323,9 +370,11 @@ a {
     box-shadow: 0 1px 4px 0 rgb(0 0 0%);
     font-weight: 500;
 }
+
 .padd-left-amendment {
     padding-left: 0;
 }
+
 .floating-label {
     position: relative;
     margin-bottom: 5px;
@@ -334,7 +383,7 @@ a {
 
 .input-floating-lebel {
     font-size: 13px;
-  
+
     border: none;
     border-bottom: solid 1px #e5e5e5;
     width: 100%;
@@ -348,29 +397,37 @@ a {
     border-radius: 0;
     background: transparent;
 }
-.floating-label .input-floating-lebel:not(:placeholder-shown) + label {
+
+.floating-label .input-floating-lebel:not(:placeholder-shown)+label {
     -webkit-transform: translateY(-10px);
     transform: translateY(-10px);
     opacity: 1;
     z-index: 0;
 }
+
 .input-floating-lebel:focus {
     border-bottom: solid 1px #555;
     outline: 0;
     box-shadow: 0 2px 6px -8px #555;
 }
+
 fieldset {
     min-width: 0;
     padding: 0;
     margin: 0;
     border: 0;
 }
+
 .input-floating-lebel:focus {
     border-bottom: solid 1px #555;
     outline: 0;
     box-shadow: 0 2px 6px -8px #555;
 }
-.cssCircle.addsign.margin_auto, .cssCircle.minusSign.margin_auto, .cssCircle.expand.margin_auto, .cssCircle.collapsable.margin_auto {
+
+.cssCircle.addsign.margin_auto,
+.cssCircle.minusSign.margin_auto,
+.cssCircle.expand.margin_auto,
+.cssCircle.collapsable.margin_auto {
     margin: 0 auto;
 }
 
@@ -389,11 +446,13 @@ fieldset {
     box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
     border-radius: 6px;
 }
+
 .credit_info--header-container {
     margin-top: 20px;
     color: var(--primary-color);
     background: #fafafa;
 }
+
 .credit_info--header-container tr td {
     position: sticky;
     position: -webkit-sticky;
@@ -413,12 +472,14 @@ fieldset {
     max-width: 250px;
     min-width: 100px;
 }
+
 .ellipses {
     max-width: 110px;
     overflow-x: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 td:first-child {
     position: sticky;
     position: -webkit-sticky;
@@ -429,7 +490,7 @@ td:first-child {
     background: #fafafa;
 }
 
-.sign_btn{
+.sign_btn {
     background: #004684;
     font-weight: bold;
     border-radius: 30px;
@@ -466,20 +527,24 @@ td:first-child {
     background: #555555;
     border-color: #555555;
 }
-i{
+
+i {
     font-size: 14px;
 }
-.amend-highlight{
+
+.amend-highlight {
     border-left: 3px solid #555555 !important;
     background: #e6f6fc;
     position: relative;
     box-shadow: 0 3px 20px rgb(97 89 89 / 50%);
 }
-.fare-info-icon:hover + .Detail-Fare{
+
+.fare-info-icon:hover+.Detail-Fare {
     display: block;
 }
-.Detail-Fare td:first-child{
-    background: #114678!important;
+
+.Detail-Fare td:first-child {
+    background: #114678 !important;
 }
 
 .Detail-Fare {
@@ -488,7 +553,7 @@ i{
     border-radius: 20px;
     left: 23px;
     top: -200%;
-    background-color:#114678 ;
+    background-color: #114678;
     padding: 10px;
     z-index: 99;
 }

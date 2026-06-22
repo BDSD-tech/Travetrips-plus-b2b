@@ -346,7 +346,7 @@ export class CartDetailComponent implements OnInit {
   {
 
     $("#"+id).toggle();
-    let icon = $("#"+id+'_main').find("i");
+    let icon = $("#"+id+'_main').find("i.fa-angle-up");
     icon.toggleClass("fa fa-angle-up fa fa-angle-down");
   }
   
