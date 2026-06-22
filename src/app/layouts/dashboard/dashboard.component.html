@@ -4,52 +4,16 @@
       <a class="navbar-brand brand-logo" routerLink="/">
          <img [src]="LogoURL" alt="eTrav Logo">
       </a>
-      <!-- Mobile Toggle -->
+     
       <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
          data-bs-target="#mainNavbar">
          <i class="fa-solid fa-bars"></i>
       </button>
-      <!-- Navbar Content -->
+     
       <div class="collapse navbar-collapse" id="mainNavbar">
-         <!-- LEFT NAVIGATION -->
-         <!-- <ul class="navbar-nav align-items-xl-center main-nav me-auto">
-            <li class="nav-item">
-               <a href="javascript:void(0);" routerLink="/" routerLinkActive="active"
-                  [routerLinkActiveOptions]="{ exact: true }" class="nav-link nav-item-custom">
-                  Flights
-               </a>
-            </li>
-            <li class="nav-item">
-               <a href="javascript:void(0);" routerLink="/hotels" routerLinkActive="active"
-                  class="nav-link nav-item-custom">
-                  Hotels
-               </a>
-            </li>
-            <li class="nav-item">
-               <a href="javascript:void(0);" routerLink="/bus" routerLinkActive="active"
-                  class="nav-link nav-item-custom">
-                  Bus
-               </a>
-            </li>
-            <li class="nav-item">
-               <a href="javascript:void(0);" routerLink="/dmc" routerLinkActive="active"
-                  class="nav-link nav-item-custom">
-                  DMC
-               </a>
-            </li>
-            <li class="nav-item position-relative">
-               <a href="javascript:void(0);" routerLink="/ecd-hotels" routerLinkActive="active"
-                  class="nav-link nav-item-custom new-tag-item">
-                  ECD Hotels
-                  <span class="new-badge">
-                     NEW
-                  </span>
-               </a>
-            </li>
-         </ul> -->
-         <!-- RIGHT SECTION -->
+         
          <div class="navbar-right d-flex align-items-center flex-wrap gap-3">
-            <!-- SUPPORT -->
+           
             <div class="support-box d-none d-xl-flex flex-column">
                <span>
                   24X7 Support
@@ -61,44 +25,58 @@
                   {{GetWebSiteData['SupportEmail']}}
                </small>
             </div>
-            <!-- CONTACT BUTTON -->
-            
+           
+
             <button routerLink="/pages/contact-us" class="btn contact-btn">
                Contact Us
             </button>
+ 
+            <div class="wallet-dropdown ">
+               <a routerLink="/dashboard" class="btn wallet-btn ml-12" type="button">
+                  <i class="fa-solid fa-gauge"></i>
+               </a>
+               <a class="icon-title" href="javascript:void(0)">Dashboard</a>
+            </div>
+            
 
-              <!-- Dahsboard -->
-                <div class="wallet-dropdown">
-                    <a routerLink="/dashboard" class="btn wallet-btn ml-12" type="button">
-                        <i class="fa-solid fa-gauge"></i>
-                    </a>
-                     <a class="icon-title" href="javascript:void(0)">Dashboard</a>
-                </div>
-     
 
-            <!-- WALLET DROPDOWN -->
-            <div class="dropdown wallet-dropdown">
-               <button class="btn wallet-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="dropdown wallet-dropdown text-center">
+                  <button class="btn wallet-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="fa-solid fa-wallet"></i>
                </button>
-                 <a class="icon-title" href="javascript:void(0)">Wallet</a>
+               <a class="icon-title" href="javascript:void(0)">Wallet</a>
+              
                <div class="dropdown-menu dropdown-menu-end wallet-menu">
                   <div class="wallet-item">
-                     <span>Wallet Balance: </span>
-                     <strong>₹{{WalletBalance}}</strong>
+                     <span>Available  Balance: </span>
+                     <strong>₹{{WalletBalance | number:'1.2-2'}}</strong>
                   </div>
-                  <!-- <div class="wallet-item">
-                     <span>Eaglecrest Wallet:</span>
-                     <strong>₹0</strong>
-                  </div>
+
                   <div class="wallet-item">
-                     <span>Flight Rewards:</span>
-                     <strong>₹0</strong>
+                     <span>Cash Wallet : </span>
+                     <strong>₹{{WalletDepositBalance | number:'1.2-2'}}</strong>
                   </div>
-                  <div class="wallet-item border-0 pb-0">
-                     <span>Crest Miles:</span>
-                     <strong>₹0</strong>
-                  </div> -->
+
+                  @if(WalletCreditStatus){
+                     <div class="wallet-item">
+                        <span>Credit Wallet:</span>
+                        <strong>₹{{WalletCreditLimit| number:'1.2-2'}}</strong>
+                     </div>
+                    
+                      @if(WalletCreditExpireDate){
+                        <div class="wallet-item">
+                           <span>Credit Expire:</span>
+                           <strong class="text-danger">{{ WalletCreditExpireDate }}</strong>
+                        </div>
+                        }
+                        @if(WalletDueAmount !== 0){
+                        <div class="wallet-item">
+                           <span>Dues:</span>
+                           <strong class="text-danger">₹{{ WalletDueAmount | number:'1.2-2' }}</strong>
+                        </div>
+                     }
+                  }
+               
                </div>
             </div>
             
@@ -112,13 +90,13 @@
                         Welcome: {{LoginAgentinfo['CompanyId']}}
                      </span>
                      <strong>
-                       {{LoginAgentinfo['Name']}}
+                        {{LoginAgentinfo['Name']}}
                      </strong>
                   </div>
                   <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
                </button>
                <!-- DROPDOWN MENU -->
-               <div class="dropdown-menu dropdown-menu-end profile-dropdown-menu">
+            <div class="dropdown-menu dropdown-menu-end profile-dropdown-menu">
                   <a class="dropdown-item" routerLink="/dashboard/user-detail/{{LoginAgentinfo['CompanyId']}}" href="javascript:void(0);">
                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
                         class="rpfteH2dJ806mlRyY5L7">

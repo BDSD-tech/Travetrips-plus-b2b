@@ -133,7 +133,7 @@
                     <!-- SALES + SHORTCUT -->
                     <div class="row g-3">
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-5">
 
                             <div class="dashboard-card p-3 h-100">
 
@@ -192,7 +192,7 @@
                         </div>
 
                         <!-- SHORTCUTS -->
-                        <div class="col-lg-6">
+                        <div class="col-lg-7">
 
                             <div class="dashboard-card p-3 h-100">
 
@@ -202,48 +202,35 @@
 
                                 <div class="shortcut-grid">
 
-                                    <div class="shortcut-box" routerLink="/flight">
-                                       <i class="fa-solid fa-plane-departure"></i>
-                                        <span>Flight</span>
+                                    <div class="shortcut-box" routerLink="/dashboard/bookings">
+                                        <i class="fa-solid fa-ticket"></i>
+                                        <span>My Bookings</span>
                                     </div>
 
                                     <div class="shortcut-box" routerLink="/hotel">
-                                       <i class="fa-solid fa-hotel"></i>
-                                        <span>Hotel</span>
+                                       <i class="fa-solid fa-calendar-days"></i>
+                                        <span>Bookings Calendar</span>
                                     </div>
 
-                                    <div class="shortcut-box" routerLink="/bus">
-                                      <i class="fa-solid fa-bus-simple"></i>
-                                        <span>Bus</span>
-                                    </div>
-                                    <!-- <div class="shortcut-box">
-                                        <i class="fa-regular fa-credit-card"></i>
-                                        <span>My Wallet</span>
-                                    </div> -->
-
-                                    <div class="shortcut-box" routerLink="/dashboard/payment-passbook">
-                                        <i class="fa-solid fa-book"></i>
-                                        <span>Ledger</span>
+                                    <div class="shortcut-box" routerLink="/hotel">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                        <span>Amendments</span>
                                     </div>
 
-                                    <div class="shortcut-box" >
+                                    <div class="shortcut-box" routerLink="/dashboard/download-report">
+                                      <i class="fa-solid fa-file-invoice-dollar"></i>
+                                        <span>Invoices</span>
+                                    </div>
+                                
+                                    <div class="shortcut-box" routerLink="/dashboard/download-report">
                                         <i class="fa-solid fa-chart-line"></i>
                                         <span>Reports</span>
                                     </div>
 
-                                    <!-- <div class="shortcut-box">
-                                        <i class="fa-solid fa-money-bill"></i>
-                                        <span>Credit</span>
-                                    </div> -->
 
-                                    <!-- <div class="shortcut-box">
-                                        <i class="fa-solid fa-ticket"></i>
-                                        <span>PNR</span>
-                                    </div> -->
-
-                                    <div class="shortcut-box" routerLink="/dashboard/user-detail/{{LoginAgentinfo['CompanyId']}}">
-                                        <i class="fa-solid fa-user"></i>
-                                        <span>Profile</span>
+                                    <div class="shortcut-box" routerLink="/dashboard/manage-deposit-request">
+                                            <i class="fa-solid fa-money-check-dollar"></i>
+                                        <span>Deposit Request</span>
                                     </div>
 
                                 </div>

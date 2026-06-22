@@ -9,63 +9,94 @@
 </div>
 
 <div class="container">
-    <div class="row">
-        
-         <div class="offset-sm-4 col-md-8 d-flex">
-           <div class="col-sm-4">
-                <div class="form-floating">
-                    <input type="text" id="floating-amount" class="form-control" autocomplete="off" placeholder="Enter Amount to be added" (keypress)="numberOnly($event)" [(ngModel)]="Amount" #ctrl="ngModel" />
-                    <label for="floating-amount">Enter Amount to be added</label>
+    <div class="row justify-content-center">
+        <div class="col-lg-5">
+            <div class="input-group">
+                <input type="text" id="floating-amount" class="form-control" autocomplete="off"
+                    placeholder="Enter Amount to be added" (keypress)="numberOnly($event)" [(ngModel)]="Amount"
+                    #ctrl="ngModel" />
+                <div class="input-group-append">
+                    <button type="button" [disabled]="!Amount || paylnowloading" class="tts-button-primary"
+                        (click)="AddMoney()">Add Money</button>
                 </div>
             </div>
-            <div class="toptup-btncenter"><button type="button" [disabled]="!Amount || paylnowloading" class="tts-button-primary" (click)="AddMoney()">Add Money</button></div> 
         </div>
     </div>
-    
+
     <div class="row d-flex">
         <div class="text-center mt-5" *ngIf="paymentloading && submit==true">
             <div class="lds-ellipsis">
-                <div></div><div></div><div></div><div></div>
-             </div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
         </div>
 
-        
+
 
         <div class="offset-sm-2 col-md-8 d-flex mt-5" *ngIf="paymentloading==false && submit==true">
             <div class="booking-main">
                 <div class="scrollable wrapper-mainclass">
                     <div class="col-md-12">
                         <div class="d-flex align-items-start flight-booking_payments">
-                          <div class="col-md-4 col-12 nav flex-column nav-pills me-3 payment_bg" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                            <button class="nav-link" *ngFor="let item of PaymentOption; let key=index;" id="v-pills-{{item['mode']}}-tab" data-bs-toggle="pill" attr.data-bs-target="#v-pills-{{item['mode']}}" type="button" role="tab" attr.aria-controls="v-pills-{{item['mode']}}" aria-selected="true" [ngClass]="{'active':key==0}" (click)="selectmode(item['mode'])">
-                                {{item['Label']}}
-                            </button>
-                          </div>
-                          <div class="col-md-8 col-12 tab-content" id="v-pills-tabContent">
-                            <div class="tab-pane fade" *ngFor="let item of PaymentOption; let key=index;" id="v-pills-{{item['mode']}}" role="tabpanel" attr.aria-labelledby="v-pills-{{item['mode']}}-tab" tabindex="{{key}}" [ngClass]="{'active show':key==0}">
-
-                                <div class="subTypeWrapper text-center" *ngIf="item">
-                                    <div class="subTypeWrapper__box" *ngFor="let subitem of item['SubModes']; let submodkey=index;">
-                                        <div class="paySelect">
-                                            <input type="radio" id="paymentgetway_{{item['mode']}}_{{submodkey}}" class="paySelect__input" name="selectmodegetway" (click)="selectpaymentgetway(subitem)" />
-                                            <label for="paymentgetway_{{item['mode']}}_{{submodkey}}" class="paySelect__label">
-                                                <img src="//static.technogramsolutions.com/img/ccAvenue.png" class="paySelect__img" alt="{{subitem['Gateway']}}" *ngIf="subitem['Gateway']=='CCAVENUE'"/>
-                                                <img src="assets/img/razorpay-logo.svg" class="paySelect__img" alt="{{subitem['Gateway']}}" *ngIf="subitem['Gateway']=='Razorpay'" />
-                                                <img src="assets/img/CashfreeLogo.png" class="paySelect__img" alt="{{subitem['Gateway']}}" *ngIf="subitem['Gateway']=='CASHFREE'" />
-                                                <img src="assets/img/phonepay.png" class="paySelect__img" alt="{{subitem['Gateway']}}" *ngIf="subitem['Gateway']=='PHONEPE'" />
-                                            </label>
-                                        </div>
-                                        <p class="subTypeWrapper__text">{{subitem['Gateway']| uppercase}}</p>
-                                    </div>
-                                </div>
-
-                                <p class="card-headingbg"> <i class="fa fa-credit-card"></i> 
-                                  Please note: You may be redirected to bank page to complete your transaction. By making this booking, you agree to our <a routerLink="/pages/terms-and-conditions" target="_blank"> Terms </a> of Use and <a routerLink="/pages/privacy-policy" target="_blank">Privacy Policy </a>.
-                                </p>
-                                <p class="mb-0" *ngIf="item['SubModes']">Payment Fee : {{conveniencefee | number:'1.0-2'}}</p>
-                                <button type="button" class="btn add_money-btn" (click)="PayNow()" [disabled]="!Gateway"> <span *ngIf="paylnowloading" class="spinner-border spinner-border-sm mr-1"></span> Pay Now <span>₹{{item['totalprice'] | number:'1.2-2'}}</span></button>
+                            <div class="col-md-4 col-12 nav flex-column nav-pills me-3 payment_bg" id="v-pills-tab"
+                                role="tablist" aria-orientation="vertical">
+                                <button class="nav-link" *ngFor="let item of PaymentOption; let key=index;"
+                                    id="v-pills-{{item['mode']}}-tab" data-bs-toggle="pill"
+                                    attr.data-bs-target="#v-pills-{{item['mode']}}" type="button" role="tab"
+                                    attr.aria-controls="v-pills-{{item['mode']}}" aria-selected="true"
+                                    [ngClass]="{'active':key==0}" (click)="selectmode(item['mode'])">
+                                    {{item['Label']}}
+                                </button>
                             </div>
-                          </div>
+                            <div class="col-md-8 col-12 tab-content" id="v-pills-tabContent">
+                                <div class="tab-pane fade" *ngFor="let item of PaymentOption; let key=index;"
+                                    id="v-pills-{{item['mode']}}" role="tabpanel"
+                                    attr.aria-labelledby="v-pills-{{item['mode']}}-tab" tabindex="{{key}}"
+                                    [ngClass]="{'active show':key==0}">
+
+                                    <div class="subTypeWrapper text-center" *ngIf="item">
+                                        <div class="subTypeWrapper__box"
+                                            *ngFor="let subitem of item['SubModes']; let submodkey=index;">
+                                            <div class="paySelect">
+                                                <input type="radio" id="paymentgetway_{{item['mode']}}_{{submodkey}}"
+                                                    class="paySelect__input" name="selectmodegetway"
+                                                    (click)="selectpaymentgetway(subitem)" />
+                                                <label for="paymentgetway_{{item['mode']}}_{{submodkey}}"
+                                                    class="paySelect__label">
+                                                    <img src="//static.technogramsolutions.com/img/ccAvenue.png"
+                                                        class="paySelect__img" alt="{{subitem['Gateway']}}"
+                                                        *ngIf="subitem['Gateway']=='CCAVENUE'" />
+                                                    <img src="assets/img/razorpay-logo.svg" class="paySelect__img"
+                                                        alt="{{subitem['Gateway']}}"
+                                                        *ngIf="subitem['Gateway']=='Razorpay'" />
+                                                    <img src="assets/img/CashfreeLogo.png" class="paySelect__img"
+                                                        alt="{{subitem['Gateway']}}"
+                                                        *ngIf="subitem['Gateway']=='CASHFREE'" />
+                                                    <img src="assets/img/phonepay.png" class="paySelect__img"
+                                                        alt="{{subitem['Gateway']}}"
+                                                        *ngIf="subitem['Gateway']=='PHONEPE'" />
+                                                </label>
+                                            </div>
+                                            <p class="subTypeWrapper__text">{{subitem['Gateway']| uppercase}}</p>
+                                        </div>
+                                    </div>
+
+                                    <p class="card-headingbg"> <i class="fa fa-credit-card"></i>
+                                        Please note: You may be redirected to bank page to complete your transaction. By
+                                        making this booking, you agree to our <a
+                                            routerLink="/pages/terms-and-conditions" target="_blank"> Terms </a> of Use
+                                        and <a routerLink="/pages/privacy-policy" target="_blank">Privacy Policy </a>.
+                                    </p>
+                                    <p class="mb-0" *ngIf="item['SubModes']">Payment Fee : {{conveniencefee |
+                                        number:'1.0-2'}}</p>
+                                    <button type="button" class="btn add_money-btn" (click)="PayNow()"
+                                        [disabled]="!Gateway"> <span *ngIf="paylnowloading"
+                                            class="spinner-border spinner-border-sm mr-1"></span> Pay Now
+                                        <span>₹{{item['totalprice'] | number:'1.2-2'}}</span></button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -73,4 +104,3 @@
         </div>
     </div>
 </div>
-
