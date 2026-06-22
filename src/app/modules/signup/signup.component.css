@@ -333,7 +333,7 @@ select.custom-input {
    REGISTER BUTTON
 ========================================================= */
 .btn_otp, .verify-edit-btn {
-    width: 100%;
+    width: 50%;
     margin-top: 30px;
     height: 58px;
     border: none;

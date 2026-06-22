@@ -125,6 +125,11 @@
                 </div>
 
                 <div
+                  *ngIf="MobileError!==''"
+                  class="error-msg">
+                  {{MobileError}}
+                </div>
+                <div
                   *ngIf="Sinupsubmitted && submitmobile==false && f['MobileNumber'].errors==null && f['MobileNumberVerify']?.value=='false'"
                   class="error-msg">
                   Please Verify Mobile Number.
@@ -167,7 +172,7 @@
             </div>
 
             <!-- OTP BUTTON -->
-            <div class="col-lg-4 col-md-6" *ngIf="mobileOTPEnable==true && mobileverifydone==false">
+            <div class="col-lg-4 col-md-6" *ngIf="mobileOTPEnable==true && mobileverifydone==false && f['MobileNumber'].value!==''">
               <!-- SEND OTP -->
               <button *ngIf="isshowmobileotp===false" class="btn_otp" type="button"
                 (click)="sendotp('mobile','phone_successMsg')">
@@ -270,6 +275,11 @@
                 </div>
 
                 <div
+                  *ngIf="EmailError!==''"
+                  class="error-msg">
+                  {{EmailError}}
+                </div>
+                <div
                   *ngIf="Sinupsubmitted && submitemail==false && f['EmailID'].errors==null && f['EmailVerify']?.value=='false'"
                   class="error-msg">
                   Please Verify Email ID.
@@ -307,7 +317,7 @@
             </div>
 
             <!-- OTP BUTTON -->
-            <div class="col-lg-3 col-md-6" *ngIf=" emailverifydone==false">
+            <div class="col-lg-3 col-md-6" *ngIf=" emailverifydone==false && f['EmailID'].value!==''">
               <!-- SEND OTP -->
               <button *ngIf="isshowemailotp===false" class="btn_otp" type="button"
                 (click)="sendotp('email','email_successMsg')">
@@ -608,7 +618,7 @@
             <input type="checkbox" class="form-check-input" id="tems" formControlName="Agree" />
             <label class="form-check-label" for="tems">
               I accept the
-              <a routerLink="/pages/terms-and-conditions">
+              <a routerLink="/pages/page/term-condition" target="_blank">
                 Terms & Conditions
               </a>
             </label>
