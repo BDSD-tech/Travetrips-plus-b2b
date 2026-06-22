@@ -30,31 +30,6 @@ export class LoginComponent implements OnInit {
   @ViewChildren('otpInput') otpInputs!: QueryList<ElementRef>;
   currentIndex: any = 0
   interval: any;
-  tabs: any = [
-    {
-      'Image': 'assets/img/feature/icon1.png',
-      'ImageSlider': 'assets/img/why-travel-i/highest.png',
-      'Title': 'Highest commission with range of fares.',
-    },
-    {
-      'Image': 'assets/img/feature/icon2.png',
-      'ImageSlider': 'assets/img/why-travel-i/2.png',
-      'Title': 'Wide inventory,fixed departures & private fares.',
-       
-    },
-    {
-      'Image': 'assets/img/feature/icon3.png',
-      'ImageSlider': 'assets/img/why-travel-i/1.png',
-      'Title': 'Multiple payment methods with zero handling fee.',
-      
-    },
-    {
-      'Image': 'assets/img/feature/icon4.png',
-      'ImageSlider': 'assets/img/why-travel-i/4.png',
-      'Title': 'Total security for client information and bookings.',
-       
-    }
-  ]
 
   constructor(private commonservice: CommonService, private fb: FormBuilder, private authenticationservice: AuthenticationService, private router: Router, private serviceTitle: Title) {
 
@@ -72,7 +47,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.startAutoSlide()
+   
     if (this.authenticationservice.currentUserValue) {
       this.router.navigate(['/flight']);
     } 
@@ -169,18 +144,6 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  startAutoSlide() {
-    this.interval = setInterval(() => {
-      this.currentIndex = (this.currentIndex + 1) % this.tabs.length;
-    }, 3000)
-  }
-  ActiveImage(i: number) {
-    this.currentIndex = i
-    if (this.interval) {
-      clearInterval(this.interval);
-      this.startAutoSlide();
-    }
-  }
   LoginSubmitOTP() {
     this.VerifyOTPSubmitted = true;
     // let otp = this.inputotp.join("");

@@ -52,17 +52,19 @@ export class SignupComponent implements OnInit {
   emailverifydone=false;
   mobileverifydone=false;
 
-  mobileOTPEnable=false;
+  mobileOTPEnable=true;
  
+  MobileError:any=''
+  EmailError:any=''
   constructor(private loginservice:LoginService,private commonservice:CommonService,private fb: FormBuilder) {
- this.getCountry();
- this.GetCountry();
+    this.getCountry();
+    this.GetCountry();
     this.SinupForm = this.fb.group({
       AgencyName: ['',[Validators.required]],
       PhoneNumber: ['',[Validators.pattern('[0-9]+'),Validators.minLength(10),Validators.maxLength(10)]],
       DialCode:['91',[Validators.required]],
       MobileNumber: ['', [Validators.required,Validators.pattern('[0-9]+'),Validators.minLength(10),Validators.maxLength(10)]],
-      MobileNumberVerify:[''],
+      MobileNumberVerify:['false'],
       MobileOTP:['',[Validators.required,Validators.minLength(6),Validators.maxLength(6),Validators.pattern('[0-9]+')]],
       Password:['',[Validators.required,Validators.minLength(8),Validators.maxLength(16),Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)]],
       ConfirmPassword:['',[Validators.required]],
@@ -90,15 +92,15 @@ export class SignupComponent implements OnInit {
     });
     if(this.mobileOTPEnable==false){
       this.SinupForm.patchValue({MobileNumberVerify:'true'})
-      this.SinupForm.get('MobileOTP')?.setValidators(null)
+      this.SinupForm.patchValue({MobileNumberVerify:'true'})
+      //this.SinupForm.get('MobileOTP')?.setValidators(null)
     }else{
-      this.SinupForm.patchValue({MobileNumberVerify:'false'})
+      
     }
    }
 
   ngOnInit(): void {
-   
-    
+  
    
   }
 
@@ -214,15 +216,27 @@ export class SignupComponent implements OnInit {
       this.submitmobile=true;
       if(this.SinupForm.get('MobileNumber')?.valid)
       {
-        this.isshowmobileotp=true;
-        $("#"+id).text('OTP Send').addClass('text-success');
-        this.timer(this.OTPTime);
+        
+        
         let request={
                       'dialcode':this.SinupForm.get('DialCode')?.value,
                       'emailphone':this.SinupForm.get('MobileNumber')?.value
                     };
-        this.loginservice.MobileOTPSend(request).subscribe(data => {
+        this.loginservice.MobileOTPSend(request).subscribe((data:any) => {
+          console.log(data);
+            if(data['Error']['ErrorCode']==0){
+              this.timer(this.OTPTime);
+              $("#"+id).text('OTP Send').addClass('text-success');
+              this.isshowmobileotp=true;
               let response:any=data;
+              this.MobileError=''
+            }else{
+              this.MobileError=data['Error']['ErrorMessage'];
+              setTimeout(() => {
+                  this.MobileError=''
+              }, 3000);
+            }
+              
         });
 
       }
@@ -233,15 +247,20 @@ export class SignupComponent implements OnInit {
       this.submitemail=true;
       if(this.SinupForm.get('EmailID')?.valid)
       {
-        this.isshowemailotp=true;
-        $("#"+id).text('OTP Send').addClass('text-success');
-        this.emailtimer(this.EmailOTPTime);
-
-        let request={
-          'emailphone':this.SinupForm.get('EmailID')?.value
-         };
+        let request={'emailphone':this.SinupForm.get('EmailID')?.value};
         this.loginservice.EmailOTPSend(request).subscribe(data => {
          let response:any=data;
+         if(response['Error']['ErrorCode']==0){
+            this.isshowemailotp=true;
+           
+            $("#"+id).text('OTP Send').addClass('text-success');
+            this.emailtimer(this.EmailOTPTime);
+         }else{
+           this.EmailError=response['Error']['ErrorMessage'];
+           setTimeout(() => {
+              this.EmailError=''
+           }, 3000);
+         }
         });
 
       }
@@ -259,13 +278,19 @@ export class SignupComponent implements OnInit {
       this.submitmobile=true;
       if(this.SinupForm.get('MobileNumber')?.valid)
       {
-        this.isshowmobileotp=true;
+      
         this.timer(this.OTPTime);
         let request={
                        'emailphone':this.SinupForm.get('MobileNumber')?.value
                     };
         this.loginservice.MobileOTPSend(request).subscribe(data => {
               let response:any=data;
+              if(response['Error']['ErrorCode']==0){
+                  this.isshowmobileotp=true;
+                  this.MobileError=''
+              }else{
+                this.MobileError=response['Error']['ErrorMessage'];
+              }
         });
 
       }
@@ -273,20 +298,30 @@ export class SignupComponent implements OnInit {
     if(type=='email')
     {
       this.verifysubmitemail=false;
-      $("#email-otp-error").text('');
+    
       this.SinupForm.patchValue({'EmailOTP':''});
 
       this.submitemail=true;
       if(this.SinupForm.get('EmailID')?.valid)
       {
-        this.storeemailid=this.SinupForm.get('EmailID')?.value;
-        this.isshowemailotp=true;
-        this.emailtimer(this.EmailOTPTime);
+        
         let request={
           'emailphone':this.SinupForm.get('EmailID')?.value
          };
         this.loginservice.EmailOTPSend(request).subscribe(data => {
           let response:any=data;
+          if(response['Error']['ErrorCode']==0){
+              $("#email-otp-error").text('');
+              this.storeemailid=this.SinupForm.get('EmailID')?.value;
+              this.isshowemailotp=true;
+              this.emailtimer(this.EmailOTPTime);
+          }else{
+            this.EmailError=response['Error']['ErrorMessage'];
+            setTimeout(() => {
+                 this.EmailError=''
+            }, 3000);
+          }
+           
         });
       }
 

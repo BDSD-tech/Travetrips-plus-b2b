@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonService } from '../../../services/common.service';
 import { SafeHtmlModule } from '../../../shared/safe-html.module';
 
 @Component({
   selector: 'app-page',
   standalone: true,
-  imports: [SafeHtmlModule],
+  imports: [SafeHtmlModule,RouterLink],
   templateUrl: './page.component.html',
   styleUrl: './page.component.css'
 })
 export class PageComponent {
-  
+  GetWebSiteData:any
   Response: any=[];
   loading: boolean | undefined;
 
@@ -26,6 +26,11 @@ export class PageComponent {
    }
 
   ngOnInit(): void {
+    this.commonService.GetWebSiteData().subscribe((resp:any)=>{
+      if(resp&& resp.length!==0){
+        this.GetWebSiteData=resp
+      }
+    })
   }
 
   GetPageDetail(slug:any)
@@ -38,6 +43,8 @@ export class PageComponent {
         if(response['Result'])
         {
           this.Response=response['Result'];
+          console.log(this.Response);
+          
           this.serviceTitle.setTitle(response['Result']['Title']);
           this.meta.updateTag({ name: 'description', content: response['Result']['MetaDescription'] })
         }
