@@ -1,16 +1,58 @@
-<section class="contact-page">
+<header class="main-header">
+    <nav class="navbar navbar-expand-lg navbar-light main-navbar">
+        <div class="container">
+            <!-- LOGO -->
+            <a class="navbar-brand logo-link" routerLink="/">
+                <img [src]="GetWebSiteData?.Logo" alt="TravelTrip Logo" class="logo-img img-fluid" />
+            </a>
+
+            <!-- MOBILE TOGGLE -->
+            <button class="navbar-toggler mobile-toggle" type="button"
+                data-bs-toggle="collapse" data-bs-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- RIGHT SIDE -->
+            <div class="collapse navbar-collapse" id="mainMenu">
+                <div class="header-actions">
+                    <!-- SUPPORT INFO -->
+                    <div class="support-info">
+                        <i class="fa-solid fa-headset"></i>
+                        <div>
+                            <p>24/7 Support</p>
+                            <h5 class="support-number">+91 8800114161</h5>
+                        </div>
+                    </div>
+
+                    <!-- AUTH BUTTONS -->
+                    <a class="login-btn" routerLink="/login">Login</a>
+                    <a class="register-btn" routerLink="/register">Register</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<section class="breadcrum__text-page">
     <div class="container">
-        <p class="breadcrum__text"><a routerLink="/" class="breadcrum__text--link">Home</a> <img src="assets/img/double-right.svg" class="breadcrum__text--icon"> Contact Us</p>
+        <div class="breadcrum__text">
+            <a routerLink="/" class="breadcrum__text--link">
+                <i class="fa fa-home"></i> Home
+            </a>
+            <i class="fa fa-angle-double-right mx-2"></i>
+            <span>Contact Us</span>
+        </div>
     </div>
 </section>
+
 <section class="contact__wrapper">
-    <section class="contactType">
+    <div class="contactType">
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <a href="https://www.google.com/maps/dir//34.1221776,74.816117/@34.122178,74.816117,16z?hl=en" target="_blank">
+                    <a href="https://www.google.com/maps/dir//34.1221776,74.816117/@34.122178,74.816117,16z?hl=en"
+                        target="_blank">
                         <div class="contactType__box">
-                            <img src="assets/img/map1.jpg" class="contactType__box--icon">
+                            <i class="fa-solid fa-location-dot contactType__box--icon"></i>
                             <p class="contactType__box--text">{{GetWebSiteData['Street']}}</p>
                         </div>
                     </a>
@@ -19,7 +61,7 @@
                 <div class="col-md-4">
                     <a href="mailto:{{GetWebSiteData['SupportEmail']}}">
                         <div class="contactType__box">
-                            <img src="assets/img/envelope1.svg" class="contactType__box--icon">
+                            <i class="fa-solid fa-envelope contactType__box--icon"></i>
                             <p class="contactType__box--text">{{GetWebSiteData['SupportEmail']}}</p>
                         </div>
                     </a>
@@ -29,48 +71,56 @@
                 <div class="col-md-4">
                     <a href="tel:{{GetWebSiteData['SupportNo']}}">
                         <div class="contactType__box">
-                            <img src="assets/img/callAnswer.svg" class="contactType__box--icon">
+                            <i class="fa-solid fa-phone contactType__box--icon"></i>
                             <p class="contactType__box--text">{{GetWebSiteData['SupportNo']}}</p>
                         </div>
                     </a>
                 </div>
             </div>
         </div>
-    </section>
-
-    <div class="container py-4">
+    </div>
+    <div class="container">
         <div class="row contactMedium">
             <div class="col-md-6">
                 <div class="contact__map">
-                    <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3302.944051797533!2d74.8139283147013!3d34.12218202148956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38e1849723394cc5%3A0xefd05e946e0f4367!2sTRAVEL%20IMPRESSION!5e0!3m2!1sen!2sin!4v1569871405418!5m2!1sen!2sin" width="100%" height="460" frameborder="0" style="border:0;" allowfullscreen=""></iframe> -->
-                     
+                    <iframe
+                        src="https://www.google.com/maps?q=203%2C%20Second%20Floor%2C%20SLF%20Mall%2C%20I%20P%20Colony%2C%20Sec%2031-32%2C%20Faridabad%2C%20Haryana%20121003&output=embed"
+                        width="100%" height="420" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
                 </div>
             </div>
 
             <div class="col-md-6">
-                <form class="contact__form"  method="post" [formGroup]="ContactForm" (ngSubmit)="SubmitContact()" >
+                <form class="contact__form" method="post" [formGroup]="ContactForm" (ngSubmit)="SubmitContact()">
                     <h4 class="page__head">Get in touch</h4>
                     <div class="form__field">
-                        <input type="text" class="form-control form__field--input" formControlName="name" placeholder="Full Name">
-                        <img class="form__field--icon" src="assets/img/user (1).svg">
-                          <div *ngIf="submitted && f['name'].errors" class="error-msg">
+                        <input type="text" class="form-control form__field--input" formControlName="name"
+                            placeholder="Full Name">
+                        <i class="fa-solid fa-user form__field--icon"></i>
+                        <div *ngIf="submitted && f['name'].errors" class="error-msg">
                             <div *ngIf="f['name'].errors['required']">Please enter Name</div>
-                          </div>
+                        </div>
                     </div>
 
                     <div class="form__field">
-                        <input type="text" class="form-control form__field--input" formControlName="phone" placeholder="Number">
-                        <img class="form__field--icon" src="assets/img/callAnswer.svg">
+                        <input type="text" class="form-control form__field--input" formControlName="phone"
+                            placeholder="Number">
+                        <i class="fa-solid fa-phone form__field--icon"></i>
                         <div *ngIf="submitted && f['phone'].errors" class="error-msg">
                             <div *ngIf="f['phone'].errors['required']">Please enter Number</div>
-                            <div *ngIf="f['phone'].errors['pattern'] || f['phone'].errors['minlength'] || f['phone'].errors['maxlength']">Please enter a valid Number</div>
+                            <div
+                                *ngIf="f['phone'].errors['pattern'] || f['phone'].errors['minlength'] || f['phone'].errors['maxlength']">
+                                Please enter a valid Number</div>
                         </div>
-                       
+
                     </div>
 
                     <div class="form__field">
-                        <input type="email" class="form-control form__field--input" formControlName="email" placeholder="Email ID">
-                        <img class="form__field--icon" src="assets/img/email (4).svg">
+                        <input type="email" class="form-control form__field--input" formControlName="email"
+                            placeholder="Email ID">
+
+                        <i class="fa-solid fa-envelope form__field--icon"></i>
 
                         <div *ngIf="submitted && f['email'].errors" class="error-msg">
                             <div *ngIf="f['email'].errors['required']">Please enter Email ID</div>
@@ -79,8 +129,10 @@
                     </div>
 
                     <div class="form__field">
-                        <input type="text" class="form-control form__field--input" formControlName="message" placeholder="Message">
-                        <img class="form__field--icon" src="assets/img/comment.svg">
+                        <input type="text" class="form-control form__field--input" formControlName="message"
+                            placeholder="Message">
+
+                        <i class="fa-solid fa-comment form__field--icon"></i>
 
                         <div *ngIf="submitted && f['message'].errors" class="error-msg">
                             <div *ngIf="f['message'].errors['required']">Please enter Message</div>
@@ -88,7 +140,8 @@
                     </div>
                     <input type="hidden" name="context" value="icontactForm">
                     <div class="form__field">
-                        <button type="submit" id="submitBtn" name="lgnButton" class="btn form__field--btn" [disabled]="loading">    
+                        <button type="submit" id="submitBtn" name="lgnButton" class="btn form__field--btn"
+                            [disabled]="loading">
                             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> Submit
                         </button>
                     </div>
