@@ -620,6 +620,55 @@
                         </label>
                     </div>
                 </div>
+                 <div class="pax-container mb-2">
+
+                    <div class="pax-section-head">
+                        <label class="select-all-label" (click)="toggleAll()">
+                        <div class="cb-box" [class.on]="allSelected" [class.indeterminate]="someSelected"></div>
+                        <span class="pax-section-title">Passenger(s)</span>
+                        </label>
+                        <span class="count-pill">{{ selectedPaxIds.length }} / {{ passengers.length }} selected</span>
+                    </div>
+                   
+                    <div class="pax-grid">
+                        <label
+                        *ngFor="let pax of passengers"
+                        class="pax-card"
+                        [class.is-checked]="isSelected(pax.id)"
+                        [class.is-lead]="pax.lead_pax === 1"
+                        >
+                        
+                        <input
+                            type="checkbox"
+                            [checked]="isSelected(pax.id)"
+                            (change)="togglePassenger(pax.id)"
+                            class="custom-cb"
+                        />
+
+                       
+                        <div class="pax-avatar" [ngClass]="'avatar-' + pax.pax_type.toLowerCase()">
+                            {{ getInitials(pax.first_name, pax.last_name) }}
+                        </div>
+
+                        
+                        <div class="pax-info">
+                            <div class="pax-name-row">
+                            <span class="pax-name">{{ pax.title }}. {{ pax.first_name }} {{ pax.last_name }}</span>
+                            <span *ngIf="pax.lead_pax === 1" class="lead-badge">Lead</span>
+                            </div>
+                            <div class="pax-meta">
+                            <span [ngClass]="['pax-type-badge', getPaxTypeClass(pax.pax_type)]">
+                                {{ pax.pax_type }}
+                            </span>
+                            <span class="meta-sep">·</span>
+                            <span class="meta-text">{{ pax.gendar | titlecase }}</span>
+                           
+                            </div>
+                        </div>
+                        </label>
+                    </div>
+
+                </div>
                 <div class="mb-3" *ngIf="Response['ConfirmationBookingData']?.length==2">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="TicketInvoiceJourney" id="onward-ticket"

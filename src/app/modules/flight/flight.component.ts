@@ -117,6 +117,8 @@ export class FlightComponent implements OnInit {
     sessionStorage.removeItem('TSFP');
     sessionStorage.removeItem('TSFPAX');
     sessionStorage.removeItem('TAGM');
+    sessionStorage.removeItem('HotelSearch');
+    sessionStorage.removeItem('Response');
 
     this.commonservice.GetWebSiteData().subscribe(data => {
       this.GetWebSiteData = data;

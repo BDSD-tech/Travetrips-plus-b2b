@@ -24,7 +24,10 @@
 .fs-10 {
     font-size: 10px;
 }
-
+.flight-leftbgcolor{
+    position: sticky;
+    top: 100px;
+}
 .hotel-count strong {
     color: var(--primary-color);
     font-weight: 700;

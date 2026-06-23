@@ -9,6 +9,9 @@ import { CommonService } from '../../../../../services/common.service';
 declare var window: any;
 declare var $:any;
 
+
+
+  
 @Component({
   selector: 'app-cart-detail',
   templateUrl: './cart-detail.component.html',
@@ -58,6 +61,12 @@ export class CartDetailComponent implements OnInit {
 
   Submitloading=false;
   CurrentFare:any={}
+
+
+  TicketWithPrice:any=true;
+  TicketWithAgency:any=true;
+  selectedPaxIds: number[] = [];
+  passengers:any=[]
   constructor(private commonService:CommonService,private router: Router,private route: ActivatedRoute,private alertservice:AlertService,private dashboardservice:DashboardService,private fb: FormBuilder,private authenticationservice: AuthenticationService) { 
 
     if(this.route.snapshot.params['refno']) {
@@ -120,6 +129,7 @@ export class CartDetailComponent implements OnInit {
           if(resp['Error']['ErrorCode']==0)
           {
             this.BookingDetail=resp['Result'];
+            this.passengers=this.BookingDetail['travelersInfo']
             this.CreateFB(this.BookingDetail['travelersInfo']);
             this.AmendmentList=resp['Result']['amendmentList'];
             this.NoteList=resp['Result']['BookingNotes'];
@@ -350,4 +360,103 @@ export class CartDetailComponent implements OnInit {
     icon.toggleClass("fa fa-angle-up fa fa-angle-down");
   }
   
+
+  ViewTicketInvoice(type:any)
+  {
+    let WithPrice;
+    if(this.TicketWithPrice)
+    {
+      WithPrice=1;
+    } else {
+      WithPrice=0;
+    }
+    let WithAgencyDetail;
+    if(this.TicketWithAgency)
+    {
+      WithAgencyDetail=1;
+    } else {
+      WithAgencyDetail=0;
+    }
+
+    let BookingId:any;
+    if(this.TicketInvoiceJourney=='Onward')
+    {
+      BookingId=this.BookingDetail['booking_ref_number'];
+    }
+    if(this.TicketInvoiceJourney=='Return')
+    {
+      BookingId=this.BookingDetail['ConfirmationBookingData'][1]['BookingId'];
+    }
+    if(this.TicketInvoiceJourney=='Both')
+    {
+      BookingId=this.BookingDetail['ConfirmationBookingData'][0]['BookingId']+','+this.BookingDetail['ConfirmationBookingData'][1]['BookingId'];
+    }
+
+     let data={
+                  'BookingId':BookingId,
+                  'SearchTokenId':this.BookingDetail['tts_search_token'],
+                  'HtmlType':type,
+                  'UserType':'WebPartner',
+                  'ViewService':'View',
+                  'WithPrice':WithPrice,
+                  'WithAgencyDetail':WithAgencyDetail,
+                  'TicketInvoiceJourney':this.TicketInvoiceJourney,
+                  'ViewSize':'',
+                  'PaxIds':this.selectedPaxIds
+               }
+               
+
+      const navigationExtras: NavigationExtras = {
+        queryParams:data
+      };
+      if(type=='Ticket')
+      {
+        this.router.navigate(['flight/ticket'],navigationExtras);
+      } else {
+        this.router.navigate(['flight/invoice'],navigationExtras);
+      }
+  }
+
+  isSelected(id: number): boolean {
+    return this.selectedPaxIds.includes(id);
+  }
+ 
+  togglePassenger(id: number): void {
+    if (this.isSelected(id)) {
+      this.selectedPaxIds = this.selectedPaxIds.filter(paxId => paxId !== id);
+    } else {
+      this.selectedPaxIds = [...this.selectedPaxIds, id];
+    }
+  }
+ 
+  get allSelected(): boolean {
+    return this.selectedPaxIds.length === this.passengers.length;
+  }
+ 
+  get someSelected(): boolean {
+    return this.selectedPaxIds.length > 0 && !this.allSelected;
+  }
+
+  toggleAll(): void {
+    if (this.allSelected) {
+      this.selectedPaxIds = [];
+    } else {
+      this.selectedPaxIds = this.passengers.map((p:any) => p.id);
+    }
+  }
+ 
+  getPaxTypeClass(type: string): string {
+    switch (type) {
+      case 'Adult':  return 'badge-adult';
+      case 'Child':  return 'badge-child';
+      case 'Infant': return 'badge-infant';
+      default:       return '';
+    }
+  }
+ 
+  getInitials(firstName: string, lastName: string): string {
+    return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
+  }
+
+
 }

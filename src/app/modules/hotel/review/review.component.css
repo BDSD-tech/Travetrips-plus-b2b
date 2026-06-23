@@ -35,7 +35,10 @@ BOOKING STEPPER
     position: relative;
     z-index: 2;
 }
-
+.fare-details{
+    position: sticky;
+    top: 100px;
+}
 .booking-stepper .step-icon {
     width: 16px;
     height: 16px;

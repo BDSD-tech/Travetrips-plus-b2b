@@ -32,7 +32,8 @@
                         </div>
                         }
                         <div class="cssCircle addsign">
-                            <a href="javascript:void(0)" [routerLink]="['/flight/ticket']" [queryParams]="{BookingId: BookingDetail['id'],SearchTokenId:BookingDetail['tts_search_token'],HtmlType:'Ticket',UserType:'WebPartner',ViewService:'View',WithPrice:'1',WithAgencyDetail:'1',TicketInvoiceJourney:TicketInvoiceJourney,ViewSize:''}">
+                            <a href="javascript:void(0)" data-bs-toggle="modal"
+                                data-bs-target="#ticketformmodal-printtk">
                                 <i class="fa fa-print me-1"></i><span class="cssCircle-plusdesign">Print Ticket</span>
                             </a>
                         </div>
@@ -812,3 +813,106 @@
     </div>
 </div>
 
+
+
+<div class="modal fade" id="ticketformmodal-printtk" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="formmodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="formmodal">PRINT TICKET</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="tk-with-price" [(ngModel)]="TicketWithPrice"
+                            #ctrl="ngModel" checked />
+                        <label class="form-check-label" for="tk-with-price">
+                            With Price
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="tk-with-agency"
+                            [(ngModel)]="TicketWithAgency" #ctrl="ngModel" checked />
+                        <label class="form-check-label" for="tk-with-agency">
+                            With Agency
+                        </label>
+                    </div>
+                </div>
+                <div class="pax-container mb-2">
+
+                    <div class="pax-section-head">
+                        <label class="select-all-label" (click)="toggleAll()">
+                        <div class="cb-box" [class.on]="allSelected" [class.indeterminate]="someSelected"></div>
+                        <span class="pax-section-title">Passenger(s)</span>
+                        </label>
+                        <span class="count-pill">{{ selectedPaxIds.length }} / {{ passengers.length }} selected</span>
+                    </div>
+                   
+                    <div class="pax-grid">
+                        <label
+                        *ngFor="let pax of passengers"
+                        class="pax-card"
+                        [class.is-checked]="isSelected(pax.id)"
+                        [class.is-lead]="pax.lead_pax === 1"
+                        >
+                        
+                        <input
+                            type="checkbox"
+                            [checked]="isSelected(pax.id)"
+                            (change)="togglePassenger(pax.id)"
+                            class="custom-cb"
+                        />
+
+                       
+                        <div class="pax-avatar" [ngClass]="'avatar-' + pax.pax_type.toLowerCase()">
+                            {{ getInitials(pax.first_name, pax.last_name) }}
+                        </div>
+
+                        
+                        <div class="pax-info">
+                            <div class="pax-name-row">
+                            <span class="pax-name">{{ pax.title }}. {{ pax.first_name }} {{ pax.last_name }}</span>
+                            <span *ngIf="pax.lead_pax === 1" class="lead-badge">Lead</span>
+                            </div>
+                            <div class="pax-meta">
+                            <span [ngClass]="['pax-type-badge', getPaxTypeClass(pax.pax_type)]">
+                                {{ pax.pax_type }}
+                            </span>
+                            <span class="meta-sep">·</span>
+                            <span class="meta-text">{{ pax.gendar | titlecase }}</span>
+                           
+                            </div>
+                        </div>
+                        </label>
+                    </div>
+
+                </div>
+                <div class="mb-3" *ngIf="BookingDetail?.length==2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="TicketInvoiceJourney" id="onward-ticket"
+                            value="Onward" [(ngModel)]="TicketInvoiceJourney" #ctrl="ngModel">
+                        <label class="form-check-label" for="onward-ticket">Onward Ticket</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="TicketInvoiceJourney" id="return-ticket"
+                            value="Return" [(ngModel)]="TicketInvoiceJourney" #ctrl="ngModel">
+                        <label class="form-check-label" for="return-ticket">Return Ticket</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="TicketInvoiceJourney" id="both-ticket"
+                            value="Both" [(ngModel)]="TicketInvoiceJourney" #ctrl="ngModel">
+                        <label class="form-check-label" for="both-ticket">Both Ticket</label>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-12 text-center">
+                        <button type="button" class="tts-button-primary" data-bs-dismiss="modal"
+                            (click)="ViewTicketInvoice('Ticket')">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

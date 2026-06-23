@@ -17,6 +17,9 @@ BOOKING STEPPER
     overflow: hidden;
     width: fit-content;
 }
+.timer-section{
+    margin-bottom:24px
+}
 
 /* .booking-stepper::before {
     content: "";
@@ -27,7 +30,10 @@ BOOKING STEPPER
             transparent);
     pointer-events: none;
 } */
-
+.fare-summary{
+    position: sticky;
+    top: 100px;
+}
 .booking-stepper .step {
     display: flex;
     align-items: center;

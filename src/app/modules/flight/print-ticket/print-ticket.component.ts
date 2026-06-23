@@ -43,6 +43,7 @@ export class PrintTicketComponent implements OnInit {
                   'WithAgencyDetail':params['WithAgencyDetail'],
                   'TicketInvoiceJourney':params['TicketInvoiceJourney'],
                   'ViewSize':params['ViewSize'],
+                  'PaxIds':params['PaxIds']
                }
 
         this.flightService.GetTicketDetails(data).subscribe(resp=>{

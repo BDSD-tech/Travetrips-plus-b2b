@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { CommonService } from '../../services/common.service';
 import { AlertService } from '../../services/alert.service';
 import { FlightService } from '../flight/flight.service';
+import { tts_config } from '../../../environments/tts_config';
 
 declare var window: any;
 declare var $: any;
@@ -14,7 +15,7 @@ declare var $: any;
   styleUrls: ['./payment.component.css']
 })
 export class PaymentComponent implements OnInit {
-
+  ShowDetail=false
   SessionTime:any;
   WebSiteData:any=[];
   GetSearchData: any=[];
@@ -41,7 +42,14 @@ export class PaymentComponent implements OnInit {
   confirmtotalfare:any;
 
   netpayableamount:any=0;
-  Service:any
+  Service:any;
+
+  Segments:any=[]
+  TravellerDetails:any=[]
+   AirlineLogoURL:any=tts_config['BASEURL']+'uploads/airline-images/';
+
+
+   BlockRoomResult:any=[]
   constructor(private router: Router, private route: ActivatedRoute,private location: Location,private commonservice:CommonService,private alertservice:AlertService,private flightService: FlightService) {
 
  }
@@ -85,14 +93,39 @@ export class PaymentComponent implements OnInit {
                 let resp=JSON.parse(TSFP);
                 this.Getpaymentmethod(resp);
                 this.SaveData=resp;
+                
+                this.TravellerDetails = [
+                ...(this.SaveData?.paxdata?.Adult || []),
+                ...(this.SaveData?.paxdata?.Child || []),
+                ...(this.SaveData?.paxdata?.Infant || [])
+                ];
               } else {
                 this.router.navigate(['flight']);
               }
+
+              if (sessionStorage.getItem('TSF')) {
+                let TSF:any=sessionStorage.getItem('TSF');
+                let resp=JSON.parse(TSF);  
+                let Segment:any=[]; let farelist:any=[]; let mainsegments:any=[]; let oldprice=0;
+                resp.forEach(function(value:any,key:any) {
+                  Segment.push(value['Segments']);
+                  farelist.push(value['FareList']);
+                  mainsegments.push(value['MainSegment']);
+                  oldprice+=value['FareList']['Fare']['PublishedPrice'];
+                });
+                this.Segments=Segment;  
+              }
     }
     if(this.Service=='Hotel'){
+        if (sessionStorage.getItem('HotelSearch')) {
+          let data:any=sessionStorage.getItem('HotelSearch');
+          this.GetSearchData=JSON.parse(data);
+        }
+
         if (sessionStorage.getItem('TSFP')) {
                 let TSFP:any=sessionStorage.getItem('TSFP');
                 let resp=JSON.parse(TSFP);
+                this.BlockRoomResult=resp['response'];
                 this.CurrentFare=resp['fare'];
                 this.totalfare=this.CurrentFare['OfferedPrice']+this.CurrentFare['TDS']
                 this.CurrentFare['BaseFare']=resp['fare']['RoomPrice'];
@@ -104,7 +137,8 @@ export class PaymentComponent implements OnInit {
                 let resp=JSON.parse(TSFP);
                 this.Getpaymentmethod(resp);
                 this.SaveData=resp;
-                this.SaveData['FB']=this.CurrentFare
+                this.TravellerDetails=resp['paxdata'];
+                this.SaveData['FB']=this.CurrentFare;
               } else {
                 this.router.navigate(['hotel']);
               }
@@ -274,4 +308,26 @@ export class PaymentComponent implements OnInit {
     }
   }
 
+
+
+   FTduration(n : number)
+  {
+    var num = n;
+    var hours = (num / 60);
+    var rhours = Math.floor(hours);
+    var minutes = (hours - rhours) * 60;
+    var rminutes = Math.round(minutes);
+    return  rhours + "h  "+ rminutes + "m";
+  }
+    star_rating(star: number) {
+    var starhtml = "";
+    const count = 5 - star;
+    for (let index = 0; index < star; index++) {
+      starhtml += '<img src="assets/img/fill-star.svg">';
+    }
+    for (let index = 0; index < count; index++) {
+      starhtml += '';
+    }
+    return starhtml;
+  } 
 }
