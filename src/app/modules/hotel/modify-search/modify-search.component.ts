@@ -162,7 +162,7 @@ export class ModifySearchComponent implements OnInit {
   addroom() {
     if (this.roomcount < 4) {
       $(".hotelpaxcount_message").removeClass("shake").html("");
-      this.roomobject[this.roomcount]['Adult'] = 1;
+      this.roomobject[this.roomcount]['Adult'] = 2;
       this.roomobject[this.roomcount]['Child'] = 0;
       this.roomcount++;
       this.hoteltotalpaxcount();
@@ -173,7 +173,7 @@ export class ModifySearchComponent implements OnInit {
   removeroom() {
     $(".hotelpaxcount_message").removeClass("shake").html("");
     this.roomcount--;
-    this.roomobject[this.roomcount]['Adult'] = 1;
+    this.roomobject[this.roomcount]['Adult'] = 2;
     this.roomobject[this.roomcount]['Child'] = 0;
     this.hoteltotalpaxcount();
   }

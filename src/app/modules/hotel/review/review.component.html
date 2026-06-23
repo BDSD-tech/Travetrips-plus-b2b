@@ -194,11 +194,9 @@
                <!------Start Room  ------>
                <div formArrayName="RoomDetails" *ngFor="let room of fpax?.['controls']; let r=index;">
                   <div class="hotel-page" formGroupName={{r}}>
-                     <div class="header-bar">
+                     <div class="header-bar d-block">
                         <h2 class="page-title">Passenger Details</h2>
-                        <p class="mb-0">Note : Enter your name as it is mentioned on your PAN government
-                           approved ID.
-                        </p>
+                        <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> Please make sure that passengers names are as per gorvernment approved identity card or passport.</small>
                      </div>
                      <div class="hotel-card">
                         <h6>Room {{r+1}}</h6>
@@ -569,8 +567,10 @@
                </div>
                <!------End Room  ------>
                <div class="hotel-page">
-                  <div class="header-bar">
+                  <div class="header-bar d-block">
                      <h2 class="page-title">Contact Details</h2>
+                     <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> All Communication related to the booking will be send to this email address and mobile.</small>
+
                   </div>
                   <div class="hotel-card">
                      <div class="row g-3 needs-validation">
@@ -626,11 +626,10 @@
                   </div>
                </div>
                <div class="hotel-page">
-                  <div class="header-bar">
+                  <div class="header-bar d-block">
                      <h2 class="page-title">GST Details for Business Travel ({{GSTTxt}})</h2>
-                     <p class="mb-0">Provide your company's GSTIN to avail GST benefits and claim eligible tax
-                        credits.
-                     </p>
+                      <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> To claim credit of GST charged by airline. Please enter your company's GST number.</small>
+
                   </div>
                   <div class="hotel-card">
                      <!--<div class="historybox__wrapper">
@@ -1503,140 +1502,98 @@
             </div>
          </div>
          <div class="col-lg-3">
-            <aside class="hotel-page">
-               <!-- Header -->
-               <div class="header-bar">
-                  <h2 class="page-title">Fare Summary</h2>
+            <div class="fare-details">
+               <div style="margin-bottom: 24px;"> 
+                  <app-count-down display="on" redirecturl="/hotel"></app-count-down>
                </div>
-               <!-- Body -->
-               <div class="hotel-card">
-                  <!-- Room Price -->
-                  <div class="fare-summary-card__row">
-                     <span>Room Price</span>
-                     <strong>₹{{CurrentFare['RoomPrice'] | number:'1.0-2'}}</strong>
+               
+               <aside class="hotel-page">
+               
+                  <div class="header-bar">
+                     <h2 class="page-title">Fare Summary</h2>
                   </div>
-                  <!-- Taxes & Fees -->
-                  <div class="fare-summary-card__row fare-summary-card__row--expandable">
-                     <span data-bs-toggle="collapse" href="#taxFare" aria-expanded="false">
-                        Taxes & Fees
-                        <i class="fa fa-angle-down ms-1"></i>
-                     </span>
-                     <strong>
-                        ₹{{
-                        CurrentFare['Tax'] +
-                        CurrentFare['OtherCharges'] +
-                        CurrentFare['ServiceCharges'] +
-                        CurrentFare['AgentMarkup']
-                        | number:'1.0-2'
-                        }}
-                        <i class="fa fa-edit fare-summary-card__edit" title="Update Markup" (click)="showmarkup()">
-                        </i>
-                     </strong>
-                  </div>
-                  <!-- Tax Breakdown -->
-                  <div class="collapse fare-summary-card__breakdown" id="taxFare">
-                     <div class="fare-summary-card__breakdown-row" *ngIf="CurrentFare['Tax'] != 0">
-                        <span>GST & Taxes</span>
-                        <span>₹{{ CurrentFare['Tax'] | number:'1.0-2' }}</span>
+                  
+                  <div class="hotel-card">
+                  
+                     <div class="fare-summary-card__row">
+                        <span>Room Price</span>
+                        <strong>₹{{CurrentFare['RoomPrice'] | number:'1.0-2'}}</strong>
                      </div>
-                     <div class="fare-summary-card__breakdown-row" *ngIf="CurrentFare['AgentMarkup'] != 0">
-                        <span>Markup</span>
-                        <span>₹{{ CurrentFare['AgentMarkup'] | number:'1.0-2' }}</span>
+                  
+                     <div class="fare-summary-card__row fare-summary-card__row--expandable">
+                        <span data-bs-toggle="collapse" href="#taxFare" aria-expanded="false">
+                           Taxes & Fees
+                           <i class="fa fa-angle-down ms-1"></i>
+                        </span>
+                        <strong>
+                           ₹{{
+                           CurrentFare['Tax'] +
+                           CurrentFare['OtherCharges'] +
+                           CurrentFare['ServiceCharges'] +
+                           CurrentFare['AgentMarkup']
+                           | number:'1.0-2'
+                           }}
+                           <i class="fa fa-edit fare-summary-card__edit" title="Update Markup" (click)="showmarkup()">
+                           </i>
+                        </strong>
                      </div>
-                     <div class="fare-summary-card__breakdown-row" *ngIf="CurrentFare['OtherCharges'] != 0">
-                        <span>Other Charges</span>
-                        <span>₹{{ CurrentFare['OtherCharges'] | number:'1.0-2' }}</span>
-                     </div>
-                     <div class="fare-summary-card__breakdown-row" *ngIf="CurrentFare['ServiceCharges'] != 0">
-                        <span>Service Charges</span>
-                        <span>₹{{ CurrentFare['ServiceCharges'] | number:'1.0-2' }}</span>
-                     </div>
-                  </div>
-                  <!-- Markup Box -->
-                  <div class="fare-summary-card__markup" *ngIf="isshowmarkup">
-                     <div class="form-floating mb-3">
-                        <input type="number" min="0" class="form-control" id="markupPrice" placeholder="Markup Price"
-                           [(ngModel)]="markupvalue">
-                        <label for="markupPrice">
-                           Enter Markup Amount
-                        </label>
-                     </div>
-                     <button class="btn btn-primary btn-sm" (click)="updatemarkup()">
-                        Update
-                     </button>
-                     <button class="btn btn-link text-danger" (click)="showmarkup()">
-                        Close
-                     </button>
-                  </div>
-                  <!-- Gross Fare -->
-                  <div class="fare-summary-card__row">
-                     <span>Gross Fare</span>
-                     <strong>
-                        ₹{{ CurrentFare['PublishedPrice'] + CurrentFare['AgentMarkup'] | number:'1.0-2' }}
-                     </strong>
-                  </div>
-                  <!-- Net Fare -->
-                  <div class="fare-summary-card__row fare-summary-card__row--total">
-                     <span>Total Payable</span>
-                     <strong>
-                        ₹{{ CurrentFare['OfferedPrice'] + CurrentFare['TDS'] | number:'1.0-2' }}
-                     </strong>
-                  </div>
-               </div>
-            </aside>
-
-            <button type="submit" id="review" class="btn asr-book" (click)="SubmitPax()"><span>Proceed To Review</span>
-               &nbsp; <i class="fa fa-angle-double-right"></i></button>
-
-         </div>
-         <div class="col-lg-3 d-none">
-            <div class="hotel-page">
-               <div class="header-bar">
-                  <h2 class="page-title">Fare Summary</h2>
-               </div>
-               <div class="hotel-card">
-                  <div class="btm-border bold-font-bf"><span>Room Price</span> <span
-                        class="float-end">₹{{CurrentFare['RoomPrice'] | number:'1.0-2'}}</span></div>
-                  <div class="btm-border bold-font">
-                     <span data-bs-toggle="collapse" href="#tax-fare" aria-expanded="false"> Taxes and fees <i
-                           class="fa fa-angle-down mrg-left"></i></span>
-                     <span class="float-end">₹{{CurrentFare['Tax']
-                        +CurrentFare['OtherCharges']+CurrentFare['ServiceCharges']+CurrentFare['AgentMarkup'] |
-                        number:'1.0-2'}}<i title="Change markup" class="fa fa-edit" (click)="showmarkup()"></i></span>
-                     <div class="tax-dropdown airline-gst-print collapse" id="tax-fare">
-                        <div *ngIf="CurrentFare['AgentMarkup']!=0"><span>Markup</span><span
-                              class="float-end">₹{{CurrentFare['AgentMarkup'] | number:'1.0-2'}}</span></div>
-                        <div *ngIf="CurrentFare['OtherCharges']!=0"><span>Other Charges</span><span
-                              class="float-end">₹{{CurrentFare['OtherCharges'] | number:'1.0-2'}}</span></div>
-                        <div *ngIf="CurrentFare['ServiceCharges']!=0"><span>Service Charges</span><span
-                              class="float-end">₹{{CurrentFare['OtherCharges'] | number:'1.0-2'}}</span></div>
-                     </div>
-                     <div class="pos-rel" *ngIf="isshowmarkup">
-                        <div class="markup__box-mainconatiner">
-                           <div class="col me-3">
-                              <div class="form-floating mb-2">
-                                 <input type="number" min="0" value="0" class="form-control" id="InputMarkup"
-                                    placeholder="Markup Price" [(ngModel)]="markupvalue" />
-                                 <label for="InputMarkup">Markup Price</label>
-                              </div>
-                           </div>
-                           <span class="markup__update-closebtn" (click)="showmarkup()">×</span><button
-                              class="markup__update-btn" (click)="updatemarkup()">Update</button>
+                  
+                     <div class="collapse fare-summary-card__breakdown" id="taxFare">
+                        <div class="fare-summary-card__breakdown-row" *ngIf="CurrentFare['Tax'] != 0">
+                           <span>GST & Taxes</span>
+                           <span>₹{{ CurrentFare['Tax'] | number:'1.0-2' }}</span>
+                        </div>
+                        <div class="fare-summary-card__breakdown-row" *ngIf="CurrentFare['AgentMarkup'] != 0">
+                           <span>Markup</span>
+                           <span>₹{{ CurrentFare['AgentMarkup'] | number:'1.0-2' }}</span>
+                        </div>
+                        <div class="fare-summary-card__breakdown-row" *ngIf="CurrentFare['OtherCharges'] != 0">
+                           <span>Other Charges</span>
+                           <span>₹{{ CurrentFare['OtherCharges'] | number:'1.0-2' }}</span>
+                        </div>
+                        <div class="fare-summary-card__breakdown-row" *ngIf="CurrentFare['ServiceCharges'] != 0">
+                           <span>Service Charges</span>
+                           <span>₹{{ CurrentFare['ServiceCharges'] | number:'1.0-2' }}</span>
                         </div>
                      </div>
+                  
+                     <div class="fare-summary-card__markup" *ngIf="isshowmarkup">
+                        <div class="form-floating mb-3">
+                           <input type="number" min="0" class="form-control" id="markupPrice" placeholder="Markup Price"
+                              [(ngModel)]="markupvalue">
+                           <label for="markupPrice">
+                              Enter Markup Amount
+                           </label>
+                        </div>
+                        <button class="btn btn-primary btn-sm" (click)="updatemarkup()">
+                           Update
+                        </button>
+                        <button class="btn btn-link text-danger" (click)="showmarkup()">
+                           Close
+                        </button>
+                     </div>
+                  
+                     <div class="fare-summary-card__row">
+                        <span>Gross Fare</span>
+                        <strong>
+                           ₹{{ CurrentFare['PublishedPrice'] + CurrentFare['AgentMarkup'] | number:'1.0-2' }}
+                        </strong>
+                     </div>
+                     
+                     <div class="fare-summary-card__row fare-summary-card__row--total">
+                        <span>Total Payable</span>
+                        <strong>
+                           ₹{{ CurrentFare['OfferedPrice'] + CurrentFare['TDS'] | number:'1.0-2' }}
+                        </strong>
+                     </div>
                   </div>
-                  <div class="bold-font btm-border">
-                     <span data-bs-toggle="collapse" href="#net-fare" aria-expanded="false">Gross Fare</span>
-                     <span class="float-end">₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup'] |
-                        number:'1.0-2'}}</span>
-                  </div>
-                  <div class="bold-font btm-border">
-                     <span>Net Fare</span>
-                     <span class="float-end">₹{{CurrentFare['OfferedPrice']+CurrentFare['TDS'] | number:'1.0-2'}}</span>
-                  </div>
-               </div>
+               </aside>
+
+               <button type="submit" id="review" class="btn asr-book" (click)="SubmitPax()"><span>Proceed To Review</span>
+                  &nbsp; <i class="fa fa-angle-double-right"></i></button>
             </div>
          </div>
+        
       </div>
    </div>
 </section>
@@ -1683,4 +1640,3 @@
       </div>
    </div>
 </div>
-<app-count-down display="on" redirecturl="/hotel"></app-count-down>

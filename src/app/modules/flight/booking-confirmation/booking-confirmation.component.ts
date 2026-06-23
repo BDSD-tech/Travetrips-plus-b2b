@@ -46,6 +46,9 @@ export class BookingConfirmationComponent implements OnInit {
 
   AirlineLogoURL:any=tts_config['BASEURL']+'uploads/airline-images/';
   
+  selectedPaxIds: number[] = [];
+  passengers:any=[]
+
   constructor(private router: Router,private flightService:FlightService,private route: ActivatedRoute,private alertservice:AlertService,public fb: FormBuilder,private authenticationservice: AuthenticationService) {
 
 
@@ -100,6 +103,7 @@ export class BookingConfirmationComponent implements OnInit {
       if(data['Error']['ErrorCode']==0)
       {
           this.Response=data['Result'];
+          this.passengers=this.Response['ConfirmationBookingData'][0]['TravelersInfo'];
           this.FareDetail=this.Response['FareBreakUp'];
           this.markupvalue=this.FareDetail['TotalAmount']['TotalAmountBreakup']['Markup']['Value'];
       } else{
@@ -211,6 +215,7 @@ export class BookingConfirmationComponent implements OnInit {
                   'WithAgencyDetail':WithAgencyDetail,
                   'TicketInvoiceJourney':this.TicketInvoiceJourney,
                   'ViewSize':'',
+                  'PaxIds':this.selectedPaxIds
                }
                
       const navigationExtras: NavigationExtras = {
@@ -314,5 +319,47 @@ export class BookingConfirmationComponent implements OnInit {
     }
    
   }
+
+  isSelected(id: number): boolean {
+    return this.selectedPaxIds.includes(id);
+  }
+ 
+  togglePassenger(id: number): void {
+    if (this.isSelected(id)) {
+      this.selectedPaxIds = this.selectedPaxIds.filter(paxId => paxId !== id);
+    } else {
+      this.selectedPaxIds = [...this.selectedPaxIds, id];
+    }
+  }
+ 
+  get allSelected(): boolean {
+    return this.selectedPaxIds.length === this.passengers.length;
+  }
+ 
+  get someSelected(): boolean {
+    return this.selectedPaxIds.length > 0 && !this.allSelected;
+  }
+
+  toggleAll(): void {
+    if (this.allSelected) {
+      this.selectedPaxIds = [];
+    } else {
+      this.selectedPaxIds = this.passengers.map((p:any) => p.id);
+    }
+  }
+ 
+  getPaxTypeClass(type: string): string {
+    switch (type) {
+      case 'Adult':  return 'badge-adult';
+      case 'Child':  return 'badge-child';
+      case 'Infant': return 'badge-infant';
+      default:       return '';
+    }
+  }
+ 
+  getInitials(firstName: string, lastName: string): string {
+    return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
+  }
+
 }
 

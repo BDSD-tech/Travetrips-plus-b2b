@@ -1,16 +1,116 @@
 <div class="hotel-room-wrapper">
     <div class="container">
         <div class="vertical-align-middle text-center" *ngIf="HotelLoading">
-            <h5>Please Wait...</h5>
-            <p class="mb-2">We are looking for best rates for you</p>
-            <div class="lds-ellipsis">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+            <!-- hotel-detail-skeleton.html — use *ngIf="isLoading" -->
+            <div class="hotel-skeleton">
+
+                <div class="skel-tabs">
+                    <div class="skel-tab active">
+                    <span class="sk" style="width:64px; height:13px;"></span>
+                    <span class="skel-tab-underline"></span>
+                    </div>
+                    <div class="skel-tab"><span class="sk" style="width:52px; height:13px;"></span></div>
+                    <div class="skel-tab"><span class="sk" style="width:76px; height:13px;"></span></div>
+                    <div class="skel-tab"><span class="sk" style="width:60px; height:13px;"></span></div>
+                </div>
+
+          
+                <div class="skel-hero">
+
+                    <!-- Left: image -->
+                    <div class="skel-img-wrap">
+                    <span class="sk skel-img"></span>
+                    <span class="sk sk-circle skel-arr skel-arr-l"></span>
+                    <span class="sk sk-circle skel-arr skel-arr-r"></span>
+                    </div>
+
+                    <!-- Right: hotel info -->
+                    <div class="skel-info">
+
+                    <div class="skel-name-row">
+                        <div style="flex:1;">
+                        <span class="sk" style="width:200px; height:20px; margin-bottom:10px;"></span>
+                        <div class="skel-stars">
+                            <span class="sk sk-star" *ngFor="let s of [1,2,3,4,5]"></span>
+                        </div>
+                        </div>
+                        <span class="sk sk-circle" style="width:36px; height:36px; flex-shrink:0;"></span>
+                    </div>
+
+                    <!-- Address -->
+                    <div class="skel-address">
+                        <span class="sk sk-circle" style="width:14px; height:14px; flex-shrink:0; margin-top:2px;"></span>
+                        <div style="flex:1;">
+                        <span class="sk" style="width:100%; height:12px; margin-bottom:5px;"></span>
+                        <span class="sk" style="width:70%; height:12px;"></span>
+                        </div>
+                    </div>
+
+                    <!-- Check-in / Nights / Check-out -->
+                    <div class="skel-dates">
+                        <div class="skel-date-block">
+                        <span class="sk" style="width:60px; height:11px; margin-bottom:7px;"></span>
+                        <span class="sk" style="width:90px; height:15px; margin-bottom:5px;"></span>
+                        <span class="sk" style="width:55px; height:11px;"></span>
+                        </div>
+                        <div class="skel-nights">
+                        <span class="sk sk-pill" style="width:60px; height:24px;"></span>
+                        </div>
+                        <div class="skel-date-block">
+                        <span class="sk" style="width:60px; height:11px; margin-bottom:7px;"></span>
+                        <span class="sk" style="width:90px; height:15px; margin-bottom:5px;"></span>
+                        <span class="sk" style="width:65px; height:11px;"></span>
+                        </div>
+                    </div>
+
+                    <!-- Rooms & Guests -->
+                    <div class="skel-rooms">
+                        <span class="sk" style="width:100px; height:11px; margin-bottom:7px;"></span>
+                        <span class="sk" style="width:130px; height:15px;"></span>
+                    </div>
+
+                    </div>
+                </div>
+
+                <div class="skel-filters">
+                    <div class="skel-filters-header">
+                    <span class="sk" style="width:120px; height:15px;"></span>
+                    <span class="sk sk-pill" style="width:90px; height:13px;"></span>
+                    </div>
+
+                    <div class="skel-filters-row">
+                    
+                    <div class="skel-filter-item">
+                        <span class="sk" style="width:120px; height:11px; margin-bottom:7px;"></span>
+                        <span class="sk skel-input"></span>
+                    </div>
+                    <!-- Meal Preference -->
+                    <div class="skel-filter-item">
+                        <span class="sk" style="width:100px; height:11px; margin-bottom:7px;"></span>
+                        <span class="sk skel-input"></span>
+                    </div>
+                    <!-- Search Room -->
+                    <div class="skel-filter-item">
+                        <span class="sk skel-input" style="margin-top:18px;"></span>
+                    </div>
+                    <!-- Price -->
+                    <div class="skel-filter-item">
+                        <span class="sk" style="width:40px; height:13px; margin-bottom:14px;"></span>
+                        <div class="skel-slider-track">
+                        <span class="skel-slider-fill"></span>
+                        </div>
+                        <div class="skel-price-labels">
+                        <span class="sk" style="width:44px; height:11px;"></span>
+                        <span class="sk" style="width:44px; height:11px;"></span>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-        <div class="hotel-nav-wrapper">
+        
+        <div class="hotel-nav-wrapper" *ngIf="HotelLoading==false && HotelInfoErrorCode==0">
             <nav class="hotel-nav">
                 <button class="hotel-nav__item" (click)="scrollToLetter('Overview')" [ngClass]="{'active':Selecttab=='Overview'}">Overview</button>
                 <button class="hotel-nav__item" (click)="scrollToLetter('Rooms')" [ngClass]="{'active':Selecttab=='Rooms'}">Rooms</button>
@@ -18,6 +118,7 @@
                 <button class="hotel-nav__item" (click)="scrollToLetter('Location')" [ngClass]="{'active':Selecttab=='Location'}">Location</button>
             </nav>
         </div>
+        
         <div  class="room-list" *ngIf="HotelLoading==false && HotelInfoErrorCode==0">
             <!---new code 06-06-2026--->
             <div id="Overview" class="hotel-overview">

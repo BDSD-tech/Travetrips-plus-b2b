@@ -3,7 +3,7 @@
 
     <div class="row ">
       <div class="col-lg-9">
-         <div class="booking-stepper">
+          <div class="booking-stepper">
           <!-- Step 1 -->
           <div class="step completed">
             <div class="step-icon">
@@ -30,6 +30,352 @@
           </div>
 
         </div>
+         <div >
+            <div class="flight-booking-wrapper" >
+
+               <div class="flight-booking-header" (click)="ShowDetail=!ShowDetail">
+                  <div class="itinerary-card-title">
+
+                     <div class="header-left">
+                        @if(Service=='Flight'){
+                           <i class="fa-solid fa-plane-departure"></i>
+                        }@else if(Service=='Hotel'){
+                           <i class="fa-solid fa-hotel" ></i>
+                        }
+                        
+                        <span>{{Service}} Details</span>
+                     </div>
+                     @if(!ShowDetail){
+                     <i class="fa-solid fa-chevron-down" ></i>
+                     }@else{
+                        <i class="fa-solid fa-angle-up" ></i>
+                     }
+                  </div>
+               </div>
+
+               <!-- Trip Loop -->
+               @if(ShowDetail && Service=='Flight'){
+                  <div class="flight-segment position-relative" *ngFor="let trip of Segments; let tripkey=index">
+                  
+                  
+                     <div class="flight-route-block" *ngFor="let subtrip of trip; let subtripkey=index">
+
+                     
+                        <div *ngFor="let segment of subtrip; let segkey=index">
+
+                        
+                           <div class="flight-card-header">
+                              <div class="route-section">
+                                 <h4>
+                                    {{subtrip[0]['Origin']['CityName']}}
+                                    <span>→</span>
+                                    {{subtrip[subtrip.length-1]['Destination']['CityName']}}
+                                 </h4>
+
+                                 <div class="route-meta">
+
+                                    <span class="date-tag">
+                                       {{subtrip[0]['Origin']['DepartTime'] | date:'dd MMM EEEE'}}
+                                    </span>
+
+                                    <span class="stop-tag">
+
+                                       <ng-container
+                                          *ngIf="!segment['TechStopPoint'] || segment['TechStopPoint'].length==0">
+                                          Non Stop
+                                       </ng-container>
+
+                                       <ng-container
+                                          *ngIf="segment['TechStopPoint'] && segment['TechStopPoint']['Code']">
+                                          Via {{segment['TechStopPoint']['Code']}}
+                                       </ng-container>
+
+                                    </span>
+                                    <span class="stop_duration">•</span>
+                                    <span class="duration-tag">
+                                       {{FTduration(segment['Duration'])}}
+                                    </span>
+
+                                 </div>
+
+                              </div>
+
+                              <div class="top-right-section">
+
+                                 <div class="baggage-item" *ngIf="segment['CheckInBaggage']">
+
+                                    <strong>
+                                       {{segment['CheckInBaggage']}}
+                                    </strong>
+
+                                    <span>
+                                       <svg width="18" height="12px" viewBox="0 0 18 24" fill="none"
+                                          xmlns="http://www.w3.org/2000/svg">
+                                          <path
+                                             d="M7.83398 4.9987H10.1673V2.66536H7.83398V4.9987ZM9.00065 11.9987C7.52287 11.9987 6.11315 11.6923 4.77148 11.0794C3.42982 10.4665 2.11732 9.78125 0.833984 9.0237V7.33203C0.833984 6.69036 1.06265 6.14125 1.51998 5.6847C1.97732 5.22814 2.52643 4.99948 3.16732 4.9987H5.50065V1.4987C5.50065 1.16814 5.61265 0.891254 5.83665 0.668031C6.06065 0.444809 6.33754 0.332809 6.66732 0.332031H11.334C11.6645 0.332031 11.9418 0.444031 12.1658 0.668031C12.3898 0.892031 12.5014 1.16892 12.5007 1.4987V4.9987H14.834C15.4757 4.9987 16.0252 5.22736 16.4825 5.6847C16.9398 6.14203 17.1681 6.69114 17.1673 7.33203V9.0237C15.884 9.78203 14.5715 10.4676 13.2298 11.0805C11.8882 11.6934 10.4784 11.9995 9.00065 11.9987ZM3.16732 23.6654V22.4987C2.52565 22.4987 1.97654 22.2704 1.51998 21.8139C1.06343 21.3573 0.834762 20.8078 0.833984 20.1654V11.6487C1.92287 12.3098 3.04598 12.8737 4.20332 13.3404C5.36065 13.807 6.57087 14.1181 7.83398 14.2737V15.4987H10.1673V14.2737C11.4312 14.1181 12.6418 13.807 13.7992 13.3404C14.9565 12.8737 16.0792 12.3098 17.1673 11.6487V20.1654C17.1673 20.807 16.939 21.3565 16.4825 21.8139C16.0259 22.2712 15.4764 22.4995 14.834 22.4987V23.6654H12.5007V22.4987H5.50065V23.6654H3.16732Z"
+                                             fill="#9E9E9E"></path>
+                                       </svg>
+                                    </span>
+
+                                 </div>
+
+                                 <div class="divider" *ngIf="segment['CheckInBaggage'] && segment['CabinBaggage']">
+                                 </div>
+
+                                 <div class="baggage-item" *ngIf="segment['CabinBaggage']">
+
+                                    <strong>
+                                       {{segment['CabinBaggage']}}
+                                    </strong>
+
+                                    <span>
+                                       <svg width="24" height="12px" viewBox="0 0 24 20" fill="none"
+                                          xmlns="http://www.w3.org/2000/svg">
+                                          <path
+                                             d="M6.75 4.3999C6.75 3.5645 7.08187 2.76331 7.67261 2.17259C8.26335 1.58186 9.06457 1.25 9.9 1.25H14.625C15.4604 1.25 16.2616 1.58186 16.8524 2.17259C17.4431 2.76331 17.775 3.5645 17.775 4.3999V5.44987H6.75V4.3999Z"
+                                             stroke="#9E9E9E" stroke-width="2.09997" stroke-linecap="round"
+                                             stroke-linejoin="round"></path>
+                                          <path
+                                             d="M1.5 10.1758L11.7454 12.7372C11.9123 12.7792 12.0877 12.7792 12.2546 12.7372L22.5 10.1758V17.0006C22.5 17.279 22.3894 17.5461 22.1925 17.743C21.9955 17.9399 21.7285 18.0505 21.45 18.0505H2.55C2.27152 18.0505 2.00445 17.9399 1.80754 17.743C1.61062 17.5461 1.5 17.279 1.5 17.0006V10.1758Z"
+                                             fill="#9E9E9E" stroke="#9E9E9E" stroke-width="2.09997"
+                                             stroke-linecap="round" stroke-linejoin="round"></path>
+                                          <path
+                                             d="M22.5 11.226V6.50114C22.5 6.22267 22.3894 5.95561 22.1925 5.7587C21.9955 5.56179 21.7285 5.45117 21.45 5.45117H2.55C2.27152 5.45117 2.00445 5.56179 1.80754 5.7587C1.61062 5.95561 1.5 6.22267 1.5 6.50114V11.226"
+                                             stroke="#9E9E9E" stroke-width="2.09997" stroke-linecap="round"
+                                             stroke-linejoin="round"></path>
+                                          <path
+                                             d="M13.3125 9.12496C13.3125 9.47305 13.1742 9.80688 12.9281 10.053C12.6819 10.2991 12.3481 10.4374 12 10.4374C11.6519 10.4374 11.3181 10.2991 11.0719 10.053C10.8258 9.80688 10.6875 9.47305 10.6875 9.12496C10.6875 8.77687 10.8258 8.44304 11.0719 8.19691C11.3181 7.95078 11.6519 7.8125 12 7.8125C12.3481 7.8125 12.6819 7.95078 12.9281 8.19691C13.1742 8.44304 13.3125 8.77687 13.3125 9.12496Z"
+                                             fill="#9E9E9E"></path>
+                                       </svg>
+                                    </span>
+
+                                 </div>
+                              </div>
+
+                           </div>
+
+                           <!-- Main Flight Row -->
+                           <div class="flight-main-row">
+
+                              <!-- Airline -->
+                              <div class="airline-column">
+
+                                 <img src="{{AirlineLogoURL}}{{segment['Airline']['AirlineCode']}}.png"
+                                    class="flight-airline-logo">
+
+                                 <div class="d-flex flex-column">
+
+                                    <h6>
+                                       {{segment['Airline']['AirlineCode']}}
+                                       {{segment['Airline']['FlightNumber']}}
+                                    </h6>
+
+                                    <p>
+                                       {{segment['Airline']['AirlineName']}}
+                                    </p>
+
+                                    <p>
+                                       Class :
+                                       {{segment['CabinClass']}}
+                                    </p>
+
+                                    <!-- <p>
+                                       Fare Type :
+                                       {{FareList[tripkey]['FareType']}}
+                                    </p> -->
+
+                                 </div>
+
+                              </div>
+
+                              <div class="d-flex w-100 justify-content-between align-items-center gap-3">
+                                 <!-- Departure -->
+                                 <div class="time-column">
+                                    <div class="d-flex align-items-center gap-2">
+                                       <h3>
+                                          {{segment['Origin']['DepartTime'] | date:'HH:mm'}}
+                                       </h3>
+                                       <div>•</div>
+                                       <span>
+                                          {{segment['Origin']['DepartTime'] | date:'dd MMM EEEE'}}
+                                       </span>
+                                    </div>
+
+
+                                    <h5>
+                                       {{segment['Origin']['CityName']}}
+                                       ({{segment['Origin']['AirportCode']}})
+                                    </h5>
+
+                                    <p>
+                                       {{segment['Origin']['AirportName']}}
+                                    </p>
+
+                                    <p *ngIf="segment['Origin']['Terminal']">
+                                       Terminal
+                                       {{segment['Origin']['Terminal']}}
+                                    </p>
+
+                                 </div>
+
+                                 <!-- Journey -->
+                                 <div class="journey-column">
+
+                                    <span class="journey-duration">
+                                       {{FTduration(segment['Duration'])}}
+                                    </span>
+
+                                    <div class="journey-line">
+
+                                       <span class="plane-icon">
+                                          <i class="fa fa-clock"></i>
+                                       </span>
+
+                                    </div>
+
+                                    <small>
+
+                                       <ng-container
+                                          *ngIf="!segment['TechStopPoint'] || segment['TechStopPoint'].length==0">
+                                          Non Stop
+                                       </ng-container>
+
+                                       <ng-container
+                                          *ngIf="segment['TechStopPoint'] && segment['TechStopPoint']['Code']">
+                                          Via {{segment['TechStopPoint']['Code']}}
+                                       </ng-container>
+
+                                    </small>
+
+                                 </div>
+
+                                 <!-- Arrival -->
+                                 <div class="time-column text-end">
+                                    <div class="d-flex align-items-center gap-2 justify-content-end">
+
+
+                                       <span>
+                                          {{segment['Destination']['ArrivalTime'] | date:'dd MMM EEEE'}}
+                                       </span>
+                                       <div>•</div>
+                                       <h3>
+                                          {{segment['Destination']['ArrivalTime'] | date:'HH:mm'}}
+                                       </h3>
+                                    </div>
+
+                                    <h5>
+                                       {{segment['Destination']['CityName']}}
+                                       ({{segment['Destination']['AirportCode']}})
+                                    </h5>
+
+                                    <p>
+                                       {{segment['Destination']['AirportName']}}
+                                    </p>
+
+                                    <p *ngIf="segment['Destination']['Terminal']">
+                                       Terminal
+                                       {{segment['Destination']['Terminal']}}
+                                    </p>
+
+                                 </div>
+                              </div>
+
+                           </div>
+
+                           <!-- Layover -->
+
+                           <div class="flight-layover-wrapper" *ngIf="segment['Layover']">
+                              <div class="layover-line">
+                                 <span class="layover-badge">
+                                    Connecting Flight at
+                                    <strong>
+                                       {{segment['Destination']['CityName']}}
+                                       ({{segment['Destination']['AirportCode']}})
+                                    </strong>
+                                    <span class="layover-time">
+                                       | {{segment['Layover']}} Layover
+                                    </span>
+                                 </span>
+                              </div>
+                           </div>
+
+
+
+                        </div>
+                     </div>
+
+                  </div>
+               }
+               @if(ShowDetail && Service=='Hotel'){
+                   <div class="hotel-hero">
+
+                    <img src="{{BlockRoomResult['HotelPicture']}}" onError="this.src='assets/img/no-photo.png';"
+                        class="hero-image">
+
+                    <div class="hero-content">
+
+                        <div class="d-flex justify-content-between flex-wrap">
+
+                            <div>
+                                <h4>{{BlockRoomResult['HotelName']}}</h4>
+
+                                <p>
+                                    <i class="fa fa-map-marker-alt"></i>
+                                    {{BlockRoomResult['AddressLine1']}}
+                                </p>
+                            </div>
+
+                            <div [innerHTML]="star_rating(BlockRoomResult['StarRating'])">
+                            </div>
+
+                        </div>
+                    </div>
+                   </div>
+                   <div class="stay-card">
+
+                    <div class="stay-item">
+                        <span>Check In</span>
+
+                        <h6>
+                            {{GetSearchData['CheckIn'] | date:'d MMM , yyyy'}}
+                        </h6>
+
+                        <small>
+                            {{GetSearchData['CheckIn'] | date:'EEEE'}}
+                        </small>
+                    </div>
+
+                    <div class="stay-center">
+                        <span>{{GetSearchData['Nights']}}</span>
+                        <small>Nights</small>
+                    </div>
+
+                    <div class="stay-item">
+                        <span>Check Out</span>
+
+                        <h6>
+                            {{GetSearchData['CheckOut'] | date:'d MMM , yyyy'}}
+                        </h6>
+
+                        <small>
+                            {{GetSearchData['CheckOut'] | date:'EEEE'}}
+                        </small>
+                    </div>
+
+                    <div class="stay-item">
+                        <span>Guests</span>
+
+                        <h6>
+                            {{GetSearchData['Occupancy']}}
+                        </h6>
+                    </div>
+
+                </div>
+               }
+            </div>
+         </div>
+      
+        
         <div class="booking-main">
           <div class="d-flex align-items-center justify-content-between mb-3">
             <h4 class="apt-heading ">
@@ -160,82 +506,110 @@
         </div>
       </div>
       <div class="col-lg-3">
-        <div class="timer-section">
-          <app-count-down display="on"></app-count-down>
-        </div>
-        <div class="booking-rightside">
-          <h4><span>Fare Summary</span></h4>
-          <div>
-            <div class="btm-border bold-font-bf"><span>Base fare</span> <span
-                class="float-end">₹{{CurrentFare['BaseFare'] | number:'1.0-2'}}</span></div>
-            <div class="btm-border bold-font">
-              <span data-bs-toggle="collapse" href="#tax-fare" aria-expanded="false"> Taxes and fees <i
-                  class="fa fa-angle-down mrg-left"></i></span>
-              <span class="float-end">₹{{CurrentFare['Tax'] + CurrentFare['OtherCharges'] + CurrentFare['AgentMarkup'] |
-                number:'1.0-2'}}</span>
-              <div class="tax-dropdown airline-gst-print collapse" id="tax-fare">
-                <div><span>YQ</span><span class="float-end">₹{{CurrentFare['YQTax'] | number:'1.0-2'}}</span></div>
-                <div *ngIf="CurrentFare['AgentMarkup']!=0"><span>Markup</span><span
-                    class="float-end">₹{{CurrentFare['AgentMarkup'] | number:'1.0-2'}}</span></div>
-                <div><span>Other Charges</span><span class="float-end">₹{{CurrentFare['OtherCharges'] |
-                    number:'1.0-2'}}</span></div>
-                <div *ngIf="conveniencefee!=0"><span>Payment Fee</span><span class="float-end">₹{{conveniencefee |
-                    number:'1.0-2'}}</span></div>
-              </div>
+         <div class="side-pricedetail">
+            <div class="timer-section">
+               <app-count-down display="on"></app-count-down>
             </div>
-            @if(CurrentFare['InsurancePrice']){
-            <div class="btm-border bold-font-bf"><span>Insurance Price</span> <span
-                class="float-end">₹{{CurrentFare['InsurancePrice'] | number:'1.0-2'}}</span></div>
-            }
-            <div class="btm-border bold-font" *ngIf="CurrentFare['SSR'] && Service=='Flight'">
-              <span data-bs-toggle="collapse" href="#ssr-pax" aria-expanded="false"> Meal, Baggage & Seats <i
-                  class="fa fa-angle-down mrg-left"></i></span>
-              <span class="float-end">₹{{CurrentFare['SSR']['Meal'] + CurrentFare['SSR']['Baggage']+
-                CurrentFare['SSR']['Seat']}}</span>
-              <div class="tax-dropdown airline-gst-print collapse" id="ssr-pax">
-                <div *ngIf="CurrentFare['SSR']['Meal']!=0"><span>Seat</span><span
-                    class="float-end">₹{{CurrentFare['SSR']['Seat']|
-                    number:'1.0-2'}}</span></div>
-                <div *ngIf="CurrentFare['SSR']['Meal']!=0"><span>Meal</span><span
-                    class="float-end">₹{{CurrentFare['SSR']['Meal'] |
-                    number:'1.0-2'}}</span></div>
-                <div *ngIf="CurrentFare['SSR']['Baggage']!=0"><span>Baggage</span><span
-                    class="float-end">₹{{CurrentFare['SSR']['Baggage'] | number:'1.0-2'}}</span></div>
-              </div>
+            <div class="booking-rightside mb-3">
+               <h4><span>Fare Summary</span></h4>
+               <div>
+               <div class="btm-border bold-font-bf"><span>Base fare</span> <span
+                     class="float-end">₹{{CurrentFare['BaseFare'] | number:'1.0-2'}}</span></div>
+               <div class="btm-border bold-font">
+                  <span data-bs-toggle="collapse" href="#tax-fare" aria-expanded="false"> Taxes and fees <i
+                     class="fa fa-angle-down mrg-left"></i></span>
+                  <span class="float-end">₹{{CurrentFare['Tax'] + CurrentFare['OtherCharges'] + CurrentFare['AgentMarkup'] |
+                     number:'1.0-2'}}</span>
+                  <div class="tax-dropdown airline-gst-print collapse" id="tax-fare">
+                     <div><span>YQ</span><span class="float-end">₹{{CurrentFare['YQTax'] | number:'1.0-2'}}</span></div>
+                     <div *ngIf="CurrentFare['AgentMarkup']!=0"><span>Markup</span><span
+                        class="float-end">₹{{CurrentFare['AgentMarkup'] | number:'1.0-2'}}</span></div>
+                     <div><span>Other Charges</span><span class="float-end">₹{{CurrentFare['OtherCharges'] |
+                        number:'1.0-2'}}</span></div>
+                     <div *ngIf="conveniencefee!=0"><span>Payment Fee</span><span class="float-end">₹{{conveniencefee |
+                        number:'1.0-2'}}</span></div>
+                  </div>
+               </div>
+               @if(CurrentFare['InsurancePrice']){
+               <div class="btm-border bold-font-bf"><span>Insurance Price</span> <span
+                     class="float-end">₹{{CurrentFare['InsurancePrice'] | number:'1.0-2'}}</span></div>
+               }
+               <div class="btm-border bold-font" *ngIf="CurrentFare['SSR'] && Service=='Flight'">
+                  <span data-bs-toggle="collapse" href="#ssr-pax" aria-expanded="false"> Meal, Baggage & Seats <i
+                     class="fa fa-angle-down mrg-left"></i></span>
+                  <span class="float-end">₹{{CurrentFare['SSR']['Meal'] + CurrentFare['SSR']['Baggage']+
+                     CurrentFare['SSR']['Seat']}}</span>
+                  <div class="tax-dropdown airline-gst-print collapse" id="ssr-pax">
+                     <div *ngIf="CurrentFare['SSR']['Meal']!=0"><span>Seat</span><span
+                        class="float-end">₹{{CurrentFare['SSR']['Seat']|
+                        number:'1.0-2'}}</span></div>
+                     <div *ngIf="CurrentFare['SSR']['Meal']!=0"><span>Meal</span><span
+                        class="float-end">₹{{CurrentFare['SSR']['Meal'] |
+                        number:'1.0-2'}}</span></div>
+                     <div *ngIf="CurrentFare['SSR']['Baggage']!=0"><span>Baggage</span><span
+                        class="float-end">₹{{CurrentFare['SSR']['Baggage'] | number:'1.0-2'}}</span></div>
+                  </div>
+               </div>
+               <div class="bold-font ">
+                  <span data-bs-toggle="collapse" href="#net-fare" aria-expanded="false">Total Fare <i
+                     class="fa fa-angle-down mrg-left"></i></span>
+                  @if(Service=='Flight'){
+                     <span
+                     class="float-end">₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']+CurrentFare['SSR']['Meal']
+                     + CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Seat'] +CurrentFare['InsurancePrice']|
+                     number:'1.0-2'}}</span>
+                  
+                  }@else{
+                  <span
+                     class="float-end">₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']|number:'1.0-2'}}</span>
+                  }
+                  <div class="tax-dropdown airline-gst-print collapse" id="net-fare">
+                     <div><span>Commission</span><span
+                        class="float-end">-₹{{CurrentFare['AgentCommission']+CurrentFare['Discount'] |
+                        number:'1.0-2'}}</span></div>
+                     <div><span>TDS</span><span class="float-end">+₹{{CurrentFare['TDS'] | number:'1.0-2'}}</span></div>
+                     @if(Service=='Flight'){
+                     <div><span>Net Price</span><span
+                        class="float-end">₹{{CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat']
+                        |
+                        number:'1.0-2'}}</span></div>
+                     }@else{
+                     <div><span>Net Price</span><span class="float-end">₹{{CurrentFare['OfferedPrice']+CurrentFare['TDS']|
+                        number:'1.0-2'}}</span></div>
+                     }
+                  </div>
+               </div>
+               <!-- <div class="btm-border py-2"><span>Net Fare</span><span class="float-end">₹{{this.CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat'] |
+                                             number:'1.0-2'}}</span></div> -->
+               </div>
             </div>
-            <div class="bold-font ">
-              <span data-bs-toggle="collapse" href="#net-fare" aria-expanded="false">Gross Fare <i
-                  class="fa fa-angle-down mrg-left"></i></span>
-              @if(Service=='Flight'){
-                <span
-                class="float-end">₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']+CurrentFare['SSR']['Meal']
-                + CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Seat'] +CurrentFare['InsurancePrice']|
-                number:'1.0-2'}}</span>
-             
-              }@else{
-              <span
-                class="float-end">₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']|number:'1.0-2'}}</span>
-              }
-              <div class="tax-dropdown airline-gst-print collapse" id="net-fare">
-                <div><span>Commission</span><span
-                    class="float-end">-₹{{CurrentFare['AgentCommission']+CurrentFare['Discount'] |
-                    number:'1.0-2'}}</span></div>
-                <div><span>TDS</span><span class="float-end">+₹{{CurrentFare['TDS'] | number:'1.0-2'}}</span></div>
-                @if(Service=='Flight'){
-                <div><span>Net Price</span><span
-                    class="float-end">₹{{CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat']
-                    |
-                    number:'1.0-2'}}</span></div>
-                }@else{
-                <div><span>Net Price</span><span class="float-end">₹{{CurrentFare['OfferedPrice']+CurrentFare['TDS']|
-                    number:'1.0-2'}}</span></div>
-                }
-              </div>
+            <div class="booking-rightside">
+               <h6>Passenger Details</h6>
+               @if(Service=='Flight'){
+               <ul class="p-0">
+                  @for (pax of TravellerDetails; track $index) {
+                  <li>
+                     <a class="text-dark fw-semibold" href="Javascript:void(0)"><strong>{{$index+1}}. </strong> {{pax.Title}} {{pax.FirstName}} {{pax.LastName}} </a>
+                  </li>
+                  }
+               </ul>
+               }@else if(Service=='Hotel'){
+                  <ul class="p-0">
+                   @for (room of TravellerDetails; track $index) {
+                     @for (type of ['Adult','Child']; track $index) {
+                        @for (pax of room[type]; track $index) {
+
+                           <li>
+                              <a class="text-dark fw-semibold" href="Javascript:void(0)"><strong>{{$index+1}}. </strong> {{pax.Title}} {{pax.FirstName}} {{pax.LastName}} </a>
+                           </li>
+                        }
+                     }
+                  }
+                  </ul>
+               }
             </div>
-            <!-- <div class="btm-border py-2"><span>Net Fare</span><span class="float-end">₹{{this.CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat'] |
-                                        number:'1.0-2'}}</span></div> -->
-          </div>
-        </div>
+         </div>
+      
       </div>
     </div>
   </div>

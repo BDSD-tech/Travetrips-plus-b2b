@@ -26,7 +26,7 @@
                 </div>
                 <div class="bus-details-wrapper scrollable">
                     <!-- Header -->
-                    <div class="bus-details-header">
+                    <!-- <div class="bus-details-header">
                         <h3 class="bus-details-title">
                             Bus Details
                         </h3>
@@ -34,7 +34,7 @@
                             <i class="fa fa-angle-double-left"></i>
                             Back to Search
                         </button>
-                    </div>
+                    </div> -->
                     <!-- Bus Summary -->
                     <div class="bus-summary-card">
                         <div class="bus-route-info">
@@ -285,9 +285,12 @@
 
                     <div class="bus-details-wrapper scrollable">
                         <div class="bus-summary-card">
-                            <div class="bus-route-info">
+                            <div class="bus-route-info d-block">
                                 <div class="bus-route">
                                     <span>Contact Details</span>
+                                </div>
+                                <div>
+                                 <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> All Communication related to the booking will be send to this email address and mobile.</small>
                                 </div>
                             </div>
                             <div class="bus-operator-info p-4 d-block">
@@ -351,12 +354,13 @@
 
                     <div class="bus-details-wrapper scrollable">
                         <div class="bus-summary-card">
-                            <div class="bus-route-info">
+                            <div class="bus-route-info d-block">
                                 <div class="bus-route flex-column align-items-start">
                                     <span>GST Number for Business Travel ({{GSTTxt}})</span>
-                                    <small class="fw-normal">To claim credit of GST charged by airlines, Please enter
-                                        your company's GST number</small>
+                                    
                                 </div>
+                                <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> To claim credit of GST charged by airline. Please enter your company's GST number.</small>
+
                             </div>
 
                             <!--<div class="historybox__wrapper">
@@ -477,77 +481,107 @@
             </div>
 
             <div class="col-lg-3">
-                <div class="fare-summary-card">
-                    <!-- Header -->
-                    <div class="fare-summary-header">
-                        <h5>Fare Summary</h5>
+                <div class="fare-summary">
+                    <div class="timer-section">
+                        <app-count-down display="on" redirecturl="/bus"></app-count-down>
                     </div>
-
-                    <!-- Fare Details -->
-                    <div class="fare-summary-body">
-                        <!-- Base Fare -->
-                        <div class="fare-item">
-                            <span class="fare-label">Base Fare</span>
-                            <span class="fare-value">
-                                ₹{{CurrentFare['BasePrice'] | number:'1.0-2'}}
-                            </span>
+                    <div class="fare-summary-card">
+                        <!-- Header -->
+                        <div class="fare-summary-header">
+                            <h5>Fare Summary</h5>
                         </div>
 
-
-                        <!-- Taxes & Fees -->
-                        <div class="fare-item fare-expandable">
-                            <div class="fare-collapse-header" data-bs-toggle="collapse" href="#tax-fare"
-                                aria-expanded="false">
-
-                                <span class="fare-label">
-                                    Taxes & Fees
-                                    <i class="fa fa-angle-down"></i>
-                                </span>
-
+                        <!-- Fare Details -->
+                        <div class="fare-summary-body">
+                            <!-- Base Fare -->
+                            <div class="fare-item">
+                                <span class="fare-label">Base Fare</span>
                                 <span class="fare-value">
+                                    ₹{{CurrentFare['BasePrice'] | number:'1.0-2'}}
+                                </span>
+                            </div>
+
+
+                            <!-- Taxes & Fees -->
+                            <div class="fare-item fare-expandable">
+                                <div class="fare-collapse-header" data-bs-toggle="collapse" href="#tax-fare"
+                                    aria-expanded="false">
+
+                                    <span class="fare-label">
+                                        Taxes & Fees
+                                        <i class="fa fa-angle-down"></i>
+                                    </span>
+
+                                    <span class="fare-value">
+                                        ₹{{
+                                        CurrentFare['Tax']
+                                        + CurrentFare['OtherCharges']
+                                        + CurrentFare['ServiceCharges']
+                                        + CurrentFare['AgentMarkup']
+                                        | number:'1.0-2'
+                                        }}
+                                    </span>
+
+                                </div>
+
+                                <div class="collapse fare-collapse-body" id="tax-fare">
+
+                                    <div class="fare-sub-item" *ngIf="CurrentFare['AgentMarkup'] != 0">
+
+                                        <span>Markup</span>
+
+                                        <span>
+                                            ₹{{CurrentFare['AgentMarkup'] | number:'1.0-2'}}
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="fare-sub-item" *ngIf="CurrentFare['OtherCharges'] != 0">
+
+                                        <span>Other Charges</span>
+
+                                        <span>
+                                            ₹{{CurrentFare['OtherCharges'] | number:'1.0-2'}}
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="fare-sub-item" *ngIf="CurrentFare['ServiceCharges'] != 0">
+
+                                        <span>Service Charges</span>
+
+                                        <span>
+                                            ₹{{CurrentFare['ServiceCharges'] | number:'1.0-2'}}
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Amount to Pay -->
+                            <div class="fare-item fare-total">
+
+                                <div>
+                                    <div class="fare-total-label">
+                                        Amount to Pay
+                                    </div>
+
+                                    <small>
+                                        Inclusive of all taxes
+                                    </small>
+                                </div>
+
+                                <div class="fare-total-value">
                                     ₹{{
-                                    CurrentFare['Tax']
-                                    + CurrentFare['OtherCharges']
-                                    + CurrentFare['ServiceCharges']
+                                    CurrentFare['PublishedPrice']
                                     + CurrentFare['AgentMarkup']
                                     | number:'1.0-2'
                                     }}
-                                </span>
-
-                            </div>
-
-                            <div class="collapse fare-collapse-body" id="tax-fare">
-
-                                <div class="fare-sub-item" *ngIf="CurrentFare['AgentMarkup'] != 0">
-
-                                    <span>Markup</span>
-
-                                    <span>
-                                        ₹{{CurrentFare['AgentMarkup'] | number:'1.0-2'}}
-                                    </span>
-
-                                </div>
-
-
-                                <div class="fare-sub-item" *ngIf="CurrentFare['OtherCharges'] != 0">
-
-                                    <span>Other Charges</span>
-
-                                    <span>
-                                        ₹{{CurrentFare['OtherCharges'] | number:'1.0-2'}}
-                                    </span>
-
-                                </div>
-
-
-                                <div class="fare-sub-item" *ngIf="CurrentFare['ServiceCharges'] != 0">
-
-                                    <span>Service Charges</span>
-
-                                    <span>
-                                        ₹{{CurrentFare['ServiceCharges'] | number:'1.0-2'}}
-                                    </span>
-
                                 </div>
 
                             </div>
@@ -555,37 +589,9 @@
                         </div>
 
 
-                        <!-- Amount to Pay -->
-                        <div class="fare-item fare-total">
-
-                            <div>
-                                <div class="fare-total-label">
-                                    Amount to Pay
-                                </div>
-
-                                <small>
-                                    Inclusive of all taxes
-                                </small>
-                            </div>
-
-                            <div class="fare-total-value">
-                                ₹{{
-                                CurrentFare['PublishedPrice']
-                                + CurrentFare['AgentMarkup']
-                                | number:'1.0-2'
-                                }}
-                            </div>
-
-                        </div>
+                        
 
                     </div>
-
-
-                    
-
-                </div>
-
-                <!-- Button -->
                     <button type="submit" id="review" class="fare-review-btn" [disabled]="loadingreview" (click)="SubmitPax()">
 
                         <span *ngIf="loadingreview" class="spinner-border spinner-border-sm">
@@ -598,7 +604,7 @@
                         <i class="fa fa-angle-double-right"></i>
 
                     </button>
-
+                </div>
             </div>
 
         </div>
@@ -1098,7 +1104,6 @@
         </div>
     </div>
 </section>
-<app-count-down display="on" redirecturl="/bus"></app-count-down>
 
 
 @if (showReviewpage) {
