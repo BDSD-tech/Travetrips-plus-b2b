@@ -21,7 +21,7 @@
                         <i class="fa-solid fa-headset"></i>
                         <div>
                             <p>24/7 Support</p>
-                            <h5 class="support-number">+91 8800114161</h5>
+                            <h5 class="support-number">{{GetWebSiteData['SupportNo']}}</h5>
                         </div>
                     </div>
 
@@ -56,7 +56,7 @@
 
                     <h2 class="welcome-title">
                         Welcome To
-                        <span>TravelTripPlus Holidays</span>
+                        <span>{{GetWebSiteData['CompanyName']}}</span>
                         India Private Limited
                     </h2>
 
@@ -1125,7 +1125,7 @@ FOOTER
                 <!-- =========================================
                 ABOUT
                 ========================================= -->
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-3 col-md-6">
 
                     <div class="footer-widget">
 
@@ -1137,7 +1137,7 @@ FOOTER
                             <div class="footer-logo-text">
 
                                 <h4>
-                                    TravelTripPlus
+                                    {{GetWebSiteData['CompanyName']}}
                                 </h4>
 
                                 <span>
@@ -1191,110 +1191,38 @@ FOOTER
                 <!-- =========================================
                 QUICK LINKS
                 ========================================= -->
+                @for (item of FooterData; track $index) {
                 <div class="col-lg-2 col-md-6">
 
                     <div class="footer-widget">
-
                         <h5 class="footer-title">
-                            Quick Links
+                            {{item['MenuName']}}
                         </h5>
-
                         <ul class="footer-links">
-
+                            @for (page of item['Pages']; track $index) {
                             <li>
-                                <a href="javascript:void(0)">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    Home
-                                </a>
+                                @if(page['CustomUrl']){
+                                    <a [href]="page['CustomUrl']" target="_blank">
+                                        <i class="fa-solid fa-angle-right"></i>
+                                       {{ page['Title']}}
+                                    </a>
+                                }@else {
+                                    <a href="javascript:void(0)" routerLink="/pages/page/{{page['SlugUrl']}}">
+                                        <i class="fa-solid fa-angle-right"></i>
+                                        {{ page['Title']}}
+                                    </a>
+                                }
+                                
                             </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    Flight Booking
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    Hotel Booking
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    Tour Packages
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    Contact Us
-                                </a>
-                            </li>
-
+                            }
                         </ul>
 
                     </div>
 
                 </div>
-
-                <!-- =========================================
-                SERVICES
-                ========================================= -->
-                <div class="col-lg-3 col-md-6">
-
-                    <div class="footer-widget">
-
-                        <h5 class="footer-title">
-                            Our Services
-                        </h5>
-
-                        <ul class="footer-links">
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <i class="fa-solid fa-plane"></i>
-                                    Flight Tickets
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <i class="fa-solid fa-hotel"></i>
-                                    Hotel Booking
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <i class="fa-solid fa-bus"></i>
-                                    Bus Booking
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <i class="fa-solid fa-passport"></i>
-                                    Visa Services
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <i class="fa-solid fa-briefcase"></i>
-                                    Corporate Travel
-                                </a>
-                            </li>
-
-                        </ul>
-
-                    </div>
-
-                </div>
+                }
+               
+                
 
                 <!-- =========================================
                 CONTACT INFO
@@ -1316,9 +1244,7 @@ FOOTER
                                 </div>
 
                                 <div class="contact-text">
-                                    203, Second Floor, SLF Mall,
-                                    Sector 31-32, Faridabad,
-                                    Haryana - 121003
+                                    {{GetWebSiteData['Street']}} {{GetWebSiteData['City']}} {{GetWebSiteData['State']}} {{GetWebSiteData['Country']}}
                                 </div>
 
                             </li>
@@ -1330,9 +1256,9 @@ FOOTER
                                 </div>
 
                                 <div class="contact-text">
-                                    +91 9718184161
+                                     {{GetWebSiteData['SupportNo']}}
                                     <br>
-                                    0129-4060666
+                                   
                                 </div>
 
                             </li>
@@ -1344,7 +1270,7 @@ FOOTER
                                 </div>
 
                                 <div class="contact-text">
-                                    supporttraveltripplus.com
+                                   {{GetWebSiteData['SupportEmail']}}
                                 </div>
 
                             </li>
@@ -1379,22 +1305,17 @@ FOOTER
             <div class="footer-bottom-wrapper">
 
                 <p>
-                    © 2026 TravelTripPlus.
-                    All Rights Reserved.
+                   {{GetWebSiteData['CopyRight']}}
                 </p>
 
                 <div class="footer-bottom-links">
 
-                    <a href="javascript:void(0)">
+                    <a href="javascript:void(0)" routerLink="/pages/page/term-condition">
                         Terms & Conditions
                     </a>
 
-                    <a href="javascript:void(0)">
+                    <a href="javascript:void(0)" routerLink="/pages/page/privacy-policy"> 
                         Privacy Policy
-                    </a>
-
-                    <a href="javascript:void(0)">
-                        Contact Us
                     </a>
 
                 </div>

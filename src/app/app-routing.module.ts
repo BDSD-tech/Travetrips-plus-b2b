@@ -65,6 +65,11 @@ const routes: Routes = [
                                     .then(mod => mod.PaymentPageComponent)
                                 },
                                 {
+                                  path: 'contact-us',
+                                  loadComponent: () => import('../app/modules/pages/contact-us/contact-us.component')
+                                    .then(mod => mod.ContactUsComponent)
+                                },
+                                {
                                   path: 'payment-response',
                                   loadChildren: () => import('./modules/payment-response/payment-response.module')
                                     .then(mod => mod.PaymentResponseModule)

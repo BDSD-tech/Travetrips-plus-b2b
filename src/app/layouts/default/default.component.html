@@ -2,7 +2,7 @@
 <header class="top-navbar navbar navbar-expand-xl">
    <div class="container">
       <!-- Logo -->
-      <a class="navbar-brand brand-logo" routerLink="/">
+      <a class="navbar-brand brand-logo" routerLink="/flight">
          <img [src]="LogoURL" alt="eTrav Logo">
       </a>
      
@@ -29,7 +29,7 @@
             </div>
            
 
-            <button routerLink="/pages/contact-us" class="btn contact-btn">
+            <button routerLink="/contact-us" class="btn contact-btn">
                Contact Us
             </button>
  
@@ -212,10 +212,11 @@
                   <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/manage-deposit-request">
                      <i class="fa-solid fa-hand-holding-dollar" style="color: rgb(156, 156, 156);"></i> Manage Deposit Requests
                   </a>
-                    <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/credit-request">
-                     <i class="fa-solid fa-code-pull-request" style="color: rgb(156, 156, 156);"></i>  Credit Requests
-                  </a>
-                  
+                  @if(LoginAgentinfo['CreditRequestAllow']=='Yes'){
+                     <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/credit-request">
+                        <i class="fa-solid fa-code-pull-request" style="color: rgb(156, 156, 156);"></i>  Credit Requests
+                     </a>
+                  }
                   <a class="dropdown-item" href="javascript:void(0);" >
                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                         class="rpfteH2dJ806mlRyY5L7">
@@ -641,7 +642,7 @@
                         </h5>
                         <ul class="tm-footer__menu">
                            <li class="tm-footer__menu-item">
-                              <a class="tm-footer__link" routerLink="/pages/contact-us">
+                              <a class="tm-footer__link" routerLink="/contact-us">
                                  Contact Us
                               </a>
                            </li>
@@ -756,7 +757,7 @@
                {{GetWebSiteData['CopyRight']}}
             </span>
 
-            <a href="javascript:void(0);" routerLink="/pages/contact-us" target="blank">
+            <a href="javascript:void(0);" routerLink="/contact-us" target="blank">
                Contact Us
             </a>
 

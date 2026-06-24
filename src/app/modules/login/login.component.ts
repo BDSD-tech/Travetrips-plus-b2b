@@ -6,6 +6,7 @@ import { first } from 'rxjs';
 import { AuthenticationService } from '../../services/authentication.service';
 import { CommonService } from '../../services/common.service';
 import { register } from 'swiper/element';
+import { IdleTimeoutService } from '../../services/auto-logout';
 register();
 declare var $: any;
 @Component({
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit {
   currentIndex: any = 0
   interval: any;
 
-  constructor(private commonservice: CommonService, private fb: FormBuilder, private authenticationservice: AuthenticationService, private router: Router, private serviceTitle: Title) {
+  constructor(private idleService:IdleTimeoutService,private commonservice: CommonService, private fb: FormBuilder, private authenticationservice: AuthenticationService, private router: Router, private serviceTitle: Title) {
 
     this.LoginForm = this.fb.group({
       emailphone: ['', [Validators.required, Validators.pattern(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})|([0-9]{10})+$/)]],
@@ -115,6 +116,7 @@ export class LoginComponent implements OnInit {
       this.Loginloading = false;
       if (data['Error']['ErrorCode'] == 0) {
         if (data['Result']['WithOTP'] == false) {
+          this.idleService.startWatching()
           this.router.navigate(['/flight']);
         }
         if (data['Result']['WithOTP'] == true) {
@@ -157,6 +159,7 @@ export class LoginComponent implements OnInit {
     this.authenticationservice.VarifyOTP(this.fv['emailphone'].value, this.fv['password'].value, this.fv['otp'].value).subscribe((data: any) => {
       this.OTPLoginloading = false;
       if (data['Error']['ErrorCode'] == 0) {
+        this.idleService.startWatching()
         this.router.navigate(['/flight']);
       } else {
         this.LoginMessage = '<div class="error-msg">' + data['Error']['ErrorMessage'] + '</div>';

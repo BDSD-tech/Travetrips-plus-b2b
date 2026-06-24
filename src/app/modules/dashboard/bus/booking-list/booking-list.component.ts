@@ -289,7 +289,15 @@ export class BookingListComponent {
       if (this.AddAmendmentForm.invalid) {
         return;
       }
-  
+      this.dashboardservice.RaiseAmendments(this.AddAmendmentForm.value,'bus').subscribe((resp:any)=>{
+        this.amendmentsubmitted = false;
+        if(resp['ErrorCode']==0){
+          this.alertservice.success(resp['Error']['ErrorMessage'])
+          this.AddAmendmentModal.hide();
+        }else{
+          this.alertservice.error(resp['Error']['ErrorMessage'])
+        }
+      })
       // this.AddAmendmentModal.hide();
       // const navigationExtras: NavigationExtras = {
       //   queryParams:{'bookingid':this.AddAmendmentForm.get('BookingID')?.value,'amendment-type':this.AddAmendmentForm.get('AmendmentType')?.value}

@@ -41,6 +41,8 @@
                            <i class="fa-solid fa-plane-departure"></i>
                         }@else if(Service=='Hotel'){
                            <i class="fa-solid fa-hotel" ></i>
+                        }@else if(Service=='Bus'){
+                          <i class="fa-solid fa-bus" ></i>
                         }
                         
                         <span>{{Service}} Details</span>
@@ -372,6 +374,76 @@
 
                 </div>
                }
+               @if(ShowDetail && Service=='Bus'){
+                  <div class="bus-summary-card pb-2">
+                        <div class="bus-route-info">
+                           <div class="bus-route">
+                                 {{GetSearchData['Origin']}}
+                                 <span class="bus-route-arrow">→</span>
+                                 {{GetSearchData['Destination']}}
+                           </div>
+                           <div class="bus-seat-count">
+                                 {{SelectedBusSeat['SeatNumber'].length}} Seats Selected
+                           </div>
+                        </div>
+                        <div class="bus-operator-info">
+                           <div>
+                                 <div class="bus-operator-name">
+                                    {{SelectedBus['TravelName']}}
+                                 </div>
+                                 <div class="bus-type">
+                                    {{SelectedBus['BusType']}}
+                                 </div>
+                           </div>
+                           <div class="bus-seat-numbers">
+                                 Seat Number: {{SelectedBusSeat['SeatNumber']}}
+                           </div>
+                        </div>
+                        <!-- Journey -->
+                        <div class="journey-section">
+                           <!-- Departure -->
+                           <div class="journey-point departure">
+                                 <div class="journey-time">
+                                    {{GetSearchData['DepartDate'] | date:'MMM d, EEE'}}
+                                    {{SelectedBus['DepartureTime']}}
+                                 </div>
+                                 <div class="journey-location">
+                                    {{GetSearchData['Origin']}}
+                                 </div>
+                                 <div class="journey-point-name">
+                                    {{SelectedBusSeat['BoardingPointsDetails']['CityPointName']}}
+                                 </div>
+                           </div>
+                           <!-- Duration -->
+                           <div class="journey-duration">
+                                 <span class="duration-text">
+                                    {{SelectedBus['Duration']}}
+                                 </span>
+                                 <div class="duration-line">
+                                    <i class="fa fa-bus"></i>
+                                 </div>
+                           </div>
+                           <!-- Arrival -->
+                           <div class="journey-point arrival">
+                                 <div class="journey-time">
+                                    {{ArrivalDate | date:'MMM d, EEE'}}
+                                    {{SelectedBus['ArrivalTime']}}
+                                 </div>
+                                 <div class="journey-location">
+                                    {{GetSearchData['Destination']}}
+                                 </div>
+                                 <div class="journey-point-name">
+                                    {{SelectedBusSeat['DroppingPointsDetails']['CityPointName']}}
+                                 </div>
+                           </div>
+                        </div>
+                        <!-- <div class="bus-policy-link">
+                           <a href="javascript:void(0)" (click)="toggle()">
+                                 {{showpolicytext}}
+                           </a>
+                        </div> -->
+                     </div>
+               }
             </div>
          </div>
       
@@ -585,7 +657,7 @@
             </div>
             <div class="booking-rightside">
                <h6>Passenger Details</h6>
-               @if(Service=='Flight'){
+               @if(Service=='Flight' || Service=='Bus'){
                <ul class="p-0">
                   @for (pax of TravellerDetails; track $index) {
                   <li>

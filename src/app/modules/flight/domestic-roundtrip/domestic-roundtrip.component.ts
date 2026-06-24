@@ -855,6 +855,7 @@ export class DomesticRoundtripComponent implements OnInit {
 
    sendemail(type:any)
    {
+   
      this.sharebuttonloding=true;
      let emaillist=this.shareemaillist.split(",");
      let data={
@@ -863,6 +864,7 @@ export class DomesticRoundtripComponent implements OnInit {
                'emailid':emaillist,
                'selectedfareid':this.shareselectedfareid
               }
+              
      this.flightService.send_itinerary(data).subscribe(resp => {
        let response:any=resp;
        this.sharebuttonloding=false;

@@ -333,11 +333,11 @@
                                         <td>{{item['acc_ref_number']}}</td>
                                         <td>{{item['remark']}}, </td>
                                         <td>
-                                            @if(item['transaction_type']=='debit'){
-                                                <span class="text-danger">₹ {{item['debit'] | number :'1.2-2'}}</span>
-                                            }@else{
-                                                <span class="text-success">₹ {{item['credit'] | number :'1.2.2'}}</span>
-                                            }
+                                            
+                                                <span class="text-danger" *ngIf="item['transaction_type']=='debit'">₹ {{item['debit'] | number :'1.2-2'}}</span>
+                                            
+                                                <span class="text-success" *ngIf="item['transaction_type']=='credit'">₹ {{item['credit'] | number :'1.2-2'}}</span>
+                                          
                                             
                                         </td>
                                         <td>{{item['transaction_type']|titlecase}}</td>

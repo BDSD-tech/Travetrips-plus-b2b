@@ -29,8 +29,6 @@ export class DashboardComponent {
     this.commonservice.GetWalletBalance().subscribe((data:any) => {
       if(data && data.length!==0){
         this.BalanceData=data;
-        console.log(this.BalanceData);
-        
       }
     })
   }
@@ -45,6 +43,8 @@ export class DashboardComponent {
       this.Loading=false;
       if(resp['Error']['ErrorCode']==0){
         this.Response=resp['Result'];
+        console.log(this.Response);
+        
       }
     })
   }

@@ -1,1 +1,82 @@
-<p>bank-details works!</p>
+<div class="dashboard-wrapper-container">
+    <ol class="breadcrumb-arrow">
+        <li>
+            <a routerLink="/dashboard/manage-carts"><i class="fa fa-home"></i></a>
+        </li>
+        <li><span>Bank Details</span></li>
+    </ol>
+
+    <div class="animation__container">
+
+        <div class="row mg_bt-20 align-items-center">
+            <div class="col-md-12" *ngIf="AllBankListShow.length!=0">
+                <h3 class="dash-borderRadius main-heading-tableIcon"><i class="fa fa-table me-1"></i>
+                    <span>{{AllBankListShow.length}} rows found !</span>
+                </h3>
+            </div>
+        </div>
+        <div class="body_manage dash-padding dashboard__main__content">
+
+            <h3 class="dash-borderRadius main-heading-content">Bank Details</h3>
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table manage__user-table-container m-0" matSort (matSortChange)="sortData($event)">
+                        <thead class="theader table__tableHeader-container">
+                            <tr>
+                                <td mat-sort-header="BankName">Bank Name</td>
+                                <td mat-sort-header="AccountHolderName">Account Holder Name</td>
+                                <td mat-sort-header="BranchName">Branch Name</td>
+                                <td mat-sort-header="AccountNumber">Account No</td>
+                                <td mat-sort-header="IfscCode">IFSC Code</td>
+                                <td mat-sort-header="IfscCode">QR Code</td>
+                            </tr>
+                        </thead>
+                        <tbody class="table__body-border">
+
+                            <tr *ngFor="let item of AllBankListShow">
+
+                                <td>{{item['BankName']}}</td>
+                                <td>{{item['AccountHolderName']}}</td>
+                                <td>{{item['BranchName']}}</td>
+                                <td>{{item['AccountNumber']}}</td>
+                                <td>{{item['IfscCode'] }}</td>
+                                <td>
+                                    @if(item['QrCodeFile']){
+                                    <a (click)="OpenModal(item)" href="javascript:void(0)">View</a>
+                                    }
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+
+
+       
+    </div>
+</div>
+
+
+<div class="modal fade" id="QEMODAL" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="addamendmentmodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-0">
+            <div class="body_manage dash-padding dashboard__main__content mb-0">
+                <div class="col-sm-12 mb-3">
+                    <h3 class="dash-borderRadius main-heading-content">QR Code<button type="button"
+                            class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button></h3>
+                </div>
+                <div class="row">
+                    <div class="w-100">
+                        <img class="w-100" src="{{ImageURL}}{{QRImage}}" alt="UPI QR">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

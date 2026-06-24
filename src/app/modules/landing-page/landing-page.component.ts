@@ -12,6 +12,7 @@ import { Title } from '@angular/platform-browser';
 export class LandingPageComponent {
 
   GetWebSiteData:any=[]
+  FooterData:any=[]
 
   constructor(private serviceTitle:Title,private commonservice:CommonService,private authenticationservice:AuthenticationService,private router:Router){
     if (this.authenticationservice.currentUserValue) {
@@ -29,6 +30,14 @@ export class LandingPageComponent {
       if (this.GetWebSiteData['CompanyName']) {
         this.serviceTitle.setTitle(this.GetWebSiteData['CompanyName']);
       }
+    });
+     this.commonservice.GetFooterData().subscribe(data => {
+      if(data && data.length!==0){
+         this.FooterData = data;
+        
+      }
+     
+     
     });
   }
 }
