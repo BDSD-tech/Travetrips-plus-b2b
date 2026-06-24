@@ -18,10 +18,10 @@ const routes: Routes = [
                             path:'page/:slug',
                             component:PageComponent
                           },
-                          {
-                            path:'contact-us',
-                            component:ContactUsComponent
-                          },
+                          // {
+                          //   path:'contact-us',
+                          //   component:ContactUsComponent
+                          // },
                           {
                             path:'payment-security',
                             component:PaymentSecurityComponent

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { fromEvent, Observable, Subscription } from 'rxjs';
+import { IdleTimeoutService } from './services/auto-logout';
 
 @Component({
   selector: 'app-root',
@@ -17,11 +18,17 @@ export class AppComponent {
   connectionStatus: string | undefined;
   msghide='no';
 
-  constructor() { 
+  constructor(private idleService:IdleTimeoutService) { 
 
   }
   
   ngOnInit(): void {
+
+    if(localStorage.getItem('TTSAgent')){
+         this.idleService.startWatching();
+    }
+   
+  
     /**
     * Get the online/offline status from browser window
     */

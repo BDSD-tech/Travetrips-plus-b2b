@@ -1,50 +1,78 @@
-// idle-timeout.service.ts
-
-import { Injectable, NgZone } from '@angular/core';
-import { Router } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IdleTimeoutService {
 
-  private timeout = 30 * 60 * 1000; // 30 minutes
+  private readonly TIMEOUT = 30 * 60 * 1000;
   private timer: any;
 
   constructor(
-    private router: Router,
-    private ngZone: NgZone
-  ) {}
+    private authService:AuthenticationService
+  ) { }
 
-  startWatching() {
+  startWatching(): void {
+    
+    if (!localStorage.getItem('TTSAgent')) {
+      return;
+    }
 
     this.resetTimer();
 
-    ['mousemove', 'mousedown', 'click', 'scroll', 'keypress', 'touchstart']
-      .forEach(event => {
-        window.addEventListener(event, () => {
-          this.resetTimer();
-        });
+    const events = [
+      'mousemove',
+      'mousedown',
+      'click',
+      'scroll',
+      'keydown',
+      'touchstart'
+    ];
+
+    events.forEach(event => {
+      window.addEventListener(event, () => {
+        this.updateActivity();
       });
+    });
+
+    // Listen activity from other tabs
+    window.addEventListener('storage', (event) => {
+      if (event.key === 'lastActivity') {
+        this.resetTimer();
+      }
+    });
   }
 
-  private resetTimer() {
+  private updateActivity(): void {
+    localStorage.setItem('lastActivity',Date.now().toString());
+    this.resetTimer();
+  }
+
+  private resetTimer(): void {
+
     clearTimeout(this.timer);
 
     this.timer = setTimeout(() => {
-      this.logout();
-    }, this.timeout);
+
+      const lastActivity = Number(
+        localStorage.getItem('lastActivity') || Date.now()
+      );
+
+      const inactiveTime = Date.now() - lastActivity;
+
+      if (inactiveTime >= this.TIMEOUT) {
+        this.logout();
+      } else {
+        this.resetTimer();
+      }
+
+    }, this.TIMEOUT);
   }
 
-  private logout() {
-
-    localStorage.clear();
+  private logout(): void {
     sessionStorage.clear();
-
-    alert('Session expired due to inactivity.');
-
-    this.ngZone.run(() => {
-      this.router.navigate(['/login']);
-    });
+    localStorage.clear();
+    this.authService.logout()
   }
 }

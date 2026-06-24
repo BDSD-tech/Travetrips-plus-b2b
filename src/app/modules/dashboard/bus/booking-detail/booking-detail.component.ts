@@ -120,7 +120,7 @@ export class BookingDetailComponent {
           {
             
             this.BookingDetail=resp['Result']['BookingDetail'];
-            this.AmendmentList=resp['Result']['BookingDetail']['AmendmentList'];
+            this.AmendmentList=resp['Result']['BookingDetail']['AmendmentList'] ||[];
             this.NoteList=resp['Result']['BookingNotes'];
             this.PaymentInfo=this.BookingDetail['paymentInfo'];
             
@@ -173,13 +173,16 @@ export class BookingDetailComponent {
     if (this.AddAmendmentForm.invalid) {
       return;
     }
-
-    this.AddAmendmentModal.hide();
-    const navigationExtras: NavigationExtras = {
-      queryParams:{'bookingid':this.AddAmendmentForm.get('BookingID')?.value,'amendment-type':this.AddAmendmentForm.get('AmendmentType')?.value}
-    };
-    
-    this.router.navigate(['dashboard/amendments/itinerary'],navigationExtras);
+    this.dashboardservice.RaiseAmendments(this.AddAmendmentForm.value,'bus').subscribe((resp:any)=>{
+        this.amendmentsubmitted = false;
+        if(resp['ErrorCode']==0){
+          this.alertservice.success(resp['Error']['ErrorMessage']);
+          this.AddAmendmentModal.hide();
+          this.GetDetail(this.refno);
+        }else{
+          this.alertservice.error(resp['Error']['ErrorMessage']);
+        }
+      })
   }
 
   GeneratePayment(){

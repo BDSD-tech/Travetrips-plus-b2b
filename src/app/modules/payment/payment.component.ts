@@ -5,6 +5,8 @@ import { CommonService } from '../../services/common.service';
 import { AlertService } from '../../services/alert.service';
 import { FlightService } from '../flight/flight.service';
 import { tts_config } from '../../../environments/tts_config';
+import { BusService } from '../bus/bus.service';
+import { AnimationStyleMetadata } from '@angular/animations';
 
 declare var window: any;
 declare var $: any;
@@ -50,7 +52,10 @@ export class PaymentComponent implements OnInit {
 
 
    BlockRoomResult:any=[]
-  constructor(private router: Router, private route: ActivatedRoute,private location: Location,private commonservice:CommonService,private alertservice:AlertService,private flightService: FlightService) {
+   ArrivalDate:any
+   SelectedBusSeat:any;
+   SelectedBus:any=[]
+  constructor(private busService:BusService,private router: Router, private route: ActivatedRoute,private location: Location,private commonservice:CommonService,private alertservice:AlertService,private flightService: FlightService) {
 
  }
 
@@ -144,6 +149,33 @@ export class PaymentComponent implements OnInit {
               }
     }
     if(this.Service=='Bus'){
+       if (sessionStorage.getItem('BUSRD')) {
+          let busreview:any=sessionStorage.getItem('BUSRD'); 
+          this.SelectedBusSeat=JSON.parse(busreview);
+          let selectedbus=this.SelectedBusSeat['SelectedBusData'];
+
+          if (sessionStorage.getItem('TAGM')) {
+            let markup:any=sessionStorage.getItem('TAGM');
+            this.markupvalue=parseFloat(markup);
+            this.CurrentFare['AgentMarkup']=this.markupvalue;
+          }
+
+          if(selectedbus['ArrivalDate'])
+          {
+            let dateobj = new Date();
+            var currentyear = dateobj.getFullYear();
+            let finaldate  =selectedbus['ArrivalDate']+' '+currentyear;
+            this.ArrivalDate=this.busService.DefaultDateFormat(finaldate);
+          } else {
+            this.ArrivalDate=this.GetSearchData['DepartDate'];
+          }
+          this.SelectedBus = selectedbus;
+
+        }
+        if (sessionStorage.getItem('BusSearch')) {
+          let data:any=sessionStorage.getItem('BusSearch');
+          this.GetSearchData=JSON.parse(data);
+        }
         if (sessionStorage.getItem('TSFP')) {
                 let TSFP:any=sessionStorage.getItem('TSFP');
                 let resp=JSON.parse(TSFP);
@@ -160,7 +192,7 @@ export class PaymentComponent implements OnInit {
                 // this.Getpaymentmethod(resp);
                 this.SaveData=resp;
                 this.SaveData['FB']=this.CurrentFare;
-                
+                this.TravellerDetails=this.SaveData['paxdata']
               } else {
                 // this.router.navigate(['hotel']);
               }

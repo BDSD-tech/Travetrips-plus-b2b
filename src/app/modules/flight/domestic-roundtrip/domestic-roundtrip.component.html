@@ -1858,11 +1858,11 @@
                 <div class="row mb-3">
                     <div class="col-6">
                         <button type="button" class="tts-button-primary" (click)="sendemail('with-price')"
-                            [disabled]="sharebuttonloding">With Price</button>
+                            [disabled]="sharebuttonloding">@if(sharebuttonloding){ <span class="spinner-border spinner-border-sm"></span> } With Price</button>
                     </div>
                     <div class="col-6 text-end">
                         <button type="button" class="tts-button-primary" (click)="sendemail('without-price')"
-                            [disabled]="sharebuttonloding">Without Price</button>
+                            [disabled]="sharebuttonloding"> @if(sharebuttonloding){ <span class="spinner-border spinner-border-sm"></span> }Without Price</button>
                     </div>
                 </div>
             </div>

@@ -8,6 +8,7 @@ import { AuthenticationService } from '../../../services/authentication.service'
 import { AlertService } from '../../../services/alert.service';
 import { tts_config } from '../../../../environments/tts_config';
 import { Subscription } from 'rxjs';
+import { Location } from '@angular/common';
 
 declare var $: any;
 declare var window: any;
@@ -96,7 +97,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   fareselectFight: any = []
   searchtockenFareupselll: any
   selectedfare: any = {}
-  constructor(private flightService: FlightService, private router: Router, private route: ActivatedRoute, private serviceTitle: Title, private commonservice: CommonService, private authenticationservice: AuthenticationService, private alertservice: AlertService) {
+  constructor(private location:Location,private flightService: FlightService, private router: Router, private route: ActivatedRoute, private serviceTitle: Title, private commonservice: CommonService, private authenticationservice: AuthenticationService, private alertservice: AlertService) {
     
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
@@ -661,13 +662,12 @@ MoreFare(event: any, item: any, ttsindex: any) {
         queryParams: data,
         
       };
-      const url = this.router.serializeUrl(
-        this.router.createUrlTree(['/flight/traveller'], {
-          queryParams: navigationExtras.queryParams
-        })
-      );
-
-        window.open(url, '_blank');
+      const urlTree = this.router.createUrlTree(['/flight/traveller'], {
+        queryParams: navigationExtras.queryParams
+      });
+      const relativeUrl = this.router.serializeUrl(urlTree);
+      const fullUrl = window.location.origin + this.location.prepareExternalUrl(relativeUrl);
+      window.open(fullUrl, '_blank');
       //this.router.navigate(['flight/traveller'], navigationExtras);
     }
 

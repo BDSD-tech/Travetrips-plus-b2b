@@ -1040,3 +1040,172 @@ ul li {
     display: block;
     color: var(--dark);
 }
+
+
+/* bus Design css */
+
+.bus-summary-card {
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.bus-summary-card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.bus-route-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+   
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.bus-route {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--second-dark-color);
+}
+
+.bus-route-arrow {
+    margin: 0 12px;
+    color: var(--primary-color);
+}
+
+.bus-seat-count {
+    background: transparent;
+    color: var(--primary-color);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.bus-operator-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 12px 20px 0 20px;
+}
+
+.bus-operator-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--second-dark-color);
+}
+
+.bus-type {
+    margin-top: 6px;
+    font-size: 14px;
+    color: var(--dark);
+}
+
+.bus-seat-numbers {
+    display: inline-flex;
+    align-items: center;
+    background: var(--second-bg-color);
+    color: var(--primary-color);
+    border: 1px solid rgba(29, 72, 163, 0.15);
+    padding: 8px 14px;
+    border-radius: var(--radius-lg);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.journey-section {
+    padding: 12px 20px 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.journey-point {
+    flex: 1;
+}
+
+.departure {
+    text-align: left;
+}
+
+.arrival {
+    text-align: right;
+}
+
+.journey-time {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--second-dark-color);
+}
+
+.journey-location {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.journey-point-name {
+    margin-top: 5px;
+    font-size: 13px;
+    color: var(--dark);
+    line-height: 1.5;
+}
+
+.journey-duration {
+    width: 220px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.duration-text {
+    display: inline-block;
+    background: var(--second-bg-color);
+    color: var(--primary-color);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.duration-line {
+    position: relative;
+    height: 2px;
+    background: var(--border-color);
+}
+
+.duration-line::before,
+.duration-line::after {
+    content: "";
+    position: absolute;
+    top: -5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--primary-color);
+}
+
+.duration-line::before {
+    left: 0;
+}
+
+.duration-line::after {
+    right: 0;
+}
+
+.duration-line i {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--white);
+    color: var(--primary-color);
+    font-size: 22px;
+}

@@ -1,7 +1,7 @@
 <header class="top-navbar navbar navbar-expand-xl">
    <div class="container">
       <!-- Logo -->
-      <a class="navbar-brand brand-logo" routerLink="/">
+      <a class="navbar-brand brand-logo" routerLink="/flight">
          <img [src]="LogoURL" alt="eTrav Logo">
       </a>
      
@@ -28,7 +28,7 @@
             </div>
            
 
-            <button routerLink="/pages/contact-us" class="btn contact-btn">
+            <button routerLink="/contact-us" class="btn contact-btn">
                Contact Us
             </button>
  
@@ -183,7 +183,7 @@
                      </svg>
                      Recharge
                   </a>
-                   <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/manage-deposit-request">
+                   <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/deposit-request">
                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                         class="rpfteH2dJ806mlRyY5L7">
                         <path
@@ -211,9 +211,11 @@
                   <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/manage-deposit-request">
                      <i class="fa-solid fa-hand-holding-dollar" style="color: rgb(156, 156, 156);"></i> Manage Deposit Requests
                   </a>
-                  <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/credit-request">
-                     <i class="fa-solid fa-code-pull-request" style="color: rgb(156, 156, 156);"></i>  Credit Requests
-                  </a>
+                    @if(LoginAgentinfo['CreditRequestAllow']=='Yes'){
+                        <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/credit-request">
+                            <i class="fa-solid fa-code-pull-request" style="color: rgb(156, 156, 156);"></i>  Credit Requests
+                        </a>
+                    }
                   <a class="dropdown-item" href="javascript:void(0);">
                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
                         class="rpfteH2dJ806mlRyY5L7">
@@ -659,7 +661,7 @@
                                 </a>
                             </li>
                             <li class="nav-item" routerLinkActive="active">
-                                <a class="nav-link" >
+                                <a class="nav-link" href="javascript:void(0)" routerLink="/dashboard/bank-details">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                                     class="rpfteH2dJ806mlRyY5L7">
                                     <path
@@ -728,11 +730,13 @@
                                     <i class="fa-solid fa-hand-holding-dollar" style="color: rgb(156, 156, 156);"></i> Manage Deposit Requests
                                 </a>
                             </li>
-                            <li class="nav-item" routerLinkActive="active">
-                                <a class="nav-link" routerLink="/dashboard/credit-request">
-                                   <i class="fa-solid fa-code-pull-request" style="color: rgb(156, 156, 156);"></i> Credit Requests
-                                </a>
-                            </li>
+                            @if(LoginAgentinfo['CreditRequestAllow']=='Yes'){
+                                <li class="nav-item" routerLinkActive="active">
+                                    <a class="nav-link" routerLink="/dashboard/credit-request">
+                                    <i class="fa-solid fa-code-pull-request" style="color: rgb(156, 156, 156);"></i> Credit Requests
+                                    </a>
+                                </li>
+                            }
                             <li class="nav-item" routerLinkActive="active">
                                 <a class="nav-link" >
                                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -760,7 +764,7 @@
                                 </a>
                             </li>
                              <li class="nav-item" routerLinkActive="active">
-                                 <a class="nav-link" >
+                                 <a class="nav-link" href="javascript:void(0)" routerLink="/dashboard/markup">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 25 25" id="markup"
                                         class="VFCSf3Y5WRuT6V1RskB3">
                                         <path
@@ -799,7 +803,7 @@
                                 </a>
                             </li>
                             <li class="nav-item" routerLinkActive="active">
-                                <a class="nav-link" >
+                                <a class="nav-link" href="javascript:void(0)" routerLink="/dashboard/download-report">
                                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="rpfteH2dJ806mlRyY5L7">
                                         <path

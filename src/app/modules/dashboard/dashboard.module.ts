@@ -34,10 +34,11 @@ import { BookingListComponent } from './bus/booking-list/booking-list.component'
 import { BookingDetailComponent } from './bus/booking-detail/booking-detail.component';
 import { CartDetailHotelComponent} from '../dashboard/manage-cart-hotel/cart-detail/cart-detail.component';
 import { MatTooltip } from "@angular/material/tooltip";
+import { BankDetailsComponent } from './bank-details/bank-details.component';
 
 @NgModule({
   declarations: [ 
-     BookingsComponent,ManageCartHotelComponent,BookingCalendarComponent,ManageCartsComponent,CartDetailComponent, ManageAmendmentsComponent, PaymentPassbookComponent, ManageDepositRequestComponent, DepositRequestComponent, BillingInfoComponent, DownloadReportComponent, ManageMarkupComponent, UserDetailComponent,NumberToWordsPipe, ItineraryComponent
+     BookingsComponent,BankDetailsComponent,ManageCartHotelComponent,BookingCalendarComponent,ManageCartsComponent,CartDetailComponent, ManageAmendmentsComponent, PaymentPassbookComponent, ManageDepositRequestComponent, DepositRequestComponent, BillingInfoComponent, DownloadReportComponent, ManageMarkupComponent, UserDetailComponent,NumberToWordsPipe, ItineraryComponent
   ,HotelComponent,CartDetailHotelComponent,BookingDetailComponent,BookingListComponent,DashboardComponent,ManageAmendmentsHotelComponent,CreditRequestComponent,CreditNotesComponent,MarkupComponent,ViewCreditNotesComponent,CreditNotesHotelComponent,AmendmentsComponent],
   imports: [
     CommonModule,
