@@ -19,7 +19,7 @@
                 <div class="cart_acordian" id="cart_info_main" (click)="togglediv('cart_info')">
                     <h3 class="acordian_heading">Cart Information : {{BookingDetail['booking_ref_number']}}</h3>
                     <div class="cart_details_action" *ngIf="BookingDetail['booking_status']!='Processing' && BookingDetail['booking_status']!='Failed'">
-                        @if(BookingDetail['booking_type']=='Hold'){
+                        @if(BookingDetail['booking_type']=='Hold' &&BookingDetail['booking_status']=='Hold'){
                         <div class="cssCircle addsign">
                             <a href="javascript:void(0)" (click)="GeneratePayment()">
                               <i class="fa-solid fa-ticket me-1"></i><span class="cssCircle-plusdesign">Generate Ticket</span>

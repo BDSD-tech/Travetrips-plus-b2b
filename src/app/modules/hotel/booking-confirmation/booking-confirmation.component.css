@@ -1,0 +1,239 @@
+
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+
+.skeleton {
+  border-radius: 4px;
+  background: linear-gradient(
+    90deg,
+    #e9eaec 25%,
+    #f3f4f5 50%,
+    #e9eaec 75%
+  );
+  background-size: 1200px 100%;
+  animation: shimmer 1.4s infinite linear;
+}
+
+
+.page-wrapper {
+  display: flex;
+  gap: 20px;
+  max-width: 1300px;
+  margin: 24px auto;
+  padding: 0 16px;
+  align-items: flex-start;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+
+.card {
+  background: #fff;
+  border: 1px solid #e2e4e9;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 14px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.card-body {
+  padding: 16px 20px;
+}
+
+.card-footer {
+  padding: 12px 20px;
+  border-top: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+.skeleton-title   { height: 22px; width: 240px; border-radius: 6px; }
+.skeleton-date    { height: 16px; width: 140px; border-radius: 4px; }
+.skeleton-section-title { height: 18px; width: 160px; border-radius: 4px; }
+
+.skeleton-time    { height: 22px; width: 60px;  border-radius: 4px; }
+.skeleton-text-lg { height: 18px; border-radius: 4px; }
+.skeleton-text-md { height: 14px; width: 120px; border-radius: 4px; }
+.skeleton-text-sm { height: 12px; width: 100px; border-radius: 4px; }
+.skeleton-text-xs { height: 11px; border-radius: 4px; }
+
+.skeleton-logo    { width: 50px;  height: 50px; border-radius: 6px; }
+.skeleton-avatar  { width: 28px;  height: 28px; border-radius: 50%; flex-shrink: 0; }
+.skeleton-badge   { height: 28px; width: 100px; border-radius: 20px; }
+.skeleton-line    { height: 2px;  flex: 1; border-radius: 2px; }
+
+.skeleton-btn-primary { height: 42px; border-radius: 6px; width: 100%; }
+.skeleton-btn         { height: 40px; border-radius: 6px; width: 100%; opacity: 0.7; }
+
+.skeleton-th   { height: 12px; flex: 1; border-radius: 4px; }
+.skeleton-td-sm { flex: 0 0 32px; height: 12px; border-radius: 4px; }
+
+
+.skeleton-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.flight-details {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.airline-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 70px;
+}
+
+.segment-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 150px;
+}
+
+.stop-block {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.duration-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 130px;
+  align-items: flex-end;
+}
+
+.skeleton-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.skeleton-thead {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.skeleton-tbody {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 0;
+}
+
+.skeleton-cell {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.skeleton-cell-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.skeleton-name-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+
+.fare-row-skeleton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.fare-row-skeleton:last-child {
+  border-bottom: none;
+}
+
+.fare-total-row .skeleton {
+  height: 18px;
+}
+
+.sidebar {
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: sticky;
+  top: 24px;
+}
+
+
+.sidebar .skeleton:nth-child(1) { animation-delay: 0s; }
+.sidebar .skeleton:nth-child(2) { animation-delay: 0.05s; }
+.sidebar .skeleton:nth-child(3) { animation-delay: 0.10s; }
+.sidebar .skeleton:nth-child(4) { animation-delay: 0.15s; }
+.sidebar .skeleton:nth-child(5) { animation-delay: 0.20s; }
+.sidebar .skeleton:nth-child(6) { animation-delay: 0.25s; }
+.sidebar .skeleton:nth-child(7) { animation-delay: 0.30s; }
+
+
+@media (max-width: 900px) {
+  .page-wrapper {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .skeleton-btn-primary {
+    grid-column: span 2;
+  }
+  .flight-details {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .stop-block {
+    flex: 0 0 100%;
+    flex-direction: row;
+    order: 3;
+  }
+  .duration-block {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .skeleton-table {
+    overflow-x: auto;
+  }
+  .skeleton-title {
+    width: 160px;
+  }
+}

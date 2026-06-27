@@ -388,8 +388,7 @@
 
                                                     <small class="stop-badge non-stop" *ngIf="trip['Stops']==0">Non
                                                         Stop</small>
-                                                    <small class="stop-badge has-stop"
-                                                        *ngIf="trip['Stops']>0">{{trip['Stops']}} Stop(s)</small>
+                                                    <small class="stop-badge has-stop" *ngIf="trip['Stops']>0" (mouseenter)="flightdetail($event, item,tripskey )">{{trip['Stops']}} Stop(s)</small>
 
                                                 </div>
                                             </div>
@@ -547,8 +546,7 @@
                                                     <div class="flight-info-item">
 
                                                         <button type="button" class="btn btn-default flight-viewbtn"
-                                                            data-bs-toggle="offcanvas"
-                                                            [attr.data-bs-target]="'#showFlightTab' + item.TtsIndex + i"
+                                                           
                                                             (click)="flightdetail($event, item, i)">
                                                             Flight Details
                                                         </button>
@@ -862,15 +860,14 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-
+                                                         @if(segment['Layover']){
                                                         <div class="layover-row">
                                                             <div></div>
                                                             <div class="layover-icon">
                                                                 <i class="fa-regular fa-clock"></i>
                                                             </div>
-
+                                                           
                                                             <div>
-
                                                                 <div class="layover-title">
                                                                     1 Stop at {{segment['Destination']['CityName']}}
                                                                 </div>
@@ -878,12 +875,11 @@
                                                                 <div class="layover-duration">
                                                                     {{segment['Layover']}} Layover
                                                                 </div>
-
                                                             </div>
-
+                                                          
                                                         </div>
 
-
+                                                          }
                                                         <!------New code End---->
 
                                                         <div class="row align-items-center g-3 d-none">

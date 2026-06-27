@@ -10,6 +10,7 @@ import { tts_config } from '../../../../environments/tts_config';
 
 declare var $: any;
 declare var window: any;
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-domestic-roundtrip',
@@ -486,10 +487,15 @@ export class DomesticRoundtripComponent implements OnInit {
       this.showFareDetail=true;
       this.showTTsIndex=ttsindex;
       this.showFareRule=false;
-
+      const element = document.getElementById(`showFlightTab${ttsindex}${jkey}`);
+      if (element) {
+        bootstrap.Offcanvas.getOrCreateInstance(element).show();
+      }
     }
    
     
+      
+
   }
 
   hideflightdetail(ttsindex:any,jkey:any)

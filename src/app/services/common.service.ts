@@ -28,6 +28,10 @@ export class CommonService {
   DataFooterMenu = this.dataFooterMenu.asObservable();
 
 
+  private dataLandingPage = new BehaviorSubject([]);
+  DataLandingPage = this.dataLandingPage.asObservable();
+
+
   private dataWalletBalance = new BehaviorSubject({'Balance':0,'CreditLimit':0,'DueAmount':0,'CreditStatus':'NA','ExpireDate':'','WalletStatus':'','DepositBalance':0});
   WalletBalance = this.dataWalletBalance.asObservable();
 
@@ -46,9 +50,23 @@ export class CommonService {
           this.dataNotifications.next(response['Notifications']);
           this.dataPopupNotifications.next(response['PopupNotification']);
           this.dataFooterMenu.next(response['FooterMenu']);
+
+          let data:any ={
+            "BookingNotifications":response['BookingNotifications'],
+            "LandingNotifications":response['LandingNotifications'],
+            "LandingSlider":response['LandingSlider'],
+            "LandingAboutImage":response['LandingAboutImage'],
+            "LandingClientFeedback":response['LandingClientFeedback'],
+            "HomeSlider":response['HomeSlider'],
+          }
+          this.dataLandingPage.next(data)
     });
   }
 
+  public GetLandingPageData()
+  {
+    return this.DataLandingPage;
+  }
   public GetWebSiteData()
   {
     return this.Websetting;

@@ -72,9 +72,9 @@
                         <i class="fa fa-table me-1"></i> <span class="">( {{dataSource.paginator?.pageIndex}} - {{dataSource.filteredData?.length}} ) out of {{List.length}} results shown !</span>
                     </h3>
                 </div>
-                <div class="col-md-9 allbuttons-tables">
+                <!-- <div class="col-md-9 allbuttons-tables">
                     <button href="javascript:void(0)" (click)="DownLoad('Excel')" [disabled]="downloadreport" class="download-button"><i class="fa-regular fa-file-excel fs-16 text-success"></i></button>
-                </div>
+                </div> -->
             </div>
 
             <div class="tts-adm-search-bar">
@@ -188,7 +188,7 @@
                             Payment Fee
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            <div class="generic-td" *ngIf="element.ConvenienceFee!=0"><span>₹{{element.ConvenienceFee | number:'1.2-2'}}</span></div>
+                            <div class="generic-td" ><span>₹{{element.ConvenienceFee | number:'1.2-2'}}</span></div>
                         </td>
                         <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
@@ -198,7 +198,7 @@
                             Markup
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            <div class="generic-td" *ngIf="element.MarkUp!=0"><span>₹{{element.MarkUp | number:'1.2-2'}}</span></div>
+                            <div class="generic-td" ><span>₹{{element.MarkUp | number:'1.2-2'}}</span></div>
                         </td>
                         <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
@@ -208,7 +208,16 @@
                             TDS
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            <div class="generic-td" *ngIf="element.TDS!=0"><span>₹{{element.TDS | number:'1.2-2'}}</span></div>
+                            <div class="generic-td" ><span>₹{{element.TDS | number:'1.2-2'}}</span></div>
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+                    <ng-container matColumnDef="Commission">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Commission
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <div class="generic-td" ><span>₹{{element.Commission | number:'1.2-2'}}</span></div>
                         </td>
                         <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>

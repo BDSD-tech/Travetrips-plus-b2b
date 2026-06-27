@@ -9,16 +9,15 @@ import { Router } from '@angular/router';
 import { AlertService } from '../../../../services/alert.service';
 import { DashboardService } from '../../dashboard.service';
 
-
+declare var window:any;
 declare var $:any;
-declare var window :any
 @Component({
-  selector: 'app-booking-list',
-  templateUrl: './booking-list.component.html',
-  styleUrl: './booking-list.component.css'
+  selector: 'app-amendment-list',
+  templateUrl: './amendment-list.component.html',
+  styleUrl: './amendment-list.component.css'
 })
-export class BookingListComponent {
-    opensearchForm=false;
+export class AmendmentListComponent {
+opensearchForm=true;
     SearchForm: FormGroup;
     Searchsubmitted = false;
     Searchloading = false;
@@ -35,17 +34,11 @@ export class BookingListComponent {
     sort: MatSort = new MatSort;
     pageSizeOptions:any=[100];
   
-    AddAmendmentModal:any;
-    AddAmendmentForm:FormGroup;
-    amendmentsubmitted=false;
-    amendmentloading=false;
+  
   
     separatorKeysCodes: number[] = [];
     airline:any = [];
     allairline:any=[];
-  
-    ShowMore:boolean = true;
-    visible:boolean = false;
   
     pendingbookingcount:any=0;
     activebookingfilter='All';
@@ -54,55 +47,31 @@ export class BookingListComponent {
     totalnetamount=0;
     reportloading=false
     @ViewChild('airlineInput') airlineInput!: ElementRef<HTMLInputElement>;
-   
+  
     constructor(private fb: FormBuilder,private alertservice: AlertService, private dashboardservice:DashboardService,private router: Router,private _liveAnnouncer: LiveAnnouncer) {
   
   
       let from=this.dashboardservice.SubstractCurrentDate(0);
       let to=this.dashboardservice.AddDayDefaultDate(new Date(),0);
       this.SearchForm= this.fb.group({
-                                         BookingId: [''],
-                                         FromDate: [from],
-                                         ToDate: [to],
-                                         BookingStatus: [['All'],[Validators.required]],
-                                         PaymentStatus:[['All'],[Validators.required]],
-                                         Airline: [],
-                                         JourneyType: [['All']],
-                                         FirstName: [''],
-                                         LastName: [''],
-                                         FromTravelDate: [''],
-                                         ToTravelDate: [''],
-                                         ChannelType: [''],
-                                         AirlinePNR: [''],
-                                         GDSPNR: [''],
-                                         TicketNumber: [''],
+                                        BookingId: [''],
+                                        FromDate: [from],
+                                        ToDate: [to],
+                                        AmendmentId: [''],
+                                        Status: [''],
+                                        Type:[''],
   
                                       });
   
-      this.AddAmendmentForm=this.fb.group({
-                                              BookingID: ['',[Validators.required]],
-                                              AmendmentType: ['',[Validators.required]]
-                                          });  
+  
+      
   
      }
   
     ngOnInit(): void {
   
-      this.AddAmendmentModal = new window.bootstrap.Modal(
-        document.getElementById('addamendmentmodal')
-      );
     }
   
-     OpenSearchForm(){
-        if(!this.opensearchForm){
-          setTimeout(() => {
-              this.FromDate()
-            this.ToDate()
-          }, 100);
-        }
-        this.opensearchForm=!this.opensearchForm;
-      }
-
     ngAfterViewInit() {
       this.FromDate();
       this.ToDate(); 
@@ -218,14 +187,16 @@ export class BookingListComponent {
       var airlinecode = Object.keys(this.airline);
       this.SearchForm.patchValue({'Airline':airlinecode});
   
-      this.dashboardservice.BusBookingList(this.SearchForm.value).subscribe(data=>{
+      this.dashboardservice.AmendmentsList(this.SearchForm.value,'bus').subscribe(data=>{
         let resp:any=data;
         this.Searchloading=false;
         this.isshowdiv=true;
         if(resp['Error']['ErrorCode']==0)
         { 
            this.CartList=resp['Result'];
-           this.displayedColumns=[ 'bookingTime','bookingStatus','paymentStatus','BookingRefNumber','amount','firstPaxName','RaiseAmendment','PrintTicket','summary','bookingChannel','departure','timeToTravel'];
+        
+
+           this.displayedColumns=[ 'BookingRefNumber','AmendmentId','AmendmentType','AmendmentStatus','OriginCity','DestinationCity','NoOfSeats','BusName','Summary','created'];
            this.dataSource = new MatTableDataSource(resp['Result']);
            setTimeout(() => {
             this.dataSource.sort = this.sort;
@@ -239,7 +210,7 @@ export class BookingListComponent {
               this.pendingbookingcount++;
             }
            });
-           this.getTotalGross();
+          
         } else {
           this.CartList=[];
           this.dataSource = new MatTableDataSource(resp['Result']);
@@ -266,159 +237,13 @@ export class BookingListComponent {
         this._liveAnnouncer.announce('Sorting cleared');
       }
     }
-  
-    RaiseAmendment(item:any)
-    {
-        this.AddAmendmentModal.show();
-        this.AddAmendmentForm.patchValue({'BookingID':item['BookingRefNumber']});
-    }
-  
-    get fa() { return this.AddAmendmentForm.controls; }
-  
-    SubmitAmendment()
-    {
-      this.amendmentsubmitted = true;
-      if (this.AddAmendmentForm.invalid) {
-        return;
-      }
-      this.amendmentloading=true;
-      this.dashboardservice.RaiseAmendments(this.AddAmendmentForm.value,'bus').subscribe((resp:any)=>{
-        this.amendmentloading=false;
-        this.amendmentsubmitted = false;
-        if(resp['Error']['ErrorCode']==0){
-          this.alertservice.success(resp['Error']['ErrorMessage'])
-          this.AddAmendmentModal.hide();
-        }else{
-          this.alertservice.error(resp['Error']['ErrorMessage'])
-        }
-      })
-      // this.AddAmendmentModal.hide();
-      // const navigationExtras: NavigationExtras = {
-      //   queryParams:{'bookingid':this.AddAmendmentForm.get('BookingID')?.value,'amendment-type':this.AddAmendmentForm.get('AmendmentType')?.value}
-      // };
-      
-      // this.router.navigate(['dashboard/amendments/itinerary'],navigationExtras);
-    }
-  
-    remove(item: any): void {
-      delete this.airline[item.key];
-    }
+
   
     selected(event: MatAutocompleteSelectedEvent): void {
       this.airline[event.option.value]=event.option.viewValue;
       this.airlineInput.nativeElement.value = '';
     }
   
-    AirlineAutocomplete(event:any)
-    {
-        let val=event.target.value;
-        this.dashboardservice.airlineautocomplete(val).subscribe(data=>{
-          let resp:any=data;
-          if(resp['Error']['ErrorCode']==0)
-          {
-              this.allairline=resp['Result'];
-          } 
-        });
-    }
-  
-    More()
-    {
-      this.ShowMore = !this.ShowMore;
-      this.visible = !this.visible;
-  
-      setTimeout(() => {
-        this.ToTravelDate();
-      }, 100);
-    
-    }
-  
-    BookingFilter(event:any,type:any)
-    {
-      if(type=='All')
-      {
-        this.dataSource = new MatTableDataSource(this.CartList);
-      }
-      if(type=='Pending')
-      {
-        let pendingbooking:any=[];
-        this.CartList.forEach((element:any) => {
-          if(element['bookingStatus']=='Pending')
-          {
-            pendingbooking.push(element);
-          }
-         });
-  
-        this.dataSource = new MatTableDataSource(pendingbooking);
-      }
-      this.activebookingfilter=type;
-      setTimeout(() => {
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-       }, 20);
-  
-    }
-  
-    getTotalGross(){
-      let grossamount=0;
-      let netamount=0;
-      if(this.dataSource.data?.length!=0)
-      {
-        this.dataSource.data.forEach((element:any) => {
-          if(element['bookingStatus']=='Confirmed')
-          {
-            grossamount+=parseFloat(element['offer_price']);
-            netamount+=parseFloat(element['amount']);
-  
-          }
-         });
-         this.totalgrossamount=grossamount;
-         this.totalnetamount=netamount;
-      }
-      return this.totalgrossamount;
-    }
-  
-    DownloadReport()
-    {
-      
-      if (this.SearchForm.invalid) {
-        return;
-      }
-      this.reportloading=true;
-     
-      this.dashboardservice.DownloadReportFlight(this.SearchForm.value).subscribe(data => {
-        let resp:any=data;
-        this.reportloading=false;
-        if(resp['Error']['ErrorCode']==0)
-        {
-            var $a = $("<a>");
-            $a.attr("href", resp.Result.file);
-            $("body").append($a);
-            $a.attr("download", resp.Result.filename);
-            $a[0].click();
-            $a.remove();
-        } else {
-            this.alertservice.error(resp['Error']['ErrorMessage']);
-        }
-      });
-    }
-    
-    DownloadPDF(){
-        if (this.SearchForm.invalid) {
-        return;
-      }
-  
-      this.reportloading=true;
-      this.dashboardservice.DownloadReportFlightPDF(this.SearchForm.value).subscribe(data => {
-        let resp:any=data;
-         this.reportloading=false;
-        let service='flight'
-        let filename=service+".pdf";
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(data);
-        link.download = filename;
-        link.click();
-      });
-    }
   
   
 }

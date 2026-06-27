@@ -117,7 +117,7 @@
                      </svg>
                      My Profile
                   </a>
-                @if(LoginAgentinfo['PrimaryUser']=='1'){
+                @if(LoginAgentinfo['PrimaryUser']=='1' && 0){
                
                     <a  class="dropdown-item"  routerLink="/dashboard/users">
                         <i class="fas fa-users-cog"></i> Manage Users
@@ -273,21 +273,6 @@
                            stroke-linecap="round" stroke-linejoin="round"></path>
                      </svg>
                      Invoice
-                  </a>
-                  <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/download-report">
-                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
-                        class="rpfteH2dJ806mlRyY5L7">
-                        <path
-                           d="M10.0999 10.6497C10.0416 10.6414 9.9666 10.6414 9.89993 10.6497C8.43327 10.5997 7.2666 9.39974 7.2666 7.92474C7.2666 6.41641 8.48327 5.19141 9.99993 5.19141C11.5083 5.19141 12.7333 6.41641 12.7333 7.92474C12.7249 9.39974 11.5666 10.5997 10.0999 10.6497Z"
-                           stroke="#858585" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path
-                           d="M15.6166 16.1469C14.1333 17.5052 12.1666 18.3302 9.99997 18.3302C7.8333 18.3302 5.86663 17.5052 4.3833 16.1469C4.46663 15.3635 4.96663 14.5969 5.8583 13.9969C8.14163 12.4802 11.875 12.4802 14.1416 13.9969C15.0333 14.5969 15.5333 15.3635 15.6166 16.1469Z"
-                           stroke="#858585" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path
-                           d="M9.99996 18.3346C14.6023 18.3346 18.3333 14.6037 18.3333 10.0013C18.3333 5.39893 14.6023 1.66797 9.99996 1.66797C5.39759 1.66797 1.66663 5.39893 1.66663 10.0013C1.66663 14.6037 5.39759 18.3346 9.99996 18.3346Z"
-                           stroke="#858585" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-                     </svg>
-                     Reports
                   </a>
                  <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/payment-passbook">
                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -623,7 +608,7 @@
                                     My Profile
                                 </a>
                             </li>
-                            @if(LoginAgentinfo['PrimaryUser']=='1'){
+                            @if(LoginAgentinfo['PrimaryUser']=='1' && 0){
                             <li class="nav-item" routerLinkActive="active">
                                 <a class="nav-link" routerLink="/dashboard/users">
                                     <i class="fas fa-users-cog"></i> Manage Users
@@ -802,23 +787,7 @@
                                     Invoice
                                 </a>
                             </li>
-                            <li class="nav-item" routerLinkActive="active">
-                                <a class="nav-link" href="javascript:void(0)" routerLink="/dashboard/download-report">
-                                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
-                                        class="rpfteH2dJ806mlRyY5L7">
-                                        <path
-                                        d="M10.0999 10.6497C10.0416 10.6414 9.9666 10.6414 9.89993 10.6497C8.43327 10.5997 7.2666 9.39974 7.2666 7.92474C7.2666 6.41641 8.48327 5.19141 9.99993 5.19141C11.5083 5.19141 12.7333 6.41641 12.7333 7.92474C12.7249 9.39974 11.5666 10.5997 10.0999 10.6497Z"
-                                        stroke="#858585" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        <path
-                                        d="M15.6166 16.1469C14.1333 17.5052 12.1666 18.3302 9.99997 18.3302C7.8333 18.3302 5.86663 17.5052 4.3833 16.1469C4.46663 15.3635 4.96663 14.5969 5.8583 13.9969C8.14163 12.4802 11.875 12.4802 14.1416 13.9969C15.0333 14.5969 15.5333 15.3635 15.6166 16.1469Z"
-                                        stroke="#858585" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        <path
-                                        d="M9.99996 18.3346C14.6023 18.3346 18.3333 14.6037 18.3333 10.0013C18.3333 5.39893 14.6023 1.66797 9.99996 1.66797C5.39759 1.66797 1.66663 5.39893 1.66663 10.0013C1.66663 14.6037 5.39759 18.3346 9.99996 18.3346Z"
-                                        stroke="#858585" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-                                    </svg>
-                                    Reports
-                                </a>
-                            </li>
+                            
                             <li class="nav-item" routerLinkActive="active">
                                 <a class="nav-link" routerLink="/dashboard/payment-passbook">
                                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -899,7 +868,7 @@
                 <ul class="nav navbar-nav sidebar__mainlist"
                     *ngIf="PageUrl!==URLSTATIC && PageUrl!=='/dashboard/user-detail/UserDetail'
                &&PageUrl!=='/dashboard/user-detail/PanDetails'&&PageUrl!=='/dashboard/user-detail/GstDetail'&&PageUrl!=='/dashboard/user-detail/Address'">
-                    @if(LoginAgentinfo['PrimaryUser']=='1'){
+                    @if(LoginAgentinfo['PrimaryUser']=='1' && 0){
                     <li class="aside-menubar-listAll" routerLinkActive="active">
                         <a routerLink="/dashboard/users"><i class="fa-solid fa-users"></i>Manage Users</a>
                     </li>

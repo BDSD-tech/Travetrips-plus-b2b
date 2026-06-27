@@ -13,6 +13,7 @@ export class LandingPageComponent {
 
   GetWebSiteData:any=[]
   FooterData:any=[]
+  LandingPageData:any=[]
 
   constructor(private serviceTitle:Title,private commonservice:CommonService,private authenticationservice:AuthenticationService,private router:Router){
     if (this.authenticationservice.currentUserValue) {
@@ -27,9 +28,19 @@ export class LandingPageComponent {
   ngOnInit(){
      this.commonservice.GetWebSiteData().subscribe(data => {
       this.GetWebSiteData = data;
+      console.log(this.GetWebSiteData);
+      
       if (this.GetWebSiteData['CompanyName']) {
         this.serviceTitle.setTitle(this.GetWebSiteData['CompanyName']);
       }
+    });
+     this.commonservice.GetLandingPageData().subscribe((data:any) => {
+      if(data && data.length!==0){
+        this.LandingPageData=data;
+        console.log(this.LandingPageData);
+        
+      }
+     
     });
      this.commonservice.GetFooterData().subscribe(data => {
       if(data && data.length!==0){

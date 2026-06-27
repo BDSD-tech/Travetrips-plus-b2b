@@ -2,19 +2,32 @@
     <div class="top-tabs">
 
         <button class="btn" [ngClass]="{'active-tab':activeService=='Flight'}" 
-        (click)="activeService='Flight'"> Flights</button>
+        (click)="activeService='Flight'">
+        @if(activeService=='Flight'){
+        <i class="fa-solid fa-plane-departure me-1" style="color: rgb(28, 68, 123);"></i>
+        } @else{<i class="fa-solid fa-plane-departure me-1" ></i>} Flight</button>
 
         <button class="btn" [ngClass]="{'active-tab':activeService=='Hotel'}"
-            (click)="activeService='Hotel'">Hotels</button>
+            (click)="activeService='Hotel'">
+              @if(activeService=='Hotel'){
+                <i class="fa-solid fa-hotel me-1" style="color: rgb(28, 68, 123);"></i>
+              }@else{ <i class="fa-solid fa-hotel me-1"></i>}
+            HOTEL</button>
 
         <button class="btn" [ngClass]="{'active-tab':activeService=='Bus'}" 
-        (click)="activeService='Bus'">Bus</button>
+        (click)="activeService='Bus'">
+        @if(activeService=='Bus'){
+            <i class="fa-solid fa-bus me-1" style="color: rgb(28, 68, 123);"></i>
+        }@else{ <i class="fa-solid fa-bus me-1" ></i>}
+        BUS</button>
 
     </div>
     
     @if(activeService=='Flight'){
         <app-manage-amendments></app-manage-amendments>
     }@else if(activeService=='Hotel'){
-    <app-manage-amendments-hotel></app-manage-amendments-hotel>
-    }
+        <app-manage-amendments-hotel></app-manage-amendments-hotel>
+    }@else if(activeService=='Bus'){
+        <app-amendment-list></app-amendment-list>
+    }   
 </div>

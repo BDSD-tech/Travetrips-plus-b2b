@@ -9,7 +9,7 @@
             <div class="step-icon">
               <i class="fa fa-check"></i>
             </div>
-            <span class="step-text">Flight Selection</span>
+            <span class="step-text">{{Service}} Selection</span>
           </div>
 
           <div class="step-dots"></div>
@@ -544,6 +544,8 @@
                               *ngIf="subitem['Gateway']=='CASHFREE'" />
                             <img src="assets/img/phonepay.png" class="paySelect__img" alt="{{subitem['Gateway']}}"
                               *ngIf="subitem['Gateway']=='PHONEPE'" />
+                            <img src="assets/img/easebuzz.png" class="paySelect__img" alt="{{subitem['Gateway']}}"
+                              *ngIf="subitem['Gateway']=='EaseBuzz'" />
                           </label>
                         </div>
                         <p class="subTypeWrapper__text">{{subitem['Gateway']| uppercase}}</p>

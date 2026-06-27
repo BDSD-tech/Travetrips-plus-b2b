@@ -346,8 +346,8 @@
                                                         </button>   
                                                     }
                                                 }@else{
-                                                    <button type="button" id="reviews" class="btn asr-book me-3"
-                                                        (click)="ProceedToPay('Hold')"><span>Hold</span> 
+                                                    <button type="button" [disabled]="bookingloading" id="reviews" class="btn asr-book me-3"
+                                                        (click)="ProceedToPay('Hold')"><span>@if(bookingloading){ <span class="spinner-border spinner-border-sm"></span> } Hold</span> 
                                                     </button>
                                                 }
                                             }
