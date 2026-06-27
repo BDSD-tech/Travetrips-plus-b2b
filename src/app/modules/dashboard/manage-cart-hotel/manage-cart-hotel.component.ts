@@ -18,7 +18,7 @@ declare var $:any;
   styleUrls: ['./manage-cart-hotel.component.css']
 })
 export class ManageCartHotelComponent implements OnInit {
-
+  opensearchForm=false;
   SearchForm: FormGroup;
   Searchsubmitted = false;
   Searchloading = false;
@@ -92,6 +92,16 @@ export class ManageCartHotelComponent implements OnInit {
     this.FromTravelDate();
     this.ToTravelDate();
     this.SearchSubmit()
+  }
+
+  OpenSearchForm(){
+    if(!this.opensearchForm){
+      setTimeout(() => {
+          this.FromDate()
+        this.ToDate()
+      }, 100);
+    }
+    this.opensearchForm=!this.opensearchForm;
   }
 
   FromDate()
@@ -252,6 +262,8 @@ export class ManageCartHotelComponent implements OnInit {
   RaiseAmendment(item:any)
   {
       this.AddAmendmentModal.show();
+      console.log(item);
+      
       this.AddAmendmentForm.patchValue({'BookingID':item['BookingRefNumber']});
   }
 

@@ -17,7 +17,9 @@ declare var $: any;
   styleUrls: ['./review.component.css']
 })
 export class ReviewComponent implements OnInit {
-showFullText=false
+  ShowGST:any=false;
+  ShowAmentities:any=false
+  showFullText=false
   userinfo:any=[];
   BlockRoomResult:any =[];
   GetSearchData:any =[];

@@ -40,6 +40,13 @@ export class PaymentResponseComponent implements OnInit {
         };
         this.router.navigate(['hotel/confirmation'], navigationExtras); 
       }
+      if(params['service']=='Bus')
+      {
+        let navigationExtras: NavigationExtras = {
+              queryParams: {'token':params['token'],'type':'Booking'}
+        };
+        this.router.navigate(['bus/confirmation'], navigationExtras); 
+      }
       if(params['service']=='Make_Payment')
       {
         let navigationExtras: NavigationExtras = {

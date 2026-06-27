@@ -19,21 +19,17 @@
                 <div class="cart_acordian" id="cart_info_main" (click)="togglediv('cart_info')">
                     <h3 class="acordian_heading">Cart Information : {{BookingDetail['booking_ref_number']}}</h3>
                     <div class="cart_details_action" *ngIf="BookingDetail['booking_status']!='Processing' && BookingDetail['booking_status']!='Failed'">
+                       
                         <div class="cssCircle addsign">
-                            <a href="javascript:void(0)" (click)="OpenModal()">
-                                <i class="fa fa-print me-1"></i> <span class="cssCircle-plusdesign">Reach Hold</span>
-                            </a>
-                        </div>
-                        <div class="cssCircle addsign">
-                            <a [routerLink]="['/flight/ticket']" [queryParams]="{BookingId: BookingDetail['id'],SearchTokenId:BookingDetail['tts_search_token'],HtmlType:'Ticket',UserType:'WebPartner',ViewService:'View',WithPrice:'1',WithAgencyDetail:'1',TicketInvoiceJourney:TicketInvoiceJourney,ViewSize:''}">
+                            <a [routerLink]="['/bus/ticket']" [queryParams]="{BookingRefNumber: BookingDetail['booking_ref_number'],SearchTokenId:BookingDetail['tts_search_token'],HtmlType:'Voucher',UserType:'WebPartner',ViewService:'View',WithPrice:'1',WithAgencyDetail:'1',TicketInvoiceJourney:TicketInvoiceJourney,ViewSize:''}">
                                 <i class="fa fa-print me-1"></i> <span class="cssCircle-plusdesign">Print Ticket</span>
                             </a>
                         </div>
                         <div class="cssCircle addsign">
-                            <a [routerLink]="['/flight/ticket']" [queryParams]="{BookingId: BookingDetail['id'],SearchTokenId:BookingDetail['tts_search_token'],HtmlType:'AgencyInvoice',UserType:'WebPartner',ViewService:'View',WithPrice:'1',WithAgencyDetail:'1',TicketInvoiceJourney:TicketInvoiceJourney,ViewSize:''}"><i class="fa fa-print me-1"></i> <span class="cssCircle-plusdesign">Invoice</span></a>
+                            <a [routerLink]="['/bus/ticket']" [queryParams]="{BookingRefNumber: BookingDetail['booking_ref_number'],SearchTokenId:BookingDetail['tts_search_token'],HtmlType:'Invoice',UserType:'WebPartner',ViewService:'View',WithPrice:'1',WithAgencyDetail:'1',TicketInvoiceJourney:TicketInvoiceJourney,ViewSize:''}"><i class="fa fa-print me-1"></i> <span class="cssCircle-plusdesign">Invoice</span></a>
                         </div>
                         <div class="cssCircle addsign">
-                            <a [routerLink]="['/flight/confirmation']" [queryParams]="{token: BookingDetail['Token']}"><i class="fa fa-eye me-1"></i> <span class="cssCircle-plusdesign">More Option </span></a>
+                            <a [routerLink]="['/bus/confirmation']" [queryParams]="{token: BookingDetail['booking_ref_number']}"><i class="fa fa-eye me-1"></i> <span class="cssCircle-plusdesign">More Option </span></a>
                         </div>
                     </div>
                     <div class="cssCircle minusSign"><i class="fa fa-angle-up"></i></div>
@@ -99,7 +95,7 @@
                             </div>
                         </div>
                         <div class="col-md-4 col-xs-6 col-6">
-                            <div class="cart_info-field"><a [routerLink]="['/flight/confirmation']" [queryParams]="{token: BookingDetail['Token']}">Booking Summary</a></div>
+                            <div class="cart_info-field"><a [routerLink]="['/bus/confirmation']" [queryParams]="{token: BookingDetail['Token']}">Booking Summary</a></div>
                         </div>
                         <div class="col-md-4 col-xs-6 col-6">
                             <div class="cart_info-field">
@@ -407,9 +403,9 @@
                                     <mat-label>Amendment Type</mat-label>
                                     <mat-select formControlName="AmendmentType">
                                         <mat-option value="cancellation">Cancellation</mat-option>
-                                        <mat-option value="reissue">Re-Issue</mat-option>
-                                        <mat-option value="void">Void</mat-option>
-                                         <mat-option value="correction">Correction</mat-option>
+                                        <mat-option value="full_refund">Full Refund</mat-option>
+                                        <mat-option value="cancellation_quotation">Cancellation Quotation</mat-option>
+                                        <mat-option value="correction">Correction</mat-option>
                                     </mat-select>
                                 </mat-form-field>
                                 <div *ngIf="amendmentsubmitted && fa['AmendmentType'].errors" class="error-msg">

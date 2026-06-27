@@ -34,7 +34,7 @@ export class PaymentPassbookComponent implements OnInit {
   downloadreport=false
   constructor(private fb: FormBuilder,private alertservice: AlertService, private dashboardservice:DashboardService,private _liveAnnouncer: LiveAnnouncer) {
 
-       let from=this.dashboardservice.SubstractCurrentDate(30);
+       let from=this.dashboardservice.SubstractCurrentDate(0);
        let to=this.dashboardservice.AddDayDefaultDate(new Date(),0);
        this.SearchForm= this.fb.group({
                                           FromDate: [from,[Validators.required]],
@@ -45,7 +45,7 @@ export class PaymentPassbookComponent implements OnInit {
    }
 
   ngOnInit(): void {
-
+    this.Submit()
   }
 
   ngAfterViewInit() {
@@ -120,8 +120,7 @@ export class PaymentPassbookComponent implements OnInit {
       if(resp['Error']['ErrorCode']==0)
       {
           this.List=resp['Result'];
-
-          this.displayedColumns=[ 'created','payment_mode','bookingRefNo','actionType','credit','debit','balance','serviceLog','ConvenienceFee','MarkUp','TDS'];
+          this.displayedColumns=[ 'created','payment_mode','bookingRefNo','actionType','credit','debit','balance','serviceLog','ConvenienceFee','MarkUp','TDS','Commission'];
           this.dataSource = new MatTableDataSource(resp['Result']);
           setTimeout(() => {
             this.dataSource.sort = this.sort;

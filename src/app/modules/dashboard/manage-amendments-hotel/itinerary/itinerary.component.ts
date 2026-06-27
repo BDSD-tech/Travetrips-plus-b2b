@@ -56,10 +56,8 @@ export class ItineraryComponent implements OnInit {
           this.loading=false;
           if(resp['Error']['ErrorCode']==0)
           {
-
             this.BookingDetail=resp['Result']['BookingDetail'];
             this.AmendmentList=resp['Result']['amendmentList'];
-                      
           } else {
             this.BookingDetail=[];
             this.AmendmentList=[];
@@ -72,10 +70,13 @@ export class ItineraryComponent implements OnInit {
 
   SubmitRequest()
   {   
+    // console.log(this.Remark);
+    
     if(this.BookingDetail['payment_status']=='Successful')
     {
-      if(this.Remark)
+      if(this.Remark!=='')
       {
+        
         let request={
                       'BookingRefNo':this.params['bookingid'],
                       'AmendmentType':this.params['amendment-type'],
@@ -88,6 +89,7 @@ export class ItineraryComponent implements OnInit {
           if(resp['Error']['ErrorCode']==0)
           { 
             this.GetBookingDetail();
+            this.router.navigate(['/dashboard/hotel-booking-details/',this.params['bookingid']])
             this.Remark='';
             this.alertservice.success(resp['Error']['ErrorMessage']);
           } else {
@@ -98,6 +100,8 @@ export class ItineraryComponent implements OnInit {
       } else {
         this.alertservice.error('Please enter Remark');
       }
+    }else if(this.BookingDetail['payment_status']!=='Successful'){
+        this.alertservice.error('Payment Not done for this booking.');
     } else if(this.BookingDetail['booking_status']=='Cancelled')
     {
       this.alertservice.error('Booking already Cancelled');

@@ -97,9 +97,7 @@ export class BookingConfirmationComponent implements OnInit {
     let request={'token':params['token']};
     this.flightService.GetConfimationData(request,type).subscribe(resp => {
       let data:any=resp;
-   
-      
-      this.loading=false;
+     this.loading=false;
       if(data['Error']['ErrorCode']==0)
       {
           this.Response=data['Result'];

@@ -470,9 +470,12 @@ MoreFare(event: any, item: any, ttsindex: any) {
 }
 
   flightdetail(_event: any, item: any) {
+    
+    
     if (_event.target.classList.contains('tts-minus')) {
       this.showFlightTab = '';
     } else {
+        
       this.showFlightTab = item['TtsIndex'];
 
       let ttsindex = item['TtsIndex'];
@@ -514,6 +517,14 @@ MoreFare(event: any, item: any, ttsindex: any) {
       this.showFareDetail = true;
       this.showTTsIndex = ttsindex;
       this.showFareRule = false;
+
+
+      const element = document.getElementById(`flightOffcanvas_${ttsindex}`);
+      if (element) {
+        bootstrap.Offcanvas.getOrCreateInstance(element).show();
+      }
+      //console.log( this.showFareDetail, this.showTTsIndex,this.showFareRule);
+      
     }
 
   }

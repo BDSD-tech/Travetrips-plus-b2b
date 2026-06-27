@@ -1163,8 +1163,8 @@ GetPhonecodeVal(event: Event): void {
   }
 
   goBack() {
-    this.formModal.hide()
-    this.location.back();
+    this.formModal.hide();
+    window.close();
   }
 
   get fadt() {

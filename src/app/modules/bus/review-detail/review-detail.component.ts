@@ -14,7 +14,7 @@ declare var bootstrap:any
   styleUrls: ['./review-detail.component.css']
 })
 export class ReviewDetailComponent implements OnInit {
-
+  SHowGST=false
   GetWebSiteData:any=[];
   userinfo:any=[];
   param:any=[];
@@ -111,6 +111,8 @@ export class ReviewDetailComponent implements OnInit {
     this.authenticationservice.currentUser.subscribe(data => {
       if(data)
       {
+        console.log(data);
+        
         this.userinfo=data;
         this.BusForm.patchValue({'EmailId':data['EmailId'],'MobileNumber':data['MobileNo']});
       }

@@ -120,7 +120,9 @@ export class BookingDetailComponent {
           {
             
             this.BookingDetail=resp['Result']['BookingDetail'];
-            this.AmendmentList=resp['Result']['BookingDetail']['AmendmentList'] ||[];
+            console.log(this.BookingDetail);
+            
+            this.AmendmentList=resp['Result']['AmendmentList'] ||[];
             this.NoteList=resp['Result']['BookingNotes'];
             this.PaymentInfo=this.BookingDetail['paymentInfo'];
             
@@ -175,7 +177,7 @@ export class BookingDetailComponent {
     }
     this.dashboardservice.RaiseAmendments(this.AddAmendmentForm.value,'bus').subscribe((resp:any)=>{
         this.amendmentsubmitted = false;
-        if(resp['ErrorCode']==0){
+        if(resp['Error']['ErrorCode']==0){
           this.alertservice.success(resp['Error']['ErrorMessage']);
           this.AddAmendmentModal.hide();
           this.GetDetail(this.refno);

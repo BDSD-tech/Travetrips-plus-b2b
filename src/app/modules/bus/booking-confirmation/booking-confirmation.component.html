@@ -1,16 +1,126 @@
 <section class="flight-list" *ngIf="loading">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 text-center min-h400">
-                <div class="flight-segmentcolor text-center mb-4 mt-5 pt-5">
-                    <div class="lds-ellipsis">
-                        <div></div><div></div><div></div><div></div>
-                     </div>
-                    <h5>Please wait</h5>
+    <div class="page-wrapper">
+        <div class="main-content">
+            <div class="card">
+            <div class="card-header">
+                <div class="skeleton-row">
+                <div class="skeleton skeleton-title"></div>
+                <div class="skeleton skeleton-date"></div>
                 </div>
             </div>
+
+            <div class="card-body flight-details">
+                <div class="airline-block">
+                <div class="skeleton skeleton-logo"></div>
+                <div class="skeleton skeleton-text-sm" style="width: 60px;"></div>
+                </div>
+
+                <div class="segment-block">
+                <div class="skeleton skeleton-time"></div>
+                <div class="skeleton skeleton-text-sm"></div>
+                <div class="skeleton skeleton-text-md"></div>
+                <div class="skeleton skeleton-text-sm"></div>
+                </div>
+
+                <div class="stop-block">
+                <div class="skeleton skeleton-text-xs" style="width: 60px; align-self: center;"></div>
+                <div class="skeleton skeleton-line"></div>
+                </div>
+
+                <div class="segment-block">
+                <div class="skeleton skeleton-time"></div>
+                <div class="skeleton skeleton-text-sm"></div>
+                <div class="skeleton skeleton-text-md"></div>
+                <div class="skeleton skeleton-text-sm"></div>
+                </div>
+
+                <div class="duration-block">
+                <div class="skeleton skeleton-text-md" style="width: 70px;"></div>
+                <div class="skeleton skeleton-text-sm" style="width: 130px;"></div>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <div class="skeleton skeleton-text-sm" style="width: 30px;"></div>
+                <div class="skeleton skeleton-text-sm" style="width: 240px;"></div>
+                <div class="skeleton skeleton-badge"></div>
+            </div>
+            </div>
+            <div class="card">
+            <div class="card-header">
+                <div class="skeleton skeleton-section-title"></div>
+            </div>
+            <div class="card-body">
+                <div class="skeleton-table">
+                <div class="skeleton-thead">
+                    <div class="skeleton skeleton-th"></div>
+                    <div class="skeleton skeleton-th" style="flex: 2;"></div>
+                    <div class="skeleton skeleton-th" style="flex: 2;"></div>
+                    <div class="skeleton skeleton-th"></div>
+                    <div class="skeleton skeleton-th"></div>
+                    <div class="skeleton skeleton-th"></div>
+                </div>
+                <div class="skeleton-tbody">
+                    <div class="skeleton skeleton-td-sm"></div>
+                    <div class="skeleton-cell-name" style="flex: 2;">
+                    <div class="skeleton skeleton-avatar"></div>
+                    <div class="skeleton-name-lines">
+                        <div class="skeleton skeleton-text-md"></div>
+                        <div class="skeleton skeleton-text-xs" style="width: 80px;"></div>
+                    </div>
+                    </div>
+                    <div class="skeleton-cell" style="flex: 2;">
+                    <div class="skeleton skeleton-text-md"></div>
+                    </div>
+                    <div class="skeleton-cell">
+                    <div class="skeleton skeleton-text-sm" style="width: 28px;"></div>
+                    </div>
+                    <div class="skeleton-cell">
+                    <div class="skeleton skeleton-text-sm" style="width: 28px;"></div>
+                    </div>
+                    <div class="skeleton-cell">
+                    <div class="skeleton skeleton-text-sm" style="width: 28px;"></div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+            <div class="card">
+            <div class="card-header">
+                <div class="skeleton skeleton-section-title"></div>
+            </div>
+            <div class="card-body">
+                <div class="fare-row-skeleton">
+                <div class="skeleton skeleton-text-md" style="width: 80px;"></div>
+                <div class="skeleton skeleton-text-md" style="width: 90px;"></div>
+                </div>
+                <div class="fare-row-skeleton">
+                <div class="skeleton skeleton-text-md" style="width: 120px;"></div>
+                <div class="skeleton skeleton-text-md" style="width: 90px;"></div>
+                </div>
+                <div class="fare-row-skeleton">
+                <div class="skeleton skeleton-text-md" style="width: 160px;"></div>
+                <div class="skeleton skeleton-text-md" style="width: 50px;"></div>
+                </div>
+                <div class="fare-row-skeleton fare-total-row">
+                <div class="skeleton skeleton-text-lg" style="width: 110px;"></div>
+                <div class="skeleton skeleton-text-lg" style="width: 100px;"></div>
+                </div>
+            </div>
+            </div>
+
         </div>
-    </div>
+        <aside class="sidebar">
+            <div class="skeleton skeleton-btn-primary"></div>
+            <div class="skeleton skeleton-btn"></div>
+            <div class="skeleton skeleton-btn"></div>
+            <div class="skeleton skeleton-btn"></div>
+            <div class="skeleton skeleton-btn"></div>
+            <div class="skeleton skeleton-btn"></div>
+            <div class="skeleton skeleton-btn"></div>
+        </aside>
+
+        </div>
 </section>
 
 <div class="travelimp__thanku" *ngIf="loading==false">

@@ -71,13 +71,7 @@
                         <span class="divider-line"></span>
                     </div>
 
-                    <p class="welcome-text">
-                        TravelTripPlus Holidays India Private Limited is a
-                        leading and fast-growing travel company based in
-                        Faridabad & Delhi NCR, offering complete travel
-                        management solutions for individuals, corporates,
-                        and SMEs.
-                    </p>
+                    <p class="welcome-text" [innerHTML]="GetWebSiteData['LandingAboutDescription']"></p>
 
                     <p class="welcome-text">
                         Our experienced travel professionals provide
@@ -136,7 +130,7 @@
                 <div class="welcome-image-wrapper">
 
                     <!-- MAIN IMAGE -->
-                    <img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=900&q=80" alt="Travel"
+                    <img [src]="LandingPageData['LandingAboutImage']?.[1]?.['Image']" alt="Travel"
                         class="welcome-main-img">
 
                     <!-- FLOATING CARD -->
@@ -150,7 +144,7 @@
                     <!-- SMALL IMAGE -->
                     <div class="small-image-box">
 
-                        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600&q=80"
+                        <img [src]="LandingPageData['LandingAboutImage']?.[0]?.['Image']"
                             alt="Holiday">
 
                     </div>
@@ -172,138 +166,56 @@
 
         <!-- INDICATORS -->
         <div class="carousel-indicators custom-indicators">
-            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+            @for (item of LandingPageData['LandingSlider']; track $index) {
+                <button type="button" data-bs-target="#heroCarousel" [attr.data-bs-slide-to]="$index"  [ngClass]="{'active':$index==0}" ></button>
+            }
+            <!-- <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
 
-            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
-
-            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button> -->
         </div>
 
         <!-- SLIDER ITEMS -->
         <div class="carousel-inner">
 
-            <!-- ITEM 1 -->
-            <div class="carousel-item active">
+            @for (item of LandingPageData['LandingSlider']; track $index) {
+                <div class="carousel-item" [ngClass]="{'active':$index==0}" >
 
-                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80" class="hero-img"
-                    alt="Travel">
+                    <img [src]="item['Image']" class="hero-img"
+                        [alt]="item['Title']">
 
-                <div class="hero-overlay"></div>
+                    <div class="hero-overlay"></div>
 
-                <div class="container">
-                    <div class="custom-caption">
+                    <div class="container">
+                        <div class="custom-caption">
 
-                        <span class="hero-badge">
-                            Explore The World
-                        </span>
+                            <!-- <span class="hero-badge">
+                                Explore The World
+                            </span> -->
 
-                        <h1>
-                            Book Flights, Hotels &
-                            Holiday Packages
-                        </h1>
+                            <h1>
+                                {{item['Title']}}
+                            </h1>
 
-                        <p>
-                            Discover amazing destinations with unbeatable deals
-                            and premium travel experiences.
-                        </p>
+                            <p>
+                                 {{item['Description']}}
+                            </p>
 
-                        <div class="hero-btn-group">
+                            <!-- <div class="hero-btn-group">
 
-                            <a href="javascript:void(0)" routerLink="/login" class="hero-btn primary-btn">
-                                Book Now
-                            </a>
+                                <a href="javascript:void(0)" routerLink="/login" class="hero-btn primary-btn">
+                                    Book Now
+                                </a>
 
-                            <a href="javascript:void(0)" routerLink="/login" class="hero-btn secondary-btn">
-                                Explore Tours
-                            </a>
+                                <a href="javascript:void(0)" routerLink="/login" class="hero-btn secondary-btn">
+                                    Explore Tours
+                                </a>
 
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <!-- ITEM 2 -->
-            <div class="carousel-item">
-
-                <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1600&q=80" class="hero-img"
-                    alt="Flight">
-
-                <div class="hero-overlay"></div>
-
-                <div class="container">
-                    <div class="custom-caption">
-
-                        <span class="hero-badge">
-                            Best Flight Deals
-                        </span>
-
-                        <h1>
-                            Fly Anywhere
-                            At Lowest Prices
-                        </h1>
-
-                        <p>
-                            Compare airlines and grab the best flight offers
-                            for your next journey.
-                        </p>
-
-                        <div class="hero-btn-group">
-
-                            <a href="javascript:void(0)" routerLink="/login" class="hero-btn primary-btn">
-                                Search Flights
-                            </a>
-
-                            <a href="javascript:void(0)" routerLink="/login" class="hero-btn secondary-btn">
-                                View Offers
-                            </a>
+                            </div> -->
 
                         </div>
-
                     </div>
                 </div>
-            </div>
-
-            <!-- ITEM 3 -->
-            <div class="carousel-item">
-
-                <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80" class="hero-img"
-                    alt="Holiday">
-
-                <div class="hero-overlay"></div>
-
-                <div class="container">
-                    <div class="custom-caption">
-
-                        <span class="hero-badge">
-                            Luxury Holidays
-                        </span>
-
-                        <h1>
-                            Create Memories
-                            Around The Globe
-                        </h1>
-
-                        <p>
-                            From beaches to mountains, enjoy customized holiday
-                            packages with luxury comfort.
-                        </p>
-
-                        <div class="hero-btn-group">
-
-                            <a href="javascript:void(0)" routerLink="/login" class="hero-btn primary-btn">
-                                Start Journey
-                            </a>
-
-                            <a href="javascript:void(0)" routerLink="/login" class="hero-btn secondary-btn">
-                                Holiday Plans
-                            </a>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+            }
 
         </div>
 
@@ -371,19 +283,17 @@ ANNOUNCEMENT SECTION
                     <div class="announce-content">
 
                         <h5>
-                            Deposit Incentive
+                            {{LandingPageData['LandingNotifications']?.['Deposit-Landing']?.['Title']}}
                         </h5>
 
                         <p>
-                            Deposit ₹1 Lakh or above and get
-                            0.50% instant incentive on total amount.
-                            Contact your salesperson for details.
+                           {{LandingPageData['LandingNotifications']?.['Deposit-Landing']?.['Description']}}
                         </p>
 
-                        <a href="javascript:void(0)" class="announce-link">
+                        <!-- <a href="javascript:void(0)" class="announce-link">
                             Learn More
                             <i class="fa-solid fa-arrow-right"></i>
-                        </a>
+                        </a> -->
 
                     </div>
 
@@ -403,19 +313,17 @@ ANNOUNCEMENT SECTION
                     <div class="announce-content">
 
                         <h5>
-                            Multiple Fare Types
+                             {{LandingPageData['LandingNotifications']?.['Multiple-Landing']?.['Title']}}
                         </h5>
 
                         <p>
-                            Student, Senior Citizen and Armed
-                            Forces discounted fares are now live
-                            on the portal for bookings.
+                            {{LandingPageData['LandingNotifications']?.['Multiple-Landing']?.['Description']}}
                         </p>
 
-                        <a href="javascript:void(0)" class="announce-link">
+                        <!-- <a href="javascript:void(0)" class="announce-link">
                             View Offers
                             <i class="fa-solid fa-arrow-right"></i>
-                        </a>
+                        </a> -->
 
                     </div>
 
@@ -435,19 +343,18 @@ ANNOUNCEMENT SECTION
                     <div class="announce-content">
 
                         <h5>
-                            Agency Logo Feature
+                             {{LandingPageData['LandingNotifications']?.['Agency-Landing']?.['Title']}}
                         </h5>
 
                         <p>
-                            Add your agency logo on the portal
-                            and e-ticket from profile settings
-                            to create your own branding.
+                            {{LandingPageData['LandingNotifications']?.['Agency-Landing']?.['Description']}}
                         </p>
 
-                        <a href="javascript:void(0)" class="announce-link">
+
+                        <!-- <a href="javascript:void(0)" class="announce-link">
                             Update Profile
                             <i class="fa-solid fa-arrow-right"></i>
-                        </a>
+                        </a> -->
 
                     </div>
 
@@ -466,20 +373,18 @@ ANNOUNCEMENT SECTION
 
                     <div class="announce-content">
 
-                        <h5>
-                            FD Fares Live
+                          <h5>
+                             {{LandingPageData['LandingNotifications']?.['FD-Landing']?.['Title']}}
                         </h5>
 
                         <p>
-                            FD fares are now available on all
-                            routes with auto PNR generation and
-                            live inventory access.
+                            {{LandingPageData['LandingNotifications']?.['FD-Landing']?.['Description']}}
                         </p>
 
-                        <a href="javascript:void(0)" class="announce-link">
+                        <!-- <a href="javascript:void(0)" class="announce-link">
                             Book Now
                             <i class="fa-solid fa-arrow-right"></i>
-                        </a>
+                        </a> -->
 
                     </div>
 
@@ -580,21 +485,19 @@ SERVICES SECTION
                                     </span>
 
                                     <h4>
-                                        Flight Booking
+                                       {{LandingPageData['BookingNotifications']?.['Flight-Notification']?.['Title']}}
                                     </h4>
 
                                     <p>
-                                        Book domestic and international
-                                        flights with best airfare deals
-                                        and instant confirmations.
+                                       {{LandingPageData['BookingNotifications']?.['Flight-Notification']?.['Description']}}
                                     </p>
 
-                                    <a href="javascript:void(0)" class="service-link">
+                                    <!-- <a href="javascript:void(0)" class="service-link">
 
                                         Explore More
                                         <i class="fa-solid fa-arrow-right"></i>
 
-                                    </a>
+                                    </a> -->
 
                                 </div>
 
@@ -627,21 +530,20 @@ SERVICES SECTION
                                     </span>
 
                                     <h4>
-                                        Bus Booking
+                                       {{LandingPageData['BookingNotifications']?.['Bus-Notification']?.['Title']}}
                                     </h4>
 
                                     <p>
-                                        Choose from AC & Non-AC buses
-                                        with flexible timings and
-                                        affordable travel options.
+                                       {{LandingPageData['BookingNotifications']?.['Bus-Notification']?.['Description']}}
                                     </p>
 
-                                    <a href="javascript:void(0)" class="service-link">
+
+                                    <!-- <a href="javascript:void(0)" class="service-link">
 
                                         Explore More
                                         <i class="fa-solid fa-arrow-right"></i>
 
-                                    </a>
+                                    </a> -->
 
                                 </div>
 
@@ -673,22 +575,20 @@ SERVICES SECTION
                                         03
                                     </span>
 
-                                    <h4>
-                                        Hotel Booking
+                                   <h4>
+                                       {{LandingPageData['BookingNotifications']?.['Hotel-Notification']?.['Title']}}
                                     </h4>
 
                                     <p>
-                                        Find premium hotels, resorts
-                                        and apartments with secure
-                                        and hassle-free booking.
+                                       {{LandingPageData['BookingNotifications']?.['Hotel-Notification']?.['Description']}}
                                     </p>
 
-                                    <a href="javascript:void(0)" class="service-link">
+                                    <!-- <a href="javascript:void(0)" class="service-link">
 
                                         Explore More
                                         <i class="fa-solid fa-arrow-right"></i>
 
-                                    </a>
+                                    </a> -->
 
                                 </div>
 
@@ -892,226 +792,68 @@ TESTIMONIAL SECTION
 
         <!-- TESTIMONIAL CAROUSEL -->
         <div id="testimonialCarousel" class="carousel slide testimonial-carousel" data-bs-ride="carousel">
-
             <div class="carousel-inner">
+                @for (item of LandingPageData['LandingClientFeedback']; track $index) {
+                <div class="carousel-item" [ngClass]="{'active':$index==0}">
+                    <div class="testimonial-card">
+                        <div class="quote-icon">
+                            <i class="fa-solid fa-quote-right"></i>
+                        </div>
 
-                <!-- =========================================
-                ITEM 1
-                ========================================= -->
-                <div class="carousel-item active">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="testimonial-card">
+                        <div class="client-info">
 
-                                <!-- QUOTE ICON -->
-                                <div class="quote-icon">
-                                    <i class="fa-solid fa-quote-right"></i>
-                                </div>
+                            <div class="client-image">
 
-                                <!-- CLIENT -->
-                                <div class="client-info">
+                                <img src="assets/img/user.avif" [alt]="item['Name']">
+                            </div>
+                            <div class="client-details">
+                                <h4>
+                                    {{item['Name']}}
+                                </h4>
 
-                                    <div class="client-image">
-
-                                        <img src="https://i.pravatar.cc/120?img=12" alt="Ashish Kumar">
-
-                                    </div>
-
-                                    <div class="client-details">
-
-                                        <h4>
-                                            Ashish Kumar
-                                        </h4>
-
-                                        <span>
-                                            Creative Head
-                                        </span>
-
-                                    </div>
-
-                                </div>
-
-                                <!-- REVIEW -->
-                                <p class="testimonial-text">
-                                    “I am truly impressed with the level of
-                                    attention, professionalism and support
-                                    provided by TravelTripPlus. Their staff
-                                    was extremely helpful and guided us
-                                    perfectly throughout the booking process.”
-                                </p>
-
-                                <!-- STARS -->
-                                <div class="testimonial-rating">
-
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-
-                                </div>
+                                <!-- <span>
+                                    Creative Head
+                                </span> -->
 
                             </div>
+
                         </div>
-                        <div class="col-lg-6">
-                            <div class="testimonial-card">
 
-                                <!-- QUOTE ICON -->
-                                <div class="quote-icon">
-                                    <i class="fa-solid fa-quote-right"></i>
-                                </div>
+                        <!-- REVIEW -->
+                        <p class="testimonial-text" [innerHTML]="item['Description']">
+                            <!-- “{{item['Description']}}” -->
+                        </p>
 
-                                <!-- CLIENT -->
-                                <div class="client-info">
-
-                                    <div class="client-image">
-
-                                        <img src="https://i.pravatar.cc/120?img=33" alt="Pardeep Chandra">
-
-                                    </div>
-
-                                    <div class="client-details">
-
-                                        <h4>
-                                            Pardeep Chandra
-                                        </h4>
-
-                                        <span>
-                                            Senior Executive
-                                        </span>
-
-                                    </div>
-
-                                </div>
-
-                                <!-- REVIEW -->
-                                <p class="testimonial-text">
-                                    “TravelTripPlus offers outstanding travel
-                                    services with complete customer support.
-                                    Their team made our booking process smooth,
-                                    affordable and stress-free.”
-                                </p>
-
-                                <!-- STARS -->
-                                <div class="testimonial-rating">
-
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-
-                                </div>
-
-                            </div>
-                        </div>
                     </div>
                 </div>
-
-
-                <!-- =========================================
-                ITEM 3
-                ========================================= -->
-                <div class="carousel-item">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="testimonial-card">
-                                <!-- QUOTE ICON -->
-                                <div class="quote-icon">
-                                    <i class="fa-solid fa-quote-right"></i>
-                                </div>
-
-                                <!-- CLIENT -->
-                                <div class="client-info">
-
-                                    <div class="client-image">
-
-                                        <img src="https://i.pravatar.cc/120?img=25" alt="Rahul Verma">
-
-                                    </div>
-
-                                    <div class="client-details">
-
-                                        <h4>
-                                            Rahul Verma
-                                        </h4>
-
-                                        <span>
-                                            Business Traveller
-                                        </span>
-
-                                    </div>
-
-                                </div>
-
-                                <!-- REVIEW -->
-                                <p class="testimonial-text">
-                                    “Excellent corporate travel management
-                                    and instant support. I highly recommend
-                                    TravelTripPlus for both personal and
-                                    business travel needs.”
-                                </p>
-
-                                <!-- STARS -->
-                                <div class="testimonial-rating">
-
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                
+                }
             </div>
-
-            <!-- NAVIGATION -->
             <button class="carousel-control-prev testi-control" type="button" data-bs-target="#testimonialCarousel"
                 data-bs-slide="prev">
-
                 <span class="testi-arrow">
                     <i class="fa-solid fa-arrow-left"></i>
                 </span>
-
             </button>
 
             <button class="carousel-control-next testi-control" type="button" data-bs-target="#testimonialCarousel"
                 data-bs-slide="next">
-
                 <span class="testi-arrow">
                     <i class="fa-solid fa-arrow-right"></i>
                 </span>
-
             </button>
-
-            <!-- INDICATORS -->
+            
             <div class="carousel-indicators custom-indicators">
-
-                <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="0"
-                    class="active"></button>
-
-                <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="1"></button>
-
-                <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="2"></button>
-
+                @for (item of LandingPageData['LandingClientFeedback']; track $index) {
+                    <button type="button" data-bs-target="#testimonialCarousel" [attr.data-bs-slide-to]="$index"
+                    [ngClass]="{'active':$index==0}"></button>
+                }
             </div>
-
         </div>
-
     </div>
 
 </section>
 
-
-
-<!-- =========================================
-FOOTER
-========================================= -->
 
 <footer class="site-footer">
 
@@ -1122,40 +864,23 @@ FOOTER
 
             <div class="row g-5">
 
-                <!-- =========================================
-                ABOUT
-                ========================================= -->
                 <div class="col-lg-3 col-md-6">
-
                     <div class="footer-widget">
-
-                        <!-- LOGO -->
                         <a href="javascript:void(0)" class="footer-logo">
-
                             <img src="https://cdn-icons-png.flaticon.com/512/201/201623.png" alt="TravelTripPlus">
-
                             <div class="footer-logo-text">
-
                                 <h4>
                                     {{GetWebSiteData['CompanyName']}}
                                 </h4>
-
                                 <span>
-                                    Flights & Holidays
+                                    Flights , Hotel & Bus 
                                 </span>
-
                             </div>
-
                         </a>
-
                         <p class="footer-about">
-                            TravelTripPlus is committed to making
-                            travel smarter, easier and more affordable.
-                            We provide complete travel management
-                            solutions with world-class customer support.
+                           {{GetWebSiteData?.['CompanyDescription']}}
                         </p>
 
-                        <!-- SOCIAL -->
                         <div class="footer-social">
 
                             <a href="https://www.facebook.com/TravelTripPlusHolidays/" target="_blank">
@@ -1187,10 +912,6 @@ FOOTER
                     </div>
 
                 </div>
-
-                <!-- =========================================
-                QUICK LINKS
-                ========================================= -->
                 @for (item of FooterData; track $index) {
                 <div class="col-lg-2 col-md-6">
 
@@ -1293,10 +1014,6 @@ FOOTER
         </div>
 
     </div>
-
-    <!-- =========================================
-    FOOTER BOTTOM
-    ========================================= -->
 
     <div class="footer-bottom">
 

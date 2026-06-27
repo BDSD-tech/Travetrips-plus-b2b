@@ -21,149 +21,154 @@
 
         </div>
 
-        <!-- <button class="close-btn">
-            <i class="fa fa-x-lg"></i>
-        </button> -->
+       <button type="button" (click)="OpenSearchForm()" class="close-btn">
+            @if(opensearchForm){
+            <i class="fa-solid fa-xmark"></i>
+            }@else{
+            <i class="fa-solid fa-filter"></i>
+            }
+
+        </button>
     </div>
+    @if(opensearchForm){
+        <div class="animation__container">
+            <div class="body_manage dash-padding dashboard__main__content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3 class="dash-borderRadius main-heading-content">Manage Cart - Hotel</h3>
+                    </div>
+                    <form [formGroup]="SearchForm" (ngSubmit)="SearchSubmit()">
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Booking Id</mat-label>
+                                    <input matInput placeholder="Booking Id" formControlName="BookingId" />
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Confirmation No.</mat-label>
+                                    <input matInput placeholder="Confirmation No." formControlName="ConfirmationNumber" />
+                                </mat-form-field>
+                            </div>
 
-    <div class="animation__container">
-        <div class="body_manage dash-padding dashboard__main__content">
-            <div class="row">
-                <div class="col-sm-12">
-                    <h3 class="dash-borderRadius main-heading-content">Manage Cart - Hotel</h3>
+                            <div class="col">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>From</mat-label>
+                                    <input matInput placeholder="From" from-date formControlName="FromDate" readonly />
+                                    <i class="fa fa-times tts-inp-close-icon" (click)="clear('FromDate')"
+                                        *ngIf="f['FromDate'].value!=''"></i>
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>To</mat-label>
+                                    <input matInput placeholder="To" to-date formControlName="ToDate" readonly />
+                                    <i class="fa fa-times tts-inp-close-icon" (click)="clear('ToDate')"
+                                        *ngIf="f['ToDate'].value!=''"></i>
+                                </mat-form-field>
+                            </div>
+                            <!-- <div class="col">
+
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Booking Status</mat-label>
+                                    <mat-select multiple formControlName="BookingStatus">
+                                        <mat-option value="All">All</mat-option>
+                                        <mat-option value="Confirmed">Confirmed</mat-option>
+                                        <mat-option value="Failed">Failed</mat-option>
+                                        <mat-option value="Cancelled">Cancelled</mat-option>
+                                        <mat-option value="PartialCancelled">PartialCancelled</mat-option>
+                                        <mat-option value="Hold">On Hold</mat-option>
+                                        <mat-option value="Processing">Processing</mat-option>
+                                        <mat-option value="Pending">Pending</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="f['BookingStatus'].errors?.['required']">Please select booking status</mat-error>
+                                </mat-form-field>
+                            </div> -->
+
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Hotel Name</mat-label>
+                                    <input matInput placeholder="Hotel Name" formControlName="HotelName" />
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>First Name</mat-label>
+                                    <input matInput placeholder="First Name" formControlName="FirstName" />
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Last Name</mat-label>
+                                    <input matInput placeholder="Last Name" formControlName="LastName" />
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>From (Check In Date)</mat-label>
+                                    <input matInput placeholder="From (Check In Date)" from-travel-date
+                                        formControlName="FromCheckInDate" />
+                                    <i class="fa fa-times tts-inp-close-icon" (click)="clear('FromCheckInDate')"
+                                        *ngIf="f['FromCheckInDate'].value!=''"></i>
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>To (Check Out Date)</mat-label>
+                                    <input matInput placeholder="To (Check Out Date)" to-travel-date
+                                        formControlName="ToCheckOutDate" />
+                                    <i class="fa fa-times tts-inp-close-icon" (click)="clear('ToCheckOutDate')"
+                                        *ngIf="f['ToCheckOutDate'].value!=''"></i>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="visible">
+                            <div class="col">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Payment Status</mat-label>
+                                    <mat-select multiple formControlName="PaymentStatus">
+                                        <mat-option value="All">All</mat-option>
+                                        <mat-option value="Successful">Successful</mat-option>
+                                        <mat-option value="Failed">Failed</mat-option>
+                                        <mat-option value="Processing">Processing</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="f['PaymentStatus'].errors?.['required']">Please select Payment
+                                        Status</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="fill" class="tts-full-width">
+                                    <mat-label>Channel Types</mat-label>
+                                    <mat-select formControlName="ChannelType">
+                                        <mat-option value="All">All</mat-option>
+                                        <mat-option value="Desktop">Desktop</mat-option>
+                                        <mat-option value="Mobile">Mobile</mat-option>
+                                        <mat-option value="API">API</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col"></div>
+                            <div class="col"></div>
+                            <div class="col"></div>
+                        </div>
+                        <div class="form__buttons">
+                            <button type="submit" class="btn sign_btn" [disabled]="Searchloading">Search <i
+                                    class="fa fa-search"></i></button>
+
+                            <span class="showLessMoreBtn" (click)="More()"> {{ShowMore?"Show More":"Show Less"}} <i
+                                    class="fa fa-angle-double-down" [ngClass]="{'fa-angle-double-up':visible}"></i></span>
+                        </div>
+                    </form>
                 </div>
-                <form [formGroup]="SearchForm" (ngSubmit)="SearchSubmit()">
-                    <div class="row">
-                        <div class="col">
-                            <mat-form-field appearance="fill" class="tts-full-width">
-                                <mat-label>Booking Id</mat-label>
-                                <input matInput placeholder="Booking Id" formControlName="BookingId" />
-                            </mat-form-field>
-                        </div>
-                        <div class="col">
-                            <mat-form-field appearance="fill" class="tts-full-width">
-                                <mat-label>Confirmation No.</mat-label>
-                                <input matInput placeholder="Confirmation No." formControlName="ConfirmationNumber" />
-                            </mat-form-field>
-                        </div>
-
-                        <div class="col">
-                            <mat-form-field appearance="fill" class="tts-full-width">
-                                <mat-label>From</mat-label>
-                                <input matInput placeholder="From" from-date formControlName="FromDate" readonly />
-                                <i class="fa fa-times tts-inp-close-icon" (click)="clear('FromDate')"
-                                    *ngIf="f['FromDate'].value!=''"></i>
-                            </mat-form-field>
-                        </div>
-                        <div class="col">
-                            <mat-form-field appearance="fill" class="tts-full-width">
-                                <mat-label>To</mat-label>
-                                <input matInput placeholder="To" to-date formControlName="ToDate" readonly />
-                                <i class="fa fa-times tts-inp-close-icon" (click)="clear('ToDate')"
-                                    *ngIf="f['ToDate'].value!=''"></i>
-                            </mat-form-field>
-                        </div>
-                        <!-- <div class="col">
-
-                            <mat-form-field appearance="fill" class="tts-full-width">
-                                <mat-label>Booking Status</mat-label>
-                                <mat-select multiple formControlName="BookingStatus">
-                                    <mat-option value="All">All</mat-option>
-                                    <mat-option value="Confirmed">Confirmed</mat-option>
-                                    <mat-option value="Failed">Failed</mat-option>
-                                    <mat-option value="Cancelled">Cancelled</mat-option>
-                                    <mat-option value="PartialCancelled">PartialCancelled</mat-option>
-                                    <mat-option value="Hold">On Hold</mat-option>
-                                    <mat-option value="Processing">Processing</mat-option>
-                                    <mat-option value="Pending">Pending</mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="f['BookingStatus'].errors?.['required']">Please select booking status</mat-error>
-                            </mat-form-field>
-                        </div> -->
-
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col">
-                            <mat-form-field appearance="fill" class="tts-full-width">
-                                <mat-label>Hotel Name</mat-label>
-                                <input matInput placeholder="Hotel Name" formControlName="HotelName" />
-                            </mat-form-field>
-                        </div>
-                        <div class="col">
-                            <mat-form-field appearance="fill" class="tts-full-width">
-                                <mat-label>First Name</mat-label>
-                                <input matInput placeholder="First Name" formControlName="FirstName" />
-                            </mat-form-field>
-                        </div>
-                        <div class="col">
-                            <mat-form-field appearance="fill" class="tts-full-width">
-                                <mat-label>Last Name</mat-label>
-                                <input matInput placeholder="Last Name" formControlName="LastName" />
-                            </mat-form-field>
-                        </div>
-                        <div class="col">
-                            <mat-form-field appearance="fill" class="tts-full-width">
-                                <mat-label>From (Check In Date)</mat-label>
-                                <input matInput placeholder="From (Check In Date)" from-travel-date
-                                    formControlName="FromCheckInDate" />
-                                <i class="fa fa-times tts-inp-close-icon" (click)="clear('FromCheckInDate')"
-                                    *ngIf="f['FromCheckInDate'].value!=''"></i>
-                            </mat-form-field>
-                        </div>
-                        <div class="col">
-                            <mat-form-field appearance="fill" class="tts-full-width">
-                                <mat-label>To (Check Out Date)</mat-label>
-                                <input matInput placeholder="To (Check Out Date)" to-travel-date
-                                    formControlName="ToCheckOutDate" />
-                                <i class="fa fa-times tts-inp-close-icon" (click)="clear('ToCheckOutDate')"
-                                    *ngIf="f['ToCheckOutDate'].value!=''"></i>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="row" *ngIf="visible">
-                        <div class="col">
-                            <mat-form-field appearance="fill" class="tts-full-width">
-                                <mat-label>Payment Status</mat-label>
-                                <mat-select multiple formControlName="PaymentStatus">
-                                    <mat-option value="All">All</mat-option>
-                                    <mat-option value="Successful">Successful</mat-option>
-                                    <mat-option value="Failed">Failed</mat-option>
-                                    <mat-option value="Processing">Processing</mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="f['PaymentStatus'].errors?.['required']">Please select Payment
-                                    Status</mat-error>
-                            </mat-form-field>
-                        </div>
-                        <div class="col">
-                            <mat-form-field appearance="fill" class="tts-full-width">
-                                <mat-label>Channel Types</mat-label>
-                                <mat-select formControlName="ChannelType">
-                                    <mat-option value="All">All</mat-option>
-                                    <mat-option value="Desktop">Desktop</mat-option>
-                                    <mat-option value="Mobile">Mobile</mat-option>
-                                    <mat-option value="API">API</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-
-                        <div class="col"></div>
-                        <div class="col"></div>
-                        <div class="col"></div>
-                    </div>
-                    <div class="form__buttons">
-                        <button type="submit" class="btn sign_btn" [disabled]="Searchloading">Search <i
-                                class="fa fa-search"></i></button>
-
-                        <span class="showLessMoreBtn" (click)="More()"> {{ShowMore?"Show More":"Show Less"}} <i
-                                class="fa fa-angle-double-down" [ngClass]="{'fa-angle-double-up':visible}"></i></span>
-                    </div>
-                </form>
             </div>
         </div>
-    </div>
-
+    }
     <div class="body_manage dash-padding dashboard__main__content" *ngIf="Searchloading">
         <div class="text-center">
             <div class="spinner-border tts-admin-loader" role="status">

@@ -136,8 +136,76 @@
                         </div>
                     </div>
                 </div>
-
+              
                 <form [formGroup]="BusForm" (ngSubmit)="SubmitPax()">
+                      <div class="bus-details-wrapper scrollable">
+                        <div class="bus-summary-card">
+                            <div class="bus-route-info d-block">
+                                <div class="bus-route">
+                                    <span>Contact Details</span>
+                                </div>
+                                <div>
+                                 <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> All Communication related to the booking will be send to this email address and mobile.</small>
+                                </div>
+                            </div>
+                            <div class="bus-operator-info p-4 d-block">
+                                <div class="row gy-3 needs-validation">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label" for="floating-countrycode">Country Code</label>
+                                            <select class="form-select main-select" id="floating-countrycode"
+                                                formControlName="ISDCode">
+                                                <option value="{{mcode['phonecode']}}" *ngFor="let mcode of Dialcode;">
+                                                    {{mcode['name']}}
+                                                    (+{{mcode['phonecode']}})
+                                                </option>
+                                            </select>
+
+                                            <div *ngIf="submitted && BusForm.get('ISDCode')?.errors" class="error-msg">
+                                                <div *ngIf="BusForm.get('ISDCode')?.errors?.['required']">
+                                                    Country code is required.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label" for="floating-mobile">Moblie Number *</label>
+                                            <input type="phone" class="form-control main-select" id="floating-mobile"
+                                                placeholder="Mobile Number *" formControlName="MobileNumber" />
+
+                                            <div *ngIf="submitted && BusForm.get('MobileNumber')?.errors"
+                                                class="error-msg">
+                                                <div *ngIf="BusForm.get('MobileNumber')?.errors?.['required']">
+                                                    Mobile number is required.
+                                                </div>
+                                                <div
+                                                    *ngIf="BusForm.get('MobileNumber')?.errors?.['pattern'] || BusForm.get('MobileNumber')?.errors?.['minlength'] || BusForm.get('MobileNumber')?.errors?.['maxlength']">
+                                                    Please enter a valid mobile number.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label" for="floating-email">Email ID *</label>
+                                            <input type="email" class="form-control main-select" id="floating-email"
+                                                placeholder="Email ID *" formControlName="EmailId" />
+
+                                            <div *ngIf="submitted && BusForm.get('EmailId')?.errors" class="error-msg">
+                                                <div *ngIf="BusForm.get('EmailId')?.errors?.['required']">
+                                                    Email address is required.
+                                                </div>
+                                                <div *ngIf="BusForm.get('EmailId')?.errors?.['email']">
+                                                    Please enter a valid email.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="bus-details-wrapper scrollable">
                         <!-- Header -->
                         <div class="bus-details-header">
@@ -283,78 +351,11 @@
                     </div>
                     <!--End Pax information -->
 
-                    <div class="bus-details-wrapper scrollable">
-                        <div class="bus-summary-card">
-                            <div class="bus-route-info d-block">
-                                <div class="bus-route">
-                                    <span>Contact Details</span>
-                                </div>
-                                <div>
-                                 <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> All Communication related to the booking will be send to this email address and mobile.</small>
-                                </div>
-                            </div>
-                            <div class="bus-operator-info p-4 d-block">
-                                <div class="row gy-3 needs-validation">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label" for="floating-countrycode">Country Code</label>
-                                            <select class="form-select main-select" id="floating-countrycode"
-                                                formControlName="ISDCode">
-                                                <option value="{{mcode['phonecode']}}" *ngFor="let mcode of Dialcode;">
-                                                    {{mcode['name']}}
-                                                    (+{{mcode['phonecode']}})
-                                                </option>
-                                            </select>
-
-                                            <div *ngIf="submitted && BusForm.get('ISDCode')?.errors" class="error-msg">
-                                                <div *ngIf="BusForm.get('ISDCode')?.errors?.['required']">
-                                                    Country code is required.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label" for="floating-mobile">Moblie Number *</label>
-                                            <input type="phone" class="form-control main-select" id="floating-mobile"
-                                                placeholder="Mobile Number *" formControlName="MobileNumber" />
-
-                                            <div *ngIf="submitted && BusForm.get('MobileNumber')?.errors"
-                                                class="error-msg">
-                                                <div *ngIf="BusForm.get('MobileNumber')?.errors?.['required']">
-                                                    Mobile number is required.
-                                                </div>
-                                                <div
-                                                    *ngIf="BusForm.get('MobileNumber')?.errors?.['pattern'] || BusForm.get('MobileNumber')?.errors?.['minlength'] || BusForm.get('MobileNumber')?.errors?.['maxlength']">
-                                                    Please enter a valid mobile number.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label" for="floating-email">Email ID *</label>
-                                            <input type="email" class="form-control main-select" id="floating-email"
-                                                placeholder="Email ID *" formControlName="EmailId" />
-
-                                            <div *ngIf="submitted && BusForm.get('EmailId')?.errors" class="error-msg">
-                                                <div *ngIf="BusForm.get('EmailId')?.errors?.['required']">
-                                                    Email address is required.
-                                                </div>
-                                                <div *ngIf="BusForm.get('EmailId')?.errors?.['email']">
-                                                    Please enter a valid email.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
 
                     <div class="bus-details-wrapper scrollable">
                         <div class="bus-summary-card">
-                            <div class="bus-route-info d-block">
+                            <div class="bus-route-info d-block" (click)="SHowGST=!SHowGST">
                                 <div class="bus-route flex-column align-items-start">
                                     <span>GST Number for Business Travel ({{GSTTxt}})</span>
                                     
@@ -363,27 +364,7 @@
 
                             </div>
 
-                            <!--<div class="historybox__wrapper">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="historybox">
-                                            <label class="historybox__label"></label>
-                                            <div role="combobox" class="react-autosuggest__container">
-                                                <input type="text" class="react-autosuggest__input" placeholder="Select from History" (keyup)="GSTAutocomplete($event)"  [matAutocomplete]="auto"  #gsteInput/>
-                                            </div>
-                                    
-                                            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedgst($event)">
-                                                <mat-option *ngFor="let list of gstlist" [value]="list['company_name']"> {{list['company_name']}}</mat-option>
-                                            </mat-autocomplete>
-                                    
-                                            </div>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <span class="gst-clear" (click)="cleargst()">Clear</span>
-                                        </div>
-                                    </div>
-                                    
-                                    </div>-->
+                            @if(SHowGST){
                             <form [formGroup]="GSTForm">
                                 <div class="bus-operator-info p-4">
 
@@ -475,6 +456,7 @@
                                         </div>
                                         </div>-->
                             </form>
+                            }
                         </div>
                     </div>
                 </form>
@@ -878,7 +860,7 @@
                                                                     (+{{mcode['phonecode']}})
                                                                 </option>
                                                             </select>
-                                                            <label for="floating-countrycode">Country Code</label>
+                                                            <label for="floating-countrycode">Dial Code</label>
                                                             <div *ngIf="submitted && BusForm.get('ISDCode')?.errors"
                                                                 class="error-msg">
                                                                 <div
@@ -937,27 +919,7 @@
                                     </button>
                                     <div id="gst-detail" class="accordion-collapse collapse">
                                         <div class="accordion-body p-0">
-                                            <!--<div class="historybox__wrapper">
-                                 <div class="row">
-                                      <div class="col-md-3">
-                                        <div class="historybox">
-                                         <label class="historybox__label"></label>
-                                         <div role="combobox" class="react-autosuggest__container">
-                                             <input type="text" class="react-autosuggest__input" placeholder="Select from History" (keyup)="GSTAutocomplete($event)"  [matAutocomplete]="auto"  #gsteInput/>
-                                         </div>
-                                 
-                                         <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedgst($event)">
-                                             <mat-option *ngFor="let list of gstlist" [value]="list['company_name']"> {{list['company_name']}}</mat-option>
-                                         </mat-autocomplete>
-                                 
-                                          </div>
-                                     </div>
-                                     <div class="col-md-9">
-                                         <span class="gst-clear" (click)="cleargst()">Clear</span>
-                                     </div>
-                                 </div>
-                                 
-                                 </div>-->
+
                                             <form [formGroup]="GSTForm">
                                                 <div class="paxlist-box">
                                                     <p class="mb-0">To claim credit of GST charged by airlines, Please

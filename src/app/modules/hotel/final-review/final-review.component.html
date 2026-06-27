@@ -12,8 +12,7 @@
             </div>
 
             <div class="modal-body">
-
-                <!-- Hotel Hero Card -->
+                
                 <div class="hotel-hero">
 
                     <img src="{{BlockRoomResult['HotelPicture']}}" onError="this.src='assets/img/no-photo.png';"
@@ -32,14 +31,14 @@
                                 </p>
                             </div>
 
-                            <div [innerHTML]="star_rating(BlockRoomResult['StarRating'])">
+                            <div class="star-rating" [innerHTML]="star_rating(BlockRoomResult['StarRating'])">
+                                
                             </div>
 
                         </div>
                     </div>
                 </div>
-
-                <!-- Stay Timeline -->
+                <div class="right-detail-panel">
                 <div class="stay-card">
 
                     <div class="stay-item">
@@ -80,7 +79,7 @@
                     </div>
 
                 </div>
-
+                
 
                 <!-- Room Cards -->
                 <div class="section-title">
@@ -193,6 +192,7 @@
                         <span>Mobile</span>
                         <h6>{{Paxinfo['MobileNumber']}}</h6>
                     </div>
+                </div>
                 </div>
             </div>
 

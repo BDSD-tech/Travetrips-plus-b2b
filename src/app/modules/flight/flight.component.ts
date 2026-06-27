@@ -645,9 +645,17 @@ export class FlightComponent implements OnInit {
           }
 
         } else {
-          val.unshift(this.SearchForm.value);
-          val.pop();
-          localStorage.setItem('FlightRecentSearch', JSON.stringify(val));
+          val.forEach((element:any) => {
+            isvaluesame.push(this.JsonCompare(element, this.SearchForm.value));
+          });
+           if (Object.values(isvaluesame).indexOf(true) > -1) {
+          } else {
+            val.unshift(this.SearchForm.value);
+            val.pop();
+            localStorage.setItem('FlightRecentSearch', JSON.stringify(val));
+          }
+          
+         
         }
       }
     } else {
@@ -706,9 +714,10 @@ export class FlightComponent implements OnInit {
   }
 
   JsonCompare(obj1: any, obj2: any) {
-    var keys1 = Object.keys(obj1);
-    var keys2 = Object.keys(obj2);
-    return keys1.length === keys2.length && Object.keys(obj1).every(key => obj1[key] == obj2[key]);
+    return JSON.stringify(obj1) === JSON.stringify(obj2);
+    // var keys1 = Object.keys(obj1);
+    // var keys2 = Object.keys(obj2);
+    // return keys1.length === keys2.length && Object.keys(obj1).every(key => obj1[key] == obj2[key]);
   }
 
   TravellerCount() {

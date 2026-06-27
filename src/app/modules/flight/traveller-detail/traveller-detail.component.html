@@ -621,20 +621,15 @@
                            <div class="passenger-card adult-passenger-wrapper"
                               *ngFor="let adt of fadt.controls; let a=index;" [formGroupName]="a">
                               <!-- Passenger Header -->
-                              <div class="passenger-card-header">
-                                 <h6>ADULT {{a+1}}
+                              <div class="passenger-card-header d-flex align-items-center">
+                                 <h6 class="m-0">ADULT {{a+1}}
                                     <span *ngIf="adt.value['FirstName']==''">(12+ yrs)</span>
                                     <span *ngIf="adt.value['FirstName']!=''">: {{adt.value['Title']}}
                                        {{adt.value['FirstName']}}
                                        {{adt.value['LastName']}}
                                     </span>
                                  </h6>
-                              </div>
-
-                              <!-- Passenger Body -->
-                              <div class="passenger-card-body">
-                                 <div class="gst-history-wrapper mb-3">
-                                    <div class="gst-input-icon"><i class="fa fa-building"></i></div>
+                                 <div class="select-from-history ms-4">
                                     <div role="combobox" aria-haspopup="listbox" aria-owns="react-autowhatever-1"
                                        aria-expanded="false" class="react-autosuggest__container">
                                        <input type="text" class="react-autosuggest__input"
@@ -648,6 +643,14 @@
                                           {{list['last_name']}}</mat-option>
                                     </mat-autocomplete>
                                  </div>
+                              </div>
+
+                              <!-- Passenger Body -->
+                              <div class="passenger-card-body">
+                                 <!-- <div class="gst-history-wrapper mb-3"> -->
+                                    <!-- <div class="gst-input-icon"><i class="fa fa-building"></i></div> -->
+                                    
+                                 <!-- </div> -->
 
                                  <div class="row gy-3">
                                     <div class="col-md-3">
@@ -959,31 +962,36 @@
                               *ngFor="let chd of fchd.controls; let c=index;" [formGroupName]="c">
                               <!-- Passenger Header -->
                               <div class="passenger-card-header">
-                                 <h6>CHILD {{c+1}}:
-                                    <span *ngIf="chd.value['FirstName']==''">(2+ yrs)</span>
-                                    <span *ngIf="chd.value['FirstName']!=''">: {{ chd.value['Title'] }}
-                                       {{chd.value['FirstName']}}
-                                       {{chd.value['LastName']}}
-                                    </span>
-                                 </h6>
+                                 <div class="passenger-card-header d-flex align-items-center">
+                                    <h6>CHILD {{c+1}}:
+                                       <span *ngIf="chd.value['FirstName']==''">(2+ yrs)</span>
+                                       <span *ngIf="chd.value['FirstName']!=''">: {{ chd.value['Title'] }}
+                                          {{chd.value['FirstName']}}
+                                          {{chd.value['LastName']}}
+                                       </span>
+                                    </h6>
+                                    <div class="select-from-history ms-4">
+                                       <div role="combobox" aria-haspopup="listbox" aria-owns="react-autowhatever-1"
+                                          aria-expanded="false" class="react-autosuggest__container">
+                                          <input type="text" class="react-autosuggest__input"
+                                             placeholder="Select from History"
+                                             (keyup)="TravellerAutocomplete($event,'Child',c)" [matAutocomplete]="auto" />
+                                       </div>
+                                       <mat-autocomplete #auto="matAutocomplete"
+                                          (optionSelected)="selectedpax($event,'Child',c)">
+                                          <mat-option *ngFor="let list of travellerlist"
+                                             [value]="list['first_name']+' ' + list['last_name']">{{list['first_name']}}
+                                             {{list['last_name']}}</mat-option>
+                                       </mat-autocomplete>
+                                    </div>
+                                 </div>   
                               </div>
                               <div class="passenger-card-body">
 
-                                 <div class="gst-history-wrapper mb-3">
-                                    <div class="gst-input-icon"><i class="fa fa-building"></i></div>
-                                    <div role="combobox" aria-haspopup="listbox" aria-owns="react-autowhatever-1"
-                                       aria-expanded="false" class="react-autosuggest__container">
-                                       <input type="text" class="react-autosuggest__input"
-                                          placeholder="Select from History"
-                                          (keyup)="TravellerAutocomplete($event,'Child',c)" [matAutocomplete]="auto" />
-                                    </div>
-                                    <mat-autocomplete #auto="matAutocomplete"
-                                       (optionSelected)="selectedpax($event,'Child',c)">
-                                       <mat-option *ngFor="let list of travellerlist"
-                                          [value]="list['first_name']+' ' + list['last_name']">{{list['first_name']}}
-                                          {{list['last_name']}}</mat-option>
-                                    </mat-autocomplete>
-                                 </div>
+                                 <!-- <div class="gst-history-wrapper mb-3">
+                                    <div class="gst-input-icon"><i class="fa fa-building"></i></div> -->
+                                    
+                                 <!-- </div> -->
 
                                  <div class="row">
                                     <div class="col-md-3">
@@ -1230,36 +1238,32 @@
                               *ngFor="let inf of finf.controls; let i=index;" [formGroupName]="i">
                               <!-- Passenger Header -->
                               <div class="passenger-card-header">
-                                 <h6>INFANT {{i+1}}:
-                                    <span *ngIf="inf.value['FirstName']==''">(0 - 2 yrs)</span>
-                                    <span *ngIf="inf.value['FirstName']!=''">: {{ inf.value['Title'] }}
-                                       {{inf.value['FirstName']}}
-                                       {{inf.value['LastName']}}
-                                    </span>
-                                 </h6>
+                                 <div class="passenger-card-header d-flex align-items-center">
+                                    <h6>INFANT {{i+1}}:
+                                       <span *ngIf="inf.value['FirstName']==''">(0 - 2 yrs)</span>
+                                       <span *ngIf="inf.value['FirstName']!=''">: {{ inf.value['Title'] }}
+                                          {{inf.value['FirstName']}}
+                                          {{inf.value['LastName']}}
+                                       </span>
+                                    </h6>
+                                     <div class="select-from-history ms-4">
+                                       <div role="combobox" aria-haspopup="listbox" aria-owns="react-autowhatever-1"
+                                          aria-expanded="false" class="react-autosuggest__container">
+                                          <input type="text" class="react-autosuggest__input"
+                                             placeholder="Select from History"
+                                             (keyup)="TravellerAutocomplete($event,'Infant',i)" [matAutocomplete]="auto" />
+                                       </div>
+                                       <mat-autocomplete #auto="matAutocomplete"
+                                          (optionSelected)="selectedpax($event,'Infant',i)">
+                                          <mat-option *ngFor="let list of travellerlist"
+                                             [value]="list['first_name']+' ' + list['last_name']">{{list['first_name']}}
+                                             {{list['last_name']}}</mat-option>
+                                       </mat-autocomplete>
+                                     </div>
+                                 </div>
                               </div>
 
                               <div class="passenger-card-body">
-
-
-                                 <div class="gst-history-wrapper mb-3">
-                                    <div class="gst-input-icon"><i class="fa fa-building"></i></div>
-                                    <div role="combobox" aria-haspopup="listbox" aria-owns="react-autowhatever-1"
-                                       aria-expanded="false" class="react-autosuggest__container">
-                                       <input type="text" class="react-autosuggest__input"
-                                          placeholder="Select from History"
-                                          (keyup)="TravellerAutocomplete($event,'Infant',i)" [matAutocomplete]="auto" />
-                                    </div>
-                                    <mat-autocomplete #auto="matAutocomplete"
-                                       (optionSelected)="selectedpax($event,'Infant',i)">
-                                       <mat-option *ngFor="let list of travellerlist"
-                                          [value]="list['first_name']+' ' + list['last_name']">{{list['first_name']}}
-                                          {{list['last_name']}}</mat-option>
-                                    </mat-autocomplete>
-                                 </div>
-
-
-
                                  <div class="row">
                                     <div class="col-md-3">
                                        <div class="form-group">
@@ -3440,212 +3444,200 @@
 </section>
 
 
+
+
 <!--:: Seat selection Modal -->
+
 <div class="modal fade" id="seat-selectmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-   aria-labelledby="staticBackdropLabel" aria-hidden="true">
-   <div class="modal-dialog modal-xl">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Select Seats</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-         </div>
-         <div class="modal-body">
-            <div class="seat-header-bar">
-               <ul class="seat-tabs">
-                  <li *ngFor="let segmentSeats of seatData; let jkey = index" class="seat-tab-item">
-                     <a class="seat-tab-link" aria-current="page" href="javascript:void(0);"
-                        *ngFor="let Segment of segmentSeats; let segkey = index"
-                        [ngClass]="{'active': seatactivetab == jkey + '' + segkey }"
-                        (click)="selectseattab(jkey, segkey, Segment)">
-                        <span *ngIf="jkey === 0">Departure</span>
-                        <span *ngIf="jkey === 1">Return</span>
-                        {{Segment.Origin}}-{{Segment.Destination}}
-                     </a>
-                  </li>
-               </ul>
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Select Seats</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-
-            <div *ngFor="let segmentSeats of seatData; let jkey = index">
-               <div class="seatlayoutbox seatlayoutbox_departure"
-                  *ngFor="let Segment of segmentSeats ; let segkey = index">
-                  <div class="seat-legend-wrapper" *ngIf="seatactivetab==jkey+''+segkey">
-                     <!-- Seat Status -->
-                     <div class="seat-legend">
-                        <div class="seatmapdiv available">
-                           <div class="seatbox"></div>
-                           <span>Available</span>
+            <div class="modal-body" style="background: #e4e3e3;">
+                <div class="row">
+                    <nav class="nav nav-pills nav-justified">
+                        <div *ngFor="let segmentSeats of seatData; let jkey = index" class="d-flex">
+                            <a class="nav-link" aria-current="page" href="javascript:void(0);"
+                                *ngFor="let Segment of segmentSeats; let segkey = index"
+                                [ngClass]="{'active': seatactivetab == jkey + '' + segkey }"
+                                (click)="selectseattab(jkey, segkey, Segment)">
+                                <span *ngIf="jkey === 0">Departure</span>
+                                <span *ngIf="jkey === 1">Return</span>
+                                {{Segment.Origin}}-{{Segment.Destination}}
+                            </a>
                         </div>
+                    </nav>
 
-                        <div class="seatmapdiv booked">
-                           <div class="seatbox"></div>
-                           <span>Booked</span>
-                        </div>
+                    <div *ngFor="let segmentSeats of seatData; let jkey = index">
+                        <div class="seatlayoutbox seatlayoutbox_departure"
+                            *ngFor="let Segment of segmentSeats ; let segkey = index">
+                            <div class="flightboxmain" *ngIf="seatactivetab==jkey+''+segkey">
+                                <div class="flightboxmain_seatmain">
+                                    <div class="seatmapdiv flightboxmain_seatmain2">
+                                        <div class="flightboxmain_seatmain1"></div>
+                                        <span>Available Seat</span>
+                                    </div>
+                                    <div class="seatmapdiv flightboxmain_seatmain3">
+                                        <div class="flightboxmain_seatmain1"></div>
+                                        <span>Booked Seat</span>
+                                    </div>
+                                    <div class="seatmapdiv flightboxmain_seatmain4">
+                                        <div class="flightboxmain_seatmain1"></div>
+                                        <span>Selected Seat</span>
+                                    </div>
+                                </div>
+                                <div>
+                                <div class="seat-body rounded mb-3 row">
+                                     
+                                            <div class="p-0"
+                                                *ngFor="let detail of travellerJson[jkey] |keyvalue; let paxkey = index">
 
-                        <div class="seatmapdiv selected">
-                           <div class="seatbox"></div>
-                           <span>Selected</span>
-                        </div>
-                     </div>
+                                                <div class="col-12 seat-li"
+                                                    *ngFor="let paxdetail of getval(detail) | keyvalue; let paxcountkey = index"
+                                                   >
 
-                     <!-- Passenger Seat Summary -->
-                     <div class="seat-summary-card">
-                        <div class="seat-summary-header">
-                           <h5>Selected Seats</h5>
-                        </div>
+                                                    <span>
+                                                        <span
+                                                            *ngIf="FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value==''">{{detail.key}}-{{paxdetail.key}}</span>
+                                                        <span *ngIf="FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value!==''">{{FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value}}
+                                                            {{FlightForm.get(detail.key+'.'+paxcountkey+'.LastName')?.value}}</span>
+                                                    </span>
 
-                        <div class="seat-summary-body row">
+                                                    <span class="float-end"
+                                                        *ngIf="getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Code']">
+                                                       <strong> -  {{getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Code']}}
+                                                        <!-- | ₹
+                                                        {{getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Price']
+                                                        | number:'1.0-2' }} -->
+                                                        </strong></span>
+                                                </div>
+                                                
+                                            </div>
+                                           
+                                        </div>
+                            </div>
+                            <div class="">
+                                    <div>
+                                    <button (click)="clearSeat()" class="btn btn-danger mb-2 w-100">
+                                        Clear
+                                    </button>
+                                    <button data-bs-dismiss="modal" aria-label="Close" class="btn btn-primary w-100">
+                                        Procced
+                                    </button>
+                                    
+                                </div>
+                            </div>
+                            </div>
+                            
+                            <div class="flightbox" *ngIf="seatactivetab==jkey+''+segkey">
 
-                           <div class="col-lg-12 col-md-12 col-12"
-                              *ngFor="let detail of travellerJson[jkey] | keyvalue; let paxkey = index">
 
-                              <div class="seat-passenger-card"
-                                 *ngFor="let paxdetail of getval(detail) | keyvalue; let paxcountkey = index">
+                                <div class="seatdetails" [ngStyle]="tootipstyle" style="display: none;"
+                                    (click)="$event.stopPropagation();">
+                                    <div class="seatinfo">
+                                        <div class="row seat-header">
+                                            <div class="col-5 text-start">Seat {{clickedseat['Code']}}</div>
+                                            <div class="col-5 text-end">₹ {{clickedseat['Price'] | number:'1.0-2'}}
+                                            </div>
+                                            <div class="col-2 text-end">
+                                                <button type="button" class="tooltrip-close" (click)="CLOSETootip()"><i
+                                                        class="fa fa-times" aria-hidden="true"></i></button>
+                                            </div>
+                                        </div>
+                                        <div class="seat-body row">
 
-                                 <div class="seat-passenger-info">
+                                            <div class="p-0"
+                                                *ngFor="let detail of travellerJson[jkey] |keyvalue; let paxkey = index">
 
-                                    <div class="seat-passenger-name">
+                                                <div class="col-12 seat-li"
+                                                    *ngFor="let paxdetail of getval(detail) | keyvalue; let paxcountkey = index"
+                                                    (click)="selectseat(clickedseat,paxdetail.value,Segment,jkey)">
 
-                                       <span *ngIf="FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value==''">
-                                          {{detail.key}} - {{paxdetail.key}}
-                                       </span>
+                                                    <span><i class="fa fa-check-circle" aria-hidden="true"
+                                                            [ngClass]="{'pax-seat-assign':getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Code']}"></i>
+                                                        <span
+                                                            *ngIf="FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value==''">{{detail.key}}-{{paxdetail.key}}</span>
+                                                        <span
+                                                            *ngIf="FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value!==''">{{FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value}}
+                                                            {{FlightForm.get(detail.key+'.'+paxcountkey+'.LastName')?.value}}</span>
+                                                    </span>
+                                                    <span class="float-end"
+                                                        *ngIf="getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Code']">
+                                                        {{getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Code']}}
+                                                        | ₹
+                                                        {{getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Price']
+                                                        | number:'1.0-2' }}</span>
+                                                </div>
+                                            </div>
 
-                                       <span
-                                          *ngIf="FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value!==''">
-                                          {{FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value}}
-                                          {{FlightForm.get(detail.key+'.'+paxcountkey+'.LastName')?.value}}
-                                       </span>
+                                        </div>
+                                    </div>
+                                </div>
 
+                                <div><span class="bgProperties iconflFront"
+                                        style="background-image: url('assets/img/flightSmallFront.png');"></span></div>
+                                <div class="flightboxplan">
+                                    <h1 class="flightdetails">
+                                        <font style="vertical-align: inherit;">
+                                            <font style="vertical-align: inherit;">{{Segment?.Origin}} to
+                                                {{Segment?.Destination}}</font>
+                                        </font>
+                                    </h1>
+                                    <div class="flgtrow mb-3">
+                                        <span class="leftwing"></span>
+                                        <div class="innerrow">
+                                            <h2>Front Entrance</h2>
+                                        </div>
+                                        <span class="rightwing"></span>
                                     </div>
 
-                                    <div class="seat-number"
-                                       *ngIf="getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Code']">
+                                    <div class="flgtrow" *ngFor="let segmentul of objectKeys(Segment.ul);">
+                                        <span class="leftwing"></span>
+                                        <div class="innerrow">
+                                            <ul class="seatrow">
 
-                                       Seat :
-                                       <strong>
-                                          {{getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Code']}}
-                                       </strong>
-                                       <!-- | ₹
-                                             {{getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Price']
-                                             | number:'1.0-2' }} -->
+                                                <li *ngFor="let segmentli of Segment.ul[segmentul]"
+                                                    class="{{segmentli?.SeatClass}} {{segmentli?.uid}}"
+                                                    [ngClass]="{'selectedseat': paxseatselected?.[Segment?.Origin+'-'+Segment?.Destination]?.includes(segmentli?.Code)}"
+                                                    (click)="seatClicked($event,segmentli)" #showhidetooltrip
+                                                    (mouseover)="seatTooltip(segmentli,'mouseover')"
+                                                    (mouseleave)="seatTooltip(segmentli,'mouseleave')">
+                                                    <span class="segmetsetnum">{{segmentli?.Code}}</span>
 
+                                                    <div class="seatdetails-tooltip" [ngStyle]="segmentli?.tooltrip"
+                                                        (click)="$event.stopPropagation();">
+                                                        {{segmentli.Code}} | ₹ {{segmentli.Price | number:'1.0-2'}}
+                                                    </div>
+
+                                                </li>
+
+                                            </ul>
+                                        </div>
                                     </div>
 
-                                 </div>
-
-                              </div>
-
-                           </div>
-
-                        </div>
-
-                        <!-- Footer Buttons -->
-                        <div class="seat-footer-btns">
-
-                           <button (click)="clearSeat()" class="btn btn-outline-danger">
-                              Clear Seat
-                           </button>
-
-                           <button data-bs-dismiss="modal" aria-label="Close" class="btn btn-primary">
-                              Proceed
-                           </button>
-
-                        </div>
-
-                     </div>
-
-                  </div>
-
-                  <div class="flightbox" *ngIf="seatactivetab==jkey+''+segkey">
-                     <div class="seatdetails" [ngStyle]="tootipstyle" style="display: none;"
-                        (click)="$event.stopPropagation();">
-                        <div class="seatinfo">
-                           <div class="row seat-header">
-                              <div class="col-5 text-start">Seat {{clickedseat['Code']}}</div>
-                              <div class="col-5 text-end">₹ {{clickedseat['Price'] | number:'1.0-2'}}
-                              </div>
-                              <div class="col-2 text-end">
-                                 <button type="button" class="tooltrip-close" (click)="CLOSETootip()"><i
-                                       class="fa fa-times" aria-hidden="true"></i></button>
-                              </div>
-                           </div>
-                           <div class="seat-body row">
-                              <div class="" *ngFor="let detail of travellerJson[jkey] |keyvalue; let paxkey = index">
-                                 <div class="col-12 seat-li"
-                                    *ngFor="let paxdetail of getval(detail) | keyvalue; let paxcountkey = index"
-                                    (click)="selectseat(clickedseat,paxdetail.value,Segment,jkey)">
-                                    <span><i class="fa fa-check-circle" aria-hidden="true"
-                                          [ngClass]="{'pax-seat-assign':getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Code']}"></i>
-                                       <span
-                                          *ngIf="FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value==''">{{detail.key}}-{{paxdetail.key}}</span>
-                                       <span
-                                          *ngIf="FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value!==''">{{FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value}}
-                                          {{FlightForm.get(detail.key+'.'+paxcountkey+'.LastName')?.value}}</span>
-                                    </span>
-                                    <span class="float-end"
-                                       *ngIf="getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Code']">
-                                       {{getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Code']}}
-                                       | ₹
-                                       {{getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Price']
-                                       | number:'1.0-2' }}</span>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div><span class="bgProperties iconflFront"
-                           style="background-image: url('assets/img/flightSmallFront.png');"></span></div>
-                     <div class="flightboxplan">
-                        <h1 class="flightdetails">
-                           <font style="vertical-align: inherit;">
-                              <font style="vertical-align: inherit;">{{Segment?.Origin}} to
-                                 {{Segment?.Destination}}</font>
-                           </font>
-                        </h1>
-                        <div class="flgtrow mb-3">
-                           <span class="leftwing"></span>
-                           <div class="innerrow">
-                              <h2>Front Entrance</h2>
-                           </div>
-                           <span class="rightwing"></span>
-                        </div>
-                        <div class="flgtrow" *ngFor="let segmentul of objectKeys(Segment.ul);">
-                           <span class="leftwing"></span>
-                           <div class="innerrow">
-                              <ul class="seatrow">
-                                 <li *ngFor="let segmentli of Segment.ul[segmentul]"
-                                    class="{{segmentli?.SeatClass}} {{segmentli?.uid}}"
-                                    [ngClass]="{'selectedseat': paxseatselected?.[Segment?.Origin+'-'+Segment?.Destination]?.includes(segmentli?.Code)}"
-                                    (click)="seatClicked($event,segmentli)" #showhidetooltrip
-                                    (mouseover)="seatTooltip(segmentli,'mouseover')"
-                                    (mouseleave)="seatTooltip(segmentli,'mouseleave')">
-                                    <span class="segmetsetnum">
-                                       {{segmentli?.Code}}</span>
-                                    <div class="seatdetails-tooltip" [ngStyle]="segmentli?.tooltrip"
-                                       (click)="$event.stopPropagation();">
-                                       {{segmentli.Code}} | ₹ {{segmentli.Price | number:'1.0-2'}}
+                                    <div class="flgtrow">
+                                        <span class="leftwing"></span>
+                                        <div class="innerrow">
+                                            <h2>Back Entrance</h2>
+                                        </div>
+                                        <span class="rightwing"></span>
                                     </div>
-                                 </li>
-                              </ul>
-                           </div>
+                                </div>
+                                <div><span class="bgProperties iconflTail"
+                                        style="background-image: url('assets/img/flightSmallTail.png');"></span></div>
+
+                            </div>
                         </div>
-                        <div class="flgtrow">
-                           <span class="leftwing"></span>
-                           <div class="innerrow">
-                              <h2>Back Entrance</h2>
-                           </div>
-                           <span class="rightwing"></span>
-                        </div>
-                     </div>
-                     <div><span class="bgProperties iconflTail"
-                           style="background-image: url('assets/img/flightSmallTail.png');"></span></div>
-                  </div>
-               </div>
+                    </div>
+                </div>
             </div>
-
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
 </div>
+
 <!--:: Seat selection Modal -->
 
 <div class="modal fade" id="insurancedetailmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"

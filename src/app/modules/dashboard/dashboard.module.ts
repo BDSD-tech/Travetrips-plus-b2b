@@ -35,11 +35,13 @@ import { BookingDetailComponent } from './bus/booking-detail/booking-detail.comp
 import { CartDetailHotelComponent} from '../dashboard/manage-cart-hotel/cart-detail/cart-detail.component';
 import { MatTooltip } from "@angular/material/tooltip";
 import { BankDetailsComponent } from './bank-details/bank-details.component';
+import { AmendmentListComponent } from './bus/amendment-list/amendment-list.component';
+import { MatIcon } from '@angular/material/icon';
 
 @NgModule({
   declarations: [ 
      BookingsComponent,BankDetailsComponent,ManageCartHotelComponent,BookingCalendarComponent,ManageCartsComponent,CartDetailComponent, ManageAmendmentsComponent, PaymentPassbookComponent, ManageDepositRequestComponent, DepositRequestComponent, BillingInfoComponent, DownloadReportComponent, ManageMarkupComponent, UserDetailComponent,NumberToWordsPipe, ItineraryComponent
-  ,HotelComponent,CartDetailHotelComponent,BookingDetailComponent,BookingListComponent,DashboardComponent,ManageAmendmentsHotelComponent,CreditRequestComponent,CreditNotesComponent,MarkupComponent,ViewCreditNotesComponent,CreditNotesHotelComponent,AmendmentsComponent],
+  ,HotelComponent,AmendmentListComponent,CartDetailHotelComponent,BookingDetailComponent,BookingListComponent,DashboardComponent,ManageAmendmentsHotelComponent,CreditRequestComponent,CreditNotesComponent,MarkupComponent,ViewCreditNotesComponent,CreditNotesHotelComponent,AmendmentsComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,
@@ -48,7 +50,7 @@ import { BankDetailsComponent } from './bank-details/bank-details.component';
     MaterialModuleModule,
     CdkTableModule,
     SafeHtmlModule,
-    MatTooltip
+    MatTooltip,
 ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 
