@@ -125,6 +125,7 @@ BOOKING STEPPER
     border-radius: var(--radius-md);
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow-sm);
+    
     transition: var(--transition);
 }
 
@@ -523,25 +524,16 @@ BOOKING STEPPER
 }
 
 .fare-review-btn {
-    position: sticky;
-    top: 100px;
-    width: calc(100% - 0px);
-    height: 48px;
 
     border: none;
     border-radius: var(--radius-md);
-
     background: var(--primary-color);
     color: var(--white);
-
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 700;
-
-    display: flex;
-    align-items: center;
+    padding: 10px;
     justify-content: center;
     gap: 10px;
-
     cursor: pointer;
     transition: var(--transition);
 }

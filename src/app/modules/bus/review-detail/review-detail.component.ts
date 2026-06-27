@@ -111,8 +111,6 @@ export class ReviewDetailComponent implements OnInit {
     this.authenticationservice.currentUser.subscribe(data => {
       if(data)
       {
-        console.log(data);
-        
         this.userinfo=data;
         this.BusForm.patchValue({'EmailId':data['EmailId'],'MobileNumber':data['MobileNo']});
       }
