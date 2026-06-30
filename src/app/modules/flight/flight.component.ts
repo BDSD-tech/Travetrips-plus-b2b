@@ -72,7 +72,10 @@ export class FlightComponent implements OnInit {
     return 0; // keep API order
   };
   constructor(public fb: FormBuilder, private router: Router, private flightservice: FlightService, private commonservice: CommonService, private alertservice: AlertService, public dialog: MatDialog) {
-
+     const isLogin = history.state?.login ?? false;
+     if(isLogin){
+      this.alertservice.success('Login successful. Welcome back!')
+     }
     this.SearchForm = this.fb.group({
       Type: ['O', Validators.required],
       Origin: ['Delhi(DEL)', Validators.required],
@@ -122,7 +125,6 @@ export class FlightComponent implements OnInit {
 
     this.commonservice.GetWebSiteData().subscribe(data => {
       this.GetWebSiteData = data;
-
     });
     this.commonservice.GetHomeOffer().subscribe(data => {
       this.Offer = data;
@@ -149,7 +151,6 @@ export class FlightComponent implements OnInit {
 
     // this.timeoutId=setTimeout(() => {
     //   this.commonservice.GetPopupNotifications().subscribe(data => {
-    //     console.log(data);
     //     if(data )
     //     {
 
@@ -825,7 +826,6 @@ export class FlightComponent implements OnInit {
   }
 
   GetPreferredAirline(e: any) {
-    // console.log(e);
     
     // if (e.target.checked) {
       this.preferredairlinedata.push(e.target.value);

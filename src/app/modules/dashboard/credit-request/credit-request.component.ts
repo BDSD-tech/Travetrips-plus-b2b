@@ -149,8 +149,6 @@ export class CreditRequestComponent {
       let resp:any=data;
       this.Searchloading=false;
       this.isshowdiv=true;
-      console.log(resp);
-      
       if(resp['Error']['ErrorCode']==0)
       { 
          this.CartList=resp['Result'];

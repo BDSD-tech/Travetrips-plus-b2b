@@ -97,7 +97,7 @@
                   <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
                </button>
                <!-- DROPDOWN MENU -->
-            <div class="dropdown-menu dropdown-menu-end profile-dropdown-menu">
+                <div class="dropdown-menu dropdown-menu-end profile-dropdown-menu">
                   <a class="dropdown-item" routerLink="/dashboard/user-detail/{{LoginAgentinfo['CompanyId']}}" href="javascript:void(0);">
                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
                         class="rpfteH2dJ806mlRyY5L7">
@@ -116,14 +116,21 @@
                            stroke="#333333" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
                      </svg>
                      My Profile
-                  </a>
-                @if(LoginAgentinfo['PrimaryUser']=='1' ){
-               
-                    <a  class="dropdown-item"  routerLink="/dashboard/users">
-                        <i class="fas fa-users-cog"></i> Manage Users
                     </a>
-               
-                }
+                    @if(LoginAgentinfo['PrimaryUser']=='1' ){
+                        <a  class="dropdown-item"  routerLink="/dashboard/users">
+                            <i class="fas fa-users-cog"></i> Manage Users
+                        </a>
+                    }
+                    <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/markup">
+                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" id="markup"
+                        class="VFCSf3Y5WRuT6V1RskB3">
+                        <path
+                           d="M22.08014,12.19775l-.83008,4.18018a.49958.49958,0,0,1-.88281.2124l-.61816-.78515-6.52735,5.20654-.00213.00073a.49447.49447,0,0,1-.30939.10816.50031.50031,0,0,1-.2132-.04767c-.00561-.00263-.0094-.00885-.01489-.01172a.4971.4971,0,0,1-.16254-.12811L9.37213,17.00293,5.27155,20.272a.5.5,0,0,1-.62305-.78222l4.49024-3.58008a.50025.50025,0,0,1,.70214.07861l3.14783,3.93012,6.52991-5.20893a.50439.50439,0,0,1,.36914-.10547.49873.49873,0,0,1,.335.187l.25781.32763.61914-3.11523a.49977.49977,0,1,1,.98047.19433ZM9.78131,13.48291,3.72174,18.312a.5.5,0,0,1-.623-.78222L8.696,13.06934H4.96a.49972.49972,0,0,1-.5-.5V4.37939a.49972.49972,0,0,1,.5-.5H20.08014a.49972.49972,0,0,1,.5.5v7.52a.47457.47457,0,0,1-.01556.07715.47363.47363,0,0,1,.01654.09571.52.52,0,0,1-.51367.48584l-1.67871-.04688.2705.33594a.4995.4995,0,0,1-.0791.70508l-4.96,3.93994a.49976.49976,0,0,1-.70117-.07959Zm6.292-.91357a.49972.49972,0,0,1-.5.5H10.73053l2.65821,3.32959,4.17578-3.3169-.63379-.7876a.50173.50173,0,0,1-.0586-.53564.5123.5123,0,0,1,.46192-.27783l2.24609.06274V4.87939H5.46v7.19H15.57331A.49972.49972,0,0,1,16.07331,12.56934ZM13.02106,8.25116l-.33-.3c-.21-.19-.55-.5-.55-.68a.31887.31887,0,0,1,.1-.26.30437.30437,0,0,1,.24005-.11h.05a.321.321,0,0,1,.22.1.4339.4339,0,0,1,.11005.3.5079.5079,0,0,0,.48.52.49564.49564,0,0,0,.52-.48v-.11a1.37339,1.37339,0,0,0-.89-1.24005v-.13a.5137.5137,0,0,0-.51-.49.49513.49513,0,0,0-.49.51v.12a1.35932,1.35932,0,0,0-.83,1.29,1.72237,1.72237,0,0,0,.64,1.18c.08.08.16.15.24.22l.33.3c.21.19.55.5.55.68a.31885.31885,0,0,1-.1.26.30443.30443,0,0,1-.24005.11h-.05a.32111.32111,0,0,1-.22-.1.43378.43378,0,0,1-.11-.3.5079.5079,0,0,0-.48-.52.4957.4957,0,0,0-.52.48005v.11a1.3733,1.3733,0,0,0,.89,1.24v.13a.51364.51364,0,0,0,.51.49.49508.49508,0,0,0,.49-.51v-.12a1.35916,1.35916,0,0,0,.83-1.29,1.72223,1.72223,0,0,0-.64-1.18C13.181,8.39117,13.10108,8.32117,13.02106,8.25116Z">
+                        </path>
+                     </svg>
+                     Manage Markup
+                  </a>
                   <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/bookings">
                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
                         class="rpfteH2dJ806mlRyY5L7">
@@ -135,6 +142,7 @@
                      </svg>
                      My Bookings
                   </a>
+                   
                   <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/booking-calendar">
                      <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                         class="VFCSf3Y5WRuT6V1RskB3">
@@ -146,9 +154,51 @@
                   </a>
                   <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/amendments">
                      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 640 640"><path fill="rgb(156, 156, 156)" d="M216 64C229.3 64 240 74.7 240 88L240 128L400 128L400 88C400 74.7 410.7 64 424 64C437.3 64 448 74.7 448 88L448 128L480 128C515.3 128 544 156.7 544 192L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 192C96 156.7 124.7 128 160 128L192 128L192 88C192 74.7 202.7 64 216 64zM216 176L160 176C151.2 176 144 183.2 144 192L144 480C144 488.8 151.2 496 160 496L480 496C488.8 496 496 488.8 496 480L496 192C496 183.2 488.8 176 480 176L216 176zM387.9 268.1C397.3 277.5 397.3 292.7 387.9 302L354 335.9L387.9 369.8C397.3 379.2 397.3 394.4 387.9 403.7C378.5 413 363.3 413.1 354 403.7L320.1 369.8L286.2 403.7C276.8 413.1 261.6 413.1 252.3 403.7C243 394.3 242.9 379.1 252.3 369.8L286.2 335.9L252.3 302C242.9 292.6 242.9 277.4 252.3 268.1C261.7 258.8 276.9 258.7 286.2 268.1L320.1 302L354 268.1C363.4 258.7 378.6 258.7 387.9 268.1z"/></svg>
-                                    My Amendments
+                    Bookings Amendment
                   </a>
-
+                  <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/payment-passbook">
+                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        class="rpfteH2dJ806mlRyY5L7">
+                        <path
+                           d="M10.0999 10.6497C10.0416 10.6414 9.9666 10.6414 9.89993 10.6497C8.43327 10.5997 7.2666 9.39974 7.2666 7.92474C7.2666 6.41641 8.48327 5.19141 9.99993 5.19141C11.5083 5.19141 12.7333 6.41641 12.7333 7.92474C12.7249 9.39974 11.5666 10.5997 10.0999 10.6497Z"
+                           stroke="#858585" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path
+                           d="M15.6166 16.1469C14.1333 17.5052 12.1666 18.3302 9.99997 18.3302C7.8333 18.3302 5.86663 17.5052 4.3833 16.1469C4.46663 15.3635 4.96663 14.5969 5.8583 13.9969C8.14163 12.4802 11.875 12.4802 14.1416 13.9969C15.0333 14.5969 15.5333 15.3635 15.6166 16.1469Z"
+                           stroke="#858585" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path
+                           d="M9.99996 18.3346C14.6023 18.3346 18.3333 14.6037 18.3333 10.0013C18.3333 5.39893 14.6023 1.66797 9.99996 1.66797C5.39759 1.66797 1.66663 5.39893 1.66663 10.0013C1.66663 14.6037 5.39759 18.3346 9.99996 18.3346Z"
+                           stroke="#858585" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
+                     </svg>
+                     Account Passbook
+                  </a>
+                  <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/deposit-request">
+                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        class="rpfteH2dJ806mlRyY5L7">
+                        <path
+                           d="M18.04 13.55C17.62 13.96 17.38 14.55 17.44 15.18C17.53 16.26 18.52 17.05 19.6 17.05H21.5V18.24C21.5 20.31 19.81 22 17.74 22H7.63C7.94 21.74 8.21 21.42 8.42 21.06C8.79 20.46 9 19.75 9 19C9 16.79 7.21 15 5 15C4.06 15 3.19 15.33 2.5 15.88V11.51C2.5 9.44001 4.19 7.75 6.26 7.75H17.74C19.81 7.75 21.5 9.44001 21.5 11.51V12.95H19.48C18.92 12.95 18.41 13.17 18.04 13.55Z"
+                           stroke="#858585" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path
+                           d="M2.5 12.4103V7.84035C2.5 6.65035 3.23 5.5903 4.34 5.1703L12.28 2.1703C13.52 1.7003 14.85 2.62033 14.85 3.95033V7.75032"
+                           stroke="#858585" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path
+                           d="M22.5588 13.9702V16.0302C22.5588 16.5802 22.1188 17.0302 21.5588 17.0502H19.5988C18.5188 17.0502 17.5288 16.2602 17.4388 15.1802C17.3788 14.5502 17.6188 13.9602 18.0388 13.5502C18.4088 13.1702 18.9188 12.9502 19.4788 12.9502H21.5588C22.1188 12.9702 22.5588 13.4202 22.5588 13.9702Z"
+                           stroke="#858585" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M7 12H14" stroke="#858585" stroke-width="1.5" stroke-linecap="round"
+                           stroke-linejoin="round"></path>
+                        <path
+                           d="M9 19C9 19.75 8.79 20.46 8.42 21.06C8.21 21.42 7.94 21.74 7.63 22C6.93 22.63 6.01 23 5 23C3.54 23 2.27 22.22 1.58 21.06C1.21 20.46 1 19.75 1 19C1 17.74 1.58 16.61 2.5 15.88C3.19 15.33 4.06 15 5 15C7.21 15 9 16.79 9 19Z"
+                           stroke="#858585" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                           stroke-linejoin="round"></path>
+                        <path d="M6.49171 18.9795H3.51172" stroke="#858585" stroke-width="1.5" stroke-miterlimit="10"
+                           stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M5 17.5195V20.5095" stroke="#858585" stroke-width="1.5" stroke-miterlimit="10"
+                           stroke-linecap="round" stroke-linejoin="round"></path>
+                     </svg>
+                     Deposit Request
+                  </a>
+                  <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/manage-deposit-request">
+                     <i class="fa-solid fa-hand-holding-dollar" style="color: rgb(156, 156, 156);"></i> Manage Deposit
+                  </a>
                   <a class="dropdown-item" routerLink="/dashboard/bank-details" href="javascript:void(0);">
                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                         class="rpfteH2dJ806mlRyY5L7">
@@ -181,35 +231,10 @@
                            d="M17.9945 10.0203C17.762 9.84137 17.4913 9.71847 17.2035 9.66115C16.9157 9.60384 16.6185 9.61366 16.3352 9.68985L13.0664 10.4414C13.1425 10.1202 13.1448 9.78585 13.0733 9.46356C13.0017 9.14126 12.8582 8.83934 12.6534 8.58041C12.4486 8.32149 12.1878 8.11228 11.8907 7.96847C11.5935 7.82465 11.2676 7.74997 10.9375 7.75H7.02656C6.69812 7.74918 6.37278 7.81345 6.06932 7.93909C5.76587 8.06474 5.49032 8.24927 5.25859 8.48203L3.49141 10.25H1.25C0.918479 10.25 0.600537 10.3817 0.366117 10.6161C0.131696 10.8505 0 11.1685 0 11.5L0 14.625C0 14.9565 0.131696 15.2745 0.366117 15.5089C0.600537 15.7433 0.918479 15.875 1.25 15.875H9.375C9.4261 15.875 9.47701 15.8687 9.52656 15.8563L14.5266 14.6063C14.5584 14.5987 14.5895 14.5882 14.6195 14.575L17.6562 13.2828L17.6906 13.2672C17.9825 13.1214 18.2324 12.9036 18.4168 12.6345C18.6013 12.3654 18.7142 12.0537 18.7449 11.7289C18.7756 11.4041 18.7231 11.0768 18.5924 10.7779C18.4617 10.479 18.257 10.2183 17.9977 10.0203H17.9945ZM1.25 11.5H3.125V14.625H1.25V11.5ZM17.143 12.1414L14.1742 13.4055L9.29688 14.625H4.375V11.1336L6.14297 9.36641C6.25862 9.24983 6.39629 9.1574 6.54798 9.0945C6.69967 9.0316 6.86235 8.99948 7.02656 9H10.9375C11.1861 9 11.4246 9.09877 11.6004 9.27459C11.7762 9.4504 11.875 9.68886 11.875 9.9375C11.875 10.1861 11.7762 10.4246 11.6004 10.6004C11.4246 10.7762 11.1861 10.875 10.9375 10.875H8.75C8.58424 10.875 8.42527 10.9408 8.30806 11.0581C8.19085 11.1753 8.125 11.3342 8.125 11.5C8.125 11.6658 8.19085 11.8247 8.30806 11.9419C8.42527 12.0592 8.58424 12.125 8.75 12.125H11.25C11.297 12.1249 11.3439 12.1196 11.3898 12.1094L16.6242 10.9055L16.6484 10.8992C16.8082 10.8549 16.9788 10.8712 17.1273 10.945C17.2758 11.0188 17.3917 11.1449 17.4528 11.2991C17.5139 11.4533 17.5158 11.6246 17.4582 11.7801C17.4005 11.9356 17.2874 12.0643 17.1406 12.1414H17.143ZM12.8125 6.5C12.9669 6.50018 13.1211 6.48763 13.2734 6.4625C13.4448 6.97152 13.7583 7.42083 14.177 7.7573C14.5956 8.09378 15.1018 8.30335 15.6358 8.36123C16.1698 8.41912 16.7091 8.32291 17.1901 8.08397C17.6712 7.84503 18.0737 7.47336 18.3502 7.01289C18.6267 6.55243 18.7655 6.02242 18.7503 5.48555C18.7351 4.94867 18.5665 4.42737 18.2644 3.98328C17.9624 3.53919 17.5394 3.19088 17.0457 2.97953C16.5519 2.76818 16.008 2.70263 15.4781 2.79063C15.3131 2.30019 15.016 1.86479 14.6195 1.53233C14.223 1.19987 13.7424 0.983237 13.2307 0.90628C12.7191 0.829323 12.196 0.895021 11.7193 1.09615C11.2425 1.29727 10.8305 1.62602 10.5285 2.04622C10.2266 2.46642 10.0464 2.96179 10.0078 3.47779C9.96921 3.9938 10.0737 4.51045 10.3098 4.97089C10.546 5.43132 10.9045 5.81769 11.3461 6.08748C11.7876 6.35726 12.2951 6.50001 12.8125 6.5ZM17.5 5.5625C17.5 5.87153 17.4084 6.17363 17.2367 6.43058C17.065 6.68753 16.821 6.8878 16.5354 7.00606C16.2499 7.12433 15.9358 7.15527 15.6327 7.09498C15.3296 7.03469 15.0512 6.88588 14.8326 6.66736C14.6141 6.44884 14.4653 6.17043 14.405 5.86733C14.3447 5.56423 14.3757 5.25007 14.4939 4.96456C14.6122 4.67905 14.8125 4.43502 15.0694 4.26333C15.3264 4.09164 15.6285 4 15.9375 4C16.3519 4 16.7493 4.16462 17.0424 4.45765C17.3354 4.75067 17.5 5.1481 17.5 5.5625ZM12.8125 2.125C13.1534 2.12517 13.4848 2.2368 13.7563 2.44287C14.0279 2.64895 14.2245 2.93816 14.3164 3.26641C13.9963 3.49164 13.7267 3.7812 13.5249 4.11658C13.3232 4.45195 13.1936 4.82575 13.1445 5.21406C13.0354 5.23763 12.9241 5.24967 12.8125 5.25C12.3981 5.25 12.0007 5.08538 11.7076 4.79236C11.4146 4.49933 11.25 4.1019 11.25 3.6875C11.25 3.2731 11.4146 2.87567 11.7076 2.58265C12.0007 2.28962 12.3981 2.125 12.8125 2.125Z"
                            fill="#858585"></path>
                      </svg>
-                     Recharge
+                     Online Recharge
                   </a>
-                   <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/deposit-request">
-                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                        class="rpfteH2dJ806mlRyY5L7">
-                        <path
-                           d="M18.04 13.55C17.62 13.96 17.38 14.55 17.44 15.18C17.53 16.26 18.52 17.05 19.6 17.05H21.5V18.24C21.5 20.31 19.81 22 17.74 22H7.63C7.94 21.74 8.21 21.42 8.42 21.06C8.79 20.46 9 19.75 9 19C9 16.79 7.21 15 5 15C4.06 15 3.19 15.33 2.5 15.88V11.51C2.5 9.44001 4.19 7.75 6.26 7.75H17.74C19.81 7.75 21.5 9.44001 21.5 11.51V12.95H19.48C18.92 12.95 18.41 13.17 18.04 13.55Z"
-                           stroke="#858585" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path
-                           d="M2.5 12.4103V7.84035C2.5 6.65035 3.23 5.5903 4.34 5.1703L12.28 2.1703C13.52 1.7003 14.85 2.62033 14.85 3.95033V7.75032"
-                           stroke="#858585" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path
-                           d="M22.5588 13.9702V16.0302C22.5588 16.5802 22.1188 17.0302 21.5588 17.0502H19.5988C18.5188 17.0502 17.5288 16.2602 17.4388 15.1802C17.3788 14.5502 17.6188 13.9602 18.0388 13.5502C18.4088 13.1702 18.9188 12.9502 19.4788 12.9502H21.5588C22.1188 12.9702 22.5588 13.4202 22.5588 13.9702Z"
-                           stroke="#858585" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path d="M7 12H14" stroke="#858585" stroke-width="1.5" stroke-linecap="round"
-                           stroke-linejoin="round"></path>
-                        <path
-                           d="M9 19C9 19.75 8.79 20.46 8.42 21.06C8.21 21.42 7.94 21.74 7.63 22C6.93 22.63 6.01 23 5 23C3.54 23 2.27 22.22 1.58 21.06C1.21 20.46 1 19.75 1 19C1 17.74 1.58 16.61 2.5 15.88C3.19 15.33 4.06 15 5 15C7.21 15 9 16.79 9 19Z"
-                           stroke="#858585" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                           stroke-linejoin="round"></path>
-                        <path d="M6.49171 18.9795H3.51172" stroke="#858585" stroke-width="1.5" stroke-miterlimit="10"
-                           stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path d="M5 17.5195V20.5095" stroke="#858585" stroke-width="1.5" stroke-miterlimit="10"
-                           stroke-linecap="round" stroke-linejoin="round"></path>
-                     </svg>
-                     Deposit Request
-                  </a>
-                  <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/manage-deposit-request">
-                     <i class="fa-solid fa-hand-holding-dollar" style="color: rgb(156, 156, 156);"></i> Manage Deposit Requests
+                  <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/download-report">
+                    <i class="fa-solid fa-file-arrow-down" style="color: rgb(156, 156, 156);"></i>   Download Reports
                   </a>
                     @if(LoginAgentinfo['CreditRequestAllow']=='Yes'){
                         <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/credit-request">
@@ -225,7 +250,7 @@
                         <path d="M8.33337 3.33203L8.33337 16.6654" stroke="#858585" stroke-width="1.25"
                            stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4.17 4.17"></path>
                      </svg>
-                     GST Details
+                    Manage GST List
                   </a>
                   <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/travellers"> 
                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -236,62 +261,9 @@
                         <path d="M8.33337 3.33203L8.33337 16.6654" stroke="#858585" stroke-width="1.25"
                            stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4.17 4.17"></path>
                      </svg>
-                     Frequent Travellers
-                  </a>
-
-                  <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/markup">
-                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" id="markup"
-                        class="VFCSf3Y5WRuT6V1RskB3">
-                        <path
-                           d="M22.08014,12.19775l-.83008,4.18018a.49958.49958,0,0,1-.88281.2124l-.61816-.78515-6.52735,5.20654-.00213.00073a.49447.49447,0,0,1-.30939.10816.50031.50031,0,0,1-.2132-.04767c-.00561-.00263-.0094-.00885-.01489-.01172a.4971.4971,0,0,1-.16254-.12811L9.37213,17.00293,5.27155,20.272a.5.5,0,0,1-.62305-.78222l4.49024-3.58008a.50025.50025,0,0,1,.70214.07861l3.14783,3.93012,6.52991-5.20893a.50439.50439,0,0,1,.36914-.10547.49873.49873,0,0,1,.335.187l.25781.32763.61914-3.11523a.49977.49977,0,1,1,.98047.19433ZM9.78131,13.48291,3.72174,18.312a.5.5,0,0,1-.623-.78222L8.696,13.06934H4.96a.49972.49972,0,0,1-.5-.5V4.37939a.49972.49972,0,0,1,.5-.5H20.08014a.49972.49972,0,0,1,.5.5v7.52a.47457.47457,0,0,1-.01556.07715.47363.47363,0,0,1,.01654.09571.52.52,0,0,1-.51367.48584l-1.67871-.04688.2705.33594a.4995.4995,0,0,1-.0791.70508l-4.96,3.93994a.49976.49976,0,0,1-.70117-.07959Zm6.292-.91357a.49972.49972,0,0,1-.5.5H10.73053l2.65821,3.32959,4.17578-3.3169-.63379-.7876a.50173.50173,0,0,1-.0586-.53564.5123.5123,0,0,1,.46192-.27783l2.24609.06274V4.87939H5.46v7.19H15.57331A.49972.49972,0,0,1,16.07331,12.56934ZM13.02106,8.25116l-.33-.3c-.21-.19-.55-.5-.55-.68a.31887.31887,0,0,1,.1-.26.30437.30437,0,0,1,.24005-.11h.05a.321.321,0,0,1,.22.1.4339.4339,0,0,1,.11005.3.5079.5079,0,0,0,.48.52.49564.49564,0,0,0,.52-.48v-.11a1.37339,1.37339,0,0,0-.89-1.24005v-.13a.5137.5137,0,0,0-.51-.49.49513.49513,0,0,0-.49.51v.12a1.35932,1.35932,0,0,0-.83,1.29,1.72237,1.72237,0,0,0,.64,1.18c.08.08.16.15.24.22l.33.3c.21.19.55.5.55.68a.31885.31885,0,0,1-.1.26.30443.30443,0,0,1-.24005.11h-.05a.32111.32111,0,0,1-.22-.1.43378.43378,0,0,1-.11-.3.5079.5079,0,0,0-.48-.52.4957.4957,0,0,0-.52.48005v.11a1.3733,1.3733,0,0,0,.89,1.24v.13a.51364.51364,0,0,0,.51.49.49508.49508,0,0,0,.49-.51v-.12a1.35916,1.35916,0,0,0,.83-1.29,1.72223,1.72223,0,0,0-.64-1.18C13.181,8.39117,13.10108,8.32117,13.02106,8.25116Z">
-                        </path>
-                     </svg>
-                     Markup
+                     Manage Travellers
                   </a>
                   
-                  <a class="dropdown-item" href="javascript:void(0);" >
-                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                        class="rpfteH2dJ806mlRyY5L7">
-                        <path
-                           d="M18.04 13.55C17.62 13.96 17.38 14.55 17.44 15.18C17.53 16.26 18.52 17.05 19.6 17.05H21.5V18.24C21.5 20.31 19.81 22 17.74 22H7.63C7.94 21.74 8.21 21.42 8.42 21.06C8.79 20.46 9 19.75 9 19C9 16.79 7.21 15 5 15C4.06 15 3.19 15.33 2.5 15.88V11.51C2.5 9.44001 4.19 7.75 6.26 7.75H17.74C19.81 7.75 21.5 9.44001 21.5 11.51V12.95H19.48C18.92 12.95 18.41 13.17 18.04 13.55Z"
-                           stroke="#858585" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path
-                           d="M2.5 12.4103V7.84035C2.5 6.65035 3.23 5.5903 4.34 5.1703L12.28 2.1703C13.52 1.7003 14.85 2.62033 14.85 3.95033V7.75032"
-                           stroke="#858585" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path
-                           d="M22.5588 13.9702V16.0302C22.5588 16.5802 22.1188 17.0302 21.5588 17.0502H19.5988C18.5188 17.0502 17.5288 16.2602 17.4388 15.1802C17.3788 14.5502 17.6188 13.9602 18.0388 13.5502C18.4088 13.1702 18.9188 12.9502 19.4788 12.9502H21.5588C22.1188 12.9702 22.5588 13.4202 22.5588 13.9702Z"
-                           stroke="#858585" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path d="M7 12H14" stroke="#858585" stroke-width="1.5" stroke-linecap="round"
-                           stroke-linejoin="round"></path>
-                        <path
-                           d="M9 19C9 19.75 8.79 20.46 8.42 21.06C8.21 21.42 7.94 21.74 7.63 22C6.93 22.63 6.01 23 5 23C3.54 23 2.27 22.22 1.58 21.06C1.21 20.46 1 19.75 1 19C1 17.74 1.58 16.61 2.5 15.88C3.19 15.33 4.06 15 5 15C7.21 15 9 16.79 9 19Z"
-                           stroke="#858585" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                           stroke-linejoin="round"></path>
-                        <path d="M6.49171 18.9795H3.51172" stroke="#858585" stroke-width="1.5" stroke-miterlimit="10"
-                           stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path d="M5 17.5195V20.5095" stroke="#858585" stroke-width="1.5" stroke-miterlimit="10"
-                           stroke-linecap="round" stroke-linejoin="round"></path>
-                     </svg>
-                     Invoice
-                  </a>
-                 <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/payment-passbook">
-                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
-                        class="rpfteH2dJ806mlRyY5L7">
-                        <path
-                           d="M10.0999 10.6497C10.0416 10.6414 9.9666 10.6414 9.89993 10.6497C8.43327 10.5997 7.2666 9.39974 7.2666 7.92474C7.2666 6.41641 8.48327 5.19141 9.99993 5.19141C11.5083 5.19141 12.7333 6.41641 12.7333 7.92474C12.7249 9.39974 11.5666 10.5997 10.0999 10.6497Z"
-                           stroke="#858585" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path
-                           d="M15.6166 16.1469C14.1333 17.5052 12.1666 18.3302 9.99997 18.3302C7.8333 18.3302 5.86663 17.5052 4.3833 16.1469C4.46663 15.3635 4.96663 14.5969 5.8583 13.9969C8.14163 12.4802 11.875 12.4802 14.1416 13.9969C15.0333 14.5969 15.5333 15.3635 15.6166 16.1469Z"
-                           stroke="#858585" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path
-                           d="M9.99996 18.3346C14.6023 18.3346 18.3333 14.6037 18.3333 10.0013C18.3333 5.39893 14.6023 1.66797 9.99996 1.66797C5.39759 1.66797 1.66663 5.39893 1.66663 10.0013C1.66663 14.6037 5.39759 18.3346 9.99996 18.3346Z"
-                           stroke="#858585" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-                     </svg>
-                     Account Statement
-                  </a>
-                  <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/download-report">
-                    <i class="fa-solid fa-file-arrow-down" style="color: rgb(156, 156, 156);"></i>   Download Reports
-                  </a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item logout-item" (click)="logout()" href="javascript:void(0);">
                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -312,262 +284,6 @@
       </div>
    </div>
 </header>
-
-<!-----old--code--start-->
-<div class="header d-none">
-    <div class="container-fluid">
-        <div class="row align-items-center">
-            <div class="col-md-4">
-                <a class="navbar-brand" (click)="OpenHome()"><img [src]="LogoURL" class="img-fluid logo__img" /></a>
-            </div>
-            <div class="col-md-8">
-                <ul class="topbar d-lg-flex d-none d-flex align-items-center justify-content-md-end">
-                    <div class="border-bottom">
-                        <li class="topbar__list"><a class="tts-head-a"
-                                routerLink="/dashboard/user-detail/{{LoginAgentinfo['CompanyId']}}"
-                                target="_blank">Welcome {{LoginAgentinfo['CompanyName']}}
-                                ({{LoginAgentinfo['CompanyId']}}) </a>
-                        </li>
-                        <li class="topbar__list">
-                            <div class="dropdown">
-                                <span class="d-flex gap-2 align-items-center" data-bs-toggle="dropdown"
-                                    aria-expanded="false">My Balance: ₹{{this.WalletBalance | number:'1.2-2'}}
-                                    <span (click)="RefreshBalance()">
-                                        <img class="topbar__list--refresh-icon img-fluid" src="assets/img/refresh.png"
-                                            alt="Refresh" />
-                                    </span>
-                                </span>
-                                <ul class="dropdown-menu mega-menu  show-{{dyclass}}">
-                                    <li class="tableDropdown__wrap--list list-{{dyclass}}">
-                                        <p>Deposit Balance</p>
-                                        <p *ngIf="WalletCreditLimit!==0">Credit Balance</p>
-                                        <p *ngIf="WalletCreditLimit!==0">Dues</p>
-                                        <p>Wallet Status</p>
-                                        <p *ngIf="WalletCreditLimit!==0">Credit Status</p>
-                                    </li>
-                                    <li class="tableDropdown__wrap--list__content  list-{{dyclass}}">
-                                        <p class="my-bal-dropdown">₹{{WalletDepositBalance | number:'1.2-2'}}</p>
-                                        <p *ngIf="WalletCreditLimit!==0">
-                                            <span class="d-block">₹{{WalletCreditLimit | number:'1.2-2'}}</span>
-                                            <!--<span class="d-block" *ngIf="WalletCreditLimit!=0"><b>ED:</b> {{WalletCreditExpireDate}}</span>-->
-                                        </p>
-                                        <p *ngIf="WalletCreditLimit!==0">₹{{WalletDueAmount | number:'1.2-2'}}</p>
-                                        <p
-                                            [ngClass]="{'text-success':WalletStatus=='Active','text-danger':WalletStatus!='Active'}">
-                                            {{WalletStatus}}
-                                        </p>
-                                        <p *ngIf="WalletCreditLimit!==0"
-                                            [ngClass]="{'text-success':WalletCreditStatus=='Active','text-danger':WalletCreditStatus!='Active'}">
-                                            {{WalletCreditStatus}}</p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="topbar__list" *ngIf="WalletDueAmount!=0">
-                            <span class="topbar__list--dues">Dues</span>: ₹{{this.WalletDueAmount | number:'1.2-2'}}
-                            <!--<span class="tts-due-expirydate" *ngIf="WalletCreditLimit!=0"><b>ED:</b> {{WalletCreditExpireDate}}</span>-->
-                        </li>
-                        <li class="topbar__list" routerLink="/dashboard/online-recharge">Recharge</li>
-                        <li class="topbar__list" (click)="logout()">Logout</li>
-                    </div>
-                </ul>
-                <nav class="navbar navbar-expand-lg p-0 justify-content-md-end">
-                    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                  aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                  </button> -->
-                    <button class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#mobileOffcanvas">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <div class="topbar mobile-topbar d-none d-flex align-items-center justify-content-md-end">
-                            <li class="topbar__list"><a class="tts-head-a"
-                                    routerLink="/dashboard/user-detail/{{LoginAgentinfo['CompanyId']}}"
-                                    target="_blank">Welcome {{LoginAgentinfo['CompanyName']}}
-                                    ({{LoginAgentinfo['CompanyId']}}) </a>
-                            </li>
-                            <!-- <li class="topbar__list">
-                        <div class="dropdown">
-                            <span data-bs-toggle="dropdown" aria-expanded="false">My Balance: ₹{{this.WalletBalance | number:'1.2-2'}}</span>
-                            <span class="ms-1" (click)="RefreshBalance()"> <img class="topbar__list--refresh-icon img-fluid" src="assets/img/refresh.png" alt="Refresh" /></span>
-                            <ul class="dropdown-menu mega-menu">
-                                <li class="tableDropdown__wrap--list">
-                                    <p>Deposit Balance</p>
-                                    <p>Credit Balance</p>
-                                    <p>Dues</p>
-                                    <p>Wallet Status</p>
-                                    <p>Credit Status</p>
-                                </li>
-                                <li class="tableDropdown__wrap--list__content">
-                                    <p class="my-bal-dropdown">₹{{WalletDepositBalance | number:'1.2-2'}}</p>
-                                    <p>
-                                        <span class="d-block">₹{{WalletCreditLimit | number:'1.2-2'}}</span>
-                                        <span class="d-block" *ngIf="WalletCreditLimit!=0"><b>ED:</b> {{WalletCreditExpireDate}}</span>
-                                    </p>
-                                    <p>₹{{WalletDueAmount | number:'1.2-2'}}</p>
-                                    <p [ngClass]="{'text-success':WalletStatus=='Active','text-danger':WalletStatus!='Active'}">{{WalletStatus}}</p>
-                                    <p [ngClass]="{'text-success':WalletCreditStatus=='Active','text-danger':WalletCreditStatus!='Active'}">{{WalletCreditStatus}}</p>
-                                </li>
-                            </ul>
-                        </div>
-                        </li> -->
-                            <li class="topbar__list">
-                                <div class="dropdown">
-                                    <span data-bs-toggle="dropdown" aria-expanded="false">My Balance:
-                                        ₹{{this.WalletBalance | number:'1.2-2'}}</span>
-                                    <span class="ms-1" (click)="RefreshBalance()"> <img
-                                            class="topbar__list--refresh-icon img-fluid" src="assets/img/refresh.png"
-                                            alt="Refresh" /></span>
-                                    <ul class="dropdown-menu mega-menu  show-{{dyclass}}">
-                                        <li class="tableDropdown__wrap--list list-{{dyclass}}">
-                                            <p>Deposit Balance</p>
-                                            <p *ngIf="WalletCreditLimit!==0">Credit Balance</p>
-                                            <p *ngIf="WalletCreditLimit!==0">Dues</p>
-                                            <p>Wallet Status</p>
-                                            <p *ngIf="WalletCreditLimit!==0">Credit Status</p>
-                                        </li>
-                                        <li class="tableDropdown__wrap--list__content  list-{{dyclass}}">
-                                            <p class="my-bal-dropdown">₹{{WalletDepositBalance | number:'1.2-2'}}</p>
-                                            <p *ngIf="WalletCreditLimit!==0">
-                                                <span class="d-block">₹{{WalletCreditLimit | number:'1.2-2'}}</span>
-                                                <!--<span class="d-block" *ngIf="WalletCreditLimit!=0"><b>ED:</b> {{WalletCreditExpireDate}}</span>-->
-                                            </p>
-                                            <p *ngIf="WalletCreditLimit!==0">₹{{WalletDueAmount | number:'1.2-2'}}</p>
-                                            <p
-                                                [ngClass]="{'text-success':WalletStatus=='Active','text-danger':WalletStatus!='Active'}">
-                                                {{WalletStatus}}
-                                            </p>
-                                            <p *ngIf="WalletCreditLimit!==0"
-                                                [ngClass]="{'text-success':WalletCreditStatus=='Active','text-danger':WalletCreditStatus!='Active'}">
-                                                {{WalletCreditStatus}}</p>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="topbar__list" *ngIf="WalletDueAmount!=0"><span>Dues</span>:
-                                ₹{{this.WalletDueAmount | number:'1.2-2'}}
-                            </li>
-                            <li class="topbar__list" (click)="logout()">Logout</li>
-                        </div>
-                        <ul class="navbar-nav ms-auto navbar-list">
-                            <li class="nav-item">
-                                <a class="nav-link" routerLinkActive="active" aria-current="page"
-                                    routerLink="/flight">Flight</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" routerLinkActive="active" aria-current="page"
-                                    routerLink="/hotel">Hotel</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" routerLinkActive="active" aria-current="page"
-                                    routerLink="/bus">Bus</a>
-                            </li>
-                            <!-- <li class="nav-item">
-                        <a class="nav-link" routerLinkActive="active" aria-current="page"
-                            routerLink="/visa">Visa</a>
-                        </li> -->
-                            <li class="nav-item">
-                                <a class="nav-link" routerLinkActive="active"
-                                    routerLink="dashboard/manage-carts">Dashboard</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="offcanvas offcanvas-start" tabindex="-1" id="mobileOffcanvas" aria-labelledby="offcanvasLabel">
-    <!-- Header -->
-    <div class="offcanvas-header bg-primary text-white">
-        <h6 class="offcanvas-title" id="offcanvasLabel">
-            <i class="fas fa-building me-2"></i>{{ LoginAgentinfo.CompanyName }}
-        </h6>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close">
-            <i class="fa-solid fa-x"></i>
-        </button>
-    </div>
-    <!-- Body -->
-    <div class="offcanvas-body p-0">
-        <!-- Profile Section -->
-        <div class="d-flex align-items-center p-3 border-bottom">
-            <div>
-                <div class="fw-bold">
-                    <i class="fas fa-user-circle me-1"></i> Welcome, {{ LoginAgentinfo.CompanyName }}
-                </div>
-                <small class="text-muted">ID: {{ LoginAgentinfo.CompanyId }}</small>
-            </div>
-        </div>
-        <!-- Wallet Section -->
-        <div class="p-3 border-bottom bg-light">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-                <span class="fw-semibold"><i class="fas fa-wallet me-1"></i> My Balance</span>
-                <button class="btn btn-sm btn-outline-secondary" (click)="RefreshBalance()">
-                    <i class="fas fa-sync-alt"></i>
-                </button>
-            </div>
-            <h5 class="text-success mb-2">₹{{ WalletBalance | number:'1.2-2' }}</h5>
-            <div class="small text-muted mb-2">
-                <div><i class="fas fa-coins me-1"></i> Deposit: ₹{{ WalletDepositBalance | number:'1.2-2' }}</div>
-                <div *ngIf="WalletCreditLimit !== 0"><i class="fas fa-credit-card me-1"></i> Credit: ₹{{
-                    WalletCreditLimit | number:'1.2-2' }}
-                </div>
-                <div *ngIf="WalletDueAmount !== 0" class="text-danger"><i class="fas fa-exclamation-triangle me-1"></i>
-                    Dues: ₹{{ WalletDueAmount | number:'1.2-2' }}
-                </div>
-            </div>
-            <div class="d-flex gap-2">
-                <span class="badge"
-                    [ngClass]="{'bg-success': WalletStatus=='Active','bg-secondary': WalletStatus!='Active'}">{{
-                    WalletStatus }}
-                </span>
-                <span *ngIf="WalletCreditLimit !== 0" class="badge"
-                    [ngClass]="{'bg-success': WalletCreditStatus=='Active','bg-secondary': WalletCreditStatus!='Active'}">Credit
-                    {{ WalletCreditStatus }}
-                </span>
-            </div>
-        </div>
-        <!-- Navigation Menu -->
-        <ul class="mobile-nav">
-            <li>
-                <a [routerLink]="['/flight']">
-                    <i class="fas fa-plane "></i> Flights
-                </a>
-            </li>
-            <li>
-                <a [routerLink]="['/hotel']">
-                    <i class="fas fa-hotel "></i> Hotels
-                </a>
-            </li>
-            <li>
-                <a [routerLink]="['/car']">
-                    <i class="fas fa-car-side "></i> Cars
-                </a>
-            </li>
-            <li>
-                <a [routerLink]="['/visa']">
-                    <i class="fas fa-passport "></i> Visa
-                </a>
-            </li>
-            <li>
-                <a [routerLink]="['/dashboard/manage-carts']">
-                    <i class="fas fa-tachometer-alt "></i> Dashboard
-                </a>
-            </li>
-            <li>
-                <a [routerLink]="['/dashboard/online-recharge']">
-                    <i class="fas fa-wallet "></i> Recharge
-                </a>
-            </li>
-            <li class="logout-btn">
-                <a href="javascript:void(0);" (click)="logout()">
-                    <i class="fas fa-sign-out-alt "></i> Logout
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
-<!-----old--code--END---->
 
 
 <!------Sidebar Start----->
@@ -616,6 +332,17 @@
                             </li>
                             }
                             <li class="nav-item" routerLinkActive="active">
+                                 <a class="nav-link" href="javascript:void(0)" routerLink="/dashboard/markup">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 25 25" id="markup"
+                                        class="VFCSf3Y5WRuT6V1RskB3">
+                                        <path
+                                        d="M22.08014,12.19775l-.83008,4.18018a.49958.49958,0,0,1-.88281.2124l-.61816-.78515-6.52735,5.20654-.00213.00073a.49447.49447,0,0,1-.30939.10816.50031.50031,0,0,1-.2132-.04767c-.00561-.00263-.0094-.00885-.01489-.01172a.4971.4971,0,0,1-.16254-.12811L9.37213,17.00293,5.27155,20.272a.5.5,0,0,1-.62305-.78222l4.49024-3.58008a.50025.50025,0,0,1,.70214.07861l3.14783,3.93012,6.52991-5.20893a.50439.50439,0,0,1,.36914-.10547.49873.49873,0,0,1,.335.187l.25781.32763.61914-3.11523a.49977.49977,0,1,1,.98047.19433ZM9.78131,13.48291,3.72174,18.312a.5.5,0,0,1-.623-.78222L8.696,13.06934H4.96a.49972.49972,0,0,1-.5-.5V4.37939a.49972.49972,0,0,1,.5-.5H20.08014a.49972.49972,0,0,1,.5.5v7.52a.47457.47457,0,0,1-.01556.07715.47363.47363,0,0,1,.01654.09571.52.52,0,0,1-.51367.48584l-1.67871-.04688.2705.33594a.4995.4995,0,0,1-.0791.70508l-4.96,3.93994a.49976.49976,0,0,1-.70117-.07959Zm6.292-.91357a.49972.49972,0,0,1-.5.5H10.73053l2.65821,3.32959,4.17578-3.3169-.63379-.7876a.50173.50173,0,0,1-.0586-.53564.5123.5123,0,0,1,.46192-.27783l2.24609.06274V4.87939H5.46v7.19H15.57331A.49972.49972,0,0,1,16.07331,12.56934ZM13.02106,8.25116l-.33-.3c-.21-.19-.55-.5-.55-.68a.31887.31887,0,0,1,.1-.26.30437.30437,0,0,1,.24005-.11h.05a.321.321,0,0,1,.22.1.4339.4339,0,0,1,.11005.3.5079.5079,0,0,0,.48.52.49564.49564,0,0,0,.52-.48v-.11a1.37339,1.37339,0,0,0-.89-1.24005v-.13a.5137.5137,0,0,0-.51-.49.49513.49513,0,0,0-.49.51v.12a1.35932,1.35932,0,0,0-.83,1.29,1.72237,1.72237,0,0,0,.64,1.18c.08.08.16.15.24.22l.33.3c.21.19.55.5.55.68a.31885.31885,0,0,1-.1.26.30443.30443,0,0,1-.24005.11h-.05a.32111.32111,0,0,1-.22-.1.43378.43378,0,0,1-.11-.3.5079.5079,0,0,0-.48-.52.4957.4957,0,0,0-.52.48005v.11a1.3733,1.3733,0,0,0,.89,1.24v.13a.51364.51364,0,0,0,.51.49.49508.49508,0,0,0,.49-.51v-.12a1.35916,1.35916,0,0,0,.83-1.29,1.72223,1.72223,0,0,0-.64-1.18C13.181,8.39117,13.10108,8.32117,13.02106,8.25116Z">
+                                        </path>
+                                    </svg>
+                                    Manage Markup
+                                </a>
+                            </li>
+                            <li class="nav-item" routerLinkActive="active">
                                 <a class="nav-link" routerLink="/dashboard/bookings">
                                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="rpfteH2dJ806mlRyY5L7">
@@ -636,13 +363,62 @@
                                         d="M21.5 10H3.5M16.5 2V6M8.5 2V6M8.3 22H16.7C18.3802 22 19.2202 22 19.862 21.673C20.4265 21.3854 20.8854 20.9265 21.173 20.362C21.5 19.7202 21.5 18.8802 21.5 17.2V8.8C21.5 7.11984 21.5 6.27976 21.173 5.63803C20.8854 5.07354 20.4265 4.6146 19.862 4.32698C19.2202 4 18.3802 4 16.7 4H8.3C6.61984 4 5.77976 4 5.13803 4.32698C4.57354 4.6146 4.1146 5.07354 3.82698 5.63803C3.5 6.27976 3.5 7.11984 3.5 8.8V17.2C3.5 18.8802 3.5 19.7202 3.82698 20.362C4.1146 20.9265 4.57354 21.3854 5.13803 21.673C5.77976 22 6.61984 22 8.3 22Z"
                                         stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                     </svg>
-                                    Booking Calendar
+                                    Bookings Calendar
                                 </a>
                             </li>  
                             <li class="nav-item" routerLinkActive="active">
                                 <a class="nav-link" routerLink="/dashboard/amendments">
                                   <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 640 640"><path fill="rgb(156, 156, 156)" d="M216 64C229.3 64 240 74.7 240 88L240 128L400 128L400 88C400 74.7 410.7 64 424 64C437.3 64 448 74.7 448 88L448 128L480 128C515.3 128 544 156.7 544 192L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 192C96 156.7 124.7 128 160 128L192 128L192 88C192 74.7 202.7 64 216 64zM216 176L160 176C151.2 176 144 183.2 144 192L144 480C144 488.8 151.2 496 160 496L480 496C488.8 496 496 488.8 496 480L496 192C496 183.2 488.8 176 480 176L216 176zM387.9 268.1C397.3 277.5 397.3 292.7 387.9 302L354 335.9L387.9 369.8C397.3 379.2 397.3 394.4 387.9 403.7C378.5 413 363.3 413.1 354 403.7L320.1 369.8L286.2 403.7C276.8 413.1 261.6 413.1 252.3 403.7C243 394.3 242.9 379.1 252.3 369.8L286.2 335.9L252.3 302C242.9 292.6 242.9 277.4 252.3 268.1C261.7 258.8 276.9 258.7 286.2 268.1L320.1 302L354 268.1C363.4 258.7 378.6 258.7 387.9 268.1z"/></svg>
-                                    My Amendments
+                                   Bookings Amendment
+                                </a>
+                            </li>
+                            <li class="nav-item" routerLinkActive="active">
+                                <a class="nav-link" routerLink="/dashboard/payment-passbook">
+                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                        class="rpfteH2dJ806mlRyY5L7">
+                                        <path
+                                        d="M10.0999 10.6497C10.0416 10.6414 9.9666 10.6414 9.89993 10.6497C8.43327 10.5997 7.2666 9.39974 7.2666 7.92474C7.2666 6.41641 8.48327 5.19141 9.99993 5.19141C11.5083 5.19141 12.7333 6.41641 12.7333 7.92474C12.7249 9.39974 11.5666 10.5997 10.0999 10.6497Z"
+                                        stroke="#858585" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path
+                                        d="M15.6166 16.1469C14.1333 17.5052 12.1666 18.3302 9.99997 18.3302C7.8333 18.3302 5.86663 17.5052 4.3833 16.1469C4.46663 15.3635 4.96663 14.5969 5.8583 13.9969C8.14163 12.4802 11.875 12.4802 14.1416 13.9969C15.0333 14.5969 15.5333 15.3635 15.6166 16.1469Z"
+                                        stroke="#858585" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path
+                                        d="M9.99996 18.3346C14.6023 18.3346 18.3333 14.6037 18.3333 10.0013C18.3333 5.39893 14.6023 1.66797 9.99996 1.66797C5.39759 1.66797 1.66663 5.39893 1.66663 10.0013C1.66663 14.6037 5.39759 18.3346 9.99996 18.3346Z"
+                                        stroke="#858585" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+                                     Account Passbook
+                                </a>
+                            </li>
+                            <li class="nav-item" routerLinkActive="active">
+                                <a class="nav-link" routerLink="/dashboard/deposit-request">
+                                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                        class="rpfteH2dJ806mlRyY5L7">
+                                        <path
+                                        d="M18.04 13.55C17.62 13.96 17.38 14.55 17.44 15.18C17.53 16.26 18.52 17.05 19.6 17.05H21.5V18.24C21.5 20.31 19.81 22 17.74 22H7.63C7.94 21.74 8.21 21.42 8.42 21.06C8.79 20.46 9 19.75 9 19C9 16.79 7.21 15 5 15C4.06 15 3.19 15.33 2.5 15.88V11.51C2.5 9.44001 4.19 7.75 6.26 7.75H17.74C19.81 7.75 21.5 9.44001 21.5 11.51V12.95H19.48C18.92 12.95 18.41 13.17 18.04 13.55Z"
+                                        stroke="#858585" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path
+                                        d="M2.5 12.4103V7.84035C2.5 6.65035 3.23 5.5903 4.34 5.1703L12.28 2.1703C13.52 1.7003 14.85 2.62033 14.85 3.95033V7.75032"
+                                        stroke="#858585" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path
+                                        d="M22.5588 13.9702V16.0302C22.5588 16.5802 22.1188 17.0302 21.5588 17.0502H19.5988C18.5188 17.0502 17.5288 16.2602 17.4388 15.1802C17.3788 14.5502 17.6188 13.9602 18.0388 13.5502C18.4088 13.1702 18.9188 12.9502 19.4788 12.9502H21.5588C22.1188 12.9702 22.5588 13.4202 22.5588 13.9702Z"
+                                        stroke="#858585" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path d="M7 12H14" stroke="#858585" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
+                                        <path
+                                        d="M9 19C9 19.75 8.79 20.46 8.42 21.06C8.21 21.42 7.94 21.74 7.63 22C6.93 22.63 6.01 23 5 23C3.54 23 2.27 22.22 1.58 21.06C1.21 20.46 1 19.75 1 19C1 17.74 1.58 16.61 2.5 15.88C3.19 15.33 4.06 15 5 15C7.21 15 9 16.79 9 19Z"
+                                        stroke="#858585" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
+                                        <path d="M6.49171 18.9795H3.51172" stroke="#858585" stroke-width="1.5" stroke-miterlimit="10"
+                                        stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path d="M5 17.5195V20.5095" stroke="#858585" stroke-width="1.5" stroke-miterlimit="10"
+                                        stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+                                    Deposit Request
+                                </a>
+                            </li>
+                             <li class="nav-item" routerLinkActive="active">
+                                <a class="nav-link" routerLink="/dashboard/manage-deposit-request">
+                                    <i class="fa-solid fa-hand-holding-dollar" style="color: rgb(156, 156, 156);"></i> Manage Deposit
                                 </a>
                             </li>
                             <li class="nav-item" routerLinkActive="active">
@@ -680,41 +456,15 @@
                                         d="M17.9945 10.0203C17.762 9.84137 17.4913 9.71847 17.2035 9.66115C16.9157 9.60384 16.6185 9.61366 16.3352 9.68985L13.0664 10.4414C13.1425 10.1202 13.1448 9.78585 13.0733 9.46356C13.0017 9.14126 12.8582 8.83934 12.6534 8.58041C12.4486 8.32149 12.1878 8.11228 11.8907 7.96847C11.5935 7.82465 11.2676 7.74997 10.9375 7.75H7.02656C6.69812 7.74918 6.37278 7.81345 6.06932 7.93909C5.76587 8.06474 5.49032 8.24927 5.25859 8.48203L3.49141 10.25H1.25C0.918479 10.25 0.600537 10.3817 0.366117 10.6161C0.131696 10.8505 0 11.1685 0 11.5L0 14.625C0 14.9565 0.131696 15.2745 0.366117 15.5089C0.600537 15.7433 0.918479 15.875 1.25 15.875H9.375C9.4261 15.875 9.47701 15.8687 9.52656 15.8563L14.5266 14.6063C14.5584 14.5987 14.5895 14.5882 14.6195 14.575L17.6562 13.2828L17.6906 13.2672C17.9825 13.1214 18.2324 12.9036 18.4168 12.6345C18.6013 12.3654 18.7142 12.0537 18.7449 11.7289C18.7756 11.4041 18.7231 11.0768 18.5924 10.7779C18.4617 10.479 18.257 10.2183 17.9977 10.0203H17.9945ZM1.25 11.5H3.125V14.625H1.25V11.5ZM17.143 12.1414L14.1742 13.4055L9.29688 14.625H4.375V11.1336L6.14297 9.36641C6.25862 9.24983 6.39629 9.1574 6.54798 9.0945C6.69967 9.0316 6.86235 8.99948 7.02656 9H10.9375C11.1861 9 11.4246 9.09877 11.6004 9.27459C11.7762 9.4504 11.875 9.68886 11.875 9.9375C11.875 10.1861 11.7762 10.4246 11.6004 10.6004C11.4246 10.7762 11.1861 10.875 10.9375 10.875H8.75C8.58424 10.875 8.42527 10.9408 8.30806 11.0581C8.19085 11.1753 8.125 11.3342 8.125 11.5C8.125 11.6658 8.19085 11.8247 8.30806 11.9419C8.42527 12.0592 8.58424 12.125 8.75 12.125H11.25C11.297 12.1249 11.3439 12.1196 11.3898 12.1094L16.6242 10.9055L16.6484 10.8992C16.8082 10.8549 16.9788 10.8712 17.1273 10.945C17.2758 11.0188 17.3917 11.1449 17.4528 11.2991C17.5139 11.4533 17.5158 11.6246 17.4582 11.7801C17.4005 11.9356 17.2874 12.0643 17.1406 12.1414H17.143ZM12.8125 6.5C12.9669 6.50018 13.1211 6.48763 13.2734 6.4625C13.4448 6.97152 13.7583 7.42083 14.177 7.7573C14.5956 8.09378 15.1018 8.30335 15.6358 8.36123C16.1698 8.41912 16.7091 8.32291 17.1901 8.08397C17.6712 7.84503 18.0737 7.47336 18.3502 7.01289C18.6267 6.55243 18.7655 6.02242 18.7503 5.48555C18.7351 4.94867 18.5665 4.42737 18.2644 3.98328C17.9624 3.53919 17.5394 3.19088 17.0457 2.97953C16.5519 2.76818 16.008 2.70263 15.4781 2.79063C15.3131 2.30019 15.016 1.86479 14.6195 1.53233C14.223 1.19987 13.7424 0.983237 13.2307 0.90628C12.7191 0.829323 12.196 0.895021 11.7193 1.09615C11.2425 1.29727 10.8305 1.62602 10.5285 2.04622C10.2266 2.46642 10.0464 2.96179 10.0078 3.47779C9.96921 3.9938 10.0737 4.51045 10.3098 4.97089C10.546 5.43132 10.9045 5.81769 11.3461 6.08748C11.7876 6.35726 12.2951 6.50001 12.8125 6.5ZM17.5 5.5625C17.5 5.87153 17.4084 6.17363 17.2367 6.43058C17.065 6.68753 16.821 6.8878 16.5354 7.00606C16.2499 7.12433 15.9358 7.15527 15.6327 7.09498C15.3296 7.03469 15.0512 6.88588 14.8326 6.66736C14.6141 6.44884 14.4653 6.17043 14.405 5.86733C14.3447 5.56423 14.3757 5.25007 14.4939 4.96456C14.6122 4.67905 14.8125 4.43502 15.0694 4.26333C15.3264 4.09164 15.6285 4 15.9375 4C16.3519 4 16.7493 4.16462 17.0424 4.45765C17.3354 4.75067 17.5 5.1481 17.5 5.5625ZM12.8125 2.125C13.1534 2.12517 13.4848 2.2368 13.7563 2.44287C14.0279 2.64895 14.2245 2.93816 14.3164 3.26641C13.9963 3.49164 13.7267 3.7812 13.5249 4.11658C13.3232 4.45195 13.1936 4.82575 13.1445 5.21406C13.0354 5.23763 12.9241 5.24967 12.8125 5.25C12.3981 5.25 12.0007 5.08538 11.7076 4.79236C11.4146 4.49933 11.25 4.1019 11.25 3.6875C11.25 3.2731 11.4146 2.87567 11.7076 2.58265C12.0007 2.28962 12.3981 2.125 12.8125 2.125Z"
                                         fill="#858585"></path>
                                     </svg>
-                                    Recharge
+                                    Online Recharge
                                 </a>
                             </li>
                             <li class="nav-item" routerLinkActive="active">
-                                <a class="nav-link" routerLink="/dashboard/deposit-request">
-                                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                                        class="rpfteH2dJ806mlRyY5L7">
-                                        <path
-                                        d="M18.04 13.55C17.62 13.96 17.38 14.55 17.44 15.18C17.53 16.26 18.52 17.05 19.6 17.05H21.5V18.24C21.5 20.31 19.81 22 17.74 22H7.63C7.94 21.74 8.21 21.42 8.42 21.06C8.79 20.46 9 19.75 9 19C9 16.79 7.21 15 5 15C4.06 15 3.19 15.33 2.5 15.88V11.51C2.5 9.44001 4.19 7.75 6.26 7.75H17.74C19.81 7.75 21.5 9.44001 21.5 11.51V12.95H19.48C18.92 12.95 18.41 13.17 18.04 13.55Z"
-                                        stroke="#858585" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        <path
-                                        d="M2.5 12.4103V7.84035C2.5 6.65035 3.23 5.5903 4.34 5.1703L12.28 2.1703C13.52 1.7003 14.85 2.62033 14.85 3.95033V7.75032"
-                                        stroke="#858585" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        <path
-                                        d="M22.5588 13.9702V16.0302C22.5588 16.5802 22.1188 17.0302 21.5588 17.0502H19.5988C18.5188 17.0502 17.5288 16.2602 17.4388 15.1802C17.3788 14.5502 17.6188 13.9602 18.0388 13.5502C18.4088 13.1702 18.9188 12.9502 19.4788 12.9502H21.5588C22.1188 12.9702 22.5588 13.4202 22.5588 13.9702Z"
-                                        stroke="#858585" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        <path d="M7 12H14" stroke="#858585" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round"></path>
-                                        <path
-                                        d="M9 19C9 19.75 8.79 20.46 8.42 21.06C8.21 21.42 7.94 21.74 7.63 22C6.93 22.63 6.01 23 5 23C3.54 23 2.27 22.22 1.58 21.06C1.21 20.46 1 19.75 1 19C1 17.74 1.58 16.61 2.5 15.88C3.19 15.33 4.06 15 5 15C7.21 15 9 16.79 9 19Z"
-                                        stroke="#858585" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                                        stroke-linejoin="round"></path>
-                                        <path d="M6.49171 18.9795H3.51172" stroke="#858585" stroke-width="1.5" stroke-miterlimit="10"
-                                        stroke-linecap="round" stroke-linejoin="round"></path>
-                                        <path d="M5 17.5195V20.5095" stroke="#858585" stroke-width="1.5" stroke-miterlimit="10"
-                                        stroke-linecap="round" stroke-linejoin="round"></path>
-                                    </svg>
-                                    Deposit Request
+                                <a class="nav-link" routerLink="/dashboard/download-report">
+                                    <i class="fa-solid fa-file-arrow-down" style="color: rgb(156, 156, 156);"></i> Download Reports
                                 </a>
                             </li>
-                             <li class="nav-item" routerLinkActive="active">
-                                <a class="nav-link" routerLink="/dashboard/manage-deposit-request">
-                                    <i class="fa-solid fa-hand-holding-dollar" style="color: rgb(156, 156, 156);"></i> Manage Deposit Requests
-                                </a>
-                            </li>
+                            
                             @if(LoginAgentinfo['CreditRequestAllow']=='Yes'){
                                 <li class="nav-item" routerLinkActive="active">
                                     <a class="nav-link" routerLink="/dashboard/credit-request">
@@ -732,7 +482,7 @@
                                         <path d="M8.33337 3.33203L8.33337 16.6654" stroke="#858585" stroke-width="1.25"
                                         stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4.17 4.17"></path>
                                     </svg>
-                                    GST Details
+                                     Manage GST List
                                 </a>
                             </li>
                             <li class="nav-item" routerLinkActive="active">
@@ -745,71 +495,10 @@
                                         <path d="M8.33337 3.33203L8.33337 16.6654" stroke="#858585" stroke-width="1.25"
                                         stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4.17 4.17"></path>
                                     </svg>
-                                    Frequent Travellers
-                                </a>
-                            </li>
-                             <li class="nav-item" routerLinkActive="active">
-                                 <a class="nav-link" href="javascript:void(0)" routerLink="/dashboard/markup">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 25 25" id="markup"
-                                        class="VFCSf3Y5WRuT6V1RskB3">
-                                        <path
-                                        d="M22.08014,12.19775l-.83008,4.18018a.49958.49958,0,0,1-.88281.2124l-.61816-.78515-6.52735,5.20654-.00213.00073a.49447.49447,0,0,1-.30939.10816.50031.50031,0,0,1-.2132-.04767c-.00561-.00263-.0094-.00885-.01489-.01172a.4971.4971,0,0,1-.16254-.12811L9.37213,17.00293,5.27155,20.272a.5.5,0,0,1-.62305-.78222l4.49024-3.58008a.50025.50025,0,0,1,.70214.07861l3.14783,3.93012,6.52991-5.20893a.50439.50439,0,0,1,.36914-.10547.49873.49873,0,0,1,.335.187l.25781.32763.61914-3.11523a.49977.49977,0,1,1,.98047.19433ZM9.78131,13.48291,3.72174,18.312a.5.5,0,0,1-.623-.78222L8.696,13.06934H4.96a.49972.49972,0,0,1-.5-.5V4.37939a.49972.49972,0,0,1,.5-.5H20.08014a.49972.49972,0,0,1,.5.5v7.52a.47457.47457,0,0,1-.01556.07715.47363.47363,0,0,1,.01654.09571.52.52,0,0,1-.51367.48584l-1.67871-.04688.2705.33594a.4995.4995,0,0,1-.0791.70508l-4.96,3.93994a.49976.49976,0,0,1-.70117-.07959Zm6.292-.91357a.49972.49972,0,0,1-.5.5H10.73053l2.65821,3.32959,4.17578-3.3169-.63379-.7876a.50173.50173,0,0,1-.0586-.53564.5123.5123,0,0,1,.46192-.27783l2.24609.06274V4.87939H5.46v7.19H15.57331A.49972.49972,0,0,1,16.07331,12.56934ZM13.02106,8.25116l-.33-.3c-.21-.19-.55-.5-.55-.68a.31887.31887,0,0,1,.1-.26.30437.30437,0,0,1,.24005-.11h.05a.321.321,0,0,1,.22.1.4339.4339,0,0,1,.11005.3.5079.5079,0,0,0,.48.52.49564.49564,0,0,0,.52-.48v-.11a1.37339,1.37339,0,0,0-.89-1.24005v-.13a.5137.5137,0,0,0-.51-.49.49513.49513,0,0,0-.49.51v.12a1.35932,1.35932,0,0,0-.83,1.29,1.72237,1.72237,0,0,0,.64,1.18c.08.08.16.15.24.22l.33.3c.21.19.55.5.55.68a.31885.31885,0,0,1-.1.26.30443.30443,0,0,1-.24005.11h-.05a.32111.32111,0,0,1-.22-.1.43378.43378,0,0,1-.11-.3.5079.5079,0,0,0-.48-.52.4957.4957,0,0,0-.52.48005v.11a1.3733,1.3733,0,0,0,.89,1.24v.13a.51364.51364,0,0,0,.51.49.49508.49508,0,0,0,.49-.51v-.12a1.35916,1.35916,0,0,0,.83-1.29,1.72223,1.72223,0,0,0-.64-1.18C13.181,8.39117,13.10108,8.32117,13.02106,8.25116Z">
-                                        </path>
-                                    </svg>
-                                    Markup
+                                    Manage Travellers
                                 </a>
                             </li>
                             
-                            <li class="nav-item" routerLinkActive="active">
-                                <a class="nav-link" >
-                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                                        class="rpfteH2dJ806mlRyY5L7">
-                                        <path
-                                        d="M18.04 13.55C17.62 13.96 17.38 14.55 17.44 15.18C17.53 16.26 18.52 17.05 19.6 17.05H21.5V18.24C21.5 20.31 19.81 22 17.74 22H7.63C7.94 21.74 8.21 21.42 8.42 21.06C8.79 20.46 9 19.75 9 19C9 16.79 7.21 15 5 15C4.06 15 3.19 15.33 2.5 15.88V11.51C2.5 9.44001 4.19 7.75 6.26 7.75H17.74C19.81 7.75 21.5 9.44001 21.5 11.51V12.95H19.48C18.92 12.95 18.41 13.17 18.04 13.55Z"
-                                        stroke="#858585" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        <path
-                                        d="M2.5 12.4103V7.84035C2.5 6.65035 3.23 5.5903 4.34 5.1703L12.28 2.1703C13.52 1.7003 14.85 2.62033 14.85 3.95033V7.75032"
-                                        stroke="#858585" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        <path
-                                        d="M22.5588 13.9702V16.0302C22.5588 16.5802 22.1188 17.0302 21.5588 17.0502H19.5988C18.5188 17.0502 17.5288 16.2602 17.4388 15.1802C17.3788 14.5502 17.6188 13.9602 18.0388 13.5502C18.4088 13.1702 18.9188 12.9502 19.4788 12.9502H21.5588C22.1188 12.9702 22.5588 13.4202 22.5588 13.9702Z"
-                                        stroke="#858585" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        <path d="M7 12H14" stroke="#858585" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round"></path>
-                                        <path
-                                        d="M9 19C9 19.75 8.79 20.46 8.42 21.06C8.21 21.42 7.94 21.74 7.63 22C6.93 22.63 6.01 23 5 23C3.54 23 2.27 22.22 1.58 21.06C1.21 20.46 1 19.75 1 19C1 17.74 1.58 16.61 2.5 15.88C3.19 15.33 4.06 15 5 15C7.21 15 9 16.79 9 19Z"
-                                        stroke="#858585" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                                        stroke-linejoin="round"></path>
-                                        <path d="M6.49171 18.9795H3.51172" stroke="#858585" stroke-width="1.5" stroke-miterlimit="10"
-                                        stroke-linecap="round" stroke-linejoin="round"></path>
-                                        <path d="M5 17.5195V20.5095" stroke="#858585" stroke-width="1.5" stroke-miterlimit="10"
-                                        stroke-linecap="round" stroke-linejoin="round"></path>
-                                    </svg>
-                                    Invoice
-                                </a>
-                            </li>
-                            
-                            <li class="nav-item" routerLinkActive="active">
-                                <a class="nav-link" routerLink="/dashboard/payment-passbook">
-                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
-                                        class="rpfteH2dJ806mlRyY5L7">
-                                        <path
-                                        d="M10.0999 10.6497C10.0416 10.6414 9.9666 10.6414 9.89993 10.6497C8.43327 10.5997 7.2666 9.39974 7.2666 7.92474C7.2666 6.41641 8.48327 5.19141 9.99993 5.19141C11.5083 5.19141 12.7333 6.41641 12.7333 7.92474C12.7249 9.39974 11.5666 10.5997 10.0999 10.6497Z"
-                                        stroke="#858585" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        <path
-                                        d="M15.6166 16.1469C14.1333 17.5052 12.1666 18.3302 9.99997 18.3302C7.8333 18.3302 5.86663 17.5052 4.3833 16.1469C4.46663 15.3635 4.96663 14.5969 5.8583 13.9969C8.14163 12.4802 11.875 12.4802 14.1416 13.9969C15.0333 14.5969 15.5333 15.3635 15.6166 16.1469Z"
-                                        stroke="#858585" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        <path
-                                        d="M9.99996 18.3346C14.6023 18.3346 18.3333 14.6037 18.3333 10.0013C18.3333 5.39893 14.6023 1.66797 9.99996 1.66797C5.39759 1.66797 1.66663 5.39893 1.66663 10.0013C1.66663 14.6037 5.39759 18.3346 9.99996 18.3346Z"
-                                        stroke="#858585" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-                                    </svg>
-                                     Account Statement
-                                </a>
-                            </li>
-                            <li class="nav-item" routerLinkActive="active">
-                                <a class="nav-link" routerLink="/dashboard/download-report">
-                                    <i class="fa-solid fa-file-arrow-down" style="color: rgb(156, 156, 156);"></i> Download Reports
-                                </a>
-                            </li>
                         </ul>
                         <!-- User Detail Sidebar -->
                         <!-- <ul class="sidebar-nav"
@@ -859,148 +548,3 @@
 </section>
 
 <!------Sidebar End----->
-
-<!---old code-->
-<div class="admin-section d-none">
-    <div class="container-fluid">
-        <div class="sidebar__container">
-            <div class="admin-bg">
-                <ul class="nav navbar-nav sidebar__mainlist"
-                    *ngIf="PageUrl!==URLSTATIC && PageUrl!=='/dashboard/user-detail/UserDetail'
-               &&PageUrl!=='/dashboard/user-detail/PanDetails'&&PageUrl!=='/dashboard/user-detail/GstDetail'&&PageUrl!=='/dashboard/user-detail/Address'">
-                    @if(LoginAgentinfo['PrimaryUser']=='1' && 0){
-                    <li class="aside-menubar-listAll" routerLinkActive="active">
-                        <a routerLink="/dashboard/users"><i class="fa-solid fa-users"></i>Manage Users</a>
-                    </li>
-                    }
-                    <li class="aside-menubar-listAll" routerLinkActive="active">
-                        <a routerLink="/dashboard/booking-calendar"><i class="fa fa-calendar"></i>Booking Calendar</a>
-                    </li>
-                    <li class="aside-menubar-listAll curser-pointer " (click)="Activetab('Flight')">
-                        <a class="d-flex justify-content-between align-items-center"><span><i
-                                    class="fa-solid fa-plane-departure"></i>Flight Management</span>
-                            @if(Activeab=='Flight'){
-                            <i class="ms-auto fas fa-chevron-up"></i>
-                            }@else{
-                            <i class="ms-auto fas fa-chevron-down"></i>
-                            }
-                        </a>
-                        @if(Activeab=='Flight'){
-                        <ul class="nav navbar-nav sidebar__mainlist bg-light">
-                            <li class="aside-menubar-listAll" routerLinkActive="active">
-                                <a routerLink="/dashboard/manage-carts"><i class="fa fa-calendar"></i>Flight Booking
-                                    List</a>
-                            </li>
-                            <li class="aside-menubar-listAll" routerLinkActive="active">
-                                <a routerLink="/dashboard/manage-amendments"><i class="fa fa-users"></i>Manage
-                                    Amendments</a>
-                            </li>
-                            <li class="aside-menubar-listAll" routerLinkActive="active">
-                                <a routerLink="/dashboard/manage-markup"><i class="fa fa-book"></i>Manage Markup</a>
-                            </li>
-                        </ul>
-                        }
-                    </li>
-                    <!-- <li class="aside-menubar-listAll" routerLinkActive="active">
-                  <a routerLink="/dashboard/manage-carts"><i class="fa fa-shopping-cart"></i>My Bookingss</a>
-                  </li> -->
-                    <li class="aside-menubar-listAll curser-pointer" (click)="Activetab('Hotel')">
-                        <a class="d-flex justify-content-between align-items-center"><span><i
-                                    class="fa-solid fa-hotel"></i>Hotel Management</span>
-                            @if(Activeab=='Hotel'){
-                            <i class="ms-auto fas fa-chevron-up"></i>
-                            }@else{
-                            <i class="ms-auto fas fa-chevron-down"></i>
-                            }
-                        </a>
-                    </li>
-                    @if(Activeab=='Hotel'){
-                    <ul class="nav navbar-nav sidebar__mainlist bg-light">
-                        <li class="aside-menubar-listAll" routerLinkActive="active">
-                            <a routerLink="/dashboard/manage-cart-hotel"><i class="fa fa-calendar"></i>Hotel
-                                Booking List</a>
-                        </li>
-                        <li class="aside-menubar-listAll" routerLinkActive="active">
-                            <a routerLink="/dashboard/manage-amendments-hotel"><i class="fa fa-users"></i>Manage
-                                Amendments</a>
-                        </li>
-                        <li class="aside-menubar-listAll" routerLinkActive="active">
-                            <a routerLink="/dashboard/manage-markup-hotel"><i class="fa fa-book"></i>Manage
-                                Markup</a>
-                        </li>
-                    </ul>
-                    }
-                    <li class="aside-menubar-listAll" routerLinkActive="active">
-                        <a routerLink="/dashboard/payment-passbook"><i class="fa fa-money-bill-alt"></i>Ledger</a>
-                    </li>
-                    <li class="aside-menubar-listAll" routerLinkActive="active">
-                        <a routerLink="/dashboard/manage-deposit-request"><i class="fa fa-money-bill-alt"></i>Manage
-                            Deposit Requests</a>
-                    </li>
-                    <li class="aside-menubar-listAll" routerLinkActive="active">
-                        <a routerLink="/dashboard/deposit-request"><i class="fa fa-money-bill-alt"></i>Deposit
-                            Requests</a>
-                    </li>
-                    <li class="aside-menubar-listAll" routerLinkActive="active">
-                        <a routerLink="/dashboard/online-recharge"><i class="fa fa-money-bill-alt"></i>Online
-                            Recharge</a>
-                    </li>
-                    <li class="aside-menubar-listAll" routerLinkActive="active">
-                        <a routerLink="/dashboard/download-report"><i class="fa-regular fa-file-lines"></i>Download
-                            Report</a>
-                    </li>
-                    <!--<div class="custom_btn-sideBar">
-                  <a title="Customize" class="btn_custom">
-                      <span><i class="fa fa-edit"></i></span>
-                  </a>
-                  <a title="Reset" class="btn_reset">
-                      <span> <i class="fa fa-refresh"></i></span>
-                  </a>
-                  </div>-->
-                </ul>
-                <ul class="nav navbar-nav sidebar__mainlist mt-1"
-                    *ngIf="PageUrl==URLSTATIC || PageUrl=='/dashboard/user-detail/UserDetail'
-               || PageUrl=='/dashboard/user-detail/PanDetails' || PageUrl=='/dashboard/user-detail/GstDetail' || PageUrl=='/dashboard/user-detail/Address'">
-                    <li class="aside-menubar-listAll">
-                        <div class="p-3 bg-light text-center user-detail-sidebar">
-                            <h6>{{LoginAgentinfo['CompanyName']}} <span
-                                    class="fs-12 fw-bold">({{LoginAgentinfo['CompanyId']}})</span></h6>
-                            <p class="m-0 fs-10">{{LoginAgentinfo['EmailId']}}</p>
-                            <p class="m-0 fs-10">{{LoginAgentinfo['MobileNo']}}</p>
-                            <p *ngIf="LoginAgentinfo['Balance']" class="m-0 fs-10">Balance:
-                                {{LoginAgentinfo['Balance']}}
-                            </p>
-                            <p *ngIf="!LoginAgentinfo['Balance']" class="m-0 fs-10">Balance: 0</p>
-                        </div>
-                    </li>
-                    <li class="aside-menubar-listAll" routerLinkActive="active"
-                        [ngClass]="{'active':PageUrl==URLSTATIC}">
-                        <a routerLink="/dashboard/user-detail/UserDetail"><i class="fa fa-calendar"></i>User
-                            Details</a>
-                    </li>
-                    <li class="aside-menubar-listAll" routerLinkActive="active">
-                        <a routerLink="/dashboard/user-detail/PanDetails"><i class="fa fa-users"></i>Pan Details
-                        </a>
-                    </li>
-                    <li class="aside-menubar-listAll" routerLinkActive="active">
-                        <a routerLink="/dashboard/user-detail/GstDetail"><i class="fa fa-money-bill-alt"></i>GST
-                            Details</a>
-                    </li>
-                    <li class="aside-menubar-listAll" routerLinkActive="active">
-                        <a routerLink="/dashboard/user-detail/Address"><i class="fa fa-money-bill-alt"></i>Addess
-                            Details</a>
-                    </li>
-                    <!--<div class="custom_btn-sideBar">
-                  <a title="Customize" class="btn_custom">
-                      <span><i class="fa fa-edit"></i></span>
-                  </a>
-                  <a title="Reset" class="btn_reset">
-                      <span> <i class="fa fa-refresh"></i></span>
-                  </a>
-                  </div>-->
-                </ul>
-            </div>
-        </div>
-        <!-- <router-outlet></router-outlet> -->
-    </div>
-</div>

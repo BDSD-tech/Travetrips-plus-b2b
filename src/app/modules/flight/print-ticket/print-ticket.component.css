@@ -23,3 +23,27 @@
     margin: auto;
     display: flex;
 }
+
+/* Full Loader Container */
+.min-h400 {
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Loader Content */
+.flight-segmentcolor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.flight-segmentcolor h5 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--primary-color);
+    animation: fadeInOut 1.5s infinite;
+}

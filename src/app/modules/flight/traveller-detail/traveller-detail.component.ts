@@ -921,6 +921,7 @@ GetPhonecodeVal(event: Event): void {
           });
       });
    });
+    
     Object.keys(this.paxseatselected).forEach((sec:any) => {
       this.paxseatselected[sec]=[]
    });
@@ -1327,7 +1328,7 @@ GetPhonecodeVal(event: Event): void {
       }
 
     } else {
-      /*   console.log('empty array'); */
+      
       this.FinalSSRdata[paxtype][paxkey][type][t1key].push(selecteddata);
     }
 
@@ -1475,10 +1476,13 @@ GetPhonecodeVal(event: Event): void {
     };
     // this.router.navigate(['flight/review-detail'], navigationExtras);
 
-    this.showReviewpage = true;
+    this.showReviewpage = false;
     setTimeout(() => {
-         this.openModal()
-    }, 100);
+      this.showReviewpage = true;
+      setTimeout(() => {
+        this.openModal();
+      }, 100);
+    });
    
   }
 
@@ -1599,8 +1603,7 @@ GetPhonecodeVal(event: Event): void {
         //_this.CheckExpiryDate(selectedDate);
       }
     });
-    //console.log(this.FlightForm.value);
-
+    
   }
 
  onDobInput(type: any, event: any, index: number, field: any) {
@@ -1960,12 +1963,12 @@ GetPhonecodeVal(event: Event): void {
   selectseat(clickedseat: any, detail: any, Segment: any, jkey: any) {
     let segmentkey = Segment.Origin + '-' + Segment.Destination;
     if (detail[segmentkey]['Code']) {
-      //  console.log('exits');
+     
       if (detail[segmentkey]['Key'] == clickedseat['Key']) {
-        //console.log('same seat');
+       
         detail[segmentkey] = [];
       } else {
-        //console.log('not same seat');
+        
         let selectedindex = this.getPassengerIndex(jkey, clickedseat);
         if (selectedindex != '') {
           //remove previous seat
@@ -1980,7 +1983,7 @@ GetPhonecodeVal(event: Event): void {
       }
     } else {
 
-      //  console.log('not exits'); 
+     
       let selectedindex = this.getPassengerIndex(jkey, clickedseat);
 
       if (selectedindex != '') {
@@ -2370,5 +2373,10 @@ GetPhonecodeVal(event: Event): void {
           this.CreateSeatJson()
         }, 100);
     }
+  }
+  ClearSSR(paxtype:any,paxi:any,ssrtype:any){
+    this.FlightForm.get(paxtype+'.'+paxi+'.'+ssrtype)?.setValue([]);
+    this.CalculateSSrPrice();
+ 
   }
 }

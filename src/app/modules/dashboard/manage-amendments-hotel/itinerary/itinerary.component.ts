@@ -70,8 +70,6 @@ export class ItineraryComponent implements OnInit {
 
   SubmitRequest()
   {   
-    // console.log(this.Remark);
-    
     if(this.BookingDetail['payment_status']=='Successful')
     {
       if(this.Remark!=='')

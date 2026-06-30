@@ -33,8 +33,6 @@ export class PrintTicketComponent implements OnInit {
 
   async ViewTicket(params:any)
   {
-    console.log(params);
-    
       let  bookingid=params['BookingRefNumber'];
       let data={
                   'booking_ref_number':bookingid,

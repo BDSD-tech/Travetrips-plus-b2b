@@ -84,8 +84,6 @@ export class UserDetailComponent implements OnInit {
       if(data['Error']['ErrorCode']==0)
       {
         this.AgentDetail=data['Result'];
-      //  console.log(this.companyId);
-       
         setTimeout(() => {
           this.getcity(null,this.AgentDetail['State']);
         }, 200);

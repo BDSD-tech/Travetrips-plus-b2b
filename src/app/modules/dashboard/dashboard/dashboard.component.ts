@@ -43,8 +43,6 @@ export class DashboardComponent {
       this.Loading=false;
       if(resp['Error']['ErrorCode']==0){
         this.Response=resp['Result'];
-        console.log(this.Response);
-        
       }
     })
   }

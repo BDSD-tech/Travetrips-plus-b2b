@@ -127,6 +127,9 @@ export class CartDetailHotelComponent  implements OnInit {
 
   get fa() { return this.AddAmendmentForm.controls; }
 
+  Back(){
+    window.close()
+  }
   SubmitAmendment()
   {
     this.amendmentsubmitted = true;

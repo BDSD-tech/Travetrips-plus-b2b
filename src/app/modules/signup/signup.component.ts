@@ -223,7 +223,6 @@ export class SignupComponent implements OnInit {
                       'emailphone':this.SinupForm.get('MobileNumber')?.value
                     };
         this.loginservice.MobileOTPSend(request).subscribe((data:any) => {
-          console.log(data);
             if(data['Error']['ErrorCode']==0){
               this.timer(this.OTPTime);
               $("#"+id).text('OTP Send').addClass('text-success');

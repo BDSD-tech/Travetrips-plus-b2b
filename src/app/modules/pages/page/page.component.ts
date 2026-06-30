@@ -28,7 +28,7 @@ export class PageComponent {
   ngOnInit(): void {
     this.commonService.GetWebSiteData().subscribe((resp:any)=>{
       if(resp&& resp.length!==0){
-        this.GetWebSiteData=resp
+        this.GetWebSiteData=resp;
       }
     })
   }
@@ -43,8 +43,6 @@ export class PageComponent {
         if(response['Result'])
         {
           this.Response=response['Result'];
-          console.log(this.Response);
-          
           this.serviceTitle.setTitle(response['Result']['Title']);
           this.meta.updateTag({ name: 'description', content: response['Result']['MetaDescription'] })
         }

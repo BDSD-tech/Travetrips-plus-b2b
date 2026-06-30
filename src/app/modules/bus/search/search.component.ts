@@ -229,7 +229,6 @@ export class SearchComponent implements OnInit {
         let Whatsapphtml:any='';
         var _this=this;
         selecteddata.forEach(function(value:any,key:any) {
-          console.log(value);
           let keys=value.split("_");
           _this.Response.filter(function(Item:any) {
 

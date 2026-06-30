@@ -136,8 +136,6 @@ export class TermsAndConditionsComponent implements OnInit {
   ngOnInit(): void {
     this.commonservice.GetWebSiteData().subscribe(data => {
       this.GetWebSiteData =data;
-      console.log(this.GetWebSiteData);
-      
       this.serviceTitle.setTitle(this.GetWebSiteData['CompanyName']+' Terms & Conditions');
     });
     window.scroll(0,0);

@@ -92,8 +92,6 @@ export class BookingConfirmationComponent implements OnInit {
       if(data['Error']['ErrorCode']==0)
       {
           this.Response=data['Result']['BookingDetail'];
-          console.log(this.Response);
-          
           this.FareDetail=data['Result']['FareBreakUp'];
           this.markupvalue=this.FareDetail['TotalAmount']['TotalAmountBreakup']['Markup']['Value'];
       } else{

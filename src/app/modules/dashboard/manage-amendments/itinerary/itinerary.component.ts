@@ -49,8 +49,6 @@ export class ItineraryComponent implements OnInit {
           if(resp['Error']['ErrorCode']==0)
           {
             this.BookingDetail=resp['Result'];
-            console.log(this.BookingDetail);
-            
             let AmendmentPaxID:any=[];
             this.BookingDetail['amendmentList'].forEach((element:any) => {
               if(element['amendment_status']=='requested')

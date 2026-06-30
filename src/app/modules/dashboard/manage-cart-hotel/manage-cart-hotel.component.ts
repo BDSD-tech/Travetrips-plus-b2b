@@ -18,7 +18,7 @@ declare var $:any;
   styleUrls: ['./manage-cart-hotel.component.css']
 })
 export class ManageCartHotelComponent implements OnInit {
-  opensearchForm=false;
+  opensearchForm=true;
   SearchForm: FormGroup;
   Searchsubmitted = false;
   Searchloading = false;
@@ -262,8 +262,6 @@ export class ManageCartHotelComponent implements OnInit {
   RaiseAmendment(item:any)
   {
       this.AddAmendmentModal.show();
-      console.log(item);
-      
       this.AddAmendmentForm.patchValue({'BookingID':item['BookingRefNumber']});
   }
 

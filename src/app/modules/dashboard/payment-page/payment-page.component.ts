@@ -206,8 +206,6 @@ export class PaymentPageComponent {
         this.dashboardService.MakeBookingPayment(this.SaveData).subscribe(resp => {
         let data:any=resp;
         this.payfinalloading=false;
-        console.log(resp);
-        
         if(data['Error']['ErrorCode']==0)
         {
           window.location.href=data['Result']['url'];

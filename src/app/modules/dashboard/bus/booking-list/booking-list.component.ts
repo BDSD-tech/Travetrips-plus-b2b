@@ -18,7 +18,7 @@ declare var window :any
   styleUrl: './booking-list.component.css'
 })
 export class BookingListComponent {
-    opensearchForm=false;
+    opensearchForm=true;
     SearchForm: FormGroup;
     Searchsubmitted = false;
     Searchloading = false;

@@ -21,7 +21,7 @@
                         <i class="fa-solid fa-headset"></i>
                         <div>
                             <p>24/7 Support</p>
-                            <h5 class="support-number">+91 8800114161</h5>
+                            <h5 class="support-number">+91 {{GetWebSiteData?.['SupportNo']}}</h5>
                         </div>
                     </div>
 
@@ -55,15 +55,17 @@
         <div [innerHTML]="Response['Content']|safeHtml"></div>
         }
 
-        @if(loading){
-        <div>
-            <div class="loader-content text-center">
-                <div class="spinner-border" role="status">
-                    <span class="sr-only">Loading...</span>
+        @if(loading){    
+            <div class="row">
+                <div class="col-sm-12 text-center min-h400">
+                    <div class="flight-segmentcolor text-center mb-4 mt-5 pt-5">
+                        <div class="lds-ellipsis">
+                            <div></div><div></div><div></div><div></div>
+                        </div>
+                        
+                    </div>
                 </div>
-                <p class="mt-3 text-center">Loading...</p>
             </div>
-        </div>
         }
     </div>
 </section>
@@ -74,7 +76,7 @@
          <!-- LEFT -->
          <div class="footer-left">
             <span>
-               {{GetWebSiteData['CopyRight']}}
+               {{GetWebSiteData?.['CopyRight']}}
             </span>
 
             <a href="javascript:void(0);" routerLink="/pages/contact-us" target="blank">

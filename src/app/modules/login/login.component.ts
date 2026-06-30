@@ -117,9 +117,9 @@ export class LoginComponent implements OnInit {
       this.Loginloading = false;
       if (data['Error']['ErrorCode'] == 0) {
         if (data['Result']['WithOTP'] == false) {
-          this.alertService.success('Welcome to TRAVELTRIPPLUS.');
+          // this.alertService.success('Welcome to TRAVELTRIPPLUS.');
           this.idleService.startWatching()
-          this.router.navigate(['/flight']);
+          this.router.navigate(['/flight'],{state: {login: true}});
         }
         if (data['Result']['WithOTP'] == true) {
           this.ActiveStep = 'VarifyOTP';
@@ -161,10 +161,10 @@ export class LoginComponent implements OnInit {
     this.authenticationservice.VarifyOTP(this.fv['emailphone'].value, this.fv['password'].value, this.fv['otp'].value).subscribe((data: any) => {
       this.OTPLoginloading = false;
       if (data['Error']['ErrorCode'] == 0) {
-        this.alertService.success('Welcome to TRAVELTRIPPLUS.');
+        // this.alertService.success('Welcome to TRAVELTRIPPLUS.');
         this.idleService.startWatching()
         
-        this.router.navigate(['/flight']);
+        this.router.navigate(['/flight'],{state: {login: true}});
       } else {
         this.LoginMessage = '<div class="error-msg">' + data['Error']['ErrorMessage'] + '</div>';
       }
