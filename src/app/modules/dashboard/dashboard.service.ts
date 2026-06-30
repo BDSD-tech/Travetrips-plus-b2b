@@ -43,6 +43,16 @@ export class DashboardService {
     let configUrl =  tts_config.APIURL +'/dashboard';
     return this.http.post(configUrl,req);
   }
+  public GSTDetails(data:any)
+  {
+    let configUrl =  tts_config.APIURL +'/agent/save-gst-info';
+    return this.http.post(configUrl, data);
+  }
+  public TravellersDetails(data:any)
+  {
+    let configUrl =  tts_config.APIURL +'/agent/save-pax-info';
+    return this.http.post(configUrl, data);
+  }
   public BookingCalendar(data:any)
   {
     let configUrl =  tts_config.APIURL +'/flight/flight-booking-calendar';

@@ -6,7 +6,7 @@ import { DomesticRoundtripComponent } from './domestic-roundtrip/domestic-roundt
 import { FlightComponent } from './flight.component';
 import { PrintInvoiceComponent } from './print-invoice/print-invoice.component';
 import { PrintTicketComponent } from './print-ticket/print-ticket.component';
-import { ReviewComponent } from './review/review.component';
+
 import { SearchComponent } from './search/search.component';
 import { TravellerDetailComponent } from './traveller-detail/traveller-detail.component';
 

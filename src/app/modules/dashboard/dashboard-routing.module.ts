@@ -103,6 +103,16 @@ const routes: Routes = [
                                 .then(mod => mod.UsersModule)
                             },
                             {
+                              path: 'gst-details',
+                              loadComponent: () => import('./gst-details/gst-details.component')
+                                .then(mod => mod.GstDetailsComponent)
+                            },
+                            {
+                              path: 'travellers',
+                              loadComponent: () => import('./traveller-details/traveller-details.component')
+                                .then(mod => mod.TravellerDetailsComponent)
+                            },
+                            {
                               path: 'manage-amendments-hotel',
                               loadChildren: () => import('../dashboard/manage-amendments-hotel/manage-amendments-hotel.module')
                                 .then(mod => mod.ManageAmendmentsHotelModule)

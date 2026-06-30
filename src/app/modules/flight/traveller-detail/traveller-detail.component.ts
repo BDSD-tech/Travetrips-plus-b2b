@@ -247,6 +247,7 @@ GetPhonecodeVal(event: Event): void {
       if(sessionStorage.getItem('Response')){
         let data:any=sessionStorage.getItem('Response');
         this.AllResponse=JSON.parse(data);
+        this.fareloading=true;
         this.SetStoredData(this.AllResponse)
       }else{
         this.FareConfirmation();
@@ -2146,6 +2147,9 @@ GetPhonecodeVal(event: Event): void {
   getval(item: any) {
     return item?.value;
   }
+  GetKey(item: any) {
+    return item;
+  }
 
 
   openModal() {
@@ -2208,7 +2212,7 @@ GetPhonecodeVal(event: Event): void {
   }
 
   SetStoredData(data:any){
-    console.log(data)
+    
     if(data['APIRes']){
          this.isconfimation=true;
       let response:any=data['APIRes'];
@@ -2345,6 +2349,7 @@ GetPhonecodeVal(event: Event): void {
              this.formModal.show();
        }
       }
+     this.fareloading=false;
     }
     if(data['SSR']){
         setTimeout(() => {

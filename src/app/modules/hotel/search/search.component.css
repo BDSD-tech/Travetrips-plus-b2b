@@ -26,7 +26,7 @@
 }
 .flight-leftbgcolor{
     position: sticky;
-    top: -65%;
+    top: 100px;
 }
 .hotel-count strong {
     color: var(--primary-color);
