@@ -258,7 +258,6 @@ export class SearchComponent implements OnInit, OnDestroy {
               );
             }
           });
-          // console.log(this.selectedfare);
           
           this.filterresultcount = this.sortedData.length;
 
@@ -523,7 +522,7 @@ MoreFare(event: any, item: any, ttsindex: any) {
       if (element) {
         bootstrap.Offcanvas.getOrCreateInstance(element).show();
       }
-      //console.log( this.showFareDetail, this.showTTsIndex,this.showFareRule);
+      
       
     }
 
@@ -901,12 +900,12 @@ MoreFare(event: any, item: any, ttsindex: any) {
   //     // Check bottom reach (adjust 800 as per your need)
   //     if (windowHeight + scrollPosition + 800 >= documentHeight) {
   //       this.resultlimit += 20;
-  //       console.log("Increasing limit = ", this.resultlimit);
+  //     
   //     }
   //   }
   // windowscroll(event:any)
   // {
-  //   // console.log(event);
+  
 
   //   //   const element = event.target;
   //   //    const atBottom =

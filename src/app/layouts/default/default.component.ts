@@ -26,8 +26,7 @@ export class DefaultComponent implements OnInit {
   WalletDepositBalance:any=0;
 
   dyclass:any
-  currentUrl:any|string;
-  footerSetBottom=true;
+
   constructor(private router:Router,private authenticationservice: AuthenticationService,public commonservice :CommonService,@Inject(DOCUMENT) private document: Document) { 
 
     this.authenticationservice.currentUser.subscribe(data => {
@@ -65,15 +64,6 @@ export class DefaultComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.currentUrl = this.router.url;
-     this.router.events
-      .pipe(filter((event:any) => event instanceof NavigationEnd))
-      .subscribe((event: NavigationEnd) => {
-        this.currentUrl = event.urlAfterRedirects;
-        console.log(this.currentUrl);
-        
-      });
     
     this.commonservice.GetWebSiteData().subscribe(data => {
       this.GetWebSiteData =data;

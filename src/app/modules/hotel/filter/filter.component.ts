@@ -399,7 +399,6 @@ export class FilterComponent implements OnInit {
 
 }
 // function multiFilter(array:any, filters:any) {
-//   console.log(filters);
   
 //   var filterKeys = Object.keys(filters);
 //    return array.filter((item:any) => {

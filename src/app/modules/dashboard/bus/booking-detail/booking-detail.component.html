@@ -3,7 +3,7 @@
         <li>
             <a href="/dashboard/manage-carts" class="text-white"><i class="fa fa-home"></i></a>
         </li>
-        <li><a href="/dashboard/manage-carts">Manage-carts</a></li>
+        <li><a href="javascript:void(0)" (click)="Back()">Manage-carts</a></li>
         <li><span>Cart-detail</span></li>
         <li><span>{{BookingDetail['booking_ref_number']}}</span></li>
     </ol>
@@ -27,6 +27,11 @@
                         </div>
                         <div class="cssCircle addsign">
                             <a [routerLink]="['/bus/ticket']" [queryParams]="{BookingRefNumber: BookingDetail['booking_ref_number'],SearchTokenId:BookingDetail['tts_search_token'],HtmlType:'Invoice',UserType:'WebPartner',ViewService:'View',WithPrice:'1',WithAgencyDetail:'1',TicketInvoiceJourney:TicketInvoiceJourney,ViewSize:''}"><i class="fa fa-print me-1"></i> <span class="cssCircle-plusdesign">Invoice</span></a>
+                        </div>
+                        <div class="cssCircle addsign">
+                            <a (click)="RaiseAmendment(BookingDetail['booking_ref_number'])">
+                                <i class="fa fa-close me-1"></i><span class="cssCircle-plusdesign">Raise Amendments</span>
+                            </a>
                         </div>
                         <div class="cssCircle addsign">
                             <a [routerLink]="['/bus/confirmation']" [queryParams]="{token: BookingDetail['booking_ref_number']}"><i class="fa fa-eye me-1"></i> <span class="cssCircle-plusdesign">More Option </span></a>
@@ -172,10 +177,10 @@
                         <span class="ball__border info_length-green"><span class="numbering-section">{{AmendmentList.length}}</span></span>
                     </span>
                 </h3>
-                <div class="cssCircle addsign"><span class="cssCircle-plusdesign" (click)="RaiseAmendment(BookingDetail['booking_ref_number'])">+ Raise Amendments</span></div>
+                <!-- <div class="cssCircle addsign"><span class="cssCircle-plusdesign" (click)="RaiseAmendment(BookingDetail['booking_ref_number'])">+ Raise Amendments</span></div>-->
                 <div class="cssCircle minusSign">
                     <span><i class="fa fa-angle-up"></i></span>
-                </div>
+                </div> 
             </div>
             <div id="amendments_info">
             <div class="amend" *ngFor="let amdlist of AmendmentList; let key=index;">

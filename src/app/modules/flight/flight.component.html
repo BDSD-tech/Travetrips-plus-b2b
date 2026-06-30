@@ -1,20 +1,43 @@
-<section class="hero-section">
-  <!-- <div class="container">
-    <div class="row align-items-center">
-      <div class="col-lg-12 hero-content">
-        <h1>
-          Manage Your <span>Bookings</span> Smarter
-        </h1>
-        <p>
-          Flight, Hotel, and Bus bookings all in one dashboard.
-          Track wallet balance, manage trips, and control everything easily.
-        </p>
-      </div>
-    </div>
-  </div> -->
-</section>
+<div class="hero-section">
+    <div id="heroCarousel" class="carousel slide carousel-fade hero-carousel" data-bs-ride="carousel">
+        <div class="carousel-indicators custom-indicators">
+            @for (item of GetWebSiteData['HomeSlider']; track $index) {
+                <button type="button" class="d-none" data-bs-target="#heroCarousel" [attr.data-bs-slide-to]="$index"  [ngClass]="{'active':$index==0}" ></button>
+            }
+            
+        </div>
+        <div class="carousel-inner">
+            @for (item of GetWebSiteData['HomeSlider']; track $index) {
+                <div class="carousel-item" [ngClass]="{'active':$index==0}" >
 
-<!----------search--form---width----banner------------>
+                    <img [src]="item['Image']" class="hero-img"
+                        [alt]="item['Title']">
+                </div>
+            }
+
+        </div>
+
+        <!-- NAVIGATION -->
+        <button class="carousel-control-prev custom-nav" type="button" data-bs-target="#heroCarousel"
+            data-bs-slide="prev">
+
+            <span class="nav-icon">
+                <i class="fa-solid fa-chevron-left"></i>
+            </span>
+        </button>
+
+        <button class="carousel-control-next custom-nav" type="button" data-bs-target="#heroCarousel"
+            data-bs-slide="next">
+
+            <span class="nav-icon">
+                <i class="fa-solid fa-chevron-right"></i>
+            </span>
+        </button>
+
+    </div>
+</div>
+
+
 <div class="flight_section">
   <!-- <svg width="100%" height="226" viewBox="0 0 1038 226" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path

@@ -78,7 +78,6 @@ export class ReviewComponent implements OnInit {
     if(sessionStorage.getItem('TSFPAX')){
       let data:any =sessionStorage.getItem('TSFPAX');
       this.SaveData=JSON.parse(data);
-      
     }
     
     if (sessionStorage.getItem('TSFP')) {

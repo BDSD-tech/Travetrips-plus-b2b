@@ -155,27 +155,8 @@ export class TravellerDetailsComponent {
         if(resp['Error']['ErrorCode']==0)
         { 
            this.CartList=resp['Result'];
-           console.log(this.CartList);
-           
-          //  {
-          //   "id": "30",
-          //   "web_partner_id": "1",
-          //   "title": "Mr",
-          //   "first_name": "DEV",
-          //   "last_name": "TIWARI",
-          //   "pax_type": "Adult",
-          //   "gendar": "male",
-          //   "date_of_birth": "2010-05-13T00:00:00",
-          //   "pan_number": "",
-          //   "passport_number": "",
-          //   "passport_expiry": null,
-          //   "passport_issue_date": null,
-          //   "email_id": "dev@traveltechnologysolution.com",
-          //   "mobile_number": "9650032110",
-          //   "nationality": null,
-          //   "created": "1748322751",
-          //   "modified": "1748322751"
-          // }
+
+          
            this.displayedColumns=[ 'first_name','gendar','mobile_number','email_id','date_of_birth','passport_number','passport_expiry','passport_issue_date','created'];
            this.dataSource = new MatTableDataSource(resp['Result']);
   

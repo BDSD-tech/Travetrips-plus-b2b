@@ -28,8 +28,6 @@ export class LandingPageComponent {
   ngOnInit(){
      this.commonservice.GetWebSiteData().subscribe(data => {
       this.GetWebSiteData = data;
-      console.log(this.GetWebSiteData);
-      
       if (this.GetWebSiteData['CompanyName']) {
         this.serviceTitle.setTitle(this.GetWebSiteData['CompanyName']);
       }
@@ -37,8 +35,6 @@ export class LandingPageComponent {
      this.commonservice.GetLandingPageData().subscribe((data:any) => {
       if(data && data.length!==0){
         this.LandingPageData=data;
-        console.log(this.LandingPageData);
-        
       }
      
     });

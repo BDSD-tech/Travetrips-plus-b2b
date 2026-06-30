@@ -120,8 +120,6 @@ export class BookingDetailComponent {
           {
             
             this.BookingDetail=resp['Result']['BookingDetail'];
-            console.log(this.BookingDetail);
-            
             this.AmendmentList=resp['Result']['AmendmentList'] ||[];
             this.NoteList=resp['Result']['BookingNotes'];
             this.PaymentInfo=this.BookingDetail['paymentInfo'];
@@ -149,7 +147,9 @@ export class BookingDetailComponent {
       this.AddAmendmentModal.show();
       this.AddAmendmentForm.patchValue({'BookingID':BookingID});
   }
-
+  Back(){
+    window.close();
+  }
   get fa() { return this.AddAmendmentForm.controls; }
 
   selectFile(event:any) {

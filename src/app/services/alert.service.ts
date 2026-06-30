@@ -34,7 +34,7 @@ export class AlertService {
         x.classList.remove("success_popup");
         x.classList.remove("error_popup");
         x.classList.remove("warning_popup");
-      }, 5000);
+      }, 2000);
     }
 }
 
