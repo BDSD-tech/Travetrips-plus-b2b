@@ -2,7 +2,8 @@ import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
 import { CommonService } from '../../services/common.service';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-default',
@@ -25,7 +26,8 @@ export class DefaultComponent implements OnInit {
   WalletDepositBalance:any=0;
 
   dyclass:any
-
+  currentUrl:any|string;
+  footerSetBottom=true;
   constructor(private router:Router,private authenticationservice: AuthenticationService,public commonservice :CommonService,@Inject(DOCUMENT) private document: Document) { 
 
     this.authenticationservice.currentUser.subscribe(data => {
@@ -63,6 +65,16 @@ export class DefaultComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.currentUrl = this.router.url;
+     this.router.events
+      .pipe(filter((event:any) => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.currentUrl = event.urlAfterRedirects;
+        console.log(this.currentUrl);
+        
+      });
+    
     this.commonservice.GetWebSiteData().subscribe(data => {
       this.GetWebSiteData =data;
        if(this.GetWebSiteData['Favicon']){

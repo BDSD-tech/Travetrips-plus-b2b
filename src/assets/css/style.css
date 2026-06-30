@@ -88,7 +88,9 @@ a {
     text-decoration: none;
     transition: var(--transition);
 }
-
+.text-primary{
+    color: var(--primary-color)!important;
+}
 a:hover {
     color: var(--second-color);
 }
@@ -1786,6 +1788,7 @@ color: var(--black) !important;
 .wrapper-mainclass .payment_bg {
     background: #f5f5f5;
     min-height: 400px;
+    width: auto;
 }
 
 .wrapper-mainclass .nav-pills .nav-link {

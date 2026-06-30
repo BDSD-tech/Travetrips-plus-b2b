@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, NavigationExtras, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from '../../../services/common.service';
@@ -7,8 +7,10 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { HotelService } from '../hotel.service';
 import { AlertService } from '../../../services/alert.service';
 import { AuthenticationService } from '../../../services/authentication.service';
+import { filter } from 'rxjs';
 
 declare var bootstrap:any;
+declare var document:any;
 declare var $: any;
 
 @Component({
@@ -91,7 +93,9 @@ export class ReviewComponent implements OnInit {
    }
 
   ngOnInit(): void {
-
+   setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+    }, 100);
     this.HotelPaxForm=this.fb.group({
         EmailId:['',[Validators.required,Validators.email]],
         ISDCode:['91',[Validators.required]],
@@ -110,7 +114,7 @@ export class ReviewComponent implements OnInit {
       if(sessionStorage.getItem('TSFPAX')){
         let resp:any=sessionStorage.getItem('TSFPAX')
         let paxdetail:any=JSON.parse(resp)
-        this.HotelPaxForm.get('RoomDetails')?.patchValue(paxdetail['paxdata'])
+        this.HotelPaxForm.get('RoomDetails')?.patchValue(paxdetail['paxdata']);
       }
       setTimeout(() => {
         this.PassportIssueDate();
@@ -119,6 +123,9 @@ export class ReviewComponent implements OnInit {
 
       this.Fare_information(this.BlockRoomResult);
   }
+
+
+
   GetPhonecodeVal(event: Event): void {
     const value = (event.target as HTMLSelectElement).value;
     const phoneControl = this.HotelPaxForm.get('MobileNumber');

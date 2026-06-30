@@ -36,12 +36,13 @@ import { CartDetailHotelComponent} from '../dashboard/manage-cart-hotel/cart-det
 import { MatTooltip } from "@angular/material/tooltip";
 import { BankDetailsComponent } from './bank-details/bank-details.component';
 import { AmendmentListComponent } from './bus/amendment-list/amendment-list.component';
-import { MatIcon } from '@angular/material/icon';
+import { GstDetailsComponent } from './gst-details/gst-details.component';
+import { TravellerDetailsComponent } from './traveller-details/traveller-details.component';
 
 @NgModule({
   declarations: [ 
      BookingsComponent,BankDetailsComponent,ManageCartHotelComponent,BookingCalendarComponent,ManageCartsComponent,CartDetailComponent, ManageAmendmentsComponent, PaymentPassbookComponent, ManageDepositRequestComponent, DepositRequestComponent, BillingInfoComponent, DownloadReportComponent, ManageMarkupComponent, UserDetailComponent,NumberToWordsPipe, ItineraryComponent
-  ,HotelComponent,AmendmentListComponent,CartDetailHotelComponent,BookingDetailComponent,BookingListComponent,DashboardComponent,ManageAmendmentsHotelComponent,CreditRequestComponent,CreditNotesComponent,MarkupComponent,ViewCreditNotesComponent,CreditNotesHotelComponent,AmendmentsComponent],
+  ,HotelComponent,TravellerDetailsComponent,GstDetailsComponent,AmendmentListComponent,CartDetailHotelComponent,BookingDetailComponent,BookingListComponent,DashboardComponent,ManageAmendmentsHotelComponent,CreditRequestComponent,CreditNotesComponent,MarkupComponent,ViewCreditNotesComponent,CreditNotesHotelComponent,AmendmentsComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,

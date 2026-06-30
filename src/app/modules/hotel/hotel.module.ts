@@ -19,6 +19,8 @@ import { BookingConfirmationComponent } from './booking-confirmation/booking-con
 import { PrintTicketComponent } from './print-ticket/print-ticket.component';
 import { PrintInvoiceComponent } from './print-invoice/print-invoice.component';
 import { CountDownModule } from '../modal/count-down/count-down.module';
+import { RouterModule } from '@angular/router';
+import { routes } from '../../app.routes';
 
 
 @NgModule({
@@ -46,7 +48,7 @@ import { CountDownModule } from '../modal/count-down/count-down.module';
     SafeHtmlModule,
     DirectivesModule,
     DialogModalModule,
-    DatePipe,
+    DatePipe
   ]
 })
 export class HotelModule { }

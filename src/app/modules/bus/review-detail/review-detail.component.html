@@ -355,12 +355,14 @@
 
                     <div class="bus-details-wrapper scrollable">
                         <div class="bus-summary-card">
-                            <div class="bus-route-info d-block" (click)="SHowGST=!SHowGST">
-                                <div class="bus-route flex-column align-items-start">
-                                    <span>GST Number for Business Travel ({{GSTTxt}})</span>
-                                    
+                            <div class="bus-route-info" (click)="SHowGST=!SHowGST">
+                                <div>
+                                    <div class="bus-route flex-column align-items-start">
+                                        <span>GST Number for Business Travel ({{GSTTxt}})</span>
+                                    </div>
+                                    <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> To claim credit of GST charged by airline. Please enter your company's GST number.</small>
                                 </div>
-                                <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> To claim credit of GST charged by airline. Please enter your company's GST number.</small>
+                                <a href="javscript:void(0)">@if(SHowGST){<i class="fa-solid fa-angle-up" ></i>}@else{<i class="fa-solid fa-angle-down" ></i>}</a>
 
                             </div>
 

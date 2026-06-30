@@ -952,6 +952,50 @@
                                        Save Passanger Details
                                     </label>
                                  </div>
+                                 @if(FlightForm.get('Adult.'+a)?.value?.['Seat'] || FlightForm.get('Adult.'+a)?.value?.['Meal']|| FlightForm.get('Adult.'+a)?.value?.['Baggage']){
+                                 <div class="row border-top pt-2">
+                                    @if(FlightForm.get('Adult.'+a)?.value?.['Seat']){
+                                    <div class="col-4">
+                                       <h6 class="mb-1">Seat</h6>
+                                       @for (item of FlightForm.get('Adult.'+a)?.value['Seat']; track $index) {
+                                          @for(seg of item |keyvalue; track $index){
+                                               
+                                             @if(item[GetKey(seg.key)]['SeatNo']){
+                                             <p class="mb-0"> <span class="text-primary fw-semibold">{{seg.key}} </span> = {{item[GetKey(seg.key)]['Code']}} </p>
+                                             }
+                                          }
+                                       }
+                                    </div>
+                                    }
+                                    @if(FlightForm.get('Adult.'+a)?.value?.['Meal']){
+                                    <div class="col-4">
+                                       <h6 class="mb-1">Meal</h6>
+                                       @for (item of FlightForm.get('Adult.'+a)?.value['Meal']; track $index) {
+                                          @for(seg of item |keyvalue; track $index){
+                                           
+                                             @if(item[GetKey(seg.key)]['AirlineDescription']){
+                                             <p class="mb-0"> <span class="text-primary fw-semibold"> {{item[GetKey(seg.key)]['Origin']}}-{{item[GetKey(seg.key)]['Destination']}} </span>= {{item[GetKey(seg.key)]['AirlineDescription']}} ({{item[GetKey(seg.key)]['Quantity']}}) </p>
+                                             }
+                                          }
+                                       }
+                                    </div>
+                                    }
+                                    @if(FlightForm.get('Adult.'+a)?.value?.['Baggage']){
+                                    <div class="col-4">
+                                       <h6 class="mb-1">Baggage</h6>
+                                       @for (item of FlightForm.get('Adult.'+a)?.value['Baggage']; track $index) {
+                                          @for(seg of item |keyvalue; track $index){
+                                           
+                                             @if(item[GetKey(seg.key)]['AirlineDescription']){
+                                             <p class="mb-0"> <span class="text-primary fw-semibold"> {{item[GetKey(seg.key)]['Origin']}}-{{item[GetKey(seg.key)]['Destination']}} </span>= {{item[GetKey(seg.key)]['AirlineDescription']}} </p>
+                                             }
+                                          }
+                                       }
+                                    </div>
+                                    }
+                                 </div>
+                                 }
+                                 <!-- <div class="ssr-details">{{FlightForm.get('Adult.'+a)?.value |json}}</div> -->
                               </div>
                            </div>
                         </div>
@@ -1227,7 +1271,49 @@
                                        Save Passanger Details
                                     </label>
                                  </div>
-
+                                 @if(FlightForm.get('Child.'+c)?.value?.['Seat'] || FlightForm.get('Child.'+c)?.value?.['Meal']|| FlightForm.get('Child.'+c)?.value?.['Baggage']){
+                                 <div class="row border-top pt-2">
+                                    @if(FlightForm.get('Child.'+c)?.value?.['Seat']){
+                                    <div class="col-4">
+                                       <h6 class="mb-1">Seat</h6>
+                                       @for (item of FlightForm.get('Child.'+c)?.value['Seat']; track $index) {
+                                          @for(seg of item |keyvalue; track $index){
+                                               
+                                             @if(item[GetKey(seg.key)]['SeatNo']){
+                                             <p class="mb-0"> <span class="text-primary fw-semibold">{{seg.key}} </span> = {{item[GetKey(seg.key)]['Code']}} </p>
+                                             }
+                                          }
+                                       }
+                                    </div>
+                                    }
+                                    @if(FlightForm.get('Child.'+c)?.value?.['Meal']){
+                                    <div class="col-4">
+                                       <h6 class="mb-1">Meal</h6>
+                                       @for (item of FlightForm.get('Child.'+c)?.value['Meal']; track $index) {
+                                          @for(seg of item |keyvalue; track $index){
+                                           
+                                             @if(item[GetKey(seg.key)]['AirlineDescription']){
+                                             <p class="mb-0"> <span class="text-primary fw-semibold"> {{item[GetKey(seg.key)]['Origin']}}-{{item[GetKey(seg.key)]['Destination']}} </span>= {{item[GetKey(seg.key)]['AirlineDescription']}} ({{item[GetKey(seg.key)]['Quantity']}}) </p>
+                                             }
+                                          }
+                                       }
+                                    </div>
+                                    }
+                                    @if(FlightForm.get('Child.'+c)?.value?.['Baggage']){
+                                    <div class="col-4">
+                                       <h6 class="mb-1">Baggage</h6>
+                                       @for (item of FlightForm.get('Child.'+c)?.value['Baggage']; track $index) {
+                                          @for(seg of item |keyvalue; track $index){
+                                           
+                                             @if(item[GetKey(seg.key)]['AirlineDescription']){
+                                             <p class="mb-0"> <span class="text-primary fw-semibold"> {{item[GetKey(seg.key)]['Origin']}}-{{item[GetKey(seg.key)]['Destination']}} </span>= {{item[GetKey(seg.key)]['AirlineDescription']}} </p>
+                                             }
+                                          }
+                                       }
+                                    </div>
+                                    }
+                                 </div>
+                                 }
                               </div>
                            </div>
                         </div>
@@ -2569,36 +2655,6 @@
 
                                     </div>
                                  </div>
-                                 <!-- Baggage -->
-                                 <div class="col-lg-5 d-none">
-                                    <div class="form-group mb-3">
-
-                                       <select class="form-select main-select"
-                                          (change)="SelectSSr('Adult',Ai,segment.key,'Baggage',$event,t)"
-                                          *ngIf="segkey === 0">
-
-                                          <option value="">Select Baggage</option>
-
-                                          <option *ngFor="let data of getSegmentValues(segment.value,'Baggage')"
-                                             value="{{data['Code']}}">
-
-                                             {{data['AirlineDescription']}}
-                                             - ₹ {{data['Price']}}
-
-                                          </option>
-                                       </select>
-
-                                       <select class="form-select main-select" *ngIf="segkey !== 0">
-                                          <option>Same As Above</option>
-                                       </select>
-
-                                       <label>Baggage Information</label>
-                                    </div>
-                                 </div>
-
-                                 
-                                 
-
                               </div>
                            </div>
 
@@ -2614,37 +2670,8 @@
                                        Child {{ Ci + 1 }}
                                     </div>
                                  </div>
-
-                                 <!-- Baggage -->
-                                 <div class="col-lg-5">
-                                    <div class="form-group mb-3">
-
-                                       <select class="form-select main-select"
-                                          (change)="SelectSSr('Child',Ci,segment.key,'Baggage',$event,t)"
-                                          *ngIf="segkey === 0">
-
-                                          <option value="">Select Baggage</option>
-
-                                          <option *ngFor="let data of getSegmentValues(segment.value,'Baggage')"
-                                             value="{{data['Code']}}">
-
-                                             {{data['AirlineDescription']}}
-                                             - ₹ {{data['Price']}}
-
-                                          </option>
-                                       </select>
-
-                                       <select class="form-select main-select" *ngIf="segkey !== 0">
-                                          <option>Same As Above</option>
-                                       </select>
-
-                                       <label>Baggage Information</label>
-
-                                    </div>
-                                 </div>
-
                                  <!-- Meals -->
-                                 <div class="col-lg-5">
+                                 <div class="col-lg-5 ">
                                     <div class="form-group mb-3">
 
                                        <select class="form-select main-select"
@@ -2699,36 +2726,13 @@
                            <div class="traveller-card mb-3" *ngFor="let adult of BaggegeA; let Ai = index">
                               <div class="row align-items-center">
 
-                                 <!-- Passenger Name -->
                                  <div class="col-lg-2">
                                     <div class="traveller-name">
                                        <i class="fa fa-user-circle me-2"></i>
                                        Adult {{ Ai + 1 }}
                                     </div>
                                  </div>
-                                 <div class="col-lg-5 d-none">
-                                    <div class="form-group mb-3">
-
-                                       <select class="form-select main-select"
-                                          (change)="SelectSSr('Adult',Ai,segment.key,'Meal',$event,t)">
-
-                                          <option value="">Select Meal</option>
-
-                                          <option *ngFor="let data of getSegmentValues(segment.value,'Meal')"
-                                             value="{{data['Code']}}">
-
-                                             {{data['AirlineDescription']}}
-                                             - ₹ {{data['Price']}}
-
-                                          </option>
-
-                                       </select>
-
-                                       <label>Meals</label>
-
-                                    </div>
-                                 </div>
-                                 <!-- Baggage -->
+                                
                                  <div class="col-lg-5">
                                     <div class="form-group mb-3">
 
@@ -2755,25 +2759,18 @@
                                     </div>
                                  </div>
 
-                                 
-                                 
-
                               </div>
                            </div>
 
-                           <!-- Child Section -->
                            <div class="traveller-card child-card" *ngFor="let adult of BaggegeC; let Ci = index">
 
                               <div class="row align-items-center">
-
-                                 <!-- Passenger Name -->
                                  <div class="col-lg-2">
                                     <div class="traveller-name">
                                        <i class="fa fa-child me-2"></i>
                                        Child {{ Ci + 1 }}
                                     </div>
                                  </div>
-
                                  <!-- Baggage -->
                                  <div class="col-lg-5">
                                     <div class="form-group mb-3">
@@ -2801,31 +2798,6 @@
 
                                     </div>
                                  </div>
-
-                                 <!-- Meals -->
-                                 <div class="col-lg-5">
-                                    <div class="form-group mb-3">
-
-                                       <select class="form-select main-select"
-                                          (change)="SelectSSr('Child',Ci,segment.key,'Meal',$event,t)">
-
-                                          <option value="">Select Meal</option>
-
-                                          <option *ngFor="let data of getSegmentValues(segment.value,'Meal')"
-                                             value="{{data['Code']}}">
-
-                                             {{data['AirlineDescription']}}
-                                             - ₹ {{data['Price']}}
-
-                                          </option>
-
-                                       </select>
-
-                                       <label>Meals</label>
-
-                                    </div>
-                                 </div>
-
                               </div>
                            </div>
 
@@ -3004,14 +2976,17 @@
                            </div> -->
 
                <div class="flight-booking-wrapper">
-                  <div class="flight-booking-header" data-bs-toggle="collapse" data-bs-target="#gst-detail">
-                     <div class="itinerary-card-title">
-                        <div class="header-left">
-                           <i class="fa-solid fa-wallet"></i>
-                           <span>GST Number for Business Travel ({{GSTTxt}})</span>
+                  <div class="flight-booking-header d-flex justify-content-between" data-bs-toggle="collapse" data-bs-target="#gst-detail">
+                     <div>
+                        <div class="itinerary-card-title">
+                           <div class="header-left">
+                              <i class="fa-solid fa-wallet"></i>
+                              <span>GST Number for Business Travel ({{GSTTxt}})</span>
+                           </div>
                         </div>
+                        <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> To claim credit of GST charged by airline. Please enter your company's GST number.</small>
                      </div>
-                     <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> To claim credit of GST charged by airline. Please enter your company's GST number.</small>
+                     <a href="javscript:void(0)">@if(isGSTShow){<i class="fa-solid fa-angle-up" ></i>}@else{<i class="fa-solid fa-angle-down" ></i>}</a>
 
                   </div>
 

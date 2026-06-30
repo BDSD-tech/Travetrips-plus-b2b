@@ -914,3 +914,14 @@ TRAVEL FOOTER - CLEAN MODERN DESIGN
         height: 34px;
     }
 }
+
+/* .main-page-footer-set{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+} */
+
+.main-content-page-default{
+    min-height: 83vh!important;
+}

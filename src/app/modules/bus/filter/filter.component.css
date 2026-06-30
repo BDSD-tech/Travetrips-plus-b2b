@@ -5,6 +5,9 @@
     border: 1px solid var(--border-color);
     padding: 20px;
     overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: calc(100vh - 100px);
 }
 
 /* HEADER */

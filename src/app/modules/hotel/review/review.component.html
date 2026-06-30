@@ -2,6 +2,7 @@
    <div class="container">
       <div class="row">
          <div class="col-lg-9">
+            <div id="all-page">
             <div class="booking-stepper">
                <!-- Step 1 -->
                <div class="step completed" (click)="goBack()">
@@ -124,6 +125,7 @@
             <div class="hotel-page">
                <div class="header-bar" (click)="ShowAmentities=!ShowAmentities">
                   <h2 class="page-title">Room Amenities</h2>
+                  <a href="javscript:void(0)">@if(ShowAmentities){<i class="fa-solid fa-angle-up" ></i>}@else{<i class="fa-solid fa-angle-down" ></i>}</a>
                </div>
                @if(ShowAmentities){
                <div class="hotel-card">
@@ -151,31 +153,7 @@
                </div>
             </div>
             }
-            <!-- Hotel Supplements (future use) -->
-            <!--
-               @if (BlockRoomResult?.HotelSupplements?.length) {
-               <div class="section">
-               
-                   <h5 class="section-title">Hotel Supplements</h5>
-               
-                   <p class="text-line">
-                   <span class="label">Description:</span>
-                   <span>
-                       {{ BlockRoomResult?.HotelSupplements?.[0]?.[0]?.Description }}
-                   </span>
-                   </p>
-               
-                   <p class="text-line">
-                   <span class="label">Price:</span>
-                   <span>
-                       {{ BlockRoomResult?.HotelSupplements?.[0]?.[0]?.Price }}
-                       {{ BlockRoomResult?.HotelSupplements?.[0]?.[0]?.Currency }}
-                   </span>
-                   </p>
-               
-               </div>
-               }
-               -->
+            
             <div class="hotel-page">
                <div class="header-bar">
                   <h2 class="page-title">Hotel Norms</h2>
@@ -629,9 +607,13 @@
                <!------End Room  ------>
                
                <div class="hotel-page">
-                  <div class="header-bar d-block" (click)="ShowGST=!ShowGST">
-                     <h2 class="page-title">GST Details for Business Travel ({{GSTTxt}})</h2>
+                  <div class="header-bar" (click)="ShowGST=!ShowGST">
+                    <div>
+                      <h2 class="page-title">GST Details for Business Travel ({{GSTTxt}})</h2>
                       <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> To claim credit of GST charged by airline. Please enter your company's GST number.</small>
+                    </div>
+                     
+                     <a href="javscript:void(0)">@if(ShowGST){<i class="fa-solid fa-angle-up" ></i>}@else{<i class="fa-solid fa-angle-down" ></i>}</a>
 
                   </div>
                   @if(ShowGST){
@@ -743,7 +725,7 @@
                </div>
 
             </form>
-           
+           </div>
          </div>
          <div class="col-lg-3">
             <div class="fare-details">
