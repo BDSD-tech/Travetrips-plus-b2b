@@ -16,7 +16,7 @@ HERO SECTION (CREATIVE UPGRADE)
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top center;
+  object-position: center center;
 }
 .hero-section .container {
   position: relative;
