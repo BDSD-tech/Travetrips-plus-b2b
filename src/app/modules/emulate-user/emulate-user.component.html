@@ -1,6 +1,136 @@
-<div class="tts-center-div">
-    <div class="lds-ellipsis">
-        <div></div><div></div><div></div><div></div>
-     </div>
-</div>
-<div id="data-message" class="message"></div>
+<section class="travel-auth-section">
+  <div class="container">
+    <div class="row align-items-center justify-content-center g-0">
+      <!-- LEFT SIDE CONTENT -->
+      <div class="col-lg-7 d-none d-lg-block">
+        <div class="travel-auth-banner">
+
+          <div class="travel-shape shape-1"></div>
+          <div class="travel-shape shape-2"></div>
+          <div class="travel-shape shape-3"></div>
+
+          <div class="travel-banner-content">
+            <span class="travel-badge">
+              <i class="fa-solid fa-plane-departure"></i>
+              Smart Travel Experience
+            </span>
+
+            <h1>
+              Travel Smarter <br>
+              With <span>{{GetWebSiteData['CompanyName']}}</span>
+            </h1>
+
+            <p>
+              Manage bookings, track activities, verify securely,
+              and enjoy a premium digital travel experience.
+            </p>
+
+            <div class="travel-feature-grid">
+
+              <div class="travel-feature-box">
+                <i class="fa-solid fa-earth-asia"></i>
+                <h5>Worldwide Tours</h5>
+              </div>
+
+              <div class="travel-feature-box">
+                <i class="fa-solid fa-shield-heart"></i>
+                <h5>Secure Access</h5>
+              </div>
+
+              <div class="travel-feature-box">
+                <i class="fa-solid fa-ticket"></i>
+                <h5>Easy Booking</h5>
+              </div>
+
+              <div class="travel-feature-box">
+                <i class="fa-solid fa-headset"></i>
+                <h5>24×7 Support</h5>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-xl-4 col-lg-5 col-md-8">
+        <div class="auth-card otp-card">
+          <div class="auth-card-top text-center">
+            <div class="otp-icon">
+              <i class="fa-solid fa-user-shield"></i>
+            </div>
+            <h2>OTP Verification</h2>
+            <p>Enter the 6 digit code sent to your registered email & mobile number </p>
+          </div>
+
+          <form [formGroup]="OTPForm" (ngSubmit)="UserCheck()">
+            <!-- <div class="otp-wrapper mb-4">
+
+
+              <input type="text" id="one" maxlength="1" (keyup)="clickEvent($event,'two')"
+                (keydown)="onKeyDown($event, 0)" (paste)="onPaste($event)" (keypress)="numberOnly($event)" #otpInput
+                [ngClass]="{ 'is-invalid': VerifyOTPSubmitted && fv['otp'].errors }" [(ngModel)]="inputotp[0]"
+                [ngModelOptions]="{standalone: true}">
+
+
+              <input type="text" id="two" maxlength="1" (keyup)="clickEvent($event,'three')"
+                (keydown)="onKeyDown($event, 1)" (paste)="onPaste($event)" (keypress)="numberOnly($event)" #otpInput
+                [ngClass]="{ 'is-invalid': VerifyOTPSubmitted && fv['otp'].errors }" [(ngModel)]="inputotp[1]"
+                [ngModelOptions]="{standalone: true}">
+
+
+              <input type="text" id="three" maxlength="1" (keyup)="clickEvent($event,'four')"
+                (keydown)="onKeyDown($event, 2)" (paste)="onPaste($event)" (keypress)="numberOnly($event)" #otpInput
+                [ngClass]="{ 'is-invalid': VerifyOTPSubmitted && fv['otp'].errors }" [(ngModel)]="inputotp[2]"
+                [ngModelOptions]="{standalone: true}">
+
+
+              <input type="text" id="four" maxlength="1" (keyup)="clickEvent($event,'five')"
+                (keydown)="onKeyDown($event, 3)" (paste)="onPaste($event)" (keypress)="numberOnly($event)" #otpInput
+                [ngClass]="{ 'is-invalid': VerifyOTPSubmitted && fv['otp'].errors }" [(ngModel)]="inputotp[3]"
+                [ngModelOptions]="{standalone: true}">
+
+
+              <input type="text" id="five" maxlength="1" (keyup)="clickEvent($event,'six')"
+                (keydown)="onKeyDown($event, 4)" (paste)="onPaste($event)" (keypress)="numberOnly($event)" #otpInput
+                [ngClass]="{ 'is-invalid': VerifyOTPSubmitted && fv['otp'].errors }" [(ngModel)]="inputotp[4]"
+                [ngModelOptions]="{standalone: true}">
+
+
+              <input type="text" id="six" maxlength="1" #otpInput (paste)="onPaste($event)"
+                (keypress)="numberOnly($event)" (keydown)="onKeyDown($event, 5)"
+                [ngClass]="{ 'is-invalid': VerifyOTPSubmitted && fv['otp'].errors }" [(ngModel)]="inputotp[5]"
+                [ngModelOptions]="{standalone: true}">
+
+
+            </div> -->
+           
+            <div class="input-group-custom mb-4">
+              <!-- <i class="fa-regular auth-icons fa-envelope"></i> -->
+              <input type="text" class="otp" (keypress)="numberOnly($event)" formControlName="OTP" placeholder="Enter otp."
+                autocomplete="off">
+                @if(VerifyOTPSubmitted && fv['OTP'].errors){
+                  <div class="error-feedback">
+                    @if(fv['OTP'].errors['required'] || fv['OTP'].errors['minlength'] || fv['OTP'].errors['maxlength']){
+                        <div>
+                        Please enter valid OTP.
+                      </div>
+                    }
+                    </div>
+                    
+                    }
+            </div>
+                
+          
+            <button class="btn-login" type="submit" >
+                @if(Loginloading){<span class="spinner-border spinner-border-sm me-2"></span>
+              } Verify OTP
+            </button>
+            <!-- <div *ngIf="LoginMessage" [innerHtml]="LoginMessage"></div> -->
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -38,6 +38,7 @@ import { BankDetailsComponent } from './bank-details/bank-details.component';
 import { AmendmentListComponent } from './bus/amendment-list/amendment-list.component';
 import { GstDetailsComponent } from './gst-details/gst-details.component';
 import { TravellerDetailsComponent } from './traveller-details/traveller-details.component';
+import { A11yModule } from "@angular/cdk/a11y";
 
 @NgModule({
   declarations: [ 
@@ -52,6 +53,7 @@ import { TravellerDetailsComponent } from './traveller-details/traveller-details
     CdkTableModule,
     SafeHtmlModule,
     MatTooltip,
+    A11yModule
 ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 

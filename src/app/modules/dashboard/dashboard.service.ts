@@ -19,6 +19,13 @@ export class DashboardService {
      return this.http.get(configUrl,{ params: params});
 
   }
+
+  GetCommission(reqdata:any)
+  {
+    let configUrl =  tts_config.APIURL +'/dashboard/sale-commission';
+    return this.http.post(configUrl,reqdata);
+  }
+
   public MakeBookingPayment(data:any)
   {
     let service:any;

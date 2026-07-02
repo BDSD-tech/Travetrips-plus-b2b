@@ -311,7 +311,9 @@ export class CartDetailComponent implements OnInit {
       }
     });
   }
-
+  GoBack(){
+    window.close()
+  }
   AbortAmendments(amendment_ref_number:any)
   {
     this.AbortAmendmentModal.show();
