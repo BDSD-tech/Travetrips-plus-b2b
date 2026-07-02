@@ -252,12 +252,16 @@
 
                             <div class="d-flex gap-2">
 
-                                <select class="form-select form-select-sm">
-                                    <option>May</option>
+                                <select [(ngModel)]="selectedMonth" (change)="getCommission($event)"  class="form-select form-select-sm">
+                                    @for (item of months; track $index) {
+                                        <option value="{{ item.value }}">{{ item.name }}</option>
+                                    }
                                 </select>
 
-                                <select class="form-select form-select-sm">
-                                    <option>2024</option>
+                                <select [(ngModel)]="selectedYear" (change)="getCommission($event)" class="form-select form-select-sm">
+                                    @for (item of years; track $index) {
+                                        <option value="{{ item }}">{{item}}</option>
+                                    }
                                 </select>
 
                             </div>
@@ -283,16 +287,28 @@
 
                                     <tr>
                                         <td>Flight</td>
-                                        <td>₹50</td>
-                                        <td>₹0</td>
-                                        <td>₹50</td>
+                                        <td>₹{{Response['SaleCommission']['Flight']['saleCommission'] |number:'1.2-2'}}</td>
+                                        <td>₹{{Response['SaleCommission']['Flight']['refundCommission']|number:'1.2-2'}}</td>
+                                        <td>₹{{Response['SaleCommission']['Flight']['totalCommission']|number:'1.2-2'}}</td>
                                     </tr>
 
                                     <tr>
+                                        <td>Hotel</td>
+                                         <td>₹{{Response['SaleCommission']['Hotel']['saleCommission']|number:'1.2-2'}}</td>
+                                        <td>₹{{Response['SaleCommission']['Hotel']['refundCommission']|number:'1.2-2'}}</td>
+                                        <td>₹{{Response['SaleCommission']['Hotel']['totalCommission']|number:'1.2-2'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bus</td>
+                                         <td>₹{{Response['SaleCommission']['Bus']['saleCommission']|number:'1.2-2'}}</td>
+                                        <td>₹{{Response['SaleCommission']['Bus']['refundCommission']|number:'1.2-2'}}</td>
+                                        <td>₹{{Response['SaleCommission']['Bus']['totalCommission']|number:'1.2-2'}}</td>
+                                    </tr>
+                                    <tr>
                                         <td>Grand Total</td>
-                                        <td>₹50</td>
-                                        <td>₹0</td>
-                                        <td>₹50</td>
+                                         <td>₹{{Response['SaleCommission']['grandTotal']['saleCommission']|number:'1.2-2'}}</td>
+                                        <td>₹{{Response['SaleCommission']['grandTotal']['refundCommission']|number:'1.2-2'}}</td>
+                                        <td>₹{{Response['SaleCommission']['grandTotal']['totalCommission']|number:'1.2-2'}}</td>
                                     </tr>
 
                                 </tbody>
