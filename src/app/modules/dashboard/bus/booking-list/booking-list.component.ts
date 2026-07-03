@@ -48,7 +48,7 @@ export class BookingListComponent {
     visible:boolean = false;
   
     pendingbookingcount:any=0;
-    activebookingfilter='All';
+    activebookingfilter='MyBooking';
   
     totalgrossamount=0;
     totalnetamount=0;
@@ -64,19 +64,10 @@ export class BookingListComponent {
                                          BookingId: [''],
                                          FromDate: [from],
                                          ToDate: [to],
-                                         BookingStatus: [['All'],[Validators.required]],
+                                         BookingStatus: [['MyBooking'],[Validators.required]],
                                          PaymentStatus:[['All'],[Validators.required]],
-                                         Airline: [],
-                                         JourneyType: [['All']],
                                          FirstName: [''],
                                          LastName: [''],
-                                         FromTravelDate: [''],
-                                         ToTravelDate: [''],
-                                         ChannelType: [''],
-                                         AirlinePNR: [''],
-                                         GDSPNR: [''],
-                                         TicketNumber: [''],
-  
                                       });
   
       this.AddAmendmentForm=this.fb.group({

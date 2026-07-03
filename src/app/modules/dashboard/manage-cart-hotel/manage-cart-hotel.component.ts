@@ -45,7 +45,7 @@ export class ManageCartHotelComponent implements OnInit {
   visible:boolean = false;
 
   pendingbookingcount:any=0;
-  activebookingfilter='All';
+  activebookingfilter='MyBooking';
 
   totalgrossamount=0;
 
@@ -60,7 +60,7 @@ export class ManageCartHotelComponent implements OnInit {
                                        BookingId: [''],
                                        FromDate: [from],
                                        ToDate: [to],
-                                       BookingStatus: [['All'],[Validators.required]],
+                                       BookingStatus: [['MyBooking'],[Validators.required]],
                                        PaymentStatus:[['All'],[Validators.required]],
                                        HotelName: [],
                                        FirstName: [''],

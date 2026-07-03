@@ -6,8 +6,9 @@
                 (click)="SetStatus('Pending')">PENDING</a>
 
             <a href="javascript:void(0)" [ngClass]="{'active':SearchForm.get('BookingStatus')?.value.includes('All')}"
-                (click)="SetStatus('All')">MY BOOKING</a>
-
+                (click)="SetStatus('All')">All Transaction</a>
+            <a href="javascript:void(0)" [ngClass]="{'active':SearchForm.get('BookingStatus')?.value.includes('MyBooking')}"
+                (click)="SetStatus('MyBooking')">My BOOKING</a>
             <a href="javascript:void(0)"
                 [ngClass]="{'active':SearchForm.get('BookingStatus')?.value.includes('Confirmed')}"
                 (click)="SetStatus('Confirmed')">CONFIRMED</a>

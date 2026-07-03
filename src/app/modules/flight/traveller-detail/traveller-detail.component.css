@@ -349,10 +349,10 @@ BOOKING STEPPER
 .journey-line::after {
     right: 0;
 } */
- .fare-details{
+ /* .fare-details{
     position: sticky;
     top: 15%;
-}
+} */
 .timer-section{
     margin-bottom:24px
 }
@@ -842,7 +842,7 @@ BOOKING STEPPER
 }
 .fare-details{
     position: sticky;
-    top: 44px;
+    top: 100px;
     
 }
 .seat-map-box{

@@ -1,22 +1,21 @@
 <div class="tts_agentUserId">{{TextWaterMark}}</div>
 <header class="top-navbar navbar navbar-expand-xl">
    <div class="container">
-      <!-- Logo -->
       <a class="navbar-brand brand-logo" routerLink="/flight">
          <img [src]="LogoURL" alt="eTrav Logo">
       </a>
-     
+
       <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
          data-bs-target="#mainNavbar">
          <i class="fa-solid fa-bars"></i>
       </button>
-     
+
       <div class="collapse navbar-collapse" id="mainNavbar">
-         
+
          <div class="navbar-right d-flex align-items-center flex-wrap gap-3">
-           <span class="headset-icon">  <i class="fa-solid fa-headset"></i></span>
+            <span class="headset-icon"> <i class="fa-solid fa-headset"></i></span>
             <div class="support-box d-none d-xl-flex flex-column">
-              
+
                <span>
                   24X7 Support
                </span>
@@ -27,30 +26,30 @@
                   {{GetWebSiteData['SupportEmail']}}
                </small>
             </div>
-           
 
-            <button routerLink="/contact-us" class="btn contact-btn">
+
+            <button routerLink="/pages/page/connect-us" class="btn contact-btn">
                Contact Us
             </button>
- 
+
             <div class="wallet-dropdown ">
                <a routerLink="/dashboard" class="btn wallet-btn ml-12" type="button">
                   <i class="fa-solid fa-gauge"></i>
                </a>
                <a class="icon-title" href="javascript:void(0)">Dashboard</a>
             </div>
-            
+
 
 
             <div class="dropdown wallet-dropdown text-center">
-                  <button class="btn wallet-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+               <button class="btn wallet-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="fa-solid fa-wallet"></i>
                </button>
                <a class="icon-title" href="javascript:void(0)">Wallet</a>
-              
+
                <div class="dropdown-menu dropdown-menu-end wallet-menu">
                   <div class="wallet-item">
-                     <span>Available  Balance: </span>
+                     <span>Available Balance: </span>
                      <strong>₹{{WalletBalance | number:'1.2-2'}}</strong>
                   </div>
 
@@ -60,28 +59,28 @@
                   </div>
 
                   @if(WalletCreditStatus){
-                     <div class="wallet-item">
-                        <span>Credit Wallet:</span>
-                        <strong>₹{{WalletCreditLimit| number:'1.2-2'}}</strong>
-                     </div>
-                    
-                      @if(WalletCreditExpireDate){
-                        <div class="wallet-item">
-                           <span>Credit Expire:</span>
-                           <strong class="text-danger">{{ WalletCreditExpireDate }}</strong>
-                        </div>
-                        }
-                        @if(WalletDueAmount !== 0){
-                        <div class="wallet-item">
-                           <span>Dues:</span>
-                           <strong class="text-danger">₹{{ WalletDueAmount | number:'1.2-2' }}</strong>
-                        </div>
-                     }
+                  <div class="wallet-item">
+                     <span>Credit Wallet:</span>
+                     <strong>₹{{WalletCreditLimit| number:'1.2-2'}}</strong>
+                  </div>
+
+                  @if(WalletCreditExpireDate){
+                  <div class="wallet-item">
+                     <span>Credit Expire:</span>
+                     <strong class="text-danger">{{ WalletCreditExpireDate }}</strong>
+                  </div>
                   }
-               
+                  @if(WalletDueAmount !== 0){
+                  <div class="wallet-item">
+                     <span>Dues:</span>
+                     <strong class="text-danger">₹{{ WalletDueAmount | number:'1.2-2' }}</strong>
+                  </div>
+                  }
+                  }
+
                </div>
             </div>
-            
+
             <!-- USER PROFILE -->
             <div class="dropdown user-dropdown">
                <button class="btn user-profile dropdown-toggle-custom" type="button" data-bs-toggle="dropdown"
@@ -98,8 +97,9 @@
                   <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
                </button>
                <!-- DROPDOWN MENU -->
-             <div class="dropdown-menu dropdown-menu-end profile-dropdown-menu">
-                  <a class="dropdown-item" routerLink="/dashboard/user-detail/{{LoginAgentinfo['CompanyId']}}" href="javascript:void(0);">
+               <div class="dropdown-menu dropdown-menu-end profile-dropdown-menu">
+                  <a class="dropdown-item" routerLink="/dashboard/user-detail/{{LoginAgentinfo['CompanyId']}}"
+                     href="javascript:void(0);">
                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
                         class="rpfteH2dJ806mlRyY5L7">
                         <path
@@ -117,13 +117,13 @@
                            stroke="#333333" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
                      </svg>
                      My Profile
-                    </a>
-                    @if(LoginAgentinfo['PrimaryUser']=='1' ){
-                        <a  class="dropdown-item"  routerLink="/dashboard/users">
-                            <i class="fas fa-users-cog"></i> Manage Users
-                        </a>
-                    }
-                    <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/markup">
+                  </a>
+                  @if(LoginAgentinfo['PrimaryUser']=='1' ){
+                  <a class="dropdown-item" routerLink="/dashboard/users">
+                     <i class="fas fa-users-cog"></i> Manage Users
+                  </a>
+                  }
+                  <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/markup">
                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" id="markup"
                         class="VFCSf3Y5WRuT6V1RskB3">
                         <path
@@ -143,7 +143,7 @@
                      </svg>
                      My Bookings
                   </a>
-                   
+
                   <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/booking-calendar">
                      <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                         class="VFCSf3Y5WRuT6V1RskB3">
@@ -154,8 +154,11 @@
                      Booking Calendar
                   </a>
                   <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/amendments">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 640 640"><path fill="rgb(156, 156, 156)" d="M216 64C229.3 64 240 74.7 240 88L240 128L400 128L400 88C400 74.7 410.7 64 424 64C437.3 64 448 74.7 448 88L448 128L480 128C515.3 128 544 156.7 544 192L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 192C96 156.7 124.7 128 160 128L192 128L192 88C192 74.7 202.7 64 216 64zM216 176L160 176C151.2 176 144 183.2 144 192L144 480C144 488.8 151.2 496 160 496L480 496C488.8 496 496 488.8 496 480L496 192C496 183.2 488.8 176 480 176L216 176zM387.9 268.1C397.3 277.5 397.3 292.7 387.9 302L354 335.9L387.9 369.8C397.3 379.2 397.3 394.4 387.9 403.7C378.5 413 363.3 413.1 354 403.7L320.1 369.8L286.2 403.7C276.8 413.1 261.6 413.1 252.3 403.7C243 394.3 242.9 379.1 252.3 369.8L286.2 335.9L252.3 302C242.9 292.6 242.9 277.4 252.3 268.1C261.7 258.8 276.9 258.7 286.2 268.1L320.1 302L354 268.1C363.4 258.7 378.6 258.7 387.9 268.1z"/></svg>
-                    Bookings Amendment
+                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 640 640">
+                        <path fill="rgb(156, 156, 156)"
+                           d="M216 64C229.3 64 240 74.7 240 88L240 128L400 128L400 88C400 74.7 410.7 64 424 64C437.3 64 448 74.7 448 88L448 128L480 128C515.3 128 544 156.7 544 192L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 192C96 156.7 124.7 128 160 128L192 128L192 88C192 74.7 202.7 64 216 64zM216 176L160 176C151.2 176 144 183.2 144 192L144 480C144 488.8 151.2 496 160 496L480 496C488.8 496 496 488.8 496 480L496 192C496 183.2 488.8 176 480 176L216 176zM387.9 268.1C397.3 277.5 397.3 292.7 387.9 302L354 335.9L387.9 369.8C397.3 379.2 397.3 394.4 387.9 403.7C378.5 413 363.3 413.1 354 403.7L320.1 369.8L286.2 403.7C276.8 413.1 261.6 413.1 252.3 403.7C243 394.3 242.9 379.1 252.3 369.8L286.2 335.9L252.3 302C242.9 292.6 242.9 277.4 252.3 268.1C261.7 258.8 276.9 258.7 286.2 268.1L320.1 302L354 268.1C363.4 258.7 378.6 258.7 387.9 268.1z" />
+                     </svg>
+                     Bookings Amendment
                   </a>
                   <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/payment-passbook">
                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -235,13 +238,13 @@
                      Online Recharge
                   </a>
                   <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/download-report">
-                    <i class="fa-solid fa-file-arrow-down" style="color: rgb(156, 156, 156);"></i>   Download Reports
+                     <i class="fa-solid fa-file-arrow-down" style="color: rgb(156, 156, 156);"></i> Download Reports
                   </a>
-                    @if(LoginAgentinfo['CreditRequestAllow']=='Yes'){
-                        <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/credit-request">
-                            <i class="fa-solid fa-code-pull-request" style="color: rgb(156, 156, 156);"></i>  Credit Requests
-                        </a>
-                    }
+                  @if(LoginAgentinfo['CreditRequestAllow']=='Yes'){
+                  <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/credit-request">
+                     <i class="fa-solid fa-code-pull-request" style="color: rgb(156, 156, 156);"></i> Credit Requests
+                  </a>
+                  }
                   <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/gst-details">
                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
                         class="rpfteH2dJ806mlRyY5L7">
@@ -253,7 +256,7 @@
                      </svg>
                      Manage GST List
                   </a>
-                  <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/travellers"> 
+                  <a class="dropdown-item" href="javascript:void(0);" routerLink="/dashboard/travellers">
                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
                         class="rpfteH2dJ806mlRyY5L7">
                         <path
@@ -264,7 +267,7 @@
                      </svg>
                      Manage Travellers
                   </a>
-                  
+
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item logout-item" (click)="logout()" href="javascript:void(0);">
                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -348,7 +351,7 @@
                </div>
             </ul>
             <nav class="navbar navbar-expand-lg p-0 justify-content-md-end">
-         
+
                <button class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#mobileOffcanvas">
                   <i class="fa fa-bars"></i>
                </button>
@@ -359,7 +362,7 @@
                            {{LoginAgentinfo['CompanyName']}}
                            ({{LoginAgentinfo['CompanyId']}}) </a>
                      </li>
-                     
+
                      <li class="topbar__list">
                         <div class="dropdown">
                            <span data-bs-toggle="dropdown" aria-expanded="false">My Balance:
@@ -504,11 +507,11 @@
    </div>
 </div>
 <div class="main-content-page-default">
-   <router-outlet ></router-outlet>
+   <router-outlet></router-outlet>
 </div>
 <div class="tts-session-timer"></div>
 
-<footer class="main-footer"  > 
+<footer class="main-footer">
    <div class="container">
       <div class="footer-wrapper">
          <!-- LEFT -->
@@ -517,28 +520,15 @@
                {{GetWebSiteData['CopyRight']}}
             </span>
 
-            <a href="javascript:void(0);" routerLink="/contact-us" target="blank">
+            <a href="javascript:void(0);" routerLink="/pages/contact-us" target="blank">
                Contact Us
             </a>
-
-            <!-- <a href="javascript:void(0);"  routerLink="pages/page/web-check-in" target="blank">
-               Web Check-in
-            </a>
-
-            <a href="javascript:void(0);"  routerLink="pages/page/privacy-policy" target="blank">
-               Privacy Policy
-            </a>
-
-            <a href="javascript:void(0);"  routerLink="pages/page/cancellation" target="blank">
-               Refund & Cancellation Policy
-            </a> -->
-
-            <a href="javascript:void(0);"  routerLink="pages/page/term-condition" target="blank">
+            <a href="javascript:void(0);" routerLink="pages/page/term-condition" target="blank">
                Terms & Conditions
             </a>
          </div>
 
-         <!-- RIGHT -->
+
          <div class="footer-social">
             <a href="javascript:void(0);" class="social-icon">
                <i class="fab fa-facebook-f"></i>

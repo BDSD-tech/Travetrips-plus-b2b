@@ -10,6 +10,7 @@ import { CommonService } from '../../services/common.service';
 export class LoginComponent implements OnInit {
   GetWebSiteData:any=[];
   FooterMenu:any=[];
+  FooterData:any=[];
 
   constructor(private router:Router,private commonservice:CommonService) {
    }
@@ -26,7 +27,14 @@ export class LoginComponent implements OnInit {
         this.FooterMenu=data;
       }
     });
-    
+      this.commonservice.GetFooterData().subscribe(data => {
+      if(data && data.length!==0){
+         this.FooterData = data;
+        
+      }
+     
+     
+    });
   }
 
   GotoPage(title:any){
