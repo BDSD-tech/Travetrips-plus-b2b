@@ -1,99 +1,229 @@
 <div class="login-page">
-   <!-- <div class="login-menu">
-      <div class="container ">
-         <nav class="navbar navbar-expand-lg d-flex align-items-center justify-content-between">
-            <a class="navbar-brand" routerLink="/"><img src="{{GetWebSiteData['Logo']}}"
-               class="img-fluid logo__img" /></a>
+   <header class="main-header">
+    <nav class="navbar navbar-expand-lg navbar-light main-navbar">
+        <div class="container">
+            <!-- LOGO -->
+            <a class="navbar-brand logo-link" routerLink="/">
+                <img [src]="GetWebSiteData?.Logo" alt="TravelTrip Logo" class="logo-img img-fluid" />
+            </a>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
-               <div class="collapse-header">
-                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                  <i class="fa-solid fa-xmark"></i>
-                  </button>
-               </div>
-               <ul class="navbar-nav me-auto ms-auto mb-2 mb-lg-0">
-                 <li class="nav-item"><a routerLink="/" class="nav-link">Home</a></li>
-                  <li class="nav-item"><a routerLink="/pages/contact-us" class="nav-link"> Contact</a></li>
-               </ul>
-            </div>
-            <div class="Rightbtn">
-               <a routerLink="/register" class="btn btn-primary border-width-2">
-               <span class="me-2 fa-solid fa-user"></span> Register Now <span class="d-lg-inline d-none">For new Agent</span>
-               </a>
-            </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fas fa-bars"></i>
+            <!-- MOBILE TOGGLE -->
+            <button class="navbar-toggler mobile-toggle" type="button" data-bs-toggle="collapse"
+                data-bs-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
-         </nav>
-      </div>
-   </div> -->
+
+            <!-- RIGHT SIDE -->
+            <div class="collapse navbar-collapse" id="mainMenu">
+                <div class="header-actions">
+                    <!-- SUPPORT INFO -->
+                    <div class="support-info">
+                        <i class="fa-solid fa-headset"></i>
+                        <div>
+                            <p>24/7 Support</p>
+                            <h5 class="support-number">{{GetWebSiteData['SupportNo']}}</h5>
+                        </div>
+                    </div>
+
+                    <!-- AUTH BUTTONS -->
+                    <a class="login-btn" routerLink="/login">Login</a>
+                    <a class="register-btn" routerLink="/register">Register</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
    <router-outlet></router-outlet>
-   <!-- <footer class="login-footer">
-      <div class="container">
-         <div class="row">
-             @for (link of FooterMenu; track $index) {
-            <div class="col-md-6 col-lg-3 mb-3 mb-md-0">
-               <div class="widget">
-                  <h3 class="widget-heading">{{link['MenuName']}}</h3>
-                  <ul class="list-unstyled">
-                      @for (item of link['Pages']; track $index) {
-                                <li>
-                                    @if(item.CustomUrl){
-                                        <a href="{{item.CustomUrl}}" target="_blank">{{item.Title}}</a>
+  <footer class="site-footer">
 
-                                    }@else {
-                                        <a routerLink="/pages/page/{{item.SlugUrl}}">{{item.Title}}</a>
+    <!-- TOP AREA -->
+    <div class="footer-top">
 
-                                    }  
-                                </li>
+        <div class="container">
+
+            <div class="row g-5">
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-widget">
+                        <a href="javascript:void(0)" class="footer-logo">
+                            <img src="https://cdn-icons-png.flaticon.com/512/201/201623.png" alt="TravelTripPlus">
+                            <div class="footer-logo-text">
+                                <h4>
+                                    {{GetWebSiteData['CompanyName']}}
+                                </h4>
+                                <span>
+                                    Flights , Hotel & Bus 
+                                </span>
+                            </div>
+                        </a>
+                        <p class="footer-about">
+                           {{GetWebSiteData?.['CompanyDescription']}}
+                        </p>
+
+                        <div class="footer-social">
+
+                            <a href="https://www.facebook.com/TravelTripPlusHolidays/" target="_blank">
+
+                                <i class="fab fa-facebook-f"></i>
+
+                            </a>
+
+                            <a href="javascript:void(0)">
+
+                                <i class="fab fa-twitter"></i>
+
+                            </a>
+
+                            <a href="https://www.instagram.com/traveltripplus24" target="_blank">
+
+                                <i class="fab fa-instagram"></i>
+
+                            </a>
+
+                            <a href="javascript:void(0)">
+
+                                <i class="fab fa-linkedin-in"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                @for (item of FooterData; track $index) {
+                <div class="col-lg-2 col-md-6">
+
+                    <div class="footer-widget">
+                        <h5 class="footer-title">
+                            {{item['MenuName']}}
+                        </h5>
+                        <ul class="footer-links">
+                            @for (page of item['Pages']; track $index) {
+                            <li>
+                                @if(page['CustomUrl']){
+                                    <a [href]="page['CustomUrl']" target="_blank">
+                                        <i class="fa-solid fa-angle-right"></i>
+                                       {{ page['Title']}}
+                                    </a>
+                                }@else {
+                                    <a href="javascript:void(0)" routerLink="/pages/page/{{page['SlugUrl']}}">
+                                        <i class="fa-solid fa-angle-right"></i>
+                                        {{ page['Title']}}
+                                    </a>
                                 }
-                    
-                  </ul>
-               </div>
+                                
+                            </li>
+                            }
+                        </ul>
+
+                    </div>
+
+                </div>
+                }
+               
+                
+
+                <!-- =========================================
+                CONTACT INFO
+                ========================================= -->
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="footer-widget">
+
+                        <h5 class="footer-title">
+                            Contact Info
+                        </h5>
+
+                        <ul class="footer-contact">
+
+                            <li>
+
+                                <div class="contact-icon">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+
+                                <div class="contact-text">
+                                    {{GetWebSiteData['Street']}} {{GetWebSiteData['City']}} {{GetWebSiteData['State']}} {{GetWebSiteData['Country']}}
+                                </div>
+
+                            </li>
+
+                            <li>
+
+                                <div class="contact-icon">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+
+                                <div class="contact-text">
+                                     {{GetWebSiteData['SupportNo']}}
+                                    <br>
+                                   
+                                </div>
+
+                            </li>
+
+                            <li>
+
+                                <div class="contact-icon">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+
+                                <div class="contact-text">
+                                   {{GetWebSiteData['SupportEmail']}}
+                                </div>
+
+                            </li>
+
+                        </ul>
+
+                        <!-- IATA -->
+                        <div class="iata-box">
+
+                            <img src="https://www.traveltripplus.com/images/IATA.jpg" alt="IATA">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
-         }
-            
-            
-            <div class="col-md-6 col-lg-3">
-               <div class="widget">
-                  <h3 class="widget-heading">Contact Us</h3>
-                  <ul class="list-unstyled">
-                     <li class="d-flex">
-                       <span class="me-2 d-flex align-items-center"><i class="fa-solid fa-location-dot me-1"></i>:</span>
-                        <a href="javascript:void(0)">{{GetWebSiteData['Street']}} {{GetWebSiteData['City']}} {{GetWebSiteData['State']}} {{GetWebSiteData['Country']}}</a>
-                     </li>
-                     <li>
-                          <span class="me-2"><i class="fa-solid fa-phone  me-1"></i>:</span>
-                          <a href="tel:{{GetWebSiteData['SupportNo']}}">{{GetWebSiteData['SupportNo']}}</a>
-                     </li>
-                     <li>
-                       <span class="me-2"><i class="fa-solid fa-envelope me-1"></i>:</span>
-                       <a href="mailto:support@travelimpression.in">{{GetWebSiteData['SupportEmail']}}</a>
-                     </li>
-                  </ul>
-               </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        <div class="container">
+
+            <div class="footer-bottom-wrapper">
+
+                <p>
+                   {{GetWebSiteData['CopyRight']}}
+                </p>
+
+                <div class="footer-bottom-links">
+
+                    <a href="javascript:void(0)" routerLink="/pages/page/term-condition">
+                        Terms & Conditions
+                    </a>
+
+                    <a href="javascript:void(0)" routerLink="/pages/page/privacy-policy"> 
+                        Privacy Policy
+                    </a>
+
+                </div>
+
             </div>
-         </div>
-         <div class="copyright d-flex flex-column flex-md-row align-items-center justify-content-md-between mb-3 gap-2">
-            <ul class="list-unstyled social-icons">
-               <li><a href="javascript:void(0)" class="facebook"><img src="assets/img/paymentgetway/mc.jpg" alt=""></a></li>
-               <li><a href="javascript:void(0)" class="instagram"><img src="assets/img/paymentgetway/rp.jpg" alt=""></a></li>
-               <li><a href="javascript:void(0)" class="instagram"><img src="assets/img/paymentgetway/visa.jpg" alt=""></a></li>
-               <li><a href="javascript:void(0)" class="instagram"><img src="assets/img/paymentgetway/upi.jpg" alt=""></a></li>
-               <li><a href="javascript:void(0)" class="instagram"><img src="assets/img/paymentgetway/nb.jpg" alt=""></a></li>
-            </ul>
-            <p class="rights__content">{{GetWebSiteData['CopyRight']}}</p>
-            <ul class="list-unstyled social-icons ">
-              <li><a href="javascript:void(0)" class="facebook"><img src="assets/img/travelpartner/atoi.jpg" alt=""></a></li>
-              <li><a href="javascript:void(0)" class="instagram"><img src="assets/img/travelpartner/iata.jpg" alt=""></a></li>
-              <li><a href="javascript:void(0)" class="instagram"><img src="assets/img/travelpartner/j&k.jpg" alt=""></a></li>
-              <li><a href="javascript:void(0)" class="instagram"><img src="assets/img/travelpartner/taai.jpg" alt=""></a></li>
-              <li><a href="javascript:void(0)" class="instagram"><img src="assets/img/travelpartner/tafi.jpg" alt=""></a></li>
-           </ul>
-         </div>
-      </div>
-   </footer> -->
+
+        </div>
+
+    </div>
+
+</footer>
    <div id="data-message" class="message"></div>
 </div>

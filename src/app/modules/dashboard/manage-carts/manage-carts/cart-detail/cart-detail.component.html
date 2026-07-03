@@ -31,6 +31,7 @@
                             </a>
                         </div>
                         }
+                        @if(BookingDetail['booking_status']!=='Released'){
                         <div class="cssCircle addsign">
                             <a href="javascript:void(0)" data-bs-toggle="modal"
                                 data-bs-target="#ticketformmodal-printtk">
@@ -45,7 +46,7 @@
                                 <i class="fa fa-print me-1"></i><span class="cssCircle-plusdesign">Invoice</span>
                             </a>
                         </div>
-
+                        }
                         <div class="cssCircle addsign">
                             <a href="javascript:void(0)" (click)="RaiseAmendment(BookingDetail['booking_ref_number'])">
                                <i class="fa fa-close me-1"></i><span class="cssCircle-plusdesign">Raise Amendments</span>

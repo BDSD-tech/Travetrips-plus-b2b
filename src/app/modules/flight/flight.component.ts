@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NavigationExtras, Router } from '@angular/router';
@@ -72,10 +72,10 @@ export class FlightComponent implements OnInit {
     return 0; // keep API order
   };
   constructor(public fb: FormBuilder, private router: Router, private flightservice: FlightService, private commonservice: CommonService, private alertservice: AlertService, public dialog: MatDialog) {
-     const isLogin = history.state?.login ?? false;
-     if(isLogin){
-      this.alertservice.success('Login successful. Welcome back!')
-     }
+      if (history.state?.login) {
+        this.alertservice.success('Login successful. Welcome back!');
+        window.history.replaceState({}, '', window.location.href);
+      }
     this.SearchForm = this.fb.group({
       Type: ['O', Validators.required],
       Origin: ['Delhi(DEL)', Validators.required],

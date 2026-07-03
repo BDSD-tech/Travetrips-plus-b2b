@@ -579,7 +579,7 @@
                             </a>
                         </li>
                         <div
-                            *ngIf="Response['bookingStatus'][0]!='Processing' && Response['bookingStatus'][0]!='Pending' && Response['bookingStatus'][0]!='Failed'">
+                            *ngIf="Response['bookingStatus'][0]!='Processing' && Response['bookingStatus'][0]!='Pending' && Response['bookingStatus'][0]!='Released' && Response['bookingStatus'][0]!='Failed'">
                             <li class="travelimp__thanku--morelist" (click)="DownloadPDF()"><span
                                     class="travelimp__thanku--morecontent"> Download as PDF</span><span
                                     class="travelimp__thanku--moreicons fa fa-download"></span></li>
