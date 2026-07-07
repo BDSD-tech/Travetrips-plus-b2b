@@ -7,6 +7,7 @@ import { AuthenticationService } from '../../../services/authentication.service'
 import { CommonService } from '../../../services/common.service';
 import { FlightService } from '../flight.service';
 import { tts_config } from '../../../../environments/tts_config';
+import { Location } from '@angular/common';
 
 declare var $: any;
 declare var window: any;
@@ -106,7 +107,7 @@ export class DomesticRoundtripComponent implements OnInit {
   HoldableWithSSR = false
 
 
-  constructor(private flightService: FlightService,private router: Router, private route: ActivatedRoute,private serviceTitle: Title,private commonservice: CommonService,private authenticationservice: AuthenticationService,private alertservice:AlertService) {
+  constructor(private location:Location,private flightService: FlightService,private router: Router, private route: ActivatedRoute,private serviceTitle: Title,private commonservice: CommonService,private authenticationservice: AuthenticationService,private alertservice:AlertService) {
 
 
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
@@ -713,11 +714,17 @@ export class DomesticRoundtripComponent implements OnInit {
       'fareid': selectedfare['FareId'],
       'ibfareid': selectedfareib['FareId'],
      };
-
-    const navigationExtras: NavigationExtras = {
+     const navigationExtras: NavigationExtras = {
       queryParams:data
     };
-   this.router.navigate(['flight/traveller'],navigationExtras);
+     const urlTree = this.router.createUrlTree(['/flight/traveller'], {
+        queryParams: navigationExtras.queryParams
+      });
+      const relativeUrl = this.router.serializeUrl(urlTree);
+      const fullUrl = window.location.origin + this.location.prepareExternalUrl(relativeUrl);
+      window.open(fullUrl, '_blank');
+    
+    // this.router.navigate(['flight/traveller'],navigationExtras);
   }
 
   farerule(ttsindex:any,jkey:any) {

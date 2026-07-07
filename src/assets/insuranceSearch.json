@@ -1,1 +1,247 @@
-{"UserIp":"182.77.43.79","SearchTokenId":"198928b3c3c0c38d9244923caa77f61228d14526","Error":{"ErrorCode":0,"ErrorMessage":""},"Result":[{"PlanCode":"1","ResultIndex":1,"PlanType":1,"PlanName":"SANKASH 50D 7 DAYS (additional 10% cashback)","PlanDescription":null,"PlanCoverage":4,"CoverageDetails":[{"Coverage":"Hospitalization expenses for Injury","SumInsured":"50000","Excess":null},{"Coverage":"Outpatient Treatment Expenses for Injury","SumInsured":"20000","Excess":null},{"Coverage":"Medical Evacuation","SumInsured":"50000","Excess":null},{"Coverage":"Personal Accident","SumInsured":"300000","Excess":null},{"Coverage":"Trip Cancellation","SumInsured":"10000","Excess":null},{"Coverage":"Trip Interruption & Curtailment","SumInsured":"10000","Excess":null},{"Coverage":"Repatriation of remains","SumInsured":"50000","Excess":null},{"Coverage":"Total Loss of Checked-in Baggage","SumInsured":"3000","Excess":null},{"Coverage":"Delay of Checked-in Baggage","SumInsured":"1000","Excess":null}],"PlanCategory":1,"Fare":{"GrossFare":60,"Tax":0,"OtherCharges":0,"Discount":0,"PublishedPrice":60,"PerPaxPrice":60,"OfferedPrice":60,"AgentCommission":0,"ServiceCharges":0,"TDS":0,"GST":{"CGSTAmount":0,"CGSTRate":0,"IGSTAmount":0,"IGSTRate":18,"SGSTAmount":0,"SGSTRate":0,"TaxableAmount":0}},"PolicyStartDate":"2025-06-24T00:00:00","PolicyEndDate":"2025-06-24T23:59:59"},{"PlanCode":"5","ResultIndex":2,"PlanType":1,"PlanName":"SANKASH 100D 7 DAYS (additional 10% cashback)","PlanDescription":null,"PlanCoverage":4,"CoverageDetails":[{"Coverage":"Hospitalization expenses for Injury","SumInsured":"100000","Excess":null},{"Coverage":"Outpatient Treatment Expenses for Injury","SumInsured":"50000","Excess":null},{"Coverage":"Medical Evacuation","SumInsured":"50000","Excess":null},{"Coverage":"Personal Accident","SumInsured":"400000","Excess":null},{"Coverage":"Trip Cancellation","SumInsured":"10000","Excess":null},{"Coverage":"Trip Interruption & Curtailment","SumInsured":"10000","Excess":null},{"Coverage":"Repatriation of remains","SumInsured":"50000","Excess":null},{"Coverage":"Total Loss of Checked-in Baggage","SumInsured":"4000","Excess":null},{"Coverage":"Delay of Checked-in Baggage","SumInsured":"2000","Excess":null}],"PlanCategory":1,"Fare":{"GrossFare":60,"Tax":0,"OtherCharges":0,"Discount":0,"PublishedPrice":60,"PerPaxPrice":60,"OfferedPrice":60,"AgentCommission":0,"ServiceCharges":0,"TDS":0,"GST":{"CGSTAmount":0,"CGSTRate":0,"IGSTAmount":0,"IGSTRate":18,"SGSTAmount":0,"SGSTRate":0,"TaxableAmount":0}},"PolicyStartDate":"2025-06-24T00:00:00","PolicyEndDate":"2025-06-24T23:59:59"},{"PlanCode":"9","ResultIndex":3,"PlanType":1,"PlanName":"SANKASH 200D 7 DAYS (additional 10% cashback)","PlanDescription":null,"PlanCoverage":4,"CoverageDetails":[{"Coverage":"Hospitalization expenses for Injury","SumInsured":"200000","Excess":null},{"Coverage":"Outpatient Treatment Expenses for Injury","SumInsured":"50000","Excess":null},{"Coverage":"Medical Evacuation","SumInsured":"50000","Excess":null},{"Coverage":"Personal Accident","SumInsured":"500000","Excess":null},{"Coverage":"Trip Cancellation","SumInsured":"10000","Excess":null},{"Coverage":"Trip Interruption & Curtailment","SumInsured":"10000","Excess":null},{"Coverage":"Repatriation of remains","SumInsured":"50000","Excess":null},{"Coverage":"Total Loss of Checked-in Baggage","SumInsured":"5000","Excess":null},{"Coverage":"Delay of Checked-in Baggage","SumInsured":"2000","Excess":null}],"PlanCategory":1,"Fare":{"GrossFare":60,"Tax":0,"OtherCharges":0,"Discount":0,"PublishedPrice":60,"PerPaxPrice":60,"OfferedPrice":60,"AgentCommission":0,"ServiceCharges":0,"TDS":0,"GST":{"CGSTAmount":0,"CGSTRate":0,"IGSTAmount":0,"IGSTRate":18,"SGSTAmount":0,"SGSTRate":0,"TaxableAmount":0}},"PolicyStartDate":"2025-06-24T00:00:00","PolicyEndDate":"2025-06-24T23:59:59"}]}
+{
+    "UserIp": "182.77.43.79",
+    "SearchTokenId": "198928b3c3c0c38d9244923caa77f61228d14526",
+    "Error": {
+        "ErrorCode": 0,
+        "ErrorMessage": ""
+    },
+    "Result": [
+        {
+            "PlanCode": "1",
+            "ResultIndex": 1,
+            "PlanType": 1,
+            "PlanName": "SANKASH 50D 7 DAYS (additional 10% cashback)",
+            "PlanDescription": null,
+            "PlanCoverage": 4,
+            "CoverageDetails": [
+                {
+                    "Coverage": "Hospitalization expenses for Injury",
+                    "SumInsured": "50000",
+                    "Excess": null
+                },
+                {
+                    "Coverage": "Outpatient Treatment Expenses for Injury",
+                    "SumInsured": "20000",
+                    "Excess": null
+                },
+                {
+                    "Coverage": "Medical Evacuation",
+                    "SumInsured": "50000",
+                    "Excess": null
+                },
+                {
+                    "Coverage": "Personal Accident",
+                    "SumInsured": "300000",
+                    "Excess": null
+                },
+                {
+                    "Coverage": "Trip Cancellation",
+                    "SumInsured": "10000",
+                    "Excess": null
+                },
+                {
+                    "Coverage": "Trip Interruption & Curtailment",
+                    "SumInsured": "10000",
+                    "Excess": null
+                },
+                {
+                    "Coverage": "Repatriation of remains",
+                    "SumInsured": "50000",
+                    "Excess": null
+                },
+                {
+                    "Coverage": "Total Loss of Checked-in Baggage",
+                    "SumInsured": "3000",
+                    "Excess": null
+                },
+                {
+                    "Coverage": "Delay of Checked-in Baggage",
+                    "SumInsured": "1000",
+                    "Excess": null
+                }
+            ],
+            "PlanCategory": 1,
+            "Fare": {
+                "GrossFare": 60,
+                "Tax": 0,
+                "OtherCharges": 0,
+                "Discount": 0,
+                "PublishedPrice": 60,
+                "PerPaxPrice": 60,
+                "OfferedPrice": 60,
+                "AgentCommission": 0,
+                "ServiceCharges": 0,
+                "TDS": 0,
+                "GST": {
+                    "CGSTAmount": 0,
+                    "CGSTRate": 0,
+                    "IGSTAmount": 0,
+                    "IGSTRate": 18,
+                    "SGSTAmount": 0,
+                    "SGSTRate": 0,
+                    "TaxableAmount": 0
+                }
+            },
+            "PolicyStartDate": "2025-06-24T00:00:00",
+            "PolicyEndDate": "2025-06-24T23:59:59"
+        },
+        {
+            "PlanCode": "5",
+            "ResultIndex": 2,
+            "PlanType": 1,
+            "PlanName": "SANKASH 100D 7 DAYS (additional 10% cashback)",
+            "PlanDescription": null,
+            "PlanCoverage": 4,
+            "CoverageDetails": [
+                {
+                    "Coverage": "Hospitalization expenses for Injury",
+                    "SumInsured": "100000",
+                    "Excess": null
+                },
+                {
+                    "Coverage": "Outpatient Treatment Expenses for Injury",
+                    "SumInsured": "50000",
+                    "Excess": null
+                },
+                {
+                    "Coverage": "Medical Evacuation",
+                    "SumInsured": "50000",
+                    "Excess": null
+                },
+                {
+                    "Coverage": "Personal Accident",
+                    "SumInsured": "400000",
+                    "Excess": null
+                },
+                {
+                    "Coverage": "Trip Cancellation",
+                    "SumInsured": "10000",
+                    "Excess": null
+                },
+                {
+                    "Coverage": "Trip Interruption & Curtailment",
+                    "SumInsured": "10000",
+                    "Excess": null
+                },
+                {
+                    "Coverage": "Repatriation of remains",
+                    "SumInsured": "50000",
+                    "Excess": null
+                },
+                {
+                    "Coverage": "Total Loss of Checked-in Baggage",
+                    "SumInsured": "4000",
+                    "Excess": null
+                },
+                {
+                    "Coverage": "Delay of Checked-in Baggage",
+                    "SumInsured": "2000",
+                    "Excess": null
+                }
+            ],
+            "PlanCategory": 1,
+            "Fare": {
+                "GrossFare": 60,
+                "Tax": 0,
+                "OtherCharges": 0,
+                "Discount": 0,
+                "PublishedPrice": 60,
+                "PerPaxPrice": 60,
+                "OfferedPrice": 60,
+                "AgentCommission": 0,
+                "ServiceCharges": 0,
+                "TDS": 0,
+                "GST": {
+                    "CGSTAmount": 0,
+                    "CGSTRate": 0,
+                    "IGSTAmount": 0,
+                    "IGSTRate": 18,
+                    "SGSTAmount": 0,
+                    "SGSTRate": 0,
+                    "TaxableAmount": 0
+                }
+            },
+            "PolicyStartDate": "2025-06-24T00:00:00",
+            "PolicyEndDate": "2025-06-24T23:59:59"
+        },
+        {
+            "PlanCode": "9",
+            "ResultIndex": 3,
+            "PlanType": 1,
+            "PlanName": "SANKASH 200D 7 DAYS (additional 10% cashback)",
+            "PlanDescription": null,
+            "PlanCoverage": 4,
+            "CoverageDetails": [
+                {
+                    "Coverage": "Hospitalization expenses for Injury",
+                    "SumInsured": "200000",
+                    "Excess": null
+                },
+                {
+                    "Coverage": "Outpatient Treatment Expenses for Injury",
+                    "SumInsured": "50000",
+                    "Excess": null
+                },
+                {
+                    "Coverage": "Medical Evacuation",
+                    "SumInsured": "50000",
+                    "Excess": null
+                },
+                {
+                    "Coverage": "Personal Accident",
+                    "SumInsured": "500000",
+                    "Excess": null
+                },
+                {
+                    "Coverage": "Trip Cancellation",
+                    "SumInsured": "10000",
+                    "Excess": null
+                },
+                {
+                    "Coverage": "Trip Interruption & Curtailment",
+                    "SumInsured": "10000",
+                    "Excess": null
+                },
+                {
+                    "Coverage": "Repatriation of remains",
+                    "SumInsured": "50000",
+                    "Excess": null
+                },
+                {
+                    "Coverage": "Total Loss of Checked-in Baggage",
+                    "SumInsured": "5000",
+                    "Excess": null
+                },
+                {
+                    "Coverage": "Delay of Checked-in Baggage",
+                    "SumInsured": "2000",
+                    "Excess": null
+                }
+            ],
+            "PlanCategory": 1,
+            "Fare": {
+                "GrossFare": 60,
+                "Tax": 0,
+                "OtherCharges": 0,
+                "Discount": 0,
+                "PublishedPrice": 60,
+                "PerPaxPrice": 60,
+                "OfferedPrice": 60,
+                "AgentCommission": 0,
+                "ServiceCharges": 0,
+                "TDS": 0,
+                "GST": {
+                    "CGSTAmount": 0,
+                    "CGSTRate": 0,
+                    "IGSTAmount": 0,
+                    "IGSTRate": 18,
+                    "SGSTAmount": 0,
+                    "SGSTRate": 0,
+                    "TaxableAmount": 0
+                }
+            },
+            "PolicyStartDate": "2025-06-24T00:00:00",
+            "PolicyEndDate": "2025-06-24T23:59:59"
+        }
+    ]
+}

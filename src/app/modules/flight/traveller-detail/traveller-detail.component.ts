@@ -476,7 +476,7 @@ export class TravellerDetailComponent implements OnInit {
       this.GSTForm.patchValue(resp['gstdata']);
       this.CalculateSSrPrice()
     }
-    //this.GetInsuranceData();
+    this.GetInsuranceData();
 
   }
   FTduration(n: number) {

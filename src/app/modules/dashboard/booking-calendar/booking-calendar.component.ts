@@ -21,17 +21,17 @@ export class BookingCalendarComponent implements OnInit {
 
   constructor(private fb: FormBuilder,private alertservice: AlertService, private dashboardservice:DashboardService) {
 
-       let from=this.dashboardservice.SubstractCurrentDate(30);
+       let from=this.dashboardservice.SubstractCurrentDate(0);
        let to=this.dashboardservice.AddDayDefaultDate(new Date(),0);
        this.SearchForm= this.fb.group({
                                           FromDate: [from,[Validators.required]],
-                                          ToDate: [to,[Validators.required]],
+                                          ToDate: [''],
                                           Month: [''],
                                        });
    }
 
   ngOnInit(): void {
-
+    this.Submit()
   }
 
   ngAfterViewInit() {
