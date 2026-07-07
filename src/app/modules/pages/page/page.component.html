@@ -1,5 +1,5 @@
 
-@if(loading===false){
+@if(loading===false && Response['Title']!=='Connect us'){
 
 <section class="breadcrum__text-page">
     <div class="container">
@@ -35,11 +35,11 @@
         }
     </div>
 </section>
-
+@if(Response['Title']!=='Connect Us'){
 <footer class="main-footer">
    <div class="container">
       <div class="footer-wrapper">
-         <!-- LEFT -->
+         
          <div class="footer-left">
             <span>
                {{GetWebSiteData?.['CopyRight']}}
@@ -66,7 +66,7 @@
             </a>
          </div>
 
-         <!-- RIGHT -->
+   
          <div class="footer-social">
             <a href="javascript:void(0);" class="social-icon">
                <i class="fab fa-facebook-f"></i>
@@ -83,3 +83,4 @@
       </div>
    </div>
 </footer>
+}

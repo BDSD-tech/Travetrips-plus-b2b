@@ -12,7 +12,7 @@
             </div>
 
             <div class="modal-body">
-                
+
                 <div class="hotel-hero">
 
                     <img src="{{BlockRoomResult['HotelPicture']}}" onError="this.src='assets/img/no-photo.png';"
@@ -32,167 +32,167 @@
                             </div>
 
                             <div class="star-rating" [innerHTML]="star_rating(BlockRoomResult['StarRating'])">
-                                
+
                             </div>
 
                         </div>
                     </div>
                 </div>
                 <div class="right-detail-panel">
-                <div class="stay-card">
+                    <div class="stay-card">
 
-                    <div class="stay-item">
-                        <span>Check In</span>
+                        <div class="stay-item">
+                            <span>Check In</span>
 
-                        <h6>
-                            {{GetSearchData['CheckIn'] | date:'d MMM , yyyy'}}
-                        </h6>
+                            <h6>
+                                {{GetSearchData['CheckIn'] | date:'d MMM , yyyy'}}
+                            </h6>
 
-                        <small>
-                            {{GetSearchData['CheckIn'] | date:'EEEE'}}
-                        </small>
+                            <small>
+                                {{GetSearchData['CheckIn'] | date:'EEEE'}}
+                            </small>
+                        </div>
+
+                        <div class="stay-center">
+                            <span>{{GetSearchData['Nights']}}</span>
+                            <small>Nights</small>
+                        </div>
+
+                        <div class="stay-item">
+                            <span>Check Out</span>
+
+                            <h6>
+                                {{GetSearchData['CheckOut'] | date:'d MMM , yyyy'}}
+                            </h6>
+
+                            <small>
+                                {{GetSearchData['CheckOut'] | date:'EEEE'}}
+                            </small>
+                        </div>
+
+                        <div class="stay-item">
+                            <span>Guests</span>
+
+                            <h6>
+                                {{GetSearchData['Occupancy']}}
+                            </h6>
+                        </div>
+
                     </div>
 
-                    <div class="stay-center">
-                        <span>{{GetSearchData['Nights']}}</span>
-                        <small>Nights</small>
+
+                    <!-- Room Cards -->
+                    <div class="section-title">
+                        Room Details
                     </div>
 
-                    <div class="stay-item">
-                        <span>Check Out</span>
+                    <div class="room-card" *ngFor="let room of BlockRoomResult?.HotelRoomsDetails; let i = index">
 
-                        <h6>
-                            {{GetSearchData['CheckOut'] | date:'d MMM , yyyy'}}
-                        </h6>
+                        <div>
 
-                        <small>
-                            {{GetSearchData['CheckOut'] | date:'EEEE'}}
-                        </small>
+                            <h6>{{room?.RoomTypeName}}</h6>
+
+                            <small>
+                                {{ GetSearchData?.RoomGuests?.[i]?.Adult }}
+                                Adults
+
+                                <span *ngIf="GetSearchData?.RoomGuests?.[i]?.Child > 0">
+                                    • {{ GetSearchData?.RoomGuests?.[i]?.Child }}
+                                    Child
+                                </span>
+                            </small>
+
+                        </div>
+
+                        <button class="btn btn-outline-primary btn-sm" (click)="roomCancellationPolicy(room)">
+                            Cancellation Policy
+                        </button>
+
                     </div>
 
-                    <div class="stay-item">
-                        <span>Guests</span>
 
-                        <h6>
-                            {{GetSearchData['Occupancy']}}
-                        </h6>
+                    <!-- Passenger Cards -->
+                    <div class="section-title">
+                        Passenger Details
                     </div>
 
-                </div>
-                
+                    <div *ngFor="let paxdata of Paxinfo['paxdata']; let roomkey=index;">
+                        <div class="passenger-card" *ngFor="let pax of paxdata['Adult']; let a=index">
+                            <div class="passenger-index">{{a+1}}</div>
+                            <div>
+                                <h6>
+                                    {{pax['Title']}}
+                                    {{pax['FirstName']}}
+                                    {{pax['LastName']}}
+                                    (Adult)
+                                </h6>
 
-                <!-- Room Cards -->
-                <div class="section-title">
-                    Room Details
-                </div>
+                                <small *ngIf="pax['PAN']">
+                                    PAN : {{pax['PAN']}}
+                                </small>
 
-                <div class="room-card" *ngFor="let room of BlockRoomResult?.HotelRoomsDetails; let i = index">
+                                <small *ngIf="pax['PassportNo']">
+                                    PP: {{pax['PassportNo']}} |
+                                    N: {{pax['Nationality']}} |
+                                    ID: {{pax['PassportIssue']}} |
+                                    ED: {{pax['PassportExpiry']}}
+                                </small>
 
-                    <div>
+                            </div>
 
-                        <h6>{{room?.RoomTypeName}}</h6>
-
-                        <small>
-                            {{ GetSearchData?.RoomGuests?.[i]?.Adult }}
-                            Adults
-
-                            <span *ngIf="GetSearchData?.RoomGuests?.[i]?.Child > 0">
-                                • {{ GetSearchData?.RoomGuests?.[i]?.Child }}
-                                Child
+                            <span class="room-badge">
+                                Room {{roomkey+1}}
                             </span>
-                        </small>
-
-                    </div>
-
-                    <button class="btn btn-outline-primary btn-sm" (click)="roomCancellationPolicy(room)">
-                        Cancellation Policy
-                    </button>
-
-                </div>
-
-
-                <!-- Passenger Cards -->
-                <div class="section-title">
-                    Passenger Details
-                </div>
-
-                <div *ngFor="let paxdata of Paxinfo['paxdata']; let roomkey=index;">
-                    <div class="passenger-card" *ngFor="let pax of paxdata['Adult']; let a=index">
-                        <div class="passenger-index">{{a+1}}</div>
-                        <div>
-                            <h6>
-                                {{pax['Title']}}
-                                {{pax['FirstName']}}
-                                {{pax['LastName']}}
-                                (Adult)
-                            </h6>
-
-                            <small *ngIf="pax['PAN']">
-                                PAN : {{pax['PAN']}}
-                            </small>
-
-                            <small *ngIf="pax['PassportNo']">
-                                PP: {{pax['PassportNo']}} |
-                                N: {{pax['Nationality']}} |
-                                ID: {{pax['PassportIssue']}} |
-                                ED: {{pax['PassportExpiry']}}
-                            </small>
-
                         </div>
 
-                        <span class="room-badge">
-                            Room {{roomkey+1}}
-                        </span>
+                        <div class="passenger-card" *ngFor="let pax of paxdata['Child']; let c=index;">
+
+                            <div class="passenger-index">
+                                {{c+1}}
+                            </div>
+
+                            <div>
+
+                                <h6>
+                                    {{pax['Title']}}
+                                    {{pax['FirstName']}}
+                                    {{pax['LastName']}}
+                                    (Child)
+                                </h6>
+
+                                <small *ngIf="pax['PAN']">
+                                    PAN: {{pax['PAN']}} | AGE: {{paxdata['ChildAge']?.[c]}}
+                                </small>
+
+                                <small *ngIf="pax['PassportNo']">
+                                    PP: {{pax['PassportNo']}} |
+                                    N: {{pax['Nationality']}} |
+                                    ID: {{pax['PassportIssue']}} |
+                                    ED: {{pax['PassportExpiry']}}
+                                </small>
+
+                            </div>
+
+                            <span class="room-badge">
+                                Room {{roomkey+1}}
+                            </span>
+
+                        </div>
                     </div>
 
-                    <div class="passenger-card" *ngFor="let pax of paxdata['Child']; let c=index;">
 
-                        <div class="passenger-index">
-                            {{c+1}}
+                    <!-- Contact -->
+                    <div class="contact-card">
+                        <div>
+                            <span>Email</span>
+                            <h6>{{Paxinfo['EmailId']}}</h6>
                         </div>
 
                         <div>
-
-                            <h6>
-                                {{pax['Title']}}
-                                {{pax['FirstName']}}
-                                {{pax['LastName']}}
-                                (Child)
-                            </h6>
-
-                            <small *ngIf="pax['PAN']">
-                                PAN: {{pax['PAN']}} | AGE: {{paxdata['ChildAge']?.[c]}}
-                            </small>
-
-                            <small *ngIf="pax['PassportNo']">
-                                PP: {{pax['PassportNo']}} |
-                                N: {{pax['Nationality']}} |
-                                ID: {{pax['PassportIssue']}} |
-                                ED: {{pax['PassportExpiry']}}
-                            </small>
-
+                            <span>Mobile</span>
+                            <h6>{{Paxinfo['MobileNumber']}}</h6>
                         </div>
-
-                        <span class="room-badge">
-                            Room {{roomkey+1}}
-                        </span>
-
                     </div>
-                </div>
-
-
-                <!-- Contact -->
-                <div class="contact-card">
-                    <div>
-                        <span>Email</span>
-                        <h6>{{Paxinfo['EmailId']}}</h6>
-                    </div>
-
-                    <div>
-                        <span>Mobile</span>
-                        <h6>{{Paxinfo['MobileNumber']}}</h6>
-                    </div>
-                </div>
                 </div>
             </div>
 

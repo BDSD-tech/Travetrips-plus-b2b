@@ -139,11 +139,13 @@ export class SignupComponent implements OnInit {
         if(response['Error']['ErrorCode']==0)
         {
           this.Sinupdone=true;
+          window.scroll(0, 0);
           this.SinupMessage=response['Error']['ErrorMessage'];
         } else {
           this.ErrorSinupMessage='<div class="alert alert-danger">'+response['Error']['ErrorMessage']+'</div>';
         }
     });
+    
   }
   
   getCountry(){

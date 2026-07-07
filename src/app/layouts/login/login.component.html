@@ -102,20 +102,31 @@
                         </h5>
                         <ul class="footer-links">
                             @for (page of item['Pages']; track $index) {
-                            <li>
-                                @if(page['CustomUrl']){
-                                    <a [href]="page['CustomUrl']" target="_blank">
-                                        <i class="fa-solid fa-angle-right"></i>
-                                       {{ page['Title']}}
-                                    </a>
+                                @if(page['Title']=='Connect Us'){
+                                    <li>
+                                        <a href="javascript:void(0)" routerLink="/pages/contact-us" target="_blank">
+                                            <i class="fa-solid fa-angle-right"></i>
+                                            Contact us
+                                        </a>
+                                        
+                                    </li>
                                 }@else {
-                                    <a href="javascript:void(0)" routerLink="/pages/page/{{page['SlugUrl']}}">
-                                        <i class="fa-solid fa-angle-right"></i>
-                                        {{ page['Title']}}
-                                    </a>
-                                }
-                                
-                            </li>
+                                    <li>
+                                        @if(page['CustomUrl']){
+                                            <a [href]="page['CustomUrl']" target="_blank">
+                                                <i class="fa-solid fa-angle-right"></i>
+                                            {{ page['Title']}}
+                                            </a>
+                                        }@else {
+                                            <a href="javascript:void(0)" routerLink="/pages/page/{{page['SlugUrl']}}">
+                                                <i class="fa-solid fa-angle-right"></i>
+                                                {{ page['Title']}}
+                                            </a>
+                                        }
+                                        
+                                    </li>
+                                        }
+                            
                             }
                         </ul>
 

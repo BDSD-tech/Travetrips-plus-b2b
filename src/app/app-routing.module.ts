@@ -43,6 +43,11 @@ const routes: Routes = [
                                     .then(mod => mod.HotelModule)
                                 },
                                 {
+                                  path: 'page/:slug',
+                                  loadComponent: () => import('./modules/pages/page/page.component')
+                                    .then(mod => mod.PageComponent)
+                                },
+                                {
                                   path: 'bus',
                                   loadChildren: () => import('./modules/bus/bus.module').then(m => m.BusModule)
                                 },
@@ -64,11 +69,6 @@ const routes: Routes = [
                                   loadComponent: () => import('../app/modules/dashboard/payment-page/payment-page.component')
                                     .then(mod => mod.PaymentPageComponent)
                                 },
-                                // {
-                                //   path: 'contact-us',
-                                //   loadComponent: () => import('../app/modules/pages/contact-us/contact-us.component')
-                                //     .then(mod => mod.ContactUsComponent)
-                                // },
                                 {
                                   path: 'payment-response',
                                   loadChildren: () => import('./modules/payment-response/payment-response.module')

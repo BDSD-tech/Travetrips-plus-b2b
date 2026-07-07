@@ -1788,8 +1788,9 @@
                               </div>
                            </div>
                         </div> -->
-               <!-- <div class="accordion panel-item mt-3 border">
-                           <button class="accordion-button panel-heading fw-bold collapsed"
+                       @if(0){
+                        <div class="accordion panel-item my-3 rounded border">
+                           <button class="accordion-button panel-heading text-dark fw-bold flight-booking-header rounded collapsed"
                                type="button" data-bs-toggle="collapse" data-bs-target="#add-insurance">
                                Add Travel Insurance
                            </button>
@@ -1844,7 +1845,7 @@
                                                                <div class="fw-bold mb-1">
                                                                    {{item['PlanName']}} </div>
                                                                <div class="fs-5 fw-semibold">₹
-                                                                   {{item['Fare']['PerPaxPrice']}}</div>
+                                                                   {{item['Fare']['PublishedPrice']}}</div>
                                                                <div class="text-muted mb-2">Per Person
                                                                </div>
                                                                @if(SelectedIns==item['ResultIndex']){
@@ -1902,7 +1903,7 @@
                                                                <div class="fw-bold mb-1">
                                                                    {{item['PlanName']}} </div>
                                                                <div class="fs-5 fw-semibold">₹
-                                                                   {{item['Fare']['PerPaxPrice']}}</div>
+                                                                   {{item['Fare']['PublishedPrice']}}</div>
                                                                <div class="text-muted mb-2">Per Person
                                                                </div>
                                                                @if(SelectedInsib==item['ResultIndex']){
@@ -1928,146 +1929,146 @@
                                    </div>
                                </div>
                            </div>
-                           </div> -->
-
-               <div class="flight-booking-wrapper">
-                  <div class="flight-booking-header d-flex justify-content-between" data-bs-toggle="collapse" data-bs-target="#gst-detail">
-                     <div>
-                        <div class="itinerary-card-title">
-                           <div class="header-left">
-                              <i class="fa-solid fa-wallet"></i>
-                              <span>GST Number for Business Travel ({{GSTTxt}})</span>
                            </div>
-                        </div>
-                        <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> To claim credit of GST charged by airline. Please enter your company's GST number.</small>
-                     </div>
-                     <a href="javscript:void(0)">@if(isGSTShow){<i class="fa-solid fa-angle-up" ></i>}@else{<i class="fa-solid fa-angle-down" ></i>}</a>
-
-                  </div>
-
-                  <div id="gst-detail" class="collapse" [ngClass]="{'show':isGSTShow}">
-                     <div class="flight-segment">
-                        <div class="flight-route-block">
-
-                           <div class="gst-history-wrapper mb-3">
-
-                              <div class="gst-input-icon">
-                                 <i class="fa fa-building"></i>
+                        }
+                     <div class="flight-booking-wrapper">
+                        <div class="flight-booking-header d-flex justify-content-between" data-bs-toggle="collapse" data-bs-target="#gst-detail">
+                           <div>
+                              <div class="itinerary-card-title">
+                                 <div class="header-left">
+                                    <i class="fa-solid fa-wallet"></i>
+                                    <span>GST Number for Business Travel ({{GSTTxt}})</span>
+                                 </div>
                               </div>
-
-                              <input type="text" class="react-autosuggest__input" placeholder="Select from GST History"
-                                 (keyup)="GSTAutocomplete($event)" [matAutocomplete]="auto" #gsteInput />
-                              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedgst($event)">
-                                 <mat-option *ngFor="let list of gstlist" [value]="list['company_name']">
-                                    <div class="gst-option">
-                                       <div class="gst-company">
-                                          {{list['company_name']}}
-                                       </div>
-                                    </div>
-                                 </mat-option>
-                              </mat-autocomplete>
-                              <button type="button" class="gst-clear-btn" (click)="cleargst()">
-                                 Clear
-                              </button>
-
+                              <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> To claim credit of GST charged by airline. Please enter your company's GST number.</small>
                            </div>
-
-                           <form [formGroup]="GSTForm">
-                              <div class="row gy-3">
-                                 <div class="col-lg-12">
-                                    To claim credit of GST charged by airlines, Please enter your company's GST number
-                                 </div>
-                                 <div class="col-md-4">
-                                    <div class="form-group">
-                                       <label class="form-label" for="floatingInput">Registration
-                                          Number</label>
-                                       <input type="text" class="form-control main-select" id="floatingInput"
-                                          placeholder="Registration Number" formControlName="GSTNumber" />
-
-                                       <div *ngIf="Gstsubmitted && f['GSTNumber'].errors" class="error-msg">
-                                          <div *ngIf="f['GSTNumber'].errors['required']">
-                                             Registration number is required.
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="col-md-4">
-                                    <div class="form-group">
-                                       <label class="form-label" for="floatingInput">Registered Company
-                                          Name</label>
-                                       <input type="text" class="form-control main-select" id="floatingInput"
-                                          placeholder="Registered Company Name" formControlName="CompanyName" />
-
-                                       <div *ngIf="Gstsubmitted && f['CompanyName'].errors" class="error-msg">
-                                          <div *ngIf="f['CompanyName'].errors['required']">
-                                             Company name is required.
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="col-md-4">
-                                    <div class="form-group">
-                                       <label class="form-label" for="floatingInput">Registered Email</label>
-                                       <input type="email" class="form-control main-select" id="floatingInput"
-                                          placeholder="Registered Email" formControlName="Email" />
-
-                                       <div *ngIf="Gstsubmitted && f['Email'].errors" class="error-msg">
-                                          <div *ngIf="f['Email'].errors['required']">Email
-                                             is
-                                             required.
-                                          </div>
-                                          <div *ngIf="f['Email'].errors['email']">Please
-                                             enter
-                                             a valid email
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                       <label class="form-label" for="floatingInput">Registered Phone</label>
-                                       <input type="phone" class="form-control main-select" id="floatingInput"
-                                          placeholder="Registered Phone" formControlName="PhoneNumber" />
-
-                                       <div *ngIf="Gstsubmitted && f['PhoneNumber'].errors" class="error-msg">
-                                          <div *ngIf="f['PhoneNumber'].errors['required']">
-                                             Phone number is required.
-                                          </div>
-                                          <div
-                                             *ngIf="f['PhoneNumber'].errors['pattern'] || f['PhoneNumber'].errors['minlength'] ||  f['PhoneNumber'].errors['maxlength']">
-                                             Please enter a valid mobile number
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                       <label class="form-label" for="floatingInput">Registered
-                                          Address</label>
-                                       <input type="address" class="form-control main-select" id="floatingInput"
-                                          placeholder="Registered Address" formControlName="Address" />
-
-                                       <div *ngIf="Gstsubmitted && f['Address'].errors" class="error-msg">
-                                          <div *ngIf="f['Address'].errors['required']">
-                                             Address
-                                             is required.
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-
-                              <div class="form-check mt-3">
-                                 <input class="form-check-input" type="checkbox" id="save-gst-detail"
-                                    formControlName="SaveGST" />
-                                 <label class="form-check-label" for="save-gst-detail">Save GST Details</label>
-                              </div>
-                           </form>
+                           <a href="javscript:void(0)">@if(isGSTShow){<i class="fa-solid fa-angle-up" ></i>}@else{<i class="fa-solid fa-angle-down" ></i>}</a>
 
                         </div>
+
+                        <div id="gst-detail" class="collapse" [ngClass]="{'show':isGSTShow}">
+                           <div class="flight-segment">
+                              <div class="flight-route-block">
+
+                                 <div class="gst-history-wrapper mb-3">
+
+                                    <div class="gst-input-icon">
+                                       <i class="fa fa-building"></i>
+                                    </div>
+
+                                    <input type="text" class="react-autosuggest__input" placeholder="Select from GST History"
+                                       (keyup)="GSTAutocomplete($event)" [matAutocomplete]="auto" #gsteInput />
+                                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedgst($event)">
+                                       <mat-option *ngFor="let list of gstlist" [value]="list['company_name']">
+                                          <div class="gst-option">
+                                             <div class="gst-company">
+                                                {{list['company_name']}}
+                                             </div>
+                                          </div>
+                                       </mat-option>
+                                    </mat-autocomplete>
+                                    <button type="button" class="gst-clear-btn" (click)="cleargst()">
+                                       Clear
+                                    </button>
+
+                                 </div>
+
+                                 <form [formGroup]="GSTForm">
+                                    <div class="row gy-3">
+                                       <div class="col-lg-12">
+                                          To claim credit of GST charged by airlines, Please enter your company's GST number
+                                       </div>
+                                       <div class="col-md-4">
+                                          <div class="form-group">
+                                             <label class="form-label" for="floatingInput">Registration
+                                                Number</label>
+                                             <input type="text" class="form-control main-select" id="floatingInput"
+                                                placeholder="Registration Number" formControlName="GSTNumber" />
+
+                                             <div *ngIf="Gstsubmitted && f['GSTNumber'].errors" class="error-msg">
+                                                <div *ngIf="f['GSTNumber'].errors['required']">
+                                                   Registration number is required.
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-4">
+                                          <div class="form-group">
+                                             <label class="form-label" for="floatingInput">Registered Company
+                                                Name</label>
+                                             <input type="text" class="form-control main-select" id="floatingInput"
+                                                placeholder="Registered Company Name" formControlName="CompanyName" />
+
+                                             <div *ngIf="Gstsubmitted && f['CompanyName'].errors" class="error-msg">
+                                                <div *ngIf="f['CompanyName'].errors['required']">
+                                                   Company name is required.
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-4">
+                                          <div class="form-group">
+                                             <label class="form-label" for="floatingInput">Registered Email</label>
+                                             <input type="email" class="form-control main-select" id="floatingInput"
+                                                placeholder="Registered Email" formControlName="Email" />
+
+                                             <div *ngIf="Gstsubmitted && f['Email'].errors" class="error-msg">
+                                                <div *ngIf="f['Email'].errors['required']">Email
+                                                   is
+                                                   required.
+                                                </div>
+                                                <div *ngIf="f['Email'].errors['email']">Please
+                                                   enter
+                                                   a valid email
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-6">
+                                          <div class="form-group">
+                                             <label class="form-label" for="floatingInput">Registered Phone</label>
+                                             <input type="phone" class="form-control main-select" id="floatingInput"
+                                                placeholder="Registered Phone" formControlName="PhoneNumber" />
+
+                                             <div *ngIf="Gstsubmitted && f['PhoneNumber'].errors" class="error-msg">
+                                                <div *ngIf="f['PhoneNumber'].errors['required']">
+                                                   Phone number is required.
+                                                </div>
+                                                <div
+                                                   *ngIf="f['PhoneNumber'].errors['pattern'] || f['PhoneNumber'].errors['minlength'] ||  f['PhoneNumber'].errors['maxlength']">
+                                                   Please enter a valid mobile number
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-6">
+                                          <div class="form-group">
+                                             <label class="form-label" for="floatingInput">Registered
+                                                Address</label>
+                                             <input type="address" class="form-control main-select" id="floatingInput"
+                                                placeholder="Registered Address" formControlName="Address" />
+
+                                             <div *ngIf="Gstsubmitted && f['Address'].errors" class="error-msg">
+                                                <div *ngIf="f['Address'].errors['required']">
+                                                   Address
+                                                   is required.
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+
+                                    <div class="form-check mt-3">
+                                       <input class="form-check-input" type="checkbox" id="save-gst-detail"
+                                          formControlName="SaveGST" />
+                                       <label class="form-check-label" for="save-gst-detail">Save GST Details</label>
+                                    </div>
+                                 </form>
+
+                              </div>
+                           </div>
+                        </div>
                      </div>
-                  </div>
-               </div>
 
             </form>
             }
@@ -2270,7 +2271,7 @@
 
                                  <span class="fare-price total-price">
                                     ₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat']+InsurancePrice
-                                    | number:'1.0-2'}}
+                                    | number:'1.0-0'}}
                                  </span>
 
                               </div>
@@ -2291,13 +2292,13 @@
                                     </span>
                                  </div>
 
-                                 <!-- <div class="fare-sub-row net-price">
+                                 <div class="fare-sub-row">
                                     <span>Net Price</span>
                                     <span>
                                        ₹{{this.CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat']
-                                       | number:'1.0-2'}}
+                                       | number:'1.0-0'}}
                                     </span>
-                                 </div> -->
+                                 </div>
                               </div>
                            </div>
                         </div>
