@@ -2630,23 +2630,11 @@ export class TravellerDetailComponent implements OnInit {
     }
 
     //--------------------------------- End ::  Special Service ------------------------------------
-
-
-
-
     downloadNameSheet(){
-      this.flightService.DownloadNameFormat().subscribe((resp:any)=>{
-        if(resp['Error']['ErrorCode']==0)
-        {
-          var $a = $("<a>");
-          $a.attr("href", resp.Result.file);
-          $("body").append($a);
-          $a.attr("download", resp.Result.filename);
-          $a[0].click();
-          $a.remove();
-        } else {
-            this.alertservice.error(resp['Error']['ErrorMessage']);
-        }
-      })
+       this.commonservice.Websetting.subscribe((resp:any)=>{
+         let  url=resp['AirlineNameFormatUrl'];
+          window.open(url,"_blank")
+        })
+      
     }
 }
