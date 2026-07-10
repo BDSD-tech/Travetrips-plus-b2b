@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpParams } from '@angular/common/http';
 import { DatePipe,DecimalPipe} from '@angular/common';
 import { tts_config } from '../../../environments/tts_config';
+import { CommonService } from '../../services/common.service';
 
 @Injectable({
   providedIn: 'root'
@@ -138,10 +139,7 @@ export class FlightService {
     return this.http.get(url,{ params: params,responseType: 'blob'});
   }
 
-  DownloadNameFormat(){
-    let url=tts_config.APIURL+'/flight/';
-    return this.http.get(url,{responseType: 'blob'});
-  }
+  
 
   send_itinerary(data : any )
   {
