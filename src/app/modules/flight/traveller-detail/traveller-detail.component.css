@@ -1332,3 +1332,112 @@ BOOKING STEPPER
     border: 1px solid var(--primary-color);
     border-radius: 10px;
 }
+
+
+/* Special Service css */
+.ssr-wrapper {
+  display: flex;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+
+  .ssr-left {
+    width: 260px;
+    background: #faf9f7;
+    border-right: 1px solid #e0e0e0;
+    padding: 12px;
+
+    h4 { margin: 0 0 8px; font-size: 14px; }
+
+    .pax-item {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      background: #fff;
+
+      &.active { border-color: #1e88e5; box-shadow: 0 0 0 1px #1e88e5 inset; }
+
+      label { font-weight: 600; display: flex; align-items: center; gap: 6px; cursor: pointer; }
+
+      .pax-summary {
+        font-size: 12px;
+        color: #666;
+        margin-top: 4px;
+        .star { color: #f5a623; }
+      }
+    }
+  }
+
+  .ssr-right {
+    flex: 1;
+    padding: 16px;
+
+    h4 { margin: 0 0 12px; font-size: 15px; }
+
+    .journey-tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 12px;
+
+      button {
+        border: 1px solid #ddd;
+        background: #f2f2f2;
+        padding: 8px 16px;
+        cursor: pointer;
+        font-size: 13px;
+
+        &.active { background: #fff; border-bottom: 2px solid #1e88e5; font-weight: 600; }
+      }
+    }
+
+    .journey-panel {
+      border: 1px solid #1e88e5;
+      border-radius: 4px;
+      padding: 16px;
+
+      .sector-row {
+        display: flex;
+        gap: 10px;
+        padding: 10px 0;
+        border-bottom: 1px solid #f0f0f0;
+
+        &:last-child { border-bottom: none; }
+
+        .sector-icon { color: #f5a623; font-size: 16px; }
+
+        .sector-content {
+          flex: 1;
+
+          .sector-label { font-weight: 600; margin-bottom: 6px; }
+
+          .sector-options {
+            label { display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; margin-bottom: 4px; }
+          }
+        }
+      }
+    }
+
+    .note { font-size: 12px; color: #888; margin-top: 10px; }
+  }
+}
+
+.ssr-fare-summary {
+  margin-top: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 12px 16px;
+  max-width: 320px;
+
+  h4 { margin: 0 0 8px; font-size: 14px; }
+
+  .fare-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    padding: 4px 0;
+
+    &.total { font-weight: 700; border-top: 1px solid #eee; margin-top: 4px; padding-top: 8px; }
+  }
+}

@@ -32,7 +32,48 @@
             </div> -->
         </div>
     </div>
+      <div class="filter-card">
+        <div class="filter-card-header">
+            <span>Departure Time</span>
+            <a href="javascript:void(0)" (click)="clearFilterByCat('DepartTime')">Clear</a>
+            <i class="fa fa-minus" data-bs-toggle="collapse" href="#filter-DepartTime"
+                (click)="togglebutton($event)"></i>
+        </div>
+        <div class="collapse show" id="filter-DepartTime">
+            <div class="time-grid">
+                <label class="time-box" [class.active-time]="item.isChecked"
+                    *ngFor="let item of Filter['DepartureTimeType']; let i=index;">
+                    <input type="checkbox" class="d-none" name="depart_time" [id]="'departTime' + i"
+                        value="{{item['value']}}" [(ngModel)]="item.isChecked"
+                        (click)="doFilter('DepartTime',$event,item);" />
+                    <div class="time-icon" [ngClass]="item.icon"></div>
+                    <span>{{ item.label }}</span>
+                </label>
+            </div>
+        </div>
+    </div>
 
+    <div class="filter-card">
+        <div class="filter-card-header">
+            <span>Arrival Time</span>
+            <a href="javascript:void(0)" (click)="clearFilterByCat('ArrivalTime')">Clear</a>
+            <i class="fa fa-minus" data-bs-toggle="collapse" href="#filter-ArrivalTime"
+                (click)="togglebutton($event)"></i>
+        </div>
+        <div class="collapse show" id="filter-ArrivalTime">
+            <div class="time-grid">
+                <label class="time-box" [class.active-time]="item.isChecked"
+                    *ngFor="let item of Filter['ArrivalTimeType']; let i=index;">
+                    <input type="checkbox" class="d-none" name="arrival_time" value="{{item['value']}}"
+                        [id]="'ArrivalTime' + i" [(ngModel)]="item.isChecked"
+                        (click)="doFilter('ArrivalTime',$event,item);" />
+
+                    <div class="time-icon" [ngClass]="item.icon"></div>
+                    <span>{{ item.label }}</span>
+                </label>
+            </div>
+        </div>
+    </div>
     <div class="filter-card">
         <div class="filter-card-header">
             <span>Travel Operators</span>
@@ -77,48 +118,7 @@
         </div>
     </div>
 
-    <div class="filter-card">
-        <div class="filter-card-header">
-            <span>Departure Time</span>
-            <a href="javascript:void(0)" (click)="clearFilterByCat('DepartTime')">Clear</a>
-            <i class="fa fa-minus" data-bs-toggle="collapse" href="#filter-DepartTime"
-                (click)="togglebutton($event)"></i>
-        </div>
-        <div class="collapse show" id="filter-DepartTime">
-            <div class="time-grid">
-                <label class="time-box" [class.active-time]="item.isChecked"
-                    *ngFor="let item of Filter['DepartureTimeType']; let i=index;">
-                    <input type="checkbox" class="d-none" name="depart_time" [id]="'departTime' + i"
-                        value="{{item['value']}}" [(ngModel)]="item.isChecked"
-                        (click)="doFilter('DepartTime',$event,item);" />
-                    <div class="time-icon" [ngClass]="item.icon"></div>
-                    <span>{{ item.label }}</span>
-                </label>
-            </div>
-        </div>
-    </div>
-
-    <div class="filter-card">
-        <div class="filter-card-header">
-            <span>Arrival Time</span>
-            <a href="javascript:void(0)" (click)="clearFilterByCat('ArrivalTime')">Clear</a>
-            <i class="fa fa-minus" data-bs-toggle="collapse" href="#filter-ArrivalTime"
-                (click)="togglebutton($event)"></i>
-        </div>
-        <div class="collapse show" id="filter-ArrivalTime">
-            <div class="time-grid">
-                <label class="time-box" [class.active-time]="item.isChecked"
-                    *ngFor="let item of Filter['ArrivalTimeType']; let i=index;">
-                    <input type="checkbox" class="d-none" name="arrival_time" value="{{item['value']}}"
-                        [id]="'ArrivalTime' + i" [(ngModel)]="item.isChecked"
-                        (click)="doFilter('ArrivalTime',$event,item);" />
-
-                    <div class="time-icon" [ngClass]="item.icon"></div>
-                    <span>{{ item.label }}</span>
-                </label>
-            </div>
-        </div>
-    </div>
+  
 </div>
 
 

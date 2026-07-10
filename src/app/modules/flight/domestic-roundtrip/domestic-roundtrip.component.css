@@ -2128,3 +2128,36 @@
     color: #fff;
     font-weight: 700;
 }
+.flight__dropdown__icon {
+    content: "";
+    display: block;
+    position: relative;
+    width: 23px;
+    z-index: 1;
+    border-radius: 50%;
+    top: 0px;
+    left: 10%;
+    height: 23px;
+    background-color: var(--primary-color);
+    transform: rotate(45deg);
+    transition: transform 0.2s linear;
+    cursor: pointer;
+}
+
+.flight__dropdown__icon:after {
+    content: '';
+    display: block;
+    float: none;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 0;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    padding: 4px;
+    height: 0;
+}
+
+.flight__dropdown__icon--selected {
+    transform: rotate(-135deg);
+}

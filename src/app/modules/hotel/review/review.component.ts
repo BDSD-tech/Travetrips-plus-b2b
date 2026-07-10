@@ -255,18 +255,31 @@ export class ReviewComponent implements OnInit {
     return this.HotelPaxForm.get('RoomDetails.'+roomindex+'.Child') as FormArray;
   }
  
+  scrollToSection(id: string): void {
+      const element = document.getElementById(id);
+
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+  }
+
   SubmitPax(){
 
     if(this.isGSTShow) {
       this.submitted = true;
       this.Gstsubmitted = true;
       if(this.GSTForm.invalid || this.HotelPaxForm.invalid) {
+        this.scrollToSection('gst-details');
         return;
       }
         this.SavepaxInfo();
     } else {
       this.submitted = true;
       if (this.HotelPaxForm.invalid) {
+         this.scrollToSection('passenger-details');
         return;
       }
       this.SavepaxInfo();

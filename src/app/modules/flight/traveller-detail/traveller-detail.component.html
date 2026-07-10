@@ -442,14 +442,14 @@
                      </div>
                   </div>
                </div>
-               <div class="flight-booking-wrapper">
+               <div class="flight-booking-wrapper" id="passenger-details">
                   <div class="flight-booking-header">
                      <div class="itinerary-card-title">
                         <div class="header-left">
                            <i class="fa-solid fa-user"></i>
                            <span>Passenger Details</span>
                         </div>
-                        <a href="javascript:void(0)" class="text-primary fw-semibold"> Name Format</a>
+                        <a href="javascript:void(0)" (click)="downloadNameSheet()" class="text-primary fw-semibold"> Name Format</a>
                      </div>
                      <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> Please make sure that passengers names are as per gorvernment approved identity card or passport.</small>
 
@@ -1788,7 +1788,7 @@
                               </div>
                            </div>
                         </div> -->
-                       @if(0){
+                       <!-- @if(0){ -->
                         <div class="accordion panel-item my-3 rounded border">
                            <button class="accordion-button panel-heading text-dark fw-bold flight-booking-header rounded collapsed"
                                type="button" data-bs-toggle="collapse" data-bs-target="#add-insurance">
@@ -1930,8 +1930,84 @@
                                </div>
                            </div>
                            </div>
+                        
+                        @if(SpecialServiceData && SpecialServiceData.length!==0){
+                           <div class="accordion panel-item my-3 rounded border">
+                           <button class="accordion-button panel-heading text-dark fw-bold flight-booking-header rounded collapsed"
+                              type="button" data-bs-toggle="collapse" data-bs-target="#add-specialservice">
+                              Speacial Service 
+                           </button>
+                           <div id="add-specialservice" class="accordion-collapse collapse">
+                              <div class="accordion-body p-2">
+                                    <div class="ssr-wrapper">
+                                          <!-- LEFT: Select Passenger -->
+                                          <div class="ssr-left">
+                                             <h4>Select Passenger</h4>
+                                          
+                                             <div class="pax-item"
+                                                   *ngFor="let pax of paxList"
+                                                   [class.active]="selectedPax === pax"
+                                                   (click)="selectPax(pax)">
+                                                <label>
+                                                <input type="radio"
+                                                         name="paxSelect"
+                                                         [checked]="selectedPax === pax"
+                                                         (change)="selectPax(pax)">
+                                                {{ pax.label }}
+                                                </label>
+                                                <div class="pax-summary">
+                                                <span class="star">★</span> {{ paxSummary(pax) }}
+                                                </div>
+                                             </div>
+                                          </div>
+                                          
+                                          <!-- RIGHT: journey tabs + sector-wise special service -->
+                                          <div class="ssr-right" *ngIf="selectedPax">
+                                             <h4>{{ selectedPax.label }} details :</h4>
+                                          
+                                             <div class="journey-tabs" *ngIf="journeys.length">
+                                                <button type="button"
+                                                      *ngFor="let j of journeys"
+                                                      [class.active]="activeJourney === j"
+                                                      (click)="setActiveJourney(j)">
+                                                {{ j.label }}
+                                                </button>
+                                             </div>
+                                          
+                                             <div class="journey-panel" *ngIf="activeJourney">
+                                                <div class="sector-row" *ngFor="let sector of activeJourney.sectors">
+                                                <div class="sector-icon">★</div>
+                                                <div class="sector-content">
+                                                   <div class="sector-label">Special Service ({{ sector.sectorKey }})</div>
+                                          
+                                                   <div class="sector-options" *ngFor="let item of sector.items">
+                                                      <label for="{{sector.sectorKey}}{{item.Key}}">
+                                                         <input type="checkbox" id="{{sector.sectorKey}}{{item.Key}}"
+                                                                  [checked]="isChecked(selectedPax, sector.sectorKey, item)"
+                                                                  (change)="toggle(selectedPax, sector.sectorKey, item, $event)">
+                                                      {{ item.Text }}: ₹{{ item.Price }}
+                                                      </label>
+                                                   </div>
+                                                </div>
+                                                </div>
+                                          
+                                                <p class="note" *ngIf="!activeJourney.sectors.length">
+                                                No special service available for this journey.
+                                                </p>
+                                             </div>
+                                          
+                                             <p class="note">Note: Special services are subject to availability</p>
+                                          </div>
+                                          </div>
+                                          
+                                          
+                                 
+                              </div>
+                           </div>
+                           </div>
                         }
-                     <div class="flight-booking-wrapper">
+                        <!-- } -->
+                     <div class="flight-booking-wrapper" id="gst-details"> 
                         <div class="flight-booking-header d-flex justify-content-between" data-bs-toggle="collapse" data-bs-target="#gst-detail">
                            <div>
                               <div class="itinerary-card-title">

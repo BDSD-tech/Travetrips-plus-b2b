@@ -268,9 +268,9 @@
                             Gross Amount
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            <div class="generic-td"><span>₹{{element.amount | number:'1.2-2'}}</span></div>
+                            <div class="generic-td"><span>₹{{element.amount | number:'1.0-0'}}</span></div>
                         </td>
-                        <td mat-footer-cell *matFooterCellDef>₹{{totalgrossamount | number:'1.2-2'}}</td>
+                        <td mat-footer-cell *matFooterCellDef>₹{{totalgrossamount | number:'1.0-0'}}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="firstPaxName">
@@ -370,7 +370,7 @@
                 </table>
             </div>
             <div class="row">
-                <strong> Total Amount: ₹{{totalgrossamount | number:'1.2-2'}}</strong>
+                <strong> Total Amount: ₹{{totalgrossamount | number:'1.0-0'}}</strong>
             </div>
             <mat-paginator [pageSizeOptions]="pageSizeOptions"></mat-paginator>
         </div>

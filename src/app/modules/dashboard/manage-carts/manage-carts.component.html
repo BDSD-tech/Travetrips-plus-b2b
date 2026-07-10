@@ -344,18 +344,18 @@
                             Gross Amount
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            <div class="generic-td"><span>₹{{element.amount | number:'1.2-2'}}</span></div>
+                            <div class="generic-td"><span>₹{{element.amount | number:'1.0-0'}}</span></div>
                         </td>
-                        <td mat-footer-cell *matFooterCellDef>₹{{totalnetamount | number:'1.2-2'}}</td>
+                        <td mat-footer-cell *matFooterCellDef>₹{{totalnetamount | number:'1.0-0'}}</td>
                     </ng-container>
                     <ng-container matColumnDef="net-fare">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>
                             Net Fare
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            <div class="generic-td"><span>₹{{element.offer_price | number:'1.2-2'}}</span></div>
+                            <div class="generic-td"><span>₹{{element.offer_price | number:'1.0-0'}}</span></div>
                         </td>
-                        <td mat-footer-cell *matFooterCellDef>₹{{totalgrossamount | number:'1.2-2'}}</td>
+                        <td mat-footer-cell *matFooterCellDef>₹{{totalgrossamount | number:'1.0-0'}}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="firstPaxName">

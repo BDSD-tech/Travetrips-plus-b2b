@@ -121,7 +121,7 @@
                             Requested Amount
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            <div class="generic-td"><span>₹{{element.RequestedAmount | number:'1.2-2'}}</span></div>
+                            <div class="generic-td"><span>₹{{element.RequestedAmount | number:'1.0-0'}}</span></div>
                         </td>
                     </ng-container>
 
@@ -131,7 +131,7 @@
                         </th>
                         <td mat-cell *matCellDef="let element">
                             <div class="generic-td" *ngIf="element.ProcessedAmount!=0"><span>₹{{element.ProcessedAmount
-                                    | number:'1.2-2'}}</span></div>
+                                    | number:'1.0-0'}}</span></div>
                         </td>
                     </ng-container>
 
