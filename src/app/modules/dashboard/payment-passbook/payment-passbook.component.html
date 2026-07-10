@@ -128,9 +128,9 @@
                             Credit
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            <div class="generic-td" *ngIf="element.credit!=0"><span>₹{{element.credit | number:'1.2-2'}}</span></div>
+                            <div class="generic-td" *ngIf="element.credit!=0"><span>₹{{element.credit | number:'1.0-0'}}</span></div>
                         </td>
-                        <td mat-footer-cell *matFooterCellDef>₹{{getTotalCredit() | number:'1.2-2'}}</td>
+                        <td mat-footer-cell *matFooterCellDef>₹{{getTotalCredit() | number:'1.0-0'}}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="debit">
@@ -138,9 +138,9 @@
                             Debit
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            <div class="generic-td" *ngIf="element.debit!=0"><span>₹{{element.debit | number:'1.2-2'}}</span></div>
+                            <div class="generic-td" *ngIf="element.debit!=0"><span>₹{{element.debit | number:'1.0-0'}}</span></div>
                         </td>
-                        <td mat-footer-cell *matFooterCellDef>₹{{getTotalDebit() | number:'1.2-2'}}</td>
+                        <td mat-footer-cell *matFooterCellDef>₹{{getTotalDebit() | number:'1.0-0'}}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="balance">
@@ -158,7 +158,7 @@
                            Outstanding Balance
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            <div class="generic-td" *ngIf="element.outstanding_balance!=0"><span>₹{{element.outstanding_balance | number:'1.2-2'}}</span></div>
+                            <div class="generic-td" *ngIf="element.outstanding_balance!=0"><span>₹{{element.outstanding_balance | number:'1.0-0'}}</span></div>
                         </td>
                         <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>

@@ -49,7 +49,19 @@ export class FlightService {
    return this.http.get('assets/insuranceSearch.json')
     let url=tts_config.APIURL+'/flight/ssr';
     return this.http.post(url, data, {headers: { 'Content-Type': 'application/json'}});
-  
+  }
+  Getwebchekin(type : any,isdomestic:any )
+  {
+    if(type=='R' && isdomestic=='false'){
+        return this.http.get('assets/internation-round.json');
+    }else if(type=='R' && isdomestic){
+      return this.http.get('assets/domestic-round.json');
+    }else{
+      return this.http.get('assets/web-chekin.json');
+    }
+   return this.http.get('assets/insuranceSearch.json')
+    let url=tts_config.APIURL+'/flight/ssr';
+    return this.http.post(url, type, {headers: { 'Content-Type': 'application/json'}});
   }
 
   ssr_seatdata()
@@ -126,16 +138,23 @@ export class FlightService {
     return this.http.get(url,{ params: params,responseType: 'blob'});
   }
 
+  DownloadNameFormat(){
+    let url=tts_config.APIURL+'/flight/';
+    return this.http.get(url,{responseType: 'blob'});
+  }
+
   send_itinerary(data : any )
   {
     let url=tts_config.APIURL+'/flight/send-itinerary';
     return this.http.post(url, data, {headers: { 'Content-Type': 'application/json'}});
   }
+
   SendSMS(data : any )
   {
     let url=tts_config.APIURL+'/flight/send-sms';
     return this.http.post(url, data, {headers: { 'Content-Type': 'application/json'}});
   }
+
   MasterTravelers(data : any )
   {
     let url=tts_config.APIURL+'/flight/master-travelers-info';
@@ -211,7 +230,7 @@ export class FlightService {
       CabinClass=3;
     }
     return  CabinClass;
-}
+  }
 
 
   datediff(d1:any,d2:any)

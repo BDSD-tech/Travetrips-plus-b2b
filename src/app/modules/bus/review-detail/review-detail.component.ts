@@ -262,18 +262,31 @@ export class ReviewDetailComponent implements OnInit {
                             });
   }
 
+
+  scrollToSection(id: string): void {
+    const element = document.getElementById(id);
+
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  }
   SubmitPax()
   {
     if(this.isGSTShow) {
       this.submitted = true;
       this.Gstsubmitted = true;
       if(this.GSTForm.invalid || this.BusForm.invalid) {
+        this.scrollToSection('gst-details')
         return;
       }
         this.SavepaxInfo();
     } else {
       this.submitted = true;
       if (this.BusForm.invalid) {
+        this.scrollToSection('passenger-details')
         return;
       }
       this.SavepaxInfo();

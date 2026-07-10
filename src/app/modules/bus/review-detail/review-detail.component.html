@@ -689,13 +689,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="d-flex align-items-center justify-content-between mt-3">
+                <div class="d-flex align-items-center justify-content-between mt-3" id="passenger-details">
                     <h3 class="apt-heading">
                         <span>Passenger Details</span>
                     </h3>
                 </div>
-                <form [formGroup]="BusForm" (ngSubmit)="SubmitPax()">
-                    <div class="scrollable wrapper-mainclass">
+                <form [formGroup]="BusForm" (ngSubmit)="SubmitPax()" >
+                    <div class="scrollable wrapper-mainclass" >
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="accordion panel-default" id="adt-pax-accordion">
@@ -914,7 +914,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="accordion panel-item mt-3 border">
+                                <div class="accordion panel-item mt-3 border" id="gst-details">
                                     <button class="accordion-button panel-heading" type="button"
                                         data-bs-toggle="collapse" data-bs-target="#gst-detail">
                                         GST Number for Business Travel ({{GSTTxt}})

@@ -1,0 +1,51 @@
+[
+  [
+    {
+      "DEL-LUC": [
+        {
+          "Key": "0HYDCCUCPML",
+          "Origin": "DEL",
+          "Destination": "LUC",
+          "DepartureTime": "2026-07-29T10:15:00",
+          "AirlineCode": "6E",
+          "FlightNumber": "6328",
+          "Code": "FFWD",
+          "ServiceType": 3,
+          "Text": "Priority CheckIn",
+          "WayType": 4,
+          "Price": 560
+        }
+      ]
+    },
+    {
+      "MUM-LUC": [
+        {
+          "Key": "0HYDCCUCPML",
+          "Origin": "MUM",
+          "Destination": "LUC",
+          "DepartureTime": "2026-07-29T10:15:00",
+          "AirlineCode": "6E",
+          "FlightNumber": "6328",
+          "Code": "FFWD",
+          "ServiceType": 3,
+          "Text": "Priority CheckIn",
+          "WayType": 4,
+          "Price": 560
+        },
+        {
+          "Key": "0HYDCCUCPM4",
+          "Origin": "MUM",
+          "Destination": "LUC",
+          "DepartureTime": "2026-07-29T10:15:00",
+          "AirlineCode": "6E",
+          "FlightNumber": "6328",
+          "Code": "FFWD",
+          "ServiceType": 3,
+          "Text": "Test CheckIn",
+          "WayType": 4,
+          "Price": 521
+        }
+      ]
+    }
+  ]
+]

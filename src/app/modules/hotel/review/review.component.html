@@ -231,7 +231,7 @@
                   </div>
                </div>
                <!------Start Room  ------>
-               <div formArrayName="RoomDetails" *ngFor="let room of fpax?.['controls']; let r=index;">
+               <div formArrayName="RoomDetails" *ngFor="let room of fpax?.['controls']; let r=index;" id="passenger-details">
                   <div class="hotel-page" formGroupName={{r}}>
                      <div class="header-bar d-block">
                         <h2 class="page-title">Passenger Details</h2>
@@ -606,7 +606,7 @@
                </div>
                <!------End Room  ------>
                
-               <div class="hotel-page">
+               <div class="hotel-page" id="gst-details">
                   <div class="header-bar" (click)="ShowGST=!ShowGST">
                     <div>
                       <h2 class="page-title">GST Details for Business Travel ({{GSTTxt}})</h2>

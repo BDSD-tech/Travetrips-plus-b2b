@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { CommonService } from '../../../services/common.service';
@@ -149,6 +149,17 @@ export class TravellerDetailComponent implements OnInit {
   FareRuleErrorMessage: any;
 
   FareRuleModal: any
+
+// Start :: Speacial Service 
+  SpecialServiceData = []
+  paxList: any[] = [];
+  journeys: any[] = [];
+  selectedPax: any | null = null;
+  activeJourney: any | null = null;
+  selections: { [paxKey: string]: { [sectorKey: string]: any[] } } = {};
+
+
+// End :: Speacial Service 
   constructor(private flightService: FlightService, private router: Router, private route: ActivatedRoute, private commonservice: CommonService, private fb: FormBuilder, private authenticationservice: AuthenticationService, private location: Location, private alertservice: AlertService) {
     this.route.queryParams.subscribe(params => {
       if (params) {
@@ -157,11 +168,12 @@ export class TravellerDetailComponent implements OnInit {
         this.router.navigate(['/']);
       }
     });
-
+    
     if (sessionStorage.getItem('FlightSearch')) {
       let flightsearch: any = sessionStorage.getItem('FlightSearch');
 
       this.GetSearchData = JSON.parse(flightsearch);
+      // this.GetSearchData['Type']='R'
       this.allpaxCount = this.GetSearchData['Adult'] + this.GetSearchData['Child'] + this.GetSearchData['Infant']
 
       this.IsDomestic = this.GetSearchData['Isdomestic']
@@ -474,10 +486,12 @@ export class TravellerDetailComponent implements OnInit {
         'EmailId': resp['EmailId'],
       });
       this.GSTForm.patchValue(resp['gstdata']);
+      
       this.CalculateSSrPrice()
     }
     this.GetInsuranceData();
-
+     
+      
   }
   FTduration(n: number) {
     var num = n;
@@ -520,7 +534,8 @@ export class TravellerDetailComponent implements OnInit {
         this.DocumentTitle = this.Response[0]['DocumentType'];
         this.SegmentData = this.Response[0]['Segments']
         this.lccFlight = this.Response[0]['IsLCC']
-        this.get_ssr()
+        this.get_ssr();
+        this.GetWebcheckinData()
         this.markupvalue = response['TotalMarkup'];
         let markup: any = this.markupvalue;
         sessionStorage.setItem('TAGM', markup);
@@ -653,6 +668,29 @@ export class TravellerDetailComponent implements OnInit {
 
 
   }
+
+  GetWebcheckinData(){
+    this.flightService.Getwebchekin(this.GetSearchData['Type'],this.IsDomestic).subscribe((resp:any)=>{
+      if(resp && resp.length!==0){
+        this.SpecialServiceData=resp;
+        this.GeneratePax();
+        this.buildJourneys();
+        this.buildPaxList();
+      }
+    });
+
+  }
+
+  scrollToSection(id: string): void {
+      const element = document.getElementById(id);
+
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }
 
 
   ShowSSR(type: any) {
@@ -817,7 +855,7 @@ export class TravellerDetailComponent implements OnInit {
 
 
 
-    this.GeneratePax();
+    
   }
 
 
@@ -1066,6 +1104,8 @@ export class TravellerDetailComponent implements OnInit {
       Child: this.fb.array(arrchd),
       Infant: this.fb.array(arrinf),
     });
+
+    
     this.loading = false;
     this.authenticationservice.currentUser.subscribe(data => {
       if (data) {
@@ -1144,6 +1184,7 @@ export class TravellerDetailComponent implements OnInit {
       Meal: [''],
       Seat: [''],
       SavePax: [''],
+      SpecialService:['']
     });
 
   }
@@ -1414,12 +1455,14 @@ export class TravellerDetailComponent implements OnInit {
       this.Gstsubmitted = true;
 
       if (this.GSTForm.invalid || this.FlightForm.invalid) {
+        this.scrollToSection('gst-details');
         return;
       }
       this.SavepaxInfo();
     } else {
       this.submitted = true;
       if (this.FlightForm.invalid) {
+        this.scrollToSection('passenger-details');
         return;
       }
       this.SavepaxInfo();
@@ -2381,6 +2424,229 @@ export class TravellerDetailComponent implements OnInit {
   ClearSSR(paxtype: any, paxi: any, ssrtype: any) {
     this.FlightForm.get(paxtype + '.' + paxi + '.' + ssrtype)?.setValue([]);
     this.CalculateSSrPrice();
-
   }
+
+
+
+//--------------------------------- Start ::  Special Service ------------------------------------
+
+  buildPaxList(): void {
+    this.paxList = [];
+    this.selections = {};
+ 
+    (['Adult', 'Child', 'Infant'] as const).forEach(type => {
+      const arr = this.FlightForm.get(type) as FormArray;
+      if (!arr) return;
+ 
+      arr.controls.forEach((ctrl, i) => {
+        const key = `${type}_${i}`;
+        this.paxList.push({ type, index: i, label: `${type} ${i + 1}`, control: ctrl });
+        this.selections[key] = {};
+
+        const existing = ctrl.get('SpecialService')?.value;
+        if (existing) {
+          Object.keys(existing).forEach(sectorKey => {
+            const codes: string[] = existing[sectorKey] || [];
+            if (!this.selections[key][sectorKey]) this.selections[key][sectorKey] = [];
+            codes.forEach(code => {
+              const item = this.findItemByCode(sectorKey, code);
+              if (item) this.selections[key][sectorKey].push(item);
+            });
+          });
+        }
+      });
+    });
+  }
+  mergeSectors(journey: any): any {
+    if (Array.isArray(journey)) {
+      return journey.reduce(
+        (acc: any, leg: any) => ({ ...acc, ...this.mergeSectors(leg) }),
+        {}
+      );
+    }
+    return journey || {};
+  }
+  addJourneyTab(journeyRaw: any, journeyIndex: number): void {
+    const merged = this.mergeSectors(journeyRaw);
+    const sectorKeys = Object.keys(merged);
+    if (!sectorKeys.length) return;
+
+    const sectors: any[] = sectorKeys
+      .map(sectorKey => ({
+        sectorKey,
+        items: (merged[sectorKey] || []).filter((i: any) => i.ServiceType === 3)
+      }))
+      .filter(s => s.items.length > 0);
+
+    if (!sectors.length) return;
+
+    const firstOrigin = sectors[0].items[0]?.Origin ?? sectorKeys[0].split('-')[0];
+    const lastDest = sectors[sectors.length - 1].items[0]?.Destination
+      ?? sectorKeys[sectorKeys.length - 1].split('-')[1];
+
+    const route = `${firstOrigin} → ${lastDest}`;
+    const isRoundTrip = this.GetSearchData['Type'] === 'R';
+    const prefix = isRoundTrip ? (journeyIndex === 0 ? 'Onward : ' : 'Return : ') : '';
+
+    this.journeys.push({
+      journeyIndex,
+      label: ` ${prefix}${route}`,
+      sectors
+    });
+  }
+
+
+  buildJourneys(): void {
+    this.journeys = [];
+    if (!this.SpecialServiceData || !this.SpecialServiceData.length) return;
+
+    if (this.GetSearchData['Type'] === 'O') {
+      this.addJourneyTab(this.SpecialServiceData, 0);
+      return;
+    }
+
+    const journeysRaw = this.resolveJourneysArray(this.SpecialServiceData);
+    journeysRaw.forEach((journeyRaw, journeyIndex) => this.addJourneyTab(journeyRaw, journeyIndex));
+}
+
+  resolveJourneysArray(data: any[]): any[] {
+    if (!data || !data.length) return [];
+    if (data.length >= 2) return data;
+
+    const inner = data[0];
+    if (Array.isArray(inner) && inner.length > 1 && inner.every(el => this.isSectorMap(el))) {
+      return inner;
+    }
+    return data;
+  }
+  isSectorMap(x: any): boolean {
+    return !!x && typeof x === 'object' && !Array.isArray(x) &&
+      Object.keys(x).length > 0 &&
+      Object.values(x).every((v: any) => Array.isArray(v));
+  }
+
+  formsRoundTripLoop(elements: any[]): boolean {
+    if (!elements || elements.length < 2) return false;
+    const firstOrigin = this.firstOriginOf(elements[0]);
+    const lastDest = this.lastDestinationOf(elements[elements.length - 1]);
+    return !!firstOrigin && !!lastDest && firstOrigin === lastDest;
+  }
+
+  firstOriginOf(x: any): string | null {
+    const merged = this.mergeSectors(x);
+    const keys = Object.keys(merged);
+    if (!keys.length) return null;
+    return merged[keys[0]]?.[0]?.Origin ?? keys[0].split('-')[0] ?? null;
+  }
+
+  lastDestinationOf(x: any): string | null {
+    const merged = this.mergeSectors(x);
+    const keys = Object.keys(merged);
+    if (!keys.length) return null;
+    const lastKey = keys[keys.length - 1];
+    return merged[lastKey]?.[0]?.Destination ?? lastKey.split('-')[1] ?? null;
+  }
+
+  findItemByCode(sectorKey: string, code: string): any | null {
+    for (const j of this.journeys) {
+      const sector = j.sectors.find((s:any) => s.sectorKey === sectorKey);
+      const item = sector?.items.find((i:any) => i.Code === code);
+      if (item) return item;
+    }
+    return null;
+  }
+
+
+  // ---------- UI helpers ----------
+  paxKey(pax: any): string {
+    return `${pax.type}_${pax.index}`;
+  }
+ 
+  selectPax(pax: any): void {
+    this.selectedPax = pax;
+  }
+ 
+  setActiveJourney(journey: any): void {
+    this.activeJourney = journey;
+  }
+ 
+  isChecked(pax: any, sectorKey: string, item: any): boolean {
+  const list = this.selections[this.paxKey(pax)]?.[sectorKey] || [];
+  return list.some((i: any) => i.Code === item.Code && i.Key === item.Key);
+  }
+  toggle(pax: any, sectorKey: string, item: any, checked: any): void {
+    const key = this.paxKey(pax);
+    if (!this.selections[key]) this.selections[key] = {};
+    if (!this.selections[key][sectorKey]) this.selections[key][sectorKey] = [];
+
+    const list = this.selections[key][sectorKey];
+    const isChecked = checked.target.checked;
+
+    if (isChecked) {
+      const exists = list.some((i: any) => i.Code === item.Code && i.Key === item.Key);
+      if (!exists) list.push(item);
+    } else {
+      this.selections[key][sectorKey] = list.filter(
+        (i: any) => !(i.Code === item.Code && i.Key === item.Key)
+      );
+    }
+
+    this.syncToForm(pax);
+  }
+
+
+  syncToForm(pax: any): void {
+    const paxSelections = this.selections[this.paxKey(pax)] || {};
+    const value: { [sectorKey: string]: string[] } = {};
+    Object.keys(paxSelections).forEach(sectorKey => {
+      const items = paxSelections[sectorKey] || [];
+      value[sectorKey] = items.map((i: any) => i.Code);
+    });
+
+    const group = pax.control as FormGroup;
+    if (group.get('SpecialService')) {
+      group.get('SpecialService')!.setValue(value);
+    } else {
+      group.addControl('SpecialService', new FormControl(value));
+    }
+    
+  }
+ 
+    paxSummary(pax: any): string {
+    const sel = this.selections[this.paxKey(pax)] || {};
+    const chosen: any[] = Object.values(sel).reduce(
+      (acc: any[], arr: any) => acc.concat(arr || []),
+      []
+    );
+
+    return chosen.length ? chosen.map(c => c.Text).join(', ') : 'No Special Service';
+    }
+ 
+    totalForPax(pax: any): number {
+      const sel = this.selections[this.paxKey(pax)] || {};
+      return Object.values(sel)
+        .filter(Boolean)
+        .reduce((sum, i) => sum + (i as any).Price, 0);
+    }
+
+    //--------------------------------- End ::  Special Service ------------------------------------
+
+
+
+
+    downloadNameSheet(){
+      this.flightService.DownloadNameFormat().subscribe((resp:any)=>{
+        if(resp['Error']['ErrorCode']==0)
+        {
+          var $a = $("<a>");
+          $a.attr("href", resp.Result.file);
+          $("body").append($a);
+          $a.attr("download", resp.Result.filename);
+          $a[0].click();
+          $a.remove();
+        } else {
+            this.alertservice.error(resp['Error']['ErrorMessage']);
+        }
+      })
+    }
 }
