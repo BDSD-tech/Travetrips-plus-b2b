@@ -8,6 +8,7 @@ import { Location } from '@angular/common';
 import { AlertService } from '../../../services/alert.service';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { tts_config } from '../../../../environments/tts_config';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 declare var $: any;
@@ -158,9 +159,10 @@ export class TravellerDetailComponent implements OnInit {
   activeJourney: any | null = null;
   selections: { [paxKey: string]: { [sectorKey: string]: any[] } } = {};
 
-
+  NameFormaturl:any=null
+  nameformatModal:any
 // End :: Speacial Service 
-  constructor(private flightService: FlightService, private router: Router, private route: ActivatedRoute, private commonservice: CommonService, private fb: FormBuilder, private authenticationservice: AuthenticationService, private location: Location, private alertservice: AlertService) {
+  constructor(private sanitizer:DomSanitizer,private flightService: FlightService, private router: Router, private route: ActivatedRoute, private commonservice: CommonService, private fb: FormBuilder, private authenticationservice: AuthenticationService, private location: Location, private alertservice: AlertService) {
     this.route.queryParams.subscribe(params => {
       if (params) {
         this.param = params;
@@ -230,6 +232,7 @@ export class TravellerDetailComponent implements OnInit {
     this.inSUranceDetailmodal = new bootstrap.Modal(document.getElementById('insurancedetailmodal'));
     this.TermConditionModal = new bootstrap.Modal(document.getElementById('term&condition'));
     this.FareRuleModal = new bootstrap.Modal(document.getElementById('fare-rule-modal'));
+    this.nameformatModal = new bootstrap.Modal(document.getElementById('name-format-modal'));
 
     if (sessionStorage.getItem('time')) {
       let time: any = sessionStorage.getItem('time');
@@ -2632,8 +2635,12 @@ export class TravellerDetailComponent implements OnInit {
     //--------------------------------- End ::  Special Service ------------------------------------
     downloadNameSheet(){
        this.commonservice.Websetting.subscribe((resp:any)=>{
-         let  url=resp['AirlineNameFormatUrl'];
-          window.open(url,"_blank")
+            this.NameFormaturl = this.sanitizer.bypassSecurityTrustResourceUrl(
+                  `https://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(resp['AirlineNameFormatUrl'])}`
+                );
+          setTimeout(() => {
+             this.nameformatModal.show();
+          }, 100);
         })
       
     }
