@@ -180,7 +180,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     /*------------ Start Session ----------*/
     let initial_date = new Date;
     // remove 140 to 14 for 15 minute
-    let added15Min = new Date(initial_date.getTime() + (14 * 60 * 1000));
+    let added15Min = new Date(initial_date.getTime() + (25 * 60 * 1000));
     sessionStorage.setItem('time', JSON.stringify(added15Min));
 
     /*------------ End Session ----------*/

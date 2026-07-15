@@ -7,8 +7,6 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { HotelService } from '../hotel.service';
 import { AlertService } from '../../../services/alert.service';
 import { AuthenticationService } from '../../../services/authentication.service';
-import { filter } from 'rxjs';
-
 declare var bootstrap:any;
 declare var document:any;
 declare var $: any;

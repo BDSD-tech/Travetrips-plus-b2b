@@ -40,7 +40,6 @@ export class FinalReviewComponent implements OnInit {
       let blockRoomData:any=sessionStorage.getItem('HotelBlockRoomData');
       blockRoomData=JSON.parse(blockRoomData);
       this.BlockRoomResult=blockRoomData['Result'];
-   
     } else{
        this.router.navigate(['/hotel']);
     }

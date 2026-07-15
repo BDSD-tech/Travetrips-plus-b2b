@@ -471,13 +471,15 @@ export class TravellerDetailComponent implements OnInit {
     //   this.router.navigate(['flight']);
     // }
 
-    //this.GeneratePax();
+    
 
 
 
 
     this.GetDialCode();
+    
     if (sessionStorage.getItem('TSFPAX')) {
+      this.GeneratePax();
       let TSFPAX: any = sessionStorage.getItem('TSFPAX');
       let resp = JSON.parse(TSFPAX);
       this.FlightForm.patchValue({
@@ -1107,7 +1109,6 @@ export class TravellerDetailComponent implements OnInit {
       Child: this.fb.array(arrchd),
       Infant: this.fb.array(arrinf),
     });
-
     
     this.loading = false;
     this.authenticationservice.currentUser.subscribe(data => {

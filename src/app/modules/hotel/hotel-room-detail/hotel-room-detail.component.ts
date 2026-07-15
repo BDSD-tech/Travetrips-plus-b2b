@@ -146,6 +146,8 @@ export class HotelRoomDetailComponent implements OnInit {
           this.HotelRoomData =  response['Result']['RoomDataWithRoomType'];
           //this.RoomeNameList =  response['Result']['RoomTypeNameList'];
           this.sortedRooms= this.HotelRoomData.slice();
+          console.log( this.sortedRooms);
+          
           this.price=this.Result['Price']
           this.min=this.price['min']
           this.max=this.price['max']
