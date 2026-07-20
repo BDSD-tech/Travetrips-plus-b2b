@@ -318,6 +318,7 @@ BUTTONS
     font-size: 15px;
     font-weight: 600;
     transition: var(--transition);
+    width: 30%;
 }
 
 .add_money-btn,

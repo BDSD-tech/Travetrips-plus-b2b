@@ -52,10 +52,6 @@
     content: "";
     position: absolute;
     inset: 0;
-    background:
-        linear-gradient(to right,
-            rgba(0, 0, 0, 0.45),
-            rgba(0, 0, 0, 0.08));
     z-index: 1;
 }
 

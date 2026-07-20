@@ -323,7 +323,7 @@
                                                 <li>Email :<span></span>{{Paxinfo['EmailId']}}</li>
                                                 <li>Mobile :<span>{{Paxinfo['MobileNumber']}}</span></li>
                                             </ul>
-                                            <h6>Total Price : ₹{{this.CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['AgentMarkup']+CurrentFare['SSR']['Meal']
+                                            <h6>Total Price : ₹{{this.CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']+CurrentFare['SSR']['Meal']
                                             + CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Seat'] |
                                                     number:'1.0-0'}}</h6>
                                            </div>

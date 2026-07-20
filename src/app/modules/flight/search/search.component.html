@@ -317,8 +317,7 @@
                                                             <br>
                                                             <small class="graycolor text-muted"
                                                                 *ngIf="showincentivefare">
-                                                                INC ₹{{ (farelist['Fare']['PublishedPrice'] -
-                                                                farelist['Fare']['OfferedPrice']) | number:'1.0-2' }}
+                                                                INC ₹{{ farelist['Incentive']| number:'1.0-2' }}
                                                             </small>
 
                                                             <small class="mx-1 text-muted"

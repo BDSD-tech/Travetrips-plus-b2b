@@ -1559,7 +1559,7 @@ export class TravellerDetailComponent implements OnInit {
         var newdate = _this.flightService.AddDayDefaultDate(selectedDate, 364);
         let key: any = $(inst.input[0]).attr('key');
         let paxkey: any = $(inst.input[0]).attr('paxtype');
-        _this.FlightForm.get(paxkey + '.' + key + '')?.patchValue({ 'PassportIssue': selectedDate, 'PassportExpiry': newdate });
+        _this.FlightForm.get(paxkey + '.' + key + '')?.patchValue({ 'PassportIssue': selectedDate });
 
         // _this.CheckExpiryDate(newdate);
 
