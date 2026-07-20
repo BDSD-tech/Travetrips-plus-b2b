@@ -78,8 +78,8 @@ export class FlightComponent implements OnInit {
       }
     this.SearchForm = this.fb.group({
       Type: ['O', Validators.required],
-      Origin: ['Delhi(DEL)', Validators.required],
-      OriginCode: ['DEL'],
+      Origin: ['', Validators.required],
+      OriginCode: [''],
       OriginCountry: ['IN'],
       Destination: ['', Validators.required],
       DestinationCode: [''],

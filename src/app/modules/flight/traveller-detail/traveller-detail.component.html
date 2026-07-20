@@ -656,7 +656,7 @@
 
 
                                  <div class="row gy-3" *ngIf="IsPassportMandatory">
-                                    <p class="apt-addpassport"><span>ADD PASSPORT INFORMATION</span>
+                                    <p class="apt-addpassport pt-2"><span>ADD PASSPORT INFORMATION</span>
                                     </p>
                                     <div class="col-md-3">
                                        <div class="form-group">
@@ -759,7 +759,7 @@
                                  </div>
 
                                  <div class="row mb-3" *ngIf="IsFFDiv==false">
-                                    <p class="apt-addpassport tts-cursor-pointer"
+                                    <p class="apt-addpassport tts-cursor-pointer pt-4"
                                        (click)="togglebutton('ADULT_ffdetail_'+a)">
                                        <span>FREQUENT FLIER NUMBER (OPTIONAL) </span> <i class="fa fa-angle-down"></i>
                                     </p>
@@ -973,10 +973,8 @@
                                        </div>
                                     </div>
                                  </div>
-
-
                                  <div class="row mb-3 gy-3" *ngIf="IsPassportMandatory">
-                                    <p class="apt-addpassport"><span>ADD PASSPORT
+                                    <p class="apt-addpassport pt-2"><span>ADD PASSPORT
                                           INFORMATION</span>
                                     </p>
                                     <div class="col-md-3">
@@ -1079,7 +1077,7 @@
                                     </div>
                                  </div>
                                  <div class="row" *ngIf="IsFFDiv==false">
-                                    <p class="apt-addpassport tts-cursor-pointer"
+                                    <p class="apt-addpassport pt-4 tts-cursor-pointer"
                                        (click)="togglebutton('CHILD_ffdetail_'+c)">
                                        <span>FREQUENT FLIER NUMBER (OPTIONAL) </span> <i class="fa fa-angle-down"></i>
                                     </p>
@@ -1289,7 +1287,7 @@
 
 
                                  <div class="row mb-3 gy-3" *ngIf="IsPassportMandatory">
-                                    <p class="apt-addpassport"><span>ADD PASSPORT
+                                    <p class="apt-addpassport pt-2"><span>ADD PASSPORT
                                           INFORMATION</span>
                                     </p>
                                     <div class="col-md-3">
@@ -1392,7 +1390,7 @@
                                     </div>
                                  </div>
                                  <div class="row" *ngIf="IsFFDiv==false">
-                                    <p class="apt-addpassport tts-cursor-pointer"
+                                    <p class="apt-addpassport pt-4 tts-cursor-pointer"
                                        (click)="togglebutton('INFANT_ffdetail_'+i)">
                                        <span>FREQUENT FLIER NUMBER (OPTIONAL) </span> <i class="fa fa-angle-down"></i>
                                     </p>
@@ -1789,223 +1787,223 @@
                            </div>
                         </div> -->
                        @if(0){
-                        <div class="accordion panel-item my-3 rounded border">
-                           <button class="accordion-button panel-heading text-dark fw-bold flight-booking-header rounded collapsed"
-                               type="button" data-bs-toggle="collapse" data-bs-target="#add-insurance">
-                               Add Travel Insurance
-                           </button>
-                           <div id="add-insurance" class="accordion-collapse collapse">
-                               <div class="accordion-body p-2">
-                           
-                                   @if(GetSearchData['Type']=='R' && GetSearchData['Isdomestic']=='true'){
-                           
-                                   <ul class="nav nav-tabs insurance" id="myTab" role="tablist">
-                                       <li class="nav-item" role="presentation">
-                                           <button class="nav-link active" id="oneway" data-bs-toggle="tab"
-                                               data-bs-target="#Oneway" type="button" role="tab"
-                                               aria-controls="home"
-                                               aria-selected="true">{{GetSearchData['Origin']}} -
-                                               {{GetSearchData['Destination']}}</button>
-                                       </li>
-                                       <li class="nav-item" role="presentation">
-                                           <button class="nav-link" id="roundtrip-tab" data-bs-toggle="tab"
-                                               data-bs-target="#RoundTrip" type="button" role="tab"
-                                               aria-controls="profile"
-                                               aria-selected="false">{{GetSearchData['Destination']}} -
-                                               {{GetSearchData['Origin']}} </button>
-                                       </li>
-                                   </ul>
-                           
-                                   }
-                                   <div class="tab-content" id="myTabContent">
-                                       <div class="tab-pane fade show active" id="Oneway" role="tabpanel"
-                                           aria-labelledby="oneway">
-                                           <div class="card shadow-sm border-0">
-                                               <div class="card-body">
-                                                   <div class="mb-3">
-                                                       <div class="d-flex align-items-center mb-2">
-                                                           <i
-                                                               class="bi bi-shield-check text-primary fs-4 me-2"></i>
-                                                           <div>
-                                                               <strong>Domestic Travel Assistance and
-                                                                   Insurance</strong><br />
-                                                               <small class="text-muted">Valid from
-                                                                   {{GetSearchData['DepartDate']}} to your
-                                                                   date of journey or till your date of
-                                                                   return, whichever is earlier. . To know
-                                                                   more on the coverage.</small>
-                                                           </div>
-                                                       </div>
-                                                   </div>
-                           
-                                                   <div class="row text-center gy-3">
-                                                       @for (item of InsuranceDetail; track $index) {
-                                                       <div class="col-md-4">
-                                                           <div class="border rounded p-3 h-100">
-                                                               <div class="fw-bold mb-1">
-                                                                   {{item['PlanName']}} </div>
-                                                               <div class="fs-5 fw-semibold">₹
-                                                                   {{item['Fare']['PublishedPrice']}}</div>
-                                                               <div class="text-muted mb-2">Per Person
-                                                               </div>
-                                                               @if(SelectedIns==item['ResultIndex']){
-                                                               <button class="btn asr-book add-seat-button"
-                                                                   (click)="AddInsurance(item,'onward')">Remove</button>
-                           
-                                                               }@else{
-                                                               <button class="btn asr-book add-seat-button"
-                                                                   (click)="AddInsurance(item,'onward')">Add</button>
-                                                               }
-                                                               <div
-                                                                   class="mt-2 d-flex justify-content-around small">
-                                                                   <a href="javascript:void(0)"
-                                                                       (click)="OpenModal(item,'KnowMore')">Know
-                                                                       More</a>
-                                                                   <a href="javascript:void(0)"
-                                                                       (click)="OpenModal(item,'TC')">T&amp;C</a>
-                                                               </div>
-                                                           </div>
-                                                       </div>
-                                                       }
-                           
-                           
-                                                   </div>
-                                               </div>
-                           
-                           
-                                           </div>
-                                       </div>
-                                       <div class="tab-pane fade" id="RoundTrip" role="tabpanel"
-                                           aria-labelledby="roundtrip-tab">
-                           
-                                           <div class="card shadow-sm border-0">
-                                               <div class="card-body">
-                                                   <div class="mb-3">
-                                                       <div class="d-flex align-items-center mb-2">
-                                                           <i
-                                                               class="bi bi-shield-check text-primary fs-4 me-2"></i>
-                                                           <div>
-                                                               <strong>Domestic Travel Assistance and
-                                                                   Insurance</strong><br />
-                                                               <small class="text-muted">Valid from
-                                                                   {{GetSearchData['ReturnDate']}} to your
-                                                                   date of journey or till your date of
-                                                                   return, whichever is earlier. To know
-                                                                   more on the coverage.</small>
-                                                           </div>
-                                                       </div>
-                                                   </div>
-                           
-                                                   <div class="row text-center gy-3">
-                                                       @for (item of InsuranceDetail; track $index) {
-                                                       <div class="col-md-4">
-                                                           <div class="border rounded p-3 h-100">
-                                                               <div class="fw-bold mb-1">
-                                                                   {{item['PlanName']}} </div>
-                                                               <div class="fs-5 fw-semibold">₹
-                                                                   {{item['Fare']['PublishedPrice']}}</div>
-                                                               <div class="text-muted mb-2">Per Person
-                                                               </div>
-                                                               @if(SelectedInsib==item['ResultIndex']){
-                                                               <button class="btn asr-book add-seat-button"
-                                                                   (click)="AddInsurance(item,'return')">Remove</button>
-                           
-                                                               }@else{
-                                                               <button class="btn asr-book add-seat-button"
-                                                                   (click)="AddInsurance(item,'return')">Add</button>
-                                                               }
-                                                               <div
-                                                                   class="mt-2 d-flex justify-content-around small">
-                                                                   <a href="#">Know More</a>
-                                                                   <a href="#">T&amp;C</a>
-                                                               </div>
-                                                           </div>
-                                                       </div>
-                                                       }
-                                                   </div>
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                           </div>
-                        
-                        @if(SpecialServiceData && SpecialServiceData.length!==0){
                            <div class="accordion panel-item my-3 rounded border">
-                           <button class="accordion-button panel-heading text-dark fw-bold flight-booking-header rounded collapsed"
-                              type="button" data-bs-toggle="collapse" data-bs-target="#add-specialservice">
-                              Speacial Service 
-                           </button>
-                           <div id="add-specialservice" class="accordion-collapse collapse">
-                              <div class="accordion-body p-2">
-                                    <div class="ssr-wrapper">
-                                          <!-- LEFT: Select Passenger -->
-                                          <div class="ssr-left">
-                                             <h4>Select Passenger</h4>
-                                          
-                                             <div class="pax-item"
-                                                   *ngFor="let pax of paxList"
-                                                   [class.active]="selectedPax === pax"
-                                                   (click)="selectPax(pax)">
-                                                <label>
-                                                <input type="radio"
-                                                         name="paxSelect"
-                                                         [checked]="selectedPax === pax"
-                                                         (change)="selectPax(pax)">
-                                                {{ pax.label }}
-                                                </label>
-                                                <div class="pax-summary">
-                                                <span class="star">★</span> {{ paxSummary(pax) }}
+                              <button class="accordion-button panel-heading text-dark fw-bold flight-booking-header rounded collapsed"
+                                 type="button" data-bs-toggle="collapse" data-bs-target="#add-insurance">
+                                 Add Travel Insurance
+                              </button>
+                              <div id="add-insurance" class="accordion-collapse collapse">
+                                 <div class="accordion-body p-2">
+                              
+                                    @if(GetSearchData['Type']=='R' && GetSearchData['Isdomestic']=='true'){
+                              
+                                    <ul class="nav nav-tabs insurance" id="myTab" role="tablist">
+                                          <li class="nav-item" role="presentation">
+                                             <button class="nav-link active" id="oneway" data-bs-toggle="tab"
+                                                data-bs-target="#Oneway" type="button" role="tab"
+                                                aria-controls="home"
+                                                aria-selected="true">{{GetSearchData['Origin']}} -
+                                                {{GetSearchData['Destination']}}</button>
+                                          </li>
+                                          <li class="nav-item" role="presentation">
+                                             <button class="nav-link" id="roundtrip-tab" data-bs-toggle="tab"
+                                                data-bs-target="#RoundTrip" type="button" role="tab"
+                                                aria-controls="profile"
+                                                aria-selected="false">{{GetSearchData['Destination']}} -
+                                                {{GetSearchData['Origin']}} </button>
+                                          </li>
+                                    </ul>
+                              
+                                    }
+                                    <div class="tab-content" id="myTabContent">
+                                          <div class="tab-pane fade show active" id="Oneway" role="tabpanel"
+                                             aria-labelledby="oneway">
+                                             <div class="card shadow-sm border-0">
+                                                <div class="card-body">
+                                                      <div class="mb-3">
+                                                         <div class="d-flex align-items-center mb-2">
+                                                            <i
+                                                                  class="bi bi-shield-check text-primary fs-4 me-2"></i>
+                                                            <div>
+                                                                  <strong>Domestic Travel Assistance and
+                                                                     Insurance</strong><br />
+                                                                  <small class="text-muted">Valid from
+                                                                     {{GetSearchData['DepartDate']}} to your
+                                                                     date of journey or till your date of
+                                                                     return, whichever is earlier. . To know
+                                                                     more on the coverage.</small>
+                                                            </div>
+                                                         </div>
+                                                      </div>
+                              
+                                                      <div class="row text-center gy-3">
+                                                         @for (item of InsuranceDetail; track $index) {
+                                                         <div class="col-md-4">
+                                                            <div class="border rounded p-3 h-100">
+                                                                  <div class="fw-bold mb-1">
+                                                                     {{item['PlanName']}} </div>
+                                                                  <div class="fs-5 fw-semibold">₹
+                                                                     {{item['Fare']['PublishedPrice']}}</div>
+                                                                  <div class="text-muted mb-2">Per Person
+                                                                  </div>
+                                                                  @if(SelectedIns==item['ResultIndex']){
+                                                                  <button class="btn asr-book add-seat-button"
+                                                                     (click)="AddInsurance(item,'onward')">Remove</button>
+                              
+                                                                  }@else{
+                                                                  <button class="btn asr-book add-seat-button"
+                                                                     (click)="AddInsurance(item,'onward')">Add</button>
+                                                                  }
+                                                                  <div
+                                                                     class="mt-2 d-flex justify-content-around small">
+                                                                     <a href="javascript:void(0)"
+                                                                        (click)="OpenModal(item,'KnowMore')">Know
+                                                                        More</a>
+                                                                     <a href="javascript:void(0)"
+                                                                        (click)="OpenModal(item,'TC')">T&amp;C</a>
+                                                                  </div>
+                                                            </div>
+                                                         </div>
+                                                         }
+                              
+                              
+                                                      </div>
+                                                </div>
+                              
+                              
+                                             </div>
+                                          </div>
+                                          <div class="tab-pane fade" id="RoundTrip" role="tabpanel"
+                                             aria-labelledby="roundtrip-tab">
+                              
+                                             <div class="card shadow-sm border-0">
+                                                <div class="card-body">
+                                                      <div class="mb-3">
+                                                         <div class="d-flex align-items-center mb-2">
+                                                            <i
+                                                                  class="bi bi-shield-check text-primary fs-4 me-2"></i>
+                                                            <div>
+                                                                  <strong>Domestic Travel Assistance and
+                                                                     Insurance</strong><br />
+                                                                  <small class="text-muted">Valid from
+                                                                     {{GetSearchData['ReturnDate']}} to your
+                                                                     date of journey or till your date of
+                                                                     return, whichever is earlier. To know
+                                                                     more on the coverage.</small>
+                                                            </div>
+                                                         </div>
+                                                      </div>
+                              
+                                                      <div class="row text-center gy-3">
+                                                         @for (item of InsuranceDetail; track $index) {
+                                                         <div class="col-md-4">
+                                                            <div class="border rounded p-3 h-100">
+                                                                  <div class="fw-bold mb-1">
+                                                                     {{item['PlanName']}} </div>
+                                                                  <div class="fs-5 fw-semibold">₹
+                                                                     {{item['Fare']['PublishedPrice']}}</div>
+                                                                  <div class="text-muted mb-2">Per Person
+                                                                  </div>
+                                                                  @if(SelectedInsib==item['ResultIndex']){
+                                                                  <button class="btn asr-book add-seat-button"
+                                                                     (click)="AddInsurance(item,'return')">Remove</button>
+                              
+                                                                  }@else{
+                                                                  <button class="btn asr-book add-seat-button"
+                                                                     (click)="AddInsurance(item,'return')">Add</button>
+                                                                  }
+                                                                  <div
+                                                                     class="mt-2 d-flex justify-content-around small">
+                                                                     <a href="#">Know More</a>
+                                                                     <a href="#">T&amp;C</a>
+                                                                  </div>
+                                                            </div>
+                                                         </div>
+                                                         }
+                                                      </div>
                                                 </div>
                                              </div>
                                           </div>
-                                          
-                                          <!-- RIGHT: journey tabs + sector-wise special service -->
-                                          <div class="ssr-right" *ngIf="selectedPax">
-                                             <h4>{{ selectedPax.label }} details :</h4>
-                                          
-                                             <div class="journey-tabs" *ngIf="journeys.length">
-                                                <button type="button"
-                                                      *ngFor="let j of journeys"
-                                                      [class.active]="activeJourney === j"
-                                                      (click)="setActiveJourney(j)">
-                                                {{ j.label }}
-                                                </button>
-                                             </div>
-                                          
-                                             <div class="journey-panel" *ngIf="activeJourney">
-                                                <div class="sector-row" *ngFor="let sector of activeJourney.sectors">
-                                                <div class="sector-icon">★</div>
-                                                <div class="sector-content">
-                                                   <div class="sector-label">Special Service ({{ sector.sectorKey }})</div>
-                                          
-                                                   <div class="sector-options" *ngFor="let item of sector.items">
-                                                      <label for="{{sector.sectorKey}}{{item.Key}}">
-                                                         <input type="checkbox" id="{{sector.sectorKey}}{{item.Key}}"
-                                                                  [checked]="isChecked(selectedPax, sector.sectorKey, item)"
-                                                                  (change)="toggle(selectedPax, sector.sectorKey, item, $event)">
-                                                      {{ item.Text }}: ₹{{ item.Price }}
-                                                      </label>
+                                    </div>
+                                 </div>
+                              </div>
+                              </div>
+                        
+                           @if(SpecialServiceData && SpecialServiceData.length!==0){
+                              <div class="accordion panel-item my-3 rounded border">
+                              <button class="accordion-button panel-heading text-dark fw-bold flight-booking-header rounded collapsed"
+                                 type="button" data-bs-toggle="collapse" data-bs-target="#add-specialservice">
+                                 Speacial Service 
+                              </button>
+                              <div id="add-specialservice" class="accordion-collapse collapse">
+                                 <div class="accordion-body p-2">
+                                       <div class="ssr-wrapper">
+                                             <!-- LEFT: Select Passenger -->
+                                             <div class="ssr-left">
+                                                <h4>Select Passenger</h4>
+                                             
+                                                <div class="pax-item"
+                                                      *ngFor="let pax of paxList"
+                                                      [class.active]="selectedPax === pax"
+                                                      (click)="selectPax(pax)">
+                                                   <label>
+                                                   <input type="radio"
+                                                            name="paxSelect"
+                                                            [checked]="selectedPax === pax"
+                                                            (change)="selectPax(pax)">
+                                                   {{ pax.label }}
+                                                   </label>
+                                                   <div class="pax-summary">
+                                                   <span class="star">★</span> {{ paxSummary(pax) }}
                                                    </div>
                                                 </div>
-                                                </div>
-                                          
-                                                <p class="note" *ngIf="!activeJourney.sectors.length">
-                                                No special service available for this journey.
-                                                </p>
                                              </div>
-                                          
-                                             <p class="note">Note: Special services are subject to availability</p>
-                                          </div>
-                                          </div>
-                                          
-                                          
-                                 
+                                             
+                                             <!-- RIGHT: journey tabs + sector-wise special service -->
+                                             <div class="ssr-right" *ngIf="selectedPax">
+                                                <h4>{{ selectedPax.label }} details :</h4>
+                                             
+                                                <div class="journey-tabs" *ngIf="journeys.length">
+                                                   <button type="button"
+                                                         *ngFor="let j of journeys"
+                                                         [class.active]="activeJourney === j"
+                                                         (click)="setActiveJourney(j)">
+                                                   {{ j.label }}
+                                                   </button>
+                                                </div>
+                                             
+                                                <div class="journey-panel" *ngIf="activeJourney">
+                                                   <div class="sector-row" *ngFor="let sector of activeJourney.sectors">
+                                                   <div class="sector-icon">★</div>
+                                                   <div class="sector-content">
+                                                      <div class="sector-label">Special Service ({{ sector.sectorKey }})</div>
+                                             
+                                                      <div class="sector-options" *ngFor="let item of sector.items">
+                                                         <label for="{{sector.sectorKey}}{{item.Key}}">
+                                                            <input type="checkbox" id="{{sector.sectorKey}}{{item.Key}}"
+                                                                     [checked]="isChecked(selectedPax, sector.sectorKey, item)"
+                                                                     (change)="toggle(selectedPax, sector.sectorKey, item, $event)">
+                                                         {{ item.Text }}: ₹{{ item.Price }}
+                                                         </label>
+                                                      </div>
+                                                   </div>
+                                                   </div>
+                                             
+                                                   <p class="note" *ngIf="!activeJourney.sectors.length">
+                                                   No special service available for this journey.
+                                                   </p>
+                                                </div>
+                                             
+                                                <p class="note">Note: Special services are subject to availability</p>
+                                             </div>
+                                             </div>
+                                             
+                                             
+                                    
+                                 </div>
                               </div>
-                           </div>
-                           </div>
-                        }
+                              </div>
+                           }
                         }
                      <div class="flight-booking-wrapper" id="gst-details"> 
                         <div class="flight-booking-header d-flex justify-content-between" data-bs-toggle="collapse" data-bs-target="#gst-detail">

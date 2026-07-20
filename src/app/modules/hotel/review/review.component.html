@@ -153,7 +153,7 @@
                </div>
             </div>
             }
-            
+            @if(BlockRoomResult['HotelNorms']){
             <div class="hotel-page">
                <div class="header-bar">
                   <h2 class="page-title">Hotel Norms</h2>
@@ -170,6 +170,7 @@
                   </a>
                </div>
             </div>
+            }
             <form [formGroup]="HotelPaxForm" (ngSubmit)="SubmitPax()">
                <div class="hotel-page">
                   <div class="header-bar d-block">

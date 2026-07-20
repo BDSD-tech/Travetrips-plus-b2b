@@ -100,6 +100,8 @@ export class ReviewComponent implements OnInit {
         let markup:any=sessionStorage.getItem('TAGM');
         this.markupvalue=parseFloat(markup);
         this.CurrentFare['AgentMarkup']=this.markupvalue;
+        console.log(this.CurrentFare);
+        
       }
 
       let Segment:any=[]; let farelist:any=[];let mainsegments:any=[];

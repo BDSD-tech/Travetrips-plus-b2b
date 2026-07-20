@@ -33,10 +33,10 @@ export class BusComponent implements OnInit {
     let DepartDate=this.busservice.AddDayDefaultDate(new Date(),1);
 
     this.BusSearchForm = this.fb.group({
-      Origin: ['Bangalore', Validators.required],
-      OriginCityID: ['8463'],
-      Destination: ['Hyderabad', Validators.required],
-      DestinationCityID: ['9573'],
+      Origin: ['', Validators.required],
+      OriginCityID: [''],
+      Destination: ['', Validators.required],
+      DestinationCityID: [''],
       DepartDate: [DepartDate, Validators.required],
     }, 
     {

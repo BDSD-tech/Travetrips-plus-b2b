@@ -6,7 +6,6 @@ import { AlertService } from '../../services/alert.service';
 import { FlightService } from '../flight/flight.service';
 import { tts_config } from '../../../environments/tts_config';
 import { BusService } from '../bus/bus.service';
-import { AnimationStyleMetadata } from '@angular/animations';
 
 declare var window: any;
 declare var $: any;

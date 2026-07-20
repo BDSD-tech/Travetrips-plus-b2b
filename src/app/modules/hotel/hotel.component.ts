@@ -55,8 +55,8 @@ export class HotelComponent implements OnInit {
       let CheckOut=hotelservice.DefaultDateFormat(hotelservice.GetCurrentDate(2));
 
       this.HotelSearchForm = this.fb.group({
-                Destination:['Delhi, India',Validators.required],
-                CityID:['130443'],
+                Destination:['',Validators.required],
+                CityID:[''],
                 Occupancy:[this.Occupancy],
                 CheckIn : [CheckIn,Validators.required],
                 CheckOut : [CheckOut,Validators.required],

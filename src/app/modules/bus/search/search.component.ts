@@ -114,7 +114,7 @@ export class SearchComponent implements OnInit {
   {
      /*------------ Start Session ----------*/
      let initial_date = new Date;
-     let added15Min = new Date(initial_date.getTime() + (14*60*1000));
+     let added15Min = new Date(initial_date.getTime() + (25*60*1000));
      sessionStorage.setItem('time',JSON.stringify(added15Min));
     
      /*------------ End Session ----------*/

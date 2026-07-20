@@ -489,8 +489,9 @@
                     </p>
                     <button type="button" class="btn add_money-btn" *ngIf="WalletBalance >= item['totalprice']"
                       (click)="PayNow()" [disabled]="paylnowloading"> <span *ngIf="paylnowloading"
-                        class="spinner-border spinner-border-sm mr-1"></span> Pay Now <span>₹{{item['totalprice'] |
-                        number:'1.0-0'}}</span></button>
+                        class="spinner-border spinner-border-sm mr-1"></span> Pay Now 
+                        <!-- <span>₹{{item['totalprice'] |number:'1.0-0'}}</span> -->
+                     </button>
                     <p class="text-danger" *ngIf="WalletBalance < item['totalprice']">Agency wallet balance low.</p>
                   </div>
 
@@ -524,7 +525,8 @@
 
                     <button type="button" class="btn add_money-btn" (click)="PayNow()" [disabled]="paylnowloading">
                       <span *ngIf="paylnowloading" class="spinner-border spinner-border-sm mr-1"></span> Pay Now
-                      <span>₹{{item['totalprice'] | number:'1.2-2'}}</span></button>
+                      <!-- <span>₹{{item['totalprice'] | number:'1.2-2'}}</span> -->
+                     </button>
 
                   </div>
                   <div class="no-wallet-case" *ngIf="item['mode']!='wallet'&&item['mode']!='creditLine'">
@@ -564,7 +566,8 @@
                     <button type="button" class="btn add_money-btn" (click)="PayNow()"
                       [disabled]="paylnowloading || !Gateway">
                       <span *ngIf="paylnowloading" class="spinner-border spinner-border-sm mr-1"></span> Pay Now
-                      <span>₹{{item['totalprice']+conveniencefee | number:'1.0-0'}}</span></button>
+                      <!-- <span>₹{{item['totalprice']+conveniencefee | number:'1.0-0'}}</span> -->
+                     </button>
                   </div>
 
 

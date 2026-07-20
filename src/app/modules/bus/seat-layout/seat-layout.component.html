@@ -1,6 +1,7 @@
 <!-------new Code 09-06-2026----->
 <div class="bus-seat-layout">
   <!-- Journey Header -->
+
   <div class="journey-header">
     <h5>
       {{GetSearchData['Origin']}} →
@@ -14,7 +15,7 @@
     </div>
   </div>
 
-  <div *ngIf="ErrorCode==0 && seatloading==false">
+  <div class="seatlayout-page" *ngIf="ErrorCode==0 && seatloading==false">
 
     <!-- Tabs -->
     <ul class="nav nav-pills seat-tabs">
