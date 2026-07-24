@@ -16,6 +16,7 @@ BOOKING STEPPER
     position: relative;
     overflow: hidden;
     width: fit-content;
+    flex-wrap: wrap;
 }
 .react-autosuggest__input{
     padding: 5px 7px;
@@ -83,6 +84,11 @@ BOOKING STEPPER
     color: var(--primary-color);
 }
 
+@media (max-width:767px){
+    .booking-stepper{
+        gap: 10px;
+    }
+}
 /* ==========================================
    FLIGHT BOOKING WRAPPER
 ========================================== */
@@ -434,7 +440,6 @@ BOOKING STEPPER
     .journey-column,
     .time-column {
         width: 100%;
-        text-align: center;
     }
 
     .flight-card-header {
@@ -457,20 +462,20 @@ BOOKING STEPPER
         padding: 18px;
     }
 
-    .itinerary-card-title {
+    /* .itinerary-card-title {
         flex-direction: column;
         align-items: flex-start;
-    }
+    } */
 
-    .route-meta {
+    /* .route-meta {
         flex-direction: column;
         align-items: flex-start;
-    }
+    } */
 
-    .top-right-section {
+    /* .top-right-section {
         flex-direction: column;
         align-items: flex-start;
-    }
+    } */
 
     .divider {
         display: none;

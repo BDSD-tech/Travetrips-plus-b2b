@@ -1,10 +1,19 @@
 <main class="inner-main-section" role="main">
-    <app-modify-search></app-modify-search>
+     <div class="collapse d-lg-block" id="mobilemodify"><app-modify-search></app-modify-search></div>
     <!---------------flight--list--------------->
     <div class="flight-list">
         <div class="container">
             <div class="row gy-3" *ngIf="ErrorCode==0">
-
+                <div class="col-12 d-lg-none">
+                    <div class="mobile-filter-wrapper">
+                        <button class="mobile-filter-btn" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#mobilemodify" aria-expanded="false" aria-controls="mobilemodify">
+                            <span class="filter-icon"><i class="fa-solid fa-sliders"></i></span>
+                            <span class="filter-text">Modify Search</span>
+                            <span class="filter-arrow"><i class="fa-solid fa-chevron-down"></i></span>
+                        </button>
+                    </div>
+                </div>
                 <!-- FILTER BUTTON -->
                 <div class="col-lg-12">
                     <div class="mobile-filter-wrapper">
@@ -64,8 +73,8 @@
 
                     <app-loading *ngIf="resultloading" [type]="filtertype"></app-loading>
 
-                    <div class="row flight-results-container" *ngIf="resultloading==false">
-                        <div class="col-md-6 flight-column" *ngFor="let mjitem of sortedData; let j=index;">
+                    <div class="row g-2 flight-results-container" *ngIf="resultloading==false">
+                        <div class="col-6 flight-column" *ngFor="let mjitem of sortedData; let j=index;">
                             <!-- HEADER -->
                             <div class="flight-summary-wrapper">
                                 <div class="flight-summary" *ngIf="j==0">
@@ -340,12 +349,12 @@
                             </div>
 
                             <div class="flight-rowmain round-trip" *ngFor="let item of mjitem;">
-                                <div class="row gy-3">
+                                <div class="row g-lg-3 g-2">
                                     <div class="col-sm-7" *ngFor="let trip of item['MainSegment']; let tripskey=index;">
-                                        <div class="row gy-3">
+                                        <div class="row g-lg-3 g-2">
                                             <div class="col-md-3">
                                                 <div class="flight-leftresult1">
-                                                    <ul class="flight-listair d-flex flex-column">
+                                                    <ul class="flight-listair">
                                                         <li>
                                                             <img src="{{AirlineLogoURL}}{{trip['Airlinecode']}}.png"
                                                                 class="size-30">
@@ -360,9 +369,7 @@
                                                             <small>
                                                                 {{trip['AirlineCodeFlightNumberString']}}
                                                             </small>
-
                                                         </li>
-
                                                     </ul>
                                                 </div>
                                             </div>
@@ -1715,7 +1722,7 @@
 
                         <div class="trip-left">
 
-                            <div class="ars-listair d-flex align-items-center">
+                            <div class="ars-listair">
                                 <img src="{{AirlineLogoURL}}{{selectedfareob['segment']?.['Airlinecode']}}.png"
                                     class="airline-logo">
 
@@ -1757,7 +1764,7 @@
 
                         <div class="trip-left">
 
-                            <div class="ars-listair d-flex align-items-center">
+                            <div class="ars-listair">
                                 <img src="{{AirlineLogoURL}}{{selectedfareib['segment']?.['Airlinecode']}}.png"
                                     class="airline-logo">
 

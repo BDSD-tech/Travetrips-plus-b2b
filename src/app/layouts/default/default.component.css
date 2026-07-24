@@ -15,6 +15,7 @@
 .icon-title{
     font-size: 12px;
     font-weight: 600;
+    color: var(--primary-color);
 }
 .headset-icon{
     background-color: var(--primary-color);
@@ -186,7 +187,17 @@
     position: relative;
 }
 
-.wallet-btn {
+.wallet-btn{
+    border: none;
+    background-color: transparent;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.wallet-btn i{
     width: 42px;
     height: 42px;
     padding: 0;
@@ -414,20 +425,20 @@
         height: 36px;
     }
 
-    .navbar-right {
+    /* .navbar-right {
         flex-direction: column;
         align-items: stretch !important;
-    }
+    } */
 
     .contact-btn {
         width: 100%;
     }
 
-    .wallet-btn {
+    /* .wallet-btn {
         width: 100%;
         height: 42px;
         border-radius: 12px;
-    }
+    } */
 
     .user-profile {
         width: 100%;

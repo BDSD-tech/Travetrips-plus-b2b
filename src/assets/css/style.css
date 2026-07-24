@@ -1577,7 +1577,7 @@ font-weight: normal;
 
 .flight-booking .booking-main .wrapper-mainclass .asr-book {
     background: var(--second-color);
-    padding: 10px 30px;
+    padding: 10px 20px;
     font-weight: bold;
     height: auto;
     border-radius: 30px;
@@ -1973,7 +1973,7 @@ color: var(--black) !important;
         padding-left: 12px !important;
     }
 
-    .main-header .navbar-toggler {
+    /* .main-header .navbar-toggler {
         position: absolute;
         top: -50px;
         right: 0;
@@ -1984,7 +1984,7 @@ color: var(--black) !important;
 
     .main-header .navbar-toggler:focus {
         box-shadow: none;
-    }
+    } */
 
     .header .topbar__list {
         display: block;
@@ -2001,7 +2001,7 @@ color: var(--black) !important;
         border-left: 3px solid #ef7f1a;
     }
 
-    .main-header .navbar .navbar-collapse {
+    /* .main-header .navbar .navbar-collapse {
         top: 75px;
         bottom: 0px;
         position: fixed;
@@ -2024,7 +2024,7 @@ color: var(--black) !important;
         100% {
             left: 0px;
         }
-    }
+    } */
 }
 
 /* .dashboard-wrapper-container {

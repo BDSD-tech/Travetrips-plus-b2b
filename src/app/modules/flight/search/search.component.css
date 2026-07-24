@@ -661,10 +661,13 @@
 }
 
 .seats-left span {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     text-align: center;
     color: #dc3545;
 }
+
 
 .refundable {
     color: #28a745;
@@ -674,6 +677,11 @@
     color: #dc3545;
 }
 
+@media (max-width:767px) {
+    .seats-left span{
+        width: 60px;
+    }
+}
 /* =========================================================
    ACTION BUTTONS
 ========================================================= */
@@ -863,6 +871,8 @@
     .share-flight-wrapper {
         justify-content: center;
     }
+
+    
 }
 
 @media (max-width: 767px) {
@@ -873,6 +883,15 @@
 
     .filter-card-content {
         width: 100%;
+    }
+
+    .flight-card .airline-info {
+        flex-direction: row;
+    }
+
+    .flight__dropdown__icon{
+        position: relative;
+        bottom: 0;
     }
 }
 
