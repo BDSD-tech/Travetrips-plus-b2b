@@ -13,7 +13,7 @@
       <div class="collapse navbar-collapse" id="mainNavbar">
 
          <div class="navbar-right d-flex align-items-center flex-wrap gap-3">
-            <span class="headset-icon"> <i class="fa-solid fa-headset"></i></span>
+            <span class="headset-icon d-none d-xl-inline"> <i class="fa-solid fa-headset"></i></span>
             <div class="support-box d-none d-xl-flex flex-column">
 
                <span>
@@ -28,24 +28,26 @@
             </div>
 
 
-            <button routerLink="/page/connect-us" class="btn contact-btn">
+            <button routerLink="/page/connect-us" class="btn contact-btn d-none d-xl-flex">
                Connect
             </button>
 
             <div class="wallet-dropdown ">
-               <a routerLink="/dashboard" class="btn wallet-btn ml-12" type="button">
+               <a routerLink="/dashboard" class="wallet-btn" type="button">
                   <i class="fa-solid fa-gauge"></i>
+                  <span class="icon-title" >Dashboard</span>
                </a>
-               <a class="icon-title" href="javascript:void(0)">Dashboard</a>
+               
             </div>
 
 
 
             <div class="dropdown wallet-dropdown text-center">
-               <button class="btn wallet-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+               <button class="wallet-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="fa-solid fa-wallet"></i>
+                  <span class="icon-title" href="javascript:void(0)">Wallet</span>
                </button>
-               <a class="icon-title" href="javascript:void(0)">Wallet</a>
+               
 
                <div class="dropdown-menu dropdown-menu-end wallet-menu">
                   <div class="wallet-item">

@@ -1,12 +1,25 @@
 <main class="inner-main-section" role="main">
-    <app-modify-search></app-modify-search>
+
+    <div class="collapse d-lg-block" id="mobilemodify"><app-modify-search></app-modify-search></div>
+
     <!---------------flight--list--------------->
     <div class="flight-list">
         <div class="container">
+
             <div class="row gy-3" *ngIf="ErrorCode==0">
                 <!-- =========================================
                MOBILE FILTER BUTTON
                ========================================= -->
+                <div class="col-12 d-lg-none">
+                    <div class="mobile-filter-wrapper">
+                        <button class="mobile-filter-btn" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#mobilemodify" aria-expanded="false" aria-controls="mobilemodify">
+                            <span class="filter-icon"><i class="fa-solid fa-sliders"></i></span>
+                            <span class="filter-text">Modify Search</span>
+                            <span class="filter-arrow"><i class="fa-solid fa-chevron-down"></i></span>
+                        </button>
+                    </div>
+                </div>
                 <div class="col-12 d-lg-none">
                     <div class="mobile-filter-wrapper">
                         <button class="mobile-filter-btn" type="button" data-bs-toggle="collapse"
@@ -260,12 +273,10 @@
                                                             d="M100.354 4.35355C100.549 4.15829 100.549 3.84171 100.354 3.64645L97.1716 0.464466C96.9763 0.269204 96.6597 0.269204 96.4645 0.464466C96.2692 0.659728 96.2692 0.976311 96.4645 1.17157L99.2929 4L96.4645 6.82843C96.2692 7.02369 96.2692 7.34027 96.4645 7.53553C96.6597 7.7308 96.9763 7.7308 97.1716 7.53553L100.354 4.35355ZM0 4.5H100V3.5H0V4.5Z"
                                                             fill="#CCCCCC"></path>
                                                     </svg>
-                                                    <span class="stop-badge"  [ngClass]="{
+                                                    <span class="stop-badge" [ngClass]="{
                                                         'non-stop': trip.Stops == 0,
                                                         'has-stop': trip.Stops > 0
-                                                        }"
-                                                        (mouseenter)="trip.Stops > 0 && flightdetail($event,item)"
-                                                       >
+                                                        }" (mouseenter)="trip.Stops > 0 && flightdetail($event,item)">
                                                         {{ trip.Stops == 0 ? 'Non Stop' : trip.Stops + ' Stop(s)' }}
                                                     </span>
                                                 </div>
@@ -307,13 +318,13 @@
                                                                 (click)="FareOptionSelected(item['TtsIndex'])" />
                                                             <span
                                                                 [ngClass]="{'graycolor':shownetfare}">₹{{farelist['Fare']['PublishedPrice']
-                                                                | number:'1.0-2'}}  </span>
+                                                                | number:'1.0-2'}} </span>
                                                             <span
                                                                 class="label-{{farelist['FareTypeColor']}}">({{farelist['FareType']}})</span>
-                                                                @if(farelist['IsHoldabelWithOutSsr']){
-                                                                    <span class="holdable-icon">H</span>
-                                                                }
-                                                                
+                                                            @if(farelist['IsHoldabelWithOutSsr']){
+                                                            <span class="holdable-icon">H</span>
+                                                            }
+
                                                             <br>
                                                             <small class="graycolor text-muted"
                                                                 *ngIf="showincentivefare">
@@ -397,7 +408,7 @@
                                         <div class="col-sm-3 col-12">
                                             <button type="button" class="flight-book" id="flightdetails"
                                                 (click)="confirmation(item['TtsIndex'])">BOOK</button>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -449,7 +460,7 @@
                                                 </div>
                                             </div> -->
                                             @if (selectedfare[item['TtsIndex']]['CabinClass']) {
-                                            <div class="flight-info-item " >
+                                            <div class="flight-info-item ">
                                                 {{selectedfare[item['TtsIndex']]['CabinClass']}}
                                             </div>
                                             }
@@ -472,12 +483,12 @@
                                                 <span>{{selectedfare[item['TtsIndex']]['SeatBaggage']?.[0]?.[0]?.['Cabin']}}</span>
                                             </div>
                                             }
-                                            
-                                            
+
+
                                         </div>
 
                                         <div class="flight-links">
-                                            
+
                                             @if(selectedfare[item['TtsIndex']]['IsUpsellAllowed']){
                                             <div class="flight-info-item">
                                                 <button type="button" class="more-fare" [disabled]="fareupsellloading"
@@ -500,24 +511,24 @@
                                                 </button> -->
                                             <div class="flight-info-item d-flex">
                                                 @if(selectedfare[item['TtsIndex']]['SeatBaggage']?.[0]?.[0]?.['NoOfSeatAvailable']){
-                                                    <div class="flight-info-item seats-left">
-                                                        <span class="me-1 border-right">
-                                                            {{selectedfare[item['TtsIndex']]['SeatBaggage']?.[0]?.[0]?.['NoOfSeatAvailable']}} Left
-                                                                <svg width="16px" height="18px" viewBox="0 0 28 28" fill="none"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path
-                                                                    d="M8.85435 6.30839C7.94435 5.39839 7.94435 3.91672 8.85435 3.00672C9.76435 2.09672 11.246 2.09672 12.156 3.00672C13.066 3.91672 13.066 5.39839 12.156 6.30839C11.2343 7.23005 9.76435 7.23005 8.85435 6.30839ZM23.3327 23.4117L17.4177 17.4967H13.416V13.2034C15.0493 14.5451 17.616 15.7467 19.8327 15.7467V13.2034C17.896 13.2267 15.621 12.1884 14.3843 10.8234L12.751 9.01505C12.5293 8.74672 12.2493 8.57172 11.946 8.43172C11.6077 8.26839 11.2227 8.16339 10.826 8.16339H10.791C9.33268 8.16339 8.16602 9.33005 8.16602 10.7884V17.4967C8.16602 18.425 8.53476 19.3152 9.19114 19.9716C9.84752 20.628 10.7378 20.9967 11.666 20.9967H17.581L21.6643 25.0801"
-                                                                    fill="#EB979F"></path>
-                                                                <path
-                                                                    d="M6.99935 8.16406L6.99935 18.6641C6.99935 19.5923 7.3681 20.4826 8.02447 21.1389C8.68085 21.7953 9.57109 22.1641 10.4993 22.1641H17.4993V24.4974H10.4993C8.95225 24.4974 7.46852 23.8828 6.37456 22.7889C5.2806 21.6949 4.66602 20.2112 4.66602 18.6641V8.16406H6.99935Z"
-                                                                    fill="#DC3545"></path>
-                                                            </svg>
-                                                        </span>
-                                                    </div>
-                                                    }
+                                                <div class="flight-info-item seats-left">
+                                                    <span class="me-1 border-right">
+                                                        {{selectedfare[item['TtsIndex']]['SeatBaggage']?.[0]?.[0]?.['NoOfSeatAvailable']}}Left
+                                                        <svg width="16px" height="18px" viewBox="0 0 28 28" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M8.85435 6.30839C7.94435 5.39839 7.94435 3.91672 8.85435 3.00672C9.76435 2.09672 11.246 2.09672 12.156 3.00672C13.066 3.91672 13.066 5.39839 12.156 6.30839C11.2343 7.23005 9.76435 7.23005 8.85435 6.30839ZM23.3327 23.4117L17.4177 17.4967H13.416V13.2034C15.0493 14.5451 17.616 15.7467 19.8327 15.7467V13.2034C17.896 13.2267 15.621 12.1884 14.3843 10.8234L12.751 9.01505C12.5293 8.74672 12.2493 8.57172 11.946 8.43172C11.6077 8.26839 11.2227 8.16339 10.826 8.16339H10.791C9.33268 8.16339 8.16602 9.33005 8.16602 10.7884V17.4967C8.16602 18.425 8.53476 19.3152 9.19114 19.9716C9.84752 20.628 10.7378 20.9967 11.666 20.9967H17.581L21.6643 25.0801"
+                                                                fill="#EB979F"></path>
+                                                            <path
+                                                                d="M6.99935 8.16406L6.99935 18.6641C6.99935 19.5923 7.3681 20.4826 8.02447 21.1389C8.68085 21.7953 9.57109 22.1641 10.4993 22.1641H17.4993V24.4974H10.4993C8.95225 24.4974 7.46852 23.8828 6.37456 22.7889C5.2806 21.6949 4.66602 20.2112 4.66602 18.6641V8.16406H6.99935Z"
+                                                                fill="#DC3545"></path>
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                                }
                                                 <button type="button" class="flight-view-btn" [ngClass]="{
                                             'active': showFlightTab==item['TtsIndex']
-                                            }" (click)="flightdetail($event,item)" >
+                                            }" (click)="flightdetail($event,item)">
                                                     Flight Details
                                                     <!-- <i class="fa" [ngClass]="{
                                                 'fa-plus': showFlightTab!=item['TtsIndex'],

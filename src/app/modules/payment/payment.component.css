@@ -28,6 +28,7 @@ BOOKING STEPPER
     position: relative;
     overflow: hidden;
     width: fit-content;
+    flex-wrap: wrap;
 }
 
 /* .booking-stepper::before {
@@ -543,15 +544,15 @@ RESPONSIVE
 
 @media(max-width:767px) {
 
-    .booking-stepper {
+    /* .booking-stepper {
         flex-wrap: nowrap;
         overflow-x: auto;
         padding: 18px;
-    }
+    } */
 
-    .booking-stepper .step-text {
+    /* .booking-stepper .step-text {
         display: none;
-    }
+    } */
 
     .subTypeWrapper__box {
         width: calc(50% - 10px);
@@ -914,10 +915,10 @@ RESPONSIVE
         padding: 18px;
     }
 
-    .itinerary-card-title {
+    /* .itinerary-card-title {
         flex-direction: column;
         align-items: flex-start;
-    }
+    } */
 
     .route-meta {
         flex-direction: column;

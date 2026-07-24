@@ -110,10 +110,11 @@
 
 @media (max-width: 991px) {
     .main-header .header-actions {
-        flex-direction: column;
+        flex-wrap: wrap;
         align-items: flex-start;
         gap: 12px;
         padding-top: 12px;
+        justify-content: center;
     }
 
     .main-header .logo-img {
@@ -122,6 +123,9 @@
 
     .main-header .support-info {
         align-items: flex-start;
+        width: 100%;
+        justify-content: center;
+
     }
 }
 
