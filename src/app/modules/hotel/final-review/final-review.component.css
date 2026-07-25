@@ -72,6 +72,11 @@
 .hero-content .d-flex {
     flex-direction: column !important;
 } */
+ .star-rating{
+    display: flex;
+    align-items: center;
+    gap: 10p;
+ }
  .star-rating img{
     width: 50px;
     height: 50px;

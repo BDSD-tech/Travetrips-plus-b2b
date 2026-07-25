@@ -1,9 +1,17 @@
 <main class="inner-main-section" role="main">
-    <app-modify-search></app-modify-search>
-    <div class="hotel-wrapper-list">
+    <div class="collapse d-lg-block" id="mobileModify"><app-modify-search></app-modify-search></div>
+    <div class="hotel-wrapper-list pt-3">
         <div class="container">
             <div class="row gy-3" *ngIf="ErrorCode==0">
-                <div class="col-lg-12">
+                <div class="col-lg-12 d-lg-none">
+                    <div class="btn-group w-100 justify-content-end d-lg-none" role="group">
+                        <button class="btn btn-light filter-btn flex-grow-1" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#mobileModify" aria-expanded="false" aria-controls="mobileModify">
+                            <i class="icon icon-filter"></i> Modify Search
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-12 d-lg-none">
                     <div class="btn-group w-100 justify-content-end d-lg-none" role="group">
                         <button class="btn btn-light filter-btn flex-grow-1" type="button" data-bs-toggle="collapse"
                             data-bs-target="#mobileFilter" aria-expanded="false" aria-controls="mobileFilter">

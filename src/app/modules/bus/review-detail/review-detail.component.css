@@ -16,6 +16,7 @@ BOOKING STEPPER
     position: relative;
     overflow: hidden;
     width: fit-content;
+    flex-wrap: wrap;
 }
 .timer-section{
     margin-bottom:24px
