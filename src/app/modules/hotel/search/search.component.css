@@ -737,21 +737,21 @@
         height: 260px;
     }
 
-    .listingCard .header,
+    /* .listingCard .header,
     .listingCard .perks-outer-container,
     .listingCard .amenities {
         flex-direction: column;
         align-items: flex-start;
-    }
+    } */
 
     .listingCard .pricing {
         text-align: left;
     }
 
-    .listingCard .hold-book-container {
+    /* .listingCard .hold-book-container {
         width: 100%;
         align-items: flex-start;
-    }
+    } */
 }
 
 @media (max-width: 576px) {
@@ -774,6 +774,10 @@
 
     .listingCard .bookNow {
         width: 100%;
+    }
+
+    .listingCard .detailsContainer{
+        gap: 10px;
     }
 }
 

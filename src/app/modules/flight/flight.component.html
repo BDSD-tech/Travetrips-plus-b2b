@@ -1,5 +1,5 @@
 <div class="hero-section">
-    <div id="heroCarousel" class="carousel slide carousel-fade hero-carousel" data-bs-ride="carousel">
+    <div id="heroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel" dats-bs-interval="1000">
         <div class="carousel-indicators custom-indicators">
             @for (item of GetWebSiteData['HomeSlider']; track $index) {
                 <button type="button" class="d-none" data-bs-target="#heroCarousel" [attr.data-bs-slide-to]="$index"  [ngClass]="{'active':$index==0}" ></button>

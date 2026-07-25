@@ -585,7 +585,7 @@ RESPONSIVE
   height: 50px;
   border: none;
   border-radius: var(--radius-md);
-  background: linear-gradient(135deg, var(--primary-color));
+  background-color: var(--primary-color);
   color: var(--white);
   transition: var(--transition);
 }

@@ -2,9 +2,9 @@
     <div class="container">
         @if(Loading){
 
-                <div class="dashboard-skeleton">
-                <div class="ds-left">
-                    <div class="sk-banner">
+        <div class="dashboard-skeleton">
+            <div class="ds-left">
+                <div class="sk-banner">
                     <span class="sk"></span>
                     <span class="sk sk-circle sk-arr sk-arr-l"></span>
                     <span class="sk sk-circle sk-arr sk-arr-r"></span>
@@ -12,45 +12,45 @@
                         <span class="sk-dot active"></span>
                         <span class="sk-dot"></span>
                     </div>
-                    </div>
+                </div>
 
-                    
-                    <div class="ds-row2">
+
+                <div class="ds-row2">
                     <div class="sk-card sk-sales">
                         <div class="sk-card-header">
-                        <span class="sk" style="width:110px; height:15px;"></span>
-                        <span class="sk sk-pill" style="width:80px; height:28px;"></span>
+                            <span class="sk" style="width:110px; height:15px;"></span>
+                            <span class="sk sk-pill" style="width:80px; height:28px;"></span>
                         </div>
                         <div class="sk-table-head">
-                        <span class="sk" style="height:12px; width:55px;"></span>
-                        <span class="sk" style="height:12px; width:40px;"></span>
-                        <span class="sk" style="height:12px; width:70px;"></span>
+                            <span class="sk" style="height:12px; width:55px;"></span>
+                            <span class="sk" style="height:12px; width:40px;"></span>
+                            <span class="sk" style="height:12px; width:70px;"></span>
                         </div>
                         <div class="sk-table-row" *ngFor="let r of [1,2,3]">
-                        <span class="sk" style="height:12px; width:40px;"></span>
-                        <span class="sk" style="height:12px; width:28px;"></span>
-                        <span class="sk" style="height:12px; width:28px;"></span>
+                            <span class="sk" style="height:12px; width:40px;"></span>
+                            <span class="sk" style="height:12px; width:28px;"></span>
+                            <span class="sk" style="height:12px; width:28px;"></span>
                         </div>
                     </div>
 
                     <div class="sk-card sk-shortcuts">
                         <div class="sk-card-header">
-                        <span class="sk" style="width:90px; height:15px;"></span>
+                            <span class="sk" style="width:90px; height:15px;"></span>
                         </div>
                         <div class="sk-shortcuts-grid">
-                        <div class="sk-shortcut-item" *ngFor="let i of [1,2,3,4,5,6]">
-                            <span class="sk sk-circle" style="width:40px; height:40px;"></span>
-                            <span class="sk" style="width:52px; height:11px;"></span>
-                        </div>
+                            <div class="sk-shortcut-item" *ngFor="let i of [1,2,3,4,5,6]">
+                                <span class="sk sk-circle" style="width:40px; height:40px;"></span>
+                                <span class="sk" style="width:52px; height:11px;"></span>
+                            </div>
                         </div>
                     </div>
 
-                    </div>
                 </div>
+            </div>
 
-                <div class="ds-right">
+            <div class="ds-right">
 
-                    <div class="sk-wallet">
+                <div class="sk-wallet">
                     <div class="sk-wallet-top">
                         <span class="sk-wallet-line"></span>
                         <span class="sk-wallet-circle"></span>
@@ -60,180 +60,130 @@
                         <span class="sk-wallet-btn"></span>
                         <span class="sk-wallet-btn"></span>
                     </div>
-                    </div>
+                </div>
 
-                    <div class="sk-card sk-updates">
+                <div class="sk-card sk-updates">
 
                     <div class="sk-updates-header">
                         <span class="sk sk-circle" style="width:16px; height:16px; flex-shrink:0;"></span>
                         <span class="sk" style="width:180px; height:14px;"></span>
                     </div>
 
-                    <div class="sk-update-item" *ngFor="let u of [1,2,3,4]; let last = last" [style.opacity]="last ? '0.5' : '1'">
+                    <div class="sk-update-item" *ngFor="let u of [1,2,3,4]; let last = last"
+                        [style.opacity]="last ? '0.5' : '1'">
                         <span class="sk sk-pill" style="width:40px; height:20px; margin-bottom:8px;"></span>
                         <span class="sk" style="height:12px; width:100%; margin-bottom:5px;"></span>
                         <span class="sk" style="height:12px; width:85%; margin-bottom:5px;"></span>
                         <span class="sk" style="height:12px; width:55%;"></span>
                     </div>
 
-                    </div>
                 </div>
-                </div>
+            </div>
+        </div>
         }@else{
-            <div class="row g-3">
+        <div class="row g-3">
 
-                <div class="col-lg-8">
+            <div class="col-lg-8">
 
-                    <div id="travelHeroCarousel" class="carousel slide hero-banner dashboard-card mb-3"
-                        data-bs-ride="carousel">
-
-                        <div class="carousel-indicators">
-                            @for (item of Response['OfferList']; track $index) {
-                                <button type="button" data-bs-target="#travelHeroCarousel" attr.data-bs-slide-to="{{$index}}" [ngClass]="{'active':$index==0}">
-                                </button>
-                            }
-                            <!-- <button type="button" data-bs-target="#travelHeroCarousel" data-bs-slide-to="1">
+                <div *ngIf="Response?.OfferList?.length" id="travelHeroCarousel"
+                    class="carousel slide hero-banner dashboard-card mb-3" data-bs-ride="carousel"
+                    data-bs-interval="3000" data-bs-pause="hover">
+                    <div class="carousel-indicators">
+                        @for (item of Response['OfferList']; track $index) {
+                        <button type="button" data-bs-target="#travelHeroCarousel" attr.data-bs-slide-to="{{$index}}"
+                            [ngClass]="{'active':$index==0}">
+                        </button>
+                        }
+                        <!-- <button type="button" data-bs-target="#travelHeroCarousel" data-bs-slide-to="1">
                             </button> -->
 
-                        </div>
+                    </div>
 
-                        <!-- Carousel Items -->
-                        <div class="carousel-inner">
+                    <!-- Carousel Items -->
+                    <div class="carousel-inner">
 
-                            @for (item of Response['OfferList']; track $index) {
-                            <div class="carousel-item" [ngClass]="{'active':$index==0}">
+                        @for (item of Response['OfferList']; track $index) {
+                        <div class="carousel-item" [ngClass]="{'active':$index==0}">
 
-                                <div class="hero-slide">
-                                    <a [href]="item['url']" target="_blank">
+                            <div class="hero-slide">
+                                <a [href]="item['url']" target="_blank">
                                     <img [src]="item['image']" alt="Flight">
-                                    </a>
-                                </div>
-
+                                </a>
                             </div>
-                            }
+
                         </div>
-
-
-                            <button class="carousel-control-prev" type="button" data-bs-target="#travelHeroCarousel"
-                                data-bs-slide="prev">
-
-                                <span class="carousel-control-prev-icon"></span>
-
-                            </button>
-                     
-                        <button class="carousel-control-next" type="button" data-bs-target="#travelHeroCarousel"
-                            data-bs-slide="next">
-
-                            <span class="carousel-control-next-icon"></span>
-
-                        </button>
-
+                        }
                     </div>
 
-                    <!-- SALES + SHORTCUT -->
-                    <div class="row g-3">
 
-                        <div class="col-lg-5">
+                    <!-- Previous -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#travelHeroCarousel"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
 
-                            <div class="dashboard-card p-3 h-100">
+                    <!-- Next -->
+                    <button class="carousel-control-next" type="button" data-bs-target="#travelHeroCarousel"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
 
-                                <div class="d-flex justify-content-between align-items-center mb-3">
+                </div>
 
-                                    <div class="section-title mb-0">
-                                        Sales Report
-                                    </div>
+                <!-- SALES + SHORTCUT -->
+                <div class="row g-3">
 
-                                    <p class="fw-semibold">
-                                        Today
-                                    </p>
+                    <div class="col-lg-5">
 
+                        <div class="dashboard-card p-3 h-100">
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                                <div class="section-title mb-0">
+                                    Sales Report
                                 </div>
 
-                                <div class="custom-table">
-
-                                    <table class="table align-middle">
-
-                                        <thead>
-                                            <tr>
-                                                <th>Product</th>
-                                                <th>Today</th>
-                                                <th>Yesterday</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tbody>
-
-                                            <tr>
-                                                <td>Flight</td>
-                                                <td>{{Response['TodayFlightBooking']}}</td>
-                                                <td>{{Response['YesterdayFlightBooking']}}</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Hotel</td>
-                                                <td>{{Response['TodayHotelbooking']}}</td>
-                                                <td>{{Response['YesterdayHotelBooking']}}</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Bus</td>
-                                                <td>{{Response['TodayBusBooking']}}</td>
-                                                <td>{{Response['YesterdayBusBooking']}}</td>
-                                            </tr>
-
-                                        </tbody>
-
-                                    </table>
-
-                                </div>
+                                <p class="fw-semibold">
+                                    Today
+                                </p>
 
                             </div>
 
-                        </div>
+                            <div class="custom-table">
 
-                        <!-- SHORTCUTS -->
-                        <div class="col-lg-7">
+                                <table class="table align-middle">
 
-                            <div class="dashboard-card p-3 h-100">
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Today</th>
+                                            <th>Yesterday</th>
+                                        </tr>
+                                    </thead>
 
-                                <div class="section-title">
-                                    Short Cuts
-                                </div>
+                                    <tbody>
 
-                                <div class="shortcut-grid">
+                                        <tr>
+                                            <td>Flight</td>
+                                            <td>{{Response['TodayFlightBooking']}}</td>
+                                            <td>{{Response['YesterdayFlightBooking']}}</td>
+                                        </tr>
 
-                                    <div class="shortcut-box" routerLink="/dashboard/bookings">
-                                        <i class="fa-solid fa-ticket"></i>
-                                        <span>My Bookings</span>
-                                    </div>
+                                        <tr>
+                                            <td>Hotel</td>
+                                            <td>{{Response['TodayHotelbooking']}}</td>
+                                            <td>{{Response['YesterdayHotelBooking']}}</td>
+                                        </tr>
 
-                                    <div class="shortcut-box" routerLink="/dashboard/booking-calendar">
-                                       <i class="fa-solid fa-calendar-days"></i>
-                                        <span>Bookings Calendar</span>
-                                    </div>
+                                        <tr>
+                                            <td>Bus</td>
+                                            <td>{{Response['TodayBusBooking']}}</td>
+                                            <td>{{Response['YesterdayBusBooking']}}</td>
+                                        </tr>
 
-                                    <div class="shortcut-box" routerLink="/dashboard/amendments">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                        <span>Amendments</span>
-                                    </div>
+                                    </tbody>
 
-                                    <div class="shortcut-box" routerLink="/dashboard/payment-passbook">
-                                      <i class="fa-solid fa-file-invoice-dollar"></i>
-                                        <span>Account Passbook</span>
-                                    </div>
-                                
-                                    <div class="shortcut-box" routerLink="/dashboard/download-report">
-                                        <i class="fa-solid fa-chart-line"></i>
-                                        <span>Reports</span>
-                                    </div>
-
-
-                                    <div class="shortcut-box" routerLink="/dashboard/deposit-request">
-                                            <i class="fa-solid fa-money-check-dollar"></i>
-                                        <span>Deposit Request</span>
-                                    </div>
-
-                                </div>
+                                </table>
 
                             </div>
 
@@ -241,127 +191,49 @@
 
                     </div>
 
-                  
-                    <div class="dashboard-card p-3 mt-3">
+                    <!-- SHORTCUTS -->
+                    <div class="col-lg-7">
 
-                        <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="dashboard-card p-3 h-100">
 
-                            <div class="section-title mb-0">
-                                Commission Sale Report
+                            <div class="section-title">
+                                Short Cuts
                             </div>
 
-                            <div class="d-flex gap-2">
+                            <div class="shortcut-grid">
 
-                                <select [(ngModel)]="selectedMonth" (change)="getCommission($event)"  class="form-select form-select-sm">
-                                    @for (item of months; track $index) {
-                                        <option value="{{ item.value }}">{{ item.name }}</option>
-                                    }
-                                </select>
+                                <div class="shortcut-box" routerLink="/dashboard/bookings">
+                                    <i class="fa-solid fa-ticket"></i>
+                                    <span>My Bookings</span>
+                                </div>
 
-                                <select [(ngModel)]="selectedYear" (change)="getCommission($event)" class="form-select form-select-sm">
-                                    @for (item of years; track $index) {
-                                        <option value="{{ item }}">{{item}}</option>
-                                    }
-                                </select>
+                                <div class="shortcut-box" routerLink="/dashboard/booking-calendar">
+                                    <i class="fa-solid fa-calendar-days"></i>
+                                    <span>Bookings Calendar</span>
+                                </div>
+
+                                <div class="shortcut-box" routerLink="/dashboard/amendments">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    <span>Amendments</span>
+                                </div>
+
+                                <div class="shortcut-box" routerLink="/dashboard/payment-passbook">
+                                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                                    <span>Account Passbook</span>
+                                </div>
+
+                                <div class="shortcut-box" routerLink="/dashboard/download-report">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                    <span>Reports</span>
+                                </div>
+
+
+                                <div class="shortcut-box" routerLink="/dashboard/deposit-request">
+                                    <i class="fa-solid fa-money-check-dollar"></i>
+                                    <span>Deposit Request</span>
+                                </div>
 
                             </div>
-
-                        </div>
-
-                        <div class="custom-table">
-
-                            <table class="table align-middle">
-
-                                <thead>
-
-                                    <tr>
-                                        <th>Product</th>
-                                        <th>Sale Commission</th>
-                                        <th>Refund Net Commission</th>
-                                        <th>Total</th>
-                                    </tr>
-
-                                </thead>
-
-                                <tbody>
-
-                                    <tr>
-                                        <td>Flight</td>
-                                        <td>₹{{Response['SaleCommission']['Flight']['saleCommission'] |number:'1.2-2'}}</td>
-                                        <td>₹{{Response['SaleCommission']['Flight']['refundCommission']|number:'1.2-2'}}</td>
-                                        <td>₹{{Response['SaleCommission']['Flight']['totalCommission']|number:'1.2-2'}}</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Hotel</td>
-                                         <td>₹{{Response['SaleCommission']['Hotel']['saleCommission']|number:'1.2-2'}}</td>
-                                        <td>₹{{Response['SaleCommission']['Hotel']['refundCommission']|number:'1.2-2'}}</td>
-                                        <td>₹{{Response['SaleCommission']['Hotel']['totalCommission']|number:'1.2-2'}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Bus</td>
-                                         <td>₹{{Response['SaleCommission']['Bus']['saleCommission']|number:'1.2-2'}}</td>
-                                        <td>₹{{Response['SaleCommission']['Bus']['refundCommission']|number:'1.2-2'}}</td>
-                                        <td>₹{{Response['SaleCommission']['Bus']['totalCommission']|number:'1.2-2'}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Grand Total</td>
-                                         <td>₹{{Response['SaleCommission']['grandTotal']['saleCommission']|number:'1.2-2'}}</td>
-                                        <td>₹{{Response['SaleCommission']['grandTotal']['refundCommission']|number:'1.2-2'}}</td>
-                                        <td>₹{{Response['SaleCommission']['grandTotal']['totalCommission']|number:'1.2-2'}}</td>
-                                    </tr>
-
-                                </tbody>
-
-                            </table>
-
-                        </div>
-
-                    </div>
-
-                  
-                    <div class="dashboard-card p-3 mt-3">
-
-                        <div class="section-title">
-                            Mini Statement
-                        </div>
-
-                        <div class="custom-table mini-table">
-
-                            <table class="table align-middle">
-
-                                <thead>
-
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>RefNo</th>
-                                        <th>Description</th>
-                                        <th>Amount</th>
-                                        <th>Type</th>
-                                    </tr>
-
-                                </thead>
-
-                                <tbody>
-                                    @for (item of Response['MiniStatement']; track $index) {
-                                    <tr>
-                                        <td>{{item['created']|date:'dd MMM yyyy'}}</td>
-                                        <td>{{item['acc_ref_number']}}</td>
-                                        <td>{{item['remark']}}, </td>
-                                        <td>
-                                            
-                                                <span class="text-danger" *ngIf="item['transaction_type']=='debit'">₹ {{item['debit'] | number :'1.2-2'}}</span>
-                                            
-                                                <span class="text-success" *ngIf="item['transaction_type']=='credit'">₹ {{item['credit'] | number :'1.2-2'}}</span>
-                                          
-                                            
-                                        </td>
-                                        <td>{{item['transaction_type']|titlecase}}</td>
-                                    </tr>
-                                    }
-                                </tbody>
-
-                            </table>
 
                         </div>
 
@@ -369,46 +241,183 @@
 
                 </div>
 
-            
-                <div class="col-lg-4">
 
-                    <!-- WALLET -->
-                    <div class="account-card">
+                <div class="dashboard-card p-3 mt-3">
 
-                        <!-- TOP -->
-                        <div class="account-top">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
 
-                            <!-- LEFT -->
-                            <div>
+                        <div class="section-title mb-0">
+                            Commission Sale Report
+                        </div>
 
-                                <div class="balance-title">
-                                    Account Balance
+                        <div class="d-flex gap-2">
+
+                            <select [(ngModel)]="selectedMonth" (change)="getCommission($event)"
+                                class="form-select form-select-sm">
+                                @for (item of months; track $index) {
+                                <option value="{{ item.value }}">{{ item.name }}</option>
+                                }
+                            </select>
+
+                            <select [(ngModel)]="selectedYear" (change)="getCommission($event)"
+                                class="form-select form-select-sm">
+                                @for (item of years; track $index) {
+                                <option value="{{ item }}">{{item}}</option>
+                                }
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <div class="custom-table">
+
+                        <table class="table align-middle">
+
+                            <thead>
+
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Sale Commission</th>
+                                    <th>Refund Net Commission</th>
+                                    <th>Total</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>Flight</td>
+                                    <td>₹{{Response['SaleCommission']['Flight']['saleCommission'] |number:'1.2-2'}}</td>
+                                    <td>₹{{Response['SaleCommission']['Flight']['refundCommission']|number:'1.2-2'}}
+                                    </td>
+                                    <td>₹{{Response['SaleCommission']['Flight']['totalCommission']|number:'1.2-2'}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Hotel</td>
+                                    <td>₹{{Response['SaleCommission']['Hotel']['saleCommission']|number:'1.2-2'}}</td>
+                                    <td>₹{{Response['SaleCommission']['Hotel']['refundCommission']|number:'1.2-2'}}</td>
+                                    <td>₹{{Response['SaleCommission']['Hotel']['totalCommission']|number:'1.2-2'}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Bus</td>
+                                    <td>₹{{Response['SaleCommission']['Bus']['saleCommission']|number:'1.2-2'}}</td>
+                                    <td>₹{{Response['SaleCommission']['Bus']['refundCommission']|number:'1.2-2'}}</td>
+                                    <td>₹{{Response['SaleCommission']['Bus']['totalCommission']|number:'1.2-2'}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Grand Total</td>
+                                    <td>₹{{Response['SaleCommission']['grandTotal']['saleCommission']|number:'1.2-2'}}
+                                    </td>
+                                    <td>₹{{Response['SaleCommission']['grandTotal']['refundCommission']|number:'1.2-2'}}
+                                    </td>
+                                    <td>₹{{Response['SaleCommission']['grandTotal']['totalCommission']|number:'1.2-2'}}
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+                <div class="dashboard-card p-3 mt-3">
+
+                    <div class="section-title">
+                        Mini Statement
+                    </div>
+
+                    <div class="custom-table mini-table">
+
+                        <table class="table align-middle">
+
+                            <thead>
+
+                                <tr>
+                                    <th>Date</th>
+                                    <th>RefNo</th>
+                                    <th>Description</th>
+                                    <th>Amount</th>
+                                    <th>Type</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+                                @for (item of Response['MiniStatement']; track $index) {
+                                <tr>
+                                    <td>{{item['created']|date:'dd MMM yyyy'}}</td>
+                                    <td>{{item['acc_ref_number']}}</td>
+                                    <td>{{item['remark']}}, </td>
+                                    <td>
+
+                                        <span class="text-danger" *ngIf="item['transaction_type']=='debit'">₹
+                                            {{item['debit'] | number :'1.2-2'}}</span>
+
+                                        <span class="text-success" *ngIf="item['transaction_type']=='credit'">₹
+                                            {{item['credit'] | number :'1.2-2'}}</span>
+
+
+                                    </td>
+                                    <td>{{item['transaction_type']|titlecase}}</td>
+                                </tr>
+                                }
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4">
+
+                <!-- WALLET -->
+                <div class="account-card">
+
+                    <!-- TOP -->
+                    <div class="account-top">
+
+                        <!-- LEFT -->
+                        <div>
+
+                            <div class="balance-title">
+                                Account Balance
+                            </div>
+
+                            <div class="balance-row">
+
+                                <div class="balance-amount">
+                                    @if(showbalance){ <span>₹ {{BalanceData['Balance']|number:'1.2-2'}}</span> }@else {₹
+                                    *******}
+
                                 </div>
 
-                                <div class="balance-row">
+                                <!-- Eye Button -->
+                                <a class="balance-toggle" (click)="showbalance=!showbalance">
+                                    @if(showbalance){
+                                    <i class="fa-solid fa-eye-slash" style="color: rgb(255, 255, 255);"></i>
+                                    }@else{
+                                    <i class="fa-solid fa-eye" style="color: rgb(255, 255, 255);"></i>
+                                    }
 
-                                    <div class="balance-amount">
-                                        @if(showbalance){ <span>₹ {{BalanceData['Balance']|number:'1.2-2'}}</span> }@else {₹  *******}
-                                        
-                                    </div>
-
-                                    <!-- Eye Button -->
-                                    <a class="balance-toggle" (click)="showbalance=!showbalance">
-                                        @if(showbalance){
-                                            <i class="fa-solid fa-eye-slash"  style="color: rgb(255, 255, 255);"></i>
-                                        }@else{
-                                            <i class="fa-solid fa-eye" style="color: rgb(255, 255, 255);"></i>
-                                        }
-
-                                    </a>
-
-                                </div>
+                                </a>
 
                             </div>
 
-                            <!-- RIGHT -->
-                             <div>
-                                <!-- <div class="wallet-dropdown-wrapper dropdown mb-2" >
+                        </div>
+
+                        <!-- RIGHT -->
+                        <div>
+                            <!-- <div class="wallet-dropdown-wrapper dropdown mb-2" >
 
                                     <button class="wallet-dropdown" id="dropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
 
@@ -430,97 +439,99 @@
                                     </div>
 
                                 </div> -->
-                                <a  class="wallet-dropdown pointer" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Refresh Balance." (click)="RefreshBalance()" href="javascript:void(0)"><i class="fa-solid fa-arrows-rotate"  style="color: rgb(255, 255, 255);"></i></a>
-                            </div>
+                            <a class="wallet-dropdown pointer" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                title="Refresh Balance." (click)="RefreshBalance()" href="javascript:void(0)"><i
+                                    class="fa-solid fa-arrows-rotate" style="color: rgb(255, 255, 255);"></i></a>
                         </div>
-
-                        <!-- BUTTONS -->
-                        <div class="account-actions">
-
-                            <button class="account-btn account-btn-outline" routerLink="/dashboard/payment-passbook">
-                                View Statement
-                            </button>
-
-                            <button class="account-btn account-btn-primary" routerLink="/dashboard/online-recharge">
-                                + Add Money
-                            </button>
-
-                        </div>
-
                     </div>
 
-                    <!-- =========================
-                        OPERATIONAL UPDATES CARD
-                    ========================= -->
+                    <!-- BUTTONS -->
+                    <div class="account-actions">
 
-                    <div class="updates-card">
+                        <button class="account-btn account-btn-outline" routerLink="/dashboard/payment-passbook">
+                            View Statement
+                        </button>
 
-                        <!-- Header -->
-                        <div class="updates-header">
-
-                            <div class="updates-title-wrap">
-
-                                <!-- Icon -->
-                                <div class="updates-icon">
-
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
-                                        <line x1="12" y1="8" x2="12" y2="12" stroke="currentColor" stroke-width="2" />
-                                        <line x1="12" y1="16" x2="12.01" y2="16" stroke="currentColor" stroke-width="2" />
-                                    </svg>
-
-                                </div>
-
-                                <h3 class="updates-title">
-                                    Recently Operational Updates
-                                </h3>
-
-                            </div>
-
-                        </div>
-
-                        <!-- Body -->
-                        <div class="updates-body">
-
-                            @for (item of Response['Notification']; track $index) {
-                                @if(item['status']=='active'){
-                                    <div class="update-item">
-                                       
-                                        <span class="update-badge">
-                                            {{item['notification_category']}}
-                                        </span>
-                                        
-                                        <div class="update-row">
-                                            <div>
-                                                <h6>{{item['title']}}</h6>
-                                            <p class="update-text">
-                                                {{item['description']}}
-                                            </p>
-                                            </div>
-                                            @if(item['url']){
-                                                <a [href]="item['url']" target="_blank" class="update-arrow">
-                                                    <i class="fa-solid fa-chevron-right"></i>
-                                                </a>
-                                            }
-                                        </div>
-
-                                    </div>
-                                }
-                            @if($index<=Response['Notification'].length-2){
-                                <div class="update-divider"></div>
-                            }
-                            
-                            }
-                            
-
-                        </div>
+                        <button class="account-btn account-btn-primary" routerLink="/dashboard/online-recharge">
+                            + Add Money
+                        </button>
 
                     </div>
 
                 </div>
 
+                <!-- =========================
+                        OPERATIONAL UPDATES CARD
+                    ========================= -->
+
+                <div class="updates-card">
+
+                    <!-- Header -->
+                    <div class="updates-header">
+
+                        <div class="updates-title-wrap">
+
+                            <!-- Icon -->
+                            <div class="updates-icon">
+
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+                                    <line x1="12" y1="8" x2="12" y2="12" stroke="currentColor" stroke-width="2" />
+                                    <line x1="12" y1="16" x2="12.01" y2="16" stroke="currentColor" stroke-width="2" />
+                                </svg>
+
+                            </div>
+
+                            <h3 class="updates-title">
+                                Recently Operational Updates
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Body -->
+                    <div class="updates-body">
+
+                        @for (item of Response['Notification']; track $index) {
+                        @if(item['status']=='active'){
+                        <div class="update-item">
+
+                            <span class="update-badge">
+                                {{item['notification_category']}}
+                            </span>
+
+                            <div class="update-row">
+                                <div>
+                                    <h6>{{item['title']}}</h6>
+                                    <p class="update-text">
+                                        {{item['description']}}
+                                    </p>
+                                </div>
+                                @if(item['url']){
+                                <a [href]="item['url']" target="_blank" class="update-arrow">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </a>
+                                }
+                            </div>
+
+                        </div>
+                        }
+                        @if($index<=Response['Notification'].length-2){ <div class="update-divider">
+                    </div>
+                    }
+
+                    }
+
+
+                </div>
+
             </div>
-        }
+
+        </div>
+
+    </div>
+    }
 
     </div>
 </section>
