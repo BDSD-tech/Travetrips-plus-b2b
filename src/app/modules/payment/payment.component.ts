@@ -274,7 +274,7 @@ export class PaymentComponent implements OnInit {
       this.SaveData['TotalPrice']=this.totalfare;
       this.SaveData['PaymentFee']=this.conveniencefee;
       this.SaveData['BookingType']='Booking';
-        this.flightService.SavePaxdata(this.SaveData,this.Service).subscribe(resp => {
+      this.flightService.SavePaxdata(this.SaveData,this.Service).subscribe(resp => {
         let data:any=resp;
         this.payfinalloading=false;
         if(data['Error']['ErrorCode']==0)

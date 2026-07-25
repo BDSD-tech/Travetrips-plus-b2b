@@ -8,6 +8,8 @@ import { CommonService } from '../../services/common.service';
 import { register } from 'swiper/element';
 import { IdleTimeoutService } from '../../services/auto-logout';
 import { AlertService } from '../../services/alert.service';
+import {UAParser} from 'ua-parser-js';
+
 register();
 declare var $: any;
 @Component({
@@ -113,7 +115,8 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.Loginloading = true;
-    this.authenticationservice.login(this.f['emailphone'].value, this.f['password'].value,this.f['istrust'].value).pipe(first()).subscribe(data => {
+    let devicedetails:any=this.getDeviceInfo();
+    this.authenticationservice.login(this.f['emailphone'].value, this.f['password'].value,this.f['istrust'].value,devicedetails).pipe(first(),).subscribe(data => {
       this.Loginloading = false;
       if (data['Error']['ErrorCode'] == 0) {
         if (data['Result']['WithOTP'] == false) {
@@ -129,6 +132,23 @@ export class LoginComponent implements OnInit {
         this.LoginMessage = '<div class="error-msg">' + data['Error']['ErrorMessage'] + '</div>';
       }
     });
+  }
+
+    getDeviceInfo() {
+    const parser = new UAParser();
+    const result = parser.getResult();
+ 
+    return {
+      browser_name: result.browser.name,
+      browser_version: result.browser.version,
+      os_name: result.os.name,
+      os_version: result.os.version,
+      device_type: result.device.type || 'Desktop',
+      user_agent: navigator.userAgent,
+      language: navigator.language,
+      screen: screen.width + "x" + screen.height,
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+    };
   }
 
   numberOnly(event: any) {

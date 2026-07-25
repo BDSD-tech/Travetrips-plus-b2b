@@ -152,14 +152,16 @@
                                             ₹ {{item['BusPrice']['PublishedPrice'] | number:'1.0-2'}}
                                         </div>
 
-                                        <small *ngIf="showincentivefare">
-                                            INC ₹{{item['BusPrice']['PublishedPrice']-item['BusPrice']['OfferedPrice'] |
-                                            number:'1.0-2'}}
-                                        </small>
-
-                                        <small *ngIf="shownetfare">
-                                            NET ₹{{item['BusPrice']['OfferedPrice'] | number:'1.0-2'}}
-                                        </small>
+                                       <div class="d-flex justify-content-end">
+                                            <small *ngIf="showincentivefare">
+                                                INC ₹{{item['BusPrice']['PublishedPrice']-item['BusPrice']['OfferedPrice'] |
+                                                number:'1.0-2'}}
+                                            </small>
+                                            @if(showincentivefare && shownetfare){ | }
+                                            <small *ngIf="shownetfare">
+                                                NET ₹{{item['BusPrice']['OfferedPrice'] | number:'1.0-2'}}
+                                            </small>
+                                       </div>
                                     </div>
 
                                     <div class="d-flex justify-content-end align-items-center">
