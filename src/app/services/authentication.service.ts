@@ -23,8 +23,8 @@ export class AuthenticationService {
         return this.currentUserSubject.value;
     }
 
-    login(emailphone: string, password: string,istrust:any) {
-        return this.http.post<any>(`${tts_config.APIURL}/login`, {emailphone, password,istrust })
+    login(emailphone: string, password: string,istrust:any,device:any) {
+        return this.http.post<any>(`${tts_config.APIURL}/login`, {emailphone, password,istrust,device })
             .pipe(map(user => {
                 if(user['Error']['ErrorCode']==0) {
                    if(user['Result']['WithOTP']==false){

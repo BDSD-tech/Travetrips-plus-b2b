@@ -321,7 +321,10 @@
                                                                 | number:'1.0-2'}} </span>
                                                             <span
                                                                 class="label-{{farelist['FareTypeColor']}}">({{farelist['FareType']}})</span>
-                                                            @if(farelist['IsHoldabelWithOutSsr']){
+                                                            @if(farelist['SeatBaggage']){
+                                                                <span class="baggage-in-fare text-muted"><i class="fa-solid fa-briefcase me-1"></i>{{farelist['SeatBaggage']?.[0]?.[0]?.['CheckIn']}}</span>
+                                                            }
+                                                                @if(farelist['IsHoldabelWithOutSsr']){
                                                             <span class="holdable-icon">H</span>
                                                             }
 
@@ -1156,7 +1159,7 @@
                                     <div class="sticky-action-footer">
 
                                         <div class="price-text">
-                                            ₹{{selectedfare[item.TtsIndex]['Fare']['OfferedPrice']}}
+                                            ₹{{selectedfare[item.TtsIndex]['Fare']['PublishedPrice']}}
                                         </div>
 
                                         <button type="button" id="flightdetails" class="btn btn-action"
