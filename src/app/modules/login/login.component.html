@@ -91,10 +91,10 @@
               </div>
             </div>
     
-            <div class="form-check form-switch my-2 ms-2">
+            <!-- <div class="form-check form-switch my-2 ms-2">
               <input class="form-check-input" formControlName="istrust" type="checkbox" id="true-device">
               <label class="form-check-label" for="true-device">Trusted Device </label>
-            </div>
+            </div> -->
       
             <!-- BUTTON -->
             <button class="btn-login" type="submit" [disabled]="Loginloading">
@@ -161,7 +161,12 @@
 
 
             </div> -->
-            <div class="d-flex justify-content-end py-2">
+            <div class="d-flex justify-content-between align-items-center py-2">
+              <div class="form-check form-switch my-2 ms-2">
+                <input class="form-check-input" formControlName="istrust" type="checkbox" id="true-device">
+                <label class="form-check-label trust-device" for="true-device">Trusted Device </label>
+              </div>    
+          
               <a href="javascript:void(0)" class="text-primary" (click)="ActiveStep='CheckUser'"><i class="fa-solid fa-angle-left"></i> Back to login</a>
             </div>
             <div class="input-group-custom mb-4">
@@ -175,7 +180,8 @@
                       </div>
                     </div>
                 </div>
-          
+
+             
             <button class="btn-login" type="submit" [disabled]="OTPLoginloading">
               <span *ngIf="Loginloading" class="spinner-border spinner-border-sm me-2"></span> Verify OTP
             </button>

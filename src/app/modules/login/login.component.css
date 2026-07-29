@@ -543,3 +543,7 @@
         height: 56px;
     }
 }
+
+.form-check-label.trust-device{
+    font-size: 15px;
+}

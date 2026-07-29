@@ -5,6 +5,7 @@ import { AuthenticationService } from '../../../services/authentication.service'
 import { CommonService } from '../../../services/common.service';
 import { DashboardService } from '../dashboard.service';
 import { Sort } from '@angular/material/sort';
+import { Router } from '@angular/router';
 
 declare var $: any;
 declare var window: any;
@@ -33,7 +34,7 @@ export class DepositRequestComponent implements OnInit {
   AddAmendmentModal:any
   QRImage:any
   ImageURL:any
-  constructor(private fb: FormBuilder,private alertservice: AlertService, private dashboardservice:DashboardService,private commonservice:CommonService,private authenticationservice: AuthenticationService) { 
+  constructor(private router:Router,private fb: FormBuilder,private alertservice: AlertService, private dashboardservice:DashboardService,private commonservice:CommonService,private authenticationservice: AuthenticationService) { 
 
     this.DepositForm = this.fb.group({
                                        DepositType: ['',[Validators.required]],
@@ -85,7 +86,7 @@ export class DepositRequestComponent implements OnInit {
   {
     this.DepositForm.enable();
     let value=event.value;
-  
+    console.log(value)
     this.SelectBankList=this.BankList['RegularBank'];
 
     this.DepositForm.patchValue({'AccountNumber':''});
@@ -102,6 +103,9 @@ export class DepositRequestComponent implements OnInit {
     {
       this.DepositForm.get('ChequeDrawOnBank')?.disable();
       this.DepositForm.get('ChequeIssueDate')?.disable();
+      this.DepositForm.get('BankID')?.disable();
+      this.DepositForm.get('BankName')?.disable();
+      this.DepositForm.get('AccountNumber')?.disable();
       this.DepositForm.get('ChequeNumber')?.disable();
       this.DepositForm.get('PaymentMode')?.disable();
 
@@ -198,6 +202,8 @@ export class DepositRequestComponent implements OnInit {
 
   Submit()
   {
+    console.log(this.DepositForm.value)
+    console.log(this.DepositForm.invalid)
     this.submitted = true;
     if (this.DepositForm.invalid) {
       return;
@@ -224,6 +230,7 @@ export class DepositRequestComponent implements OnInit {
           this.DepositForm.get('ChequeDrawOnBank')?.setErrors(null);
           this.DepositForm.get('ChequeIssueDate')?.setErrors(null);
           this.DepositForm.get('ChequeNumber')?.setErrors(null);
+          this.router.navigate(['/dashboard/manage-deposit-request']);
         } else {
           this.alertservice.error(resp['Error']['ErrorMessage']);
       }

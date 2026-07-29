@@ -43,9 +43,7 @@ export class ManageDepositRequestComponent implements OnInit {
                                        });
    }
 
-  ngOnInit(): void {
-   
-  }
+  ngOnInit(): void {this.Submit()} 
 
   ngAfterViewInit() {
     this.FromDate();

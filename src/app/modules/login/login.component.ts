@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit {
       emailphone: ['', [Validators.required, Validators.pattern(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})|([0-9]{10})+$/)]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]],
       otp: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
+      istrust:[false]
     });
   }
 
@@ -115,8 +116,12 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.Loginloading = true;
-    let devicedetails:any=this.getDeviceInfo();
-    this.authenticationservice.login(this.f['emailphone'].value, this.f['password'].value,this.f['istrust'].value,devicedetails).pipe(first(),).subscribe(data => {
+    let devicetoken:any=null
+    if(localStorage.getItem('DeviceToken')){
+       devicetoken =localStorage.getItem('DeviceToken');
+    }
+    let device=this.getDeviceInfo()
+    this.authenticationservice.login(this.f['emailphone'].value, this.f['password'].value,this.f['istrust'].value,devicetoken,device).pipe(first()).subscribe(data => {
       this.Loginloading = false;
       if (data['Error']['ErrorCode'] == 0) {
         if (data['Result']['WithOTP'] == false) {
@@ -178,12 +183,13 @@ export class LoginComponent implements OnInit {
     //   return;
     // }
     this.OTPLoginloading = true;
-    this.authenticationservice.VarifyOTP(this.fv['emailphone'].value, this.fv['password'].value, this.fv['otp'].value).subscribe((data: any) => {
+    let device=this.getDeviceInfo()
+    this.authenticationservice.VarifyOTP(this.fv['emailphone'].value, this.fv['password'].value, this.fv['otp'].value,device,this.fv['istrust'].value).subscribe((data: any) => {
       this.OTPLoginloading = false;
       if (data['Error']['ErrorCode'] == 0) {
         // this.alertService.success('Welcome to TRAVELTRIPPLUS.');
         this.idleService.startWatching()
-        
+        localStorage.setItem('DeviceToken',data['Result']['DeviceToken']);
         this.router.navigate(['/flight'],{state: {login: true}});
       } else {
         this.LoginMessage = '<div class="error-msg">' + data['Error']['ErrorMessage'] + '</div>';
