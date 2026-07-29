@@ -23,8 +23,8 @@ export class AuthenticationService {
         return this.currentUserSubject.value;
     }
 
-    login(emailphone: string, password: string,istrust:any,device:any) {
-        return this.http.post<any>(`${tts_config.APIURL}/login`, {emailphone, password,istrust,device })
+    login(emailphone: string, password: string,istrust:any,devicetoken:any,device:any) {
+        return this.http.post<any>(`${tts_config.APIURL}/login`, {emailphone, password,istrust ,devicetoken,device})
             .pipe(map(user => {
                 if(user['Error']['ErrorCode']==0) {
                    if(user['Result']['WithOTP']==false){
@@ -35,8 +35,8 @@ export class AuthenticationService {
                  return user;
             }));
     }
-    VarifyOTP(email:any,password:any,otp:any){
-        return this.http.post<any>(`${tts_config.APIURL}/login-otp`, {email,password,otp})
+    VarifyOTP(email:any,password:any,otp:any,device:any,istrust:any){
+        return this.http.post<any>(`${tts_config.APIURL}/login-otp`, {email,password,otp,device,istrust})
         .pipe(map(user => {
             if(user['Error']['ErrorCode']==0) {
                 localStorage.setItem('TTSAgent', JSON.stringify(user.Result));
