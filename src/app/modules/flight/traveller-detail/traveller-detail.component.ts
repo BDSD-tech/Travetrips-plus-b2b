@@ -829,6 +829,8 @@ export class TravellerDetailComponent implements OnInit {
     } else {
       this.IsPassportMandatory = false;
     }
+    console.log(this.IsPassportMandatory);
+    
     if (obislcc || ibislcc) {
       this.IsFFDiv = true;
     } else {

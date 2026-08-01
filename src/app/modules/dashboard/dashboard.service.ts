@@ -180,8 +180,27 @@ export class DashboardService {
     let configUrl =  tts_config.APIURL +'/bus/details/'+id;
     return this.http.get(configUrl);
   }
-
-public HotelList(data:any)
+   public AddBusMarkup(data:any)
+  {
+    let configUrl =  tts_config.APIURL +'/agent/add-bus-markup';
+    return this.http.post(configUrl,data);
+  }
+   public EditBusMarkup(data:any)
+  {
+    let configUrl =  tts_config.APIURL +'/agent/update-bus-markup';
+    return this.http.post(configUrl,data);
+  }
+  public BusMarkupList(data:any)
+  {
+    let configUrl =  tts_config.APIURL +'/agent/markup-bus-list';
+    return this.http.post(configUrl,data);
+  }
+  public DeleteBusMarkup(data:any)
+  {
+    let configUrl =  tts_config.APIURL +'/agent/delete-bus-markup';
+    return this.http.post(configUrl,data);
+  }
+  public HotelList(data:any)
   {
     let configUrl =  tts_config.APIURL +'/hotel/hotel-booking-list';
     return this.http.post(configUrl,data);

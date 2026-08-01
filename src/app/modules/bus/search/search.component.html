@@ -154,7 +154,7 @@
 
                                        <div class="d-flex justify-content-end">
                                             <small *ngIf="showincentivefare">
-                                                INC ₹{{item['BusPrice']['PublishedPrice']-item['BusPrice']['OfferedPrice'] |
+                                                INC ₹{{item['BusPrice']['AgentCommission']+item['BusPrice']['Discount'] |
                                                 number:'1.0-2'}}
                                             </small>
                                             @if(showincentivefare && shownetfare){ | }

@@ -49,7 +49,7 @@ export class ManageAmendmentsHotelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    this.SearchSubmit()
   }
 
   ngAfterViewInit() {

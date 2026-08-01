@@ -387,11 +387,11 @@ export class CartDetailComponent implements OnInit {
     }
     if(this.TicketInvoiceJourney=='Return')
     {
-      BookingId=this.BookingDetail['ConfirmationBookingData'][1]['BookingId'];
+      BookingId=this.BookingDetail['booking_ref_number'];
     }
     if(this.TicketInvoiceJourney=='Both')
     {
-      BookingId=this.BookingDetail['ConfirmationBookingData'][0]['BookingId']+','+this.BookingDetail['ConfirmationBookingData'][1]['BookingId'];
+      BookingId=this.BookingDetail['booking_ref_number']+','+this.BookingDetail['ConfirmationBookingData'][1]['BookingId'];
     }
 
      let data={

@@ -49,7 +49,7 @@ export class ManageAmendmentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    this.SearchSubmit()
   }
 
   ngAfterViewInit() {

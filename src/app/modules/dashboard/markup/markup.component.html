@@ -7,14 +7,16 @@
         <button class="btn" [ngClass]="{'active-tab':activeService=='Hotel'}"
             (click)="activeService='Hotel'">Hotels</button>
 
-        <!-- <button class="btn" [ngClass]="{'active-tab':activeService=='Bus'}" 
-        (click)="activeService='Bus'">Bus</button> -->
+        <button class="btn" [ngClass]="{'active-tab':activeService=='Bus'}" 
+        (click)="activeService='Bus'">Bus</button>
 
     </div>
     
     @if(activeService=='Flight'){
         <app-manage-markup></app-manage-markup>
     }@else if(activeService=='Hotel'){
-    <app-hotel></app-hotel>
+        <app-hotel></app-hotel>
+    }@else if(activeService=='Bus'){
+        <app-bus-markup></app-bus-markup>
     }
 </div>
