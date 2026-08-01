@@ -136,7 +136,7 @@ export class SearchComponent implements OnInit {
        this.Response = response['Result'];
        this.FilterResponse=response['Filter'];
        this.resultcount=this.Response.length;
-       this.sortedData = this.Response.slice();      
+       this.sortedData = this.Response.slice();     
        setTimeout(() => {
           this.topsort('totalfare','asc','');
         }, 100);

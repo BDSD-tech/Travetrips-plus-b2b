@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BusService } from '../bus.service';
-
 import { NavigationExtras, Router } from '@angular/router';
 import { AlertService } from '../../../services/alert.service';
 
@@ -182,7 +181,7 @@ export class SeatLayoutComponent implements OnInit {
     let showseatlabel="";
     let price=0;
     let basefare=0; let tax=0; let othercharge=0; let servicecharge=0; let discount=0; let agentmarkup=0; let agentcommission=0;
-    let tds=0; let offerprice=0;
+    let tds=0; let offerprice=0;let publishedprice=0
     this.seatnumber.forEach((element:any) => {
       if(element)
       {
@@ -195,8 +194,9 @@ export class SeatLayoutComponent implements OnInit {
         agentcommission+=this.Response['SeatDetails'][element]['Price']['AgentCommission'];
         tds+=this.Response['SeatDetails'][element]['Price']['TDS'];
         offerprice+=this.Response['SeatDetails'][element]['Price']['OfferedPrice'];
-
-        price+=this.Response['SeatDetails'][element]['PublishedPrice'];
+        agentmarkup+=this.Response['SeatDetails'][element]['Price']['WebPMarkUp'];
+        price+=this.Response['SeatDetails'][element]['WithmarkupPublishedPrice'];
+        publishedprice+=this.Response['SeatDetails'][element]['PublishedPrice'];
       }
     });
 
@@ -221,7 +221,7 @@ export class SeatLayoutComponent implements OnInit {
                           'Discount':discount,
                           'TDS':tds,
                           'OfferedPrice':offerprice,
-                          'PublishedPrice':price,
+                          'PublishedPrice':publishedprice,
                           'Fare':price,
                           'TotalSeat':seatinfo
                         };

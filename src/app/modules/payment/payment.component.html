@@ -702,7 +702,13 @@
       </div>
       <div class="modal-body text-center">
         <p class="fs-12">You have choosen to make the following payment.Please confirm to proceed.</p>
-        <h5>₹{{confirmtotalfare | number:'1.0-2'}}</h5>
+        
+        <h5 *ngIf="Service=='Flight'">₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']+CurrentFare['SSR']['Meal']
+                     + CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Seat'] +CurrentFare['InsurancePrice']+conveniencefee|
+                     number:'1.0-0'}}</h5>
+        <h5 *ngIf="Service!=='Flight'">₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']+conveniencefee|
+                     number:'1.0-0'}}</h5>
+        <!-- <h5>₹{{confirmtotalfare | number:'1.0-2'}}</h5> -->
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Back</button>

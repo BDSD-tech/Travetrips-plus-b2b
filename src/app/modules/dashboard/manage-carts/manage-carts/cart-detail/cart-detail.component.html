@@ -254,6 +254,9 @@
                     <div class="col-md-3 col-sm-3 amend_list" *ngIf="amdlist['amendment_status']=='requested'">
                         <span  data-toggle="tooltip" title="ABORT" (click)="AbortAmendments(amdlist['amendment_ref_number'])"><i class="fa fa-remove abort-icon info-fa-icon"></i></span>
                     </div>
+                    <div class="col-12" *ngIf="amdlist['remark_from_super_admin']">
+                        <p class="cart_info-field--title">Company Remark : <span class="cart_info-field--detail">{{amdlist['remark_from_super_admin']}}</span></p>
+                    </div>
                 </div>
             </div>
             </div>
@@ -681,9 +684,9 @@
                                 <mat-form-field appearance="fill" class="tts-full-width">
                                     <mat-label>Amendment Type</mat-label>
                                     <mat-select formControlName="AmendmentType">
-                                        <mat-option value="cancellation">Cancellation</mat-option>
-                                        <mat-option value="cancellation_quotation">Get Cancel Quotation</mat-option>
                                         <mat-option value="full_refund">Full Refund</mat-option>
+                                        <mat-option value="cancellation_quotation">Get Cancel Quotation</mat-option>
+                                        <mat-option value="cancellation">Cancellation</mat-option>
                                         <mat-option value="reissue">Re-Issue</mat-option>
                                         <mat-option value="reissue_quotation">Get Reissue Quotation</mat-option>
                                         <mat-option value="no_show_refund">No-Show Refund</mat-option>
