@@ -50,42 +50,6 @@
             </div>
           </div>
 
-          <!-- Seat Legend -->
-          <div class="col-lg-4 col-12">
-            <div class="seat-info-card">
-
-              <h6>Seat Status</h6>
-
-              <div class="seat-status-item">
-                <span class="seat seat-available"></span>
-                Available
-              </div>
-
-              <div class="seat-status-item">
-                <span class="seat seat-ladies"></span>
-                Reserved for Ladies
-              </div>
-
-              <div class="seat-status-item">
-                <span class="seat seat-selected"></span>
-                Selected
-              </div>
-
-              <div class="seat-status-item">
-                <span class="seat seat-booked"></span>
-                Booked
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Booking Summary -->
-        <div class="booking-summary mt-4">
-
-          <div class="row gy-3">
-
             <div class="col-md-4">
 
               <div class="summary-box">
@@ -105,15 +69,11 @@
                   {{SeatErrorMSG}}
                 </span>
               </div>
-
+             
             </div>
-
-            <div class="col-md-8">
-
-              <div class="row g-3">
-
-                <!-- Pickup -->
-                <div class="col-md-6">
+           <div class="row">
+               <!-- Pickup -->
+                <div class="col-sm-6">
 
                   <label class="form-label">
                     Pickup Point
@@ -130,7 +90,7 @@
                 </div>
 
                 <!-- Drop -->
-                <div class="col-md-6">
+                <div class="col-sm-6">
                   <label class="form-label">Dropping Point</label>
                   <select class="form-select" id="Drop" (change)="SelectPickDropPoint('Drop',$event)">
                     <option value="">Select Dropping Point</option>
@@ -149,6 +109,48 @@
                   </small>
                 
                 </div>
+                </div>
+
+        </div>
+
+        <!-- Booking Summary -->
+        <div class="booking-summary mt-4">
+
+          <div class="row gy-3">
+            <!-- Seat Legend -->
+          <div class="col-12">
+            <div class="seat-info-card">
+
+              <h6>Seat Status</h6>
+              <div class="d-flex">
+              <div class="seat-status-item">
+                <span class="seat seat-available"></span>
+                Available
+              </div>
+
+              <div class="seat-status-item">
+                <span class="seat seat-ladies"></span>
+                Reserved for Ladies
+              </div>
+
+              <div class="seat-status-item">
+                <span class="seat seat-selected"></span>
+                Selected
+              </div>
+
+              <div class="seat-status-item">
+                <span class="seat seat-booked"></span>
+                Booked
+              </div>
+              </div>
+            </div>
+          </div>
+
+            <div class="col-md-8">
+
+              <div class="row g-3">
+
+               
               </div>
             </div>
           </div>
