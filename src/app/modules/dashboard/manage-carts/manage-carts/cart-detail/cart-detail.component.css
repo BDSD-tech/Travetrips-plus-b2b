@@ -9,7 +9,9 @@
     float: right;
     display: flex;
 }
-
+.last-booking-date{
+    background-color: rgb(255, 213, 0);
+}
 .cart_info {
     margin-bottom: 10px;
     position: relative;

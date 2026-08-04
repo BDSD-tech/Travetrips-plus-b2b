@@ -346,6 +346,8 @@
 
 .flight-column {
     margin-bottom: 25px;
+    height: 100vh;
+    overflow-y: scroll;
 }
 
 /* =========================================================

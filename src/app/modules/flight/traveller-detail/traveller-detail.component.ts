@@ -829,8 +829,6 @@ export class TravellerDetailComponent implements OnInit {
     } else {
       this.IsPassportMandatory = false;
     }
-    console.log(this.IsPassportMandatory);
-    
     if (obislcc || ibislcc) {
       this.IsFFDiv = true;
     } else {
@@ -1179,7 +1177,7 @@ export class TravellerDetailComponent implements OnInit {
       PassportNo: ['', passportval],
       PassportIssue: ['', passportissueval],
       PassportExpiry: ['', passportexpiryval],
-      PassportIssueCountry: [''],
+      PassportIssueCountry: ['',passportval],
       DocumentNumber: ['', doc],
       DocumentIssueDate: ['', docIssue],
       DocumentExpireDate: ['', docExpiry],
