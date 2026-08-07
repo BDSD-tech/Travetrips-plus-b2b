@@ -623,3 +623,7 @@ BOOKING STEPPER
         gap: 5px;
     }
 }
+
+.row > .col {
+    flex: 1 0 0%;
+}

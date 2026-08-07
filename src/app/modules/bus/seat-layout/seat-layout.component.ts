@@ -285,6 +285,7 @@ export class SeatLayoutComponent implements OnInit {
       };
       this.router.navigate(['bus/review-detail'], navigationExtras);
     } else {
+      this.scrollToSection('pickup-and-drop-point');
       if(this.seatnumber.length==0)
       {
         this.SeatErrorMSG="Select seat(s)";
@@ -307,6 +308,19 @@ export class SeatLayoutComponent implements OnInit {
   CloseButton(): void {
     this.dialogRef.close();
   }
+
+
+   scrollToSection(id: string): void {
+      const element = document.getElementById(id);
+
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }
+
 }
 
 

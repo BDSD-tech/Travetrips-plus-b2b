@@ -88,7 +88,7 @@ export class ReviewDetailComponent implements OnInit {
       }
       this.SelectedBus = selectedbus;
       this.ISIdProofRequired=this.SelectedBus['IdProofRequired'];
-    
+
     } else {
       this.router.navigate(['/bus']);
     } 
@@ -147,7 +147,7 @@ export class ReviewDetailComponent implements OnInit {
       IdProofRequired=[Validators.required];
     }
     let SeatName=this.SelectedBusSeat['SeatNumber'][key];
-
+    
     return this.fb.group({
         Title:['',[Validators.required]],
         FirstName:['',[Validators.required,Validators.pattern('[a-zA-Z /\s/g]+'),Validators.minLength(2)]],
@@ -351,13 +351,13 @@ export class ReviewDetailComponent implements OnInit {
     }
     Object.assign(request, {'Passenger': paxobj});
   
-    this.busService.BlockSeat(request).subscribe(rs=>{
-      let resp:any=rs;
+    // this.busService.BlockSeat(request).subscribe(rs=>{
+    //   let resp:any=rs;
       this.loadingreview=false;
      
       
-      if(resp['Error']['ErrorCode']==0)
-      {
+    //   if(resp['Error']['ErrorCode']==0)
+    //   {
         sessionStorage.setItem('TSFPAX',JSON.stringify(data));
         const navigationExtras: NavigationExtras = {
           queryParams:this.param
@@ -366,10 +366,10 @@ export class ReviewDetailComponent implements OnInit {
         setTimeout(() => {
             this.openModal()
         }, 100);
-      } else {
-          this.alertservice.error(resp['Error']['ErrorMessage']);
-      }
-    });
+    //   } else {
+    //       this.alertservice.error(resp['Error']['ErrorMessage']);
+    //   }
+    // });
 
   }
   
