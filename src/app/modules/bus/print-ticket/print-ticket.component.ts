@@ -37,7 +37,8 @@ export class PrintTicketComponent implements OnInit {
       let data={
                   'booking_ref_number':bookingid,
                   'type':params['HtmlType'],
-                  'agency_detail':params['WithAgencyDetail']
+                  'agency_detail':params['WithAgencyDetail'],
+                  "price":params['WithPrice']
                }
 
         this.busservice.GetInvoiceTicket(data).subscribe(resp=>{

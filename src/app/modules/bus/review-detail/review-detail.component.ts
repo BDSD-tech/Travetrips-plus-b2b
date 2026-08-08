@@ -73,7 +73,6 @@ export class ReviewDetailComponent implements OnInit {
       let busreview:any=sessionStorage.getItem('BUSRD'); 
       this.SelectedBusSeat=JSON.parse(busreview);
       this.CurrentFare=this.SelectedBusSeat['Extrafarebrakup'];
-
   
       let selectedbus=this.SelectedBusSeat['SelectedBusData'];
 
@@ -351,13 +350,11 @@ export class ReviewDetailComponent implements OnInit {
     }
     Object.assign(request, {'Passenger': paxobj});
   
-    // this.busService.BlockSeat(request).subscribe(rs=>{
-    //   let resp:any=rs;
+    this.busService.BlockSeat(request).subscribe(rs=>{
+      let resp:any=rs;
       this.loadingreview=false;
-     
-      
-    //   if(resp['Error']['ErrorCode']==0)
-    //   {
+      if(resp['Error']['ErrorCode']==0)
+      {
         sessionStorage.setItem('TSFPAX',JSON.stringify(data));
         const navigationExtras: NavigationExtras = {
           queryParams:this.param
@@ -366,10 +363,10 @@ export class ReviewDetailComponent implements OnInit {
         setTimeout(() => {
             this.openModal()
         }, 100);
-    //   } else {
-    //       this.alertservice.error(resp['Error']['ErrorMessage']);
-    //   }
-    // });
+      } else {
+          this.alertservice.error(resp['Error']['ErrorMessage']);
+      }
+    });
 
   }
   

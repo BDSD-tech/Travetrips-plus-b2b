@@ -153,11 +153,11 @@ export class PaymentComponent implements OnInit {
           this.SelectedBusSeat=JSON.parse(busreview);
           let selectedbus=this.SelectedBusSeat['SelectedBusData'];
 
-          if (sessionStorage.getItem('TAGM')) {
-            let markup:any=sessionStorage.getItem('TAGM');
-            this.markupvalue=parseFloat(markup);
-            this.CurrentFare['AgentMarkup']=this.markupvalue;
-          }
+          // if (sessionStorage.getItem('TAGM')) {
+          //   let markup:any=sessionStorage.getItem('TAGM');
+          //   this.markupvalue=parseFloat(markup);
+          //   this.CurrentFare['AgentMarkup']=this.markupvalue;
+          // }
 
           if(selectedbus['ArrivalDate'])
           {
@@ -179,7 +179,8 @@ export class PaymentComponent implements OnInit {
                 let TSFP:any=sessionStorage.getItem('TSFP');
                 let resp=JSON.parse(TSFP);
                 this.CurrentFare=resp['fare'];
-                let req:any={"ResultIndex":resp['response']['SelectedBusData']['ResultIndex'],'SearchTokenId':resp['param']['stoken']}
+                this.markupvalue=this.CurrentFare['AgentMarkup']
+                let req:any={"ResultIndex":resp['response']['SelectedBusData']['ResultIndex'],'SearchTokenId':resp['param']['stoken'],"Seats":resp['response']['SeatNumber']}
                 this.Getpaymentmethod(req);
                 this.totalfare=this.CurrentFare['OfferedPrice']+this.CurrentFare['TDS']
                 this.CurrentFare['BaseFare']=resp['fare']['BasePrice'];
@@ -203,10 +204,13 @@ export class PaymentComponent implements OnInit {
 
   Getpaymentmethod(req:any)
   {
-    let request={'service':this.Service,'ResultIndex':req['ResultIndex'],'SearchTokenId':req['SearchTokenId']}
+    let request:any={'service':this.Service,'ResultIndex':req['ResultIndex'],'SearchTokenId':req['SearchTokenId']}
     if(req['SearchTokenIdIB'] && req['ResultIndexIB'])
     {
       Object.assign(request, {ResultIndexIB: req['ResultIndexIB'],SearchTokenIdIB:req['SearchTokenIdIB']});
+    }
+    if(this.Service=='Bus'){
+      request['Seats']=req['Seats']
     }
 
     this.commonservice.paymentmethod(request).subscribe(resp => {
