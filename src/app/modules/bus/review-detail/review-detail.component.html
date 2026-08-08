@@ -223,8 +223,8 @@
                                     </div>
                                 </div>
                                 <div class="bus-operator-info p-4">
-                                    <div class="row gy-3">
-                                        <div class="col-lg-2">
+                                    <div class="row">
+                                        <div class="col">
                                             <div class="form-group">
                                                 <label class="form-label" for="floatingSelect">Title</label>
                                                 <select class="form-select main-select" formControlName="Title">
@@ -243,7 +243,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
+                                        <div class="col">
                                             <div class="form-group">
                                                 <label class="form-label" for="pax-{{a}}-FirstName">First Name*</label>
                                                 <input type="text" class="form-control main-select"
@@ -264,7 +264,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
+                                        <div class="col">
                                             <div class="form-group">
                                                 <label class="form-label" for="pax-{{a}}-LastName">Last Name*</label>
                                                 <input type="text" class="form-control main-select"
@@ -285,7 +285,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
+                                        <div class="col">
                                             <div class="form-group">
                                                 <label class="form-label" for="pax-{{a}}-age">Age*</label>
                                                 <input type="text" class="form-control main-select"
@@ -303,7 +303,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
+                                        <div class="col"  *ngIf="ISIdProofRequired">
                                             <div class="form-group">
                                                 <label class="form-label" for="pax-{{a}}-idtype">IdType </label>
                                                 <select class="form-select main-select" id="pax-{{a}}-idtype"
@@ -327,7 +327,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
+                                        <div class="col"  *ngIf="ISIdProofRequired">
                                             <div class="form-group">
                                                 <label class="form-label" for="pax-{{a}}-IdNumber">ID Number</label>
                                                 <input type="text" class="form-control main-select"
@@ -796,7 +796,8 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-2">
+                                                           
+                                                            <div class="col-md-2" *ngIf="ISIdProofRequired">
                                                                 <div class="form-floating">
                                                                     <select class="form-select main-select"
                                                                         id="pax-{{a}}-idtype" formControlName="IdType">
@@ -819,7 +820,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-2">
+                                                            <div class="col-md-2" *ngIf="ISIdProofRequired">
                                                                 <div class="form-floating">
                                                                     <input type="text" class="form-control main-select"
                                                                         formControlName="IdNumber"
@@ -836,6 +837,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                           
                                                         </div>
                                                     </div>
                                                 </div>

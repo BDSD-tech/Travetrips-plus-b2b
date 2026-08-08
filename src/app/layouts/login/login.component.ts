@@ -18,8 +18,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.commonservice.GetWebSiteData().subscribe((data:any)=>{
       this.GetWebSiteData=data;
-      console.log(this.GetWebSiteData);
-      
       if(this.GetWebSiteData['Favicon']){
           this.commonservice.updateFavicon(this.GetWebSiteData['Favicon'])
       } 

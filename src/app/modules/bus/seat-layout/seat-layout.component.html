@@ -52,7 +52,7 @@
 
             <div class="col-md-4">
 
-              <div class="summary-box">
+              <div class="summary-box mb-3">
                 <h6>Booking Summary</h6>
 
                 <p>
@@ -69,11 +69,9 @@
                   {{SeatErrorMSG}}
                 </span>
               </div>
-             
-            </div>
-           <div class="row">
+                <div class="row gy-3" id="pickup-and-drop-point">
                <!-- Pickup -->
-                <div class="col-sm-6">
+                <div class="col-12">
 
                   <label class="form-label">
                     Pickup Point
@@ -90,7 +88,7 @@
                 </div>
 
                 <!-- Drop -->
-                <div class="col-sm-6">
+                <div class="col-12">
                   <label class="form-label">Dropping Point</label>
                   <select class="form-select" id="Drop" (change)="SelectPickDropPoint('Drop',$event)">
                     <option value="">Select Dropping Point</option>
@@ -110,6 +108,8 @@
                 
                 </div>
                 </div>
+            </div>
+         
 
         </div>
 
