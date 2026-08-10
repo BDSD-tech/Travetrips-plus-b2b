@@ -449,7 +449,6 @@
                            <i class="fa-solid fa-user"></i>
                            <span>Passenger Details</span>
                         </div>
-                        <a href="javascript:void(0)" (click)="downloadNameSheet()" class="text-primary fw-semibold"> Name Format</a>
                      </div>
                      <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> Please make sure that passengers names are as per gorvernment approved identity card or passport.</small>
 
@@ -515,15 +514,47 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3">
-                                       <div class="form-group">
+                                       <div class="form-group position-relative">
                                           <label class="form-label" for="Adult-{{a}}-FirstName">First
                                              Name*</label>
                                           <input type="text" class="form-control main-select"
                                              formControlName="FirstName" placeholder="First Name*"
                                              oninput="this.value = this.value.toUpperCase()"
                                              id="Adult-{{a}}-FirstName" />
+                                          <a href="javascript:void(0)" (click)="OpenNameFormat('Adult',a,'First')" class="info-icon-airline"><i class="fa-solid fa-circle-info"></i></a>
+                                          <div class="last-name-info" *ngIf="showLastNameInfo=='Adult_'+a+'_First'">
+                                             <div class="info-title"> IF FIRST NAME IS MISSING</div>
+                                             <div class="table-responsive">
+                                                <table class="table last-name-table mb-0">
+                                                <thead>
+                                                   <tr>
+                                                      <th>Airline Name</th>
+                                                      <th>Update First Name as</th>
+                                                      <th>Update Last Name as</th>
+                                                   </tr>
+                                                </thead>
 
+                                                <tbody>
+                                                   @for(air of AirlineFormats;track $index){
+                                                   <tr>
+                                                      <td>{{air.AirlineName}}</td>
+                                                      <td>{{air.FirstName}}</td>
+                                                      <td>{{air.LastName}}</td>
+                                                   </tr>
+                                                   }
+                                                </tbody>
+
+                                                </table>
+                                             </div>
+
+                                             <div class="disclaimer">
+                                                <strong>Disclaimer:</strong>
+                                                Please contact airline to confirm the Missing Name format !!
+                                             </div>
+
+                                          </div>
                                        </div>
+
                                        <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.FirstName')?.errors"
                                           class="error-msg">
                                           <div *ngIf="FlightForm.get('Adult.'+a+'.FirstName')?.errors?.['required']">
@@ -536,13 +567,44 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3">
-                                       <div class="form-group">
+                                       <div class="form-group position-relative">
                                           <label class="form-label" for="Adult-{{a}}-LastName">Last
                                              Name*</label>
                                           <input type="text" class="form-control main-select" formControlName="LastName"
                                              placeholder="Last Name*" oninput="this.value = this.value.toUpperCase()"
                                              id="Adult-{{a}}-LastNam" />
+                                            <a href="javascript:void(0)" (click)="OpenNameFormat('Adult',a,'Last')" class="info-icon-airline"><i class="fa-solid fa-circle-info"></i></a>
+                                             <div class="last-name-info" *ngIf="showLastNameInfo=='Adult_'+a+'_Last'">
+                                                <div class="info-title"> IF LAST NAME IS MISSING</div>
+                                                <div class="table-responsive">
+                                                   <table class="table last-name-table mb-0">
+                                                   <thead>
+                                                      <tr>
+                                                         <th>Airline Name</th>
+                                                         <th>Update First Name as</th>
+                                                         <th>Update Last Name as</th>
+                                                      </tr>
+                                                   </thead>
 
+                                                   <tbody>
+                                                      @for(air of AirlineFormats;track $index){
+                                                      <tr>
+                                                         <td>{{air.AirlineName}}</td>
+                                                         <td>{{air.FirstName}}</td>
+                                                         <td>{{air.LastName}}</td>
+                                                      </tr>
+                                                      }
+                                                   </tbody>
+
+                                                   </table>
+                                                </div>
+
+                                                <div class="disclaimer">
+                                                   <strong>Disclaimer:</strong>
+                                                   Please contact airline to confirm the Missing Name format !!
+                                                </div>
+
+                                             </div>
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.LastName')?.errors"
                                           class="error-msg">
@@ -904,14 +966,45 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3">
-                                       <div class="form-group">
-                                          <label class="form-label" for="Child-{{c}}-FirstName">First
+                                       <div class="form-group position-relative">
+                                            <label class="form-label" for="Child-{{c}}-FirstName">First
                                              Name*</label>
                                           <input type="text" class="form-control main-select"
                                              formControlName="FirstName" placeholder="First Name*"
                                              oninput="this.value = this.value.toUpperCase()"
                                              id="Child-{{c}}-FirstName" />
+                                          <a href="javascript:void(0)" (click)="OpenNameFormat('Child',c,'First')" class="info-icon-airline"><i class="fa-solid fa-circle-info"></i></a>
+                                          <div class="last-name-info" *ngIf="showLastNameInfo=='Child_'+c+'_First'">
+                                             <div class="info-title"> IF FIRST NAME IS MISSING</div>
+                                             <div class="table-responsive">
+                                                <table class="table last-name-table mb-0">
+                                                <thead>
+                                                   <tr>
+                                                      <th>Airline Name</th>
+                                                      <th>Update First Name as</th>
+                                                      <th>Update Last Name as</th>
+                                                   </tr>
+                                                </thead>
 
+                                                <tbody>
+                                                   @for(air of AirlineFormats;track $index){
+                                                   <tr>
+                                                      <td>{{air.AirlineName}}</td>
+                                                      <td>{{air.FirstName}}</td>
+                                                      <td>{{air.LastName}}</td>
+                                                   </tr>
+                                                   }
+                                                </tbody>
+
+                                                </table>
+                                             </div>
+
+                                             <div class="disclaimer">
+                                                <strong>Disclaimer:</strong>
+                                                Please contact airline to confirm the Missing Name format !!
+                                             </div>
+
+                                          </div>
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Child.'+c+'.FirstName')?.errors"
                                           class="error-msg">
@@ -925,13 +1018,44 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3">
-                                       <div class="form-group">
+                                       <div class="form-group position-relative">
                                           <label class="form-label" for="Child-{{c}}-LastName">Last
                                              Name*</label>
                                           <input type="text" class="form-control main-select" formControlName="LastName"
                                              placeholder="Last Name*" oninput="this.value = this.value.toUpperCase()"
                                              id="Child-{{c}}-LastName" />
+                                          <a href="javascript:void(0)" (click)="OpenNameFormat('Child',c,'Last')" class="info-icon-airline"><i class="fa-solid fa-circle-info"></i></a>
+                                             <div class="last-name-info" *ngIf="showLastNameInfo=='Child_'+c+'_Last'">
+                                                <div class="info-title"> IF LAST NAME IS MISSING</div>
+                                                <div class="table-responsive">
+                                                   <table class="table last-name-table mb-0">
+                                                   <thead>
+                                                      <tr>
+                                                         <th>Airline Name</th>
+                                                         <th>Update First Name as</th>
+                                                         <th>Update Last Name as</th>
+                                                      </tr>
+                                                   </thead>
 
+                                                   <tbody>
+                                                      @for(air of AirlineFormats;track $index){
+                                                      <tr>
+                                                         <td>{{air.AirlineName}}</td>
+                                                         <td>{{air.FirstName}}</td>
+                                                         <td>{{air.LastName}}</td>
+                                                      </tr>
+                                                      }
+                                                   </tbody>
+
+                                                   </table>
+                                                </div>
+
+                                                <div class="disclaimer">
+                                                   <strong>Disclaimer:</strong>
+                                                   Please contact airline to confirm the Missing Name format !!
+                                                </div>
+
+                                             </div>
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Child.'+c+'.LastName')?.errors"
                                           class="error-msg">
@@ -1215,14 +1339,45 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3">
-                                       <div class="form-group">
+                                       <div class="form-group position-relative">
                                           <label class="form-label" for="Infant-{{i}}-FirstName">First
                                              Name*</label>
                                           <input type="text" class="form-control main-select"
                                              formControlName="FirstName" placeholder="First Name*"
                                              oninput="this.value = this.value.toUpperCase()"
                                              id="Infant-{{i}}-FirstName" />
+                                          <a href="javascript:void(0)" (click)="OpenNameFormat('Infant',i,'First')" class="info-icon-airline"><i class="fa-solid fa-circle-info"></i></a>
+                                          <div class="last-name-info" *ngIf="showLastNameInfo=='Infant_'+i+'_First'">
+                                             <div class="info-title"> IF FIRST NAME IS MISSING</div>
+                                             <div class="table-responsive">
+                                                <table class="table last-name-table mb-0">
+                                                <thead>
+                                                   <tr>
+                                                      <th>Airline Name</th>
+                                                      <th>Update First Name as</th>
+                                                      <th>Update Last Name as</th>
+                                                   </tr>
+                                                </thead>
 
+                                                <tbody>
+                                                   @for(air of AirlineFormats;track $index){
+                                                   <tr>
+                                                      <td>{{air.AirlineName}}</td>
+                                                      <td>{{air.FirstName}}</td>
+                                                      <td>{{air.LastName}}</td>
+                                                   </tr>
+                                                   }
+                                                </tbody>
+
+                                                </table>
+                                             </div>
+
+                                             <div class="disclaimer">
+                                                <strong>Disclaimer:</strong>
+                                                Please contact airline to confirm the Missing Name format !!
+                                             </div>
+
+                                          </div>
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.FirstName')?.errors"
                                           class="error-msg">
@@ -1236,12 +1391,43 @@
                                        </div>
                                     </div>
                                     <div class="col-md-3">
-                                       <div class="form-group">
+                                       <div class="form-group position-relative">
                                           <label class="form-label" for="Infant-{{i}}-LastName">Last
                                              Name*</label>
                                           <input type="text" class="form-control main-select" formControlName="LastName"
                                              placeholder="Last Name*" oninput="this.value = this.value.toUpperCase()" />
+                                          <a href="javascript:void(0)" (click)="OpenNameFormat('Infant',i,'Last')" class="info-icon-airline"><i class="fa-solid fa-circle-info"></i></a>
+                                          <div class="last-name-info" *ngIf="showLastNameInfo=='Infant_'+i+'_Last'">
+                                             <div class="info-title"> IF LAST NAME IS MISSING</div>
+                                             <div class="table-responsive">
+                                                <table class="table last-name-table mb-0">
+                                                <thead>
+                                                   <tr>
+                                                      <th>Airline Name</th>
+                                                      <th>Update First Name as</th>
+                                                      <th>Update Last Name as</th>
+                                                   </tr>
+                                                </thead>
 
+                                                <tbody>
+                                                   @for(air of AirlineFormats;track $index){
+                                                   <tr>
+                                                      <td>{{air.AirlineName}}</td>
+                                                      <td>{{air.FirstName}}</td>
+                                                      <td>{{air.LastName}}</td>
+                                                   </tr>
+                                                   }
+                                                </tbody>
+
+                                                </table>
+                                             </div>
+
+                                             <div class="disclaimer">
+                                                <strong>Disclaimer:</strong>
+                                                Please contact airline to confirm the Missing Name format !!
+                                             </div>
+
+                                          </div>
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Infant.'+i+'.LastName')?.errors"
                                           class="error-msg">

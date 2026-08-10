@@ -97,12 +97,12 @@ BOOKING STEPPER
     background: var(--white);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
-    overflow: hidden;
     box-shadow: var(--shadow-sm);
     margin-bottom: 20px;
 }
 
 .flight-booking-header {
+    border-radius:var(--radius-md) var(--radius-md) 0 0 ;
     background: var(--second-bg-color);
     padding: 18px 24px;
     border-bottom: 1px solid var(--border-color);
@@ -175,7 +175,9 @@ BOOKING STEPPER
     gap: 10px;
     margin-top: 12px;
 }
-
+.form-control{
+    padding-right: 22px!important;
+}
 .date-tag{
     background: var(--main-bg-color);
     color: var(--second-dark-color);
@@ -1445,4 +1447,153 @@ BOOKING STEPPER
 
     &.total { font-weight: 700; border-top: 1px solid #eee; margin-top: 4px; padding-top: 8px; }
   }
+}
+
+.info-icon-airline{
+    position: absolute;
+    right: 5px;
+    top: 60%;
+}
+
+
+.info-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Info button */
+.info-btn {
+  border: 1px solid #0d6efd;
+  color: #0d6efd;
+  background: #fff;
+  border-radius: 5px;
+}
+
+.info-btn:hover {
+  background: #0d6efd;
+  color: #fff;
+}
+
+
+/* Popup */
+.last-name-info {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: -20px;
+
+  width: 480px;
+  max-width: 90vw;
+
+  background: #fff;
+
+  border: 2px solid #f28c5b;
+  border-radius: 15px;
+
+  padding: 18px 14px;
+
+  z-index: 9999;
+
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Small arrow */
+.last-name-info::before {
+  content: "";
+
+  position: absolute;
+  top: -9px;
+  right: 25px;
+
+  width: 16px;
+  height: 16px;
+
+  background: #fff;
+
+  border-left: 2px solid #f28c5b;
+  border-top: 2px solid #f28c5b;
+
+  transform: rotate(45deg);
+}
+
+
+/* Heading */
+.info-title {
+  text-align: center;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  color: #292929;
+
+  margin-bottom: 12px;
+}
+
+
+/* Table */
+.last-name-table {
+  width: 100%;
+  table-layout: fixed;
+
+  font-size: 13px;
+
+  border-collapse: collapse;
+}
+
+
+/* Table Header */
+.last-name-table thead th {
+  background: #dedede;
+
+  color: #222;
+
+  font-weight: 600;
+
+  text-align: center;
+  vertical-align: middle;
+
+  padding: 9px 5px;
+
+  border-right: 1px solid #c5c5c5;
+  border-bottom: 1px solid #c5c5c5;
+}
+
+
+/* Table Body */
+.last-name-table tbody td {
+  background: #fafafa;
+
+  color: #333;
+
+  text-align: center;
+  vertical-align: middle;
+
+  padding: 10px 5px;
+
+  border-right: 1px solid #d5d5d5;
+  border-bottom: 1px solid #d5d5d5;
+}
+
+
+/* Remove last border */
+.last-name-table th:last-child,
+.last-name-table td:last-child {
+  border-right: none;
+}
+
+
+/* Disclaimer */
+.disclaimer {
+  margin-top: 18px;
+
+  text-align: center;
+
+  font-size: 13px;
+  line-height: 1.5;
+
+  color: #222;
+}
+
+.disclaimer strong {
+  font-weight: 700;
 }
