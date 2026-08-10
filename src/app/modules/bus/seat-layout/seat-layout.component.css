@@ -1,7 +1,15 @@
 /* ==========================
    Journey Header
 ========================== */
+.my-seat-layout {
+  width: 95vw !important;
+  max-width: 1200px !important;
 
+  height: 100vh !important;
+  max-height: 100vh !important;
+
+  margin: 0 !important;
+}
 .journey-header {
     border-bottom: 1px solid var(--border-color);
     padding: 20px;
@@ -80,16 +88,15 @@
     box-shadow: var(--shadow-sm);
 }
 
-.seat-layout-card {
+/* .seat-layout-card {
     max-height: 350px;
     overflow: auto;
-}
+} */
 
 .seat-info-card h6,
 .summary-box h6 {
     color: var(--second-dark-color);
     font-weight: 700;
-    margin-bottom: 16px;
 }
 
 /* ==========================
@@ -100,8 +107,8 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 14px;
-    margin-right: 20px;
+    /* margin-bottom: 14px;*/
+    margin-right: 10px; 
     font-size: 14px;
     color: var(--body-text-color);
 }
@@ -252,7 +259,10 @@
     max-height: 400px;
     overflow-y: auto;
 }
-
+.seat-selection-box{
+    max-height: 400px;
+    overflow-y: scroll;
+}
 .tab-content::-webkit-scrollbar {
     width: 6px;
 }
@@ -428,3 +438,11 @@
     }
 }
 
+
+.bus-seat-layout {
+    width: 100%;
+    max-height: calc(100vh - 30px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+}

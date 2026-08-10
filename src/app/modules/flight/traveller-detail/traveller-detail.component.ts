@@ -9,6 +9,7 @@ import { AlertService } from '../../../services/alert.service';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { tts_config } from '../../../../environments/tts_config';
 import { DomSanitizer } from '@angular/platform-browser';
+import { airlinenameformats } from '../airline-name-format';
 
 
 declare var $: any;
@@ -22,6 +23,10 @@ declare var window: any;
 })
 export class TravellerDetailComponent implements OnInit {
   AllResponse: any = []
+
+  showLastNameInfo:any=null;
+  AirlineFormats:any=[]
+
 
   SessionTime: any;
 
@@ -271,31 +276,13 @@ export class TravellerDetailComponent implements OnInit {
     } else {
       this.router.navigate(['flight']);
     }
-    // if (sessionStorage.getItem('TSFP')) {
-
-
-
-    //   if (resp['ssrresp'].length !== 0) {
-    //     this.SSRDetail = resp['ssrresp']
-    //     this.CreateSSRData(resp);
-    //     this.seatData = resp['ssrresp']['SeatData'];
-    //     this.travellerJson = resp['ssrresp']['SeatPaxData'];
-
-    //     setTimeout(() => {
-    //       this.CreateSeatJson()
-    //     }, 100);
-    //   }
+   
 
     this.SearchTokenId = this.param['stoken'];
     if (this.param['ibstoken']) {
       this.SearchTokenIdIB = this.param['ibstoken'];
     }
-    // if (sessionStorage.getItem('TAGM')) {
-    //   let markup: any = sessionStorage.getItem('TAGM');
-    //   this.markupvalue = parseFloat(markup);
-    //   this.CurrentFare['AgentMarkup'] = this.markupvalue;
-    // }
-
+   
     // Added By Pradeep*********************
     if (!this.CurrentFare['SSR']) {
       this.CurrentFare['SSR'] = {}
@@ -304,177 +291,7 @@ export class TravellerDetailComponent implements OnInit {
     this.CurrentFare['SSR']['Baggage'] = 0
     this.CurrentFare['SSR']['Seat'] = 0
 
-    //   let obpanrequired: boolean | undefined;
-    //   let ibpanrequired: boolean | undefined;
-
-    //   let obpassportrequired: boolean | undefined;
-    //   let ibpassportrequired: boolean | undefined;
-
-    //   let obgstrequired: boolean | undefined;
-    //   let ibgstrequired: boolean | undefined;
-
-    //   let obislcc: boolean | undefined;
-    //   let ibislcc: boolean | undefined;
-
-    //   let obisadtdob: boolean | undefined;
-    //   let ibisadtdob: boolean | undefined;
-
-    //   let obischddob: boolean | undefined;
-    //   let ibischddob: boolean | undefined;
-
-    //   let obisinfdob: boolean | undefined;
-    //   let ibisinfdob: boolean | undefined;
-    //   this.Response.forEach(function (value: any, key: any) {
-
-    //     if (key == 0) {
-
-    //       if (value['IsGSTMandatory']) {
-    //         obgstrequired = value['IsGSTMandatory'];
-    //       }
-
-    //       if (value['IsPanRequiredAtBook']) {
-    //         obpanrequired = value['IsPanRequiredAtBook'];
-
-    //       } else if (value['IsPanRequiredAtTicket']) {
-    //         obpanrequired = value['IsPanRequiredAtTicket'];
-    //       }
-    //       if (value['IsPassportRequiredAtBook']) {
-    //         obpassportrequired = value['IsPassportRequiredAtBook'];
-
-    //       } else if (value['IsPassportRequiredAtTicket']) {
-    //         obpassportrequired = value['IsPassportRequiredAtTicket'];
-    //       }
-
-    //       if (value['IsLCC']) {
-    //         obislcc = true;
-    //       } else {
-    //         obislcc = false;
-    //       }
-
-    //       if (value['IsADTDOBRequired']) {
-    //         obisadtdob = true;
-    //       } else {
-    //         obisadtdob = false;
-    //       }
-    //       if (value['IsCHDDOBRequired']) {
-    //         obischddob = true;
-    //       } else {
-    //         obischddob = false;
-    //       }
-    //       if (value['IsINFTDOBRequired']) {
-    //         obisinfdob = true;
-    //       } else {
-    //         obisinfdob = false;
-    //       }
-
-    //     } else if (key == 1) {
-    //       if (value['IsGSTMandatory']) {
-    //         ibgstrequired = value['IsGSTMandatory'];
-    //       }
-
-    //       if (value['IsPanRequiredAtBook']) {
-    //         ibpanrequired = value['IsPanRequiredAtBook'];
-
-    //       } else if (value['IsPanRequiredAtTicket']) {
-    //         ibpanrequired = value['IsPanRequiredAtTicket'];
-    //       }
-    //       if (value['IsPassportRequiredAtBook']) {
-    //         ibpassportrequired = value['IsPassportRequiredAtBook'];
-
-    //       } else if (value['IsPassportRequiredAtTicket']) {
-    //         ibpassportrequired = value['IsPassportRequiredAtTicket'];
-    //       }
-
-    //       if (value['IsLCC']) {
-    //         ibislcc = true;
-    //       } else {
-    //         ibislcc = false;
-    //       }
-
-    //       if (value['IsADTDOBRequired']) {
-    //         ibisadtdob = true;
-    //       } else {
-    //         ibisadtdob = false;
-    //       }
-    //       if (value['IsCHDDOBRequired']) {
-    //         ibischddob = true;
-    //       } else {
-    //         ibischddob = false;
-    //       }
-    //       if (value['IsINFTDOBRequired']) {
-    //         ibisinfdob = true;
-    //       } else {
-    //         ibisinfdob = false;
-    //       }
-    //     }
-
-    //   });
-
-    //   if (obgstrequired || ibgstrequired) {
-    //     this.isGSTShow = true;
-    //     this.GSTTxt = 'Required';
-    //   } else {
-    //     this.isGSTShow = false;
-    //     this.GSTTxt = 'Optional';
-    //   }
-
-    //   if (obpanrequired || ibpanrequired) {
-    //     this.IsPANMandatory = true;
-    //   } else {
-    //     this.IsPANMandatory = false;
-    //   }
-
-    //   if (obpassportrequired || ibpassportrequired) {
-    //     this.IsPassportMandatory = true;
-    //   } else {
-    //     this.IsPassportMandatory = false;
-    //   }
-
-    //   if (obislcc || ibislcc) {
-    //     this.IsFFDiv = true;
-    //   } else {
-    //     this.IsFFDiv = false;
-    //   }
-
-    //   if (obisadtdob || ibisadtdob) {
-    //     this.showadtdob = true;
-    //     this.Adltdob=true
-    //   } else {
-    //     this.showadtdob = false;
-    //     this.Adltdob=false
-    //   }
-    //   if (obischddob || ibischddob) {
-    //     this.showchddob = true;
-    //     this.childdob=true
-    //   } else {
-    //     this.showchddob = false;
-    //     this.childdob=false
-    //   }
-    //   if (obisinfdob || ibisinfdob) {
-    //     this.showinfdob = true;
-    //     this.infdob=true
-    //   } else {
-    //     this.showinfdob = false;
-    //      this.infdob=false
-    //   }
-
-    //   setTimeout(() => {
-    //     this.PassportIssueDate();
-    //     this.DocExpiryDate();
-    //     this.DocumentDate();
-    //     this.PassportExpiryDate();
-    //     this.ADTDOBDate();
-    //     this.CHDDOBDate();
-    //     this.INFDOBDate();
-    //   }, 50);
-    // } else {
-    //   this.router.navigate(['flight']);
-    // }
-
-    
-
-
-
+  
 
     this.GetDialCode();
     
@@ -2644,5 +2461,17 @@ export class TravellerDetailComponent implements OnInit {
           }, 100);
         })
       
+    }
+
+
+    OpenNameFormat(paxtype:any,paxkey:any,nametype:any){
+      if(this.showLastNameInfo==`${paxtype}_${paxkey}_${nametype}`){
+        this.showLastNameInfo=null;
+        return;
+      }
+      let airlinecode=this.SegmentData[0][0]['Airline']['AirlineCode'];
+      let airlinedata=airlinenameformats;
+      this.AirlineFormats= airlinedata.filter((airline:any)=>airline.AirlineCode==airlinecode)
+      this.showLastNameInfo=`${paxtype}_${paxkey}_${nametype}`
     }
 }
