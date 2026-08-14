@@ -47,8 +47,8 @@ export class FlightService {
   }
   insurance_info(data : any )
   {
-   return this.http.get('assets/insuranceSearch.json')
-    let url=tts_config.APIURL+'/flight/ssr';
+   //return this.http.get('assets/insuranceSearch.json')
+    let url=tts_config.APIURL+'/insurance';
     return this.http.post(url, data, {headers: { 'Content-Type': 'application/json'}});
   }
   Getwebchekin(type : any,isdomestic:any )

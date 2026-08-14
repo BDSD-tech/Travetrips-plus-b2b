@@ -311,8 +311,7 @@ export class TravellerDetailComponent implements OnInit {
       
       this.CalculateSSrPrice()
     }
-    this.GetInsuranceData();
-     
+    
       
   }
   FTduration(n: number) {
@@ -358,6 +357,7 @@ export class TravellerDetailComponent implements OnInit {
         this.lccFlight = this.Response[0]['IsLCC']
         this.get_ssr();
         this.GetWebcheckinData()
+        this.GetInsuranceData();
         this.markupvalue = response['TotalMarkup'];
         let markup: any = this.markupvalue;
         sessionStorage.setItem('TAGM', markup);
@@ -712,7 +712,8 @@ export class TravellerDetailComponent implements OnInit {
   }
 
   GetInsuranceData() {
-    this.flightService.insurance_info(null).subscribe((resp: any) => {
+    let req:any={ "SearchTokenId":this.ssr_Request['SearchTokenId'],"Service":"Flight","ResultIndex":this.ssr_Request['ResultIndex']}
+    this.flightService.insurance_info(req).subscribe((resp: any) => {
       if (resp['Error']['ErrorCode'] == 0) {
         this.InsuranceDetail = resp['Result'];
       }

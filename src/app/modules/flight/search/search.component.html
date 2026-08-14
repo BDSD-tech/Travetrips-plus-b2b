@@ -1,4 +1,4 @@
-<main class="inner-main-section" role="main">
+<main class="inner-main-section" style="overflow-y: auto; max-height: 80vh;" role="main">
 
     <div class="collapse d-lg-block" id="mobilemodify"><app-modify-search></app-modify-search></div>
 
@@ -239,7 +239,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flight-card" *ngFor="let item of sortedData">
+                        <div class="flight-card" *ngFor="let item of visibleData">
                             <div class="row g-3 align-items-start">
                                 <div class="col-lg-6">
                                     <div class="segment-box"
@@ -321,13 +321,13 @@
                                                                 | number:'1.0-2'}} </span>
                                                             <span
                                                                 class="label-{{farelist['FareTypeColor']}}">({{farelist['FareType']}})</span>
-                                                             @if(farelist['IsHoldabelWithOutSsr']){
+                                                            @if(farelist['IsHoldabelWithOutSsr']){
                                                             <span class="holdable-icon">H</span>
                                                             }
                                                             @if(farelist['SeatBaggage']){
                                                                 <span class="baggage-in-fare text-muted"><i class="fa-solid fa-briefcase me-1"></i>{{farelist['SeatBaggage']?.[0]?.[0]?.['CheckIn']}}</span>
                                                             }
-                                                           
+                                                        
 
                                                             <br>
                                                             <small class="graycolor text-muted"
@@ -423,14 +423,14 @@
                                                 <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
                                                     
                                                     <div class="d-flex flex-wrap align-items-center gap-2">
-                                                       
+                                                    
                                                         <span class="info-badge arrival-badge">
                                                             <i class="fa fa-plane"></i>
                                                             Flight Arrives after
                                                             {{trip['ArrivalDays']}}
                                                             Day(s)
                                                         </span>
-                                                       
+                                                    
                                                         <span class="info-badge seat-badge"
                                                                     *ngIf="item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable']!=0 
                                                                     && item['FareList']?.[0]?.['SeatBaggage']?.[0]?.[0]['NoOfSeatAvailable']!='' 
@@ -454,13 +454,13 @@
                                                             Transit Visa
                                                         </span>
                                                         }
-                                                      
+                                                    
                                                         <span class="airline-remark" *ngIf="item['AirlineRemark']">
                                                             {{item['AirlineRemark']}}
                                                             
                                                             </span>
                                                     </div>
-                                                   
+                                                
                                                 </div>
                                             </div> -->
                                             @if (selectedfare[item['TtsIndex']]['CabinClass']) {
@@ -1508,6 +1508,8 @@
                             </div>
                             <!----old code End---->
                         </div>
+                            
+                        
                     </div>
                     <div class="noflight" *ngIf="resultloading==false && sortedData.length === 0">
                         <div class="no_flight-content">
@@ -1532,6 +1534,7 @@
             </div>
         </div>
     </div>
+    <div #scrollAnchor style="height: 1px;"></div>
     <!---------------flight--list-----end---------->
 </main>
 <!--Fare Rule Modal -->
