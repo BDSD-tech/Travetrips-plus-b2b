@@ -6,12 +6,11 @@ import { AuthenticationService } from './authentication.service';
 })
 export class IdleTimeoutService {
 
-  private readonly TIMEOUT = 60 * 60 * 1000;
+  
+  private readonly TIMEOUT = 5 * 60 * 60 * 1000; //for 5 houres
   private timer: any;
 
-  constructor(
-    private authService:AuthenticationService
-  ) { }
+  constructor(private authService:AuthenticationService) { }
 
   startWatching(): void {
     

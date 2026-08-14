@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, NavigationExtras, Router } from '@angular/router';
 import { CommonService } from '../../../services/common.service';
@@ -97,6 +97,13 @@ export class SearchComponent implements OnInit, OnDestroy {
   fareselectFight: any = []
   searchtockenFareupselll: any
   selectedfare: any = {}
+
+
+  @ViewChild('scrollAnchor') scrollAnchor!: ElementRef;
+  visibleData: any[] = [];
+  pageSize = 20;
+  private observer!: IntersectionObserver;
+
   constructor(private location:Location,private flightService: FlightService, private router: Router, private route: ActivatedRoute, private serviceTitle: Title, private commonservice: CommonService, private authenticationservice: AuthenticationService, private alertservice: AlertService) {
     
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
@@ -159,6 +166,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     if (this.routeSubscription) {
       this.routeSubscription.unsubscribe();
     }
+    this.observer?.disconnect();
   }
 
   SearchQueryList(val: any) {
@@ -248,6 +256,7 @@ export class SearchComponent implements OnInit, OnDestroy {
           this.Response = allapiresponse;
           this.resultcount = allapiresponse.length;
           this.sortedData = allapiresponse;
+          this.visibleData = this.sortedData.slice(0, this.pageSize);
           this.sortedData.forEach((trip: any, key: any) => {
             if (trip.FareList?.length) {
               this.selectedfare[trip.TtsIndex] = trip.FareList.reduce(
@@ -260,7 +269,9 @@ export class SearchComponent implements OnInit, OnDestroy {
           });
           
           this.filterresultcount = this.sortedData.length;
-
+          setTimeout(() => {
+            this.loadscroller()
+          }, 100);
         }
         if (key === this.APISUPPLIERLIST.length - 1) {
 
@@ -297,6 +308,10 @@ export class SearchComponent implements OnInit, OnDestroy {
             this.Response = allapiresponse;
             this.resultcount = allapiresponse.length;
             this.sortedData = allapiresponse;
+            this.visibleData = this.sortedData.slice(0, this.pageSize);
+             setTimeout(() => {
+              this.loadscroller()
+            }, 100);
             this.sortedData.forEach((trip: any) => {
               if (trip.FareList?.length) {
                 this.selectedfare[trip.TtsIndex] = trip.FareList.reduce(
@@ -362,6 +377,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   receiveMessage($event: any) {
     this.sortedData = $event.response;
+    this.visibleData = this.sortedData.slice(0, this.pageSize);
     this.sortedData.forEach((trip: any) => {
       if (trip.FareList?.length) {
         this.selectedfare[trip.TtsIndex] = trip.FareList.reduce(
@@ -928,13 +944,13 @@ MoreFare(event: any, item: any, ttsindex: any) {
 
   sortData(sort: Sort) {
     //const data = this.Response.slice();
-    const data = this.sortedData.slice();
+    const data = this.visibleData.slice();
     if (!sort.active || sort.direction === '') {
-      this.sortedData = data;
+      this.visibleData = data;
       return;
     }
     this.obfield = sort.active;
-    this.sortedData = data.sort((a: any, b: any) => {
+    this.visibleData = data.sort((a: any, b: any) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'AirlineName': return compare(a.MainSegment[0].AirlineName, b.MainSegment[0].AirlineName, isAsc);
@@ -979,6 +995,32 @@ MoreFare(event: any, item: any, ttsindex: any) {
   getFeatureKeysForSector(sector: string): string[] {
     return this.upSellData[sector] ? Object.keys(this.upSellData[sector]) : [];
   }
+
+
+  loadscroller(): void {
+    this.observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        this.loadMore();
+      }
+    }, { threshold: 0.1 });
+    this.observer.observe(this.scrollAnchor.nativeElement);
+  }
+
+  loadMore(): void {
+    const currentLength = this.visibleData.length;
+    if (currentLength >= this.sortedData.length) return;
+
+    const next = this.sortedData.slice(currentLength, currentLength + this.pageSize);
+    this.visibleData = [...this.visibleData, ...next];
+  }
+
+  trackByFlightId(index: number, item: any): any {
+    return item.id ?? index;
+  }
+
+
+
+
 }
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {
