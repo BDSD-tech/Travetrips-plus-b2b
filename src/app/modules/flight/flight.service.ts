@@ -48,21 +48,20 @@ export class FlightService {
   insurance_info(data : any )
   {
    //return this.http.get('assets/insuranceSearch.json')
-    let url=tts_config.APIURL+'/insurance';
+    let url=tts_config.APIURL+'/insurance/search';
     return this.http.post(url, data, {headers: { 'Content-Type': 'application/json'}});
   }
-  Getwebchekin(type : any,isdomestic:any )
+  Getwebchekin(req : any)
   {
-    if(type=='R' && isdomestic=='false'){
-        return this.http.get('assets/internation-round.json');
-    }else if(type=='R' && isdomestic){
-      return this.http.get('assets/domestic-round.json');
-    }else{
-      return this.http.get('assets/web-chekin.json');
-    }
-   return this.http.get('assets/insuranceSearch.json')
-    let url=tts_config.APIURL+'/flight/ssr';
-    return this.http.post(url, type, {headers: { 'Content-Type': 'application/json'}});
+    // if(type=='R' && isdomestic=='false'){
+    //     return this.http.get('assets/internation-round.json');
+    // }else if(type=='R' && isdomestic){
+    //   return this.http.get('assets/domestic-round.json');
+    // }else{
+    //   return this.http.get('assets/web-chekin.json');
+    // }
+    let url=tts_config.APIURL+'/webcheckinsetting/search';
+    return this.http.post(url, req, {headers: { 'Content-Type': 'application/json'}});
   }
 
   ssr_seatdata()

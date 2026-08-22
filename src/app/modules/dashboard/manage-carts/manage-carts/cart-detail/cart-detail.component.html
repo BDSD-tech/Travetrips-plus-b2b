@@ -31,6 +31,14 @@
                             </a>
                         </div>
                         }
+                        @if(FlightFareRule && FlightFareRule.length!==0){
+                        <div class="cssCircle addsign">
+                            <a href="javascript:void(0)" data-bs-toggle="modal"
+                                data-bs-target="#farerulemodal">
+                                <i class="fa-solid fa-gavel"></i><span class="cssCircle-plusdesign">Fare Rule</span>
+                            </a>
+                        </div>
+                        }
                         @if(BookingDetail['booking_status']!=='Released'){
                         <div class="cssCircle addsign">
                             <a href="javascript:void(0)" data-bs-toggle="modal"
@@ -632,6 +640,48 @@
                 </div>
             </div>
         </div>
+         @if(BookingDetail?.['gst_info']?.['GSTNumber'] && BookingDetail?.['gst_info']?.['GSTNumber']!==''){
+        <div class="info_main">
+            <div class="cart_info">
+                <div class="cart_acordian" id="gst_info_main" (click)="togglediv('gst_info')">
+                    <h3 class="acordian_heading">GST Information :</h3>
+                    <div class="cssCircle minusSign"><i class="fa fa-angle-up"></i></div>
+                </div>
+                <div class="cart-details-borderline" id="gst_info">
+                    <div class="row">
+                        <div class="col-md-4 col-xs-6 col-8">
+                            <div class="cart_info-field">
+                                <p class="cart_info-field--title">
+                                    GST Number:<span class="cart_info-field--detail"><span> {{BookingDetail['gst_info']['GSTNumber']}}</span></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xs-6 col-4">
+                            <div class="cart_info-field">
+                                <p class="cart_info-field--title">
+                                    Company Name:<span class="cart_info-field--detail"><span> {{BookingDetail['gst_info']['CompanyName']}}</span></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xs-6 col-4">
+                            <div class="cart_info-field">
+                                <p class="cart_info-field--title">
+                                    GST Email:<span class="cart_info-field--detail"><span> {{BookingDetail['gst_info']['Email']}}</span></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xs-6 col-4">
+                            <div class="cart_info-field">
+                                <p class="cart_info-field--title">
+                                    GST Contact Number:<span class="cart_info-field--detail"><span> {{BookingDetail['gst_info']['ISDCode']}} {{BookingDetail['gst_info']['PhoneNumber']}}</span></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
         <div class="info_main">
             <div class="cart_info">
                 <div class="cart_acordian" id="user_info_main" (click)="togglediv('user_info')">
@@ -658,6 +708,7 @@
                 </div>
             </div>
         </div>
+       
     </div>
 </div>
 
@@ -929,6 +980,32 @@
                         <button type="button" class="tts-button-primary" data-bs-dismiss="modal"
                             (click)="ViewTicketInvoice('Ticket')">Submit</button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="farerulemodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="formmodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="formmodal">FARE RULE</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body ">
+                <div class="fare-rule-content">
+                    @if(FlightFareRule && FlightFareRule.length!==0){
+                        <div class="row "
+                            *ngFor="let farerule of FlightFareRule; let farerulekey=index;">
+                            <div class="col-md-12">
+                                <button
+                                    class="ars-activelist fare-rules-tabs">{{farerule.Origin}}-{{farerule.Destination}}</button>
+                            </div>
+                            <div class="col-md-12" [innerHTML]="farerule.FareRuleDetail |safeHtml">
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>

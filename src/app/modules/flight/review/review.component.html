@@ -324,8 +324,7 @@
                                                 <li>Mobile :<span>{{Paxinfo['MobileNumber']}}</span></li>
                                             </ul>
                                             <h6>Total Price : ₹{{this.CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']+CurrentFare['SSR']['Meal']
-                                            + CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Seat'] |
-                                                    number:'1.0-0'}}</h6>
+                                            + CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Seat']+CurrentFare['WebChekinOfferPrice']+CurrentFare['InsuranceOfferPrice'] | number:'1.0-0'}}</h6>
                                            </div>
                                         </div>
 
@@ -361,90 +360,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="col-lg-3">
-                            <div class="booking-rightside">
-                                <h4><span>Fare Summary</span></h4>
-                                <div>
-                                    <div class="btm-border bold-font-bf"><span>Base fare</span> <span
-                                            class="float-end">₹{{CurrentFare['BaseFare'] | number:'1.0-2'}}</span></div>
-                                    <div class="btm-border bold-font">
-                                        <span data-bs-toggle="collapse" href="#tax-fare" aria-expanded="false"> Taxes and fees <i
-                                                class="fa fa-angle-down mrg-left"></i></span>
-                                        <span class="float-end">₹{{CurrentFare['Tax'] + CurrentFare['OtherCharges'] +
-                                            CurrentFare['AgentMarkup'] | number:'1.0-2'}}<i title="Change markup" class="fa fa-edit ms-2"
-                                                (click)="showmarkup()"></i></span>
-                                        <div class="tax-dropdown airline-gst-print collapse" id="tax-fare">
-                                            <div><span>YQ</span><span class="float-end">₹{{CurrentFare['YQTax'] |
-                                                    number:'1.0-2'}}</span></div>
-                                            <div *ngIf="CurrentFare['AgentMarkup']!=0"><span>Markup</span><span
-                                                    class="float-end">₹{{CurrentFare['AgentMarkup'] | number:'1.0-2'}}</span></div>
-                                            <div><span>Other Charges</span><span class="float-end">₹{{CurrentFare['OtherCharges'] |
-                                                    number:'1.0-2'}}</span></div>
-                                        </div>
-
-                                        <div class="pos-rel" *ngIf="isshowmarkup">
-                                            <div class="markup__box-mainconatiner">
-                                                <div class="col me-3">
-                                                    <div class="form-floating mb-2">
-                                                        <input type="number" min="0" value="0" class="form-control" id="InputMarkup"
-                                                            placeholder="Markup Price" [(ngModel)]="markupvalue" />
-                                                        <label for="InputMarkup">Markup Price</label>
-                                                    </div>
-                                                </div>
-                                                <span class="markup__update-closebtn" (click)="showmarkup()">×</span><button
-                                                    class="markup__update-btn" (click)="updatemarkup()">Update</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @if(CurrentFare['InsurancePrice']){
-                                    <div class="btm-border bold-font-bf"><span>Insurance Price</span> <span
-                                            class="float-end">₹{{CurrentFare['InsurancePrice'] | number:'1.0-2'}}</span></div>
-                                    }
-
-
-
-                                    
-                                    <div class="btm-border bold-font" *ngIf="CurrentFare['SSR']">
-                                        <span data-bs-toggle="collapse" href="#ssr-pax" aria-expanded="false"> Meal, Baggage & Seats
-                                            <i class="fa fa-angle-down mrg-left"></i></span>
-                                        <span class="float-end">₹{{CurrentFare['SSR']['Meal'] + CurrentFare['SSR']['Baggage']+
-                                            CurrentFare['SSR']['Seat']}}</span>
-                                        <div class="tax-dropdown airline-gst-print collapse" id="ssr-pax">
-                                            <div *ngIf="CurrentFare['SSR']['Meal']!=0"><span>Seat</span><span
-                                                    class="float-end">₹{{CurrentFare['SSR']['Seat']|
-                                                    number:'1.0-2'}}</span></div>
-                                            <div *ngIf="CurrentFare['SSR']['Meal']!=0"><span>Meal</span><span
-                                                    class="float-end">₹{{CurrentFare['SSR']['Meal'] |
-                                                    number:'1.0-2'}}</span></div>
-                                            <div *ngIf="CurrentFare['SSR']['Baggage']!=0"><span>Baggage</span><span
-                                                    class="float-end">₹{{CurrentFare['SSR']['Baggage'] | number:'1.0-2'}}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                   
-                                    <div class="bold-font btm-border">
-                                        <span data-bs-toggle="collapse" href="#net-fare" aria-expanded="false">Gross Fare <i class="fa fa-angle-down mrg-left"></i></span>
-                                        <span
-                                            class="float-end">₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']+CurrentFare['SSR']['Meal']
-                                            + CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Seat']
-                                            +CurrentFare['InsurancePrice']| number:'1.0-2'}}</span>
-                                        <div class="tax-dropdown airline-gst-print collapse" id="net-fare">
-                                            <div><span>Commission</span><span
-                                                    class="float-end">-₹{{CurrentFare['AgentCommission']+CurrentFare['Discount'] |
-                                                    number:'1.0-2'}}</span></div>
-                                            <div><span>TDS</span><span class="float-end">+₹{{CurrentFare['TDS'] |
-                                                    number:'1.0-2'}}</span></div>
-                                            <div><span>Net Price</span><span
-                                                    class="float-end">₹{{this.CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['AgentMarkup']+CurrentFare['SSR']['Meal']
-                                            + CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Seat'] |
-                                                    number:'1.0-2'}}</span></div>
-                                        </div>
-                                    </div>
-                                   
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
             </section>

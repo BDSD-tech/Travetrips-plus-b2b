@@ -118,10 +118,6 @@ export class TravellerDetailComponent implements OnInit {
   DocumentExpiryDate = false;
 
   InsuranceDetail: any = [];
-  SelectedInsurance: any = {};
-  SelectedIns: any = ''
-  SelectedInsib: any = ''
-  allpaxCount: any | number
   InsurancePrice = 0;
   KnowmoreData: any = []
   TermandCondition: any
@@ -164,6 +160,13 @@ export class TravellerDetailComponent implements OnInit {
   activeJourney: any | null = null;
   selections: { [paxKey: string]: { [sectorKey: string]: any[] } } = {};
 
+
+  SelectedPaxInsurane: any | null = null;
+  AllPaxes:any=[]
+  JourneyGroup:any=[]
+  activeJourneyIns:any='';
+
+
   NameFormaturl:any=null
   nameformatModal:any
 // End :: Speacial Service 
@@ -178,11 +181,7 @@ export class TravellerDetailComponent implements OnInit {
     
     if (sessionStorage.getItem('FlightSearch')) {
       let flightsearch: any = sessionStorage.getItem('FlightSearch');
-
       this.GetSearchData = JSON.parse(flightsearch);
-      // this.GetSearchData['Type']='R'
-      this.allpaxCount = this.GetSearchData['Adult'] + this.GetSearchData['Child'] + this.GetSearchData['Infant']
-
       this.IsDomestic = this.GetSearchData['Isdomestic']
     } else {
       this.router.navigate(['/']);
@@ -265,10 +264,16 @@ export class TravellerDetailComponent implements OnInit {
       this.oldprice = oldprice;
       this.UserIp = resp[0]['UserIp'];
       if (sessionStorage.getItem('Response')) {
+        this.ssr_Request={
+            'SearchTokenId': this.param['stoken'],
+            'ResultIndex': this.param['fareid'],
+            'FareRuleId': this.FareList?.[0]?.['FareRuleId']
+          };
         let data: any = sessionStorage.getItem('Response');
         this.AllResponse = JSON.parse(data);
         this.fareloading = true;
-        this.SetStoredData(this.AllResponse)
+        this.SetStoredData(this.AllResponse);
+         
       } else {
         this.FareConfirmation();
       }
@@ -290,13 +295,14 @@ export class TravellerDetailComponent implements OnInit {
     this.CurrentFare['SSR']['Meal'] = 0
     this.CurrentFare['SSR']['Baggage'] = 0
     this.CurrentFare['SSR']['Seat'] = 0
-
-  
-
+    this.CurrentFare['WebChekinTotal'] = 0
+    this.CurrentFare['WebChekinOfferPrice'] = 0;
+    this.CurrentFare['InsuranceOfferPrice'] = 0;
     this.GetDialCode();
     
     if (sessionStorage.getItem('TSFPAX')) {
       this.GeneratePax();
+      this.buildPaxList()
       let TSFPAX: any = sessionStorage.getItem('TSFPAX');
       let resp = JSON.parse(TSFPAX);
       this.FlightForm.patchValue({
@@ -309,7 +315,8 @@ export class TravellerDetailComponent implements OnInit {
       });
       this.GSTForm.patchValue(resp['gstdata']);
       
-      this.CalculateSSrPrice()
+      this.CalculateSSrPrice();
+      this.CalculatePriceWebChekin()
     }
     
       
@@ -356,6 +363,8 @@ export class TravellerDetailComponent implements OnInit {
         this.SegmentData = this.Response[0]['Segments']
         this.lccFlight = this.Response[0]['IsLCC']
         this.get_ssr();
+        this.GeneratePax();
+        this.buildPaxList();
         this.GetWebcheckinData()
         this.GetInsuranceData();
         this.markupvalue = response['TotalMarkup'];
@@ -492,12 +501,11 @@ export class TravellerDetailComponent implements OnInit {
   }
 
   GetWebcheckinData(){
-    this.flightService.Getwebchekin(this.GetSearchData['Type'],this.IsDomestic).subscribe((resp:any)=>{
-      if(resp && resp.length!==0){
-        this.SpecialServiceData=resp;
-        this.GeneratePax();
+    let req:any={"SearchTokenId":this.ssr_Request['SearchTokenId'],"Service":"Flight","ResultIndex":this.ssr_Request['ResultIndex']}
+    this.flightService.Getwebchekin(req).subscribe((resp:any)=>{
+      if(resp['Error']['ErrorCode']==0){
+        this.SpecialServiceData=resp['Result'];
         this.buildJourneys();
-        this.buildPaxList();
       }
     });
 
@@ -716,46 +724,12 @@ export class TravellerDetailComponent implements OnInit {
     this.flightService.insurance_info(req).subscribe((resp: any) => {
       if (resp['Error']['ErrorCode'] == 0) {
         this.InsuranceDetail = resp['Result'];
+        this.JourneyGroup=resp['SearchRequest']['AirSegments'].flatMap((seg:any)=> {let Journey= `${seg.Origin}-${seg.Destination}`; return Journey});
+        this.activeJourneyIns=this.JourneyGroup[0]
       }
     })
   }
 
-  AddInsurance(item: any, type: any) {
-
-    if (type == 'onward') {
-
-      let key = this.GetSearchData['OriginCode'] + '-' + this.GetSearchData['DestinationCode'];
-      if (this.SelectedInsurance?.[key]?.['policy_resultindex'] == item['ResultIndex']) {
-        delete this.SelectedInsurance[key]
-        this.SelectedIns = ''
-
-      } else {
-        this.SelectedInsurance[key] = {}
-        this.SelectedInsurance[key]['type'] = type
-        this.SelectedInsurance[key]['searchtoken'] = this.SearchTokenId;
-        this.SelectedInsurance[key]['policy_resultindex'] = item['ResultIndex'];
-        this.SelectedInsurance[key]['price'] = item['Fare']['PublishedPrice'];
-        this.SelectedIns = item['ResultIndex']
-      }
-
-    } else if (type == 'return') {
-      let key = this.GetSearchData['DestinationCode'] + '-' + this.GetSearchData['OriginCode']
-      if (this.SelectedInsurance?.[key]?.['policy_resultindex'] == item['ResultIndex']) {
-        delete this.SelectedInsurance[key]
-        this.SelectedInsib = ''
-
-      } else {
-        this.SelectedInsurance[key] = {}
-        this.SelectedInsurance[key]['type'] = type
-        this.SelectedInsurance[key]['searchtoken'] = this.SearchTokenId;
-        this.SelectedInsurance[key]['policy_resultindex'] = item['ResultIndex'];
-        this.SelectedInsurance[key]['price'] = item['Fare']['PublishedPrice'];
-        this.SelectedInsib = item['ResultIndex']
-      }
-    }
-    this.calculateInsurancePrice();
-
-  }
 
 
   clearSeat() {
@@ -784,31 +758,6 @@ export class TravellerDetailComponent implements OnInit {
     this.CalculateSSrPrice()
   }
 
-
-  calculateInsurancePrice() {
-    if (Object.keys(this.SelectedInsurance).length !== 0) {
-      this.showadtdob = true;
-      this.showchddob = true;
-      this.showinfdob = true;
-      this.addValidators(true)
-      setTimeout(() => {
-        this.ADTDOBDate();
-        this.CHDDOBDate();
-        this.INFDOBDate();
-      }, 100);
-    } else {
-      this.addValidators(false)
-      this.showadtdob = this.Adltdob;
-      this.showchddob = this.childdob;
-      this.showinfdob = this.infdob;
-    }
-    let total = 0
-    Object.keys(this.SelectedInsurance).forEach((element: any) => {
-      total += this.SelectedInsurance[element]['price']
-    });
-    this.CurrentFare['InsurancePrice'] = total * this.allpaxCount;
-    this.InsurancePrice = total * this.allpaxCount
-  }
   addValidators(tag: any) {
     let Adult = this.FlightForm.get('Adult')?.value;
     let Child = this.FlightForm.get('Child')?.value;
@@ -1006,7 +955,8 @@ export class TravellerDetailComponent implements OnInit {
       Meal: [''],
       Seat: [''],
       SavePax: [''],
-      SpecialService:['']
+      SpecialService:[''],
+      Insurance:['']
     });
 
   }
@@ -1307,10 +1257,6 @@ export class TravellerDetailComponent implements OnInit {
     savedata['IsPANMandatory'] = this.IsPANMandatory;
     savedata['IsPassportMandatory'] = this.IsPassportMandatory;
     savedata['ResultIndex'] = this.Response[0]['ResultIndex'];
-    if (Object.keys(this.SelectedInsurance).length !== 0) {
-      savedata['InsuranceDetail'] = this.SelectedInsurance;
-
-    }
     if (this.Response[1]) {
       savedata['ResultIndexIB'] = this.Response[1]['ResultIndex'];
     }
@@ -2234,15 +2180,22 @@ export class TravellerDetailComponent implements OnInit {
         this.INFDOBDate();
       }, 100);
 
+      this.GetWebcheckinData()
+      this.GetInsuranceData();
       this.SSRDetail = data['SSR'];
-      this.CreateSSRData(this.SSRDetail);
-      this.seatData = this.SSRDetail['SeatData'];
-      this.travellerJson = this.SSRDetail['SeatPaxData'];
-      setTimeout(() => {
-        this.CreateSeatJson()
-      }, 100);
+      if(this.SSRDetail && this.SSRDetail.length!==0){
+        this.CreateSSRData(this.SSRDetail);
+         this.seatData = this.SSRDetail['SeatData'];
+        this.travellerJson = this.SSRDetail['SeatPaxData'];
+        setTimeout(() => {
+          this.CreateSeatJson()
+        }, 100);
+      }
+      
+     
     }
   }
+  
   ClearSSR(paxtype: any, paxi: any, ssrtype: any) {
     this.FlightForm.get(paxtype + '.' + paxi + '.' + ssrtype)?.setValue([]);
     this.CalculateSSrPrice();
@@ -2255,14 +2208,16 @@ export class TravellerDetailComponent implements OnInit {
   buildPaxList(): void {
     this.paxList = [];
     this.selections = {};
- 
+    this.AllPaxes = [];
+    this.AllPaxes = ['Adult', 'Child', 'Infant'].flatMap((type: string) =>(this.FlightForm.get(type)?.value || []).map((pax: any,key:Number) => ({...pax,PaxType: type,PaxKey:key})));
+    this.SelectedPaxInsurane=this.AllPaxes[0];
     (['Adult', 'Child', 'Infant'] as const).forEach(type => {
       const arr = this.FlightForm.get(type) as FormArray;
       if (!arr) return;
- 
       arr.controls.forEach((ctrl, i) => {
         const key = `${type}_${i}`;
         this.paxList.push({ type, index: i, label: `${type} ${i + 1}`, control: ctrl });
+        this.selectedPax=this.paxList[0]
         this.selections[key] = {};
 
         const existing = ctrl.get('SpecialService')?.value;
@@ -2289,17 +2244,19 @@ export class TravellerDetailComponent implements OnInit {
     return journey || {};
   }
   addJourneyTab(journeyRaw: any, journeyIndex: number): void {
+    
     const merged = this.mergeSectors(journeyRaw);
+    
     const sectorKeys = Object.keys(merged);
+    
     if (!sectorKeys.length) return;
-
-    const sectors: any[] = sectorKeys
-      .map(sectorKey => ({
+    
+    
+    const sectors: any[] = sectorKeys.map(sectorKey => ({
         sectorKey,
-        items: (merged[sectorKey] || []).filter((i: any) => i.ServiceType === 3)
+        items: (merged[sectorKey] || []).filter((i: any) => i.ServiceType)
       }))
       .filter(s => s.items.length > 0);
-
     if (!sectors.length) return;
 
     const firstOrigin = sectors[0].items[0]?.Origin ?? sectorKeys[0].split('-')[0];
@@ -2309,20 +2266,21 @@ export class TravellerDetailComponent implements OnInit {
     const route = `${firstOrigin} → ${lastDest}`;
     const isRoundTrip = this.GetSearchData['Type'] === 'R';
     const prefix = isRoundTrip ? (journeyIndex === 0 ? 'Onward : ' : 'Return : ') : '';
-
     this.journeys.push({
       journeyIndex,
       label: ` ${prefix}${route}`,
       sectors
     });
+    this.activeJourney=this.journeys[0]
   }
 
 
   buildJourneys(): void {
     this.journeys = [];
     if (!this.SpecialServiceData || !this.SpecialServiceData.length) return;
-
-    if (this.GetSearchData['Type'] === 'O') {
+   
+    if (this.GetSearchData['Type'] == 'O') {
+      
       this.addJourneyTab(this.SpecialServiceData, 0);
       return;
     }
@@ -2333,14 +2291,16 @@ export class TravellerDetailComponent implements OnInit {
 
   resolveJourneysArray(data: any[]): any[] {
     if (!data || !data.length) return [];
-    if (data.length >= 2) return data;
 
+    if (data.length >= 2) return data;
+    
     const inner = data[0];
     if (Array.isArray(inner) && inner.length > 1 && inner.every(el => this.isSectorMap(el))) {
       return inner;
     }
     return data;
   }
+
   isSectorMap(x: any): boolean {
     return !!x && typeof x === 'object' && !Array.isArray(x) &&
       Object.keys(x).length > 0 &&
@@ -2385,63 +2345,235 @@ export class TravellerDetailComponent implements OnInit {
   }
  
   selectPax(pax: any): void {
-    this.selectedPax = pax;
+      this.selectedPax = pax;
   }
  
-  setActiveJourney(journey: any): void {
-    this.activeJourney = journey;
-  }
- 
-  isChecked(pax: any, sectorKey: string, item: any): boolean {
-  const list = this.selections[this.paxKey(pax)]?.[sectorKey] || [];
-  return list.some((i: any) => i.Code === item.Code && i.Key === item.Key);
-  }
-  toggle(pax: any, sectorKey: string, item: any, checked: any): void {
-    const key = this.paxKey(pax);
-    if (!this.selections[key]) this.selections[key] = {};
-    if (!this.selections[key][sectorKey]) this.selections[key][sectorKey] = [];
-
-    const list = this.selections[key][sectorKey];
-    const isChecked = checked.target.checked;
-
-    if (isChecked) {
-      const exists = list.some((i: any) => i.Code === item.Code && i.Key === item.Key);
-      if (!exists) list.push(item);
-    } else {
-      this.selections[key][sectorKey] = list.filter(
-        (i: any) => !(i.Code === item.Code && i.Key === item.Key)
-      );
-    }
-
-    this.syncToForm(pax);
-  }
-
-
-  syncToForm(pax: any): void {
-    const paxSelections = this.selections[this.paxKey(pax)] || {};
-    const value: { [sectorKey: string]: string[] } = {};
-    Object.keys(paxSelections).forEach(sectorKey => {
-      const items = paxSelections[sectorKey] || [];
-      value[sectorKey] = items.map((i: any) => i.Code);
-    });
-
-    const group = pax.control as FormGroup;
-    if (group.get('SpecialService')) {
-      group.get('SpecialService')!.setValue(value);
-    } else {
-      group.addControl('SpecialService', new FormControl(value));
+  setActiveJourney(journey: any,type:any=null): void {
+    if(type=='Insurance'){
+      this.activeJourneyIns = journey;
+    }else{
+      this.activeJourney = journey;
     }
     
   }
- 
-    paxSummary(pax: any): string {
-    const sel = this.selections[this.paxKey(pax)] || {};
-    const chosen: any[] = Object.values(sel).reduce(
-      (acc: any[], arr: any) => acc.concat(arr || []),
-      []
-    );
+  SelectInsurance(pax:any,sector:any,item:any,e:any){
+      const field = this.FlightForm.get(`${pax.PaxType}.${pax.PaxKey}.Insurance`);
+      if (!field) {
+        return;
+      }
 
-    return chosen.length ? chosen.map(c => c.Text).join(', ') : 'No Special Service';
+      let insurance = { ...(field.value || {}) };
+      if (e.target.checked) {
+        insurance[sector] = {"RI":item.ResultIndex,"Name":item.PlanName,"PublishedPrice":item['Fare']['PublishedPrice'],"OfferedPrice":item['Fare']['OfferedPrice']};
+      } else {
+        delete insurance[sector];
+      }
+      field.setValue(insurance);
+      field.markAsDirty();
+      field.updateValueAndValidity();
+     this.CalculatePriceWebChekin()
+  }
+
+
+
+  isChecked(pax: any, sectorKey: string, type: any): any {
+    if(type=='WebChekin'){
+     let data=this.FlightForm.get(pax['type']+'.'+pax['index']+'.SpecialService')?.value;
+     return data?.[sectorKey];
+     }else{
+      let data=this.FlightForm.get(pax['PaxType']+'.'+pax['PaxKey']+'.Insurance')?.value;
+      return data?.[sectorKey];
+     }
+  }
+
+
+    SelectWebChekin(pax: any, sectorKey: string, item: any, checked: any): void {
+     
+      if(item['Apply']=='per_pax'){
+        this.resetPerPnrSelections(sectorKey)
+        const key = this.paxKey(pax);
+        if (!this.selections[key]) {
+          this.selections[key] = {};
+        }
+        const isChecked = checked.target.checked;
+        this.selections[key][sectorKey] = isChecked ? [item] : [];
+        const value: { [sectorKey: string]: string } = {};
+
+        Object.keys(this.selections[key]).forEach(sector => {
+          const items = this.selections[key][sector] || [];
+
+          if (items.length > 0) {
+            value[sector] = items[0];
+          }
+        });
+        const group = pax.control as FormGroup;
+        if (group.get('SpecialService')) {
+          group.get('SpecialService')!.setValue(value);
+        } else {
+          group.addControl('SpecialService',new FormControl(value));
+        }
+      }else {
+          const isChecked = checked.target.checked;
+          this.paxList.forEach((p: any) => {
+            const key = this.paxKey(p);
+            if (!this.selections[key]) {
+              this.selections[key] = {};
+            }
+            
+            // Apply selected item to this segment
+           this.selections[key][sectorKey] = isChecked ? [item] : [];
+
+            // Build SpecialService for this passenger
+            const value: { [sectorKey: string]: string } = {};
+            Object.keys(this.selections[key]).forEach(sector => {
+              const items = this.selections[key][sector] || [];
+
+              if (items.length > 0) {
+                value[sector] = items[0];
+              }
+            });
+
+            const group = p.control as FormGroup;
+
+            if (group.get('SpecialService')) {
+              group.get('SpecialService')!.setValue(value);
+            } else {
+              group.addControl('SpecialService',new FormControl(value)
+              );
+            }
+          });  
+      }
+      this.CalculatePriceWebChekin()
+    }
+
+   CalculatePriceWebChekin() {
+
+    let paxarray = ['Adult', 'Child', 'Infant'].flatMap(type => this.FlightForm.get(type)?.value || []);
+    let amount: any = {};
+    let insuranceamount=0
+    let insuranceOfferprice=0
+    paxarray.forEach((pax: any) => {
+      Object.entries(pax.SpecialService||{}).forEach(([sectorkey, sector]: [string, any]) => {
+          if (!amount[sectorkey]) {
+            amount[sectorkey] = {"OfferPrice":0,"PublishedPrice":0} ;
+          }
+
+          if (sector?.Apply == 'per_pax') {
+             
+            amount[sectorkey]['OfferPrice'] += Number(sector['OfferdPrice']);
+            amount[sectorkey]['PublishedPrice'] +=Number(sector['Price']);
+          }
+
+          // Per Journey = add price only once
+          else if (sector?.Apply == 'per_journey') {
+            if (amount[sectorkey]['PublishedPrice'] == 0) {
+              amount[sectorkey]['OfferPrice'] = Number(sector['OfferdPrice']);
+              amount[sectorkey]['PublishedPrice'] = Number(sector['Price']);
+            }
+
+          }
+
+        }
+      );
+
+      Object.entries(pax.Insurance||{}).forEach(([sectorkey, sector]: [string, any]) => {
+       
+            insuranceamount += Number(sector['PublishedPrice']);
+            insuranceOfferprice += Number(sector['OfferedPrice']);
+        }
+      );
+
+    });
+
+    // Calculate total of all sectors
+    let totalAmount = 0;
+    let totalnetAmount = 0;
+   
+    Object.values(amount).forEach((price: any) => {totalAmount += Number(price.PublishedPrice); totalnetAmount += Number(price.OfferPrice);});
+    
+    this.CurrentFare['WebChekinTotal'] = totalAmount;
+    this.CurrentFare['WebChekinOfferPrice'] = totalnetAmount;
+    this.InsurancePrice = insuranceamount;
+    this.CurrentFare['InsurancePrice'] = insuranceamount;
+    this.CurrentFare['InsuranceOfferPrice'] = insuranceOfferprice;
+  }
+
+    resetPerPnrSelections(sectorkey: any): void {
+        this.paxList.forEach((p: any) => {
+          let key = this.paxKey(p);
+          if (!this.selections[key]) {
+            return;
+          }
+
+          let sectorItems = this.selections[key][sectorkey] || [];
+          if (!sectorItems.length) {
+            return;
+          }
+
+          let hasPerPnr = sectorItems.some((item: any) => item?.Apply === 'per_journey');
+
+          if (!hasPerPnr) {
+            return;
+          }
+
+          let remainingItems = sectorItems.filter((item: any) => item?.Apply !== 'per_journey');
+
+          if (remainingItems.length > 0) {
+            this.selections[key][sectorkey] = remainingItems;
+          } else {
+            delete this.selections[key][sectorkey];
+          }
+
+          // ---------------------------------
+          // Update SpecialService
+          // ---------------------------------
+
+          let group = p.control as FormGroup;
+          let specialService = group.get('SpecialService');
+
+          if (!specialService) {
+            return;
+          }
+
+          let currentSpecialService = specialService.value || {};
+          let updatedSpecialService = {...currentSpecialService};
+          let specialSectorData = updatedSpecialService[sectorkey];
+          if (specialSectorData) {
+
+            if (Array.isArray(specialSectorData)) {
+              const remainingSpecialItems = specialSectorData.filter(
+                (item: any) => item?.Apply !== 'per_journey'
+              );
+
+              if (remainingSpecialItems.length > 0) {
+                updatedSpecialService[sectorkey] = remainingSpecialItems;
+              } else {
+                delete updatedSpecialService[sectorkey];
+              }
+
+            } else {
+  
+              if (specialSectorData?.Apply === 'per_journey') {
+                delete updatedSpecialService[sectorkey];
+              }
+            }
+          }
+
+  
+          specialService.setValue(updatedSpecialService);
+          specialService.markAsDirty();
+          specialService.updateValueAndValidity();
+        });
+      }
+    
+    paxSummary(pax: any): string {
+      const sel = this.selections[this.paxKey(pax)] || {};
+      const chosen: any[] = Object.values(sel).reduce(
+        (acc: any[], arr: any) => acc.concat(arr || []),
+        []
+      );
+
+      return chosen.length ? chosen.map(c => c.Text).join(', ') : 'No Special Service';
     }
  
     totalForPax(pax: any): number {

@@ -1629,7 +1629,7 @@
 
              
 
-               <div class="flight-booking-wrapper" *ngIf="SSRData.length!==0 || seatData.length!==0">
+               <div class="flight-booking-wrapper" *ngIf="SSRData.length && seatData.length!==0">
                   <div class="flight-booking-header">
                      <div class="itinerary-card-title d-lg-flex">
                         <div class="header-left"><i class="fa-solid fa-phone"></i><span>Special Service Request
@@ -1977,225 +1977,171 @@
                               </div>
                            </div>
                         </div> -->
-                       @if(0){
-                           <div class="accordion panel-item my-3 rounded border">
+                        @if(InsuranceDetail && InsuranceDetail.length!==0){
+                           <div class="position-relative accordion panel-item my-3 rounded border">
                               <button class="accordion-button panel-heading text-dark fw-bold flight-booking-header rounded collapsed"
                                  type="button" data-bs-toggle="collapse" data-bs-target="#add-insurance">
                                  Add Travel Insurance
+                                 <span class="recommonded"><i class="fa-regular fa-thumbs-up me-1"></i> RECOMMENDED</span>
+                                 <span class="new">NEW</span>
                               </button>
                               <div id="add-insurance" class="accordion-collapse collapse">
                                  <div class="accordion-body p-2">
-                              
-                                    @if(GetSearchData['Type']=='R' && GetSearchData['Isdomestic']=='true'){
-                              
-                                    <ul class="nav nav-tabs insurance" id="myTab" role="tablist">
-                                          <li class="nav-item" role="presentation">
-                                             <button class="nav-link active" id="oneway" data-bs-toggle="tab"
-                                                data-bs-target="#Oneway" type="button" role="tab"
-                                                aria-controls="home"
-                                                aria-selected="true">{{GetSearchData['Origin']}} -
-                                                {{GetSearchData['Destination']}}</button>
-                                          </li>
-                                          <li class="nav-item" role="presentation">
-                                             <button class="nav-link" id="roundtrip-tab" data-bs-toggle="tab"
-                                                data-bs-target="#RoundTrip" type="button" role="tab"
-                                                aria-controls="profile"
-                                                aria-selected="false">{{GetSearchData['Destination']}} -
-                                                {{GetSearchData['Origin']}} </button>
-                                          </li>
-                                    </ul>
-                              
-                                    }
-                                    <div class="tab-content" id="myTabContent">
-                                          <div class="tab-pane fade show active" id="Oneway" role="tabpanel"
-                                             aria-labelledby="oneway">
-                                             <div class="card shadow-sm border-0">
-                                                <div class="card-body">
-                                                      <div class="mb-3">
-                                                         <div class="d-flex align-items-center mb-2">
-                                                            <i
-                                                                  class="bi bi-shield-check text-primary fs-4 me-2"></i>
-                                                            <div>
-                                                                  <strong>Domestic Travel Assistance and
-                                                                     Insurance</strong><br />
-                                                                  <small class="text-muted">Valid from
-                                                                     {{GetSearchData['DepartDate']}} to your
-                                                                     date of journey or till your date of
-                                                                     return, whichever is earlier. . To know
-                                                                     more on the coverage.</small>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                              
-                                                      <div class="row text-center gy-3">
-                                                         @for (item of InsuranceDetail; track $index) {
-                                                         <div class="col-md-4">
-                                                            <div class="border rounded p-3 h-100">
-                                                                  <div class="fw-bold mb-1">
-                                                                     {{item['PlanName']}} </div>
-                                                                  <div class="fs-5 fw-semibold">₹
-                                                                     {{item['Fare']['PublishedPrice']}}</div>
-                                                                  <div class="text-muted mb-2">Per Person
-                                                                  </div>
-                                                                  @if(SelectedIns==item['ResultIndex']){
-                                                                  <button class="btn asr-book add-seat-button"
-                                                                     (click)="AddInsurance(item,'onward')">Remove</button>
-                              
-                                                                  }@else{
-                                                                  <button class="btn asr-book add-seat-button"
-                                                                     (click)="AddInsurance(item,'onward')">Add</button>
-                                                                  }
-                                                                  <div
-                                                                     class="mt-2 d-flex justify-content-around small">
-                                                                     <a href="javascript:void(0)"
-                                                                        (click)="OpenModal(item,'KnowMore')">Know
-                                                                        More</a>
-                                                                     <a href="javascript:void(0)"
-                                                                        (click)="OpenModal(item,'TC')">T&amp;C</a>
-                                                                  </div>
-                                                            </div>
-                                                         </div>
+                                      <div class="ssr-wrapper">
+                                          <!-- LEFT: Select Passenger -->
+                                          <div class="ssr-left">
+                                             <h4>Select Passenger</h4>
+                                          
+                                             <div class="pax-item"
+                                                   *ngFor="let pax of AllPaxes"
+                                                   [class.active]="SelectedPaxInsurane == pax"
+                                                   (click)="SelectedPaxInsurane=pax">
+                                                <label>
+                                                <input type="radio"
+                                                         name="SelectInsurancepax"
+                                                         [checked]="SelectedPaxInsurane == pax"
+                                                         (change)="SelectedPaxInsurane=pax">
+                                                         @if(FlightForm.get(pax.PaxType+'.'+pax.PaxKey+'.FirstName')?.value){
+                                                            {{FlightForm.get(pax.PaxType+'.'+pax.PaxKey+'.Title')?.value}} {{FlightForm.get(pax.PaxType+'.'+pax.PaxKey+'.FirstName')?.value}} {{FlightForm.get(pax.PaxType+'.'+pax.PaxKey+'.LastName')?.value}}
+                                                         }@else{
+                                                            {{ pax.PaxType }} {{pax.PaxKey+1}}
                                                          }
-                              
-                              
-                                                      </div>
-                                                </div>
-                              
-                              
-                                             </div>
-                                          </div>
-                                          <div class="tab-pane fade" id="RoundTrip" role="tabpanel"
-                                             aria-labelledby="roundtrip-tab">
-                              
-                                             <div class="card shadow-sm border-0">
-                                                <div class="card-body">
-                                                      <div class="mb-3">
-                                                         <div class="d-flex align-items-center mb-2">
-                                                            <i
-                                                                  class="bi bi-shield-check text-primary fs-4 me-2"></i>
-                                                            <div>
-                                                                  <strong>Domestic Travel Assistance and
-                                                                     Insurance</strong><br />
-                                                                  <small class="text-muted">Valid from
-                                                                     {{GetSearchData['ReturnDate']}} to your
-                                                                     date of journey or till your date of
-                                                                     return, whichever is earlier. To know
-                                                                     more on the coverage.</small>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                              
-                                                      <div class="row text-center gy-3">
-                                                         @for (item of InsuranceDetail; track $index) {
-                                                         <div class="col-md-4">
-                                                            <div class="border rounded p-3 h-100">
-                                                                  <div class="fw-bold mb-1">
-                                                                     {{item['PlanName']}} </div>
-                                                                  <div class="fs-5 fw-semibold">₹
-                                                                     {{item['Fare']['PublishedPrice']}}</div>
-                                                                  <div class="text-muted mb-2">Per Person
-                                                                  </div>
-                                                                  @if(SelectedInsib==item['ResultIndex']){
-                                                                  <button class="btn asr-book add-seat-button"
-                                                                     (click)="AddInsurance(item,'return')">Remove</button>
-                              
-                                                                  }@else{
-                                                                  <button class="btn asr-book add-seat-button"
-                                                                     (click)="AddInsurance(item,'return')">Add</button>
-                                                                  }
-                                                                  <div
-                                                                     class="mt-2 d-flex justify-content-around small">
-                                                                     <a href="#">Know More</a>
-                                                                     <a href="#">T&amp;C</a>
-                                                                  </div>
-                                                            </div>
-                                                         </div>
-                                                         }
-                                                      </div>
+                                                </label>
+                                                <div class="pax-summary">
+                                                <!-- <span class="star">★</span> {{ paxSummary(pax) }} -->
                                                 </div>
                                              </div>
                                           </div>
-                                    </div>
+                                          
+                                          <!-- RIGHT: journey tabs + sector-wise special service -->
+                                          <div class="ssr-right" *ngIf="SelectedPaxInsurane">
+                                             <h4> @if(FlightForm.get(SelectedPaxInsurane.PaxType+'.'+SelectedPaxInsurane.PaxKey+'.FirstName')?.value){
+                                                      {{FlightForm.get(SelectedPaxInsurane.PaxType+'.'+SelectedPaxInsurane.PaxKey+'.Title')?.value}} {{FlightForm.get(SelectedPaxInsurane.PaxType+'.'+SelectedPaxInsurane.PaxKey+'.FirstName')?.value}} {{FlightForm.get(SelectedPaxInsurane.PaxType+'.'+SelectedPaxInsurane.PaxKey+'.LastName')?.value}}
+                                                   }@else{
+                                                      {{ SelectedPaxInsurane.PaxType }} {{SelectedPaxInsurane.PaxKey+1}}
+                                                   } details :</h4>
+                                          
+                                             <div class="journey-tabs" *ngIf="JourneyGroup.length">
+                                                <button type="button"
+                                                      *ngFor="let j of JourneyGroup"
+                                                      [class.active]="activeJourneyIns == j"
+                                                      (click)="setActiveJourney(j,'Insurance')">
+                                                {{ j }}
+                                                </button>
+                                             </div>
+                                          
+                                             <div class="journey-panel" *ngIf="activeJourneyIns">
+                                                <div class="sector-row" >
+                                                <div class="sector-content">
+                                                   <div class="sector-label">Insurance Service</div>
+                                          
+                                                   <div class="sector-options d-flex" *ngFor="let item of InsuranceDetail">
+                                                      <label for="{{activeJourneyIns}}{{item.ResultIndex}}">
+                                                         <input type="checkbox" id="{{activeJourneyIns}}{{item.ResultIndex}}"
+                                                                  [checked]="isChecked(SelectedPaxInsurane, activeJourneyIns, 'Insurance')?.RI==item.ResultIndex"
+                                                                  [value]="item['ResultIndex']"
+                                                                  (change)="SelectInsurance(SelectedPaxInsurane, activeJourneyIns, item, $event)">
+                                                                   {{ item.PlanName }}: <span class="text-decoration-line-through">₹{{ item.Fare.PublishedPrice }}</span> <span class="ms-1 fw-semibold">₹{{ item.Fare.OfferedPrice }}</span> <span class="text-warning">({{ item.Apply.replace('_',' ') |titlecase }}) </span> 
+                                                         
+                                                      </label>
+                                                      <a href="javascript:void(0)" class="mx-2" (click)="OpenModal(item,'KnowMore')">Details</a> | <a href="javascript:void(0)" class="mx-2" (click)="OpenModal(item,'TC')">Term & Condition</a>
+                                                   </div>
+                                                </div>
+                                                </div>
+                                          
+                                                <p class="note" *ngIf="!activeJourneyIns.length">
+                                                No special service available for this journey.
+                                                </p>
+                                             </div>
+                                          
+                                             <p class="note">Note: Special services are subject to availability</p>
+                                          </div>
+                                          </div>
+                                          
+                                   
                                  </div>
                               </div>
-                              </div>
-                        
-                           @if(SpecialServiceData && SpecialServiceData.length!==0){
-                              <div class="accordion panel-item my-3 rounded border">
-                              <button class="accordion-button panel-heading text-dark fw-bold flight-booking-header rounded collapsed"
-                                 type="button" data-bs-toggle="collapse" data-bs-target="#add-specialservice">
-                                 Speacial Service 
-                              </button>
-                              <div id="add-specialservice" class="accordion-collapse collapse">
-                                 <div class="accordion-body p-2">
-                                       <div class="ssr-wrapper">
-                                             <!-- LEFT: Select Passenger -->
-                                             <div class="ssr-left">
-                                                <h4>Select Passenger</h4>
-                                             
-                                                <div class="pax-item"
-                                                      *ngFor="let pax of paxList"
-                                                      [class.active]="selectedPax === pax"
-                                                      (click)="selectPax(pax)">
-                                                   <label>
-                                                   <input type="radio"
-                                                            name="paxSelect"
-                                                            [checked]="selectedPax === pax"
-                                                            (change)="selectPax(pax)">
-                                                   {{ pax.label }}
-                                                   </label>
-                                                   <div class="pax-summary">
-                                                   <span class="star">★</span> {{ paxSummary(pax) }}
-                                                   </div>
-                                                </div>
-                                             </div>
-                                             
-                                             <!-- RIGHT: journey tabs + sector-wise special service -->
-                                             <div class="ssr-right" *ngIf="selectedPax">
-                                                <h4>{{ selectedPax.label }} details :</h4>
-                                             
-                                                <div class="journey-tabs" *ngIf="journeys.length">
-                                                   <button type="button"
-                                                         *ngFor="let j of journeys"
-                                                         [class.active]="activeJourney === j"
-                                                         (click)="setActiveJourney(j)">
-                                                   {{ j.label }}
-                                                   </button>
-                                                </div>
-                                             
-                                                <div class="journey-panel" *ngIf="activeJourney">
-                                                   <div class="sector-row" *ngFor="let sector of activeJourney.sectors">
-                                                   <div class="sector-icon">★</div>
-                                                   <div class="sector-content">
-                                                      <div class="sector-label">Special Service ({{ sector.sectorKey }})</div>
-                                             
-                                                      <div class="sector-options" *ngFor="let item of sector.items">
-                                                         <label for="{{sector.sectorKey}}{{item.Key}}">
-                                                            <input type="checkbox" id="{{sector.sectorKey}}{{item.Key}}"
-                                                                     [checked]="isChecked(selectedPax, sector.sectorKey, item)"
-                                                                     (change)="toggle(selectedPax, sector.sectorKey, item, $event)">
-                                                         {{ item.Text }}: ₹{{ item.Price }}
-                                                         </label>
-                                                      </div>
-                                                   </div>
-                                                   </div>
-                                             
-                                                   <p class="note" *ngIf="!activeJourney.sectors.length">
-                                                   No special service available for this journey.
-                                                   </p>
-                                                </div>
-                                             
-                                                <p class="note">Note: Special services are subject to availability</p>
-                                             </div>
-                                             </div>
-                                             
-                                             
-                                    
-                                 </div>
-                              </div>
-                              </div>
-                           }
+                           </div>
                         }
+                        @if(SpecialServiceData && SpecialServiceData.length!==0){
+                           <div class="accordion panel-item my-3 rounded border">
+                           <button class="position-relative accordion-button panel-heading text-dark fw-bold flight-booking-header rounded collapsed"
+                              type="button" data-bs-toggle="collapse" data-bs-target="#add-specialservice">
+                              Web Chek-in Services
+                              <span class="recommonded"><i class="fa-regular fa-thumbs-up me-1"></i>RECOMMENDED</span>
+                              <span class="new">NEW</span>
+                           </button>
+                           <div id="add-specialservice" class="accordion-collapse collapse">
+                              <div class="accordion-body p-2">
+                                    <div class="ssr-wrapper">
+                                          <!-- LEFT: Select Passenger -->
+                                          <div class="ssr-left">
+                                             <h4>Select Passenger</h4>
+                                          
+                                             <div class="pax-item"
+                                                   *ngFor="let pax of paxList"
+                                                   [class.active]="selectedPax === pax"
+                                                   (click)="selectPax(pax)">
+                                                <label>
+                                                <input type="radio"
+                                                         name="paxSelect"
+                                                         [checked]="selectedPax === pax"
+                                                         (change)="selectPax(pax)">
+                                                {{ pax.label }}
+                                                </label>
+                                                <div class="pax-summary">
+                                                <span class="star">★</span> {{ paxSummary(pax) }}
+                                                </div>
+                                             </div>
+                                          </div>
+                                          
+                                          <!-- RIGHT: journey tabs + sector-wise special service -->
+                                          <div class="ssr-right" *ngIf="selectedPax">
+                                             <h4>{{ selectedPax.label }} details :</h4>
+                                          
+                                             <div class="journey-tabs" *ngIf="journeys.length">
+                                                <button type="button"
+                                                      *ngFor="let j of journeys"
+                                                      [class.active]="activeJourney === j"
+                                                      (click)="setActiveJourney(j)">
+                                                {{ j.label }}
+                                                </button>
+                                             </div>
+                                          
+                                             <div class="journey-panel" *ngIf="activeJourney">
+                                                <div class="sector-row" *ngFor="let sector of activeJourney.sectors">
+                                                <div class="sector-icon">★</div>
+                                                <div class="sector-content">
+                                                   <div class="sector-label">Add Web Check-in Services ({{ sector.sectorKey }})</div>
+                                          
+                                                   <div class="sector-options" *ngFor="let item of sector.items">
+                                                      <label for="{{sector.sectorKey}}{{item.WebcheckInCode}}">
+                                                         <input type="checkbox" id="{{sector.sectorKey}}{{item.WebcheckInCode}}"
+                                                                  [checked]="isChecked(selectedPax, sector.sectorKey, 'WebChekin')?.['WebcheckInCode']==item.WebcheckInCode"
+                                                                  [value]="item"
+                                                                  (change)="SelectWebChekin(selectedPax, sector.sectorKey, item, $event)">
+                                                      {{ item.Text }}: <span class="text-decoration-line-through text-muted">₹{{ item.Price }}</span> <span class="ms-1 fw-semibold">₹{{ item.OfferdPrice }}</span> <span class="text-warning">({{ item.Apply.replace('_',' ') |titlecase }}) </span>
+                                                      </label>
+                                                   </div>
+                                                </div>
+                                                </div>
+                                          
+                                                <p class="note" *ngIf="!activeJourney.sectors.length">
+                                                No special service available for this journey.
+                                                </p>
+                                             </div>
+                                          
+                                             <p class="note">Note: Special services are subject to availability</p>
+                                          </div>
+                                          </div>
+                                          
+                                          
+                                 
+                              </div>
+                           </div>
+                           </div>
+                        }
+                        
                      <div class="flight-booking-wrapper" id="gst-details"> 
                         <div class="flight-booking-header d-flex justify-content-between" data-bs-toggle="collapse" data-bs-target="#gst-detail">
                            <div>
@@ -2377,9 +2323,10 @@
                                     <div *ngIf="FareBrekdown['Adult']['Tax'] !=0"><span>Tax</span><span
                                           class="float-end">₹{{FareBrekdown['Adult']['Tax'] | number:'1.0-2'}}</span>
                                     </div>
-                                    <div><span>Service Charges</span><span
-                                          class="float-end">₹{{FareBrekdown['Adult']['ServiceCharge'] |
-                                          number:'1.0-2'}}</span></div>
+                                    <div>
+                                       <span>Service Charges</span>
+                                       <span class="float-end">₹{{FareBrekdown['Adult']['ServiceCharge'] |number:'1.0-2'}}</span>
+                                    </div>
                                  </div>
                                  @if(FareBrekdown['Child']['BaseFare']!==0){
                                  <div class="border-top">
@@ -2474,11 +2421,19 @@
                            </div>
 
                            <!-- Insurance -->
-                           @if(CurrentFare['InsurancePrice']){
+                           @if(CurrentFare['InsuranceOfferPrice']){
                            <div class="fare-row">
                               <span>Insurance Price</span>
                               <span class="fare-price">
-                                 ₹{{CurrentFare['InsurancePrice'] | number:'1.0-2'}}
+                                 ₹{{CurrentFare['InsuranceOfferPrice'] | number:'1.0-2'}}
+                              </span>
+                           </div>
+                           }
+                           @if(CurrentFare['WebChekinOfferPrice']){
+                           <div class="fare-row">
+                              <span>Webchekin Price</span>
+                              <span class="fare-price">
+                                 ₹{{CurrentFare['WebChekinOfferPrice'] | number:'1.0-2'}}
                               </span>
                            </div>
                            }
@@ -2535,14 +2490,13 @@
                                  </span>
 
                                  <span class="fare-price total-price">
-                                    ₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat']+InsurancePrice
+                                    ₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat']+CurrentFare['InsuranceOfferPrice']+CurrentFare['WebChekinOfferPrice']
                                     | number:'1.0-0'}}
                                  </span>
 
                               </div>
 
                               <div class="collapse fare-dropdown" id="net-fare">
-
                                  <div class="fare-sub-row">
                                     <span>Commission</span>
                                     <span>
@@ -2560,8 +2514,7 @@
                                  <div class="fare-sub-row">
                                     <span>Net Price</span>
                                     <span>
-                                       ₹{{this.CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat']
-                                       | number:'1.0-0'}}
+                                       ₹{{this.CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat']+CurrentFare['InsuranceOfferPrice']+CurrentFare['WebChekinOfferPrice']| number:'1.0-0'}}
                                     </span>
                                  </div>
                               </div>
@@ -2855,7 +2808,7 @@
                <tbody>
                   @for(item of KnowmoreData;track $index){
                   <tr>
-                     <td> {{item['Coverage']}}</td>
+                     <td> <span [innerHTML]="item['Coverage']"></span> </td>
                      <td> ₹{{item['SumInsured']}}</td>
                   </tr>
                   }
@@ -3014,7 +2967,7 @@ PRICE CONFIRMATION MODAL
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
          </div>
          <div class="modal-body">
-            <div>
+            <div *ngif="NameFormaturl">
                <iframe [src]="NameFormaturl"  width="100%" height="600"></iframe>
             </div>
          </div>

@@ -107,7 +107,28 @@ BOOKING STEPPER
     padding: 18px 24px;
     border-bottom: 1px solid var(--border-color);
 }
+.flight-booking-header span.recommonded{
+   padding: 3px 10px;
+    margin: 0 10px;
+    border-radius: 8px;
+    color: #22c54b;
+    font-size: 10px;
+    background-color: #22c54b1a;
+    border: 1px solid #22c54b;
+}
+.flight-booking-header span.new{
+   position: absolute;
+    right: -12px;
+    top: -13px;
+    padding: 4px 10px;
+    margin: 0 10px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 10px;
+    /* background-color: var(--primary-color); */
+    background:linear-gradient(to right, var(--primary-color), var(--primary-bg-color))
 
+}
 .itinerary-card-title {
     display: flex;
     align-items: center;

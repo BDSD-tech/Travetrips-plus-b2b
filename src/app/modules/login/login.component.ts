@@ -40,14 +40,14 @@ export class LoginComponent implements OnInit {
     this.LoginForm = this.fb.group({
       emailphone: ['', [Validators.required, Validators.pattern(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})|([0-9]{10})+$/)]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]],
-      istrust:[false]
+      istrust:[true]
     });
 
     this.VarifyOTP = this.fb.group({
       emailphone: ['', [Validators.required, Validators.pattern(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})|([0-9]{10})+$/)]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]],
       otp: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
-      istrust:[false]
+      istrust:[true]
     });
   }
 

@@ -125,7 +125,7 @@
             <i class="fa fa-minus" data-bs-toggle="collapse" href="#filter-adresss"></i>
         </div>
         <div class="collapse show" id="filter-adresss">
-            <input type="search" class="form-control filter-search-input" placeholder="Search Hotel By Name"
+            <input type="search" class="form-control filter-search-input" placeholder="Search Hotel By Address"
                 (paste)="search_hotel($event,'HotelAddressList')" (input)="search_hotel($event,'HotelAddressList')"
                 [(ngModel)]="HotelAddressText">
             <!-- @if(HotelAddressText!==''){
@@ -198,6 +198,7 @@
             </div>
         </div>
     </div>
+    @if(Filter['PropertyType'].length!==0){
     <div class="filter-card">
         <div class="filter-card-header">
             <span>Property Type</span>
@@ -212,8 +213,9 @@
             </div>
         </div>
     </div>
+    }
 
-    <div class="filter-card">
+    <!-- <div class="filter-card">
         <div class="filter-card-header">
             <span>Location</span>
             <a href="javascript:void(0)" (click)="clearFilterByCat('Location')">Clear</a>
@@ -231,260 +233,6 @@
                     class="al-checkfield form-check-input" (click)="doFilter('HotelLocation',$event,item);">
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 
-<div class="OLD CODE START d-none">
-    <div class="al-listbtm">
-        <div class="al-priceac">
-            <p class="al-prresets">
-                <span>Price</span>
-                <!-- <a href="javascript:void(0);" (click)="clearFilterByCat('Price')">
-                <span class="ast-recolor"><span>RESET</span></span>
-            </a> -->
-                <i class="fa fa-minus float-end filter-minus tts-cursor-pointer" data-bs-toggle="collapse"
-                    href="#filter-price" (click)="togglebutton($event)"></i>
-            </p>
-            <div class="collapse show" id="filter-price">
-                <div class="pe-3">
-                    <mat-slider [min]="min" [max]="max" class="w-100" (change)="doFilter('','','')">
-                        <input [(ngModel)]="Filter['Price']['min']" name="first" matSliderStartThumb>
-                        <input [(ngModel)]="Filter['Price']['max']" [ngModelOptions]="{standalone: true}"
-                            matSliderEndThumb>
-                    </mat-slider>
-
-                    <div class="d-flex justify-content-between">
-                        <span><i class="bi bi-currency-rupee me-1"></i>{{ Filter['Price']['min'] |number:'1.0-2'
-                            }}</span>
-                        <span><i class="bi bi-currency-rupee me-1"></i>{{ Filter['Price']['max'] |number:'1.0-2'
-                            }}</span>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <div class="al-listbtm">
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="showincvfare" [(ngModel)]="showincentivefare"
-                (ngModelChange)="showfares('incv',showincentivefare)">
-            <label class="form-check-label" for="showincvfare">Show Incv</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="shownetfare" [(ngModel)]="shownetfare"
-                (ngModelChange)="showfares('net',shownetfare)">
-            <label class="form-check-label" for="shownetfare">Show Net</label>
-        </div>
-    </div>
-
-    <div class="al-listbtm">
-        <div class="al-priceac">
-            <p class="al-prresets">
-                <span>Hotel Name</span>
-                <a href="javascript:void(0)" (click)="clearFilterByCat('HotelName')">
-                    <span class="ast-recolor"><span>Clear</span></span>
-                </a>
-                <i class="fa fa-minus float-end filter-minus tts-cursor-pointer" data-bs-toggle="collapse"
-                    href="#filter-HotelName" (click)="togglebutton($event)"></i>
-            </p>
-            <div class="collapse show mb-3 position-relative" id="filter-HotelName">
-
-                <input type="text" class="form-control filter-search-input pr-3" placeholder="Search Hotel By Name"
-                    (input)="search_hotel($event,'HotelName')" (paste)="search_hotel($event,'HotelName')"
-                    [(ngModel)]="InputHotelNametxt">
-                @if(InputHotelNametxt!==''){
-                <a class="close-icon-filter" href="javascript:void(0)" (click)="clearFilterByCat('HotelName')"> <i
-                        class="fa-solid fa-xmark"></i></a>
-                }
-
-                <ul class="hotel_name_ul" *ngIf="HotelNameList.length!=0">
-                    <li class="flight__airline__item mt-0 a" *ngFor="let item of HotelNameList; let i=index;">
-                        <div (click)="select_hotelname(item,'HotelName')">{{item}}</div>
-                    </li>
-                </ul>
-
-            </div>
-        </div>
-
-        <div class="al-priceac">
-            <p class="al-prresets">
-                <span>Hotel Facilities List</span>
-                <a href="javascript:void(0)" (click)="clearFilterByCat('HotelFacilitiesList')">
-                    <span class="ast-recolor"><span>Clear</span></span>
-                </a>
-                <i class="fa fa-minus float-end filter-minus tts-cursor-pointer" data-bs-toggle="collapse"
-                    href="#filter-facility" (click)="togglebutton($event)"></i>
-            </p>
-            <div class="collapse show mb-3 position-relative" id="filter-facility">
-
-                <input type="text" class="form-control filter-search-input" placeholder="Search Hotel By Name"
-                    (paste)="search_hotel($event,'HotelFacilitiesList')"
-                    (input)="search_hotel($event,'HotelFacilitiesList')" [(ngModel)]="HotelFacilityText">
-                @if(HotelFacilityText!==''){
-                <a class="close-icon-filter" href="javascript:void(0)"
-                    (click)="clearFilterByCat('HotelFacilitiesList')"> <i class="fa-solid fa-xmark"></i></a>
-                }
-                <ul class="hotel_name_ul" *ngIf="HotelFacilitiesList.length!=0">
-                    <li class="flight__airline__item mt-0 a" *ngFor="let item of HotelFacilitiesList; let i=index;">
-                        <div (click)="select_hotelname(item,'HotelFacilitiesList')">{{item}}</div>
-                    </li>
-                </ul>
-
-            </div>
-        </div>
-
-        <div class="al-priceac">
-            <p class="al-prresets">
-                <span>Hotel Address List</span>
-                <a href="javascript:void(0)" (click)="clearFilterByCat('HotelAddressList')">
-                    <span class="ast-recolor"><span>Clear</span></span>
-                </a>
-                <i class="fa fa-minus float-end filter-minus tts-cursor-pointer" data-bs-toggle="collapse"
-                    href="#filter-adresss" (click)="togglebutton($event)"></i>
-            </p>
-            <div class="collapse show mb-3 position-relative" id="filter-adresss">
-
-                <input type="text" class="form-control filter-search-input" placeholder="Search Hotel By Name"
-                    (paste)="search_hotel($event,'HotelAddressList')" (input)="search_hotel($event,'HotelAddressList')"
-                    [(ngModel)]="HotelAddressText">
-                @if(HotelAddressText!==''){
-                <a class="close-icon-filter" href="javascript:void(0)" (click)="clearFilterByCat('HotelAddressList')">
-                    <i class="fa-solid fa-xmark"></i></a>
-                }
-                <ul class="hotel_name_ul" *ngIf="HotelAddressList.length!=0">
-                    <li class="flight__airline__item mt-0 a" *ngFor="let item of HotelAddressList; let i=index;">
-                        <div (click)="select_hotelname(item,'HotelAddressList')">{{item}}</div>
-                    </li>
-                </ul>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="al-listbtm">
-        <div class="al-priceac">
-            <p class="al-prresets">
-                <span>Star Rating</span>
-                <a href="javascript:void(0)" (click)="clearFilterByCat('StarRating')">
-                    <span class="ast-recolor"><span>Clear</span></span>
-                </a>
-                <i class="fa fa-minus float-end filter-minus tts-cursor-pointer" data-bs-toggle="collapse"
-                    href="#filter-StarRating" (click)="togglebutton($event)"></i>
-            </p>
-
-            <div class="collapse show" id="filter-StarRating">
-                <ul class="flight__airline__list">
-                    <li class="flight__airline__item mt-0 a"
-                        *ngFor="let item of Filter['StarRatingType']; let i=index;">
-                        <label class="tts-filter-airline">
-                            <i class="fa fa-star star-color" *ngIf="item.label>=1"></i>
-                            <i class="fa fa-star star-color" *ngIf="item.label>=2"></i>
-                            <i class="fa fa-star star-color" *ngIf="item.label>=3"></i>
-                            <i class="fa fa-star star-color" *ngIf="item.label>=4"></i>
-                            <i class="fa fa-star star-color" *ngIf="item.label>=5"></i>
-                            <span *ngIf="item.label==0">No Rating</span>
-                            <span class="float-end">
-                                <input type="checkbox" value="{{item['label']}}" [(ngModel)]="item['isChecked']"
-                                    class="al-checkfield airline_filtercheck"
-                                    (click)="doFilter('StarRating',$event,item);">
-                            </span>
-                        </label>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!-- Fare Hotel Meal Type-->
-    <div class="al-listbtm">
-        <div class="al-priceac">
-            <p class="al-prresets">
-                <span>Hotel Meal Type</span>
-                <a href="javascript:void(0)" (click)="clearFilterByCat('HotelMealType')">
-                    <span class="ast-recolor"><span>Clear</span></span>
-                </a>
-                <i class="fa fa-minus float-end filter-minus tts-cursor-pointer" data-bs-toggle="collapse"
-                    href="#filter-mealtype" (click)="togglebutton($event)"></i>
-            </p>
-
-            <div class="collapse show" id="filter-mealtype">
-                <ul class="flight__airline__list">
-                    <li class="flight__airline__item mt-1 a" *ngFor="let item of Filter['HotelMealType']; let i=index;">
-                        <label class="tts-filter-airline">
-                            <label [for]="item['label']">{{item['ShowValue']}}</label>
-                            <span class="float-end">
-                                <input type="checkbox" [id]="item['label']" value="{{item['label']}}"
-                                    [(ngModel)]="item['isChecked']" class="al-checkfield airline_filtercheck"
-                                    (click)="doFilter('HotelMealType',$event,item);">
-                            </span>
-                        </label>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <!-- Fare Hotel Meal Type-->
-    <div class="al-listbtm">
-        <div class="al-priceac">
-            <p class="al-prresets">
-                <span>Fare Type</span>
-                <a href="javascript:void(0)" (click)="clearFilterByCat('FareType')">
-                    <span class="ast-recolor"><span>Clear</span></span>
-                </a>
-                <i class="fa fa-minus float-end filter-minus tts-cursor-pointer" data-bs-toggle="collapse"
-                    href="#filter-FareType" (click)="togglebutton($event)"></i>
-            </p>
-
-            <div class="collapse show" id="filter-FareType">
-                <ul class="flight__airline__list">
-                    <li class="flight__airline__item mt-1 a" *ngFor="let item of Filter['FareType']; let i=index;">
-                        <label class="tts-filter-airline">
-                            <label [for]="item['label']">{{item['ShowValue']}}</label>
-                            <span class="float-end">
-                                <input type="checkbox" [id]="item['label']" value="{{item['label']}}"
-                                    [(ngModel)]="item['isChecked']" class="al-checkfield airline_filtercheck"
-                                    (click)="doFilter('FareType',$event,item);">
-                            </span>
-                        </label>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-
-
-    <div class="al-listbtm">
-        <div class="al-priceac">
-            <p class="al-prresets">
-                <span>Locations</span>
-                <a href="javascript:void(0)" (click)="clearFilterByCat('Location')">
-                    <span class="ast-recolor"><span>Clear</span></span>
-                </a>
-                <i class="fa fa-minus float-end filter-minus tts-cursor-pointer" data-bs-toggle="collapse"
-                    href="#filter-LocationType" (click)="togglebutton($event)"></i>
-            </p>
-            <div class="mb-3">
-                <input type="text" class="form-control filter-search-input" placeholder="Search Hotel Location"
-                    (input)="search($event,'LocationType')">
-            </div>
-
-            <div class="collapse show" id="filter-LocationType">
-                <ul class="flight__airline__list">
-                    <li class="flight__airline__item mt-0 a" *ngFor="let item of LocationType; let i=index;">
-                        <label class="tts-filter-airline">
-                            <span class="flight__airline__name">{{item['label']}}</span>
-                            <span class="float-end">
-                                <input type="checkbox" value="{{item['label']}}" [(ngModel)]="item['isChecked']"
-                                    class="al-checkfield airline_filtercheck"
-                                    (click)="doFilter('HotelLocation',$event,item);">
-                            </span>
-                        </label>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-</div>

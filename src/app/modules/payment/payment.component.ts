@@ -76,49 +76,46 @@ export class PaymentComponent implements OnInit {
                 let TSFP:any=sessionStorage.getItem('TSFP');
                 let resp=JSON.parse(TSFP);
                 this.CurrentFare=resp['fare'];
-
                 this.netpayableamount=this.CurrentFare['OfferedPrice']+this.CurrentFare['TDS'];
-
                 if (sessionStorage.getItem('TAGM')) {
                   let markup:any=sessionStorage.getItem('TAGM');
                   this.markupvalue=parseFloat(markup);
                   this.CurrentFare['AgentMarkup']=this.markupvalue;
                 }
                 // this.totalfare=this.CurrentFare['PublishedPrice']+this.CurrentFare['AgentMarkup']+this.CurrentFare['InsurancePrice']+this.CurrentFare['SSR']['Meal']+this.CurrentFare['SSR']['Baggage']+this.CurrentFare['SSR']['Seat']|0; 
-                this.totalfare=this.CurrentFare['OfferedPrice']+this.CurrentFare['TDS']+this.CurrentFare['InsurancePrice']+this.CurrentFare['SSR']['Meal']+this.CurrentFare['SSR']['Baggage']+this.CurrentFare['SSR']['Seat']|0; 
-              
+                this.totalfare=this.CurrentFare['OfferedPrice']+this.CurrentFare['TDS']+this.CurrentFare['InsurancePrice']+this.CurrentFare['SSR']['Meal']+this.CurrentFare['SSR']['Baggage']+this.CurrentFare['SSR']['Seat']+this.CurrentFare?.['WebChekinTotal']|0; 
                 
-              } else {
-                this.router.navigate(['flight']);
-              }
+          } else {
+            this.router.navigate(['flight']);
+          }
 
-              if (sessionStorage.getItem('TSFPAX')) {
-                let TSFP:any=sessionStorage.getItem('TSFPAX');
-                let resp=JSON.parse(TSFP);
-                this.Getpaymentmethod(resp);
-                this.SaveData=resp;
-                
-                this.TravellerDetails = [
-                ...(this.SaveData?.paxdata?.Adult || []),
-                ...(this.SaveData?.paxdata?.Child || []),
-                ...(this.SaveData?.paxdata?.Infant || [])
-                ];
-              } else {
-                this.router.navigate(['flight']);
-              }
+          if (sessionStorage.getItem('TSFPAX')) {
+            let TSFP:any=sessionStorage.getItem('TSFPAX');
+            let resp=JSON.parse(TSFP);
+            this.Getpaymentmethod(resp);
+            this.SaveData=resp;
+            
+            this.TravellerDetails = [
+            ...(this.SaveData?.paxdata?.Adult || []),
+            ...(this.SaveData?.paxdata?.Child || []),
+            ...(this.SaveData?.paxdata?.Infant || [])
+            ];
+          } else {
+            this.router.navigate(['flight']);
+          }
 
-              if (sessionStorage.getItem('TSF')) {
-                let TSF:any=sessionStorage.getItem('TSF');
-                let resp=JSON.parse(TSF);  
-                let Segment:any=[]; let farelist:any=[]; let mainsegments:any=[]; let oldprice=0;
-                resp.forEach(function(value:any,key:any) {
-                  Segment.push(value['Segments']);
-                  farelist.push(value['FareList']);
-                  mainsegments.push(value['MainSegment']);
-                  oldprice+=value['FareList']['Fare']['PublishedPrice'];
-                });
-                this.Segments=Segment;  
-              }
+          if (sessionStorage.getItem('TSF')) {
+            let TSF:any=sessionStorage.getItem('TSF');
+            let resp=JSON.parse(TSF);  
+            let Segment:any=[]; let farelist:any=[]; let mainsegments:any=[]; let oldprice=0;
+            resp.forEach(function(value:any,key:any) {
+              Segment.push(value['Segments']);
+              farelist.push(value['FareList']);
+              mainsegments.push(value['MainSegment']);
+              oldprice+=value['FareList']['Fare']['PublishedPrice'];
+            });
+            this.Segments=Segment;  
+          }
     }
     if(this.Service=='Hotel'){
         if (sessionStorage.getItem('HotelSearch')) {
@@ -187,19 +184,16 @@ export class PaymentComponent implements OnInit {
                
         }
           if (sessionStorage.getItem('TSFPAX')) {
-                let TSFP:any=sessionStorage.getItem('TSFPAX');
-                let resp=JSON.parse(TSFP);
-                // this.Getpaymentmethod(resp);
-                this.SaveData=resp;
-                this.SaveData['FB']=this.CurrentFare;
-                this.TravellerDetails=this.SaveData['paxdata']
-              } else {
-                // this.router.navigate(['hotel']);
-              }
+              let TSFP:any=sessionStorage.getItem('TSFPAX');
+              let resp=JSON.parse(TSFP);
+              // this.Getpaymentmethod(resp);
+              this.SaveData=resp;
+              this.SaveData['FB']=this.CurrentFare;
+              this.TravellerDetails=this.SaveData['paxdata']
+            } else {
+              // this.router.navigate(['hotel']);
+            }
     }
-   
-
-    
   }
 
   Getpaymentmethod(req:any)
@@ -210,9 +204,11 @@ export class PaymentComponent implements OnInit {
       Object.assign(request, {ResultIndexIB: req['ResultIndexIB'],SearchTokenIdIB:req['SearchTokenIdIB']});
     }
     if(this.Service=='Bus'){
-      request['Seats']=req['Seats']
+      request['Seats']=req['Seats'];
     }
-
+    if(this.Service=='Flight'){
+      request['paxdata']=req['paxdata'];
+    }
     this.commonservice.paymentmethod(request).subscribe(resp => {
       let data:any=resp;
       this.paymentloading=false;
