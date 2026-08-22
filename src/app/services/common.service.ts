@@ -4,6 +4,7 @@ import { tts_config } from '../../environments/tts_config';
 import { BehaviorSubject } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
 import * as CryptoJS from 'crypto-js';
+import { CryptoService } from './crypto-js';
 
 const secretKey = '52345678941834567870723486789012';
 
@@ -35,7 +36,7 @@ export class CommonService {
   private dataWalletBalance = new BehaviorSubject({'Balance':0,'CreditLimit':0,'DueAmount':0,'CreditStatus':'NA','ExpireDate':'','WalletStatus':'','DepositBalance':0});
   WalletBalance = this.dataWalletBalance.asObservable();
 
-  constructor(private http: HttpClient,private decimalPipe: DecimalPipe) { 
+  constructor(private http: HttpClient,private decimalPipe: DecimalPipe,private cryptoSercive:CryptoService) { 
 
     this.SetWebSiteData();
   }
@@ -143,8 +144,10 @@ export class CommonService {
 
   public paymentmethod(data:any)
   {
+    let jsonreq=JSON.stringify(data)
+    let encryptedData=this.cryptoSercive.encryptData(jsonreq);
     let url=tts_config.APIURL+'/payment/payment-mode';
-    return this.http.post(url, data, {headers: { 'Content-Type': 'application/json'}});
+    return this.http.post(url, encryptedData, {headers: { 'Content-Type': 'application/json'}});
   }
 
   public OnlineRecharge(data:any)

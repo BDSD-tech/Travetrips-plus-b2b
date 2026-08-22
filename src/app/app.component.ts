@@ -23,7 +23,7 @@ export class AppComponent {
   }
   
   ngOnInit(): void {
-
+    document.querySelector('app-root')?.removeAttribute('ng-version');
     if(localStorage.getItem('TTSAgent')){
          this.idleService.startWatching();
     }

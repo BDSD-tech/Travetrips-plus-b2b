@@ -6,6 +6,7 @@ import { AuthenticationService } from '../../../../../services/authentication.se
 import { tts_config } from '../../../../../../environments/tts_config';
 import { DashboardService } from '../../../dashboard.service';
 import { CommonService } from '../../../../../services/common.service';
+
 declare var window: any;
 declare var $:any;
 
@@ -67,6 +68,7 @@ export class CartDetailComponent implements OnInit {
   TicketWithAgency:any=true;
   selectedPaxIds: number[] = [];
   passengers:any=[]
+  FlightFareRule:any=[]
   constructor(private commonService:CommonService,private router: Router,private route: ActivatedRoute,private alertservice:AlertService,private dashboardservice:DashboardService,private fb: FormBuilder,private authenticationservice: AuthenticationService) { 
 
     if(this.route.snapshot.params['refno']) {
@@ -129,6 +131,7 @@ export class CartDetailComponent implements OnInit {
           if(resp['Error']['ErrorCode']==0)
           {
             this.BookingDetail=resp['Result'];
+            this.FlightFareRule=resp['Result']?.['fare_rule']
             this.passengers=this.BookingDetail['travelersInfo']
             this.CreateFB(this.BookingDetail['travelersInfo']);
             this.AmendmentList=resp['Result']['amendmentList'];

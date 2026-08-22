@@ -613,6 +613,11 @@
                <div class="btm-border bold-font-bf"><span>Insurance Price</span> <span
                      class="float-end">₹{{CurrentFare['InsurancePrice'] | number:'1.0-2'}}</span></div>
                }
+               @if(CurrentFare['WebChekinTotal']){
+                  <div class="btm-border bold-font-bf"><span>Webchekin Price</span> <span
+                     class="float-end">₹{{CurrentFare['WebChekinTotal'] | number:'1.0-2'}}</span></div>
+               
+               }
                <div class="btm-border bold-font" *ngIf="CurrentFare['SSR'] && Service=='Flight'">
                   <span data-bs-toggle="collapse" href="#ssr-pax" aria-expanded="false"> Meal, Baggage & Seats <i
                      class="fa fa-angle-down mrg-left"></i></span>
@@ -635,8 +640,7 @@
                   @if(Service=='Flight'){
                      <span
                      class="float-end">₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']+CurrentFare['SSR']['Meal']
-                     + CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Seat'] +CurrentFare['InsurancePrice']|
-                     number:'1.0-0'}}</span>
+                     + CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Seat'] +CurrentFare['WebChekinOfferPrice']+CurrentFare['InsuranceOfferPrice']|number:'1.0-0'}}</span>
                   
                   }@else{
                   <span
@@ -649,9 +653,7 @@
                      <div><span>TDS</span><span class="float-end">+₹{{CurrentFare['TDS'] | number:'1.0-2'}}</span></div>
                      @if(Service=='Flight'){
                      <div><span>Net Price</span><span
-                        class="float-end">₹{{CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat']
-                        |
-                        number:'1.0-0'}}</span></div>
+                        class="float-end">₹{{CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat']+CurrentFare['WebChekinOfferPrice']+CurrentFare['InsuranceOfferPrice']| number:'1.0-0'}}</span></div>
                      }@else{
                      <div><span>Net Price</span><span class="float-end">₹{{CurrentFare['OfferedPrice']+CurrentFare['TDS']|
                         number:'1.0-0'}}</span></div>
@@ -706,7 +708,7 @@
         <p class="fs-12">You have choosen to make the following payment.Please confirm to proceed.</p>
         
         <h5 *ngIf="Service=='Flight'">₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']+CurrentFare['SSR']['Meal']
-                     + CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Seat'] +CurrentFare['InsurancePrice']+conveniencefee|
+                     + CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Seat']+CurrentFare['WebChekinOfferPrice']+CurrentFare['InsuranceOfferPrice']+conveniencefee|
                      number:'1.0-0'}}</h5>
         <h5 *ngIf="Service!=='Flight'">₹{{CurrentFare['PublishedPrice']+CurrentFare['AgentMarkup']+conveniencefee|
                      number:'1.0-0'}}</h5>

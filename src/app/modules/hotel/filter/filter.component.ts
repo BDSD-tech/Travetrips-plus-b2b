@@ -191,7 +191,6 @@ export class FilterComponent implements OnInit {
       let filtered:any;
       let filters:any = [];
       let filteredResult:any = [];
-
       let StarRatingType = this.checkedfilter(FilterData['StarRatingType'],'label');
       let HotelMealType = this.checkedfilter(FilterData['HotelMealType'],'label');
       let LocationType = this.checkedfilter(FilterData['LocationType'],'label');
@@ -410,7 +409,6 @@ export class FilterComponent implements OnInit {
 function multiFilter(array:any, filters:any) {
   var filterKeys = Object.keys(filters);
   let response:any=[];
-
   array.filter((item:any) => {
       if(filterKeys.includes("HotelFacilities")){
         if(item['HotelFacilities'].every((value:any) => filters['HotelFacilities'].includes(value))){
