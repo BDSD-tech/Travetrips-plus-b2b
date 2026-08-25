@@ -7,6 +7,7 @@ import { tts_config } from '../../../../../../environments/tts_config';
 import { DashboardService } from '../../../dashboard.service';
 import { CommonService } from '../../../../../services/common.service';
 
+declare var bootstrap: any;
 declare var window: any;
 declare var $:any;
 
@@ -69,6 +70,9 @@ export class CartDetailComponent implements OnInit {
   selectedPaxIds: number[] = [];
   passengers:any=[]
   FlightFareRule:any=[]
+  InsuranceTermandCondition:any
+  ModalType:any=''
+  TermConditionModal:any
   constructor(private commonService:CommonService,private router: Router,private route: ActivatedRoute,private alertservice:AlertService,private dashboardservice:DashboardService,private fb: FormBuilder,private authenticationservice: AuthenticationService) { 
 
     if(this.route.snapshot.params['refno']) {
@@ -113,6 +117,7 @@ export class CartDetailComponent implements OnInit {
       document.getElementById('booking-reach-modal')
     );
     
+    this.TermConditionModal = new bootstrap.Modal(document.getElementById('term&condition'));
 
     this.authenticationservice.currentUser.subscribe(data => {
       if(data && data['CompanyId'])
@@ -256,11 +261,20 @@ export class CartDetailComponent implements OnInit {
   }
 
 
-  OpenModal(){
-    this.BookingReachForm.patchValue({
-      Token:this.BookingDetail['Token']
-    })
+  OpenModal(type:any=null,data:any=null){
+    this.InsuranceTermandCondition=''
+    this.ModalType=''
+    if(type){
+      this.ModalType=type;
+      this.InsuranceTermandCondition=data;
+      this.TermConditionModal.show()
+    }else{
+      this.BookingReachForm.patchValue({
+        Token:this.BookingDetail['Token']
+      })
     this.BookingReachModal.show();
+    }
+   
   }
 
   SubmitReach(){

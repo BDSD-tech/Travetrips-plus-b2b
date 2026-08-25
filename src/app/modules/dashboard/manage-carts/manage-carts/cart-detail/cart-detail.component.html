@@ -384,6 +384,14 @@
                                                                         <td class="p-1">{{pax['fare']['SeatCharges']}}</td>
                                                                     </tr>
                                                                     <tr>
+                                                                        <td class="p-1">Insurance </td>
+                                                                        <td class="p-1">{{pax['fare']?.['OfferedInsurancePrice']}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="p-1">Web Check-in </td>
+                                                                        <td class="p-1">{{pax['fare']?.['OfferedWebCheckInPrice']}}</td>
+                                                                    </tr>
+                                                                    <tr>
                                                                         <td class="p-1">GST</td>
                                                                         <td class="p-1">{{pax['fare']['GSTAmount']}}</td>
                                                                     </tr>
@@ -682,6 +690,86 @@
             </div>
         </div>
         }
+        @if(BookingDetail?.['WebCheckInInfo']&& BookingDetail?.['WebCheckInInfo'].length!==0){
+        <div class="info_main">
+            <div class="cart_info">
+                <div class="cart_acordian" id="webcheking_info_main" (click)="togglediv('webcheking_info')">
+                    <h3 class="acordian_heading">Web Check-in Details :</h3>
+                    <div class="cssCircle minusSign"><i class="fa fa-angle-up"></i></div>
+                </div>
+                <div class="cart-details-borderline" id="webcheking_info">
+                    <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="">
+                                        <tr>
+                                            <td>Pax Name</td>
+                                            <td>Sector</td>
+                                            <td>Status</td>
+                                            <td>Amount</td>
+                                            <td>Type</td>
+                                            <td>Term & Condition</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="">
+                                        <tr *ngFor="let data of BookingDetail?.['WebCheckInInfo']; let key=index">
+                                           
+                                            <td >{{data['pax_name']}}</td>
+                                            <td class="ellipses">
+                                                <a href="javascript:void(0);"><span class="link_container-link">{{data['sector']}}</span></a>
+                                            </td>
+                                            <td>{{data['booking_status']}}</td>
+                                            <td>₹{{data['total_price'] | number:'1.2-2'}}</td>
+                                            <td>{{data['apply'].replace('_',' ') |titlecase}}</td>
+                                            <td><a href="javascript:void(0)" (click)="OpenModal('Web Check-in',data['term_conditions'])">View</a></td>
+                                        </tr>
+                                    </tbody>
+                                    
+                                </table>
+                            </div>
+                </div>
+            </div>
+        </div>
+        }
+        @if(BookingDetail?.['InsuranceInfo'] && BookingDetail?.['InsuranceInfo'].length!==0){
+        <div class="info_main">
+            <div class="cart_info">
+                <div class="cart_acordian" id="insurance_info_main" (click)="togglediv('insurance_info')">
+                    <h3 class="acordian_heading">Insurance Details :</h3>
+                    <div class="cssCircle minusSign"><i class="fa fa-angle-up"></i></div>
+                </div>
+                <div class="cart-details-borderline" id="insurance_info">
+                    <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="">
+                                        <tr>
+                                            <td>Pax Name</td>
+                                            <td>Sector</td>
+                                            <td>Status</td>
+                                            <td>Amount</td>
+                                            <td>Term & Condition</td>
+                                            <td>Benefits</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="">
+                                        <tr *ngFor="let data of BookingDetail?.['InsuranceInfo']; let key=index">
+                                           
+                                            <td >{{data['pax_name']}}</td>
+                                            <td class="ellipses">
+                                                <a href="javascript:void(0);"><span class="link_container-link">{{data['sector']}}</span></a>
+                                            </td>
+                                            <td>{{data['booking_status']}}</td>
+                                            <td>₹{{data['total_price'] | number:'1.2-2'}}</td>
+                                            <td><a href="javascript:void(0)" (click)="OpenModal('Insurance',data['term_conditions'])">View</a></td>
+                                            <td><a href="javascript:void(0)" (click)="OpenModal('Benefits',data['benefit'])">View</a></td>
+                                        </tr>
+                                    </tbody>
+                                    
+                                </table>
+                            </div>
+                </div>
+            </div>
+        </div>
+        }
         <div class="info_main">
             <div class="cart_info">
                 <div class="cart_acordian" id="user_info_main" (click)="togglediv('user_info')">
@@ -708,7 +796,7 @@
                 </div>
             </div>
         </div>
-       
+        
     </div>
 </div>
 
@@ -1010,4 +1098,27 @@
             </div>
         </div>
     </div>
+</div>
+
+
+<div class="modal fade" id="term&condition" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+   aria-labelledby="staticBackdropLabel" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-scrollable modal-lg">
+      <div class="modal-content">
+         <div class="modal-header">
+            @if(ModalType=='Benefits'){
+                 <h5 class="modal-title" id="staticBackdropLabel">{{ModalType}}</h5>
+            }@else{
+                <h5 class="modal-title" id="staticBackdropLabel">{{ModalType}} Term & Conditions</h5>
+            }
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+            <div>
+               <p class="term_condition" [innerHTML]="InsuranceTermandCondition">
+               </p>
+            </div>
+         </div>
+      </div>
+   </div>
 </div>

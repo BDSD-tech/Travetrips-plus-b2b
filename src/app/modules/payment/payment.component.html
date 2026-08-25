@@ -611,11 +611,11 @@
                </div>
                @if(CurrentFare['InsurancePrice']){
                <div class="btm-border bold-font-bf"><span>Insurance Price</span> <span
-                     class="float-end">₹{{CurrentFare['InsurancePrice'] | number:'1.0-2'}}</span></div>
+                     class="float-end">₹{{CurrentFare['InsuranceOfferPrice'] | number:'1.0-2'}}</span></div>
                }
                @if(CurrentFare['WebChekinTotal']){
                   <div class="btm-border bold-font-bf"><span>Webchekin Price</span> <span
-                     class="float-end">₹{{CurrentFare['WebChekinTotal'] | number:'1.0-2'}}</span></div>
+                     class="float-end">₹{{CurrentFare['WebChekinOfferPrice'] | number:'1.0-2'}}</span></div>
                
                }
                <div class="btm-border bold-font" *ngIf="CurrentFare['SSR'] && Service=='Flight'">
