@@ -150,6 +150,9 @@ export class ReviewComponent implements OnInit {
 
   }
 
+  getval(item: any) {
+    return item?.value;
+  }
   showmarkup()
   {
     this.isshowmarkup=!this.isshowmarkup;

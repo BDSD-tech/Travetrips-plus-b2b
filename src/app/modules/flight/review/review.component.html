@@ -152,6 +152,8 @@
                                                 <li class="graycolor">Name, Age &amp; Passport</li>
                                                 <li class="graycolor">Seat Booking</li>
                                                 <li class="graycolor">Meal &amp; Baggage Preference</li>
+                                                <li class="graycolor">Web Chekin</li>
+                                                <li class="graycolor">Insurance</li>
                                             </ul>
                                         </div>
                                         <div class="col-md-12">
@@ -222,6 +224,54 @@
 
                                                     </div>
                                                 </li>
+                                                <li>
+                                                    <div class="art-tdfour">
+                                                        <div *ngIf="!pax['SpecialService']">
+                                                            NA
+                                                        </div>
+
+
+                                                        <div *ngIf="pax['SpecialService']">
+                                                            <div *ngFor="let innerKey of pax['SpecialService'] |keyvalue">
+                                                                <span class="text-muted"><i
+                                                                        class="fa-solid fa-bag-shopping"></i> {{ innerKey.key}} :</span>
+                                                                <span>
+                                                                    <span> {{getval(innerKey)['Text']}}</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="art-tdfour">
+                                                        <div *ngIf="!pax['Insurance']">
+                                                            NA
+                                                        </div>
+
+
+                                                        <div *ngIf="pax['Insurance']">
+                                                            <div *ngFor="let innerKey of pax['Insurance'] |keyvalue">
+                                                                <span class="text-muted"><i
+                                                                        class="fa-solid fa-bag-shopping"></i> {{ innerKey.key}} :</span>
+                                                                <span>
+                                                                    <span> {{getval(innerKey)['Name']}}</span>
+                                                                </span>
+                                                            </div>
+                                                            <!-- <div *ngFor="let trip of pax['Insurance']">
+                                                                <div *ngFor="let innerKey of trip">
+                                                                    <span class="text-muted"><i
+                                                                            class="fa-solid fa-bag-shopping"></i> {{ innerKey.Origin
+                                                                        }}-{{ innerKey.Destination }} :</span>
+                                                                    <span>
+                                                                        <span> {{ innerKey.Name }}</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div> -->
+                                                        </div>
+
+                                                    </div>
+                                                </li>
                                             </ul>
                                             <ul class="passenger_list_ul d-flex align-items-center justify-content-between pt-3 pb-3 border-bottom"
                                                 *ngFor="let pax of Paxinfo['paxdata']['Child']; let paxkey=index;">
@@ -288,6 +338,54 @@
 
                                                     </div>
                                                 </li>
+                                                 <li>
+                                                    <div class="art-tdfour">
+                                                        <div *ngIf="!pax['SpecialService']">
+                                                            NA
+                                                        </div>
+
+
+                                                        <div *ngIf="pax['SpecialService']">
+                                                            <div *ngFor="let innerKey of pax['SpecialService'] |keyvalue">
+                                                                <span class="text-muted"><i
+                                                                        class="fa-solid fa-bag-shopping"></i> {{ innerKey.key}} :</span>
+                                                                <span>
+                                                                    <span> {{getval(innerKey)['Text']}}</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="art-tdfour">
+                                                        <div *ngIf="!pax['Insurance']">
+                                                            NA
+                                                        </div>
+
+
+                                                        <div *ngIf="pax['Insurance']">
+                                                            <div *ngFor="let innerKey of pax['Insurance'] |keyvalue">
+                                                                <span class="text-muted"><i
+                                                                        class="fa-solid fa-bag-shopping"></i> {{ innerKey.key}} :</span>
+                                                                <span>
+                                                                    <span> {{getval(innerKey)['Name']}}</span>
+                                                                </span>
+                                                            </div>
+                                                            <!-- <div *ngFor="let trip of pax['Insurance']">
+                                                                <div *ngFor="let innerKey of trip">
+                                                                    <span class="text-muted"><i
+                                                                            class="fa-solid fa-bag-shopping"></i> {{ innerKey.Origin
+                                                                        }}-{{ innerKey.Destination }} :</span>
+                                                                    <span>
+                                                                        <span> {{ innerKey.Name }}</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div> -->
+                                                        </div>
+
+                                                    </div>
+                                                </li>
                                             </ul>
 
                                             <ul class="passenger_list_ul d-flex align-items-center justify-content-between pt-3 pb-3 border-bottom"
@@ -313,6 +411,54 @@
                                                 </li>
                                                 <li>
                                                     <div class="art-tdfour">NA</div>
+                                                </li>
+                                                 <li>
+                                                    <div class="art-tdfour">
+                                                        <div *ngIf="!pax['SpecialService']">
+                                                            NA
+                                                        </div>
+
+
+                                                        <div *ngIf="pax['SpecialService']">
+                                                            <div *ngFor="let innerKey of pax['SpecialService'] |keyvalue">
+                                                                <span class="text-muted"><i
+                                                                        class="fa-solid fa-bag-shopping"></i> {{ innerKey.key}} :</span>
+                                                                <span>
+                                                                    <span> {{getval(innerKey)['Text']}}</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="art-tdfour">
+                                                        <div *ngIf="!pax['Insurance']">
+                                                            NA
+                                                        </div>
+
+
+                                                        <div *ngIf="pax['Insurance']">
+                                                            <div *ngFor="let innerKey of pax['Insurance'] |keyvalue">
+                                                                <span class="text-muted"><i
+                                                                        class="fa-solid fa-bag-shopping"></i> {{ innerKey.key}} :</span>
+                                                                <span>
+                                                                    <span> {{getval(innerKey)['Name']}}</span>
+                                                                </span>
+                                                            </div>
+                                                            <!-- <div *ngFor="let trip of pax['Insurance']">
+                                                                <div *ngFor="let innerKey of trip">
+                                                                    <span class="text-muted"><i
+                                                                            class="fa-solid fa-bag-shopping"></i> {{ innerKey.Origin
+                                                                        }}-{{ innerKey.Destination }} :</span>
+                                                                    <span>
+                                                                        <span> {{ innerKey.Name }}</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div> -->
+                                                        </div>
+
+                                                    </div>
                                                 </li>
                                             </ul>
                                         </div>

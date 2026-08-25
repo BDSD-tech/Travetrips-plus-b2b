@@ -326,7 +326,6 @@
                                             <th>Seat No. (s)</th>
                                             <th>Baggage</th>
                                             <th>Meal</th>
-                                            <!-- <th>Others</th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -339,8 +338,7 @@
                                                 {{pax['title']}} {{pax['first_name']}} {{pax['last_name']}}
                                                 ({{pax['pax_type'].slice(0,1)}})
                                                 <p>
-                                                    <span *ngIf="pax['date_of_birth']"> {{pax['date_of_birth'] | date:'d
-                                                        MMM y'}},</span>
+                                                    <span *ngIf="pax['date_of_birth']"> {{pax['date_of_birth'] | date:'dMMM y'}},</span>
                                                     <span *ngIf="pax['passport_number']">PP :
                                                         {{pax['passport_number']}},</span>
                                                     <span *ngIf="pax['passport_nationality']">N :
@@ -415,8 +413,7 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <div
-                                                    *ngFor="let paxinfo of Response['ConfirmationBookingData']; let tripkey=index;">
+                                                <div *ngFor="let paxinfo of Response['ConfirmationBookingData']; let tripkey=index;">
                                                     <span *ngIf="!paxinfo['TravelersInfo'][paxkey]['meal']">
                                                         NA
                                                     </span>
@@ -433,10 +430,63 @@
                                                 </div>
 
                                             </td>
+                                            
                                             <!-- <td>NA</td> -->
                                         </tr>
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 travelimp__thanku--panelHeadwrap">
+                       
+                        <div class="travelimp__thanku--panelbody">
+                            <div class="table-responsive travelimp__thanku--responsivewrap">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h6>Insurance Details</h6>
+                                        <table class="table table-bordered travelimp__thanku--tablewrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>Passenger Name</th>
+                                                    <th>Sector</th>
+                                                    <th>Insurance</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <ng-container *ngFor="let trip of Response['ConfirmationBookingData']; let tripkey=index;">
+                                                    <tr  *ngFor="let pax of trip['InsuranceInfo']; let paxkey=index;">
+                                                    <td>{{pax['pax_name']}}</td> 
+                                                    <td>{{pax['sector']}}</td> 
+                                                    <td>{{pax['title']}} <b>(₹ {{pax['total_price']}})</b></td> 
+                                                    </tr>
+                                                </ng-container>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-6">
+                                        <h6>Web Check-in Details</h6>
+                                        <table class="table table-bordered travelimp__thanku--tablewrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>Passenger Name</th>
+                                                    <th>Sector</th>
+                                                    <th>Insurance</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <ng-container *ngFor="let trip of Response['ConfirmationBookingData']; let tripkey=index;">
+                                                    <tr  *ngFor="let pax of trip['WebCheckInInfo']; let paxkey=index;">
+                                                    <td>{{pax['pax_name']}}</td> 
+                                                    <td>{{pax['sector']}}</td> 
+                                                    <td>{{pax['title']}} <b>(₹ {{pax['total_price']}})</b> </td> 
+                                                    </tr>
+                                                </ng-container>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                               
                             </div>
                         </div>
                     </div>
@@ -510,6 +560,16 @@
                             <li class="travelimp__thanku--fareulborder">
                                 <p class="travelimp__thanku--fareullist">
                                     {{FareDetail['FareBreakup']['MealBaggageSeat']['LabelText']}}<span>₹{{FareDetail['FareBreakup']['MealBaggageSeat']['Value']
+                                        | number:'1.2-2'}}</span></p>
+                            </li>
+                            <li class="travelimp__thanku--fareulborder" *ngIf="FareDetail['FareBreakup']['InsuracePrice']['Value']">
+                                <p class="travelimp__thanku--fareullist">
+                                    {{FareDetail['FareBreakup']['InsuracePrice']['LabelText']}}<span>₹{{FareDetail['FareBreakup']['InsuracePrice']['Value']
+                                        | number:'1.2-2'}}</span></p>
+                            </li>
+                            <li class="travelimp__thanku--fareulborder" *ngIf="FareDetail['FareBreakup']['WebCheckInPrice']['Value']">
+                                <p class="travelimp__thanku--fareullist">
+                                    {{FareDetail['FareBreakup']['WebCheckInPrice']['LabelText']}}<span>₹{{FareDetail['FareBreakup']['WebCheckInPrice']['Value']
                                         | number:'1.2-2'}}</span></p>
                             </li>
                             <li class="travelimp__thanku--fareulborder">

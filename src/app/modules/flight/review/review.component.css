@@ -34,19 +34,27 @@
     line-height: 16px;
 }
 .flight-booking .booking-main .passenger_list_ul li{
-    width: 25%;
+    width: 20%;
     line-height: 15px;
 }
 .flight-booking .booking-main .passenger_list_ul li:first-child{
     width: 5%;
 }
 .flight-booking .booking-main .passenger_list_ul li:nth-child(2){
-    width: 30%;
+    width: 20%;
 }
 .flight-booking .booking-main .passenger_list_ul li:nth-child(3){
     width: 15%;
 }
 .flight-booking .booking-main .passenger_list_ul li:nth-child(4){
-    width: 50%;
+    width: 30%;
+    text-align: center;
+}
+.flight-booking .booking-main .passenger_list_ul li:nth-child(5){
+    width: 15%;
+    text-align: center;
+}
+.flight-booking .booking-main .passenger_list_ul li:nth-child(6){
+    width: 15%;
     text-align: center;
 }

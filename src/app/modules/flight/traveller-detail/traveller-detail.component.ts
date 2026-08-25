@@ -2356,6 +2356,7 @@ export class TravellerDetailComponent implements OnInit {
     }
     
   }
+  
   SelectInsurance(pax:any,sector:any,item:any,e:any){
       const field = this.FlightForm.get(`${pax.PaxType}.${pax.PaxKey}.Insurance`);
       if (!field) {
@@ -2364,7 +2365,7 @@ export class TravellerDetailComponent implements OnInit {
 
       let insurance = { ...(field.value || {}) };
       if (e.target.checked) {
-        insurance[sector] = {"RI":item.ResultIndex,"Name":item.PlanName,"PublishedPrice":item['Fare']['PublishedPrice'],"OfferedPrice":item['Fare']['OfferedPrice']};
+        insurance[sector] = {"RI":item.ResultIndex,"Name":item.PlanName,"PublishedPrice":item['Fare']['PublishedPrice'],"OfferedPrice":item['Fare']['OfferedPrice'],"Origin":sector.split('-')[0],"Destination":sector.split('-')[1]};
       } else {
         delete insurance[sector];
       }

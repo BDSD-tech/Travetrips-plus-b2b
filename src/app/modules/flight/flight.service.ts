@@ -3,13 +3,14 @@ import { HttpClient,HttpParams } from '@angular/common/http';
 import { DatePipe,DecimalPipe} from '@angular/common';
 import { tts_config } from '../../../environments/tts_config';
 import { CommonService } from '../../services/common.service';
+import { CryptoService } from '../../services/crypto-js';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FlightService {
 
-  constructor(private http: HttpClient,public datepipe: DatePipe,private decimalPipe: DecimalPipe) { }
+  constructor(private http: HttpClient,public datepipe: DatePipe,private decimalPipe: DecimalPipe,private cryptoService:CryptoService) { }
 
    SearchQueryList(data: any) {
     let url=tts_config.APIURL+'/agent/search-query-list';
@@ -79,16 +80,22 @@ export class FlightService {
  
   SavePaxdata(data:any,service:any)
   {
-    let services:any=''
     if(service=='Flight'){
-        services='flight'
-    }else if(service=='Hotel'){
-       services='hotel'
-    }else if(service=='Bus'){
-       services='bus'
+      let jsonreq=JSON.stringify(data);
+      let encryptreq=this.cryptoService.encryptData(jsonreq);
+      let url=tts_config.APIURL+'/flight/validate-travellers';
+      return this.http.post(url, encryptreq, {headers: { 'Content-Type': 'application/json'}});
+    }else{
+        let services:any=''
+        if(service=='Hotel'){
+          services='hotel'
+        }else if(service=='Bus'){
+          services='bus'
+        }
+        let url=tts_config.APIURL+'/'+services+'/validate-travellers';
+        return this.http.post(url, data, {headers: { 'Content-Type': 'application/json'}});
     }
-    let url=tts_config.APIURL+'/'+services+'/validate-travellers';
-    return this.http.post(url, data, {headers: { 'Content-Type': 'application/json'}});
+    
   }
   
   GetConfimationData(data:any,type:any)
