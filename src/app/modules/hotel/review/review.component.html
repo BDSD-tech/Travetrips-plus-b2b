@@ -254,7 +254,7 @@
                                           <input class="form-check-input" type="checkbox" value="" id="panforallpax"
                                              (click)="SelectAllPaxPan($event)">
                                           <label class="form-check-label text-danger" for="panforallpax">
-                                             Same for all pax
+                                            PAN CARD - Same for all pax
                                           </label>
                                        </div>
 
@@ -724,7 +724,42 @@
                      </div>
                   }
                </div>
-
+               <div class="hotel-card">
+                        <!--<div class="historybox__wrapper">
+                        <div class="row">
+                           <div class="col-md-3">
+                           <div class="historybox">
+                              <label class="historybox__label"></label>
+                              <div role="combobox" class="react-autosuggest__container">
+                                    <input type="text" class="react-autosuggest__input" placeholder="Select from History" (keyup)="GSTAutocomplete($event)"  [matAutocomplete]="auto"  #gsteInput/>
+                              </div>
+                        
+                              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedgst($event)">
+                                    <mat-option *ngFor="let list of gstlist" [value]="list['company_name']"> {{list['company_name']}}</mat-option>
+                              </mat-autocomplete>
+                        
+                              </div>
+                           </div>
+                           <div class="col-md-9">
+                              <span class="gst-clear" (click)="cleargst()">Clear</span>
+                           </div>
+                        </div>
+                        
+                        </div>-->
+   
+                        <div class="saveDetails_wrapper bg-white rounded labelDetails">
+                           <div class="form-check">
+                              <input class="form-check-input" type="checkbox" [(ngModel)]="confirmationChecked" (change)="onConfirmationChange($event)" id="confirmation-checkbox"/>
+                              <label class="form-check-label" for="confirmation-checkbox">
+                                 I confirm that I have reviewed and agree to proceed with the above selected room(s) category for booking.
+                              </label>
+                           </div>
+                           @if(!this.confirmationChecked && submitted){
+                              <div class="error-msg">Please confirm the terms and conditions.</div>
+                           }
+                        </div>
+                        
+                     </div>
             </form>
            </div>
          </div>

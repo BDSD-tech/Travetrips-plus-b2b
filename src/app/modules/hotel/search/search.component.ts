@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, toArray } from 'rxjs';
 import { HotelService } from '../hotel.service';
 import { Sort } from '@angular/material/sort';
 
@@ -148,6 +148,9 @@ export class SearchComponent implements OnInit {
     });
   }
 
+  Isarray(array:any){
+    return Array(array)
+  }
   GetPincodes(hotels:any){
     const uniquePinCodes:any  = [...new Set(hotels.map((hotel:any) => hotel.PinCode))];
 

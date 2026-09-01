@@ -1981,7 +1981,10 @@
                            <div class="accordion panel-item my-3 rounded border">
                            <button class="position-relative accordion-button panel-heading text-dark fw-bold d-block flight-booking-header rounded collapsed"
                               type="button" data-bs-toggle="collapse" data-bs-target="#add-specialservice">
-                              <h6 class="mb-0">  Web Chek-in Services <span class="recommonded"><i class="fa-regular fa-thumbs-up me-1"></i>RECOMMENDED</span></h6>
+                              <span class="d-flex justify-content-between">
+                                 <h6 class="mb-0">  Web Check-in Services <span class="recommonded"><i class="fa-regular fa-thumbs-up me-1"></i>RECOMMENDED</span></h6>
+                                 <a href="javscript:void(0)">@if(isGSTShow){<i class="fa-solid fa-angle-up" ></i>}@else{<i class="fa-solid fa-angle-down" ></i>}</a>
+                              </span>
                               <small class="text-muted subheading"> <i class="fa-solid fa-circle-info"></i> Our team will handle your web check-in and send boarding passes directly to the email address and phone number you provide, Saving you time and effort.</small>
                               <span class="new">NEW</span>
                            </button>
@@ -2059,8 +2062,11 @@
                            <div class="position-relative accordion panel-item my-3 rounded border">
                               <button class="accordion-button panel-heading text-dark fw-bold d-block flight-booking-header rounded collapsed"
                                  type="button" data-bs-toggle="collapse" data-bs-target="#add-insurance">
+                                 <span class="d-flex justify-content-between">
                                  <h6 class="mb-0">Add Travel Insurance <span class="recommonded"><i class="fa-regular fa-thumbs-up me-1"></i> RECOMMENDED</span></h6>
-                                  <small class="text-muted subheading"> <i class="fa-solid fa-circle-info"></i> Fly anywhere, with any airline — we’ve got you covere.</small>
+                                  <a href="javscript:void(0)">@if(isGSTShow){<i class="fa-solid fa-angle-up" ></i>}@else{<i class="fa-solid fa-angle-down" ></i>}</a>
+                                 </span>
+                                 <small class="text-muted subheading"> <i class="fa-solid fa-circle-info"></i> Fly anywhere, with any airline — we’ve got you covere.</small>
                                  
                                  <span class="new">NEW</span>
                               </button>

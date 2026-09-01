@@ -110,7 +110,7 @@
 }
 
 .hotel-overview__gallery {
-    flex: 0 0 50%;
+    flex: 0 0 60%;
     position: relative;
 }
 
@@ -227,7 +227,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    max-width: 360px;
     width: 100%;
 }
 
@@ -1220,4 +1219,262 @@
   .skel-img         { height: 200px; }
   .skel-filters-row { grid-template-columns: 1fr 1fr; }
   .skel-tabs        { gap: 24px; overflow-x: auto; }
+}
+
+
+.hotel-gallery-preview {
+    width: 100%;
+    height: 400px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 8px;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.gallery-main-image,
+.gallery-side-image {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background: #eee;
+}
+
+.gallery-main-image img,
+.gallery-side-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.gallery-main-image:hover img,
+.gallery-side-image:hover img {
+    transform: scale(1.04);
+}
+
+
+/* Right side */
+.gallery-side-images {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 8px;
+    min-width: 0;
+}
+
+
+/* View Gallery Button */
+.view-gallery-btn {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+
+    border: 0;
+    border-radius: 6px;
+
+    padding: 10px 15px;
+
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    transition: all 0.2s ease;
+}
+
+.view-gallery-btn:hover {
+    background: #000;
+}
+
+.view-gallery-btn i {
+    font-size: 16px;
+}
+
+.gallery-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+
+    background: rgba(0, 0, 0, 0.92);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+}
+
+.gallery-modal-content {
+    width: 100%;
+    max-width: 1200px;
+    height: 90vh;
+
+    position: relative;
+}
+
+
+/* ==============================
+   Bootstrap Carousel
+   ============================== */
+
+.gallery-modal-content .carousel {
+    width: 100%;
+    height: 100%;
+}
+
+.gallery-modal-content .carousel-inner {
+    width: 100%;
+    height: 100%;
+}
+
+
+/*
+ * IMPORTANT:
+ * Don't use display:flex on .carousel-item.
+ * Bootstrap needs to control the slide positioning.
+ */
+.gallery-modal-content .carousel-item {
+    height: 100%;
+    text-align: center;
+}
+
+
+/*
+ * Keep every image centered during
+ * Bootstrap's slide animation.
+ */
+.gallery-modal-content .carousel-item img {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    max-width: calc(100% - 120px);
+    max-height: 85vh;
+
+    width: auto;
+    height: auto;
+
+    object-fit: contain;
+
+    border-radius: 5px;
+}
+
+
+/* ==============================
+   Carousel Controls
+   ============================== */
+
+.gallery-modal-content .carousel-control-prev,
+.gallery-modal-content .carousel-control-next {
+    width: 70px;
+    z-index: 5;
+}
+
+.gallery-modal-content .carousel-control-prev-icon,
+.gallery-modal-content .carousel-control-next-icon {
+    width: 40px;
+    height: 40px;
+}
+
+
+/* ==============================
+   Close Button
+   ============================== */
+
+.gallery-close-btn {
+    position: absolute;
+
+    right: 0;
+    top: -20px;
+
+    z-index: 20;
+
+    width: 42px;
+    height: 42px;
+
+    border: 0;
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+
+    font-size: 32px;
+    line-height: 35px;
+
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+}
+
+.gallery-close-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+
+/* ==============================
+   Image Counter
+   ============================== */
+
+.gallery-image-count {
+    position: absolute;
+
+    bottom: 15px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    z-index: 20;
+
+    color: #fff;
+
+    background: rgba(0, 0, 0, 0.65);
+
+    padding: 6px 14px;
+
+    border-radius: 20px;
+
+    font-size: 14px;
+    font-weight: 500;
+}
+
+
+/* ==============================
+   Mobile
+   ============================== */
+
+@media (max-width: 768px) {
+
+    .gallery-modal {
+        padding: 10px;
+    }
+
+    .gallery-modal-content {
+        height: 85vh;
+    }
+
+    .gallery-modal-content .carousel-item img {
+        max-width: calc(100% - 70px);
+        max-height: 75vh;
+    }
+
+    .gallery-modal-content .carousel-control-prev,
+    .gallery-modal-content .carousel-control-next {
+        width: 40px;
+    }
+
+    .gallery-close-btn {
+        top: -5px;
+        right: 5px;
+    }
 }

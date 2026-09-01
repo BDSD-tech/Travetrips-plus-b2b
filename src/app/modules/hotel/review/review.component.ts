@@ -47,6 +47,7 @@ export class ReviewComponent implements OnInit {
 
   nopaxcount=0;
   ShowReviewModal=false;
+  confirmationChecked=false
   @ViewChild('gsteInput') gsteInput!: ElementRef<HTMLInputElement>;
   constructor(private router:Router,private route:ActivatedRoute,private location:Location,private fb:FormBuilder, private commonservice:CommonService, private hotelService:HotelService,private authenticationservice: AuthenticationService,private alertservice:AlertService) {
 
@@ -122,7 +123,13 @@ export class ReviewComponent implements OnInit {
       this.Fare_information(this.BlockRoomResult);
   }
 
-
+  onConfirmationChange(event: any) {
+    if(event.target.checked){
+      this.confirmationChecked = true;
+    }else{
+      this.confirmationChecked = false;
+    }
+  }
 
   GetPhonecodeVal(event: Event): void {
     const value = (event.target as HTMLSelectElement).value;
@@ -286,7 +293,9 @@ export class ReviewComponent implements OnInit {
 
   SavepaxInfo()
   {
-
+    if(!this.confirmationChecked){
+      return;
+    }
     let savedata:any={};
     savedata['gstdata']=this.GSTForm.value;
     savedata['SearchTokenId']=this.params['stoken'];

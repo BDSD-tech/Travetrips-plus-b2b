@@ -469,16 +469,21 @@ export class HotelComponent implements OnInit {
         create: function () {
           $(this).data('ui-autocomplete')._renderItem = function (ul:any, item:any) {
             var label = item.label;
+            const parts = label.split(',');
+            const firstPart = parts[0].trim();
+            const remainingPart = parts.slice(1).join(',').trim();
+
             return $("<li>")
-              .data("ui-autocomplete-item", item)
-               .append(
-                  "<a href='javascript:void(0)' class='autocomplete-link justify-content-start'>" +
-                      
-                          "<i class='fa fa-map-marker-alt location-icon'></i>" +
-                          "<span class='city-name'>" + label + "</span>" +
-                      
-                  "</a>"
-              ).appendTo(ul);
+                .data("ui-autocomplete-item", item)
+                .append(
+                    "<a href='javascript:void(0)' class='autocomplete-link justify-content-start'>" +
+                        "<i class='fa fa-map-marker-alt location-icon'></i>" +
+                       "<div>"+ "<h6>" + firstPart + "</h6>" +
+                        "<span class='city-name text-muted'>" + remainingPart + "</span>" +"</div>"+
+                    "</a>"
+                )
+                .appendTo(ul);
+
           };
         }
       });
