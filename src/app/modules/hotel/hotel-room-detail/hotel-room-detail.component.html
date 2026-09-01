@@ -123,7 +123,7 @@
             <!---new code 06-06-2026--->
             <div id="Overview" class="hotel-overview">
                 <div class="hotel-overview__wrapper">
-                    <div class="hotel-overview__gallery">
+                   <!-- <div class="hotel-overview__gallery">
                         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel"
                             *ngIf="HotelInfoResult['Images']?.length!=0 && HotelInfoResult['Images']">
                             <div class="carousel-inner">
@@ -147,8 +147,49 @@
                             <img src="assets/img/no-hotel.png" class="img-fluid rounded"
                                 style=" width: 100%; object-fit: cover; height: 400px;" />
                         </div>
+                    </div>  -->
+                    <div class="hotel-overview__gallery" *ngIf="HotelInfoResult['Images']?.length; else noHotelImage">
+
+                    <div class="hotel-gallery-preview">
+                        <div class="gallery-main-image" *ngIf="HotelInfoResult['Images'][0]" (click)="  (0)">
+                            <img [src]="HotelInfoResult['Images'][0]" [alt]="HotelInfoResult['HotelName']" loading="lazy">
+                        </div>
+                        <div class="gallery-side-images">
+                            <div class="gallery-side-image" *ngIf="HotelInfoResult['Images'][1]" (click)="openGallery(1)">
+                                <img [src]="HotelInfoResult['Images'][1]" [alt]="HotelInfoResult['HotelName']" loading="lazy">
+                            </div>
+
+                            <!-- Bottom Right -->
+                            <div class="gallery-side-image" *ngIf="HotelInfoResult['Images'][2]" (click)="openGallery(2)">
+
+                                <img [src]="HotelInfoResult['Images'][2]" [alt]="HotelInfoResult['HotelName']" loading="lazy">
+
+                                
+                                <button type="button" class="view-gallery-btn" (click)="openGallery(0); $event.stopPropagation()">
+                                    <i class="bi bi-grid-3x3-gap"></i>
+                                    View Gallery
+                                </button>
+
+                            </div>
+
+                        </div>
+
                     </div>
 
+                </div>
+
+
+                <!-- No Image -->
+                <ng-template #noHotelImage>
+
+                    <div class="no-hotel-image">
+                        <img
+                            src="assets/img/no-hotel.png"
+                            class="img-fluid rounded"
+                            alt="No hotel image">
+                    </div>
+
+                </ng-template>
                     <!-- Hotel Details -->
                     <div class="hotel-overview__details">
                         <!-- Header -->
@@ -319,7 +360,7 @@
                             <mat-form-field appearance="fill" class="tts-full-width">
                                 <mat-label>Search By Room Name</mat-label>
                                 <input matInput placeholder="Enter Room Name" [matAutocomplete]="auto"
-                                    [(ngModel)]="RoomNameText" (keyup)="Search_room()" />
+                                    [(ngModel)]="RoomNameText" (focus)="Search_room()" (keyup)="Search_room()" />
                                 <mat-autocomplete #auto="matAutocomplete">
                                     <mat-option *ngFor="let option of RoomeNameList" [value]="option"
                                         (click)="Filter()">
@@ -431,6 +472,7 @@
                                         <ul>
                                             <li><strong>Meal Type:</strong> {{Replace(room['MealType'],'_')}}</li>
                                             <li><strong>Refundable:</strong> {{room['IsRefundable']}}</li>
+                                            @if(room['IsRefundable']=='Free Cancellation'){
                                             <li><a href="javascript:void(0)"
                                                     (click)="CancellationPolicy(room['RoomData'][0])">Cancellation
                                                     Policy</a></li>
@@ -440,6 +482,7 @@
                                                     {{formatCustomDate(room['RoomData'][0]?.['LastCancellationDate'])|date
                                                     :'dd MMM yyyy'}}
                                                 </li>
+                                            }
                                             }
                                         </ul>
                                     </div>
@@ -557,3 +600,48 @@
     </div>
 </div>
 <app-count-down display="on"></app-count-down>
+
+
+<div class="gallery-modal" *ngIf="isGalleryOpen" (click)="closeGallery()">
+
+    <div class="gallery-modal-content" (click)="$event.stopPropagation()">
+
+        <!-- Close Button -->
+        <button type="button" class="gallery-close-btn" (click)="closeGallery()"> &times; </button>
+
+
+        <!-- Bootstrap Carousel -->
+        <div id="hotelGalleryCarousel" (slid.bs.carousel)="onGallerySlide($event)" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+
+                <div class="carousel-item" *ngFor="let image of HotelInfoResult['Images']; let i = index" [class.active]="i === selectedImageIndex">
+                    <img [src]="image" [alt]="HotelInfoResult['HotelName']" class="gallery-modal-image">
+                </div>
+            </div>
+
+
+            <!-- Previous -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#hotelGalleryCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+                <span class="visually-hidden">
+                    Previous
+                </span>
+            </button>
+
+            <button class="carousel-control-next" type="button" data-bs-target="#hotelGalleryCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+                <span class="visually-hidden">
+                    Next
+                </span>
+            </button>
+
+        </div>
+
+        <div class="gallery-image-count">
+            {{ selectedImageIndex + 1 }} /
+            {{ HotelInfoResult['Images'].length }}
+        </div>
+
+    </div>
+
+</div>

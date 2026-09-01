@@ -1946,6 +1946,8 @@ export class TravellerDetailComponent implements OnInit {
         this.FlightForm.get(paxtype + '.' + paxkey + '.Seat')?.patchValue(element)
       });
     });
+   
+    
     this.CalculateSSrPrice();
   }
 

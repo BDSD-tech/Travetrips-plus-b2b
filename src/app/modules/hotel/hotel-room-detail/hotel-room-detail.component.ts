@@ -60,6 +60,9 @@ export class HotelRoomDetailComponent implements OnInit {
     "min":0,
     "max":0
   };
+
+  isGalleryOpen: boolean = false;
+  selectedImageIndex: number = 0;
   constructor(private viewportScroller: ViewportScroller,public dialog: MatDialog,private router:Router,private route:ActivatedRoute,private Hotelservice:HotelService, private alertService:AlertService) {
 
     this.route.queryParams.subscribe(params  => {
@@ -134,6 +137,41 @@ export class HotelRoomDetailComponent implements OnInit {
         }
     });
   }
+  onGallerySlide(event: any): void {
+      // Bootstrap gives us the new slide index
+      this.selectedImageIndex = event.to;
+  }
+
+  openGallery(index: number = 0): void {
+    this.selectedImageIndex = index;
+    this.isGalleryOpen = true;
+
+    document.body.style.overflow = 'hidden';
+
+    // Wait for Angular to render modal/carousel
+    setTimeout(() => {
+        const carouselElement = document.getElementById('hotelGalleryCarousel');
+
+        if (carouselElement) {
+            const carousel = bootstrap.Carousel.getOrCreateInstance(
+                carouselElement,
+                {
+                    interval: false,
+                    ride: false
+                }
+            );
+
+            carousel.to(index);
+        }
+    });
+}
+
+closeGallery(): void {
+    this.isGalleryOpen = false;
+    document.body.style.overflow = '';
+}
+
+
 
   GetHotelRoomInfo(Request:any)
   {
@@ -413,11 +451,11 @@ OpenConfirmDialog()
   }
 
   Search_room(){
-    if(this.RoomNameText!==''){
+    // if(this.RoomNameText!==''){
     let data= this.Result['RoomTypeNameList'].filter((val:any) =>
       val.toLowerCase().includes(this.RoomNameText));
        this.RoomeNameList=data;
-    }
+    // }
     
     
     
