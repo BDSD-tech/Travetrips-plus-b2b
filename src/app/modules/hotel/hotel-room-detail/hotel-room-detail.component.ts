@@ -199,6 +199,20 @@ closeGallery(): void {
     return Object.keys(obj).length === 0;
   }
 
+  onImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    img.src = 'assets/img/no-hotel.png';
+  }
+
+  getroomimages(item:any){
+    let imagesarra:any=[]
+    if(item['Rooms'][0]['RoomImages']){
+      imagesarra=item['Rooms'][0]['RoomImages'];
+    }else{
+      imagesarra=item['Rooms'][0]['RoomData'][0]['RoomImages']
+    }
+    return imagesarra;
+  }
 
   GetPricefilter(){
    this.Filter()
