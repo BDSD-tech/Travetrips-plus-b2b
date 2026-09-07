@@ -294,6 +294,7 @@ export class ReviewComponent implements OnInit {
   SavepaxInfo()
   {
     if(!this.confirmationChecked){
+      this.scrollToSection('confirmationcheckbox');
       return;
     }
     let savedata:any={};

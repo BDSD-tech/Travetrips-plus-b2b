@@ -1478,3 +1478,29 @@
         right: 5px;
     }
 }
+
+.room-header .carousel-item {
+    transition: none !important;
+}
+
+.room-header .carousel-item.active {
+    transform: none !important;
+}
+
+.room-header .carousel-item-next,
+.room-header .carousel-item-prev,
+.room-header .carousel-item-end,
+.room-header .carousel-item-start {
+    transform: none !important;
+}
+
+.room-header .carousel-inner {
+    overflow: hidden;
+}
+
+.room-header .carousel-item img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transform: none !important;
+}

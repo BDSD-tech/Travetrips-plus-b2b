@@ -452,16 +452,69 @@
                     <h4 class="room-count">{{sortedRooms.length}} Room Types</h4>
                     <ul class="room-types-list">
 
-                        @for (item of sortedRooms; track $index) {
-
-                        <li class="room-item">
+                        
+                        <li class="room-item" *ngFor="let item of sortedRooms; let i = index">
 
                             <!-- Room Image & Name -->
-                            <div class="room-header">
-                                <img [src]="item['Rooms'][0]['Image']" onError="this.src='assets/img/no-hotel.png';"
+                            <!-- <div class="room-header">
+                                <img [src]="item['Rooms'][0]['RoomData'][0]['RoomImages'][0]" onError="this.src='assets/img/no-hotel.png';"
                                     alt="Room Image" />
                                 <h5>{{item['RoomTypeName']}}</h5>
+                            </div> -->
+                            <div class="room-header">
+                                <div id="roomCarousel{{ i }}" class="carousel slide" data-bs-ride="carousel">
+
+                                    <!-- Indicators -->
+                                    <div class="carousel-indicators">
+                                        <button  *ngFor="let image of getroomimages(item); let j = index"
+                                            type="button"
+                                            [attr.data-bs-target]="'#roomCarousel' + i"
+                                            [attr.data-bs-slide-to]="j"
+                                            [class.active]="j === 0">
+                                        </button>
+                                    </div>
+
+                                    <!-- Slides -->
+                                    <div class="carousel-inner">
+                                        <div
+                                            *ngFor="let image of item['Rooms'][0]['RoomData'][0]['RoomImages']; let j = index"
+                                            class="carousel-item"
+                                            [class.active]="j === 0">
+
+                                            <img
+                                                [src]="image"
+                                                (error)="onImageError($event)"
+                                                class="d-block w-100"
+                                                alt="Room Image">
+                                        </div>
+                                    </div>
+
+                                    <!-- Previous -->
+                                    <button
+                                        *ngIf="item['Rooms'][0]['RoomData'][0]['RoomImages'].length > 1"
+                                        class="carousel-control-prev"
+                                        type="button"
+                                        [attr.data-bs-target]="'#roomCarousel' + i"
+                                        data-bs-slide="prev">
+
+                                        <span class="carousel-control-prev-icon"></span>
+                                    </button>
+
+                                    <!-- Next -->
+                                    <button
+                                        *ngIf="item['Rooms'][0]['RoomData'][0]['RoomImages'].length > 1"
+                                        class="carousel-control-next"
+                                        type="button"
+                                        [attr.data-bs-target]="'#roomCarousel' + i"
+                                        data-bs-slide="next">
+
+                                        <span class="carousel-control-next-icon"></span>
+                                    </button>
+                                </div>
+
+                                <h5>{{ item['RoomTypeName'] }}</h5>
                             </div>
+
 
                             <!-- Room Options -->
                             <div class="room-options">
@@ -497,7 +550,7 @@
                                 }
                             </div>
                         </li>
-                        }
+                      
                     </ul>
                     @if(sortedRooms.length==0){
                     <div class="no-result">
