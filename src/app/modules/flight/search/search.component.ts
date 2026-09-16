@@ -943,15 +943,15 @@ MoreFare(event: any, item: any, ttsindex: any) {
   // }
 
   sortData(sort: Sort) {
-    //const data = this.Response.slice();
-    const data = this.visibleData.slice();
-    if (!sort.active || sort.direction === '') {
-      this.visibleData = data;
+   // const data = this.Response.slice();
+    const data = this.sortedData.slice();
+    if (!sort.active || sort.direction == '') {
+      this.sortedData = data;
       return;
     }
     this.obfield = sort.active;
-    this.visibleData = data.sort((a: any, b: any) => {
-      const isAsc = sort.direction === 'asc';
+    this.sortedData = data.sort((a: any, b: any) => {
+      const isAsc = sort.direction == 'asc';
       switch (sort.active) {
         case 'AirlineName': return compare(a.MainSegment[0].AirlineName, b.MainSegment[0].AirlineName, isAsc);
         case 'departtime': return compare(a.MainSegment[0].DepartTime, b.MainSegment[0].DepartTime, isAsc);
@@ -961,7 +961,8 @@ MoreFare(event: any, item: any, ttsindex: any) {
         case 'commision': return compare(a.MaxIncentive, b.MaxIncentive, isAsc);
         default: return 0;
       }
-    });
+    })
+    this.visibleData=this.sortedData.slice(0, this.pageSize);
   }
 
 
