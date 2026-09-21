@@ -130,7 +130,7 @@ export class BusComponent implements OnInit {
                 "<div>"
                 + "<div class='tts-autosuggest-li'>"
                 + "<b class='label'>"
-                + label
+                + "<i class='fa fa-map-marker-alt location-icon me-2 '></i>"+label
                 + "</b>"
                 + "</div>"
                 + "</div>").appendTo(ul);

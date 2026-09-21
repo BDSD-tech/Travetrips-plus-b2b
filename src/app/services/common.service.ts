@@ -118,6 +118,7 @@ export class CommonService {
   
   dialcode()
   {
+    return this.http.get('assets/dial_code.json')
      let configUrl =  tts_config.APIURL +'/common/country-phone-code';
      return this.http.get(configUrl);
   }

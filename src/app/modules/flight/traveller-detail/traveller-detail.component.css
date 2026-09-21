@@ -484,7 +484,20 @@ BOOKING STEPPER
     .flight-route-block {
         padding: 18px;
     }
-
+    .seatlayoutbox{
+        display: block!important;
+    }
+    .iconflFront{
+        width: 340px!important;
+        height: 260px!important;
+    }
+    .flightboxplan{
+        width: 340px!important;
+    }
+    .iconflTail {
+        width: 340px!important;
+        height: 446px!important;
+    }
     /* .itinerary-card-title {
         flex-direction: column;
         align-items: flex-start;
