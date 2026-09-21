@@ -65,7 +65,77 @@
         </div>
     </div>
 
+   
     <div class="filter-card">
+        <div class="filter-card-header">
+            <span>Star Rating</span>
+            <a href="javascript:void(0)" (click)="clearFilterByCat('StarRating')">Clear</a>
+            <i class="fa fa-minus" data-bs-toggle="collapse" href="#filter-StarRating"></i>
+        </div>
+        <div class="collapse show" id="filter-StarRating">
+            <div class="form-check" *ngFor="let item of Filter['StarRatingType']; let i=index;">
+                <input type="checkbox" [id]="'starRating' + i" value="{{item['label']}}" [(ngModel)]="item['isChecked']"
+                    class="al-checkfield airline_filtercheck form-check-input"
+                    (click)="doFilter('StarRating',$event,item);">
+                <label class="form-check-label" [for]="'starRating' + i">
+                    <i class="fa fa-star star-color text-warning" *ngIf="item.label>=1"></i>
+                    <i class="fa fa-star star-color text-warning" *ngIf="item.label>=2"></i>
+                    <i class="fa fa-star star-color text-warning" *ngIf="item.label>=3"></i>
+                    <i class="fa fa-star star-color text-warning" *ngIf="item.label>=4"></i>
+                    <i class="fa fa-star star-color text-warning" *ngIf="item.label>=5"></i>
+                    <span *ngIf="item.label==0">No Rating</span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="filter-card">
+        <div class="filter-card-header">
+            <span>Hotel Meal</span>
+            <a href="javascript:void(0)" (click)="clearFilterByCat('HotelMealType')">Clear</a>
+            <i class="fa fa-minus" data-bs-toggle="collapse" href="#filter-mealtype"></i>
+        </div>
+        <div class="collapse show" id="filter-mealtype">
+            <div class="form-check" *ngFor="let item of Filter['HotelMealType']; let i=index;">
+                <input type="checkbox" [id]="item['label']" value="{{item['label']}}" [(ngModel)]="item['isChecked']"
+                    class="al-checkfield form-check-input" (click)="doFilter('HotelMealType',$event,item);">
+                <label class="form-check-label" [for]="item['label']">{{item['ShowValue']}}</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="filter-card">
+        <div class="filter-card-header">
+            <span>Fare Type</span>
+            <a href="javascript:void(0)" (click)="clearFilterByCat('FareType')">Clear</a>
+            <i class="fa fa-minus" data-bs-toggle="collapse" href="#filter-FareType"></i>
+        </div>
+        <div class="collapse show" id="filter-FareType">
+            <div class="form-check" *ngFor="let item of Filter['FareType']; let i=index;">
+                <input type="checkbox" [id]="item['label']" value="{{item['label']}}" [(ngModel)]="item['isChecked']"
+                    class="al-checkfield form-check-input" (click)="doFilter('FareType',$event,item);">
+                <label class="form-check-label" [for]="item['label']">{{item['ShowValue']}}</label>
+            </div>
+        </div>
+    </div>
+    @if(Filter['PropertyType'].length!==0){
+    <div class="filter-card">
+        <div class="filter-card-header">
+            <span>Property Type</span>
+            <a href="javascript:void(0)" (click)="clearFilterByCat('PropertyType')">Clear</a>
+            <i class="fa fa-minus" data-bs-toggle="collapse" href="#filter-PropertyType"></i>
+        </div>
+        <div class="collapse show" id="filter-PropertyType">
+            <div class="form-check" *ngFor="let item of Filter['PropertyType']; let i=index;">
+                <input type="checkbox" [id]="item['label']" value="{{item['label']}}" [(ngModel)]="item['isChecked']"
+                    class="al-checkfield form-check-input" (click)="doFilter('PropertyType',$event,item);">
+                <label class="form-check-label" [for]="item['label']">{{item['ShowValue']}}</label>
+            </div>
+        </div>
+    </div>
+    }
+
+     <div class="filter-card">
         <div class="filter-card-header">
             <span>Search By Pincode</span>
             <a href="javascript:void(0)" (click)="clearFilterByCat('PinCode')">Clear</a>
@@ -146,74 +216,6 @@
         </div>
     </div>
 
-    <div class="filter-card">
-        <div class="filter-card-header">
-            <span>Star Rating</span>
-            <a href="javascript:void(0)" (click)="clearFilterByCat('StarRating')">Clear</a>
-            <i class="fa fa-minus" data-bs-toggle="collapse" href="#filter-StarRating"></i>
-        </div>
-        <div class="collapse show" id="filter-StarRating">
-            <div class="form-check" *ngFor="let item of Filter['StarRatingType']; let i=index;">
-                <input type="checkbox" [id]="'starRating' + i" value="{{item['label']}}" [(ngModel)]="item['isChecked']"
-                    class="al-checkfield airline_filtercheck form-check-input"
-                    (click)="doFilter('StarRating',$event,item);">
-                <label class="form-check-label" [for]="'starRating' + i">
-                    <i class="fa fa-star star-color text-warning" *ngIf="item.label>=1"></i>
-                    <i class="fa fa-star star-color text-warning" *ngIf="item.label>=2"></i>
-                    <i class="fa fa-star star-color text-warning" *ngIf="item.label>=3"></i>
-                    <i class="fa fa-star star-color text-warning" *ngIf="item.label>=4"></i>
-                    <i class="fa fa-star star-color text-warning" *ngIf="item.label>=5"></i>
-                    <span *ngIf="item.label==0">No Rating</span>
-                </label>
-            </div>
-        </div>
-    </div>
-
-    <div class="filter-card">
-        <div class="filter-card-header">
-            <span>Hotel Meal</span>
-            <a href="javascript:void(0)" (click)="clearFilterByCat('HotelMealType')">Clear</a>
-            <i class="fa fa-minus" data-bs-toggle="collapse" href="#filter-mealtype"></i>
-        </div>
-        <div class="collapse show" id="filter-mealtype">
-            <div class="form-check" *ngFor="let item of Filter['HotelMealType']; let i=index;">
-                <input type="checkbox" [id]="item['label']" value="{{item['label']}}" [(ngModel)]="item['isChecked']"
-                    class="al-checkfield form-check-input" (click)="doFilter('HotelMealType',$event,item);">
-                <label class="form-check-label" [for]="item['label']">{{item['ShowValue']}}</label>
-            </div>
-        </div>
-    </div>
-
-    <div class="filter-card">
-        <div class="filter-card-header">
-            <span>Fare Type</span>
-            <a href="javascript:void(0)" (click)="clearFilterByCat('FareType')">Clear</a>
-            <i class="fa fa-minus" data-bs-toggle="collapse" href="#filter-FareType"></i>
-        </div>
-        <div class="collapse show" id="filter-FareType">
-            <div class="form-check" *ngFor="let item of Filter['FareType']; let i=index;">
-                <input type="checkbox" [id]="item['label']" value="{{item['label']}}" [(ngModel)]="item['isChecked']"
-                    class="al-checkfield form-check-input" (click)="doFilter('FareType',$event,item);">
-                <label class="form-check-label" [for]="item['label']">{{item['ShowValue']}}</label>
-            </div>
-        </div>
-    </div>
-    @if(Filter['PropertyType'].length!==0){
-    <div class="filter-card">
-        <div class="filter-card-header">
-            <span>Property Type</span>
-            <a href="javascript:void(0)" (click)="clearFilterByCat('PropertyType')">Clear</a>
-            <i class="fa fa-minus" data-bs-toggle="collapse" href="#filter-PropertyType"></i>
-        </div>
-        <div class="collapse show" id="filter-PropertyType">
-            <div class="form-check" *ngFor="let item of Filter['PropertyType']; let i=index;">
-                <input type="checkbox" [id]="item['label']" value="{{item['label']}}" [(ngModel)]="item['isChecked']"
-                    class="al-checkfield form-check-input" (click)="doFilter('PropertyType',$event,item);">
-                <label class="form-check-label" [for]="item['label']">{{item['ShowValue']}}</label>
-            </div>
-        </div>
-    </div>
-    }
 
     <!-- <div class="filter-card">
         <div class="filter-card-header">
