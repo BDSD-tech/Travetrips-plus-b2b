@@ -241,8 +241,7 @@
                      <div class="hotel-card">
                         <h6>Room {{r+1}}</h6>
                         <!-----Start For Adult---->
-                        <div class="card mb-3" formArrayName="Adult"
-                           *ngFor="let adt of getpaxadt(r).controls; let a=index;">
+                        <div class="card mb-3" formArrayName="Adult" *ngFor="let adt of getpaxadt(r).controls; let a=index;">
                            <div class="card-body" formGroupName="{{a}}">
                               <div class="row gy-3">
                                  <div class="col-md-12">
@@ -417,18 +416,14 @@
                         </div>
                         <!-----End For Adult---->
                         <!-----Start For Child---->
-                        <div class="card mb-3" formArrayName="Child"
-                           *ngFor="let chd of getpaxchd(r).controls; let c=index;">
+                        <div class="card mb-3" formArrayName="Child" *ngFor="let chd of getpaxchd(r).controls; let c=index;">
                            <div class="card-body" formGroupName="{{c}}">
                               <div class="row gy-3">
                                  <div class="col-md-12">
                                     <div class="fw-bold d-flex align-items-center justify-content-between flex-wrap">
-                                       Child {{c+1}} ( {{HotelPaxForm.get('RoomDetails.'+r+'.ChildAge.'+c+'')?.value}}
-                                       Years )
+                                       Child {{c+1}} ( {{HotelPaxForm.get('RoomDetails.'+r+'.ChildAge.'+c+'')?.value}} Years )
                                     </div>
                                  </div>
-
-
                                  <div class="col-md-3">
                                     <div class="form-group">
                                        <label class="form-label" for="Room-{{r}}-Child-{{c}}-title">Title</label>
@@ -724,20 +719,7 @@
                      </div>
                   }
                </div>
-               <div class="hotel-card">
-                  <div class="saveDetails_wrapper bg-white rounded labelDetails" id="confirmationcheckbox">
-                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" [(ngModel)]="confirmationChecked" (change)="onConfirmationChange($event)" id="confirmation-checkbox"/>
-                        <label class="form-check-label" for="confirmation-checkbox">
-                           I confirm that I have reviewed and agree to proceed with the above selected room(s) category for booking.
-                        </label>
-                     </div>
-                     @if(!this.confirmationChecked && submitted){
-                        <div class="error-msg">Please confirm the terms and conditions.</div>
-                     }
-                  </div>
-                  
-               </div>
+               
             </form>
            </div>
          </div>
@@ -828,6 +810,20 @@
                      </div>
                   </div>
                </aside>
+
+               <div class="hotel-card mb-3">
+                  <div class="saveDetails_wrapper labelDetails" id="confirmationcheckbox">
+                     <div class="form-check">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="confirmationChecked" (change)="onConfirmationChange($event)" id="confirmation-checkbox"/>
+                        <label class="form-check-label" for="confirmation-checkbox">
+                           I confirm that I have reviewed and agree to proceed with the above selected room(s) category for booking.
+                        </label>
+                     </div>
+                     @if(!this.confirmationChecked && submitted){
+                        <div class="error-msg">Please confirm the terms and conditions.</div>
+                     }
+                  </div>
+               </div>
 
                <button type="submit" id="review" class="btn asr-book" (click)="SubmitPax()"><span>Proceed To Review</span>
                   &nbsp; <i class="fa fa-angle-double-right"></i></button>

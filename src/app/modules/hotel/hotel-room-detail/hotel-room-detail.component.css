@@ -512,6 +512,7 @@
     font-size: 16px;
     font-weight: 600;
     color: var(--body-text-color);
+    margin-bottom: 0;
 }
 
 .hotel-room-filter .hotel-filter__reset {
@@ -775,7 +776,7 @@
 }
 
 .hotel-filter-card .room-booking .price {
-    font-size: 16px;
+    font-size: 22px;
     font-weight: bold;
     color: var(--primary-color);
 }
@@ -783,6 +784,7 @@
 .hotel-filter-card .room-booking .price small {
     color: var(--dark);
     font-weight: normal;
+    font-size: 16px;
 }
 
 .hotel-filter-card .room-booking button {

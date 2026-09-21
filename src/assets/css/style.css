@@ -1720,7 +1720,7 @@ color: var(--black) !important;
     padding: 10px;
 }
 
-.saveDetails_wrapper.labelDetails {
+/* .saveDetails_wrapper.labelDetails {
     color: #555;
     padding-left: 10px;
 }
@@ -1732,7 +1732,7 @@ color: var(--black) !important;
 
 .saveDetails_wrapper label {
     font-weight: 700;
-}
+} */
 
 /* .label-orange {
     background-color: #ee8249 !important;
