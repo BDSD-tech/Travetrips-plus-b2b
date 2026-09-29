@@ -3,32 +3,32 @@
       <div class="row gy-4">
          <div class="col-lg-9">
             <div class="booking-stepper">
-            <!-- Step 1 -->
-            <div class="step completed">
-               <div class="step-icon">
-                  <i class="fa fa-check"></i>
+               <!-- Step 1 -->
+               <div class="step completed">
+                  <div class="step-icon">
+                     <i class="fa fa-check"></i>
+                  </div>
+                  <span class="step-text">Flight Selection</span>
                </div>
-               <span class="step-text">Flight Selection</span>
+
+               <div class="step-dots">•••</div>
+
+               <!-- Step 2 -->
+               <div class="step active">
+                  <div class="step-icon">2</div>
+                  <span class="step-text">Review</span>
+               </div>
+
+
+               <div class="step-dots">•••</div>
+
+               <!-- Step 4 -->
+               <div class="step">
+                  <div class="step-icon">3</div>
+                  <span class="step-text">Payment</span>
+               </div>
+
             </div>
-
-            <div class="step-dots">•••</div>
-
-            <!-- Step 2 -->
-            <div class="step active">
-               <div class="step-icon">2</div>
-               <span class="step-text">Review</span>
-            </div>
-
-
-            <div class="step-dots">•••</div>
-
-            <!-- Step 4 -->
-            <div class="step">
-               <div class="step-icon">3</div>
-               <span class="step-text">Payment</span>
-            </div>
-
-         </div>
             <!----new code start---->
             <div *ngFor="let trip of Segments; let tripkey=index">
                <div class="flight-booking-wrapper" *ngFor="let subtrip of trip; let subtripkey=index">
@@ -365,14 +365,14 @@
             </div>
             }
             <!----new code End---->
-         
+
 
 
 
 
             @if(fareloading==false){
             <form [formGroup]="FlightForm">
-                 <div class="flight-booking-wrapper">
+               <div class="flight-booking-wrapper">
                   <div class="flight-booking-header">
                      <div class="itinerary-card-title">
                         <div class="header-left">
@@ -381,7 +381,8 @@
                         </div>
 
                      </div>
-                     <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> All Communication related to the booking will be send to this email address and mobile.</small>
+                     <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> All Communication related to the
+                        booking will be send to this email address and mobile.</small>
 
                   </div>
                   <div class="flight-segment">
@@ -450,7 +451,8 @@
                            <span>Passenger Details</span>
                         </div>
                      </div>
-                     <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> Please make sure that passengers names are as per gorvernment approved identity card or passport.</small>
+                     <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> Please make sure that passengers
+                        names are as per gorvernment approved identity card or passport.</small>
 
                   </div>
                   <div class="flight-segment">
@@ -490,8 +492,8 @@
                               <!-- Passenger Body -->
                               <div class="passenger-card-body">
                                  <!-- <div class="gst-history-wrapper mb-3"> -->
-                                    <!-- <div class="gst-input-icon"><i class="fa fa-building"></i></div> -->
-                                    
+                                 <!-- <div class="gst-input-icon"><i class="fa fa-building"></i></div> -->
+
                                  <!-- </div> -->
 
                                  <div class="row gy-3">
@@ -521,28 +523,29 @@
                                              formControlName="FirstName" placeholder="First Name*"
                                              oninput="this.value = this.value.toUpperCase()"
                                              id="Adult-{{a}}-FirstName" />
-                                          <a href="javascript:void(0)" (click)="OpenNameFormat('Adult',a,'First')" class="info-icon-airline"><i class="fa-solid fa-circle-info"></i></a>
+                                          <a href="javascript:void(0)" (click)="OpenNameFormat('Adult',a,'First')"
+                                             class="info-icon-airline"><i class="fa-solid fa-circle-info"></i></a>
                                           <div class="last-name-info" *ngIf="showLastNameInfo=='Adult_'+a+'_First'">
                                              <div class="info-title"> IF FIRST NAME IS MISSING</div>
                                              <div class="table-responsive">
                                                 <table class="table last-name-table mb-0">
-                                                <thead>
-                                                   <tr>
-                                                      <th>Airline Name</th>
-                                                      <th>Update First Name as</th>
-                                                      <th>Update Last Name as</th>
-                                                   </tr>
-                                                </thead>
+                                                   <thead>
+                                                      <tr>
+                                                         <th>Airline Name</th>
+                                                         <th>Update First Name as</th>
+                                                         <th>Update Last Name as</th>
+                                                      </tr>
+                                                   </thead>
 
-                                                <tbody>
-                                                   @for(air of AirlineFormats;track $index){
-                                                   <tr>
-                                                      <td>{{air.AirlineName}}</td>
-                                                      <td>{{air.FirstName}}</td>
-                                                      <td>{{air.LastName}}</td>
-                                                   </tr>
-                                                   }
-                                                </tbody>
+                                                   <tbody>
+                                                      @for(air of AirlineFormats;track $index){
+                                                      <tr>
+                                                         <td>{{air.AirlineName}}</td>
+                                                         <td>{{air.FirstName}}</td>
+                                                         <td>{{air.LastName}}</td>
+                                                      </tr>
+                                                      }
+                                                   </tbody>
 
                                                 </table>
                                              </div>
@@ -573,11 +576,12 @@
                                           <input type="text" class="form-control main-select" formControlName="LastName"
                                              placeholder="Last Name*" oninput="this.value = this.value.toUpperCase()"
                                              id="Adult-{{a}}-LastNam" />
-                                            <a href="javascript:void(0)" (click)="OpenNameFormat('Adult',a,'Last')" class="info-icon-airline"><i class="fa-solid fa-circle-info"></i></a>
-                                             <div class="last-name-info" *ngIf="showLastNameInfo=='Adult_'+a+'_Last'">
-                                                <div class="info-title"> IF LAST NAME IS MISSING</div>
-                                                <div class="table-responsive">
-                                                   <table class="table last-name-table mb-0">
+                                          <a href="javascript:void(0)" (click)="OpenNameFormat('Adult',a,'Last')"
+                                             class="info-icon-airline"><i class="fa-solid fa-circle-info"></i></a>
+                                          <div class="last-name-info" *ngIf="showLastNameInfo=='Adult_'+a+'_Last'">
+                                             <div class="info-title"> IF LAST NAME IS MISSING</div>
+                                             <div class="table-responsive">
+                                                <table class="table last-name-table mb-0">
                                                    <thead>
                                                       <tr>
                                                          <th>Airline Name</th>
@@ -596,15 +600,15 @@
                                                       }
                                                    </tbody>
 
-                                                   </table>
-                                                </div>
-
-                                                <div class="disclaimer">
-                                                   <strong>Disclaimer:</strong>
-                                                   Please contact airline to confirm the Missing Name format !!
-                                                </div>
-
+                                                </table>
                                              </div>
+
+                                             <div class="disclaimer">
+                                                <strong>Disclaimer:</strong>
+                                                Please contact airline to confirm the Missing Name format !!
+                                             </div>
+
+                                          </div>
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Adult.'+a+'.LastName')?.errors"
                                           class="error-msg">
@@ -718,13 +722,15 @@
 
 
                                  <div class="row gy-3" *ngIf="IsPassportMandatory || IsDomestic=='false'">
-                                   
-                                    <p class="apt-addpassport pt-3"><span>ADD PASSPORT INFORMATION @if(!IsPassportMandatory){(OPTIONAL)}</span>
+
+                                    <p class="apt-addpassport pt-3"><span>ADD PASSPORT INFORMATION
+                                          @if(!IsPassportMandatory){(OPTIONAL)}</span>
                                     </p>
                                     <div class="col-md-3">
                                        <div class="form-group">
-                                          <label class="form-label" for="Adult-{{a}}-Nationality">Nationality {{ IsPassportMandatory ? '*' : '' }}
-</label>
+                                          <label class="form-label" for="Adult-{{a}}-Nationality">Nationality {{
+                                             IsPassportMandatory ? '*' : '' }}
+                                          </label>
                                           <select class="form-select main-select" id="Adult-{{a}}-Nationality"
                                              formControlName="Nationality">
                                              <option value="">Select</option>
@@ -747,7 +753,7 @@
                                        <div class="form-group">
                                           <label class="form-label" for="Adult-{{a}}-PassportNo">Passport
                                              Number {{ IsPassportMandatory ? '*' : '' }}
-</label>
+                                          </label>
                                           <input type="text" class="form-control main-select"
                                              formControlName="PassportNo" placeholder="Passport Number"
                                              id="Adult-{{a}}-PassportNo" />
@@ -783,7 +789,7 @@
                                        <div class="form-group">
                                           <label class="form-label" for="Adult-{{a}}-PassportExpiry">Expiry
                                              Date {{ IsPassportMandatory ? '*' : '' }}
-</label>
+                                          </label>
                                           <input type="text" class="form-control main-select"
                                              formControlName="PassportExpiry" passport-expiry-date
                                              placeholder="Expiry Date" attr.key="{{a}}" paxtype="Adult"
@@ -803,7 +809,7 @@
                                        <div class="form-group">
                                           <label class="form-label" for="Adult-{{a}}-PassportIssueCountry">Passport
                                              Issue Country {{ IsPassportMandatory ? '*' : '' }}
-</label>
+                                          </label>
                                           <select class="form-select main-select" id="Adult-{{a}}-PassportIssueCountry"
                                              formControlName="PassportIssueCountry">
                                              <option value="">Select</option>
@@ -862,44 +868,61 @@
                                        Save Passanger Details
                                     </label>
                                  </div>
-                                 @if(FlightForm.get('Adult.'+a)?.value?.['Seat'] || FlightForm.get('Adult.'+a)?.value?.['Meal']|| FlightForm.get('Adult.'+a)?.value?.['Baggage']){
+                                 @if(FlightForm.get('Adult.'+a)?.value?.['Seat'] ||
+                                 FlightForm.get('Adult.'+a)?.value?.['Meal']||
+                                 FlightForm.get('Adult.'+a)?.value?.['Baggage']){
                                  <div class="row border-top pt-2">
-                                    @if(FlightForm.get('Adult.'+a)?.value?.['Seat'] && FlightForm.get('Adult.'+a)?.value?.['Seat']?.length!==0){
+                                    @if(FlightForm.get('Adult.'+a)?.value?.['Seat'] &&
+                                    FlightForm.get('Adult.'+a)?.value?.['Seat']?.length!==0){
                                     <div class="col-4">
-                                       <h6 class="mb-1">Seat <a href="javascript:void(0)" (click)="ClearSSR('Adult',a,'Seat')" class="ms-2 text-danger"><i class="fa-solid fa-xmark"></i></a></h6>
+                                       <h6 class="mb-1">Seat <a href="javascript:void(0)"
+                                             (click)="ClearSSR('Adult',a,'Seat')" class="ms-2 text-danger"><i
+                                                class="fa-solid fa-xmark"></i></a></h6>
                                        @for (item of FlightForm.get('Adult.'+a)?.value['Seat']; track $index) {
-                                          @for(seg of item |keyvalue; track $index){
-                                               
-                                             @if(item[GetKey(seg.key)]['SeatNo']){
-                                             <p class="mb-0"> <span class="text-primary fw-semibold">{{seg.key}} </span> = {{item[GetKey(seg.key)]['Code']}} </p>
-                                             }
-                                          }
+                                       @for(seg of item |keyvalue; track $index){
+
+                                       @if(item[GetKey(seg.key)]['SeatNo']){
+                                       <p class="mb-0"> <span class="text-primary fw-semibold">{{seg.key}} </span> =
+                                          {{item[GetKey(seg.key)]['Code']}} </p>
+                                       }
+                                       }
                                        }
                                     </div>
                                     }
-                                    @if(FlightForm.get('Adult.'+a)?.value?.['Meal'] && FlightForm.get('Adult.'+a)?.value?.['Meal'].length!==0){
+                                    @if(FlightForm.get('Adult.'+a)?.value?.['Meal'] &&
+                                    FlightForm.get('Adult.'+a)?.value?.['Meal'].length!==0){
                                     <div class="col-4">
-                                       <h6 class="mb-1">Meal <a href="javascript:void(0)" (click)="ClearSSR('Adult',a,'Meal')" class="ms-2 text-danger"><i class="fa-solid fa-xmark"></i></a></h6>
+                                       <h6 class="mb-1">Meal <a href="javascript:void(0)"
+                                             (click)="ClearSSR('Adult',a,'Meal')" class="ms-2 text-danger"><i
+                                                class="fa-solid fa-xmark"></i></a></h6>
                                        @for (item of FlightForm.get('Adult.'+a)?.value['Meal']; track $index) {
-                                          @for(seg of item |keyvalue; track $index){
-                                           
-                                             @if(item[GetKey(seg.key)]['AirlineDescription']){
-                                             <p class="mb-0"> <span class="text-primary fw-semibold"> {{item[GetKey(seg.key)]['Origin']}}-{{item[GetKey(seg.key)]['Destination']}} </span>= {{item[GetKey(seg.key)]['AirlineDescription']}} ({{item[GetKey(seg.key)]['Quantity']}}) </p>
-                                             }
-                                          }
+                                       @for(seg of item |keyvalue; track $index){
+
+                                       @if(item[GetKey(seg.key)]['AirlineDescription']){
+                                       <p class="mb-0"> <span class="text-primary fw-semibold">
+                                             {{item[GetKey(seg.key)]['Origin']}}-{{item[GetKey(seg.key)]['Destination']}}
+                                          </span>= {{item[GetKey(seg.key)]['AirlineDescription']}}
+                                          ({{item[GetKey(seg.key)]['Quantity']}}) </p>
+                                       }
+                                       }
                                        }
                                     </div>
                                     }
-                                    @if(FlightForm.get('Adult.'+a)?.value?.['Baggage'] && FlightForm.get('Adult.'+a)?.value?.['Baggage']?.length!==0){
+                                    @if(FlightForm.get('Adult.'+a)?.value?.['Baggage'] &&
+                                    FlightForm.get('Adult.'+a)?.value?.['Baggage']?.length!==0){
                                     <div class="col-4">
-                                       <h6 class="mb-1">Baggage <a href="javascript:void(0)" (click)="ClearSSR('Adult',a,'Baggage')" class="ms-2 text-danger"><i class="fa-solid fa-xmark"></i></a></h6>
+                                       <h6 class="mb-1">Baggage <a href="javascript:void(0)"
+                                             (click)="ClearSSR('Adult',a,'Baggage')" class="ms-2 text-danger"><i
+                                                class="fa-solid fa-xmark"></i></a></h6>
                                        @for (item of FlightForm.get('Adult.'+a)?.value['Baggage']; track $index) {
-                                          @for(seg of item |keyvalue; track $index){
-                                           
-                                             @if(item[GetKey(seg.key)]['AirlineDescription']){
-                                             <p class="mb-0"> <span class="text-primary fw-semibold"> {{item[GetKey(seg.key)]['Origin']}}-{{item[GetKey(seg.key)]['Destination']}} </span>= {{item[GetKey(seg.key)]['AirlineDescription']}} </p>
-                                             }
-                                          }
+                                       @for(seg of item |keyvalue; track $index){
+
+                                       @if(item[GetKey(seg.key)]['AirlineDescription']){
+                                       <p class="mb-0"> <span class="text-primary fw-semibold">
+                                             {{item[GetKey(seg.key)]['Origin']}}-{{item[GetKey(seg.key)]['Destination']}}
+                                          </span>= {{item[GetKey(seg.key)]['AirlineDescription']}} </p>
+                                       }
+                                       }
                                        }
                                     </div>
                                     }
@@ -929,7 +952,8 @@
                                           aria-expanded="false" class="react-autosuggest__container">
                                           <input type="text" class="react-autosuggest__input"
                                              placeholder="Select from History"
-                                             (keyup)="TravellerAutocomplete($event,'Child',c)" [matAutocomplete]="auto" />
+                                             (keyup)="TravellerAutocomplete($event,'Child',c)"
+                                             [matAutocomplete]="auto" />
                                        </div>
                                        <mat-autocomplete #auto="matAutocomplete"
                                           (optionSelected)="selectedpax($event,'Child',c)">
@@ -938,13 +962,13 @@
                                              {{list['last_name']}}</mat-option>
                                        </mat-autocomplete>
                                     </div>
-                                 </div>   
+                                 </div>
                               </div>
                               <div class="passenger-card-body">
 
                                  <!-- <div class="gst-history-wrapper mb-3">
                                     <div class="gst-input-icon"><i class="fa fa-building"></i></div> -->
-                                    
+
                                  <!-- </div> -->
 
                                  <div class="row">
@@ -967,34 +991,35 @@
                                     </div>
                                     <div class="col-md-3">
                                        <div class="form-group position-relative">
-                                            <label class="form-label" for="Child-{{c}}-FirstName">First
+                                          <label class="form-label" for="Child-{{c}}-FirstName">First
                                              Name*</label>
                                           <input type="text" class="form-control main-select"
                                              formControlName="FirstName" placeholder="First Name*"
                                              oninput="this.value = this.value.toUpperCase()"
                                              id="Child-{{c}}-FirstName" />
-                                          <a href="javascript:void(0)" (click)="OpenNameFormat('Child',c,'First')" class="info-icon-airline"><i class="fa-solid fa-circle-info"></i></a>
+                                          <a href="javascript:void(0)" (click)="OpenNameFormat('Child',c,'First')"
+                                             class="info-icon-airline"><i class="fa-solid fa-circle-info"></i></a>
                                           <div class="last-name-info" *ngIf="showLastNameInfo=='Child_'+c+'_First'">
                                              <div class="info-title"> IF FIRST NAME IS MISSING</div>
                                              <div class="table-responsive">
                                                 <table class="table last-name-table mb-0">
-                                                <thead>
-                                                   <tr>
-                                                      <th>Airline Name</th>
-                                                      <th>Update First Name as</th>
-                                                      <th>Update Last Name as</th>
-                                                   </tr>
-                                                </thead>
+                                                   <thead>
+                                                      <tr>
+                                                         <th>Airline Name</th>
+                                                         <th>Update First Name as</th>
+                                                         <th>Update Last Name as</th>
+                                                      </tr>
+                                                   </thead>
 
-                                                <tbody>
-                                                   @for(air of AirlineFormats;track $index){
-                                                   <tr>
-                                                      <td>{{air.AirlineName}}</td>
-                                                      <td>{{air.FirstName}}</td>
-                                                      <td>{{air.LastName}}</td>
-                                                   </tr>
-                                                   }
-                                                </tbody>
+                                                   <tbody>
+                                                      @for(air of AirlineFormats;track $index){
+                                                      <tr>
+                                                         <td>{{air.AirlineName}}</td>
+                                                         <td>{{air.FirstName}}</td>
+                                                         <td>{{air.LastName}}</td>
+                                                      </tr>
+                                                      }
+                                                   </tbody>
 
                                                 </table>
                                              </div>
@@ -1024,11 +1049,12 @@
                                           <input type="text" class="form-control main-select" formControlName="LastName"
                                              placeholder="Last Name*" oninput="this.value = this.value.toUpperCase()"
                                              id="Child-{{c}}-LastName" />
-                                          <a href="javascript:void(0)" (click)="OpenNameFormat('Child',c,'Last')" class="info-icon-airline"><i class="fa-solid fa-circle-info"></i></a>
-                                             <div class="last-name-info" *ngIf="showLastNameInfo=='Child_'+c+'_Last'">
-                                                <div class="info-title"> IF LAST NAME IS MISSING</div>
-                                                <div class="table-responsive">
-                                                   <table class="table last-name-table mb-0">
+                                          <a href="javascript:void(0)" (click)="OpenNameFormat('Child',c,'Last')"
+                                             class="info-icon-airline"><i class="fa-solid fa-circle-info"></i></a>
+                                          <div class="last-name-info" *ngIf="showLastNameInfo=='Child_'+c+'_Last'">
+                                             <div class="info-title"> IF LAST NAME IS MISSING</div>
+                                             <div class="table-responsive">
+                                                <table class="table last-name-table mb-0">
                                                    <thead>
                                                       <tr>
                                                          <th>Airline Name</th>
@@ -1047,15 +1073,15 @@
                                                       }
                                                    </tbody>
 
-                                                   </table>
-                                                </div>
-
-                                                <div class="disclaimer">
-                                                   <strong>Disclaimer:</strong>
-                                                   Please contact airline to confirm the Missing Name format !!
-                                                </div>
-
+                                                </table>
                                              </div>
+
+                                             <div class="disclaimer">
+                                                <strong>Disclaimer:</strong>
+                                                Please contact airline to confirm the Missing Name format !!
+                                             </div>
+
+                                          </div>
                                        </div>
                                        <div *ngIf="submitted && FlightForm.get('Child.'+c+'.LastName')?.errors"
                                           class="error-msg">
@@ -1108,7 +1134,8 @@
                                     </p>
                                     <div class="col-md-3">
                                        <div class="form-group">
-                                          <label class="form-label" for="Child-{{c}}-Nationality">Nationality {{ IsPassportMandatory ? '*' : '' }}</label>
+                                          <label class="form-label" for="Child-{{c}}-Nationality">Nationality {{
+                                             IsPassportMandatory ? '*' : '' }}</label>
                                           <select class="form-select main-select" id="Child-{{c}}-Nationality"
                                              formControlName="Nationality">
                                              <option value="">Select</option>
@@ -1241,44 +1268,61 @@
                                        Save Passanger Details
                                     </label>
                                  </div>
-                                 @if(FlightForm.get('Child.'+c)?.value?.['Seat'] || FlightForm.get('Child.'+c)?.value?.['Meal']|| FlightForm.get('Child.'+c)?.value?.['Baggage']){
+                                 @if(FlightForm.get('Child.'+c)?.value?.['Seat'] ||
+                                 FlightForm.get('Child.'+c)?.value?.['Meal']||
+                                 FlightForm.get('Child.'+c)?.value?.['Baggage']){
                                  <div class="row border-top pt-2">
-                                    @if(FlightForm.get('Child.'+c)?.value?.['Seat'] && FlightForm.get('Child.'+c)?.value?.['Seat']?.length!==0){
+                                    @if(FlightForm.get('Child.'+c)?.value?.['Seat'] &&
+                                    FlightForm.get('Child.'+c)?.value?.['Seat']?.length!==0){
                                     <div class="col-4">
-                                       <h6 class="mb-1">Seat <a href="javascript:void(0)" (click)="ClearSSR('Child',c,'Seat')" class="ms-2 text-danger"><i class="fa-solid fa-xmark"></i></a></h6>
+                                       <h6 class="mb-1">Seat <a href="javascript:void(0)"
+                                             (click)="ClearSSR('Child',c,'Seat')" class="ms-2 text-danger"><i
+                                                class="fa-solid fa-xmark"></i></a></h6>
                                        @for (item of FlightForm.get('Child.'+c)?.value['Seat']; track $index) {
-                                          @for(seg of item |keyvalue; track $index){
-                                               
-                                             @if(item[GetKey(seg.key)]['SeatNo']){
-                                             <p class="mb-0"> <span class="text-primary fw-semibold">{{seg.key}} </span> = {{item[GetKey(seg.key)]['Code']}} </p>
-                                             }
-                                          }
+                                       @for(seg of item |keyvalue; track $index){
+
+                                       @if(item[GetKey(seg.key)]['SeatNo']){
+                                       <p class="mb-0"> <span class="text-primary fw-semibold">{{seg.key}} </span> =
+                                          {{item[GetKey(seg.key)]['Code']}} </p>
+                                       }
+                                       }
                                        }
                                     </div>
                                     }
-                                    @if(FlightForm.get('Child.'+c)?.value?.['Meal'] && FlightForm.get('Child.'+c)?.value?.['Meal']?.length!==0){
+                                    @if(FlightForm.get('Child.'+c)?.value?.['Meal'] &&
+                                    FlightForm.get('Child.'+c)?.value?.['Meal']?.length!==0){
                                     <div class="col-4">
-                                       <h6 class="mb-1">Meal <a href="javascript:void(0)" (click)="ClearSSR('Child',c,'Meal')" class="ms-2 text-danger"><i class="fa-solid fa-xmark"></i></a></h6>
+                                       <h6 class="mb-1">Meal <a href="javascript:void(0)"
+                                             (click)="ClearSSR('Child',c,'Meal')" class="ms-2 text-danger"><i
+                                                class="fa-solid fa-xmark"></i></a></h6>
                                        @for (item of FlightForm.get('Child.'+c)?.value['Meal']; track $index) {
-                                          @for(seg of item |keyvalue; track $index){
-                                           
-                                             @if(item[GetKey(seg.key)]['AirlineDescription']){
-                                             <p class="mb-0"> <span class="text-primary fw-semibold"> {{item[GetKey(seg.key)]['Origin']}}-{{item[GetKey(seg.key)]['Destination']}} </span>= {{item[GetKey(seg.key)]['AirlineDescription']}} ({{item[GetKey(seg.key)]['Quantity']}}) </p>
-                                             }
-                                          }
+                                       @for(seg of item |keyvalue; track $index){
+
+                                       @if(item[GetKey(seg.key)]['AirlineDescription']){
+                                       <p class="mb-0"> <span class="text-primary fw-semibold">
+                                             {{item[GetKey(seg.key)]['Origin']}}-{{item[GetKey(seg.key)]['Destination']}}
+                                          </span>= {{item[GetKey(seg.key)]['AirlineDescription']}}
+                                          ({{item[GetKey(seg.key)]['Quantity']}}) </p>
+                                       }
+                                       }
                                        }
                                     </div>
                                     }
-                                    @if(FlightForm.get('Child.'+c)?.value?.['Baggage'] && FlightForm.get('Child.'+c)?.value?.['Baggage']?.length!==0){
+                                    @if(FlightForm.get('Child.'+c)?.value?.['Baggage'] &&
+                                    FlightForm.get('Child.'+c)?.value?.['Baggage']?.length!==0){
                                     <div class="col-4">
-                                       <h6 class="mb-1">Baggage <a href="javascript:void(0)" (click)="ClearSSR('Child',c,'Baggage')" class="ms-2 text-danger"><i class="fa-solid fa-xmark"></i></a></h6>
+                                       <h6 class="mb-1">Baggage <a href="javascript:void(0)"
+                                             (click)="ClearSSR('Child',c,'Baggage')" class="ms-2 text-danger"><i
+                                                class="fa-solid fa-xmark"></i></a></h6>
                                        @for (item of FlightForm.get('Child.'+c)?.value['Baggage']; track $index) {
-                                          @for(seg of item |keyvalue; track $index){
-                                           
-                                             @if(item[GetKey(seg.key)]['AirlineDescription']){
-                                             <p class="mb-0"> <span class="text-primary fw-semibold"> {{item[GetKey(seg.key)]['Origin']}}-{{item[GetKey(seg.key)]['Destination']}} </span>= {{item[GetKey(seg.key)]['AirlineDescription']}} </p>
-                                             }
-                                          }
+                                       @for(seg of item |keyvalue; track $index){
+
+                                       @if(item[GetKey(seg.key)]['AirlineDescription']){
+                                       <p class="mb-0"> <span class="text-primary fw-semibold">
+                                             {{item[GetKey(seg.key)]['Origin']}}-{{item[GetKey(seg.key)]['Destination']}}
+                                          </span>= {{item[GetKey(seg.key)]['AirlineDescription']}} </p>
+                                       }
+                                       }
                                        }
                                     </div>
                                     }
@@ -1302,12 +1346,13 @@
                                           {{inf.value['LastName']}}
                                        </span>
                                     </h6>
-                                     <div class="select-from-history ms-4">
+                                    <div class="select-from-history ms-4">
                                        <div role="combobox" aria-haspopup="listbox" aria-owns="react-autowhatever-1"
                                           aria-expanded="false" class="react-autosuggest__container">
                                           <input type="text" class="react-autosuggest__input"
                                              placeholder="Select from History"
-                                             (keyup)="TravellerAutocomplete($event,'Infant',i)" [matAutocomplete]="auto" />
+                                             (keyup)="TravellerAutocomplete($event,'Infant',i)"
+                                             [matAutocomplete]="auto" />
                                        </div>
                                        <mat-autocomplete #auto="matAutocomplete"
                                           (optionSelected)="selectedpax($event,'Infant',i)">
@@ -1315,7 +1360,7 @@
                                              [value]="list['first_name']+' ' + list['last_name']">{{list['first_name']}}
                                              {{list['last_name']}}</mat-option>
                                        </mat-autocomplete>
-                                     </div>
+                                    </div>
                                  </div>
                               </div>
 
@@ -1346,28 +1391,29 @@
                                              formControlName="FirstName" placeholder="First Name*"
                                              oninput="this.value = this.value.toUpperCase()"
                                              id="Infant-{{i}}-FirstName" />
-                                          <a href="javascript:void(0)" (click)="OpenNameFormat('Infant',i,'First')" class="info-icon-airline"><i class="fa-solid fa-circle-info"></i></a>
+                                          <a href="javascript:void(0)" (click)="OpenNameFormat('Infant',i,'First')"
+                                             class="info-icon-airline"><i class="fa-solid fa-circle-info"></i></a>
                                           <div class="last-name-info" *ngIf="showLastNameInfo=='Infant_'+i+'_First'">
                                              <div class="info-title"> IF FIRST NAME IS MISSING</div>
                                              <div class="table-responsive">
                                                 <table class="table last-name-table mb-0">
-                                                <thead>
-                                                   <tr>
-                                                      <th>Airline Name</th>
-                                                      <th>Update First Name as</th>
-                                                      <th>Update Last Name as</th>
-                                                   </tr>
-                                                </thead>
+                                                   <thead>
+                                                      <tr>
+                                                         <th>Airline Name</th>
+                                                         <th>Update First Name as</th>
+                                                         <th>Update Last Name as</th>
+                                                      </tr>
+                                                   </thead>
 
-                                                <tbody>
-                                                   @for(air of AirlineFormats;track $index){
-                                                   <tr>
-                                                      <td>{{air.AirlineName}}</td>
-                                                      <td>{{air.FirstName}}</td>
-                                                      <td>{{air.LastName}}</td>
-                                                   </tr>
-                                                   }
-                                                </tbody>
+                                                   <tbody>
+                                                      @for(air of AirlineFormats;track $index){
+                                                      <tr>
+                                                         <td>{{air.AirlineName}}</td>
+                                                         <td>{{air.FirstName}}</td>
+                                                         <td>{{air.LastName}}</td>
+                                                      </tr>
+                                                      }
+                                                   </tbody>
 
                                                 </table>
                                              </div>
@@ -1396,28 +1442,29 @@
                                              Name*</label>
                                           <input type="text" class="form-control main-select" formControlName="LastName"
                                              placeholder="Last Name*" oninput="this.value = this.value.toUpperCase()" />
-                                          <a href="javascript:void(0)" (click)="OpenNameFormat('Infant',i,'Last')" class="info-icon-airline"><i class="fa-solid fa-circle-info"></i></a>
+                                          <a href="javascript:void(0)" (click)="OpenNameFormat('Infant',i,'Last')"
+                                             class="info-icon-airline"><i class="fa-solid fa-circle-info"></i></a>
                                           <div class="last-name-info" *ngIf="showLastNameInfo=='Infant_'+i+'_Last'">
                                              <div class="info-title"> IF LAST NAME IS MISSING</div>
                                              <div class="table-responsive">
                                                 <table class="table last-name-table mb-0">
-                                                <thead>
-                                                   <tr>
-                                                      <th>Airline Name</th>
-                                                      <th>Update First Name as</th>
-                                                      <th>Update Last Name as</th>
-                                                   </tr>
-                                                </thead>
+                                                   <thead>
+                                                      <tr>
+                                                         <th>Airline Name</th>
+                                                         <th>Update First Name as</th>
+                                                         <th>Update Last Name as</th>
+                                                      </tr>
+                                                   </thead>
 
-                                                <tbody>
-                                                   @for(air of AirlineFormats;track $index){
-                                                   <tr>
-                                                      <td>{{air.AirlineName}}</td>
-                                                      <td>{{air.FirstName}}</td>
-                                                      <td>{{air.LastName}}</td>
-                                                   </tr>
-                                                   }
-                                                </tbody>
+                                                   <tbody>
+                                                      @for(air of AirlineFormats;track $index){
+                                                      <tr>
+                                                         <td>{{air.AirlineName}}</td>
+                                                         <td>{{air.FirstName}}</td>
+                                                         <td>{{air.LastName}}</td>
+                                                      </tr>
+                                                      }
+                                                   </tbody>
 
                                                 </table>
                                              </div>
@@ -1483,7 +1530,8 @@
                                     </p>
                                     <div class="col-md-3">
                                        <div class="form-group">
-                                          <label class="form-label" for="Infant-{{i}}-Nationality">Nationality {{ IsPassportMandatory ? '*' : '' }}</label>
+                                          <label class="form-label" for="Infant-{{i}}-Nationality">Nationality {{
+                                             IsPassportMandatory ? '*' : '' }}</label>
                                           <select class="form-select main-select" id="Infant-{{i}}-Nationality"
                                              formControlName="Nationality">
                                              <option value="">Select</option>
@@ -1627,7 +1675,7 @@
                   </div>
                </div>
 
-             
+
 
                <div class="flight-booking-wrapper" *ngIf="SSRData.length && seatData.length!==0">
                   <div class="flight-booking-header">
@@ -1636,11 +1684,11 @@
                               (SSR)</span></div>
                         <div class="ssr-detail-stripe">
                            <div class="ssr-icons d-flex gap-2 align-items-center">
-                              <a href="javascript:void(0)" class="ssr-list"  *ngIf="seatData.length!==0" data-bs-toggle="modal"
-                                 data-bs-target="#seat-selectmodal"><svg height="15" width="15" viewBox="0 0 128 128"
-                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                    aria-hidden="true" role="img" class="iconify iconify--noto"
-                                    preserveAspectRatio="xMidYMid meet">
+                              <a href="javascript:void(0)" class="ssr-list" *ngIf="seatData.length!==0"
+                                 data-bs-toggle="modal" data-bs-target="#seat-selectmodal"><svg height="15" width="15"
+                                    viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
+                                    class="iconify iconify--noto" preserveAspectRatio="xMidYMid meet">
                                     <path
                                        d="M40.2 98.48c.19.86.11 3.21.11 4.45c0 1.24.1 8.77.1 8.77s-6.67-1.24-8.68-1.24c-2 0-4.85 1.25-5.05 3.62c-.19 2.19 1.14 2.76 2.86 3.24c1.72.48 30.7 6.1 32.13 6.39s4.21-.11 4.58-2.48c.2-1.33-.57-3.37-3.34-4.77c-2.25-1.14-11.44-3.24-11.44-3.24l-.1-13.25l-11.17-1.49z"
                                        fill="#858585"></path>
@@ -1693,7 +1741,8 @@
                                        d="M35.28 63.26c-1.01-.09-2.29.46-2.66 2.38c-.42 2.21 1.83 3.21 5.41 3.39c3.11.16 9.45.79 11.93.93c2.53.15 5.9.78 6.36 2.43c.46 1.65-.61 3.33-.61 3.33s2.13.04 3.09-.27c1.3-.42 2.04-2.11 1.95-3.76s-1.1-3.85-5.41-5.31c-4.3-1.47-20.06-3.12-20.06-3.12z"
                                        fill="#858585"></path>
                                  </svg> Seat</a>
-                              <a href="javascript:void(0)" class="ssr-list" *ngIf="SSRData.length!==0" (click)="ShowSSR('Meal')">
+                              <a href="javascript:void(0)" class="ssr-list" *ngIf="SSRData.length!==0"
+                                 (click)="ShowSSR('Meal')">
                                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15"
                                     viewBox="0 0 512 512">
@@ -1722,7 +1771,8 @@
                                     </g>
                                  </svg> Meal</a>
 
-                              <a href="javascript:void(0)"  class="ssr-list"  *ngIf="SSRData.length!==0" (click)="ShowSSR('Baggage')">
+                              <a href="javascript:void(0)" class="ssr-list" *ngIf="SSRData.length!==0"
+                                 (click)="ShowSSR('Baggage')">
                                  <svg fill="#1d48a3" height="15" width="15" version="1.1" id="Layer_1"
                                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     viewBox="0 0 512 512" xml:space="preserve">
@@ -1738,11 +1788,12 @@
                                     </g>
                                  </svg> Baggage</a>
 
-                              
+
                            </div>
                         </div>
                      </div>
-                     <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> Manage and customized additional services for your booking.</small>
+                     <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> Manage and customized additional
+                        services for your booking.</small>
                   </div>
 
                   <div class="flight-segment meal-box" *ngIf="Showmeal=='Meal' && SSRData.length !== 0">
@@ -1844,7 +1895,7 @@
                         </div>
                      </div>
                   </div>
-                  
+
                   <div class="flight-segment meal-box" *ngIf="Showmeal=='Baggage' && SSRData.length !== 0">
                      <div class="flight-route-block" *ngFor="let data of SSRData; let t = index">
                         <div class="segment-card border-bottom mb-4 pb-3"
@@ -1876,7 +1927,7 @@
                                        Adult {{ Ai + 1 }}
                                     </div>
                                  </div>
-                                
+
                                  <div class="col-lg-5">
                                     <div class="form-group mb-3">
 
@@ -1948,7 +1999,7 @@
                         </div>
                      </div>
                   </div>
-                  
+
 
                </div>
 
@@ -1977,317 +2028,331 @@
                               </div>
                            </div>
                         </div> -->
-                        @if(SpecialServiceData && SpecialServiceData.length!==0){
-                           <div class="accordion panel-item my-3 rounded border">
-                           <button class="position-relative accordion-button panel-heading text-dark fw-bold d-block flight-booking-header rounded collapsed"
-                              type="button" data-bs-toggle="collapse" data-bs-target="#add-specialservice">
-                              <span class="d-flex justify-content-between">
-                                 <h6 class="mb-0">  Web Check-in Services <span class="recommonded"><i class="fa-regular fa-thumbs-up me-1"></i>RECOMMENDED</span></h6>
-                                 <a href="javscript:void(0)">@if(isGSTShow){<i class="fa-solid fa-angle-up" ></i>}@else{<i class="fa-solid fa-angle-down" ></i>}</a>
-                              </span>
-                              <small class="text-muted subheading"> <i class="fa-solid fa-circle-info"></i> Our team will handle your web check-in and send boarding passes directly to the email address and phone number you provide, Saving you time and effort.</small>
-                              <span class="new">NEW</span>
-                           </button>
-                           <div id="add-specialservice" class="accordion-collapse collapse">
-                              <div class="accordion-body p-2">
-                                    <div class="ssr-wrapper">
-                                          <!-- LEFT: Select Passenger -->
-                                          <div class="ssr-left">
-                                             <h4>Select Passenger</h4>
-                                          
-                                             <div class="pax-item"
-                                                   *ngFor="let pax of paxList"
-                                                   [class.active]="selectedPax === pax"
-                                                   (click)="selectPax(pax)">
-                                                <label>
-                                                <input type="radio"
-                                                         name="paxSelect"
-                                                         [checked]="selectedPax === pax"
-                                                         (change)="selectPax(pax)">
-                                                {{ pax.label }}
-                                                </label>
-                                                <div class="pax-summary">
-                                                <span class="star">★</span> {{ paxSummary(pax) }}
-                                                </div>
-                                             </div>
-                                          </div>
-                                          
-                                          <!-- RIGHT: journey tabs + sector-wise special service -->
-                                          <div class="ssr-right" *ngIf="selectedPax">
-                                             <h4>{{ selectedPax.label }} details :</h4>
-                                          
-                                             <div class="journey-tabs" *ngIf="journeys.length">
-                                                <button type="button"
-                                                      *ngFor="let j of journeys"
-                                                      [class.active]="activeJourney === j"
-                                                      (click)="setActiveJourney(j)">
-                                                {{ j.label }}
-                                                </button>
-                                             </div>
-                                          
-                                             <div class="journey-panel" *ngIf="activeJourney">
-                                                <div class="sector-row" *ngFor="let sector of activeJourney.sectors">
-                                                <div class="sector-icon">★</div>
-                                                <div class="sector-content">
-                                                   <div class="sector-label">Add Web Check-in Services ({{ sector.sectorKey }})</div>
-                                          
-                                                   <div class="sector-options" *ngFor="let item of sector.items">
-                                                      <label for="{{sector.sectorKey}}{{item.WebcheckInCode}}">
-                                                         <input type="checkbox" id="{{sector.sectorKey}}{{item.WebcheckInCode}}"
-                                                                  [checked]="isChecked(selectedPax, sector.sectorKey, 'WebChekin')?.['WebcheckInCode']==item.WebcheckInCode"
-                                                                  [value]="item"
-                                                                  (change)="SelectWebChekin(selectedPax, sector.sectorKey, item, $event)">
-                                                      {{ item.Text }}: <span class="text-decoration-line-through text-muted">₹{{ item.Price }}</span> <span class="ms-1 fw-semibold">₹{{ item.OfferdPrice }}</span> <span class="text-warning">({{ item.Apply.replace('_',' ') |titlecase }}) </span>
-                                                      </label>
-                                                   </div>
-                                                </div>
-                                                </div>
-                                          
-                                                <p class="note" *ngIf="!activeJourney.sectors.length">
-                                                No special service available for this journey.
-                                                </p>
-                                             </div>
-                                          
-                                             <p class="note">Note: Special services are subject to availability</p>
-                                          </div>
-                                          </div>
-                                          
-                                          
-                                 
-                              </div>
-                           </div>
-                           </div>
-                        }
-                        @if(InsuranceDetail && InsuranceDetail.length!==0){
-                           <div class="position-relative accordion panel-item my-3 rounded border">
-                              <button class="accordion-button panel-heading text-dark fw-bold d-block flight-booking-header rounded collapsed"
-                                 type="button" data-bs-toggle="collapse" data-bs-target="#add-insurance">
-                                 <span class="d-flex justify-content-between">
-                                 <h6 class="mb-0">Add Travel Insurance <span class="recommonded"><i class="fa-regular fa-thumbs-up me-1"></i> RECOMMENDED</span></h6>
-                                  <a href="javscript:void(0)">@if(isGSTShow){<i class="fa-solid fa-angle-up" ></i>}@else{<i class="fa-solid fa-angle-down" ></i>}</a>
-                                 </span>
-                                 <small class="text-muted subheading"> <i class="fa-solid fa-circle-info"></i> Fly anywhere, with any airline — we’ve got you covere.</small>
-                                 
-                                 <span class="new">NEW</span>
-                              </button>
-                              <div id="add-insurance" class="accordion-collapse collapse">
-                                 <div class="accordion-body p-2">
-                                      <div class="ssr-wrapper">
-                                          <!-- LEFT: Select Passenger -->
-                                          <div class="ssr-left">
-                                             <h4>Select Passenger</h4>
-                                          
-                                             <div class="pax-item"
-                                                   *ngFor="let pax of AllPaxes"
-                                                   [class.active]="SelectedPaxInsurane == pax"
-                                                   (click)="SelectedPaxInsurane=pax">
-                                                <label>
-                                                <input type="radio"
-                                                         name="SelectInsurancepax"
-                                                         [checked]="SelectedPaxInsurane == pax"
-                                                         (change)="SelectedPaxInsurane=pax">
-                                                         @if(FlightForm.get(pax.PaxType+'.'+pax.PaxKey+'.FirstName')?.value){
-                                                            {{FlightForm.get(pax.PaxType+'.'+pax.PaxKey+'.Title')?.value}} {{FlightForm.get(pax.PaxType+'.'+pax.PaxKey+'.FirstName')?.value}} {{FlightForm.get(pax.PaxType+'.'+pax.PaxKey+'.LastName')?.value}}
-                                                         }@else{
-                                                            {{ pax.PaxType }} {{pax.PaxKey+1}}
-                                                         }
-                                                </label>
-                                                <div class="pax-summary">
-                                                <!-- <span class="star">★</span> {{ paxSummary(pax) }} -->
-                                                </div>
-                                             </div>
-                                          </div>
-                                          
-                                          <!-- RIGHT: journey tabs + sector-wise special service -->
-                                          <div class="ssr-right" *ngIf="SelectedPaxInsurane">
-                                             <h4> @if(FlightForm.get(SelectedPaxInsurane.PaxType+'.'+SelectedPaxInsurane.PaxKey+'.FirstName')?.value){
-                                                      {{FlightForm.get(SelectedPaxInsurane.PaxType+'.'+SelectedPaxInsurane.PaxKey+'.Title')?.value}} {{FlightForm.get(SelectedPaxInsurane.PaxType+'.'+SelectedPaxInsurane.PaxKey+'.FirstName')?.value}} {{FlightForm.get(SelectedPaxInsurane.PaxType+'.'+SelectedPaxInsurane.PaxKey+'.LastName')?.value}}
-                                                   }@else{
-                                                      {{ SelectedPaxInsurane.PaxType }} {{SelectedPaxInsurane.PaxKey+1}}
-                                                   } details :</h4>
-                                          
-                                             <div class="journey-tabs" *ngIf="JourneyGroup.length">
-                                                <button type="button"
-                                                      *ngFor="let j of JourneyGroup"
-                                                      [class.active]="activeJourneyIns == j"
-                                                      (click)="setActiveJourney(j,'Insurance')">
-                                                {{ j }}
-                                                </button>
-                                             </div>
-                                          
-                                             <div class="journey-panel" *ngIf="activeJourneyIns">
-                                                <div class="sector-row" >
-                                                <div class="sector-content">
-                                                   <div class="sector-label">Insurance Service</div>
-                                          
-                                                   <div class="sector-options d-flex" *ngFor="let item of InsuranceDetail">
-                                                      <label for="{{activeJourneyIns}}{{item.ResultIndex}}">
-                                                         <input type="checkbox" id="{{activeJourneyIns}}{{item.ResultIndex}}"
-                                                                  [checked]="isChecked(SelectedPaxInsurane, activeJourneyIns, 'Insurance')?.RI==item.ResultIndex"
-                                                                  [value]="item['ResultIndex']"
-                                                                  (change)="SelectInsurance(SelectedPaxInsurane, activeJourneyIns, item, $event)">
-                                                                   {{ item.PlanName }}: <span class="text-decoration-line-through">₹{{ item.Fare.PublishedPrice }}</span> <span class="ms-1 fw-semibold">₹{{ item.Fare.OfferedPrice }}</span> 
-                                                         
-                                                      </label>
-                                                      <a href="javascript:void(0)" class="mx-2" (click)="OpenModal(item,'KnowMore')">Details</a> | <a href="javascript:void(0)" class="mx-2" (click)="OpenModal(item,'TC')">Term & Condition</a>
-                                                   </div>
-                                                </div>
-                                                </div>
-                                          
-                                                <p class="note" *ngIf="!activeJourneyIns.length">
-                                                No special service available for this journey.
-                                                </p>
-                                             </div>
-                                          
-                                             <p class="note">Note: Special services are subject to availability</p>
-                                          </div>
-                                          </div>
-                                          
-                                   
+               @if(SpecialServiceData && SpecialServiceData.length!==0){
+               <div class="accordion panel-item my-3 rounded border">
+                  <button
+                     class="position-relative accordion-button panel-heading text-dark fw-bold d-block flight-booking-header rounded collapse"
+                     type="button" data-bs-toggle="collapse" data-bs-target="#add-specialservice">
+                     <span class="d-flex justify-content-between">
+                        <h6 class="mb-0"> Special Request & Web check-in Services <span class="recommonded"><i
+                                 class="fa-regular fa-thumbs-up me-1"></i>RECOMMENDED</span></h6>
+                        <a href="javscript:void(0)">@if(isGSTShow){<i class="fa-solid fa-angle-up"></i>}@else{<i
+                              class="fa-solid fa-angle-down"></i>}</a>
+                     </span>
+                     <small class="text-muted subheading"> <i class="fa-solid fa-circle-info"></i> Our team will handle
+                        your web check-in and send boarding passes directly to the email address and phone number you
+                        provide, Saving you time and effort.</small>
+                     <span class="new">NEW</span>
+                  </button>
+                  <div id="add-specialservice" class="accordion-collapse collapse show">
+                     <div class="accordion-body p-2">
+                        <div class="ssr-wrapper">
+                           <!-- LEFT: Select Passenger -->
+                           <div class="ssr-left">
+                              <h4>Select Passenger</h4>
+                              <div class="pax-item" *ngFor="let pax of paxList" [class.active]="selectedPax === pax"
+                                 (click)="selectPax(pax)">
+                                 <label>
+                                    <input type="radio" name="paxSelect" [checked]="selectedPax === pax"
+                                       (change)="selectPax(pax)">
+                                    {{ pax.label }}
+                                 </label>
+                                 <div class="pax-summary">
+                                    <span class="star">★</span> {{ paxSummary(pax) }}
                                  </div>
                               </div>
                            </div>
-                        }
-                        
-                        
-                     <div class="flight-booking-wrapper" id="gst-details"> 
-                        <div class="flight-booking-header d-flex justify-content-between" data-bs-toggle="collapse" data-bs-target="#gst-detail">
-                           <div>
-                              <div class="itinerary-card-title">
-                                 <div class="header-left">
-                                    <i class="fa-solid fa-wallet"></i>
-                                    <span>GST Number for Business Travel ({{GSTTxt}})</span>
-                                 </div>
-                              </div>
-                              <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> To claim credit of GST charged by airline. Please enter your company's GST number.</small>
-                           </div>
-                           <a href="javscript:void(0)">@if(isGSTShow){<i class="fa-solid fa-angle-up" ></i>}@else{<i class="fa-solid fa-angle-down" ></i>}</a>
 
+                           <!-- RIGHT: journey tabs + sector-wise special service -->
+                           <div class="ssr-right" *ngIf="selectedPax">
+                             
+                                 <h4>{{ selectedPax.label }} details :</h4>
+                                 <div class="journey-tabs" *ngIf="journeys.length">
+                                    <button type="button" *ngFor="let j of journeys"
+                                       [class.active]="activeJourney === j" (click)="setActiveJourney(j)">
+                                       {{ j.label }}
+                                    </button>
+                                 </div>
+                             
+
+                              <div class="journey-panel" *ngIf="activeJourney">
+                                 <div class="sector-row" *ngFor="let sector of activeJourney.sectors">
+                                    <div class="sector-icon">★</div>
+                                    <div class="sector-content">
+                                       <div class="sector-label">Add Special Request Services ({{ sector.sectorKey }})
+                                       </div>
+
+                                       <div class="sector-options" *ngFor="let item of sector.items">
+                                          <label for="{{sector.sectorKey}}{{item.WebcheckInCode}}">
+                                             <input type="checkbox" id="{{sector.sectorKey}}{{item.WebcheckInCode}}"
+                                                [checked]="isChecked(selectedPax, sector.sectorKey, 'WebChekin')?.['WebcheckInCode']==item.WebcheckInCode"
+                                                [value]="item"
+                                                (change)="SelectWebChekin(selectedPax, sector.sectorKey, item, $event)">
+                                             {{ item.Text }}: <span class="text-decoration-line-through text-muted">₹{{
+                                                item.Price }}</span> <span class="ms-1 fw-semibold">₹{{ item.OfferdPrice
+                                                }}</span> <span class="text-warning">({{ item.Apply.replace('_',' ')
+                                                |titlecase }}) </span>
+                                          </label>
+                                       </div>
+                                    </div>
+                                 </div>
+
+                                 <p class="note" *ngIf="!activeJourney.sectors.length">
+                                    No special service available for this journey.
+                                 </p>
+                              </div>
+
+                              <p class="note">Note: Special services are subject to availability</p>
+                           </div>
                         </div>
 
-                        <div id="gst-detail" class="collapse" [ngClass]="{'show':isGSTShow}">
-                           <div class="flight-segment">
-                              <div class="flight-route-block">
 
-                                 <div class="gst-history-wrapper mb-3">
 
-                                    <div class="gst-input-icon">
-                                       <i class="fa fa-building"></i>
-                                    </div>
+                     </div>
+                  </div>
+               </div>
+               }
+               @if(InsuranceDetail && InsuranceDetail.length!==0){
+               <div class="position-relative accordion panel-item my-3 rounded border">
+                  <button
+                     class="accordion-button panel-heading text-dark fw-bold d-block flight-booking-header rounded collapse"
+                     type="button" data-bs-toggle="collapse" data-bs-target="#add-insurance">
+                     <span class="d-flex justify-content-between">
+                        <h6 class="mb-0">Add Travel Insurance <span class="recommonded"><i
+                                 class="fa-regular fa-thumbs-up me-1"></i> RECOMMENDED</span></h6>
+                        <a href="javscript:void(0)">@if(isGSTShow){<i class="fa-solid fa-angle-up"></i>}@else{<i
+                              class="fa-solid fa-angle-down"></i>}</a>
+                     </span>
+                     <small class="text-muted subheading"> <i class="fa-solid fa-circle-info"></i> Fly anywhere, with
+                        any airline — we’ve got you covere.</small>
 
-                                    <input type="text" class="react-autosuggest__input" placeholder="Select from GST History"
-                                       (keyup)="GSTAutocomplete($event)" [matAutocomplete]="auto" #gsteInput />
-                                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedgst($event)">
-                                       <mat-option *ngFor="let list of gstlist" [value]="list['company_name']">
-                                          <div class="gst-option">
-                                             <div class="gst-company">
-                                                {{list['company_name']}}
-                                             </div>
-                                          </div>
-                                       </mat-option>
-                                    </mat-autocomplete>
-                                    <button type="button" class="gst-clear-btn" (click)="cleargst()">
-                                       Clear
-                                    </button>
+                     <span class="new">NEW</span>
+                  </button>
+                  <div id="add-insurance" class="accordion-collapse collapse show">
+                     <div class="accordion-body p-2">
+                        <div class="ssr-wrapper">
+                           <!-- LEFT: Select Passenger -->
+                           <div class="ssr-left">
+                              <h4>Select Passenger</h4>
 
+                              <div class="pax-item" *ngFor="let pax of AllPaxes"
+                                 [class.active]="SelectedPaxInsurane == pax" (click)="SelectedPaxInsurane=pax">
+                                 <label>
+                                    <input type="radio" name="SelectInsurancepax" [checked]="SelectedPaxInsurane == pax"
+                                       (change)="SelectedPaxInsurane=pax">
+                                    @if(FlightForm.get(pax.PaxType+'.'+pax.PaxKey+'.FirstName')?.value){
+                                    {{FlightForm.get(pax.PaxType+'.'+pax.PaxKey+'.Title')?.value}}
+                                    {{FlightForm.get(pax.PaxType+'.'+pax.PaxKey+'.FirstName')?.value}}
+                                    {{FlightForm.get(pax.PaxType+'.'+pax.PaxKey+'.LastName')?.value}}
+                                    }@else{
+                                    {{ pax.PaxType }} {{pax.PaxKey+1}}
+                                    }
+                                 </label>
+                                 <div class="pax-summary">
+                                    <!-- <span class="star">★</span> {{ paxSummary(pax) }} -->
                                  </div>
-
-                                 <form [formGroup]="GSTForm">
-                                    <div class="row gy-3">
-                                       <div class="col-lg-12">
-                                          To claim credit of GST charged by airlines, Please enter your company's GST number
-                                       </div>
-                                       <div class="col-md-4">
-                                          <div class="form-group">
-                                             <label class="form-label" for="floatingInput">Registration
-                                                Number</label>
-                                             <input type="text" class="form-control main-select" id="floatingInput"
-                                                placeholder="Registration Number" formControlName="GSTNumber" />
-
-                                             <div *ngIf="Gstsubmitted && f['GSTNumber'].errors" class="error-msg">
-                                                <div *ngIf="f['GSTNumber'].errors['required']">
-                                                   Registration number is required.
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-md-4">
-                                          <div class="form-group">
-                                             <label class="form-label" for="floatingInput">Registered Company
-                                                Name</label>
-                                             <input type="text" class="form-control main-select" id="floatingInput"
-                                                placeholder="Registered Company Name" formControlName="CompanyName" />
-
-                                             <div *ngIf="Gstsubmitted && f['CompanyName'].errors" class="error-msg">
-                                                <div *ngIf="f['CompanyName'].errors['required']">
-                                                   Company name is required.
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-md-4">
-                                          <div class="form-group">
-                                             <label class="form-label" for="floatingInput">Registered Email</label>
-                                             <input type="email" class="form-control main-select" id="floatingInput"
-                                                placeholder="Registered Email" formControlName="Email" />
-
-                                             <div *ngIf="Gstsubmitted && f['Email'].errors" class="error-msg">
-                                                <div *ngIf="f['Email'].errors['required']">Email
-                                                   is
-                                                   required.
-                                                </div>
-                                                <div *ngIf="f['Email'].errors['email']">Please
-                                                   enter
-                                                   a valid email
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-md-6">
-                                          <div class="form-group">
-                                             <label class="form-label" for="floatingInput">Registered Phone</label>
-                                             <input type="phone" class="form-control main-select" id="floatingInput"
-                                                placeholder="Registered Phone" formControlName="PhoneNumber" />
-
-                                             <div *ngIf="Gstsubmitted && f['PhoneNumber'].errors" class="error-msg">
-                                                <div *ngIf="f['PhoneNumber'].errors['required']">
-                                                   Phone number is required.
-                                                </div>
-                                                <div
-                                                   *ngIf="f['PhoneNumber'].errors['pattern'] || f['PhoneNumber'].errors['minlength'] ||  f['PhoneNumber'].errors['maxlength']">
-                                                   Please enter a valid mobile number
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-md-6">
-                                          <div class="form-group">
-                                             <label class="form-label" for="floatingInput">Registered
-                                                Address</label>
-                                             <input type="address" class="form-control main-select" id="floatingInput"
-                                                placeholder="Registered Address" formControlName="Address" />
-
-                                             <div *ngIf="Gstsubmitted && f['Address'].errors" class="error-msg">
-                                                <div *ngIf="f['Address'].errors['required']">
-                                                   Address
-                                                   is required.
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-
-                                    <div class="form-check mt-3">
-                                       <input class="form-check-input" type="checkbox" id="save-gst-detail"
-                                          formControlName="SaveGST" />
-                                       <label class="form-check-label" for="save-gst-detail">Save GST Details</label>
-                                    </div>
-                                 </form>
-
                               </div>
                            </div>
+
+                           <!-- RIGHT: journey tabs + sector-wise special service -->
+                           <div class="ssr-right" *ngIf="SelectedPaxInsurane">
+                              <h4>
+                                 @if(FlightForm.get(SelectedPaxInsurane.PaxType+'.'+SelectedPaxInsurane.PaxKey+'.FirstName')?.value){
+                                 {{FlightForm.get(SelectedPaxInsurane.PaxType+'.'+SelectedPaxInsurane.PaxKey+'.Title')?.value}}
+                                 {{FlightForm.get(SelectedPaxInsurane.PaxType+'.'+SelectedPaxInsurane.PaxKey+'.FirstName')?.value}}
+                                 {{FlightForm.get(SelectedPaxInsurane.PaxType+'.'+SelectedPaxInsurane.PaxKey+'.LastName')?.value}}
+                                 }@else{
+                                 {{ SelectedPaxInsurane.PaxType }} {{SelectedPaxInsurane.PaxKey+1}}
+                                 } details :</h4>
+
+                              <div class="journey-tabs" *ngIf="JourneyGroup.length">
+                                 <button type="button" *ngFor="let j of JourneyGroup"
+                                    [class.active]="activeJourneyIns == j" (click)="setActiveJourney(j,'Insurance')">
+                                    {{ j }}
+                                 </button>
+                              </div>
+
+                              <div class="journey-panel" *ngIf="activeJourneyIns">
+                                 <div class="sector-row">
+                                    <div class="sector-content">
+                                       <div class="sector-label">Insurance Service</div>
+
+                                       <div class="sector-options d-flex" *ngFor="let item of InsuranceDetail">
+                                          <label for="{{activeJourneyIns}}{{item.ResultIndex}}">
+                                             <input type="checkbox" id="{{activeJourneyIns}}{{item.ResultIndex}}"
+                                                [checked]="isChecked(SelectedPaxInsurane, activeJourneyIns, 'Insurance')?.RI==item.ResultIndex"
+                                                [value]="item['ResultIndex']"
+                                                (change)="SelectInsurance(SelectedPaxInsurane, activeJourneyIns, item, $event)">
+                                             {{ item.PlanName }}: <span class="text-decoration-line-through">₹{{
+                                                item.Fare.PublishedPrice }}</span> <span class="ms-1 fw-semibold">₹{{
+                                                item.Fare.OfferedPrice }}</span>
+
+                                          </label>
+                                          <a href="javascript:void(0)" class="mx-2"
+                                             (click)="OpenModal(item,'KnowMore')">Details</a> | <a
+                                             href="javascript:void(0)" class="mx-2" (click)="OpenModal(item,'TC')">Term
+                                             & Condition</a>
+                                       </div>
+                                    </div>
+                                 </div>
+
+                                 <p class="note" *ngIf="!activeJourneyIns.length">
+                                    No special service available for this journey.
+                                 </p>
+                              </div>
+
+                              <p class="note">Note: Special services are subject to availability</p>
+                           </div>
+                        </div>
+
+
+                     </div>
+                  </div>
+               </div>
+               }
+
+
+               <div class="flight-booking-wrapper" id="gst-details">
+                  <div class="flight-booking-header d-flex justify-content-between" data-bs-toggle="collapse"
+                     data-bs-target="#gst-detail">
+                     <div>
+                        <div class="itinerary-card-title">
+                           <div class="header-left">
+                              <i class="fa-solid fa-wallet"></i>
+                              <span>GST Number for Business Travel ({{GSTTxt}})</span>
+                           </div>
+                        </div>
+                        <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> To claim credit of GST
+                           charged by airline. Please enter your company's GST number.</small>
+                     </div>
+                     <a href="javscript:void(0)">@if(isGSTShow){<i class="fa-solid fa-angle-up"></i>}@else{<i
+                           class="fa-solid fa-angle-down"></i>}</a>
+
+                  </div>
+
+                  <div id="gst-detail" class="collapse" [ngClass]="{'show':isGSTShow}">
+                     <div class="flight-segment">
+                        <div class="flight-route-block">
+
+                           <div class="gst-history-wrapper mb-3">
+
+                              <div class="gst-input-icon">
+                                 <i class="fa fa-building"></i>
+                              </div>
+
+                              <input type="text" class="react-autosuggest__input" placeholder="Select from GST History"
+                                 (keyup)="GSTAutocomplete($event)" [matAutocomplete]="auto" #gsteInput />
+                              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedgst($event)">
+                                 <mat-option *ngFor="let list of gstlist" [value]="list['company_name']">
+                                    <div class="gst-option">
+                                       <div class="gst-company">
+                                          {{list['company_name']}}
+                                       </div>
+                                    </div>
+                                 </mat-option>
+                              </mat-autocomplete>
+                              <button type="button" class="gst-clear-btn" (click)="cleargst()">
+                                 Clear
+                              </button>
+
+                           </div>
+
+                           <form [formGroup]="GSTForm">
+                              <div class="row gy-3">
+                                 <div class="col-lg-12">
+                                    To claim credit of GST charged by airlines, Please enter your company's GST number
+                                 </div>
+                                 <div class="col-md-4">
+                                    <div class="form-group">
+                                       <label class="form-label" for="floatingInput">Registration
+                                          Number</label>
+                                       <input type="text" class="form-control main-select" id="floatingInput"
+                                          placeholder="Registration Number" formControlName="GSTNumber" />
+
+                                       <div *ngIf="Gstsubmitted && f['GSTNumber'].errors" class="error-msg">
+                                          <div *ngIf="f['GSTNumber'].errors['required']">
+                                             Registration number is required.
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-4">
+                                    <div class="form-group">
+                                       <label class="form-label" for="floatingInput">Registered Company
+                                          Name</label>
+                                       <input type="text" class="form-control main-select" id="floatingInput"
+                                          placeholder="Registered Company Name" formControlName="CompanyName" />
+
+                                       <div *ngIf="Gstsubmitted && f['CompanyName'].errors" class="error-msg">
+                                          <div *ngIf="f['CompanyName'].errors['required']">
+                                             Company name is required.
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-4">
+                                    <div class="form-group">
+                                       <label class="form-label" for="floatingInput">Registered Email</label>
+                                       <input type="email" class="form-control main-select" id="floatingInput"
+                                          placeholder="Registered Email" formControlName="Email" />
+
+                                       <div *ngIf="Gstsubmitted && f['Email'].errors" class="error-msg">
+                                          <div *ngIf="f['Email'].errors['required']">Email
+                                             is
+                                             required.
+                                          </div>
+                                          <div *ngIf="f['Email'].errors['email']">Please
+                                             enter
+                                             a valid email
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-6">
+                                    <div class="form-group">
+                                       <label class="form-label" for="floatingInput">Registered Phone</label>
+                                       <input type="phone" class="form-control main-select" id="floatingInput"
+                                          placeholder="Registered Phone" formControlName="PhoneNumber" />
+
+                                       <div *ngIf="Gstsubmitted && f['PhoneNumber'].errors" class="error-msg">
+                                          <div *ngIf="f['PhoneNumber'].errors['required']">
+                                             Phone number is required.
+                                          </div>
+                                          <div
+                                             *ngIf="f['PhoneNumber'].errors['pattern'] || f['PhoneNumber'].errors['minlength'] ||  f['PhoneNumber'].errors['maxlength']">
+                                             Please enter a valid mobile number
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-6">
+                                    <div class="form-group">
+                                       <label class="form-label" for="floatingInput">Registered
+                                          Address</label>
+                                       <input type="address" class="form-control main-select" id="floatingInput"
+                                          placeholder="Registered Address" formControlName="Address" />
+
+                                       <div *ngIf="Gstsubmitted && f['Address'].errors" class="error-msg">
+                                          <div *ngIf="f['Address'].errors['required']">
+                                             Address
+                                             is required.
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+
+                              <div class="form-check mt-3">
+                                 <input class="form-check-input" type="checkbox" id="save-gst-detail"
+                                    formControlName="SaveGST" />
+                                 <label class="form-check-label" for="save-gst-detail">Save GST Details</label>
+                              </div>
+                           </form>
+
                         </div>
                      </div>
+                  </div>
+               </div>
 
             </form>
             }
@@ -2296,11 +2361,11 @@
          <div class="col-lg-3 ">
             <div class="fare-details">
                <div class="timer-section">
-                  <app-count-down display="on" ></app-count-down>
+                  <app-count-down display="on"></app-count-down>
                </div>
-               
+
                @if(fareloading==false){
-               
+
                <div class="flight-booking-wrapper">
                   <div class="flight-booking-header">
                      <div class="itinerary-card-title">
@@ -2325,7 +2390,8 @@
                                        <span><strong>Adult</strong></span>
                                        <span><strong>Pax :{{FareBrekdown['Adult']['PaxCount']}}</strong></span>
                                     </p>
-                                    <div><span>Base Fare</span><span class="float-end">₹{{FareBrekdown['Adult']['BaseFare']
+                                    <div><span>Base Fare</span><span
+                                          class="float-end">₹{{FareBrekdown['Adult']['BaseFare']
                                           |
                                           number:'1.0-2'}}</span></div>
                                     <div *ngIf="FareBrekdown['Adult']['Tax'] !=0"><span>Tax</span><span
@@ -2333,7 +2399,8 @@
                                     </div>
                                     <div>
                                        <span>Service Charges</span>
-                                       <span class="float-end">₹{{FareBrekdown['Adult']['ServiceCharge'] |number:'1.0-2'}}</span>
+                                       <span class="float-end">₹{{FareBrekdown['Adult']['ServiceCharge']
+                                          |number:'1.0-2'}}</span>
                                     </div>
                                  </div>
                                  @if(FareBrekdown['Child']['BaseFare']!==0){
@@ -2342,7 +2409,8 @@
                                        <span><strong>Child</strong></span>
                                        <span><strong>Pax :{{FareBrekdown['Child']['PaxCount']}}</strong></span>
                                     </p>
-                                    <div><span>Base Fare</span><span class="float-end">₹{{FareBrekdown['Child']['BaseFare']
+                                    <div><span>Base Fare</span><span
+                                          class="float-end">₹{{FareBrekdown['Child']['BaseFare']
                                           |
                                           number:'1.0-2'}}</span></div>
                                     <div *ngIf="FareBrekdown['Child']['Tax'] !=0"><span>Tax</span><span
@@ -2439,7 +2507,7 @@
                            }
                            @if(CurrentFare['WebChekinOfferPrice']){
                            <div class="fare-row">
-                              <span>Webchekin Price</span>
+                              <span>Special Request </span>
                               <span class="fare-price">
                                  ₹{{CurrentFare['WebChekinOfferPrice'] | number:'1.0-2'}}
                               </span>
@@ -2522,7 +2590,8 @@
                                  <div class="fare-sub-row">
                                     <span>Net Price</span>
                                     <span>
-                                       ₹{{this.CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat']+CurrentFare['InsuranceOfferPrice']+CurrentFare['WebChekinOfferPrice']| number:'1.0-0'}}
+                                       ₹{{this.CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat']+CurrentFare['InsuranceOfferPrice']+CurrentFare['WebChekinOfferPrice']|
+                                       number:'1.0-0'}}
                                     </span>
                                  </div>
                               </div>
@@ -2578,7 +2647,7 @@
 
                </div>
                <div class="fare-summary-card mt-3">
-                   <div class="skel-row skel-total">
+                  <div class="skel-row skel-total">
                      <div class="skel-left">
                         <span class="sk" style="width:88px; height:15px;"></span>
                         <span class="sk sk-sm-box"></span>
@@ -2587,13 +2656,13 @@
                   </div>
                </div>
                }
-            
-            @if(fareloading==false){
+
+               @if(fareloading==false){
                <button type="button" id="review" class="btn asr-book" (click)="SubmitPax()">
                   <span>Proceed To Review</span>
                   <i class="fa fa-angle-double-right"></i>
                </button>
-            }
+               }
             </div>
          </div>
       </div>
@@ -2606,193 +2675,193 @@
 <!--:: Seat selection Modal -->
 
 <div class="modal fade" id="seat-selectmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Select Seats</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" style="background: #e4e3e3;">
-                <div class="row">
-                    <nav class="nav nav-pills nav-justified">
-                        <div *ngFor="let segmentSeats of seatData; let jkey = index" class="d-flex">
-                            <a class="nav-link" aria-current="page" href="javascript:void(0);"
-                                *ngFor="let Segment of segmentSeats; let segkey = index"
-                                [ngClass]="{'active': seatactivetab == jkey + '' + segkey }"
-                                (click)="selectseattab(jkey, segkey, Segment)">
-                                <span *ngIf="jkey === 0">Departure</span>
-                                <span *ngIf="jkey === 1">Return</span>
-                                {{Segment.Origin}}-{{Segment.Destination}}
-                            </a>
+   aria-labelledby="staticBackdropLabel" aria-hidden="true">
+   <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Select Seats</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body" style="background: #e4e3e3;">
+            <div class="row">
+               <nav class="nav nav-pills nav-justified">
+                  <div *ngFor="let segmentSeats of seatData; let jkey = index" class="d-flex">
+                     <a class="nav-link" aria-current="page" href="javascript:void(0);"
+                        *ngFor="let Segment of segmentSeats; let segkey = index"
+                        [ngClass]="{'active': seatactivetab == jkey + '' + segkey }"
+                        (click)="selectseattab(jkey, segkey, Segment)">
+                        <span *ngIf="jkey === 0">Departure</span>
+                        <span *ngIf="jkey === 1">Return</span>
+                        {{Segment.Origin}}-{{Segment.Destination}}
+                     </a>
+                  </div>
+               </nav>
+
+               <div *ngFor="let segmentSeats of seatData; let jkey = index">
+                  <div class="seatlayoutbox seatlayoutbox_departure"
+                     *ngFor="let Segment of segmentSeats ; let segkey = index">
+                     <div class="flightboxmain" *ngIf="seatactivetab==jkey+''+segkey">
+                        <div class="flightboxmain_seatmain">
+                           <div class="seatmapdiv flightboxmain_seatmain2">
+                              <div class="flightboxmain_seatmain1"></div>
+                              <span>Available Seat</span>
+                           </div>
+                           <div class="seatmapdiv flightboxmain_seatmain3">
+                              <div class="flightboxmain_seatmain1"></div>
+                              <span>Booked Seat</span>
+                           </div>
+                           <div class="seatmapdiv flightboxmain_seatmain4">
+                              <div class="flightboxmain_seatmain1"></div>
+                              <span>Selected Seat</span>
+                           </div>
                         </div>
-                    </nav>
+                        <div>
+                           <div class="seat-body rounded mb-3 row">
 
-                    <div *ngFor="let segmentSeats of seatData; let jkey = index">
-                        <div class="seatlayoutbox seatlayoutbox_departure"
-                            *ngFor="let Segment of segmentSeats ; let segkey = index">
-                            <div class="flightboxmain" *ngIf="seatactivetab==jkey+''+segkey">
-                                <div class="flightboxmain_seatmain">
-                                    <div class="seatmapdiv flightboxmain_seatmain2">
-                                        <div class="flightboxmain_seatmain1"></div>
-                                        <span>Available Seat</span>
-                                    </div>
-                                    <div class="seatmapdiv flightboxmain_seatmain3">
-                                        <div class="flightboxmain_seatmain1"></div>
-                                        <span>Booked Seat</span>
-                                    </div>
-                                    <div class="seatmapdiv flightboxmain_seatmain4">
-                                        <div class="flightboxmain_seatmain1"></div>
-                                        <span>Selected Seat</span>
-                                    </div>
-                                </div>
-                                <div>
-                                <div class="seat-body rounded mb-3 row">
-                                     
-                                            <div class="p-0"
-                                                *ngFor="let detail of travellerJson[jkey] |keyvalue; let paxkey = index">
+                              <div class="p-0" *ngFor="let detail of travellerJson[jkey] |keyvalue; let paxkey = index">
 
-                                                <div class="col-12 seat-li"
-                                                    *ngFor="let paxdetail of getval(detail) | keyvalue; let paxcountkey = index"
-                                                   >
+                                 <div class="col-12 seat-li"
+                                    *ngFor="let paxdetail of getval(detail) | keyvalue; let paxcountkey = index">
 
-                                                    <span>
-                                                        <span
-                                                            *ngIf="FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value==''">{{detail.key}}-{{paxdetail.key}}</span>
-                                                        <span *ngIf="FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value!==''">{{FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value}}
-                                                            {{FlightForm.get(detail.key+'.'+paxcountkey+'.LastName')?.value}}</span>
-                                                    </span>
+                                    <span>
+                                       <span
+                                          *ngIf="FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value==''">{{detail.key}}-{{paxdetail.key}}</span>
+                                       <span
+                                          *ngIf="FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value!==''">{{FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value}}
+                                          {{FlightForm.get(detail.key+'.'+paxcountkey+'.LastName')?.value}}</span>
+                                    </span>
 
-                                                    <span class="float-end"
-                                                        *ngIf="getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Code']">
-                                                       <strong> -  {{getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Code']}}
-                                                        <!-- | ₹
+                                    <span class="float-end"
+                                       *ngIf="getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Code']">
+                                       <strong> -
+                                          {{getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Code']}}
+                                          <!-- | ₹
                                                         {{getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Price']
                                                         | number:'1.0-2' }} -->
-                                                        </strong></span>
-                                                </div>
-                                                
-                                            </div>
-                                           
-                                        </div>
-                            </div>
-                            <div class="">
-                                    <div>
-                                    <button (click)="clearSeat()" class="btn btn-danger mb-2 w-100">
-                                        Clear
-                                    </button>
-                                    <button data-bs-dismiss="modal" aria-label="Close" class="btn btn-primary w-100">
-                                        Procced
-                                    </button>
-                                    
-                                </div>
-                            </div>
-                            </div>
-                            
-                            <div class="flightbox" *ngIf="seatactivetab==jkey+''+segkey">
+                                       </strong></span>
+                                 </div>
 
+                              </div>
 
-                                <div class="seatdetails" [ngStyle]="tootipstyle" style="display: none;"
-                                    (click)="$event.stopPropagation();">
-                                    <div class="seatinfo">
-                                        <div class="row seat-header">
-                                            <div class="col-5 text-start">Seat {{clickedseat['Code']}}</div>
-                                            <div class="col-5 text-end">₹ {{clickedseat['Price'] | number:'1.0-2'}}
-                                            </div>
-                                            <div class="col-2 text-end">
-                                                <button type="button" class="tooltrip-close" (click)="CLOSETootip()"><i
-                                                        class="fa fa-times" aria-hidden="true"></i></button>
-                                            </div>
-                                        </div>
-                                        <div class="seat-body row">
-
-                                            <div class="p-0"
-                                                *ngFor="let detail of travellerJson[jkey] |keyvalue; let paxkey = index">
-
-                                                <div class="col-12 seat-li"
-                                                    *ngFor="let paxdetail of getval(detail) | keyvalue; let paxcountkey = index"
-                                                    (click)="selectseat(clickedseat,paxdetail.value,Segment,jkey)">
-
-                                                    <span><i class="fa fa-check-circle" aria-hidden="true"
-                                                            [ngClass]="{'pax-seat-assign':getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Code']}"></i>
-                                                        <span
-                                                            *ngIf="FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value==''">{{detail.key}}-{{paxdetail.key}}</span>
-                                                        <span
-                                                            *ngIf="FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value!==''">{{FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value}}
-                                                            {{FlightForm.get(detail.key+'.'+paxcountkey+'.LastName')?.value}}</span>
-                                                    </span>
-                                                    <span class="float-end"
-                                                        *ngIf="getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Code']">
-                                                        {{getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Code']}}
-                                                        | ₹
-                                                        {{getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Price']
-                                                        | number:'1.0-2' }}</span>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div><span class="bgProperties iconflFront"
-                                        style="background-image: url('assets/img/flightSmallFront.png');"></span></div>
-                                <div class="flightboxplan">
-                                    <h1 class="flightdetails">
-                                        <font style="vertical-align: inherit;">
-                                            <font style="vertical-align: inherit;">{{Segment?.Origin}} to
-                                                {{Segment?.Destination}}</font>
-                                        </font>
-                                    </h1>
-                                    <div class="flgtrow mb-3">
-                                        <span class="leftwing"></span>
-                                        <div class="innerrow">
-                                            <h2>Front Entrance</h2>
-                                        </div>
-                                        <span class="rightwing"></span>
-                                    </div>
-
-                                    <div class="flgtrow" *ngFor="let segmentul of objectKeys(Segment.ul);">
-                                        <span class="leftwing"></span>
-                                        <div class="innerrow">
-                                            <ul class="seatrow">
-
-                                                <li *ngFor="let segmentli of Segment.ul[segmentul]"
-                                                    class="{{segmentli?.SeatClass}} {{segmentli?.uid}}"
-                                                    [ngClass]="{'selectedseat': paxseatselected?.[Segment?.Origin+'-'+Segment?.Destination]?.includes(segmentli?.Code)}"
-                                                    (click)="seatClicked($event,segmentli)" #showhidetooltrip
-                                                    (mouseover)="seatTooltip(segmentli,'mouseover')"
-                                                    (mouseleave)="seatTooltip(segmentli,'mouseleave')">
-                                                    <span class="segmetsetnum">{{segmentli?.Code}}</span>
-
-                                                    <div class="seatdetails-tooltip" [ngStyle]="segmentli?.tooltrip"
-                                                        (click)="$event.stopPropagation();">
-                                                        {{segmentli.Code}} | ₹ {{segmentli.Price | number:'1.0-2'}}
-                                                    </div>
-
-                                                </li>
-
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <div class="flgtrow">
-                                        <span class="leftwing"></span>
-                                        <div class="innerrow">
-                                            <h2>Back Entrance</h2>
-                                        </div>
-                                        <span class="rightwing"></span>
-                                    </div>
-                                </div>
-                                <div><span class="bgProperties iconflTail"
-                                        style="background-image: url('assets/img/flightSmallTail.png');"></span></div>
-
-                            </div>
+                           </div>
                         </div>
-                    </div>
-                </div>
+                        <div class="">
+                           <div>
+                              <button (click)="clearSeat()" class="btn btn-danger mb-2 w-100">
+                                 Clear
+                              </button>
+                              <button data-bs-dismiss="modal" aria-label="Close" class="btn btn-primary w-100">
+                                 Procced
+                              </button>
+
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="flightbox" *ngIf="seatactivetab==jkey+''+segkey">
+
+
+                        <div class="seatdetails" [ngStyle]="tootipstyle" style="display: none;"
+                           (click)="$event.stopPropagation();">
+                           <div class="seatinfo">
+                              <div class="row seat-header">
+                                 <div class="col-5 text-start">Seat {{clickedseat['Code']}}</div>
+                                 <div class="col-5 text-end">₹ {{clickedseat['Price'] | number:'1.0-2'}}
+                                 </div>
+                                 <div class="col-2 text-end">
+                                    <button type="button" class="tooltrip-close" (click)="CLOSETootip()"><i
+                                          class="fa fa-times" aria-hidden="true"></i></button>
+                                 </div>
+                              </div>
+                              <div class="seat-body row">
+
+                                 <div class="p-0"
+                                    *ngFor="let detail of travellerJson[jkey] |keyvalue; let paxkey = index">
+
+                                    <div class="col-12 seat-li"
+                                       *ngFor="let paxdetail of getval(detail) | keyvalue; let paxcountkey = index"
+                                       (click)="selectseat(clickedseat,paxdetail.value,Segment,jkey)">
+
+                                       <span><i class="fa fa-check-circle" aria-hidden="true"
+                                             [ngClass]="{'pax-seat-assign':getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Code']}"></i>
+                                          <span
+                                             *ngIf="FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value==''">{{detail.key}}-{{paxdetail.key}}</span>
+                                          <span
+                                             *ngIf="FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value!==''">{{FlightForm.get(detail.key+'.'+paxcountkey+'.FirstName')?.value}}
+                                             {{FlightForm.get(detail.key+'.'+paxcountkey+'.LastName')?.value}}</span>
+                                       </span>
+                                       <span class="float-end"
+                                          *ngIf="getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Code']">
+                                          {{getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Code']}}
+                                          | ₹
+                                          {{getval(paxdetail)?.[Segment?.Origin+'-'+Segment?.Destination]?.['Price']
+                                          | number:'1.0-2' }}</span>
+                                    </div>
+                                 </div>
+
+                              </div>
+                           </div>
+                        </div>
+
+                        <div><span class="bgProperties iconflFront"
+                              style="background-image: url('assets/img/flightSmallFront.png');"></span></div>
+                        <div class="flightboxplan">
+                           <h1 class="flightdetails">
+                              <font style="vertical-align: inherit;">
+                                 <font style="vertical-align: inherit;">{{Segment?.Origin}} to
+                                    {{Segment?.Destination}}</font>
+                              </font>
+                           </h1>
+                           <div class="flgtrow mb-3">
+                              <span class="leftwing"></span>
+                              <div class="innerrow">
+                                 <h2>Front Entrance</h2>
+                              </div>
+                              <span class="rightwing"></span>
+                           </div>
+
+                           <div class="flgtrow" *ngFor="let segmentul of objectKeys(Segment.ul);">
+                              <span class="leftwing"></span>
+                              <div class="innerrow">
+                                 <ul class="seatrow">
+
+                                    <li *ngFor="let segmentli of Segment.ul[segmentul]"
+                                       class="{{segmentli?.SeatClass}} {{segmentli?.uid}}"
+                                       [ngClass]="{'selectedseat': paxseatselected?.[Segment?.Origin+'-'+Segment?.Destination]?.includes(segmentli?.Code)}"
+                                       (click)="seatClicked($event,segmentli)" #showhidetooltrip
+                                       (mouseover)="seatTooltip(segmentli,'mouseover')"
+                                       (mouseleave)="seatTooltip(segmentli,'mouseleave')">
+                                       <span class="segmetsetnum">{{segmentli?.Code}}</span>
+
+                                       <div class="seatdetails-tooltip" [ngStyle]="segmentli?.tooltrip"
+                                          (click)="$event.stopPropagation();">
+                                          {{segmentli.Code}} | ₹ {{segmentli.Price | number:'1.0-2'}}
+                                       </div>
+
+                                    </li>
+
+                                 </ul>
+                              </div>
+                           </div>
+
+                           <div class="flgtrow">
+                              <span class="leftwing"></span>
+                              <div class="innerrow">
+                                 <h2>Back Entrance</h2>
+                              </div>
+                              <span class="rightwing"></span>
+                           </div>
+                        </div>
+                        <div><span class="bgProperties iconflTail"
+                              style="background-image: url('assets/img/flightSmallTail.png');"></span></div>
+
+                     </div>
+                  </div>
+               </div>
             </div>
-        </div>
-    </div>
+         </div>
+      </div>
+   </div>
 </div>
 
 <!--:: Seat selection Modal -->
@@ -2973,7 +3042,7 @@ PRICE CONFIRMATION MODAL
          </div>
          <div class="modal-body">
             <div *ngif="NameFormaturl">
-               <iframe [src]="NameFormaturl"  width="100%" height="600"></iframe>
+               <iframe [src]="NameFormaturl" width="100%" height="600"></iframe>
             </div>
          </div>
          <!-- <div class="modal-footer">

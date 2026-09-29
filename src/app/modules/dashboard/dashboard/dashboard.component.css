@@ -302,7 +302,8 @@
 }
 
 .updates-header {
-    background: #dff6fb;
+    /* background: #dff6fb; */
+    background-color: var(--primary-color);
     padding: 20px;
     border-bottom: 1px solid var(--border-color);
 }
@@ -317,7 +318,7 @@
     margin: 0;
     font-size: 16px;
     font-weight: 700;
-    color: var(--second-dark-color);
+    color: var(--white);
 }
 
 .updates-body {
