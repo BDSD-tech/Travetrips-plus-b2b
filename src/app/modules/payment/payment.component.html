@@ -655,8 +655,13 @@
                      <div><span>Net Price</span><span
                         class="float-end">₹{{CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['SSR']['Baggage']+CurrentFare['SSR']['Meal']+CurrentFare['SSR']['Seat']+CurrentFare['WebChekinOfferPrice']+CurrentFare['InsuranceOfferPrice']| number:'1.0-0'}}</span></div>
                      }@else{
+                         @if(Service=='Flight'){
+                            <div><span>Net Price</span><span class="float-end">₹{{CurrentFare['OfferedPrice']+CurrentFare['TDS']+CurrentFare['InsuranceOfferPrice']|
+                        number:'1.0-0'}}</span></div>
+                         }@else{
                      <div><span>Net Price</span><span class="float-end">₹{{CurrentFare['OfferedPrice']+CurrentFare['TDS']|
                         number:'1.0-0'}}</span></div>
+                        }
                      }
                   </div>
                </div>
