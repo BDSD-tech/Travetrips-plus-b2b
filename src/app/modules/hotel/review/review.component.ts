@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, NavigationExtras, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from '../../../services/common.service';
@@ -7,6 +7,8 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { HotelService } from '../hotel.service';
 import { AlertService } from '../../../services/alert.service';
 import { AuthenticationService } from '../../../services/authentication.service';
+import { FlightService } from '../../flight/flight.service';
+
 declare var bootstrap:any;
 declare var document:any;
 declare var $: any;
@@ -47,9 +49,10 @@ export class ReviewComponent implements OnInit {
 
   nopaxcount=0;
   ShowReviewModal=false;
-  confirmationChecked=false
+  confirmationChecked=false;
+  ISHoldable=false;
   @ViewChild('gsteInput') gsteInput!: ElementRef<HTMLInputElement>;
-  constructor(private router:Router,private route:ActivatedRoute,private location:Location,private fb:FormBuilder, private commonservice:CommonService, private hotelService:HotelService,private authenticationservice: AuthenticationService,private alertservice:AlertService) {
+  constructor(private flightService:FlightService,private router:Router,private route:ActivatedRoute,private location:Location,private fb:FormBuilder, private commonservice:CommonService, private hotelService:HotelService,private authenticationservice: AuthenticationService,private alertservice:AlertService) {
 
     if(sessionStorage.getItem('HotelBlockRoomData')!=null)
     {
@@ -57,6 +60,7 @@ export class ReviewComponent implements OnInit {
       blockRoomData=JSON.parse(blockRoomData)
 
       this.BlockRoomResult=blockRoomData['Result'];
+      this.ISHoldable=this.BlockRoomResult['IsHoldable'];
       this.IsPANMandatory=this.BlockRoomResult['HotelRoomsDetails'][0]['IsPANMandatory'];
       this.IsPassportMandatory=this.BlockRoomResult['HotelRoomsDetails'][0]['IsPassportMandatory'];
 
@@ -112,7 +116,7 @@ export class ReviewComponent implements OnInit {
       });
       if(sessionStorage.getItem('TSFPAX')){
         let resp:any=sessionStorage.getItem('TSFPAX')
-        let paxdetail:any=JSON.parse(resp)
+        let paxdetail:any=JSON.parse(resp);
         this.HotelPaxForm.get('RoomDetails')?.patchValue(paxdetail['paxdata']);
       }
       setTimeout(() => {
@@ -271,7 +275,7 @@ export class ReviewComponent implements OnInit {
       }
   }
 
-  SubmitPax(){
+  SubmitPax(type:any){
 
     if(this.isGSTShow) {
       this.submitted = true;
@@ -280,18 +284,18 @@ export class ReviewComponent implements OnInit {
         this.scrollToSection('gst-details');
         return;
       }
-        this.SavepaxInfo();
+        this.SavepaxInfo(type);
     } else {
       this.submitted = true;
       if (this.HotelPaxForm.invalid) {
          this.scrollToSection('passenger-details');
         return;
       }
-      this.SavepaxInfo();
+      this.SavepaxInfo(type);
     }
   }
 
-  SavepaxInfo()
+  SavepaxInfo(type:any)
   {
     if(!this.confirmationChecked){
       this.scrollToSection('confirmationcheckbox');
@@ -310,16 +314,28 @@ export class ReviewComponent implements OnInit {
     savedata['IsGST']=false;
     savedata['paxdata']=this.HotelPaxForm.get('RoomDetails')?.value;
     savedata['Service']='Hotel';
-
-    sessionStorage.setItem('TSFPAX',JSON.stringify(savedata));
-    const navigationExtras: NavigationExtras = {
-     queryParams:this.params
-    };
-    this.ShowReviewModal=true;
-    setTimeout(() => {
-        this.openModal();
-    }, 100);
-    
+    if(type=='Hold'){
+      savedata['BookingType']='Hold';
+      this.flightService.SavePaxdata(savedata,'Hotel').subscribe((data:any)=>{
+        let resp:any=data;
+        if(resp['Error']['ErrorCode']==0)
+        {
+          window.location.href=data['Result']['url'];
+        } else {
+          this.alertservice.error(resp['Error']['ErrorMessage']);
+        }
+      });
+    }else{
+      savedata['BookingType']='Booking';
+      sessionStorage.setItem('TSFPAX',JSON.stringify(savedata));
+      const navigationExtras: NavigationExtras = {
+      queryParams:this.params
+      };
+      this.ShowReviewModal=true;
+      setTimeout(() => {
+          this.openModal();
+      }, 100);
+    }
     // this.router.navigate(['hotel/review'],navigationExtras);
   }
 

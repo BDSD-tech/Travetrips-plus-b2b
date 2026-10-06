@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { AlertService } from '../../../../services/alert.service';
 import { AuthenticationService } from '../../../../services/authentication.service';
 import { DashboardService } from '../../dashboard.service';
+import { CommonService } from '../../../../services/common.service';
 
 
 declare var window: any;
@@ -20,7 +21,7 @@ export class CartDetailHotelComponent  implements OnInit {
 
   loading=true;
   BookingDetail:any=[];
-
+  modaltype:any
   AddAmendmentModal:any;
   AddAmendmentForm:FormGroup;
   amendmentsubmitted=false;
@@ -51,7 +52,13 @@ export class CartDetailHotelComponent  implements OnInit {
 
   atagtext='Show Room Description(+)';
   
-  constructor(private router: Router,private route: ActivatedRoute,private alertservice:AlertService,private dashboardservice:DashboardService,private fb: FormBuilder,private authenticationservice: AuthenticationService) { 
+  BookingReachForm:any=FormGroup;
+  Reachsubmitted=false
+  Submitloading=false;
+  EncToken:any
+  RoomsDetail:any;
+  CurrentFare:any={}
+  constructor(private commonService: CommonService, private router: Router, private route: ActivatedRoute, private alertservice:AlertService, private dashboardservice:DashboardService, private fb: FormBuilder, private authenticationservice: AuthenticationService) { 
 
     if(this.route.snapshot.params['refno']) {
       this.refno = this.route.snapshot.params['refno'];
@@ -60,16 +67,20 @@ export class CartDetailHotelComponent  implements OnInit {
      }  
 
      this.AddAmendmentForm=this.fb.group({
-                                            BookingID: ['',[Validators.required]],
-                                            AmendmentType: ['',[Validators.required]]
-                                        });  
+                                          BookingID: ['',[Validators.required]],
+                                          AmendmentType: ['',[Validators.required]]
+                                      });  
 
      this.AddNotesForm=this.fb.group({
-                                            BookingID: ['',[Validators.required]],
-                                            NoteType: ['',[Validators.required]],
-                                            Message: ['',[Validators.required]],
-                                            ShowToAll: [''],
-                                        });  
+                                      BookingID: ['',[Validators.required]],
+                                      NoteType: ['',[Validators.required]],
+                                      Message: ['',[Validators.required]],
+                                      ShowToAll: [''],
+                                      });  
+      this.BookingReachForm=this.fb.group({
+          Token: ['',[Validators.required]],
+          Remark: ['',[Validators.required]]
+      });  
   }
 
   ngOnInit(): void {
@@ -86,7 +97,6 @@ export class CartDetailHotelComponent  implements OnInit {
     this.AddNotesModal = new window.bootstrap.Modal(
       document.getElementById('addnotesmodal')
     );
-    
 
     this.authenticationservice.currentUser.subscribe(data => {
       if(data && data['EmailId'])
@@ -95,7 +105,7 @@ export class CartDetailHotelComponent  implements OnInit {
       }
     });
   }
-
+  get reach(){return this.BookingReachForm.controls;}
 
   GetDetail(refno:any)
   {
@@ -105,10 +115,37 @@ export class CartDetailHotelComponent  implements OnInit {
           if(resp['Error']['ErrorCode']==0)
           {
             this.BookingDetail=resp['Result']['BookingDetail'];
+            this.RoomsDetail=JSON.parse(this.BookingDetail['hotel_rooms_details']);
             this.AmendmentList=resp['Result']['amendmentList'];
             this.NoteList=resp['Result']['BookingDetail']['BookingNotes'];
             this.PaymentInfo=resp['Result']['BookingDetail']['paymentInfo'];
-
+            this.EncToken=resp['Result']['EncToken'];
+            let fb:any=JSON.parse(this.BookingDetail['web_partner_fare_break_up']);
+            let basefare=0;let taxes=0;let othercharges=0;let servicecharges=0;let agentmarkup=0
+            let publishprice=0;let offerprice=0;let discount=0;let gst=0;
+            fb.forEach((fare: any) => {
+              basefare+=parseFloat(fare['RoomPrice']);
+              taxes+=parseFloat(fare['Tax']);
+              othercharges+=parseFloat(fare['OtherCharges']);
+              servicecharges+=parseFloat(fare['ServiceCharges']);
+              agentmarkup+=parseFloat(fare['AgentCommission']);
+              publishprice+=parseFloat(fare['PublishedPrice']);
+              offerprice+=parseFloat(fare['OfferedPrice']);
+              discount+=parseFloat(fare['Discount']);
+              gst+=parseFloat(fare['GST']['TaxableAmount']);
+            });
+            this.CurrentFare['BaseFare']=basefare;
+            this.CurrentFare['Tax']=taxes;
+            this.CurrentFare['Tax']=taxes;
+            this.CurrentFare['OtherCharges']=othercharges;
+            this.CurrentFare['AgentMarkup']=agentmarkup;
+            this.CurrentFare['AgentCommission']=0;
+            this.CurrentFare['PublishedPrice']=publishprice;
+            this.CurrentFare['OfferedPrice']=offerprice;
+            this.CurrentFare['Discount']=discount;
+            this.CurrentFare['TDS']=0;
+            this.CurrentFare['YQTax']=0;
+            this.CurrentFare['GST']=gst;
           } else {
             this.BookingDetail=[];
             this.AmendmentList=[];
@@ -119,10 +156,15 @@ export class CartDetailHotelComponent  implements OnInit {
       });
   }
 
-  RaiseAmendment(BookingID:any)
+  RaiseAmendment(BookingID:any,type:any=null)
   {
-      this.AddAmendmentModal.show();
+    this.AddAmendmentModal.show();
+    this.modaltype=type
+    if(type=='ReleaseHold'){
+      this.AddAmendmentForm.patchValue({'BookingID':BookingID, 'AmendmentType':'cancellation'});
+    }else{
       this.AddAmendmentForm.patchValue({'BookingID':BookingID});
+    }
   }
 
   get fa() { return this.AddAmendmentForm.controls; }
@@ -141,7 +183,6 @@ export class CartDetailHotelComponent  implements OnInit {
     const navigationExtras: NavigationExtras = {
       queryParams:{'bookingid':this.AddAmendmentForm.get('BookingID')?.value,'amendment-type':this.AddAmendmentForm.get('AmendmentType')?.value}
     };
-    
     this.router.navigate(['dashboard/manage-amendments-hotel/itinerary'],navigationExtras);
   }
 
@@ -178,7 +219,6 @@ export class CartDetailHotelComponent  implements OnInit {
   {
     this.AbortAmendmentModal.show();
     this.AmendmentRefNumber=amendment_ref_number;
-    
   }
   SubmitAbortAmendments()
   {
@@ -238,7 +278,10 @@ export class CartDetailHotelComponent  implements OnInit {
       this.activeroomkey=null;
     }
   }
-
+  Policy(){
+    console.log('sfjbsdjfbk');
+    
+  }
   CancellationPolicy(item:any)
   {
     this.CancellationPolicyData=item;
@@ -274,5 +317,46 @@ export class CartDetailHotelComponent  implements OnInit {
     return finaltxt;
   }
 
+  GeneratePayment(){
+    let data:any={
+        "service":'Hotel',
+        "token":this.EncToken,
+        "ResultIndex":this.BookingDetail['resultIndex'],
+        "SearchTokenId":this.BookingDetail['tts_search_token'],
+        "BookingStatus":this.BookingDetail['booking_status'],
+      }
+      sessionStorage.setItem('FareDetails',this.commonService.encrypt(this.CurrentFare));
+      const navigationExtras: NavigationExtras = {
+        queryParams:data
+      };
+      this.router.navigate(['/dashboard/payment'],navigationExtras);
+  }
+
+  formatCustomDate(dateString: string): Date {
+    // Convert "27-07-2025T00:00:00" to "2025-07-27T00:00:00"
+    const [day, month, yearWithTime] = dateString.split('-');
+    const [year, time] = yearWithTime.split('T');
+    const isoDate = `${year}-${month}-${day}T${time}`;
+    return new Date(isoDate);
+  }
+
+  SubmitReach(){
+    this.Reachsubmitted=true;
+    if(this.BookingReachForm.invalid){
+      return;
+    }
+
+    this.Submitloading=true;
+    this.dashboardservice.ReachHotel(this.BookingReachForm.value).subscribe((resp:any)=>{
+      this.Submitloading=false;
+      if(resp['Error']['ErrorCode']==0){
+       // this.BookingReachModal.hide();
+        this.GetDetail(this.refno);
+        this.alertservice.success(resp['Error']['ErrorMessage']);
+      }else{  
+          this.alertservice.error(resp['Error']['ErrorMessage']);
+      }
+    })
+  }
 }
 
