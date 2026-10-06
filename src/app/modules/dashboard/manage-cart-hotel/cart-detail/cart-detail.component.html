@@ -38,9 +38,12 @@
                                 <i class="fa fa-print me-1"></i> <span class="cssCircle-plusdesign">Print Ticket</span>
                             </a>
                         </div>
-                        <div class="cssCircle addsign">
-                            <a [routerLink]="['/hotel/invoice']" [queryParams]="{BookingRefNumber: BookingDetail['booking_ref_number'],SearchTokenId:BookingDetail['tts_search_token'],HtmlType:'Invoice',UserType:'WebPartner',ViewService:'View',WithPrice:'1',WithAgencyDetail:'1',ViewSize:''}"><i class="fa fa-print me-1"></i> <span class="cssCircle-plusdesign">Invoice</span></a>
-                        </div>
+                        @if(BookingDetail['booking_status']=='Confirmed'){
+                             <div class="cssCircle addsign">
+                                <a [routerLink]="['/hotel/invoice']" [queryParams]="{BookingRefNumber: BookingDetail['booking_ref_number'],SearchTokenId:BookingDetail['tts_search_token'],HtmlType:'Invoice',UserType:'WebPartner',ViewService:'View',WithPrice:'1',WithAgencyDetail:'1',ViewSize:''}"><i class="fa fa-print me-1"></i> <span class="cssCircle-plusdesign">Invoice</span></a>
+                            </div>
+                        }
+                       
                         <div class="cssCircle addsign">
                             <a (click)="RaiseAmendment(BookingDetail['booking_ref_number'])">
                                 <i class="fa fa-close me-1"></i><span class="cssCircle-plusdesign">Raise Amendments</span>
@@ -143,6 +146,29 @@
                                 </p>
                             </div>
                         </div>
+                        <div class="col-md-4 col-xs-6 col-6">
+                            <div class="cart_info-field">
+                                <p class="cart_info-field--title">
+                                   Last Cancellation Date :
+                                    <span class="cart_info-field--detail">
+                                        <span> &nbsp;<a href="javascript:void(0)" class="text-dark"> {{BookingDetail['last_cancellation_date']|date: 'dd MMM yyyy'}} {{BookingDetail['last_cancellation_date']|date: 'HH:mm'}}  </a></span>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        @if(BookingDetail['booking_status']=='Hold'){
+                        <div class="col-md-4 col-xs-6 col-6">
+                            <div class="cart_info-field">
+                                <p class="cart_info-field--title">
+                                   Last Voucher Date :
+                                    <span class="cart_info-field--detail">
+                                        <span> &nbsp;<a href="javascript:void(0)" class="text-warning"> {{BookingDetail['last_cancellation_date'] |date:'dd MMM yyyy'}} {{BookingDetail['last_cancellation_date']|date: 'HH:mm'}} </a></span>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        }
+                       
                     </div>
                 </div>
             </div>
@@ -277,12 +303,7 @@
                                     <p class="mb-0 mt-3"><strong>Hotel Name : </strong> {{BookingDetail['hotel_name']}}</p>
                                     <p class="mb-0"><i class="fa fa-map-marker"></i> {{BookingDetail['address1']}} <span *ngIf="BookingDetail['address2']">{{BookingDetail['address2']}}</span></p>
                                    
-                                    <div class="mb-2">
-                                        <span class="float-start"><strong> Last Cancellation Date :</strong> {{BookingDetail['last_cancellation_date']|date: 'dd MMM yyyy'}} {{BookingDetail['last_cancellation_date']|date: 'HH:mm'}}  </span>
-                                        @if(BookingDetail['booking_status']=='Hold'){
-                                        <span class="float-end"><strong> Last Voucher Date : </strong> {{BookingDetail['last_cancellation_date'] |date:'dd MMM yyyy'}} {{BookingDetail['last_cancellation_date']|date: 'HH:mm'}}</span>
-                                        }
-                                    </div>
+                                   
                                     
                                     <table class="table table-bordered">
                                         <tbody>
@@ -300,12 +321,33 @@
                                                             <b>Incl:</b> <span *ngFor="let inc of item['Inclusion']">{{inc}} ,</span>
                                                             <br />
                                                         </span>
-                                                        <a (click)="CancellationPolicy(item)" href="javascript:void(0);" class="fs-12 text-danger"> 
+                                                        <!-- <a (click)="CancellationPolicy(item)" href="javascript:void(0);" class="fs-12 text-danger"> 
                                                             Cancellation Policy 
-                                                        </a>
+                                                        </a> -->
                                                         <!-- <a (click)="CancellationPolicy(item)" href="javascript:void(0);"  class="fs-12 text-danger" >
                                                             Cancellation Policy
                                                         </a> -->
+                                                        <table class="table table-bordered mb-0">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col">Cancelled on or After</th>
+                                                                    <th scope="col">Cancelled on or Before</th>
+                                                                    <th scope="col">Cancelled on or Charges</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr *ngFor="let cancel of item['CancellationPolicies']">
+                                                                    <td>{{formatCustomDate(cancel['FromDate']) | date:'dd-MMM-y'}}</td>
+                                                                    <td>{{formatCustomDate(cancel['ToDate']) | date:'dd-MMM-y'}}</td>
+                                                                    <td>
+                                                                        <span *ngIf="cancel['ChargeType']=='1'">Rs. {{cancel['Charge']}}</span>
+                                                                        <span *ngIf="cancel['ChargeType']=='2'">{{cancel['Charge']}}%</span>
+                                                                        <span *ngIf="cancel['ChargeType']=='3'">{{cancel['Charge']}} Night(s) charge</span>
+                                                                    </td>
+                                                                </tr>
+                                                                
+                                                            </tbody>
+                                                        </table>
                                                         <br />
                                                         @if(item['RoomDescription']){
                                                             <a class="link" href="javascript:void(0);" (click)="showroomdetail(r)">

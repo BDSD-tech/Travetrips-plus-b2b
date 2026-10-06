@@ -328,6 +328,7 @@
                         <li class="travelimp__thanku--morelist" data-bs-toggle="modal" data-bs-target="#ticketformmodal-mobile">
                             <span class="travelimp__thanku--morecontent"> SMS Voucher </span><span class="travelimp__thanku--moreicons fa fa-envelope-open"></span>
                         </li>
+                        @if(Response['booking_status']=='Confirmed'){
                         <li class="travelimp__thanku--morelist">
                             <a class="travelimp__thanku--anchorlink" href="javascript:void(0);" (click)="ViewTicketInvoice('Invoice')">
                                 <span class="travelimp__thanku--morecontent"> Invoice For Agency</span><span class="travelimp__thanku--moreicons fa fa-file-alt"></span>
@@ -336,6 +337,7 @@
                         <li class="travelimp__thanku--morelist" (click)="ViewTicketInvoice('CustomerInvoice')">
                             <span class="travelimp__thanku--morecontent"> Invoice For Customer</span><span class="travelimp__thanku--moreicons fa fa-file-alt"></span>
                         </li>
+                        }
                     </div>
                         <li class="travelimp__thanku--morelist">
                             <a class="travelimp__thanku--anchorlink" routerLink="/dashboard/hotel-booking-details//{{Response.booking_ref_number}}">
