@@ -828,10 +828,10 @@ MoreFare(event: any, item: any, ttsindex: any) {
       let html: any = '';
       let Whatsapphtml: any = '';
       var _this = this;
+     
       selecteddata.forEach(function (value: any, key: any) {
-        let keys = value.split("_");
+         let keys = value.split("_");
         _this.Response.filter(function (flightItem: any) {
-
           if (flightItem.TtsIndex == keys[1]) {
             let fare: any;
             flightItem['FareList'].filter(function (fareItem: any) {
@@ -839,23 +839,34 @@ MoreFare(event: any, item: any, ttsindex: any) {
                 fare = '₹' + _this.flightService.transformDecimal(fareItem['Fare']['PublishedPrice']);
               }
             });
-          
-            
             flightItem['MainSegment'].filter(function (segItem: any, mainkey: any) {
-                if (flightItem['MainSegment'].length == mainkey + 1) {
+                if (flightItem['MainSegment'].length == 2) {
+                  if(mainkey == 0){
+                      html += `<div class="flight-details border rounded mb-2 d-flex justify-content-between align-items-center p-2">
+                        <div>
+                          <p> ${segItem['AirlineName']} (${segItem['AirlineCodeFlightNumberString']}): ${segItem['DepartureCity']} - ${segItem['ArrivalCity']} on ${segItem['DepartTime']} ${segItem['DepartDate']} - ${segItem['ArrivalTime']} ${segItem['ArrivalDate']} Duration: ${segItem['Duration']}.</p>
+                          
+                          <p>${flightItem['MainSegment'][1]['AirlineName']} (${flightItem['MainSegment'][1]['AirlineCodeFlightNumberString']}): ${flightItem['MainSegment'][1]['DepartureCity']} - ${flightItem['MainSegment'][1]['ArrivalCity']} on ${flightItem['MainSegment'][1]['DepartTime']} ${flightItem['MainSegment'][1]['DepartDate']} - ${flightItem['MainSegment'][1]['ArrivalTime']} ${flightItem['MainSegment'][1]['ArrivalDate']} Duration: ${flightItem['MainSegment'][1]['Duration']}.</p>
+                        </div>
+                        <div class="text-end">
+                          <p>Fare: ${fare}</p>
+                        </div>
+                      </div>`
+                  }
 
+                    Whatsapphtml += '*' + (key + 1) + '. ' + segItem['AirlineName'] + ' (' + segItem['AirlineCodeFlightNumberString'] + ') :* %0a'
+                      + segItem['DepartureCity'] + ' - ' + segItem['ArrivalCity'] + ' on ' + segItem['DepartTime'] + ' ' + segItem['DepartDate'] + ' - ' + segItem['ArrivalTime'] + ' ' + segItem['ArrivalDate'] + ' Duration:' + segItem['Duration'] + ', ' + fare + '. %0a%0a';
                 } else {
-                  fare =fare;
-                }
-              if (fare !== undefined) {
-                html += '<p>'
-                  + (key + 1) + '. ' + segItem['AirlineName'] + ' (' + segItem['AirlineCodeFlightNumberString'] + ') : <br/>'
-                  + segItem['DepartureCity'] + ' - ' + segItem['ArrivalCity'] + ' on ' + segItem['DepartTime'] + ' ' + segItem['DepartDate'] + ' - ' + segItem['ArrivalTime'] + ' ' + segItem['ArrivalDate'] + ' Duration:' + segItem['Duration'] + ', ' + fare + '.'
-                '</p>';
+                  if (fare !== undefined) {
+                    html += '<p>'
+                      + (key + 1) + '. ' + segItem['AirlineName'] + ' (' + segItem['AirlineCodeFlightNumberString'] + ') : <br/>'
+                      + segItem['DepartureCity'] + ' - ' + segItem['ArrivalCity'] + ' on ' + segItem['DepartTime'] + ' ' + segItem['DepartDate'] + ' - ' + segItem['ArrivalTime'] + ' ' + segItem['ArrivalDate'] + ' Duration:' + segItem['Duration'] + ', ' + fare + '.'
+                    '</p>';
 
-                Whatsapphtml += '*' + (key + 1) + '. ' + segItem['AirlineName'] + ' (' + segItem['AirlineCodeFlightNumberString'] + ') :* %0a'
-                  + segItem['DepartureCity'] + ' - ' + segItem['ArrivalCity'] + ' on ' + segItem['DepartTime'] + ' ' + segItem['DepartDate'] + ' - ' + segItem['ArrivalTime'] + ' ' + segItem['ArrivalDate'] + ' Duration:' + segItem['Duration'] + ', ' + fare + '. %0a%0a';
-              }
+                    Whatsapphtml += '*' + (key + 1) + '. ' + segItem['AirlineName'] + ' (' + segItem['AirlineCodeFlightNumberString'] + ') :* %0a'
+                      + segItem['DepartureCity'] + ' - ' + segItem['ArrivalCity'] + ' on ' + segItem['DepartTime'] + ' ' + segItem['DepartDate'] + ' - ' + segItem['ArrivalTime'] + ' ' + segItem['ArrivalDate'] + ' Duration:' + segItem['Duration'] + ', ' + fare + '. %0a%0a';
+                  }
+                }
             });
 
           }
