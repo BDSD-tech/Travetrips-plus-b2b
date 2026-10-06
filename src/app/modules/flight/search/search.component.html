@@ -1574,7 +1574,28 @@
     </div>
 </div>
 <!--Share View Detail Modal -->
-<div class="modal fade" id="formmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div class="custom-modal-backdrop" *ngIf="formModal" (click)="formModal=false">
+    <div
+        class="custom-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="formModalTitle"
+        (click)="$event.stopPropagation()"
+    >
+        <div class="custom-modal-header">
+            <h5 class="custom-modal-title" id="formModalTitle">View Details</h5>
+            <button type="button" class="custom-modal-close" aria-label="Close" (click)="formModal=false">
+                &times;
+            </button>
+        </div>
+
+        <div class="custom-modal-body">
+            <div class="content" [innerHTML]="shareviewdetail() | safeHtml"></div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="modal fade" id="formmodal" (hidden.bs.modal)="resetFormModal()" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="formmodal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content rounded-0">
@@ -1583,11 +1604,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="content" [innerHTML]="shareviewdetail"></div>
+                <div class="content" [innerHTML]="shareviewdetail() | safeHtml"></div>
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- Share email Detail Modal -->
 <div class="modal fade" id="formmodal-email" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="formmodal" aria-hidden="true">

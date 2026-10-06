@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, NavigationExtras, Router } from '@angular/router';
 import { CommonService } from '../../../services/common.service';
@@ -9,7 +9,7 @@ import { AlertService } from '../../../services/alert.service';
 import { tts_config } from '../../../../environments/tts_config';
 import { Subscription } from 'rxjs';
 import { Location } from '@angular/common';
-
+import { ChangeDetectorRef} from '@angular/core';
 declare var $: any;
 declare var window: any;
 declare var bootstrap: any;
@@ -63,11 +63,11 @@ export class SearchComponent implements OnInit, OnDestroy {
   shownetfare = false;
   showincentivefare = false;
 
-  formModal: any;
+  formModal: any=false;
   formmodalemail: any;
   FareRuleModal: any;
   sharebuttontext = '';
-  shareviewdetail = '';
+  shareviewdetail=signal('');
   sharetype = '';
   shareemaillist: any;
   shareselectedfareid: any;
@@ -104,7 +104,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   pageSize = 20;
   private observer!: IntersectionObserver;
 
-  constructor(private location:Location,private flightService: FlightService, private router: Router, private route: ActivatedRoute, private serviceTitle: Title, private commonservice: CommonService, private authenticationservice: AuthenticationService, private alertservice: AlertService) {
+  constructor(private cdRef: ChangeDetectorRef,private location:Location,private flightService: FlightService, private router: Router, private route: ActivatedRoute, private serviceTitle: Title, private commonservice: CommonService, private authenticationservice: AuthenticationService, private alertservice: AlertService) {
     
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
@@ -152,9 +152,9 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.FareRuleModal = new window.bootstrap.Modal(
       document.getElementById('farerule-modal')
     );
-    this.formModal = new window.bootstrap.Modal(
-      document.getElementById('formmodal')
-    );
+    // this.formModal = new window.bootstrap.Modal(
+    //   document.getElementById('formmodal')
+    // );
     this.formmodalemail = new window.bootstrap.Modal(
       document.getElementById('formmodal-email')
     );
@@ -744,6 +744,11 @@ MoreFare(event: any, item: any, ttsindex: any) {
 
   }
 
+  resetFormModal() {
+    this.shareviewdetail.set('');
+    this.FareRuleModal.hide()
+  }
+
   OpenFareruleModal(ttsindex: any) {
     this.FlightFareRule = []
     this.FareRuleModal.show()
@@ -751,9 +756,7 @@ MoreFare(event: any, item: any, ttsindex: any) {
   }
 
   farerule(ttsindex: any) {
-
     this.fareRuleLoading = true;
-
     this.showFareRule = true;
     let checkbox: any = document.getElementsByName('search_result_' + ttsindex);
     let selindex: any;
@@ -807,6 +810,7 @@ MoreFare(event: any, item: any, ttsindex: any) {
   }
 
   SendData() {
+   
     let selecteddata: any = [];
     let checkbox: any = document.getElementsByName('shareinput[]');
 
@@ -817,12 +821,10 @@ MoreFare(event: any, item: any, ttsindex: any) {
         selecteddata.push(checkbox[i].value);
       }
     }
-    if (ln === 0) {
+    if (ln == 0) {
       alert("Select atleast 1 flight");
     } else {
-
       this.shareselectedfareid = selecteddata;
-
       let html: any = '';
       let Whatsapphtml: any = '';
       var _this = this;
@@ -837,13 +839,14 @@ MoreFare(event: any, item: any, ttsindex: any) {
                 fare = '₹' + _this.flightService.transformDecimal(fareItem['Fare']['PublishedPrice']);
               }
             });
+          
+            
             flightItem['MainSegment'].filter(function (segItem: any, mainkey: any) {
+                if (flightItem['MainSegment'].length == mainkey + 1) {
 
-              if (flightItem['MainSegment'].length == mainkey + 1) {
-
-              } else {
-                fare = '';
-              }
+                } else {
+                  fare =fare;
+                }
               if (fare !== undefined) {
                 html += '<p>'
                   + (key + 1) + '. ' + segItem['AirlineName'] + ' (' + segItem['AirlineCodeFlightNumberString'] + ') : <br/>'
@@ -859,17 +862,20 @@ MoreFare(event: any, item: any, ttsindex: any) {
         });
 
       });
+      this.shareviewdetail.set(html);
 
-      this.shareviewdetail = html;
       if (this.sharetype == 'Whatsapp') {
-        this.goToLink('https://api.whatsapp.com/send?text=' + Whatsapphtml + '');
-
+        this.goToLink('https://api.whatsapp.com/send?text=' + Whatsapphtml);
       } else if (this.sharetype == 'Email') {
         this.formmodalemail.show();
-
       } else if (this.sharetype == 'View') {
-        this.formModal.show();
+        setTimeout(() => {
+          this.cdRef.detectChanges();
+         this.formModal=true;
+        }, 0);
+        
       }
+
 
     }
   }

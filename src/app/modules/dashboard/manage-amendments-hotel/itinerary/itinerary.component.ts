@@ -70,7 +70,7 @@ export class ItineraryComponent implements OnInit {
 
   SubmitRequest()
   {   
-    if(this.BookingDetail['payment_status']=='Successful')
+    if(this.BookingDetail['payment_status']=='Successful' || this.BookingDetail['booking_status']=='Hold')
     {
       if(this.Remark!=='')
       {
@@ -98,7 +98,7 @@ export class ItineraryComponent implements OnInit {
       } else {
         this.alertservice.error('Please enter Remark');
       }
-    }else if(this.BookingDetail['payment_status']!=='Successful'){
+     }else if(this.BookingDetail['payment_status']!=='Successful'){
         this.alertservice.error('Payment Not done for this booking.');
     } else if(this.BookingDetail['booking_status']=='Cancelled')
     {

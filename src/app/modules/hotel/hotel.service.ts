@@ -51,6 +51,12 @@ export class HotelService {
     return this.http.post(url, data, {headers: { 'Content-Type': 'application/json'}});
   }
 
+  HoldRoom(data:any)
+  {
+    let url=tts_config.APIURL+'/hotel/holdroom';
+    return this.http.post(url, data, {headers: { 'Content-Type': 'application/json'}});
+  }
+
   SavePaxdata(data:any)
   {
     let url=tts_config.APIURL+'/hotel/validate-travellers';

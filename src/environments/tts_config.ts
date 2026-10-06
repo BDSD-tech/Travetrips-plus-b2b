@@ -5,7 +5,6 @@
 //     BASEURL:"https://www.new.traveltripplus.com/",
 // };
 
-
 export const tts_config = {
     BType:"B2B",
     APIURL:"https://www.staging.traveltripplus.com/api/api",

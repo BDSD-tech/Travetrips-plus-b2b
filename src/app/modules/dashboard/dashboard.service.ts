@@ -29,13 +29,12 @@ export class DashboardService {
   public MakeBookingPayment(data:any)
   {
     let service:any;
-
+    let configUrl:any
     if(data['Service']=='Flight'){
-        service='flight'
+      configUrl =  tts_config.APIURL +'/flight/issue-ticket';
     }else if(data['Service']=='Hotel'){
-      service='hotel'
+      configUrl =  tts_config.APIURL +'/hotel/confirmbooking';
     }
-    let configUrl =  tts_config.APIURL +'/'+service+'/issue-ticket';
     return this.http.post(configUrl, data);
   }
   public UpdateDetail(data:any)
@@ -119,6 +118,11 @@ export class DashboardService {
   public ReachFlight(data:any)
   {
     let configUrl =  tts_config.APIURL +'/flight/release-pnr';
+    return this.http.post(configUrl,data);
+  }
+  public ReachHotel(data:any)
+  {
+    let configUrl =  tts_config.APIURL +'/hotel/release-pnr';
     return this.http.post(configUrl,data);
   }
   public EditMarkup(data:any)

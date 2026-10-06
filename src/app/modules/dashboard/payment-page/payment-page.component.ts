@@ -79,6 +79,19 @@ export class PaymentPageComponent {
 
               
     }
+    if(this.Service=='Hotel'){
+          if (sessionStorage.getItem('FareDetails')) {
+            let data:any =sessionStorage.getItem('FareDetails');
+            this.CurrentFare=this.commonservice.decrypt(data);
+            this.totalfare=this.CurrentFare['OfferedPrice'];
+              // let req:any={"ResultIndex":resp['param']['rindex'],'SearchTokenId':resp['param']['stoken']}
+              this.Getpaymentmethod(this.Params);
+          } else {
+            // this.location.back();
+          }
+
+              
+    }
     // if(this.Service=='Hotel'){
     //     if (sessionStorage.getItem('TSFP')) {
     //             let TSFP:any=sessionStorage.getItem('TSFP');
@@ -133,7 +146,6 @@ export class PaymentPageComponent {
     // {
     //   Object.assign(request, {ResultIndexIB: req['ResultIndexIB'],SearchTokenIdIB:req['SearchTokenIdIB']});
     // }
-
     this.commonservice.paymentmethod(req).subscribe(resp => {
       let data:any=resp;
       this.paymentloading=false;

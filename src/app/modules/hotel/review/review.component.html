@@ -172,7 +172,7 @@
                   </div>
                </div>
                }
-               <form [formGroup]="HotelPaxForm" (ngSubmit)="SubmitPax()">
+               <form [formGroup]="HotelPaxForm" (ngSubmit)="SubmitPax('')">
                   <div class="hotel-page">
                      <div class="header-bar d-block">
                         <h2 class="page-title">Contact Details</h2>
@@ -884,8 +884,13 @@
                      }
                   </div>
                </div>
-
-               <button type="submit" id="review" class="btn asr-book" (click)="SubmitPax()"><span>Proceed To
+               @if(ISHoldable){
+                  <button type="submit" id="review" class="btn asr-book mb-2" (click)="SubmitPax('Hold')"><span>
+                     Hold</span>
+                 <i class="fa-regular fa-circle-pause ms-1"></i></button>
+               }
+              
+               <button type="submit" id="review" class="btn asr-book" (click)="SubmitPax('')"><span>Proceed To
                      Review</span>
                   &nbsp; <i class="fa fa-angle-double-right"></i></button>
             </div>

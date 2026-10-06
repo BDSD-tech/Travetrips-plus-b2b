@@ -19,6 +19,20 @@
                 <div class="cart_acordian" id="cart_info_main" (click)="togglediv('cart_info')">
                     <h3 class="acordian_heading">Cart Information : {{BookingDetail['booking_ref_number']}}</h3>
                     <div class="cart_details_action" *ngIf="BookingDetail['booking_status']!='Processing' && BookingDetail['booking_status']!='Failed'">
+                        
+                        @if(BookingDetail['booking_type']=='Hold' && BookingDetail['booking_status']=='Hold'){
+                            <div class="cssCircle addsign">
+                                <a href="javascript:void(0)" (click)="GeneratePayment()">
+                                <i class="fa-solid fa-ticket me-1"></i><span class="cssCircle-plusdesign">Generate Voucher</span>
+                                </a>
+                            </div>
+                            <div class="cssCircle addsign">
+                                <a href="javascript:void(0)"  (click)="RaiseAmendment(BookingDetail['booking_ref_number'],'ReleaseHold')">
+                                    <i class="fa-solid fa-paper-plane me-1"></i><span class="cssCircle-plusdesign">Release Hold</span>
+                                </a>
+                            </div>
+                        }
+
                         <div class="cssCircle addsign">
                             <a [routerLink]="['/hotel/ticket']" [queryParams]="{BookingRefNumber: BookingDetail['booking_ref_number'],SearchTokenId:BookingDetail['tts_search_token'],HtmlType:'Voucher',UserType:'WebPartner',ViewService:'View',WithPrice:'1',WithAgencyDetail:'1',ViewSize:''}">
                                 <i class="fa fa-print me-1"></i> <span class="cssCircle-plusdesign">Print Ticket</span>
@@ -262,59 +276,70 @@
                                     </div>
                                     <p class="mb-0 mt-3"><strong>Hotel Name : </strong> {{BookingDetail['hotel_name']}}</p>
                                     <p class="mb-0"><i class="fa fa-map-marker"></i> {{BookingDetail['address1']}} <span *ngIf="BookingDetail['address2']">{{BookingDetail['address2']}}</span></p>
+                                   
                                     <div class="mb-2">
-                                        <span class="float-start"><strong> Last Cancellation Date :</strong> {{BookingDetail['last_cancellation_date']}}  </span>
-                                        <span class="float-end"><strong> Last Voucher Date : </strong> {{BookingDetail['last_voucher_date']}} </span>
+                                        <span class="float-start"><strong> Last Cancellation Date :</strong> {{BookingDetail['last_cancellation_date']|date: 'dd MMM yyyy'}} {{BookingDetail['last_cancellation_date']|date: 'HH:mm'}}  </span>
+                                        @if(BookingDetail['booking_status']=='Hold'){
+                                        <span class="float-end"><strong> Last Voucher Date : </strong> {{BookingDetail['last_cancellation_date'] |date:'dd MMM yyyy'}} {{BookingDetail['last_cancellation_date']|date: 'HH:mm'}}</span>
+                                        }
                                     </div>
-
+                                    
                                     <table class="table table-bordered">
                                         <tbody>
                                             <tr>
-                                                <th>Rooms</th>
+                                                <th >Rooms</th>
                                                 <th>Room Type</th>
+                                                <th>Meal Plan</th>
                                                 <th>Guests</th>
                                             </tr>
-                                            <tr *ngFor="let item of Jsonparse(BookingDetail['hotel_rooms_details']); let r=index">
-                                                <td valign="top">Room {{r+1}}</td>
-                                                <td>
-                                                    <b>{{item['RoomTypeName']}}</b><br />
-                                                    <span>
-                                                        <b>Incl:</b> <span *ngFor="let inc of item['Inclusion']">{{inc}} ,</span>
+                                                <tr *ngFor="let item of RoomsDetail; let r=index">
+                                                    <td valign="top">Room {{r+1}}</td>
+                                                    <td >
+                                                        <b >{{item['RoomTypeName']}}</b><br />
+                                                        <span >
+                                                            <b>Incl:</b> <span *ngFor="let inc of item['Inclusion']">{{inc}} ,</span>
+                                                            <br />
+                                                        </span>
+                                                        <a (click)="CancellationPolicy(item)" href="javascript:void(0);" class="fs-12 text-danger"> 
+                                                            Cancellation Policy 
+                                                        </a>
+                                                        <!-- <a (click)="CancellationPolicy(item)" href="javascript:void(0);"  class="fs-12 text-danger" >
+                                                            Cancellation Policy
+                                                        </a> -->
                                                         <br />
-                                                    </span>
-                                                    <a href="javascript:void(0);" class="fs-12 text-danger" (click)="CancellationPolicy(item)">
-                                                        Cancellation Policy
-                                                     </a>
-                                                     <br />
-                                                    <a class="link" href="javascript:void(0);" (click)="showroomdetail(r)">
-                                                        {{atagtext}}
-                                                    </a>
-                                                    <div *ngIf="activeroomkey==r" [innerHTML]="item['RoomDescription']|safeHtml">
-                                                      
-                                                    </div>
-                                                </td>
-                                                <td valign="top">
-                                                    <div [innerHTML]="roompaxInfo(item)"></div>
-                                                </td>
-                                            </tr>
+                                                        @if(item['RoomDescription']){
+                                                            <a class="link" href="javascript:void(0);" (click)="showroomdetail(r)">
+                                                            {{atagtext}}
+                                                        </a>
+                                                        <div *ngIf="activeroomkey==r" [innerHTML]="item['RoomDescription']|safeHtml"></div>
+                                                        }
+                                                        
+                                                    </td>
+                                                    <td valign="top">
+                                                        <div >{{item['RatePlanName']}}</div>
+                                                    </td>
+                                                    <td valign="top">
+                                                        <div [innerHTML]="roompaxInfo(item)"></div>
+                                                    </td>
+                                                </tr>
                                         </tbody>
                                     </table>
-
-                                    <div class="accordion" id="accordionExample">
-                                        
-                                        <div class="accordion-item">
-                                          <h2 class="accordion-header" id="headingTwo">
-                                            <button class="accordion-button collapsed fs-14 p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                Hotel Norms
-                                            </button>
-                                          </h2>
-                                          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                            <div class="accordion-body">
-                                                <p [innerHTML]="BookingDetail['hotel_norms'] | safeHtml" class="fs-13"></p>
+                                    @if(BookingDetail['hotel_norms'] && BookingDetail['hotel_norms']!==''&& BookingDetail['hotel_norms']!=='0'){
+                                        <div class="accordion" id="accordionExample">
+                                            <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingTwo">
+                                                <button class="accordion-button collapsed fs-14 p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                    Hotel Norms
+                                                </button>
+                                            </h2>
+                                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <p [innerHTML]="BookingDetail['hotel_norms'] | safeHtml" class="fs-13"></p>
+                                                </div>
                                             </div>
-                                          </div>
+                                            </div>
                                         </div>
-                                      </div>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -444,7 +469,10 @@
                                     <mat-label>Amendment Type</mat-label>
                                     <mat-select formControlName="AmendmentType">
                                         <mat-option value="cancellation">Cancellation</mat-option>
+                                        @if(modaltype!=='ReleaseHold'){
                                         <mat-option value="miscellaneous">Miscellaneous</mat-option>
+                                        }
+                                        
                                     </mat-select>
                                 </mat-form-field>
                                 <div *ngIf="amendmentsubmitted && fa['AmendmentType'].errors" class="error-msg">
@@ -561,8 +589,8 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of CancellationPolicyData['CancellationPolicies']">
-                            <td>{{item['FromDate'] | date:'dd-MMM-y'}}</td>
-                            <td>{{item['ToDate'] | date:'dd-MMM-y'}}</td>
+                            <td>{{formatCustomDate(item['FromDate']) | date:'dd-MMM-y'}}</td>
+                            <td>{{formatCustomDate(item['ToDate']) | date:'dd-MMM-y'}}</td>
                             <td>
                                 <span *ngIf="item['ChargeType']=='1'">Rs. {{item['Charge']}}</span>
                                 <span *ngIf="item['ChargeType']=='2'">{{item['Charge']}}%</span>
@@ -586,3 +614,6 @@
     </div>
 </div>
 <!-- CancellationPolicy Modal -->
+
+
+
