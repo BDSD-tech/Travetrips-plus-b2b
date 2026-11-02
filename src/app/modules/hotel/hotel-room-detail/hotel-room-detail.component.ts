@@ -137,39 +137,39 @@ export class HotelRoomDetailComponent implements OnInit {
         }
     });
   }
-  onGallerySlide(event: any): void {
-      // Bootstrap gives us the new slide index
-      this.selectedImageIndex = event.to;
+    onGallerySlide(event: any): void {
+        // Bootstrap gives us the new slide index
+        this.selectedImageIndex = event.to;
+    }
+
+    openGallery(index: number = 0): void {
+      this.selectedImageIndex = index;
+      this.isGalleryOpen = true;
+
+      document.body.style.overflow = 'hidden';
+
+      // Wait for Angular to render modal/carousel
+      setTimeout(() => {
+          const carouselElement = document.getElementById('hotelGalleryCarousel');
+
+          if (carouselElement) {
+              const carousel = bootstrap.Carousel.getOrCreateInstance(
+                  carouselElement,
+                  {
+                      interval: false,
+                      ride: false
+                  }
+              );
+
+              carousel.to(index);
+          }
+      });
   }
 
-  openGallery(index: number = 0): void {
-    this.selectedImageIndex = index;
-    this.isGalleryOpen = true;
-
-    document.body.style.overflow = 'hidden';
-
-    // Wait for Angular to render modal/carousel
-    setTimeout(() => {
-        const carouselElement = document.getElementById('hotelGalleryCarousel');
-
-        if (carouselElement) {
-            const carousel = bootstrap.Carousel.getOrCreateInstance(
-                carouselElement,
-                {
-                    interval: false,
-                    ride: false
-                }
-            );
-
-            carousel.to(index);
-        }
-    });
-}
-
-closeGallery(): void {
-    this.isGalleryOpen = false;
-    document.body.style.overflow = '';
-}
+  closeGallery(): void {
+      this.isGalleryOpen = false;
+      document.body.style.overflow = '';
+  }
 
 
 

@@ -58,6 +58,7 @@ export class CartDetailHotelComponent  implements OnInit {
   EncToken:any
   RoomsDetail:any;
   CurrentFare:any={}
+  IsDomestic:any=true
   constructor(private commonService: CommonService, private router: Router, private route: ActivatedRoute, private alertservice:AlertService, private dashboardservice:DashboardService, private fb: FormBuilder, private authenticationservice: AuthenticationService) { 
 
     if(this.route.snapshot.params['refno']) {
@@ -115,6 +116,11 @@ export class CartDetailHotelComponent  implements OnInit {
           if(resp['Error']['ErrorCode']==0)
           {
             this.BookingDetail=resp['Result']['BookingDetail'];
+            if(this.BookingDetail['is_domestic']=='1'){
+               this.IsDomestic=true
+            }else{
+               this.IsDomestic=false
+            }
             this.RoomsDetail=JSON.parse(this.BookingDetail['hotel_rooms_details']);
             this.AmendmentList=resp['Result']['amendmentList'];
             this.NoteList=resp['Result']['BookingDetail']['BookingNotes'];

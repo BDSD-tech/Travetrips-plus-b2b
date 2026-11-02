@@ -304,7 +304,7 @@
                                     <p class="mb-0"><i class="fa fa-map-marker"></i> {{BookingDetail['address1']}} <span *ngIf="BookingDetail['address2']">{{BookingDetail['address2']}}</span></p>
                                    
                                    
-                                    
+                                   
                                     <table class="table table-bordered">
                                         <tbody>
                                             <tr>
@@ -361,11 +361,20 @@
                                                         <div >{{item['RatePlanName']}}</div>
                                                     </td>
                                                     <td valign="top">
-                                                        <div [innerHTML]="roompaxInfo(item)"></div>
+                                                        @if(IsDomestic){
+                                                            @if(r==0){
+                                                                <div [innerHTML]="roompaxInfo(item)"></div>
+                                                            }
+                                                            
+                                                        }@else {
+                                                             <div [innerHTML]="roompaxInfo(item)"></div>
+                                                        }
+                                                       
                                                     </td>
                                                 </tr>
                                         </tbody>
                                     </table>
+                                
                                     @if(BookingDetail['hotel_norms'] && BookingDetail['hotel_norms']!==''&& BookingDetail['hotel_norms']!=='0'){
                                         <div class="accordion" id="accordionExample">
                                             <div class="accordion-item">

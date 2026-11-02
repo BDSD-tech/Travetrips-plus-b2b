@@ -23,7 +23,7 @@ export class FinalReviewComponent implements OnInit {
   Paxinfo:any=[];
 
   param:any=[];
-
+  HideAllPax:any
   constructor(private router:Router,private route:ActivatedRoute,private location:Location) {
 
 
@@ -40,6 +40,7 @@ export class FinalReviewComponent implements OnInit {
       let blockRoomData:any=sessionStorage.getItem('HotelBlockRoomData');
       blockRoomData=JSON.parse(blockRoomData);
       this.BlockRoomResult=blockRoomData['Result'];
+      this.HideAllPax=this.BlockRoomResult['HideAllPax']
     } else{
        this.router.navigate(['/hotel']);
     }
@@ -60,6 +61,7 @@ export class FinalReviewComponent implements OnInit {
         let TSFPAX:any=sessionStorage.getItem('TSFPAX');
         let resp=JSON.parse(TSFPAX);
         this.Paxinfo=resp;
+        this.HideAllPax=this.Paxinfo['HideAllPax']
       } else {
         this.router.navigate(['hotel']);
       }
@@ -68,6 +70,8 @@ export class FinalReviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.param=this.params;
+    console.log(this.Paxinfo);
+    
     this.Fare_information(this.BlockRoomResult);
   }
 

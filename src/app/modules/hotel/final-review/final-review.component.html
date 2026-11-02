@@ -115,71 +115,83 @@
                     <div class="section-title">
                         Passenger Details
                     </div>
-
-                    <div *ngFor="let paxdata of Paxinfo['paxdata']; let roomkey=index;">
-                        <div class="passenger-card" *ngFor="let pax of paxdata['Adult']; let a=index">
-                            <div class="passenger-index">{{a+1}}</div>
-                            <div>
-                                <h6>
-                                    {{pax['Title']}}
-                                    {{pax['FirstName']}}
-                                    {{pax['LastName']}}
-                                    (Adult)
-                                </h6>
-
-                                <small *ngIf="pax['PAN']">
-                                    PAN : {{pax['PAN']}}
-                                </small>
-
-                                <small *ngIf="pax['PassportNo']">
-                                    PP: {{pax['PassportNo']}} |
-                                    N: {{pax['Nationality']}} |
-                                    ID: {{pax['PassportIssue']}} |
-                                    ED: {{pax['PassportExpiry']}}
-                                </small>
-
-                            </div>
-
-                            <span class="room-badge">
-                                Room {{roomkey+1}}
-                            </span>
+                    @if(HideAllPax=='true' && GetSearchData['Isdomestic']){
+                        <div class="contact-card">
+                        <div>
+                            <span>Name</span>
+                            <h6>{{Paxinfo['paxdata'][0]['Adult'][0]['Title']}} {{Paxinfo['paxdata'][0]['Adult'][0]['FirstName']}} {{Paxinfo['paxdata'][0]['Adult'][0]['LastName']}}</h6>
                         </div>
 
-                        <div class="passenger-card" *ngFor="let pax of paxdata['Child']; let c=index;">
-
-                            <div class="passenger-index">
-                                {{c+1}}
-                            </div>
-
-                            <div>
-
-                                <h6>
-                                    {{pax['Title']}}
-                                    {{pax['FirstName']}}
-                                    {{pax['LastName']}}
-                                    (Child)
-                                </h6>
-
-                                <small *ngIf="pax['PAN']">
-                                    PAN: {{pax['PAN']}} | AGE: {{paxdata['ChildAge']?.[c]}}
-                                </small>
-
-                                <small *ngIf="pax['PassportNo']">
-                                    PP: {{pax['PassportNo']}} |
-                                    N: {{pax['Nationality']}} |
-                                    ID: {{pax['PassportIssue']}} |
-                                    ED: {{pax['PassportExpiry']}}
-                                </small>
-
-                            </div>
-
-                            <span class="room-badge">
-                                Room {{roomkey+1}}
-                            </span>
-
+                        <div>
+                            <span>Pan Number</span>
+                            <h6>{{Paxinfo['paxdata'][0]['Adult'][0]['PAN']}}</h6>
                         </div>
                     </div>
+                    }@else{
+                         <div *ngFor="let paxdata of Paxinfo['paxdata']; let roomkey=index;">
+                            <div class="passenger-card" *ngFor="let pax of paxdata['Adult']; let a=index">
+                                <div class="passenger-index">{{a+1}}</div>
+                                <div>
+                                    <h6>
+                                        {{pax['Title']}}
+                                        {{pax['FirstName']}}
+                                        {{pax['LastName']}}
+                                        (Adult)
+                                    </h6>
 
+                                    <small *ngIf="pax['PAN']">
+                                        PAN : {{pax['PAN']}}
+                                    </small>
+
+                                    <small *ngIf="pax['PassportNo']">
+                                        PP: {{pax['PassportNo']}} |
+                                        N: {{pax['Nationality']}} |
+                                        ID: {{pax['PassportIssue']}} |
+                                        ED: {{pax['PassportExpiry']}}
+                                    </small>
+
+                                </div>
+
+                                <span class="room-badge">
+                                    Room {{roomkey+1}}
+                                </span>
+                            </div>
+
+                            <div class="passenger-card" *ngFor="let pax of paxdata['Child']; let c=index;">
+
+                                <div class="passenger-index">
+                                    {{c+1}}
+                                </div>
+
+                                <div>
+
+                                    <h6>
+                                        {{pax['Title']}}
+                                        {{pax['FirstName']}}
+                                        {{pax['LastName']}}
+                                        (Child)
+                                    </h6>
+
+                                    <small *ngIf="pax['PAN']">
+                                        PAN: {{pax['PAN']}} | AGE: {{paxdata['ChildAge']?.[c]}}
+                                    </small>
+
+                                    <small *ngIf="pax['PassportNo']">
+                                        PP: {{pax['PassportNo']}} |
+                                        N: {{pax['Nationality']}} |
+                                        ID: {{pax['PassportIssue']}} |
+                                        ED: {{pax['PassportExpiry']}}
+                                    </small>
+
+                                </div>
+
+                                <span class="room-badge">
+                                    Room {{roomkey+1}}
+                                </span>
+
+                            </div>
+                        </div>
+                    }
 
                     <!-- Contact -->
                     <div class="contact-card">

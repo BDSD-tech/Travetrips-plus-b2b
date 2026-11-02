@@ -131,7 +131,7 @@
                             Status
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            <div class="generic-td"><span>{{element.AmendmentStatus|titlecase}}</span></div>
+                            <div class="generic-td fw-semibold"><span [ngClass]="{'text-success':element.AmendmentStatus=='approved','text-warning':element.AmendmentStatus=='requested','text-danger':element.AmendmentStatus=='aborted'}">{{element.AmendmentStatus|titlecase}}</span></div>
                         </td>
                     </ng-container>
 

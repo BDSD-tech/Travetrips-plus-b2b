@@ -681,7 +681,10 @@
                </ul>
                }@else if(Service=='Hotel'){
                   <ul class="p-0">
-                   @for (room of TravellerDetails; track $index) {
+                  @if(SaveData['HideAllPax']=='true' && GetSearchData['Isdomestic']==true){
+                     {{TravellerDetails[0]['Adult'][0]['Title']}} {{TravellerDetails[0]['Adult'][0]['FirstName']}} {{TravellerDetails[0]['Adult'][0]['LastName']}}
+                  }@else{
+                      @for (room of TravellerDetails; track $index) {
                      @for (type of ['Adult','Child']; track $index) {
                         @for (pax of room[type]; track $index) {
 
@@ -690,6 +693,7 @@
                            </li>
                         }
                      }
+                  }
                   }
                   </ul>
                }

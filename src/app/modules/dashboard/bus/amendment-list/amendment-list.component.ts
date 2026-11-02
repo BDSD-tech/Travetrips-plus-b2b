@@ -194,8 +194,6 @@ opensearchForm=true;
         if(resp['Error']['ErrorCode']==0)
         { 
            this.CartList=resp['Result'];
-        
-
            this.displayedColumns=[ 'BookingRefNumber','AmendmentId','AmendmentType','AmendmentStatus','OriginCity','DestinationCity','NoOfSeats','BusName','Summary','created'];
            this.dataSource = new MatTableDataSource(resp['Result']);
            setTimeout(() => {
