@@ -121,7 +121,7 @@
                   </div>
                </div>
                <!-- Room Amenities -->
-               @if (BlockRoomResult['HotelRoomsDetails'][0]['Amenities']) {
+               @if (BlockRoomResult['Amenities']) {
                <div class="hotel-page">
                   <div class="header-bar" (click)="ShowAmentities=!ShowAmentities">
                      <h2 class="page-title">Room Amenities</h2>
@@ -234,385 +234,585 @@
                      </div>
                   </div>
                   <!------Start Room  ------>
-                  <div formArrayName="RoomDetails" *ngFor="let room of fpax?.['controls']; let r=index;"
-                     id="passenger-details">
-                     <div class="hotel-page" formGroupName={{r}}>
-                        <div class="header-bar d-block">
-                           <h2 class="page-title">Passenger Details</h2>
-                           <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> Please make sure that
-                              passengers names are as per gorvernment approved identity card or passport.</small>
-                        </div>
-                        <div class="hotel-card">
-                           <h6>Room {{r+1}}</h6>
-                           <!-----Start For Adult---->
-                           <div class="mb-3" formArrayName="Adult"
-                              *ngFor="let adt of getpaxadt(r).controls; let a=index;">
-                              <div formGroupName="{{a}}">
-                                 <div class="row gy-3">
-                                    <div class="col-md-12">
+                  @if(HideAllPax=='true' && GetSearchData['Isdomestic']){
+                     <div formArrayName="RoomDetails" *ngFor="let room of fpax?.['controls']; let r=index;"
+                        id="passenger-details">
+                       @if(r==0){
+                       <div class="hotel-page" formGroupName={{r}}>
+                           <div class="header-bar d-block">
+                              <h2 class="page-title">Lead Guest Details</h2>
+                              <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> Please make sure that
+                                 passengers names are as per gorvernment approved identity card or passport.</small>
+                           </div>
+                           
+                           <div class="hotel-card">
+                              <!-- <h6>Room {{r+1}}</h6> -->
+                              <!-----Start For Adult---->
+                              <div class="mb-3" formArrayName="Adult"
+                                 *ngFor="let adt of getpaxadt(r).controls; let a=index;">
+                                 @if(a==0){
+                                 <div formGroupName="{{a}}">
+                                    <div class="row gy-3">
+                                       <div class="col-md-12">
 
-                                       <div class="fw-bold d-flex align-items-center justify-content-between flex-wrap">
-                                          Adult {{a+1}}
+                                          <div class="fw-bold d-flex align-items-center justify-content-between flex-wrap">
+                                             <!-- Adult {{a+1}} -->
 
-                                          <div class="form-check"
-                                             *ngIf="r==0 && a==0 && IsPANMandatory && nopaxcount!=1">
-                                             <input class="form-check-input" type="checkbox" value="" id="panforallpax"
-                                                (click)="SelectAllPaxPan($event)">
-                                             <label class="form-check-label text-danger" for="panforallpax">
-                                                PAN CARD - Same for all pax
-                                             </label>
-                                          </div>
+                                             <!-- <div class="form-check"
+                                                *ngIf="r==0 && a==0 && IsPANMandatory && nopaxcount!=1">
+                                                <input class="form-check-input" type="checkbox" value="" id="panforallpax"
+                                                   (click)="SelectAllPaxPan($event)">
+                                                <label class="form-check-label text-danger" for="panforallpax">
+                                                   PAN CARD - Same for all pax
+                                                </label>
+                                             </div> -->
 
-                                       </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                       <label class="form-label" for="Room-{{r}}-Adult-{{a}}-title">Title</label>
-                                       <select class="form-select main-select" formControlName="Title"
-                                          id="Room-{{r}}-Adult-{{a}}-title">
-                                          <option value="" selected>Title </option>
-                                          <option value="Mr">Mr</option>
-                                          <option value="Mrs">Mrs</option>
-                                          <option value="Ms">Ms</option>
-                                       </select>
-                                       <div
-                                          *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.Title')?.errors"
-                                          class="error-msg">
-                                          <div
-                                             *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.Title')?.errors?.['required']">
-                                             Title is required.
                                           </div>
                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                       <label class="form-label" for="Room-{{r}}-Adult-{{a}}-FirstName">First
-                                          Name*</label>
-                                       <input type="text" class="form-control main-select" formControlName="FirstName"
-                                          placeholder="First Name*" oninput="this.value = this.value.toUpperCase()"
-                                          id="Room-{{r}}-Adult-{{a}}-FirstName" />
-                                       <div
-                                          *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.FirstName')?.errors"
-                                          class="error-msg">
-                                          <div
-                                             *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.FirstName')?.errors?.['required']">
-                                             First name is required.
-                                          </div>
-                                          <div
-                                             *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.FirstName')?.errors?.['minlength'] || HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.FirstName')?.errors?.['pattern']">
-                                             Please enter a valid first name.
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                       <label class="form-label" for="Room-{{r}}-Adult-{{a}}-LastName">Last
-                                          Name*</label>
-                                       <input type="text" class="form-control main-select" formControlName="LastName"
-                                          placeholder="Last Name*" oninput="this.value = this.value.toUpperCase()"
-                                          id="Room-{{r}}-Adult-{{a}}-LastName" />
-                                       <div
-                                          *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.LastName')?.errors"
-                                          class="error-msg">
-                                          <div
-                                             *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.LastName')?.errors?.['required']">
-                                             First name is required.
-                                          </div>
-                                          <div
-                                             *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.LastName')?.errors?.['minlength'] || HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.LastName')?.errors?.['pattern']">
-                                             Please enter a valid last name.
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="col-md-3" *ngIf="IsPANMandatory">
-                                       <label class="form-label" for="Room-{{r}}-Adult-{{a}}-PAN">PAN*</label>
-                                       <input type="text" class="form-control main-select" formControlName="PAN"
-                                          placeholder="PAN*" oninput="this.value = this.value.toUpperCase()"
-                                          id="Room-{{r}}-Adult-{{a}}-PAN" />
-                                       <div
-                                          *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PAN')?.errors"
-                                          class="error-msg">
-                                          <div
-                                             *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PAN')?.errors?.['required']">
-                                             PAN name is required.
-                                          </div>
-                                          <div
-                                             *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PAN')?.errors?.['pattern']">
-                                             Please enter a valid PAN.
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="row gy-3" *ngIf="IsPassportMandatory">
-                                    <div class="col-md-12">
-                                       <h6>ADD PASSPORT INFORMATION</h6>
-                                    </div>
-                                    <div class="col-md-3">
-                                       <div class="form-floating">
-                                          <select class="form-select main-select"
-                                             id="Room-{{r}}-Adult-{{a}}-Nationality" formControlName="Nationality">
-                                             <option value="">Select</option>
-                                             <option value="IN">India</option>
-                                             <option value="{{mcode['country_code']}}" *ngFor="let mcode of Dialcode;">
-                                                {{mcode['name']}}
-                                             </option>
+                                       <div class="col-md-3">
+                                          <label class="form-label" for="Room-{{r}}-Adult-{{a}}-title">Title</label>
+                                          <select class="form-select main-select" formControlName="Title"
+                                             id="Room-{{r}}-Adult-{{a}}-title">
+                                             <option value="" selected>Title </option>
+                                             <option value="Mr">Mr</option>
+                                             <option value="Mrs">Mrs</option>
+                                             <option value="Ms">Ms</option>
                                           </select>
-                                          <label for="Room-{{r}}-Adult-{{a}}-Nationality">Nationality</label>
                                           <div
-                                             *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.Nationality')?.errors"
+                                             *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.Title')?.errors"
                                              class="error-msg">
                                              <div
-                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.Nationality')?.errors?.['required']">
-                                                Please select nationality.
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.Title')?.errors?.['required']">
+                                                Title is required.
                                              </div>
                                           </div>
                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                       <div class="form-floating">
-                                          <input type="text" class="form-control main-select"
-                                             formControlName="PassportNo" placeholder="Passport Number"
-                                             id="Room-{{r}}-Adult-{{a}}-PassportNo" />
-                                          <label for="Room-{{r}}-Adult-{{a}}-PassportNo">Passport
-                                             Number</label>
-                                       </div>
-                                       <div
-                                          *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PassportNo')?.errors"
-                                          class="error-msg">
-                                          <div
-                                             *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PassportNo')?.errors?.['required']">
-                                             Passport number is required.
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                       <div class="form-floating">
-                                          <input type="text" class="form-control main-select"
-                                             formControlName="PassportIssue" passport-issue-date
-                                             placeholder="Issue Date" attr.roomkey="{{r}}" attr.key="{{a}}"
-                                             paxtype="Adult" id="Room-{{r}}-Adult-{{a}}-PassportIssue" />
-                                          <label for="Room-{{r}}-Adult-{{a}}-PassportIssue">Issue
-                                             Date</label>
-                                       </div>
-                                       <div
-                                          *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PassportIssue')?.errors"
-                                          class="error-msg">
-                                          <div
-                                             *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PassportIssue')?.errors?.['required']">
-                                             Issue date is required.
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                       <div class="form-floating">
-                                          <input type="text" class="form-control main-select"
-                                             formControlName="PassportExpiry" passport-expiry-date
-                                             placeholder="Expiry Date" attr.roomkey="{{r}}" attr.key="{{a}}"
-                                             paxtype="Adult" id="Room-{{r}}-Adult-{{a}}-PassportExpiry" />
-                                          <label for="Room-{{r}}-Adult-{{a}}-PassportExpiry">Expiry
-                                             Date</label>
-                                       </div>
-                                       <div
-                                          *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PassportExpiry')?.errors"
-                                          class="error-msg">
-                                          <div
-                                             *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PassportExpiry')?.errors?.['required']">
-                                             Expiry date is required.
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <!-----End For Adult---->
-                           <!-----Start For Child---->
-                           <div class="card mb-3" formArrayName="Child"
-                              *ngFor="let chd of getpaxchd(r).controls; let c=index;">
-                              <div class="card-body" formGroupName="{{c}}">
-                                 <div class="row gy-3">
-                                    <div class="col-md-12">
-                                       <div class="fw-bold d-flex align-items-center justify-content-between flex-wrap">
-                                          Child {{c+1}} (
-                                          {{HotelPaxForm.get('RoomDetails.'+r+'.ChildAge.'+c+'')?.value}} Years )
-                                       </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                       <div class="form-group">
-                                          <label class="form-label" for="Room-{{r}}-Child-{{c}}-title">Title</label>
-                                          <select class="form-select main-select" formControlName="Title"
-                                             id="Room-{{r}}-Child-{{c}}-title">
-                                             <option value="" selected>Title
-                                             </option>
-                                             <option value="Ms">Ms</option>
-                                             <option value="Mstr">Master</option>
-                                          </select>
-
-                                       </div>
-                                       <div
-                                          *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.Title')?.errors"
-                                          class="error-msg">
-                                          <div
-                                             *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+c+'.Title')?.errors?.['required']">
-                                             Title is required.
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                       <div class="form-group">
-                                          <label class="form-label" for="Room-{{r}}-Child-{{c}}-FirstName">First
+                                       <div class="col-md-3">
+                                          <label class="form-label" for="Room-{{r}}-Adult-{{a}}-FirstName">First
                                              Name*</label>
-                                          <input type="text" class="form-control main-select"
-                                             formControlName="FirstName" placeholder="First Name*"
-                                             oninput="this.value = this.value.toUpperCase()"
-                                             id="Room-{{r}}-Child-{{c}}-FirstName" />
-
-                                       </div>
-                                       <div
-                                          *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.FirstName')?.errors"
-                                          class="error-msg">
+                                          <input type="text" class="form-control main-select" formControlName="FirstName"
+                                             placeholder="First Name*" oninput="this.value = this.value.toUpperCase()"
+                                             id="Room-{{r}}-Adult-{{a}}-FirstName" />
                                           <div
-                                             *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.FirstName')?.errors?.['required']">
-                                             First name is required.
-                                          </div>
-                                          <div
-                                             *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.FirstName')?.errors?.['minlength'] || HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.FirstName')?.errors?.['pattern']">
-                                             Please enter a valid first name.
+                                             *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.FirstName')?.errors"
+                                             class="error-msg">
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.FirstName')?.errors?.['required']">
+                                                First name is required.
+                                             </div>
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.FirstName')?.errors?.['minlength'] || HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.FirstName')?.errors?.['pattern']">
+                                                Please enter a valid first name.
+                                             </div>
                                           </div>
                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                       <div class="form-group">
-                                          <label class="form-label" for="Room-{{r}}-Child-{{c}}-LastName">Last
+                                       <div class="col-md-3">
+                                          <label class="form-label" for="Room-{{r}}-Adult-{{a}}-LastName">Last
                                              Name*</label>
                                           <input type="text" class="form-control main-select" formControlName="LastName"
                                              placeholder="Last Name*" oninput="this.value = this.value.toUpperCase()"
-                                             id="Room-{{r}}-Child-{{c}}-LastName" />
-
-                                       </div>
-                                       <div
-                                          *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.LastName')?.errors"
-                                          class="error-msg">
+                                             id="Room-{{r}}-Adult-{{a}}-LastName" />
                                           <div
-                                             *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.LastName')?.errors?.['required']">
-                                             First name is required.
-                                          </div>
-                                          <div
-                                             *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.LastName')?.errors?.['minlength'] || HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.LastName')?.errors?.['pattern']">
-                                             Please enter a valid last name.
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="col-md-3" *ngIf="IsPANMandatory">
-                                       <div class="form-group">
-                                          <label class="form-label" for="Room-{{r}}-Child-{{c}}-PAN">PAN*</label>
-                                          <input type="text" class="form-control main-select" formControlName="PAN"
-                                             placeholder="PAN*" oninput="this.value = this.value.toUpperCase()"
-                                             id="Room-{{r}}-Child-{{c}}-PAN" />
-
-                                       </div>
-                                       <div
-                                          *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PAN')?.errors"
-                                          class="error-msg">
-                                          <div
-                                             *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PAN')?.errors?.['required']">
-                                             PAN name is required.
-                                          </div>
-                                          <div
-                                             *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PAN')?.errors?.['pattern']">
-                                             Please enter a valid PAN.
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="row gy-3" *ngIf="IsPassportMandatory">
-                                    <div class="col-md-3">
-                                       <h6>ADD PASSPORT INFORMATION</h6>
-                                    </div>
-                                    <div class="col-md-3">
-                                       <div class="form-group">
-                                          <label class="form-label"
-                                             for="Room-{{r}}-Child-{{c}}-Nationality">Nationality</label>
-                                          <select class="form-select main-select"
-                                             id="Room-{{r}}-Child-{{c}}-Nationality" formControlName="Nationality">
-                                             <option value="">Select</option>
-                                             <option value="IN">India</option>
-                                             <option value="{{mcode['country_code']}}" *ngFor="let mcode of Dialcode;">
-                                                {{mcode['name']}}
-                                             </option>
-                                          </select>
-
-                                          <div
-                                             *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.Nationality')?.errors"
+                                             *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.LastName')?.errors"
                                              class="error-msg">
                                              <div
-                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.Nationality')?.errors?.['required']">
-                                                Please select nationality.
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.LastName')?.errors?.['required']">
+                                                First name is required.
+                                             </div>
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.LastName')?.errors?.['minlength'] || HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.LastName')?.errors?.['pattern']">
+                                                Please enter a valid last name.
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-3" *ngIf="IsPANMandatory">
+                                          <label class="form-label" for="Room-{{r}}-Adult-{{a}}-PAN">PAN*</label>
+                                          <input type="text" (blur)="SetPanValueDomestic()" class="form-control main-select" formControlName="PAN"
+                                             placeholder="PAN*" oninput="this.value = this.value.toUpperCase()"
+                                             id="Room-{{r}}-Adult-{{a}}-PAN" />
+                                          <div
+                                             *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PAN')?.errors"
+                                             class="error-msg">
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PAN')?.errors?.['required']">
+                                                PAN name is required.
+                                             </div>
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PAN')?.errors?.['pattern']">
+                                                Please enter a valid PAN.
                                              </div>
                                           </div>
                                        </div>
                                     </div>
-                                    <div class="col-md-3">
-                                       <div class="form-group">
-                                          <label for="Room-{{r}}-Child-{{c}}-PassportNo">Passport
-                                             Number</label>
-                                          <input type="text" class="form-control main-select"
-                                             formControlName="PassportNo" placeholder="Passport Number"
-                                             id="Room-{{r}}-Child-{{c}}-PassportNo" />
-
+                                    <div class="row gy-3" *ngIf="IsPassportMandatory">
+                                       <div class="col-md-12">
+                                          <h6>ADD PASSPORT INFORMATION</h6>
                                        </div>
-                                       <div
-                                          *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PassportNo')?.errors"
-                                          class="error-msg">
+                                       <div class="col-md-3">
+                                          <div class="form-floating">
+                                             <select class="form-select main-select"
+                                                id="Room-{{r}}-Adult-{{a}}-Nationality" formControlName="Nationality">
+                                                <option value="">Select</option>
+                                                <option value="IN">India</option>
+                                                <option value="{{mcode['country_code']}}" *ngFor="let mcode of Dialcode;">
+                                                   {{mcode['name']}}
+                                                </option>
+                                             </select>
+                                             <label for="Room-{{r}}-Adult-{{a}}-Nationality">Nationality</label>
+                                             <div
+                                                *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.Nationality')?.errors"
+                                                class="error-msg">
+                                                <div
+                                                   *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.Nationality')?.errors?.['required']">
+                                                   Please select nationality.
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <div class="form-floating">
+                                             <input type="text" class="form-control main-select"
+                                                formControlName="PassportNo" placeholder="Passport Number"
+                                                id="Room-{{r}}-Adult-{{a}}-PassportNo" />
+                                             <label for="Room-{{r}}-Adult-{{a}}-PassportNo">Passport
+                                                Number</label>
+                                          </div>
                                           <div
-                                             *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PassportNo')?.errors?.['required']">
-                                             Passport number is required.
+                                             *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PassportNo')?.errors"
+                                             class="error-msg">
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PassportNo')?.errors?.['required']">
+                                                Passport number is required.
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <div class="form-floating">
+                                             <input type="text" class="form-control main-select"
+                                                formControlName="PassportIssue" passport-issue-date
+                                                placeholder="Issue Date" attr.roomkey="{{r}}" attr.key="{{a}}"
+                                                paxtype="Adult" id="Room-{{r}}-Adult-{{a}}-PassportIssue" />
+                                             <label for="Room-{{r}}-Adult-{{a}}-PassportIssue">Issue
+                                                Date</label>
+                                          </div>
+                                          <div
+                                             *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PassportIssue')?.errors"
+                                             class="error-msg">
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PassportIssue')?.errors?.['required']">
+                                                Issue date is required.
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <div class="form-floating">
+                                             <input type="text" class="form-control main-select"
+                                                formControlName="PassportExpiry" passport-expiry-date
+                                                placeholder="Expiry Date" attr.roomkey="{{r}}" attr.key="{{a}}"
+                                                paxtype="Adult" id="Room-{{r}}-Adult-{{a}}-PassportExpiry" />
+                                             <label for="Room-{{r}}-Adult-{{a}}-PassportExpiry">Expiry
+                                                Date</label>
+                                          </div>
+                                          <div
+                                             *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PassportExpiry')?.errors"
+                                             class="error-msg">
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PassportExpiry')?.errors?.['required']">
+                                                Expiry date is required.
+                                             </div>
                                           </div>
                                        </div>
                                     </div>
-                                    <div class="col-md-3">
-                                       <div class="form-group">
-                                          <label for="Room-{{r}}-Child-{{c}}-PassportIssue">Issue
-                                             Date</label>
-                                          <input type="text" class="form-control main-select"
-                                             formControlName="PassportIssue" passport-issue-date
-                                             placeholder="Issue Date" attr.roomkey="{{r}}" attr.key="{{c}}"
-                                             paxtype="Child" id="Room-{{r}}-Child-{{c}}-PassportIssue" />
+                                 </div>
+                                 }
+                              </div>
+                              <!-----End For Adult---->
+                           </div>
+                          
+                        </div>
+                         }
+                     </div>
+                  }@else {
+                      <div formArrayName="RoomDetails" *ngFor="let room of fpax?.['controls']; let r=index;"
+                        id="passenger-details">
+                        <div class="hotel-page" formGroupName={{r}}>
+                           <div class="header-bar d-block">
+                              <h2 class="page-title">Guest Details</h2>
+                              <small class="text-muted"> <i class="fa-solid fa-circle-info"></i> Please make sure that
+                                 passengers names are as per gorvernment approved identity card or passport.</small>
+                           </div>
+                           <div class="hotel-card">
+                              <h6>Room {{r+1}}</h6>
+                              <!-----Start For Adult---->
+                              <div class="mb-3" formArrayName="Adult"
+                                 *ngFor="let adt of getpaxadt(r).controls; let a=index;">
+                                 <div formGroupName="{{a}}">
+                                    <div class="row gy-3">
+                                       <div class="col-md-12">
 
+                                          <div class="fw-bold d-flex align-items-center justify-content-between flex-wrap">
+                                             Adult {{a+1}}
+
+                                             <div class="form-check"
+                                                *ngIf="r==0 && a==0 && IsPANMandatory && nopaxcount!=1">
+                                                <input class="form-check-input" type="checkbox" value="" id="panforallpax"
+                                                   (click)="SelectAllPaxPan($event)">
+                                                <label class="form-check-label text-danger" for="panforallpax">
+                                                   PAN CARD - Same for all pax
+                                                </label>
+                                             </div>
+
+                                          </div>
                                        </div>
-                                       <div
-                                          *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PassportIssue')?.errors"
-                                          class="error-msg">
+                                       <div class="col-md-3">
+                                          <label class="form-label" for="Room-{{r}}-Adult-{{a}}-title">Title</label>
+                                          <select class="form-select main-select" formControlName="Title"
+                                             id="Room-{{r}}-Adult-{{a}}-title">
+                                             <option value="" selected>Title </option>
+                                             <option value="Mr">Mr</option>
+                                             <option value="Mrs">Mrs</option>
+                                             <option value="Ms">Ms</option>
+                                          </select>
                                           <div
-                                             *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PassportIssue')?.errors?.['required']">
-                                             Issue date is required.
+                                             *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.Title')?.errors"
+                                             class="error-msg">
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.Title')?.errors?.['required']">
+                                                Title is required.
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <label class="form-label" for="Room-{{r}}-Adult-{{a}}-FirstName">First
+                                             Name*</label>
+                                          <input type="text" class="form-control main-select" formControlName="FirstName"
+                                             placeholder="First Name*" oninput="this.value = this.value.toUpperCase()"
+                                             id="Room-{{r}}-Adult-{{a}}-FirstName" />
+                                          <div
+                                             *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.FirstName')?.errors"
+                                             class="error-msg">
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.FirstName')?.errors?.['required']">
+                                                First name is required.
+                                             </div>
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.FirstName')?.errors?.['minlength'] || HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.FirstName')?.errors?.['pattern']">
+                                                Please enter a valid first name.
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <label class="form-label" for="Room-{{r}}-Adult-{{a}}-LastName">Last
+                                             Name*</label>
+                                          <input type="text" class="form-control main-select" formControlName="LastName"
+                                             placeholder="Last Name*" oninput="this.value = this.value.toUpperCase()"
+                                             id="Room-{{r}}-Adult-{{a}}-LastName" />
+                                          <div
+                                             *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.LastName')?.errors"
+                                             class="error-msg">
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.LastName')?.errors?.['required']">
+                                                First name is required.
+                                             </div>
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.LastName')?.errors?.['minlength'] || HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.LastName')?.errors?.['pattern']">
+                                                Please enter a valid last name.
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-3" *ngIf="IsPANMandatory">
+                                          <label class="form-label" for="Room-{{r}}-Adult-{{a}}-PAN">PAN*</label>
+                                          <input type="text" class="form-control main-select" formControlName="PAN"
+                                             placeholder="PAN*" oninput="this.value = this.value.toUpperCase()"
+                                             id="Room-{{r}}-Adult-{{a}}-PAN" />
+                                          <div
+                                             *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PAN')?.errors"
+                                             class="error-msg">
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PAN')?.errors?.['required']">
+                                                PAN name is required.
+                                             </div>
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PAN')?.errors?.['pattern']">
+                                                Please enter a valid PAN.
+                                             </div>
                                           </div>
                                        </div>
                                     </div>
-                                    <div class="col-md-3">
-                                       <div class="form-group">
-                                          <label for="Room-{{r}}-Child-{{c}}-PassportExpiry">Expiry
-                                             Date</label>
-                                          <input type="text" class="form-control main-select"
-                                             formControlName="PassportExpiry" passport-expiry-date
-                                             placeholder="Expiry Date" attr.roomkey="{{r}}" attr.key="{{c}}"
-                                             paxtype="Child" id="Room-{{r}}-Child-{{c}}-PassportExpiry" />
-
+                                    <div class="row gy-3" *ngIf="IsPassportMandatory">
+                                       <div class="col-md-12">
+                                          <h6>ADD PASSPORT INFORMATION</h6>
                                        </div>
-                                       <div
-                                          *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PassportExpiry')?.errors"
-                                          class="error-msg">
+                                       <div class="col-md-3">
+                                          <div class="form-floating">
+                                             <select class="form-select main-select"
+                                                id="Room-{{r}}-Adult-{{a}}-Nationality" formControlName="Nationality">
+                                                <option value="">Select</option>
+                                                <option value="IN">India</option>
+                                                <option value="{{mcode['country_code']}}" *ngFor="let mcode of Dialcode;">
+                                                   {{mcode['name']}}
+                                                </option>
+                                             </select>
+                                             <label for="Room-{{r}}-Adult-{{a}}-Nationality">Nationality</label>
+                                             <div
+                                                *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.Nationality')?.errors"
+                                                class="error-msg">
+                                                <div
+                                                   *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.Nationality')?.errors?.['required']">
+                                                   Please select nationality.
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <div class="form-floating">
+                                             <input type="text" class="form-control main-select"
+                                                formControlName="PassportNo" placeholder="Passport Number"
+                                                id="Room-{{r}}-Adult-{{a}}-PassportNo" />
+                                             <label for="Room-{{r}}-Adult-{{a}}-PassportNo">Passport
+                                                Number</label>
+                                          </div>
                                           <div
-                                             *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PassportExpiry')?.errors?.['required']">
-                                             Expiry date is required.
+                                             *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PassportNo')?.errors"
+                                             class="error-msg">
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PassportNo')?.errors?.['required']">
+                                                Passport number is required.
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <div class="form-floating">
+                                             <input type="text" class="form-control main-select"
+                                                formControlName="PassportIssue" passport-issue-date
+                                                placeholder="Issue Date" attr.roomkey="{{r}}" attr.key="{{a}}"
+                                                paxtype="Adult" id="Room-{{r}}-Adult-{{a}}-PassportIssue" />
+                                             <label for="Room-{{r}}-Adult-{{a}}-PassportIssue">Issue
+                                                Date</label>
+                                          </div>
+                                          <div
+                                             *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PassportIssue')?.errors"
+                                             class="error-msg">
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PassportIssue')?.errors?.['required']">
+                                                Issue date is required.
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <div class="form-floating">
+                                             <input type="text" class="form-control main-select"
+                                                formControlName="PassportExpiry" passport-expiry-date
+                                                placeholder="Expiry Date" attr.roomkey="{{r}}" attr.key="{{a}}"
+                                                paxtype="Adult" id="Room-{{r}}-Adult-{{a}}-PassportExpiry" />
+                                             <label for="Room-{{r}}-Adult-{{a}}-PassportExpiry">Expiry
+                                                Date</label>
+                                          </div>
+                                          <div
+                                             *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PassportExpiry')?.errors"
+                                             class="error-msg">
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PassportExpiry')?.errors?.['required']">
+                                                Expiry date is required.
+                                             </div>
                                           </div>
                                        </div>
                                     </div>
                                  </div>
                               </div>
+                              <!-----End For Adult---->
+                              <!-----Start For Child---->
+                              <div class="card mb-3" formArrayName="Child"
+                                 *ngFor="let chd of getpaxchd(r).controls; let c=index;">
+                                 <div class="card-body" formGroupName="{{c}}">
+                                    <div class="row gy-3">
+                                       <div class="col-md-12">
+                                          <div class="fw-bold d-flex align-items-center justify-content-between flex-wrap">
+                                             Child {{c+1}} (
+                                             {{HotelPaxForm.get('RoomDetails.'+r+'.ChildAge.'+c+'')?.value}} Years )
+                                          </div>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <div class="form-group">
+                                             <label class="form-label" for="Room-{{r}}-Child-{{c}}-title">Title</label>
+                                             <select class="form-select main-select" formControlName="Title"
+                                                id="Room-{{r}}-Child-{{c}}-title">
+                                                <option value="" selected>Title
+                                                </option>
+                                                <option value="Ms">Ms</option>
+                                                <option value="Mstr">Master</option>
+                                             </select>
+
+                                          </div>
+                                          <div
+                                             *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.Title')?.errors"
+                                             class="error-msg">
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+c+'.Title')?.errors?.['required']">
+                                                Title is required.
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <div class="form-group">
+                                             <label class="form-label" for="Room-{{r}}-Child-{{c}}-FirstName">First
+                                                Name*</label>
+                                             <input type="text" class="form-control main-select"
+                                                formControlName="FirstName" placeholder="First Name*"
+                                                oninput="this.value = this.value.toUpperCase()"
+                                                id="Room-{{r}}-Child-{{c}}-FirstName" />
+
+                                          </div>
+                                          <div
+                                             *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.FirstName')?.errors"
+                                             class="error-msg">
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.FirstName')?.errors?.['required']">
+                                                First name is required.
+                                             </div>
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.FirstName')?.errors?.['minlength'] || HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.FirstName')?.errors?.['pattern']">
+                                                Please enter a valid first name.
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <div class="form-group">
+                                             <label class="form-label" for="Room-{{r}}-Child-{{c}}-LastName">Last
+                                                Name*</label>
+                                             <input type="text" class="form-control main-select" formControlName="LastName"
+                                                placeholder="Last Name*" oninput="this.value = this.value.toUpperCase()"
+                                                id="Room-{{r}}-Child-{{c}}-LastName" />
+
+                                          </div>
+                                          <div
+                                             *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.LastName')?.errors"
+                                             class="error-msg">
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.LastName')?.errors?.['required']">
+                                                First name is required.
+                                             </div>
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.LastName')?.errors?.['minlength'] || HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.LastName')?.errors?.['pattern']">
+                                                Please enter a valid last name.
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-3" *ngIf="IsPANMandatory">
+                                          <div class="form-group">
+                                             <label class="form-label" for="Room-{{r}}-Child-{{c}}-PAN">PAN*</label>
+                                             <input type="text" class="form-control main-select" formControlName="PAN"
+                                                placeholder="PAN*" oninput="this.value = this.value.toUpperCase()"
+                                                id="Room-{{r}}-Child-{{c}}-PAN" />
+
+                                          </div>
+                                          <div
+                                             *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PAN')?.errors"
+                                             class="error-msg">
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PAN')?.errors?.['required']">
+                                                PAN name is required.
+                                             </div>
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PAN')?.errors?.['pattern']">
+                                                Please enter a valid PAN.
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="row gy-3" *ngIf="IsPassportMandatory">
+                                       <div class="col-md-3">
+                                          <h6>ADD PASSPORT INFORMATION</h6>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <div class="form-group">
+                                             <label class="form-label"
+                                                for="Room-{{r}}-Child-{{c}}-Nationality">Nationality</label>
+                                             <select class="form-select main-select"
+                                                id="Room-{{r}}-Child-{{c}}-Nationality" formControlName="Nationality">
+                                                <option value="">Select</option>
+                                                <option value="IN">India</option>
+                                                <option value="{{mcode['country_code']}}" *ngFor="let mcode of Dialcode;">
+                                                   {{mcode['name']}}
+                                                </option>
+                                             </select>
+
+                                             <div
+                                                *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.Nationality')?.errors"
+                                                class="error-msg">
+                                                <div
+                                                   *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.Nationality')?.errors?.['required']">
+                                                   Please select nationality.
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <div class="form-group">
+                                             <label for="Room-{{r}}-Child-{{c}}-PassportNo">Passport
+                                                Number</label>
+                                             <input type="text" class="form-control main-select"
+                                                formControlName="PassportNo" placeholder="Passport Number"
+                                                id="Room-{{r}}-Child-{{c}}-PassportNo" />
+
+                                          </div>
+                                          <div
+                                             *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PassportNo')?.errors"
+                                             class="error-msg">
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PassportNo')?.errors?.['required']">
+                                                Passport number is required.
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <div class="form-group">
+                                             <label for="Room-{{r}}-Child-{{c}}-PassportIssue">Issue
+                                                Date</label>
+                                             <input type="text" class="form-control main-select"
+                                                formControlName="PassportIssue" passport-issue-date
+                                                placeholder="Issue Date" attr.roomkey="{{r}}" attr.key="{{c}}"
+                                                paxtype="Child" id="Room-{{r}}-Child-{{c}}-PassportIssue" />
+
+                                          </div>
+                                          <div
+                                             *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PassportIssue')?.errors"
+                                             class="error-msg">
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PassportIssue')?.errors?.['required']">
+                                                Issue date is required.
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <div class="form-group">
+                                             <label for="Room-{{r}}-Child-{{c}}-PassportExpiry">Expiry
+                                                Date</label>
+                                             <input type="text" class="form-control main-select"
+                                                formControlName="PassportExpiry" passport-expiry-date
+                                                placeholder="Expiry Date" attr.roomkey="{{r}}" attr.key="{{c}}"
+                                                paxtype="Child" id="Room-{{r}}-Child-{{c}}-PassportExpiry" />
+
+                                          </div>
+                                          <div
+                                             *ngIf="submitted && HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PassportExpiry')?.errors"
+                                             class="error-msg">
+                                             <div
+                                                *ngIf="HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PassportExpiry')?.errors?.['required']">
+                                                Expiry date is required.
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <!-----End For Child---->
                            </div>
-                           <!-----End For Child---->
                         </div>
                      </div>
-                  </div>
-                  <!------End Room  ------>
-
+                     
+                     
+                  }
                   <div class="hotel-page" id="gst-details">
                      <div class="header-bar" (click)="ShowGST=!ShowGST">
                         <div>

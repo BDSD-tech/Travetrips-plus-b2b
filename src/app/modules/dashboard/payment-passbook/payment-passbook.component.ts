@@ -120,7 +120,7 @@ export class PaymentPassbookComponent implements OnInit {
       if(resp['Error']['ErrorCode']==0)
       {
           this.List=resp['Result'];
-          this.displayedColumns=[ 'created','payment_mode','bookingRefNo','actionType','credit','debit','balance','serviceLog','ConvenienceFee','MarkUp','TDS','Commission'];
+          this.displayedColumns=[ 'created','payment_mode','bookingRefNo','actionType','credit','debit','balance','serviceLog','remark','ConvenienceFee','MarkUp','TDS','Commission'];
           this.dataSource = new MatTableDataSource(resp['Result']);
           setTimeout(() => {
             this.dataSource.sort = this.sort;

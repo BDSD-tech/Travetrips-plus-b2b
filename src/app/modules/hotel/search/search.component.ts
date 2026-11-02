@@ -41,7 +41,7 @@ export class SearchComponent implements OnInit {
 
 
   obfield:any='totalfare';
-
+  fallbackImage = 'assets/img/no-hotel.png';
   constructor(private router: Router,private hotelservice:HotelService) {
 
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
@@ -258,7 +258,12 @@ export class SearchComponent implements OnInit {
       this.shownetfare=$event.val;
     }
   }
-  
+  handleSliderImageError(event: Event) {
+    const imgElement = event.target as HTMLImageElement;
+    imgElement.onerror = null; 
+    imgElement.src = this.fallbackImage;
+  }
+
   resetfilterdata()
   {
     this.clearfilter=true;

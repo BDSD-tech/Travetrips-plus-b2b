@@ -182,6 +182,16 @@
                         </td>
                         <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
+                    <ng-container matColumnDef="remark">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Remark
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <div class="generic-td" *ngIf="element.remark" [title]="element.actionType+' '+element.remark"><span><strong>{{element.actionType}}</strong> {{element.remark}} </span></div>
+                            
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
 
                     <ng-container matColumnDef="ConvenienceFee">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>

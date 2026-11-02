@@ -219,7 +219,16 @@
                                                 </a></td>
                                                <td >{{roomInfo['RatePlanName']}}</td>
                                                <td [innerHTML]="roomAmenities(roomInfo['Amenities'])"></td>
-                                               <td><div [innerHTML]="roompaxInfo(roomInfo)"></div></td>
+                                               <td>
+                                                @if(Response['is_domestic']==1){
+                                                    @if(key==0){
+                                                        <div [innerHTML]="roompaxInfo(roomInfo)"></div>
+                                                    }
+                                                }@else {
+                                                    <div [innerHTML]="roompaxInfo(roomInfo)"></div>
+                                                }
+                                               
+                                            </td>
                                             </tr>
                                         </tbody>
                                     </table>

@@ -71,7 +71,7 @@
                                         <div class="carousel-inner h-100">
                                             <div *ngFor="let image of item['HotelImageGallery']; let i = index" class="carousel-item h-100"
                                                 [class.active]="i === 0">
-                                                <img [src]="image"  style="object-fit: fill;"
+                                                <img [src]="image" onerror="handleSliderImageError($event)" style="object-fit: fill;"
                                                     [alt]="item['HotelName']" class="image d-block w-100 h-100">
                                             </div>
                                         </div>

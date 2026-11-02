@@ -121,6 +121,8 @@ export class PaymentComponent implements OnInit {
         if (sessionStorage.getItem('HotelSearch')) {
           let data:any=sessionStorage.getItem('HotelSearch');
           this.GetSearchData=JSON.parse(data);
+          console.log(this.GetSearchData);
+          
         }
 
         if (sessionStorage.getItem('TSFP')) {

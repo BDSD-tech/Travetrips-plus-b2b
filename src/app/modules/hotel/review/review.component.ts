@@ -51,7 +51,11 @@ export class ReviewComponent implements OnInit {
   ShowReviewModal=false;
   confirmationChecked=false;
   ISHoldable=false;
+
+  HideAllPax='true';
   @ViewChild('gsteInput') gsteInput!: ElementRef<HTMLInputElement>;
+
+  paxnames=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R']
   constructor(private flightService:FlightService,private router:Router,private route:ActivatedRoute,private location:Location,private fb:FormBuilder, private commonservice:CommonService, private hotelService:HotelService,private authenticationservice: AuthenticationService,private alertservice:AlertService) {
 
     if(sessionStorage.getItem('HotelBlockRoomData')!=null)
@@ -60,6 +64,8 @@ export class ReviewComponent implements OnInit {
       blockRoomData=JSON.parse(blockRoomData)
 
       this.BlockRoomResult=blockRoomData['Result'];
+      //this.BlockRoomResult['HideAllPax']='false'
+      //this.HideAllPax=this.BlockRoomResult['HideAllPax']||'true';
       this.ISHoldable=this.BlockRoomResult['IsHoldable'];
       this.IsPANMandatory=this.BlockRoomResult['HotelRoomsDetails'][0]['IsPANMandatory'];
       this.IsPassportMandatory=this.BlockRoomResult['HotelRoomsDetails'][0]['IsPassportMandatory'];
@@ -165,23 +171,23 @@ export class ReviewComponent implements OnInit {
     for(let i=0;i< roomarray.length;i++)
     {
       if(i<room) {
-      arr.push(this.BuildRoomFormDynamic(roomarray[i]))
+      arr.push(this.BuildRoomFormDynamic(roomarray[i],i))
       }
     }
    return arr;
   }
 
-  BuildRoomFormDynamic(room:any) : FormGroup {
+  BuildRoomFormDynamic(room:any,roomi:any) : FormGroup {
     let arradt=[];
     let arrchd=[];
     for(let i=0; i<room['Adult'];i++)
     {
-      arradt.push(this.BuildFormPaxDynamic());
+      arradt.push(this.BuildFormPaxDynamic(roomi,'Adult',i));
       this.nopaxcount++;
     }
     for(let c=0; c<room['Child'];c++)
     {
-      arrchd.push(this.BuildFormPaxDynamic());
+      arrchd.push(this.BuildFormPaxDynamic(roomi,'Child',c));
       this.nopaxcount++;
     }
     return this.fb.group({
@@ -192,26 +198,68 @@ export class ReviewComponent implements OnInit {
 
    }
 
-   BuildFormPaxDynamic() {
+   BuildFormPaxDynamic(roomi:any,paxtype:any,paxi:any) {
           let passportval;
           let passportissueval;
           let passportexpiryval;
           let pan;
-          if(this.IsPassportMandatory)
-          {
-            passportval=[Validators.required];
-            passportissueval=[Validators.required];
-            passportexpiryval=[Validators.required];
+          let name;
+          let title='Mr';
+          let firstname=''
+          let lastname=''
+
+          if(this.HideAllPax=='true' && this.GetSearchData['Isdomestic']==true){
+            firstname=`Guest ${this.paxnames[paxi]}`
+            lastname=`Kumar ${this.paxnames[paxi]}`
           }
-          if(this.IsPANMandatory)
-          {
-            pan=[Validators.required,Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')];
+
+          if(this.HideAllPax=='false' && this.GetSearchData['Isdomestic']==true){
+              name=[Validators.required,Validators.pattern('[a-zA-Z /\s/g]+'),Validators.minLength(2)];
+              if(this.IsPANMandatory)
+              {
+                pan=[Validators.required,Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')];
+              }
+          }
+
+          if(this.HideAllPax=='true' && this.GetSearchData['Isdomestic']==true && roomi==0 && paxtype=='Adult'&&paxi==0 ){
+            title = paxtype == 'Adult' ? 'Mr' : 'Ms';
+            name=[Validators.required,Validators.pattern('[a-zA-Z /\s/g]+'),Validators.minLength(2)];
+            firstname=''
+            lastname=''
+            if(this.IsPassportMandatory)
+            {
+              passportval=[Validators.required];
+              passportissueval=[Validators.required];
+              passportexpiryval=[Validators.required];
+              
+            }
+            if(this.IsPANMandatory)
+            {
+              pan=[Validators.required,Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')];
+            }
+          
+          }else if(this.GetSearchData['Isdomestic']==false){
+            title = paxtype == 'Adult' ? 'Mr' : 'Ms';
+            firstname=''
+            lastname=''
+            name=[Validators.required,Validators.pattern('[a-zA-Z /\s/g]+'),Validators.minLength(2)];
+            if(this.IsPassportMandatory)
+            {
+              passportval=[Validators.required];
+              passportissueval=[Validators.required];
+              passportexpiryval=[Validators.required];
+             
+            }
+            if(this.IsPANMandatory)
+            {
+              pan=[Validators.required,Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')];
+            }
           }
 
           return this.fb.group({
-              Title:['Mr'],
-              FirstName:['',[Validators.required,Validators.pattern('[a-zA-Z /\s/g]+'),Validators.minLength(2)]],
-              LastName :['',[Validators.required,Validators.pattern('[a-zA-Z /\s/g]+'),Validators.minLength(2)]],
+              Title:[title],
+              FirstName:[firstname,name],
+              LastName :[lastname,name],
               Nationality:['',passportval],
               PassportNo:['',passportval],
               PassportIssue:['',passportissueval],
@@ -314,6 +362,7 @@ export class ReviewComponent implements OnInit {
     savedata['IsGST']=false;
     savedata['paxdata']=this.HotelPaxForm.get('RoomDetails')?.value;
     savedata['Service']='Hotel';
+    savedata['HideAllPax']=this.HideAllPax;
     if(type=='Hold'){
       savedata['BookingType']='Hold';
       this.flightService.SavePaxdata(savedata,'Hotel').subscribe((data:any)=>{
@@ -441,6 +490,35 @@ export class ReviewComponent implements OnInit {
       this.alertservice.error('Please enter first passenger Pan');
     }
    
+  }
+
+  SetPanValueDomestic(){
+    if(this.HideAllPax=='true'){
+      let pan=this.HotelPaxForm.get('RoomDetails.0.Adult.0.PAN')?.value;
+    if(pan && pan.length==10)
+    {
+    
+      let room= this.GetSearchData['Room'];
+      let roomarray  =  this.GetSearchData['RoomGuests'];
+      for(let r=0;r< roomarray.length;r++)
+      {
+        if(r<room) {
+          for(let a=0;a< roomarray[r]['Adult'];a++)
+          {
+            this.HotelPaxForm.get('RoomDetails.'+r+'.Adult.'+a+'.PAN')?.setValue(pan);
+          }
+          for(let c=0;c< roomarray[r]['Child'];c++)
+          {
+            this.HotelPaxForm.get('RoomDetails.'+r+'.Child.'+c+'.PAN')?.setValue(pan);
+          }
+        }
+      }
+
+    } else {
+      this.alertservice.error('Please enter first passenger valid Pan');
+    }
+    }
+    
   }
 
   PassportIssueDate()

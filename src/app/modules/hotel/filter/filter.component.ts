@@ -427,8 +427,6 @@ function multiFilter(array:any, filters:any) {
             response.push(item)
           }
         }
-        
-        
       }
       if(filterKeys.includes("MealType"))
       {
@@ -439,7 +437,7 @@ function multiFilter(array:any, filters:any) {
       } else {
           if(filterKeys.every(key => !!~filters[key].indexOf(item[key])))
           {
-                  response.push(item);
+            response.push(item);
           }
       }
   });
