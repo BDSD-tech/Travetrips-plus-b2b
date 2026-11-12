@@ -296,6 +296,10 @@ export class CartDetailComponent implements OnInit {
     })
   }
 
+
+  JSONPArse(data:any){
+    return JSON.parse(data)
+  }
   AddNotes(BookingID:any)
   {
       this.AddNotesModal.show();
