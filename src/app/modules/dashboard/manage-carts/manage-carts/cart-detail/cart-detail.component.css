@@ -806,3 +806,12 @@ i {
 .fare-rule-content span {
     display: inline-block;
 }
+.seat-meal-baggage-box h6{
+    font-size: 14px;
+    
+}
+.seat-meal-baggage-box p{
+    font-size: 12px;
+    margin-bottom: 5px;
+
+}

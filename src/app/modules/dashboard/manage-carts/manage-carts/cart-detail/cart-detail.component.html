@@ -414,6 +414,29 @@
 
                                                 <span class="sm_font col-sm-6 padd-left-amendment">Pax status : <span class="bold">{{pax['booking_status']}} </span></span>
                                                 <span class="sm_font col-sm-6 padd-left-amendment">Fare Type : <span class="bold">{{BookingDetail['fare_type']}}</span></span>
+                                               <div class="seat-meal-baggage-box">
+                                                <h6 class="mb-0">Baggage:</h6>
+                                                 @for(item of JSONPArse(pax['baggage']);track $index){
+                                                    <p> <strong>{{item['Origin']}}-{{item['Destination']}} : </strong> {{item['AirlineDescription']}}</p>
+                                                }
+                                               </div>
+                                               @if(pax['seat']){
+                                               <div class="seat-meal-baggage-box">
+                                                <h6 class="mb-0">Seat:</h6>
+                                                 @for(item of JSONPArse(pax['seat']);track $index){
+                                                    
+                                                    <p> <strong>{{item['Origin']}}-{{item['Destination']}} : </strong> {{item?.['SeatNumber']}}</p>
+                                                }
+                                               </div>
+                                            }
+                                               @if(pax['meal']){
+                                               <div class="seat-meal-baggage-box">
+                                                <h6 class="mb-0">Meal:</h6>
+                                                 @for(item of JSONPArse(pax['meal']);track $index){
+                                                    <p> <strong>{{item['Origin']}}-{{item['Destination']}} : </strong> {{item['AirlineDescription']}}</p>
+                                                }
+                                               </div>
+                                               }
                                             </div>
                                         </div>
                                         <div class="col-sm-8 passenger_faredetail">
