@@ -76,8 +76,8 @@ export class SearchComponent implements OnInit {
       this.routeSubscription.unsubscribe();
     }
   }
-  GetResult(dataval:any){
 
+  GetResult(dataval:any){
 
     /*------------ Start Session ----------*/
     let initial_date = new Date;

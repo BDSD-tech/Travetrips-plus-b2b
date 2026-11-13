@@ -40,7 +40,10 @@ HERO SECTION (CREATIVE UPGRADE)
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
+#heroCarousel.carousel-fade .carousel-item {
+    transition-duration: 5.0; /* Change to 2s or 2.5s for an even slower fade */
+    transition-property: opacity;
+}
 .hero-content p {
   margin-top: 18px;
   font-size: 17px;
