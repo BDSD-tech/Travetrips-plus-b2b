@@ -11,7 +11,10 @@ HERO SECTION (CREATIVE UPGRADE)
 .carousel-item{
   height: 300px;
 }
-
+#heroCarousel.carousel-fade .carousel-item {
+    transition-duration: 1.5s; /* Change to 2s or 2.5s for an even slower fade */
+    transition-property: opacity;
+}
 .carousel-item img{
   width: 100%;
   height: 100%;

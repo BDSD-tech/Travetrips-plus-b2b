@@ -138,6 +138,8 @@ export class CartDetailComponent implements OnInit {
             this.BookingDetail=resp['Result'];
             this.FlightFareRule=resp['Result']?.['fare_rule']
             this.passengers=this.BookingDetail['travelersInfo']
+            console.log(this.passengers);
+            
             this.CreateFB(this.BookingDetail['travelersInfo']);
             this.AmendmentList=resp['Result']['amendmentList'];
             this.NoteList=resp['Result']['BookingNotes'];

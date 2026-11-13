@@ -417,7 +417,7 @@
                                                <div class="seat-meal-baggage-box">
                                                 <h6 class="mb-0">Baggage:</h6>
                                                  @for(item of JSONPArse(pax['baggage']);track $index){
-                                                    <p> <strong>{{item['Origin']}}-{{item['Destination']}} : </strong> {{item['AirlineDescription']}}</p>
+                                                    <p class="m-0"> <strong>{{item['Origin']}}-{{item['Destination']}} : </strong> {{item['AirlineDescription']}}</p>
                                                 }
                                                </div>
                                                @if(pax['seat']){
@@ -425,7 +425,7 @@
                                                 <h6 class="mb-0">Seat:</h6>
                                                  @for(item of JSONPArse(pax['seat']);track $index){
                                                     
-                                                    <p> <strong>{{item['Origin']}}-{{item['Destination']}} : </strong> {{item?.['SeatNumber']}}</p>
+                                                    <p class="m-0"> <strong>{{item['Origin']}}-{{item['Destination']}} : </strong> {{item?.['Code']}}</p>
                                                 }
                                                </div>
                                             }
@@ -433,7 +433,7 @@
                                                <div class="seat-meal-baggage-box">
                                                 <h6 class="mb-0">Meal:</h6>
                                                  @for(item of JSONPArse(pax['meal']);track $index){
-                                                    <p> <strong>{{item['Origin']}}-{{item['Destination']}} : </strong> {{item['AirlineDescription']}}</p>
+                                                    <p class="m-0"> <strong>{{item['Origin']}}-{{item['Destination']}} : </strong> {{item['AirlineDescription']}}</p>
                                                 }
                                                </div>
                                                }
@@ -549,6 +549,66 @@
                                                         <div class="floating-label-wrapper">
                                                             <div class="[object Object]">
                                                                 <fieldset class="floating-label">
+                                                                    <label  class="select-lebel-class">Seat</label>
+                                                                    <input type="text" readonly="" placeholder="Seat Charges" class="input-floating-lebel" min="0" value="₹&nbsp;{{pax['fare']['SeatCharges']}}" />
+                                                                </fieldset>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col padd-left-amendment">
+                                                    <fieldset class="floating-label">
+                                                        <div class="floating-label-wrapper">
+                                                            <div class="[object Object]">
+                                                                <fieldset class="floating-label">
+                                                                    <label  class="select-lebel-class">Meal</label>
+                                                                    <input type="text" readonly="" placeholder="Meal Charges" class="input-floating-lebel" min="0" value="₹&nbsp;{{pax['fare']['MealCharges']}}" />
+                                                                </fieldset>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col padd-left-amendment">
+                                                    <fieldset class="floating-label">
+                                                        <div class="floating-label-wrapper">
+                                                            <div class="[object Object]">
+                                                                <fieldset class="floating-label">
+                                                                    <label  class="select-lebel-class">Baggage</label>
+                                                                    <input type="text" readonly="" placeholder="Baggage Charges" class="input-floating-lebel" min="0" value="₹&nbsp;{{pax['fare']['BaggageCharges']}}" />
+                                                                </fieldset>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col padd-left-amendment">
+                                                    <fieldset class="floating-label">
+                                                        <div class="floating-label-wrapper">
+                                                            <div class="[object Object]">
+                                                                <fieldset class="floating-label">
+                                                                    <label  class="select-lebel-class">Insurance</label>
+                                                                    <input type="text" readonly="" placeholder="Insurance Charges" class="input-floating-lebel" min="0" value="₹&nbsp;{{pax['fare']['OfferedInsurancePrice']}}" />
+                                                                </fieldset>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col padd-left-amendment">
+                                                    <fieldset class="floating-label">
+                                                        <div class="floating-label-wrapper">
+                                                            <div class="[object Object]">
+                                                                <fieldset class="floating-label">
+                                                                    <label  class="select-lebel-class">Web Check-in</label>
+                                                                    <input type="text" readonly="" placeholder="Web Check-in Charges" class="input-floating-lebel" min="0" value="₹&nbsp;{{pax['fare']['OfferedWebCheckInPrice']}}" />
+                                                                </fieldset>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col padd-left-amendment">
+                                                    <fieldset class="floating-label">
+                                                        <div class="floating-label-wrapper">
+                                                            <div class="[object Object]">
+                                                                <fieldset class="floating-label">
                                                                     <label  class="select-lebel-class">Net Fare</label>
                                                                     <input type="text" readonly="" placeholder="Net Fare" class="input-floating-lebel" min="0" value="₹&nbsp;{{pax['fare']['OfferedPrice']}}" />
                                                                 </fieldset>
@@ -575,6 +635,18 @@
                                                                 <fieldset class="floating-label">
                                                                     <label  class="select-lebel-class">Commission</label>
                                                                     <input type="text" readonly="" placeholder="Gross Fare" class="input-floating-lebel" min="0" value="₹&nbsp;{{pax['fare']['AgentCommission']}}" />
+                                                                </fieldset>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col padd-left-amendment">
+                                                    <fieldset class="floating-label">
+                                                        <div class="floating-label-wrapper">
+                                                            <div class="[object Object]">
+                                                                <fieldset class="floating-label">
+                                                                    <label  class="select-lebel-class">Discount</label>
+                                                                    <input type="text" readonly="" placeholder="Discount Fare" class="input-floating-lebel" min="0" value="₹&nbsp;{{pax['fare']['Discount']}}" />
                                                                 </fieldset>
                                                             </div>
                                                         </div>

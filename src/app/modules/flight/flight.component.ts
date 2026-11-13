@@ -7,9 +7,10 @@ import { CommonService } from '../../services/common.service';
 import Validation from '../../utils/validation';
 import { tts_config } from '../../../environments/tts_config';
 import { FlightService } from './flight.service';
-import { BooleanInput } from '@angular/cdk/coercion';
+
 declare var $: any;
 declare var bootstrap: any;
+declare var Carousel: any;
 
 @Component({
   selector: 'app-flight',
@@ -151,6 +152,7 @@ export class FlightComponent implements OnInit {
        setTimeout(() => {
           this.initCarousel()
          }, 1000);
+
     // if(sessionStorage.getItem('notification-dialog')!='true')
     // {
 
@@ -854,7 +856,7 @@ export class FlightComponent implements OnInit {
     }
 
     const carousel = new bootstrap.Carousel(element, {
-      interval: 3000,
+      interval: 4000,
       ride: 'carousel',
       
     });

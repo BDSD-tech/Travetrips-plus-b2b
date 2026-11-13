@@ -35,6 +35,7 @@ export class FilterComponent implements OnInit {
   minib:any=0
   maxib:any=0
 
+  HoldableFare:any=false
 
   constructor(private router: Router) { 
 
@@ -106,6 +107,9 @@ export class FilterComponent implements OnInit {
       }
   }
 
+  IsHoldable(){
+    this.doFilter(0,'Holdable','','')
+  }
 
   doFilter(filtertype:any,type:any,event:any,item:any)
   {
@@ -116,7 +120,9 @@ export class FilterComponent implements OnInit {
           item['isChecked']=false;
       }
     }
-    
+    if(type=='Holdable'){
+      
+    }
     if (type == "DepartTime") {
       if (event.target.checked) {
           item['isChecked']=true;
@@ -237,6 +243,9 @@ export class FilterComponent implements OnInit {
       if(filterArrivalTime.length !== 0) 
       {
           filters['ArrivalString'] = filterArrivalTime;
+      }
+      if(this.HoldableFare){
+        filters['IsHoldabel']=true;
       }
       if (type == 'clear') {
         filters = [];
@@ -694,10 +703,12 @@ export class FilterComponent implements OnInit {
 // }
 
 function multiFilter(filtertype: any, array: any, filters: any, ir: any = null) {
+  console.log(filters);
+  
   const filterKeys = Object.keys(filters || {});
   // remove FareType + FareTypeColor so they don't affect keyMatches()
   const normalFilterKeys = filterKeys.filter(
-    (k) => k !== "FareType" && k !== "FareTypeColor"
+    (k) => k !== "FareType" && k !== "FareTypeColor" && k !== "IsHoldabel"
   );
 
   const keyMatches = (key: string, item: any) => {
@@ -736,7 +747,11 @@ function multiFilter(filtertype: any, array: any, filters: any, ir: any = null) 
 
     let filteredFareList = [...(item.FareList || [])];
 
-    // 2️⃣ Apply FareTypeColor
+    // 2️⃣ Apply IsHoldable Filter
+    if (filters.IsHoldabel) {
+      filteredFareList = filteredFareList.filter((f: any) => f.IsHoldabel);
+    }
+
     if (filters.FareTypeColor) {
       filteredFareList = filteredFareList.filter((f: any) =>
         filters.FareTypeColor.includes(f.FareTypeColor)
